@@ -11,13 +11,16 @@ preferences:
 
 rights:
   - name: "Constitutional design"
+    bold: true
   - name: "Dispute system design"
   - name: "Legislative drafting"
   - name: "Comparative institutional analysis"
 
 incentives:
   - name: "Mechanism design"
+    bold: true
   - name: "Market design"
+    bold: true
   - name: "Matching market design"
   - name: "Metrology"
 
@@ -26,7 +29,9 @@ expertise:
 
 norms:
   - name: "Regulatory design"
+    bold: true
   - name: "Legislative drafting"
+    bold: true
 
 thick-commitments:
   - name: "Values articulation methods"
@@ -34,65 +39,61 @@ thick-commitments:
   - name: "Case canon design"
   - name: "Alignment writing"
 
-# Per-tab overrides: which methods are bold (highlighted as high-priority)
+# Per-tab overrides
 tabOverrides:
   agi:
     preferences:
       bold:
         - "Auction design"
         - "Electoral system design"
+        - "Generative social choice"
+      add:
+        - "Generative social choice"
     rights:
       bold:
-        - "Constitutional design"
         - "Dispute system design"
     incentives:
       bold:
-        - "Mechanism design"
-        - "Market design"
         - "Matching market design"
     norms:
       bold:
-        - "Regulatory design"
-        - "Legislative drafting"
+        - "Models of normative reasoning"
+        - "Models of norm learning"
+      add:
+        - "Models of normative reasoning"
+        - "Models of norm learning"
     thick-commitments:
       bold:
         - "Values articulation methods"
         - "Alignment writing"
         - "Case canon design"
+        - "Models of values-based reasoning"
+        - "Thick models of value"
+      add:
+        - "Models of values-based reasoning"
+        - "Thick models of value"
+
+  human:
+    protocols:
+      bold:
+        - "Standards development"
+    expertise:
+      bold:
+        - "Accreditation"
 
   fidelity:
     preferences:
       bold:
-        - "Moral Graph Elicitation"
-        - "Combinatorial auction design"
+        - "Generative social choice"
       add:
-        - "Moral Graph Elicitation"
-        - "Combinatorial auction design"
-    rights:
-      bold:
-        - "Fidelity adjudication"
-        - "Constitutional design"
-      add:
-        - "Fidelity adjudication"
-    incentives:
-      bold:
-        - "CRSA mechanism design"
-        - "Proper scoring rules"
-        - "Socialized verification"
-      add:
-        - "CRSA mechanism design"
-        - "Proper scoring rules"
-        - "Socialized verification"
-    expertise:
-      bold:
-        - "Domain-rotation design"
-      add:
-        - "Domain-rotation design"
+        - "Generative social choice"
     norms:
       bold:
-        - "Fidelity auditing"
+        - "Models of normative reasoning"
+        - "Models of norm learning"
       add:
-        - "Fidelity auditing"
+        - "Models of normative reasoning"
+        - "Models of norm learning"
     thick-commitments:
       bold:
         - "Thick models of value"
@@ -100,5 +101,7 @@ tabOverrides:
         - "Hermeneutics"
         - "Case canon design"
         - "Alignment writing"
+        - "Models of values-based reasoning"
       add:
         - "Thick models of value"
+        - "Models of values-based reasoning"

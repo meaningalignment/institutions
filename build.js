@@ -20,7 +20,7 @@ const TABS = {
   fidelity: {
     title: 'Fidelity & Meaning',
     short: 'Fidelity',
-    subtitle: 'Institutions for keeping things aligned with purpose, aligning organizations, governments, and markets to rich, accountable mandates'
+    subtitle: 'Institutions to align things (orgs, gov\'ts, markets) with rich, accountable mandates'
   }
 };
 
@@ -94,6 +94,7 @@ function getMethodsForCol(colId, tabId, methods) {
     if (!base.find(m => m.name === name)) base.push({ name });
   }
   for (const m of base) {
+    // bold from base entry or from tab override
     if ((overrides.bold || []).includes(m.name)) m.bold = true;
   }
   return base;

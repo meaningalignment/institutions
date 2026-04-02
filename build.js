@@ -51,19 +51,11 @@ const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 // ── Data loading ───────────────────────────────────────────────────
 
 function parseCell(raw) {
-  let body = raw;
-
-  // Skip YAML frontmatter if present (legacy support)
-  if (raw.startsWith('---')) {
-    const end = raw.indexOf('---', 3);
-    if (end !== -1) body = raw.slice(end + 3).trim();
-  }
-
-  const h1Match = body.match(/^#\s+(.+)$/m);
+  const h1Match = raw.match(/^#\s+(.+)$/m);
   const summary = h1Match ? h1Match[1].trim() : '';
   const bodyAfterH1 = h1Match
-    ? body.slice(body.indexOf('\n', body.indexOf(h1Match[0])) + 1).trim()
-    : body;
+    ? raw.slice(raw.indexOf('\n', raw.indexOf(h1Match[0])) + 1).trim()
+    : raw;
 
   return { summary, body: bodyAfterH1 };
 }

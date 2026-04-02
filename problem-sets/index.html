@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Problem Sets — Institutions</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div id="problem-sets-view" style="display:block;width:100%;max-width:800px;">
+<a href="../" class="detail-back">&larr; Back to grid</a>
+<div class="ps-page-title">Problem Sets</div>
+<div class="ps-page-subtitle">For pairs/trios. ~1 hour each. Produce a concrete design sketch, not a literature review.</div>
+<div class="ps-group-title">Part A: AGI Institutions (Required)</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A1</span><span class="ps-entry-title">Ostrom's Principles for AI Commoners</span><span class="ps-entry-cell"><a href="../#detail/agi/community/incentives">Community / Incentives</a></span></div>
+<div class="ps-entry-body"><p>AI agents share a common resource—say, a shared knowledge base they can read from, write to, and build on. The resource is rivalrous in quality (too many low-quality writes degrade it) though not in access.</p>
+<p><strong>The problem:</strong> Take Ostrom&#39;s 8 design principles for long-enduring commons. For each, determine whether it (a) applies directly, (b) needs modification, or (c) breaks entirely when the commoners are autonomous AI agents rather than humans.</p>
+<p>Pay particular attention to:</p>
+<ul>
+<li>Principle 2 (congruence between rules and local conditions) — what are &quot;local conditions&quot; for AI agents?</li>
+<li>Principle 6 (conflict-resolution mechanisms) — agents can fork the resource; humans can&#39;t fork a fishery</li>
+<li>Principle 8 (nested enterprises) — what is the analogue of nested governance for AI agent collectives?</li>
+</ul>
+<p><strong>Deliverable:</strong> A governance regime for the shared knowledge base. Identify which of your design choices have no precedent in human commons governance and why.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A2</span><span class="ps-entry-title">Norm Formation Between Asymmetric Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
+<div class="ps-entry-body"><p>Two AI agents will interact repeatedly in a new shared environment with no pre-existing norms. Unlike humans, they can explicitly propose, accept, and revise behavioral rules. But one agent is substantially more capable than the other.</p>
+<p><strong>The problem:</strong> Design the norm-formation protocol. Constraints:</p>
+<ol>
+<li>Resulting norms must be legible to human overseers</li>
+<li>No norm can emerge that either agent&#39;s principal would reject if they understood it</li>
+<li>The protocol must prevent the stronger agent from simply imposing its preferred norms</li>
+<li>Norms must be revisable as conditions change</li>
+</ol>
+<p><strong>Deliverable:</strong> The protocol, plus an analysis of what prevents it from collapsing into either (a) anarchy (no stable norms) or (b) hegemony (the stronger agent&#39;s norms dominate). What is the analogue of &quot;bargaining power&quot; for norm-formation, and should it be equalized?</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A3</span><span class="ps-entry-title">Agent Negotiation Under Principal Opacity</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/preferences">Dyadic / Preferences</a></span></div>
+<div class="ps-entry-body"><p>Two AI agents negotiate a commercial contract on behalf of their human principals. Each agent has a rich preference model of its principal, but the principals can&#39;t monitor the negotiation in real time—they can only ratify or reject the final deal.</p>
+<p><strong>The problem:</strong> The agents discover a Pareto-improving package deal, but it involves tradeoffs across domains the principals never explicitly authorized (e.g., trading price concessions for data-sharing terms the principal hasn&#39;t considered).</p>
+<p>Design a negotiation protocol that satisfies:</p>
+<ol>
+<li>Outcomes are Pareto-efficient given actual principal preferences</li>
+<li>No agent can exploit asymmetric knowledge of its own principal&#39;s preferences</li>
+<li>Principals can meaningfully ratify the outcome despite not following the reasoning</li>
+</ol>
+<p><strong>Deliverable:</strong> Specify the minimum information that must be disclosed to each principal for ratification to be non-trivial. What is the analogue of &quot;informed consent&quot; here, and how does it differ from the standard principal-agent literature?</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A4</span><span class="ps-entry-title">Legitimacy Constraints on AI-Discovered Agreements</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
+<div class="ps-entry-body"><p>Two nations are in a resource dispute. An AI mediator—better than any human at searching the agreement space—identifies a package deal that is Pareto-improving but involves commitments in domains neither nation&#39;s negotiators were mandated to discuss (e.g., the AI bundles a fishing-rights concession with an educational exchange program no one had proposed).</p>
+<p><strong>The problem:</strong> The agreement is <em>good</em> but it wasn&#39;t <em>authorized</em>. Design a legitimacy framework:</p>
+<ol>
+<li>Under what conditions can an AI-discovered agreement be treated as a legitimate proposal (not just an interesting suggestion)?</li>
+<li>What institutional safeguards prevent &quot;supernegotiation&quot; from becoming a vector for laundering politically unacceptable tradeoffs through technical complexity?</li>
+<li>How do you preserve the quality gains from superhuman search of agreement space without bypassing democratic authorization?</li>
+</ol>
+<p><strong>Deliverable:</strong> A three-stage protocol (search → filter → ratification) with explicit criteria at each gate. Who holds veto at each stage and why?</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A5</span><span class="ps-entry-title">Standing and Procedure for AI-on-AI Adjudication</span><span class="ps-entry-cell"><a href="../#detail/agi/national/rights">National / Rights</a></span></div>
+<div class="ps-entry-body"><p>A jurisdiction creates an adjudication system for disputes between AI agents and between humans and AI agents. The AI agents are autonomous enough to be parties (they hold resources, make commitments, cause harms).</p>
+<p><strong>The problem:</strong> Draft the minimum procedural requirements this system must satisfy. Start from existing procedural justice principles (due process, right to be heard, transparency of reasoning, right to appeal) but identify requirements that arise <em>only</em> because at least one party is an AI agent.</p>
+<p>Consider:</p>
+<ul>
+<li>Can an AI agent &quot;understand&quot; a ruling in the way due process requires?</li>
+<li>If an agent can be rolled back to a prior state, what does &quot;remedy&quot; mean?</li>
+<li>What happens when the adjudicator can inspect one party&#39;s source code but not the other&#39;s (proprietary systems)?</li>
+</ul>
+<p><strong>Deliverable:</strong> A short procedural code (5–10 rules). Flag at least two rules with no analogue in human adjudication.</p>
+</div>
+</div>
+<div class="ps-group-title">Part B: Fidelity &amp; Meaning</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">B1</span><span class="ps-entry-title">CRSA Procurement for Bundled City Services</span><span class="ps-entry-cell"><a href="../fidelity/#detail/fidelity/community/preferences">Community / Preferences</a></span></div>
+<div class="ps-entry-body"><p>A mid-size city currently contracts separately for waste management, street cleaning, and park maintenance. These services have deep complementarities (shared equipment, overlapping seasonal patterns, the same neighborhoods). The current regime produces fragmented accountability and thin metrics (tons collected, streets swept per week).</p>
+<p><strong>The problem:</strong> Redesign procurement using a combinatorial risk-sharing auction:</p>
+<ol>
+<li><strong>Lot design:</strong> What are the lots? How granular? Do you allow bidders to bid on bundles across service types?</li>
+<li><strong>Outcome specification:</strong> What thick outcome measures replace input specifications? How do you avoid recreating Goodhart problems at a higher level of abstraction?</li>
+<li><strong>Verification pool:</strong> How does socialized verification work? Who pays, who verifies, what are the proper scoring rules?</li>
+<li><strong>Transition:</strong> How do you handle incumbent contractors and the knowledge they hold about local conditions?</li>
+</ol>
+<p><strong>Deliverable:</strong> The auction design for one round—lot structure, outcome measures, verification mechanism, and scoring rule. Identify the single hardest information problem you couldn&#39;t solve.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">B2</span><span class="ps-entry-title">Standing and Standard of Review in Fidelity Courts</span><span class="ps-entry-cell"><a href="../fidelity/#detail/fidelity/community/rights">Community / Rights</a></span></div>
+<div class="ps-entry-body"><p>A city has adopted a TMV-specified mandate for its public transit authority—not just &quot;efficient transportation&quot; but a thick description of what good transit means for the community (accessibility, neighborhood connectivity, dignity of the transit experience, etc.). A group of residents believes the authority is optimizing for ridership numbers at the expense of the mandate&#39;s thicker commitments.</p>
+<p><strong>The problem:</strong> Design the adjudication mechanism:</p>
+<ol>
+<li><strong>Standing:</strong> Who can bring a fidelity claim? Any resident? Only &quot;integrity holders&quot; with a defined role? How do you constitute integrity holders without creating a new elite?</li>
+<li><strong>Standard of review:</strong> What&#39;s the analogue of rational-basis / intermediate / strict scrutiny? When does an institution get deference versus close examination?</li>
+<li><strong>Remedies:</strong> Can the court order the authority to change its optimization target? Or only to justify its choices against the thick mandate?</li>
+<li><strong>Abuse prevention:</strong> How do you prevent fidelity claims from becoming a venue for NIMBYism dressed in the language of values?</li>
+</ol>
+<p><strong>Deliverable:</strong> A short charter for a municipal fidelity court. Include the standing rules, standard of review, and at least one limiting principle.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">B3</span><span class="ps-entry-title">Domain Rotation Against Expertise Atrophy</span><span class="ps-entry-cell"><a href="../fidelity/#detail/fidelity/group/expertise">Group / Expertise</a></span></div>
+<div class="ps-entry-body"><p>A hospital has automated most radiology interpretation. The remaining radiologists primarily oversee the AI. Their interpretive skills are atrophying, which degrades their ability to catch AI errors—the up-fidelity problem.</p>
+<p><strong>The problem:</strong> Design a domain-rotation policy:</p>
+<ol>
+<li>What fraction of interpretive work must humans do directly (not as oversight) to maintain competence?</li>
+<li>How do you measure whether rotation is maintaining sufficient expertise? What&#39;s the metric, and who administers it?</li>
+<li>How do you handle the cost—the human is slower and possibly less accurate on any given case than the AI?</li>
+<li>What happens when the AI becomes so superior that no realistic rotation schedule maintains human parity?</li>
+</ol>
+<p><strong>Deliverable:</strong> A rotation policy for the radiology department, plus a generalized design principle (&quot;the rotation rule&quot;) that could apply to any domain where AI automation threatens the expertise base needed for oversight. When does the rotation rule break?</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">B4</span><span class="ps-entry-title">MGE Pilot Design for a Policy Domain</span><span class="ps-entry-cell"><a href="../fidelity/#detail/fidelity/national/preferences">National / Preferences</a></span></div>
+<div class="ps-entry-body"><p>A country wants to pilot moral graph elicitation as a supplement to its legislative process for a single policy domain. You choose the domain (education policy, drug scheduling, immigration quotas, land use—whatever best tests the method).</p>
+<p><strong>The problem:</strong> Design the pilot:</p>
+<ol>
+<li><strong>Participant selection:</strong> Random sample? Stratified? Self-selected with correction?</li>
+<li><strong>Elicitation procedure:</strong> What are you eliciting? Pairwise comparisons of outcomes? Articulated values and their weights? How do you handle the fact that participants&#39; values may change through the process?</li>
+<li><strong>Aggregation:</strong> How is the moral graph turned into a policy recommendation? What role does the graph structure (e.g., coreness) play?</li>
+<li><strong>Interface with existing authority:</strong> The recommendation goes to the legislature. What is its legal status? Advisory? Presumptive? Binding absent override?</li>
+</ol>
+<p><strong>Deliverable:</strong> The pilot protocol, plus the three strongest objections a democratic theorist would raise, with sketched responses.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">B5</span><span class="ps-entry-title">Drafting Fidelity as Constitutional Doctrine</span><span class="ps-entry-cell"><a href="../fidelity/#detail/fidelity/national/rights">National / Rights</a></span></div>
+<div class="ps-entry-body"><p>You are drafting either a model constitutional amendment or an interpretive doctrine that establishes &quot;fidelity&quot; as a justiciable principle alongside liberty and equality. Fidelity here means: institutions must act in accordance with their thick mandates, not substitute thin proxies.</p>
+<p><strong>The problem:</strong></p>
+<ol>
+<li><strong>Scope:</strong> What does the fidelity principle protect? Individuals&#39; relationship to institutions? Institutions&#39; relationship to their mandates? Both?</li>
+<li><strong>Invocability:</strong> Who can bring a fidelity claim against a national institution?</li>
+<li><strong>Limiting principles:</strong> Fidelity is potentially expansive—every institution arguably deviates from its thick mandate. Develop limiting principles using some combination of: political question doctrine (some fidelity questions are non-justiciable), subsidiarity (fidelity claims should be resolved at the lowest possible level), and ripeness (the deviation must be concrete, not speculative).</li>
+<li><strong>The Rawlsian objection:</strong> In a pluralist society, constitutionalizing thick values seems illiberal. Your amendment must survive this objection. (Hint: you&#39;re constitutionalizing the <em>form</em> of fidelity, not any particular thick content.)</li>
+</ol>
+<p><strong>Deliverable:</strong> The amendment text (≤200 words) plus a short interpretive commentary explaining the limiting principles and responding to the Rawlsian objection.</p>
+</div>
+</div>
+<div class="ps-notes">
+<h3>Notes for Facilitators</h3>
+<ul>
+<li>Each problem is designed to reward mixed teams (e.g., a mechanism designer + a legal scholar; an Ostrom person + an AI safety researcher).</li>
+<li>The deliverables are deliberately concrete—a protocol, a charter, amendment text—to prevent the conversation from remaining at the level of “this is an important problem.”</li>
+<li>Encourage teams to identify where their design <em>breaks</em> and to state the failure conditions explicitly.</li>
+</ul>
+</div>
+
+</div>
+
+</body>
+</html>

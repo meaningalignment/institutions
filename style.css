@@ -78,7 +78,7 @@ body {
 
 /* Grid view */
 #grid-view { width: 100%; max-width: 100%; display: flex; flex-direction: column; align-items: center; }
-#detail-view, #problem-sets-view { display: none; width: 100%; max-width: 800px; }
+#detail-view { display: none; width: 100%; max-width: 800px; }
 
 .table-wrapper { overflow-x: auto; max-width: 100%; }
 table { border-collapse: separate; border-spacing: 0; min-width: 1000px; }
@@ -381,4 +381,146 @@ td .cell-empty { color: #ccc; font-size: 13px; }
 
 .ps-notes li {
   margin-bottom: 4px;
+}
+
+.ps-entry-number {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #9a9285;
+  min-width: 28px;
+}
+
+/* ── Mobile breakpoints ─────────────────────────────────────────── */
+
+/* Sticky row headers for horizontal scroll */
+th.row-header {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #fff;
+}
+tr.methods-row th.row-header {
+  background: #fff;
+}
+
+/* Scroll hint on table wrapper */
+.table-wrapper {
+  position: relative;
+}
+.table-wrapper::after {
+  content: '';
+  position: sticky;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.8));
+  pointer-events: none;
+  display: block;
+  position: absolute;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  .controls {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tab-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-link {
+    font-size: 11px;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+
+  .nav-link {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .pane-title {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .pane-subtitle {
+    font-size: 11px;
+    margin-bottom: 16px;
+    max-width: 100%;
+  }
+
+  table { min-width: 700px; }
+  th.col-header { min-width: 90px; }
+
+  th.row-header {
+    width: 72px;
+    min-width: 72px;
+    padding: 8px 8px 8px 4px;
+  }
+  th.row-header .row-name {
+    font-size: 9px;
+    letter-spacing: 0.8px;
+  }
+  th.row-header .row-desc {
+    font-size: 8px;
+  }
+
+  td { height: 56px; padding: 4px; }
+  td .cell-content {
+    font-size: 10px;
+    padding: 4px 6px;
+    max-width: 100px;
+  }
+
+  tr.methods-row .cell-content {
+    max-width: 100px;
+    font-size: 9px;
+  }
+  tr.methods-row .method-tag {
+    font-size: 8.5px;
+    padding: 1px 4px;
+  }
+
+  /* Detail page mobile */
+  .detail-title {
+    font-size: 24px;
+  }
+
+  .detail-body {
+    font-size: 14px;
+  }
+
+  .detail-body h2 {
+    font-size: 18px;
+  }
+
+  /* Problem sets mobile */
+  .ps-page-title {
+    font-size: 24px;
+  }
+
+  .ps-entry {
+    padding: 14px 16px;
+  }
+
+  .ps-entry-header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .ps-entry-title {
+    font-size: 14px;
+  }
 }

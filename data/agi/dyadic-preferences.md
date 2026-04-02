@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### A1. Agent Negotiation Under Principal Opacity
+### Agent Negotiation Under Principal Opacity
 
 Two AI agents negotiate a commercial contract on behalf of their human principals. Each agent has a rich preference model of its principal, but the principals can't monitor the negotiation in real time—they can only ratify or reject the final deal.
 

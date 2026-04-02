@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### A3. Standing and Procedure for AI-on-AI Adjudication
+### Standing and Procedure for AI-on-AI Adjudication
 
 A jurisdiction creates an adjudication system for disputes between AI agents and between humans and AI agents. The AI agents are autonomous enough to be parties (they hold resources, make commitments, cause harms).
 

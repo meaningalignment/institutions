@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### A2. Ostrom's Principles for AI Commoners
+### Ostrom's Principles for AI Commoners
 
 AI agents share a common resource—say, a shared knowledge base they can read from, write to, and build on. The resource is rivalrous in quality (too many low-quality writes degrade it) though not in access.
 

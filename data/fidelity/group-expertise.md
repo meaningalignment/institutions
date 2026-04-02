@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### B4. Domain Rotation Against Expertise Atrophy
+### Domain Rotation Against Expertise Atrophy
 
 A hospital has automated most radiology interpretation. The remaining radiologists primarily oversee the AI. Their interpretive skills are atrophying, which degrades their ability to catch AI errors—the up-fidelity problem.
 

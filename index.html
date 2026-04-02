@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Institutions and Their Informational Bases</title>
+<title>AGI Institutions (Required) — Institutions</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,18 +11,29 @@
 
 <div class="controls">
   <nav class="tab-bar">
-    <a href="#grid/agi" class="tab-link" data-tab="agi">AGI Institutions</a>
-    <a href="#grid/human" class="tab-link" data-tab="human">Human Institutions</a>
-    <a href="#grid/fidelity" class="tab-link" data-tab="fidelity">Fidelity & Meaning</a>
+    <a href="." class="tab-link active">AGI Institutions (Required)</a>
+    <a href="human/" class="tab-link">Existing Human Institutions</a>
+    <a href="fidelity/" class="tab-link">Fidelity &amp; Meaning</a>
   </nav>
-  <a href="#problem-sets" class="nav-link">Problem Sets</a>
+  <a href="problem-sets/" class="nav-link">Problem Sets</a>
 </div>
 
-<div id="grid-view"></div>
+<div id="grid-view">
+<div class="pane-title">AGI Institutions (Required)</div>
+<div class="pane-subtitle">New institutions needed for a world of autonomous AI agents</div>
+<div class="table-wrapper"><table>
+<thead><tr><th class="corner-cell axis-label-col"></th><th class="col-header"><span class="col-name">Protocols</span><span class="col-desc">standards &amp; coordination</span></th><th class="col-header"><span class="col-name">Preferences</span><span class="col-desc">aggregated wants</span></th><th class="col-header"><span class="col-name">Rights</span><span class="col-desc">formal entitlements &amp; adjudication</span></th><th class="col-header"><span class="col-name">Incentives</span><span class="col-desc">structured payoffs</span></th><th class="col-header"><span class="col-name">Expertise</span><span class="col-desc">credentialed epistemic authority</span></th><th class="col-header"><span class="col-name">Norms</span><span class="col-desc">behavioral expectations</span></th><th class="col-header"><span class="col-name">Thick Commitments</span><span class="col-desc">articulated shared understanding</span></th></tr></thead>
+<tbody>
+<tr><th class="row-header"><span class="row-name">Dyadic</span><span class="row-desc">2 parties</span></th><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','dyadic','preferences','data')"><div class="cell-content">Agent negotiation & bargaining</div></td><td class="clickable" onclick="showDetail('agi','dyadic','rights','data')"><div class="cell-content">Agent-agent mediation</div></td><td class="clickable" onclick="showDetail('agi','dyadic','incentives','data')"><div class="cell-content">Human-outcome contracts & bounties</div></td><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','dyadic','norms','data')"><div class="cell-content">Agent norm invention</div></td><td class="clickable" onclick="showDetail('agi','dyadic','thick-commitments','data')"><div class="cell-content">Agent-agent vows</div></td></tr>
+<tr><th class="row-header"><span class="row-name">Group</span><span class="row-desc">teams, clubs</span></th><td class="clickable" onclick="showDetail('agi','group','protocols','data')"><div class="cell-content">Team protocols & workflows</div></td><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','group','rights','data')"><div class="cell-content">Autonomous corp bylaws & grievance boards</div></td><td class="clickable" onclick="showDetail('agi','group','incentives','data')"><div class="cell-content">Agent profit-sharing & bounty systems</div></td><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','group','norms','data')"><div class="cell-content">Agent norm intuition</div></td><td class="clickable" onclick="showDetail('agi','group','thick-commitments','data')"><div class="cell-content">Values-driven AI organizations</div></td></tr>
+<tr><th class="row-header"><span class="row-name">Community</span><span class="row-desc">orgs, cities</span></th><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','community','preferences','data')"><div class="cell-content">Market design for societies of agents</div></td><td class="clickable" onclick="showDetail('agi','community','rights','data')"><div class="cell-content">AI judges and adjudication</div></td><td class="clickable" onclick="showDetail('agi','community','incentives','data')"><div class="cell-content">AI commons management</div></td><td><div class="cell-empty"></div></td><td><div class="cell-empty"></div></td><td><div class="cell-empty"></div></td></tr>
+<tr><th class="row-header"><span class="row-name">National</span><span class="row-desc">states, nations</span></th><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','national','preferences','data')"><div class="cell-content">Agents that represent national interests / large groups</div></td><td class="clickable" onclick="showDetail('agi','national','rights','data')"><div class="cell-content">Agents that adjudicate rights</div></td><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','national','expertise','data')"><div class="cell-content">AI regulatory agencies & regulator-anticipation</div></td><td class="clickable" onclick="showDetail('agi','national','norms','data')"><div class="cell-content">AIs that follow and update the law</div></td><td class="clickable" onclick="showDetail('agi','national','thick-commitments','data')"><div class="cell-content">Substantive constitutions & AI alignment docs</div></td></tr>
+<tr><th class="row-header"><span class="row-name">Global</span><span class="row-desc">transnational</span></th><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','global','preferences','data')"><div class="cell-content">Global markets that keep human interests central</div></td><td class="clickable" onclick="showDetail('agi','global','rights','data')"><div class="cell-content">Automated defense of human rights</div></td><td><div class="cell-empty"></div></td><td><div class="cell-empty"></div></td><td class="clickable" onclick="showDetail('agi','global','norms','data')"><div class="cell-content">Geopolitical supernegotiation</div></td><td><div class="cell-empty"></div></td></tr>
+<tr class="methods-row"><th class="row-header"><span class="row-name">Methods</span><span class="row-desc">design practices</span></th><td><div class="cell-content"><span class="method-tag">Protocol design</span><span class="method-tag">Standards development</span><span class="method-tag">Interoperability testing</span></div></td><td><div class="cell-content"><span class="method-tag bold">Electoral system design</span><span class="method-tag bold">Auction design</span><span class="method-tag">Preference elicitation</span><span class="method-tag">Deliberative process design</span></div></td><td><div class="cell-content"><span class="method-tag bold">Constitutional design</span><span class="method-tag bold">Dispute system design</span><span class="method-tag">Legislative drafting</span><span class="method-tag">Comparative institutional analysis</span></div></td><td><div class="cell-content"><span class="method-tag bold">Mechanism design</span><span class="method-tag bold">Market design</span><span class="method-tag bold">Matching market design</span><span class="method-tag">Metrology</span></div></td><td><div class="cell-content"><span class="method-tag">Accreditation</span></div></td><td><div class="cell-content"><span class="method-tag bold">Regulatory design</span><span class="method-tag bold">Legislative drafting</span></div></td><td><div class="cell-content"><span class="method-tag bold">Values articulation methods</span><span class="method-tag">Hermeneutics</span><span class="method-tag bold">Case canon design</span><span class="method-tag bold">Alignment writing</span></div></td></tr>
+</tbody></table></div>
+</div>
 <div id="detail-view"></div>
-<div id="problem-sets-view"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="app.js"></script>
 

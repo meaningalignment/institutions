@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### B3. MGE Pilot Design for a Policy Domain
+### MGE Pilot Design for a Policy Domain
 
 A country wants to pilot moral graph elicitation as a supplement to its legislative process for a single policy domain. You choose the domain (education policy, drug scheduling, immigration quotas, land use—whatever best tests the method).
 

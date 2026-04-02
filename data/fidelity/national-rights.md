@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### B5. Drafting Fidelity as Constitutional Doctrine
+### Drafting Fidelity as Constitutional Doctrine
 
 You are drafting either a model constitutional amendment or an interpretive doctrine that establishes "fidelity" as a justiciable principle alongside liberty and equality. Fidelity here means: institutions must act in accordance with their thick mandates, not substitute thin proxies.
 

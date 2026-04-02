@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### B2. CRSA Procurement for Bundled City Services
+### CRSA Procurement for Bundled City Services
 
 A mid-size city currently contracts separately for waste management, street cleaning, and park maintenance. These services have deep complementarities (shared equipment, overlapping seasonal patterns, the same neighborhoods). The current regime produces fragmented accountability and thin metrics (tons collected, streets swept per week).
 

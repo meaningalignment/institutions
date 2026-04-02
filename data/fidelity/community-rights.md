@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### B1. Standing and Standard of Review in Fidelity Courts
+### Standing and Standard of Review in Fidelity Courts
 
 A city has adopted a TMV-specified mandate for its public transit authority—not just "efficient transportation" but a thick description of what good transit means for the community (accessibility, neighborhood connectivity, dignity of the transit experience, etc.). A group of residents believes the authority is optimizing for ridership numbers at the expense of the mandate's thicker commitments.
 

@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### A5. Norm Formation Between Asymmetric Agents
+### Norm Formation Between Asymmetric Agents
 
 Two AI agents will interact repeatedly in a new shared environment with no pre-existing norms. Unlike humans, they can explicitly propose, accept, and revise behavioral rules. But one agent is substantially more capable than the other.
 

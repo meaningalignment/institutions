@@ -2,7 +2,7 @@
 
 ## Problem Sets
 
-### A4. Legitimacy Constraints on AI-Discovered Agreements
+### Legitimacy Constraints on AI-Discovered Agreements
 
 Two nations are in a resource dispute. An AI mediator—better than any human at searching the agreement space—identifies a package deal that is Pareto-improving but involves commitments in domains neither nation's negotiators were mandated to discuss (e.g., the AI bundles a fishing-rights concession with an educational exchange program no one had proposed).
 

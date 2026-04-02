@@ -1,0 +1,104 @@
+protocols:
+  - name: "Protocol design"
+  - name: "Standards development"
+  - name: "Interoperability testing"
+
+preferences:
+  - name: "Electoral system design"
+  - name: "Auction design"
+  - name: "Preference elicitation"
+  - name: "Deliberative process design"
+
+rights:
+  - name: "Constitutional design"
+  - name: "Dispute system design"
+  - name: "Legislative drafting"
+  - name: "Comparative institutional analysis"
+
+incentives:
+  - name: "Mechanism design"
+  - name: "Market design"
+  - name: "Matching market design"
+  - name: "Metrology"
+
+expertise:
+  - name: "Accreditation"
+
+norms:
+  - name: "Regulatory design"
+  - name: "Legislative drafting"
+
+thick-commitments:
+  - name: "Values articulation methods"
+  - name: "Hermeneutics"
+  - name: "Case canon design"
+  - name: "Alignment writing"
+
+# Per-tab overrides: which methods are bold (highlighted as high-priority)
+tabOverrides:
+  agi:
+    preferences:
+      bold:
+        - "Auction design"
+        - "Electoral system design"
+    rights:
+      bold:
+        - "Constitutional design"
+        - "Dispute system design"
+    incentives:
+      bold:
+        - "Mechanism design"
+        - "Market design"
+        - "Matching market design"
+    norms:
+      bold:
+        - "Regulatory design"
+        - "Legislative drafting"
+    thick-commitments:
+      bold:
+        - "Values articulation methods"
+        - "Alignment writing"
+        - "Case canon design"
+
+  fidelity:
+    preferences:
+      bold:
+        - "Moral Graph Elicitation"
+        - "Combinatorial auction design"
+      add:
+        - "Moral Graph Elicitation"
+        - "Combinatorial auction design"
+    rights:
+      bold:
+        - "Fidelity adjudication"
+        - "Constitutional design"
+      add:
+        - "Fidelity adjudication"
+    incentives:
+      bold:
+        - "CRSA mechanism design"
+        - "Proper scoring rules"
+        - "Socialized verification"
+      add:
+        - "CRSA mechanism design"
+        - "Proper scoring rules"
+        - "Socialized verification"
+    expertise:
+      bold:
+        - "Domain-rotation design"
+      add:
+        - "Domain-rotation design"
+    norms:
+      bold:
+        - "Fidelity auditing"
+      add:
+        - "Fidelity auditing"
+    thick-commitments:
+      bold:
+        - "Thick models of value"
+        - "Values articulation methods"
+        - "Hermeneutics"
+        - "Case canon design"
+        - "Alignment writing"
+      add:
+        - "Thick models of value"

@@ -60,6 +60,7 @@ body {
 .tab-link:last-child { border-right: none; }
 .tab-link:hover { color: #2d2a26; background: #f5f2ed; }
 .tab-link.active { color: #2d2a26; background: #f0ece5; font-weight: 700; }
+.tab-short { display: none; }
 
 .nav-link {
   font-family: 'DM Sans', sans-serif;
@@ -424,103 +425,89 @@ tr.methods-row th.row-header {
 
 @media (max-width: 768px) {
   body {
-    padding: 20px 12px;
+    padding: 16px 8px;
   }
 
   .controls {
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 6px;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .tab-bar {
     flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    justify-content: stretch;
   }
 
   .tab-link {
-    font-size: 11px;
-    padding: 6px 12px;
+    font-size: 12px;
+    padding: 8px 14px;
     white-space: nowrap;
+    text-align: center;
   }
+  .tab-full { display: none; }
+  .tab-short { display: inline; }
 
   .nav-link {
     font-size: 11px;
     padding: 6px 10px;
+    text-align: center;
   }
 
   .pane-title {
-    font-size: 20px;
-    margin-bottom: 4px;
+    font-size: 18px;
+    margin-bottom: 2px;
   }
 
   .pane-subtitle {
     font-size: 11px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     max-width: 100%;
   }
 
-  table { min-width: 700px; }
-  th.col-header { min-width: 90px; }
+  table { min-width: 600px; }
+  th.col-header { min-width: 80px; padding: 8px 4px 10px; }
+  th.col-header .col-name { font-size: 9px; letter-spacing: 0.8px; }
+  th.col-header .col-desc { font-size: 8px; }
 
+  .axis-label-col,
   th.row-header {
-    width: 72px;
-    min-width: 72px;
-    padding: 8px 8px 8px 4px;
+    width: 36px !important;
+    min-width: 36px !important;
+    padding: 4px 4px 4px 2px;
   }
   th.row-header .row-name {
-    font-size: 9px;
-    letter-spacing: 0.8px;
+    font-size: 7px;
+    letter-spacing: 0.3px;
   }
   th.row-header .row-desc {
-    font-size: 8px;
+    display: none;
   }
 
-  td { height: 56px; padding: 4px; }
+  td { height: 48px; padding: 3px; }
   td .cell-content {
-    font-size: 10px;
-    padding: 4px 6px;
-    max-width: 100px;
+    font-size: 9px;
+    padding: 3px 4px;
+    max-width: 90px;
   }
 
   tr.methods-row .cell-content {
-    max-width: 100px;
-    font-size: 9px;
+    max-width: 90px;
+    font-size: 8px;
   }
   tr.methods-row .method-tag {
-    font-size: 8.5px;
-    padding: 1px 4px;
+    font-size: 8px;
+    padding: 1px 3px;
   }
 
   /* Detail page mobile */
-  .detail-title {
-    font-size: 24px;
-  }
-
-  .detail-body {
-    font-size: 14px;
-  }
-
-  .detail-body h2 {
-    font-size: 18px;
-  }
+  .detail-title { font-size: 24px; }
+  .detail-body { font-size: 14px; }
+  .detail-body h2 { font-size: 18px; }
 
   /* Problem sets mobile */
-  .ps-page-title {
-    font-size: 24px;
-  }
-
-  .ps-entry {
-    padding: 14px 16px;
-  }
-
-  .ps-entry-header {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .ps-entry-title {
-    font-size: 14px;
-  }
+  .ps-page-title { font-size: 24px; }
+  .ps-entry { padding: 14px 16px; }
+  .ps-entry-header { flex-wrap: wrap; gap: 6px; }
+  .ps-entry-title { font-size: 14px; }
 }

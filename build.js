@@ -9,14 +9,17 @@ const { marked } = require('marked');
 const TABS = {
   agi: {
     title: 'AGI Institutions (Required)',
+    short: 'AGI',
     subtitle: 'New institutions needed for a world of autonomous AI agents'
   },
   human: {
     title: 'Existing Human Institutions',
+    short: 'Human',
     subtitle: 'Current institutional infrastructure (how humans do alignment)'
   },
   fidelity: {
     title: 'Fidelity & Meaning',
+    short: 'Fidelity',
     subtitle: 'Institutions for keeping things aligned with purpose, aligning organizations, governments, and markets to rich, accountable mandates'
   }
 };
@@ -256,7 +259,7 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
     let link;
     if (t === 'agi') link = tabId === 'agi' ? '.' : '..';
     else link = tabId === 'agi' ? t + '/' : (tabId === t ? '.' : '../' + t + '/');
-    return `    <a href="${link}" class="tab-link${active}">${esc(tab.title)}</a>`;
+    return `    <a href="${link}" class="tab-link${active}"><span class="tab-full">${esc(tab.title)}</span><span class="tab-short">${esc(tab.short)}</span></a>`;
   }).join('\n');
 
   const psLink = tabId === 'agi' ? 'problem-sets/' : '../problem-sets/';

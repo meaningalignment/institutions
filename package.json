@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "/Users/joe/.bun/bin/bun build.js",
+    "build": "bun build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

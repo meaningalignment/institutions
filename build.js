@@ -75,21 +75,32 @@ function loadCells(tabId) {
 }
 
 function loadMethods() {
-  const raw = fs.readFileSync(path.join(__dirname, 'data', 'methods.yaml'), 'utf8');
-  return yaml.load(raw);
+  const dir = path.join(__dirname, 'data', 'methods');
+  const methods = {};
+  if (!fs.existsSync(dir)) return methods;
+
+  for (const file of fs.readdirSync(dir)) {
+    if (!file.endsWith('.md')) continue;
+    const colId = file.replace('.md', '');
+    const raw = fs.readFileSync(path.join(dir, file), 'utf8');
+    const fmMatch = raw.match(/^---\n([\s\S]*?)\n---/);
+    if (fmMatch) {
+      const fm = yaml.load(fmMatch[1]);
+      methods[colId] = fm.methods || [];
+    } else {
+      methods[colId] = [];
+    }
+  }
+  return methods;
 }
 
 function getMethodsForCol(colId, tabId, methods) {
-  const base = (methods[colId] || []).map(m => ({ ...m }));
-  const overrides = methods.tabOverrides?.[tabId]?.[colId] || {};
-  for (const name of (overrides.add || [])) {
-    if (!base.find(m => m.name === name)) base.push({ name });
-  }
-  for (const m of base) {
-    // bold from base entry or from tab override
-    if ((overrides.bold || []).includes(m.name)) m.bold = true;
-  }
-  return base;
+  return (methods[colId] || [])
+    .filter(m => !m.tabs || m.tabs.includes(tabId))
+    .map(m => {
+      const bold = m.bold === true || (Array.isArray(m.bold) && m.bold.includes(tabId));
+      return { name: m.name, bold };
+    });
 }
 
 // ── Generate manifest ──────────────────────────────────────────────
@@ -114,8 +125,17 @@ function generateManifest() {
 
 // ── Render grid HTML ───────────────────────────────────────────────
 
+function cellsWithProblemSets(cells) {
+  const ps = new Set();
+  for (const [key, cell] of Object.entries(cells)) {
+    if (cell.body && /^## Problem Sets$/m.test(cell.body)) ps.add(key);
+  }
+  return ps;
+}
+
 function renderGrid(tabId, cells, methods, dataPath) {
   const tab = TABS[tabId];
+  const psKeys = cellsWithProblemSets(cells);
   let html = '';
   html += `<div class="pane-title">${esc(tab.title)}</div>\n`;
   html += `<div class="pane-subtitle">${esc(tab.subtitle)}</div>\n`;
@@ -134,7 +154,8 @@ function renderGrid(tabId, cells, methods, dataPath) {
       const key = `${row.id}-${col.id}`;
       const cell = cells[key];
       if (cell) {
-        html += `<td class="clickable" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;
+        const psClass = psKeys.has(key) ? ' has-ps' : '';
+        html += `<td class="clickable${psClass}" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;
         html += `<div class="cell-content">${cell.summary}</div></td>`;
       } else {
         html += '<td><div class="cell-empty"></div></td>';
@@ -147,7 +168,7 @@ function renderGrid(tabId, cells, methods, dataPath) {
   html += '<th class="row-header"><span class="row-name">Methods</span><span class="row-desc">design practices</span></th>';
   for (const col of COLS) {
     const tags = getMethodsForCol(col.id, tabId, methods);
-    html += '<td><div class="cell-content">';
+    html += `<td class="clickable" onclick="showDetail('${tabId}','methods','${col.id}','${dataPath}')"><div class="cell-content">`;
     for (const tag of tags) {
       const cls = tag.bold ? 'method-tag bold' : 'method-tag';
       html += `<span class="${cls}">${tag.name}</span>`;

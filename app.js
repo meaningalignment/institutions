@@ -29,6 +29,10 @@ const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 // ── Cell parsing ───────────────────────────────────────────────────
 
 function parseCell(raw) {
+  // Strip YAML frontmatter if present
+  const fmMatch = raw.match(/^---\n[\s\S]*?\n---\n?/);
+  if (fmMatch) raw = raw.slice(fmMatch[0].length);
+
   const h1Match = raw.match(/^#\s+(.+)$/m);
   const summary = h1Match ? h1Match[1].trim() : '';
   const bodyAfterH1 = h1Match
@@ -39,7 +43,7 @@ function parseCell(raw) {
 
 // ── Detail page ────────────────────────────────────────────────────
 
-function renderDetail(tabId, rowId, colId, cell, dataPath) {
+function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell) {
   const tab = TABS[tabId] || { title: tabId };
   const row = ROWS.find(r => r.id === rowId) || { name: rowId };
   const col = COLS.find(c => c.id === colId) || { name: colId };
@@ -56,6 +60,36 @@ function renderDetail(tabId, rowId, colId, cell, dataPath) {
     html += `<div class="detail-body">${marked.parse(cell.body)}</div>`;
   } else {
     html += `<div class="detail-placeholder">This cell hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
+  }
+
+  if (methodsCell && methodsCell.body && methodsCell.body.trim()) {
+    html += '<div class="methods-embed">';
+    html += `<details><summary>Methods & Textbooks: ${col.name}</summary>`;
+    html += `<div class="detail-body">${marked.parse(methodsCell.body)}</div>`;
+    html += '</details></div>';
+  }
+
+  html += `<div style="margin-top:40px;padding-top:20px;border-top:1px solid #e6e1d8;font-size:12px;color:#b5b0a8;">`;
+  html += `<a href="${ghLink}" style="color:#8a8378;">Edit this page on GitHub \u2192</a></div>`;
+  return html;
+}
+
+function renderMethodsDetail(tabId, colId, cell) {
+  const tab = TABS[tabId] || { title: tabId };
+  const col = COLS.find(c => c.id === colId) || { name: colId };
+  const ghLink = `${GITHUB_REPO}/edit/main/data/methods/${colId}.md`;
+
+  let html = '';
+  html += `<a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>`;
+  html += '<div class="detail-breadcrumb">';
+  html += `${tab.title} \u203A Methods \u203A ${col.name}`;
+  html += '</div>';
+  html += `<div class="detail-title">${cell.summary}</div>`;
+
+  if (cell.body && cell.body.trim()) {
+    html += `<div class="detail-body">${marked.parse(cell.body)}</div>`;
+  } else {
+    html += `<div class="detail-placeholder">This page hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
   }
 
   html += `<div style="margin-top:40px;padding-top:20px;border-top:1px solid #e6e1d8;font-size:12px;color:#b5b0a8;">`;
@@ -76,10 +110,36 @@ async function showDetail(tabId, rowId, colId, dataPath) {
   location.hash = `#detail/${tabId}/${rowId}/${colId}`;
 
   try {
-    const resp = await fetch(`${dataPath}/${tabId}/${rowId}-${colId}.md`);
-    if (resp.ok) {
-      const cell = parseCell(await resp.text());
-      detailView.innerHTML = renderDetail(tabId, rowId, colId, cell, dataPath);
+    if (rowId === 'methods') {
+      const resp = await fetch(`${dataPath}/methods/${colId}.md`);
+      if (resp.ok) {
+        const cell = parseCell(await resp.text());
+        detailView.innerHTML = renderMethodsDetail(tabId, colId, cell);
+      } else {
+        const col = COLS.find(c => c.id === colId) || { name: colId };
+        const ghLink = `${GITHUB_REPO}/new/main/data/methods?filename=${colId}.md`;
+        detailView.innerHTML = `
+          <a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>
+          <div class="detail-breadcrumb">Methods \u203A ${col.name}</div>
+          <div class="detail-title">${col.name}</div>
+          <div class="detail-placeholder">
+            This page hasn\u2019t been defined yet. <a href="${ghLink}">Create it on GitHub \u2192</a>
+          </div>`;
+      }
+      return;
+    }
+
+    const [cellResp, methodsResp] = await Promise.all([
+      fetch(`${dataPath}/${tabId}/${rowId}-${colId}.md`),
+      fetch(`${dataPath}/methods/${colId}.md`).catch(() => null)
+    ]);
+
+    const methodsCell = methodsResp && methodsResp.ok
+      ? parseCell(await methodsResp.text()) : null;
+
+    if (cellResp.ok) {
+      const cell = parseCell(await cellResp.text());
+      detailView.innerHTML = renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell);
     } else {
       const tab = TABS[tabId] || { title: tabId };
       const row = ROWS.find(r => r.id === rowId) || { name: rowId };

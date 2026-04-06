@@ -144,6 +144,8 @@ tr.methods-row .method-tag {
   letter-spacing: 0.1px; color: #555;
 }
 tr.methods-row .method-tag.bold { font-size: 10px; font-weight: 700; color: black; }
+tr.methods-row td.clickable { cursor: pointer; }
+tr.methods-row td.clickable:hover .cell-content { background: #f5f2ed !important; }
 tr:last-child td { border-bottom: none; }
 td .cell-empty { color: #ccc; font-size: 13px; }
 
@@ -392,6 +394,44 @@ td .cell-empty { color: #ccc; font-size: 13px; }
   min-width: 28px;
 }
 
+/* Problem set indicator — green triangle in top-right corner */
+td.has-ps {
+  position: relative;
+}
+td.has-ps::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  border-color: transparent #6aaa64 transparent transparent;
+}
+
+/* Methods embed in cell detail view */
+.methods-embed {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid #e6e1d8;
+}
+
+.methods-embed summary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8a8378;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.methods-embed summary:hover {
+  color: #2d2a26;
+}
+
+.methods-embed .detail-body {
+  margin-top: 12px;
+}
+
 /* ── Mobile breakpoints ─────────────────────────────────────────── */
 
 /* Sticky row headers for horizontal scroll */
@@ -499,6 +539,8 @@ tr.methods-row th.row-header {
     font-size: 8px;
     padding: 1px 3px;
   }
+
+  td.has-ps::after { border-width: 0 7px 7px 0; }
 
   /* Detail page mobile */
   .detail-title { font-size: 24px; }

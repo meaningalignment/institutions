@@ -404,7 +404,7 @@ td.has-ps::after {
   top: 0;
   right: 0;
   border-style: solid;
-  border-width: 0 10px 10px 0;
+  border-width: 0 12px 12px 0;
   border-color: transparent #6aaa64 transparent transparent;
 }
 

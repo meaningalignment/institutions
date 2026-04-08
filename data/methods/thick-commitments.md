@@ -25,6 +25,8 @@ methods:
 - **MacIntyre, A.** — *After Virtue* (1981). How shared commitments are sustained through practices and traditions.
 - **Walzer, M.** — *Spheres of Justice* (1983). How different domains of life require distinct principles of distribution and commitment.
 - **Anderson, E.** — *Value in Ethics and Economics* (1993). Rational choice theory's limits for capturing thick values.
+- **Chang, R.** — *Making Comparisons Count* (2002). When options are "on a par" rather than comparable on a single scale — the philosophical case for why thick value models can't be reduced to utility functions.
+- **Sen, A.** — *Rationality and Freedom* (2002). Why preference-based frameworks systematically fail to capture what people have reason to value; the case for richer evaluative categories.
 
 ## Tutorials & Courses
 
@@ -37,3 +39,5 @@ methods:
 - **Case canon** — curated set of cases that define an institution's commitments through precedent.
 - **Hermeneutic circle** — understanding parts through the whole and the whole through parts.
 - **Alignment writing** — articulating what an institution is for in a way that constrains future interpretation.
+- **On a par** — Chang's category for comparisons where neither option is better and yet they are not equally good; implies irreducible plurality of value.
+- **Capability approach** — Sen's framework: evaluate outcomes by what people can do and be, not by their subjective preferences or utility.

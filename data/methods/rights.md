@@ -16,6 +16,7 @@ methods:
 - **Elster, J.** — *Securities Against Misrule: Juries, Assemblies, Elections* (2013). How institutional constraints protect against bad governance.
 - **Sunstein, C.** — *Designing Democracy: What Constitutions Do* (2001). Accessible treatment of constitutional design as institutional engineering.
 - **Ury, W., Brett, J., & Goldberg, S.** — *Getting Disputes Resolved* (1988). Classic framework for designing dispute resolution systems.
+- **Sen, A.** — *The Idea of Justice* (2009). Argues for a comparative, capability-based approach to justice rather than ideal-institution design; relevant to how rights frameworks should evaluate real outcomes, not just procedural correctness.
 
 ## Tutorials & Courses
 
@@ -29,3 +30,4 @@ methods:
 - **Entrenched rights** — rights that require supermajorities to amend.
 - **Alternative dispute resolution (ADR)** — arbitration, mediation, and other non-court mechanisms.
 - **Comparative institutional analysis** — evaluating institutional arrangements against alternatives.
+- **Capabilities as entitlements** — rights understood as guarantees of substantive capability, not just formal permissions (Sen).

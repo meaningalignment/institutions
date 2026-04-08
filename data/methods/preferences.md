@@ -19,6 +19,9 @@ methods:
 - **Arrow, K. J.** — *Social Choice and Individual Values* (1951). The foundational impossibility result for preference aggregation.
 - **Brandt, F., Conitzer, V., Endriss, U., Lang, J., & Procaccia, A.** — *Handbook of Computational Social Choice* (2016). Comprehensive reference on computational approaches to voting and preference aggregation.
 - **Fishburn, P. C.** — *The Theory of Social Choice* (1973). Systematic treatment of voting rules and their properties.
+- **Sen, A.** — *Collective Choice and Social Welfare* (1970; expanded 2017). Foundational critique of welfarist social choice; argues preference aggregation loses information about justice, capabilities, and substantive freedoms.
+- **Hirschman, A. O.** — *Exit, Voice, and Loyalty* (1970). When exit (the market signal) crowds out voice (the richer signal), institutions lose access to the information they most need. Directly relevant to why thin preference aggregation misses what people actually value.
+- **Chang, R.** — "The Possibility of Parity," *Ethics* (2002). Argues that some choices are not resolvable by weighing preferences — they require commitment, not aggregation.
 
 ## Tutorials & Courses
 
@@ -31,3 +34,5 @@ methods:
 - **Strategyproofness** — mechanisms where truthful reporting is optimal.
 - **Deliberative polling** — combining deliberation with preference measurement.
 - **Generative social choice** — using language models to find novel aggregations of expressed preferences.
+- **Adaptive preferences** — people learn to want what they can get, making revealed preference unreliable in constrained environments (Sen, Elster).
+- **Exit vs. voice** — Hirschman's distinction between leaving (market signal) and complaining (richer but costlier signal); markets systematically favor exit.

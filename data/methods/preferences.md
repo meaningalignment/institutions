@@ -18,6 +18,7 @@ methods:
 - **Moulin, H.** — *Fair Division and Collective Welfare* (2003). Formal treatment of how to aggregate preferences fairly.
 - **Arrow, K. J.** — *Social Choice and Individual Values* (1951). The foundational impossibility result for preference aggregation.
 - **Brandt, F., Conitzer, V., Endriss, U., Lang, J., & Procaccia, A.** — *Handbook of Computational Social Choice* (2016). Comprehensive reference on computational approaches to voting and preference aggregation.
+- **Sen, A.** — *Collective Choice and Social Welfare* (1970; expanded ed. 2017). How to reason about social welfare, equity, and rights within formal frameworks — the other foundational text alongside Arrow.
 - **Fishburn, P. C.** — *The Theory of Social Choice* (1973). Systematic treatment of voting rules and their properties.
 
 ## Tutorials & Courses

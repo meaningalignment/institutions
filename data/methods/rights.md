@@ -15,6 +15,7 @@ methods:
 - **Ginsburg, T. & Dixon, R.** — *Comparative Constitutional Law* (2011). Survey of constitutional design choices across legal systems.
 - **Elster, J.** — *Securities Against Misrule: Juries, Assemblies, Elections* (2013). How institutional constraints protect against bad governance.
 - **Sunstein, C.** — *Designing Democracy: What Constitutions Do* (2001). Accessible treatment of constitutional design as institutional engineering.
+- **Sartori, G.** — *Comparative Constitutional Engineering* (1994). How electoral systems and executive structures shape political outcomes — a design-oriented comparative analysis.
 - **Ury, W., Brett, J., & Goldberg, S.** — *Getting Disputes Resolved* (1988). Classic framework for designing dispute resolution systems.
 
 ## Tutorials & Courses

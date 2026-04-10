@@ -553,3 +553,22 @@ tr.methods-row th.row-header {
   .ps-entry-header { flex-wrap: wrap; gap: 6px; }
   .ps-entry-title { font-size: 14px; }
 }
+
+/* Site footer */
+.site-footer {
+  margin-top: 48px;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+}
+
+.site-footer a {
+  color: #999;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.site-footer a:hover {
+  color: #666;
+}

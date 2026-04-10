@@ -301,6 +301,10 @@ ${grid}
 </div>
 <div id="detail-view"></div>
 
+<footer class="site-footer">
+  Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="${jsPath}"></script>
 
@@ -327,6 +331,10 @@ function generateProblemSetsPage(allCells) {
 <div id="problem-sets-view" style="display:block;width:100%;max-width:800px;">
 ${content}
 </div>
+
+<footer class="site-footer">
+  Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
+</footer>
 
 </body>
 </html>`;

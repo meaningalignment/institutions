@@ -1,4 +1,14 @@
-# MGE replacing thin elections — surfacing constitutive commitments
+# Deliberative processes as supplement to elections
+
+A national election records yes/no; it does not record the convictions, experiences, or tradeoff judgments the electorate actually holds. With that information lost, it is hard to hold the winning coalition accountable to the values that motivated it.
+
+A family of mechanisms attempts to surface that structure: moral graph elicitation, deliberative polling (Fishkin), citizens' assemblies, policy juries, and various hybrids. Each elicits value structure (not just position) from a demographically anchored participant pool, and produces an artifact against which subsequent governance can be judged.
+
+Design questions:
+- What legal status should the output carry — advisory, presumptive, binding absent supermajority override?
+- How do you select participants and handle values that shift through the process?
+- How is the result converted into a policy recommendation without flattening its structure?
+- How does this interface with representative democracy — do elected officials have a duty to cite the process, or just to consult it?
 
 ## Problem Sets
 

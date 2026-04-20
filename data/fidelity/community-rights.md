@@ -1,10 +1,20 @@
-# Fidelity courts & integrity-holder standing
+# Public-interest claims in local courts
+
+When a community-scale institution's operations diverge from its mandate, or when practitioners and stakeholders know the mandate is no longer being served, what standing do they have to take the institution to court? What remedies can a court order, and what limiting doctrines keep the process from becoming a vector for ordinary political disputes?
+
+A forum of this kind could (a) order restructuring of metrics or operational processes, (b) order deepening or clarification of the mandate itself, or (c) reassign property rights tied to a public commitment (a brand, a license, a dataset) to an entity that will honor it. Limiting doctrines — in rem remedies, articulable mandates, institutional maturity, protected zones, and ripeness — prevent the forum from becoming a vehicle for political signaling.
+
+Design questions:
+- What evidentiary standards separate a legitimate mandate-breach claim from a policy disagreement?
+- How do remedies scale with an institution's maturity and the public's reliance on it? (A startup deserves more room to pivot than a dominant platform.)
+- How do courts handle mandate articulations that themselves need deepening, without becoming a legislature?
+- What's the relation between these forums and existing administrative law, consumer protection, and nonprofit oversight?
 
 ## Problem Sets
 
 ### Standing and Standard of Review in Fidelity Courts
 
-A city has adopted a TMV-specified mandate for its public transit authority—not just "efficient transportation" but a thick description of what good transit means for the community (accessibility, neighborhood connectivity, dignity of the transit experience, etc.). A group of residents believes the authority is optimizing for ridership numbers at the expense of the mandate's thicker commitments.
+A city has adopted a substantive mandate for its public transit authority—not just "efficient transportation" but a thick description of what good transit means for the community (accessibility, neighborhood connectivity, dignity of the transit experience, etc.). A group of residents believes the authority is optimizing for ridership numbers at the expense of the mandate's thicker commitments.
 
 **The problem:** Design the adjudication mechanism:
 

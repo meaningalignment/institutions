@@ -1,5 +1,4 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-@page { size: 20in 10in; margin: 0.2in; }
 
 body {
   font-family: 'DM Sans', sans-serif;
@@ -571,4 +570,56 @@ tr.methods-row th.row-header {
 
 .site-footer a:hover {
   color: #666;
+}
+
+/* ── Print / PDF export ───────────────────────────────────────────── */
+
+@media print {
+  @page {
+    size: 1280px 920px;
+    margin: 24px;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    padding: 0;
+    display: block;
+  }
+
+  .controls,
+  .nav-link,
+  .tab-bar,
+  #detail-view,
+  .site-footer,
+  .table-wrapper::after {
+    display: none !important;
+  }
+
+  .table-wrapper {
+    overflow: visible !important;
+    position: static;
+  }
+
+  table {
+    min-width: 0;
+    margin: 0 auto;
+    page-break-inside: avoid;
+  }
+
+  th.row-header,
+  tr.methods-row th.row-header {
+    position: static !important;
+    background: transparent !important;
+  }
+
+  #grid-view {
+    display: block;
+    width: 100%;
+  }
+
+  .pane-title { margin-top: 0; }
 }

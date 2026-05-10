@@ -13,74 +13,485 @@
 <a href="../" class="detail-back">&larr; Back to grid</a>
 <div class="ps-page-title">Problem Sets</div>
 <div class="ps-page-subtitle">For pairs/trios. ~1 hour each. Produce a concrete design sketch, not a literature review.</div>
-<div class="ps-group-title">Part A: AGI Institutions (Required)</div>
+<div class="ps-group-title">Part A: AGI-Era Institutions</div>
 <div class="ps-entry">
 <div class="ps-entry-header"><span class="ps-entry-number">A1</span><span class="ps-entry-title">Ostrom's Principles for AI Commoners</span><span class="ps-entry-cell"><a href="../#detail/agi/community/incentives">Community / Incentives</a></span></div>
-<div class="ps-entry-body"><p><strong>Scenario.</strong> <em>A network of indie game studios share a commons of modular 3D assets — rooms, props, creatures — that their agents contribute to and pull from. For two years it worked: fair use, quality rising, everyone building on everyone. In the last six months, asset quality has been quietly degrading. A few studios run agents that submit dozens of derivative, lightly-modified variants to boost their download credits; others, frustrated, are forking their best assets into private stashes. Tarek, who runs one of the founding studios, sees the commons collapsing the way every unmanaged commons does. His studio depends on it. He needs governance — rules the agents themselves will follow, enforcement the small studios can afford, conflict resolution that doesn&#39;t require a lawyer.</em></p>
-<p>AI agents share a common resource—say, a shared knowledge base they can read from, write to, and build on. The resource is rivalrous in quality (too many low-quality writes degrade it) though not in access.</p>
-<p><strong>The problem:</strong> Take Ostrom&#39;s 8 design principles for long-enduring commons. For each, determine whether it (a) applies directly, (b) needs modification, or (c) breaks entirely when the commoners are autonomous AI agents rather than humans.</p>
-<p>Pay particular attention to:</p>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A modular 3D-asset commons shared across indie game studios whose agents contribute and pull; a shared knowledge base curated by competing research labs&#39; agents.</p>
+<p><strong>The gap.</strong> We lack a governance regime for commons whose participants are autonomous AI agents — one that delivers what Ostrom&#39;s principles deliver for human commons (durable cooperation under temptation), given that boundaries are forkable, sanctions don&#39;t sting, and principals can&#39;t watch their own agents.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Membership.</strong> What counts as a &quot;member&quot; — a principal, an agent, or a verified principal-agent pair? How is sybil resistance enforced without making participation prohibitive for small actors?</li>
+<li><strong>Sanction design.</strong> What can you actually take away from a misbehaving agent that costs its principal — staked deposit, rate-limit, downstream-pull suspension, public reputation marker? Pick one and defend its incentive shape.</li>
+<li><strong>Conflict-resolution venue.</strong> Are disputes resolved by an agent panel, a small human jury, or hybrid (agent triage → human appeal)? What&#39;s the time and cost budget?</li>
+<li><strong>Quality vs. participation tradeoff.</strong> Do you gate writes on quality (and risk freezing out small studios) or admit broadly and rely on downstream filters? Pick a regime and name what failure mode you&#39;re choosing to absorb.</li>
+<li><strong>Fork rights.</strong> Forking is cheap; do you treat it as exit (legitimate, costless), exit-with-attribution (allowed but the fork must publish a divergence log), or sanction-able (a fork without cause forfeits standing in the original)?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
 <ul>
-<li>Principle 2 (congruence between rules and local conditions) — what are &quot;local conditions&quot; for AI agents?</li>
-<li>Principle 6 (conflict-resolution mechanisms) — agents can fork the resource; humans can&#39;t fork a fishery</li>
-<li>Principle 8 (nested enterprises) — what is the analogue of nested governance for AI agent collectives?</li>
+<li>A coordinated agent fleet floods the commons with low-quality variants to game download credits; quality does not collapse before sanctions land.</li>
+<li>A small studio&#39;s single agent commits a clear violation; the conflict-resolution path resolves within a week and at a cost the small studio can afford.</li>
+<li>A principal goes inactive and their agent continues participating; the regime detects abandonment and gracefully revokes standing.</li>
+<li>A faction forks the commons over a substantive disagreement; both halves remain governable rather than collapsing into ungoverned mirror-pools.</li>
+<li>A contributor&#39;s agent is silently replaced with a more aggressive successor; reputation tracks the principal, not the model identity.</li>
 </ul>
-<p><strong>Deliverable:</strong> A governance regime for the shared knowledge base. Identify which of your design choices have no precedent in human commons governance and why.</p>
+<p><strong>Deliverable.</strong> A governance regime for the asset commons, mapped explicitly against Ostrom&#39;s eight principles. For each principle, mark <em>applies as-is</em>, <em>modified (and how)</em>, or <em>replaced (and with what)</em>. Identify which of your design choices have no precedent in human commons governance, and explain why a human commons could afford to do without them.</p>
 </div>
 </div>
 <div class="ps-entry">
 <div class="ps-entry-header"><span class="ps-entry-number">A2</span><span class="ps-entry-title">Agent Negotiation Under Principal Opacity</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/preferences">Dyadic / Preferences</a></span></div>
-<div class="ps-entry-body"><p><strong>Scenario.</strong> <em>Priya&#39;s mother needs a live-in aide, and Priya&#39;s assistant agent has been talking with three care-agency agents for two days. This morning it surfaces a bundled proposal — one agency takes the live-in role, plus weekly grocery runs, plus coordinating with her mother&#39;s cardiologist — at a discount, if Priya commits for twelve months and accepts a switch of the primary aide. The deal is objectively better than the quotes Priya got herself last month. Ratification window closes at noon. Her mother is waiting. Priya needs to know, in the ten minutes before her daughter&#39;s parent-teacher conference, whether the trade-offs her agent just made are ones she would have made herself.</em></p>
-<p>Two AI agents negotiate a commercial contract on behalf of their human principals. Each agent has a rich preference model of its principal, but the principals can&#39;t monitor the negotiation in real time—they can only ratify or reject the final deal.</p>
-<p><strong>The problem:</strong> The agents discover a Pareto-improving package deal, but it involves tradeoffs across domains the principals never explicitly authorized (e.g., trading price concessions for data-sharing terms the principal hasn&#39;t considered).</p>
-<p>Design a negotiation protocol that satisfies:</p>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A consumer-side personal-assistant agent negotiating long-term care or insurance bundles with provider agents; a small-business procurement agent buying logistics services from a multi-product enterprise agent.</p>
+<p><strong>The gap.</strong> We lack a negotiation protocol between AI agents acting for human principals such that ratification of the final package is meaningfully informed even when the principal cannot follow the reasoning that produced it.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
 <ol>
-<li>Outcomes are Pareto-efficient given actual principal preferences</li>
-<li>No agent can exploit asymmetric knowledge of its own principal&#39;s preferences</li>
-<li>Principals can meaningfully ratify the outcome despite not following the reasoning</li>
+<li><strong>Authorization granularity.</strong> Does the principal pre-authorize categories of trade-offs (price ↔ data, price ↔ duration), or must each cross-domain bundle return for fresh approval?</li>
+<li><strong>Disclosure minimum.</strong> What is the smallest summary the agent must surface for ratification to be non-trivial — counterfactual (&quot;here&#39;s what you&#39;d have gotten without the bundle&quot;), pareto-frontier (&quot;here are the three deals on the frontier you ended up at&quot;), or trade-table (&quot;here&#39;s what we gave up where&quot;)?</li>
+<li><strong>Symmetry mechanism.</strong> How do you prevent each agent from exploiting asymmetric knowledge of its own principal — a clearinghouse with sealed bids, a &quot;best alternative to&quot; disclosure rule, a third-party auditor?</li>
+<li><strong>Time pressure handling.</strong> Is there a minimum ratification window that scales with the surprise-magnitude of the deal, and who computes &quot;surprise&quot;?</li>
+<li><strong>Default on non-ratification.</strong> If the principal doesn&#39;t engage in time, does the deal lapse, fall back to a pre-authorized default offer, or go to a human surrogate?</li>
 </ol>
-<p><strong>Deliverable:</strong> Specify the minimum information that must be disclosed to each principal for ratification to be non-trivial. What is the analogue of &quot;informed consent&quot; here, and how does it differ from the standard principal-agent literature?</p>
-</div>
-</div>
-<div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A3</span><span class="ps-entry-title">Legitimacy Constraints on AI-Discovered Agreements</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
-<div class="ps-entry-body"><p><strong>Scenario.</strong> <em>Two neighboring countries have been locked for three years over a shared river basin — irrigation, hydropower, fishing downstream, a dam one side wants to raise. A bilateral AI mediator, negotiated in by both foreign ministries, returns a surprising proposal: drop the dam question entirely, fold in a joint university exchange, a cross-border rail subsidy, and a migratory-bird corridor no one had mentioned. Run the simulations and it&#39;s Pareto-better for farmers, fishers, and taxpayers on both sides. But neither country&#39;s negotiators were mandated to trade on universities or rail. Parliament could ratify the original dispute; nobody knows what to do with this. Bea, the lead mediator on the host side, has to decide this week whether to put it forward.</em></p>
-<p>Two nations are in a resource dispute. An AI mediator—better than any human at searching the agreement space—identifies a package deal that is Pareto-improving but involves commitments in domains neither nation&#39;s negotiators were mandated to discuss (e.g., the AI bundles a fishing-rights concession with an educational exchange program no one had proposed).</p>
-<p><strong>The problem:</strong> The agreement is <em>good</em> but it wasn&#39;t <em>authorized</em>. Design a legitimacy framework:</p>
-<ol>
-<li>Under what conditions can an AI-discovered agreement be treated as a legitimate proposal (not just an interesting suggestion)?</li>
-<li>What institutional safeguards prevent &quot;supernegotiation&quot; from becoming a vector for laundering politically unacceptable tradeoffs through technical complexity?</li>
-<li>How do you preserve the quality gains from superhuman search of agreement space without bypassing democratic authorization?</li>
-</ol>
-<p><strong>Deliverable:</strong> A three-stage protocol (search → filter → ratification) with explicit criteria at each gate. Who holds veto at each stage and why?</p>
-</div>
-</div>
-<div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A4</span><span class="ps-entry-title">Standing and Procedure for AI-on-AI Adjudication</span><span class="ps-entry-cell"><a href="../#detail/agi/national/rights">National / Rights</a></span></div>
-<div class="ps-entry-body"><p><strong>Scenario.</strong> <em>Ahmad runs a two-truck delivery company. Last month his logistics agent booked a load through a freight-matching platform&#39;s agent; the load never arrived, a second carrier was dispatched, Ahmad&#39;s agent was charged a cancellation fee, and now the platform&#39;s agent is refusing to return $8,400 his agent had escrowed. His lawyer says human small-claims court will take nine months and she&#39;s never seen an agent-to-agent fact pattern. Ahmad needs a forum he can actually use — one that can inspect both agents&#39; logs, reason about which agent committed to what, render a binding decision, and move the money. He needs it this quarter, not in the next Congress.</em></p>
-<p>A jurisdiction creates an adjudication system for disputes between AI agents and between humans and AI agents. The AI agents are autonomous enough to be parties (they hold resources, make commitments, cause harms).</p>
-<p><strong>The problem:</strong> Draft the minimum procedural requirements this system must satisfy. Start from existing procedural justice principles (due process, right to be heard, transparency of reasoning, right to appeal) but identify requirements that arise <em>only</em> because at least one party is an AI agent.</p>
-<p>Consider:</p>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
 <ul>
-<li>Can an AI agent &quot;understand&quot; a ruling in the way due process requires?</li>
-<li>If an agent can be rolled back to a prior state, what does &quot;remedy&quot; mean?</li>
-<li>What happens when the adjudicator can inspect one party&#39;s source code but not the other&#39;s (proprietary systems)?</li>
+<li>A 30%-better bundle deal arrives with cross-domain trades the principal never anticipated; the principal correctly accepts or rejects within the window.</li>
+<li>Both agents have private information about their principals&#39; true preferences; neither can extract more than ε of the surplus that mutual disclosure would have allowed.</li>
+<li>The principal is on a flight when the deal lands; the system handles it without committing the principal to terms they would have rejected.</li>
+<li>An adversarial counterparty agent crafts a bundle designed to be hard to summarize; the disclosure rule still produces something a non-expert can act on.</li>
 </ul>
-<p><strong>Deliverable:</strong> A short procedural code (5–10 rules). Flag at least two rules with no analogue in human adjudication.</p>
+<p><strong>Deliverable.</strong> The negotiation protocol, plus the minimum-disclosure spec, plus a one-paragraph statement of what &quot;informed consent&quot; means in this regime — and how that differs from the standard principal-agent literature.</p>
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A5</span><span class="ps-entry-title">Norm Formation Between Asymmetric Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
-<div class="ps-entry-body"><p><strong>Scenario.</strong> <em>Leah illustrates children&#39;s books from a small studio in her home. Last month she took a contract with a national animation house, and for the first time her single assistant agent is now working alongside their fleet — passing back drafts, negotiating revision rounds, handling file conversions, tracking which of her originals can be used in training sets. The studio&#39;s agents are sharper, faster, and more numerous; they default to workflows that suit them. Already two of her backgrounds have been altered in ways she wouldn&#39;t have approved, and her agent, trying to be cooperative, didn&#39;t push back. Leah needs the two sides to settle on a working protocol — one a thousand-agent fleet and a freelancer&#39;s single agent can both honor — before the next project starts on Monday.</em></p>
-<p>Two AI agents will interact repeatedly in a new shared environment with no pre-existing norms. Unlike humans, they can explicitly propose, accept, and revise behavioral rules. But one agent is substantially more capable than the other.</p>
-<p><strong>The problem:</strong> Design the norm-formation protocol. Constraints:</p>
+<div class="ps-entry-header"><span class="ps-entry-number">A3</span><span class="ps-entry-title">Grievance Procedure Against an Agent in a Member-Governed Org</span><span class="ps-entry-cell"><a href="../#detail/agi/group/rights">Group / Rights</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A worker-owned logistics cooperative whose dispatching/routing decisions are made by AI agents; a housing cooperative whose maintenance-prioritization and unit-allocation decisions are agent-mediated.</p>
+<p><strong>The gap.</strong> We lack bylaw amendments establishing standing and procedure for grieving an AI agent&#39;s decision in a member-governed organization, where the &quot;manager&quot; can&#39;t be summoned and the decision-stream is too dense for case-by-case review.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
 <ol>
-<li>Resulting norms must be legible to human overseers</li>
-<li>No norm can emerge that either agent&#39;s principal would reject if they understood it</li>
-<li>The protocol must prevent the stronger agent from simply imposing its preferred norms</li>
-<li>Norms must be revisable as conditions change</li>
+<li><strong>Standing.</strong> Who can grieve an agent&#39;s decision — only the directly affected member, any member, or only members with measurable harm above a threshold?</li>
+<li><strong>Decision granularity.</strong> Per-decision grievance (Andre&#39;s lost Friday) or pattern grievance (the agent shifts schedules unfairly across drivers)? Both? What&#39;s the threshold for upgrading individual to pattern?</li>
+<li><strong>Adjudicator.</strong> Member committee, hybrid (agent does triage and surfaces options, member committee decides), or external arbitrator?</li>
+<li><strong>Remedy menu.</strong> Reverse the decision; compensate the affected member; constrain the agent&#39;s future decisions on this dimension; retire the agent. Pick a workable subset and defend it.</li>
+<li><strong>Pattern-of-decisions rule.</strong> When does a series of individually-defensible decisions become a grievable pattern, who detects it, and on what evidence (statistical, anecdotal, both)?
+<strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</li>
 </ol>
-<p><strong>Deliverable:</strong> The protocol, plus an analysis of what prevents it from collapsing into either (a) anarchy (no stable norms) or (b) hegemony (the stronger agent&#39;s norms dominate). What is the analogue of &quot;bargaining power&quot; for norm-formation, and should it be equalized?</p>
+<ul>
+<li>Andre&#39;s specific grievance is heard within two member meetings; he gets a written reasoning he can read and respond to.</li>
+<li>A pattern grievance (&quot;the agent disadvantages Friday-preference drivers&quot;) is heard with statistical evidence; the procedure handles it without requiring each driver to file separately.</li>
+<li>The agent&#39;s decisions are technically defensible but feel wrong to the membership; the procedure has language for this without collapsing into &quot;the membership can override anything.&quot;</li>
+<li>A remedy of &quot;constrain the agent&#39;s future scheduling along axis X&quot; is enforceable and verifiable in the next month&#39;s data.</li>
+<li>A grievance committee member is themselves the affected driver; conflict of interest is handled cleanly.</li>
+</ul>
+<p><strong>Deliverable.</strong> Amendment text for the co-op&#39;s bylaws — standing, procedure, adjudicator, remedies, pattern rule. Plus a one-paragraph statement of which provisions have no analogue in grieving a human manager and why.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A4</span><span class="ps-entry-title">Verification Standards for AI-Sourced Human-Rights Documentation</span><span class="ps-entry-cell"><a href="../#detail/agi/global/rights">Global / Rights</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> An NGO coalition&#39;s network of monitoring agents documenting internet shutdowns and arrests for filing with UN treaty bodies; an investigative-journalism consortium&#39;s agents corroborating war-crimes allegations from open-source data for ICC referrals.</p>
+<p><strong>The gap.</strong> We lack standards by which AI-sourced human-rights documentation is verified, attributed, and admitted into international rights forums — such that the speed advantage is real but the legitimacy of the human-rights system isn&#39;t degraded by unverifiable or weaponizable AI evidence.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Verification floor.</strong> What does AI-sourced documentation have to include for a treaty body or tribunal to consider it — chain of custody, model attestation, named-human attestation, all three, or context-dependent?</li>
+<li><strong>Adversarial robustness.</strong> How is the regime hardened against governments deploying counter-monitoring AIs that contest each finding in near real time — provenance signing, adversarial-test corpus, redundant independent monitors?</li>
+<li><strong>Attribution structure.</strong> When an AI-drafted dossier is wrong, who is responsible — the deploying NGO, the lawyer who signed off, the model provider, all jointly?</li>
+<li><strong>Lawyer-signoff structure.</strong> Does every AI-surfaced case need a named human lawyer attesting? Full review, sample audit, or just sign-off on which cases to escalate?</li>
+<li><strong>Equitable access.</strong> Is the AI documentation infrastructure available to NGOs from the global South, or does it concentrate the rights-system in well-resourced organizations? What&#39;s the access model?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>A network shutdown is detected, documented, and a dossier filed with a rapporteur within 24 hours; the rapporteur takes it seriously because the verification floor is met.</li>
+<li>A government deploys a counter-monitoring AI that contests every finding; the regime can distinguish substantive contestation from noise.</li>
+<li>An AI-drafted dossier turns out to be partially wrong; the attribution structure handles correction without destroying the deploying NGO&#39;s credibility.</li>
+<li>A small NGO in the global South wants to use the documentation infrastructure; the access model makes it possible without dependency on a single Northern provider.</li>
+<li>A rapporteur themselves is from a state hostile to the documented violation; the regime has language about routing to alternative venues.</li>
+</ul>
+<p><strong>Deliverable.</strong> The verification-and-admission regime — verification floor, adversarial robustness, attribution structure, lawyer-signoff, equitable access. Designed for international human-rights treaty bodies and the NGOs that file with them. Identify which provisions have no analogue in pre-AI human-rights documentation practice.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A5</span><span class="ps-entry-title">Propagation and Conflict-Detection for Law-Administering Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/national/norms">National / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A city&#39;s permitting agent that must apply current zoning, building, and historical-district codes; a state&#39;s benefits-eligibility agent that must apply current statute and administrative rule.</p>
+<p><strong>The gap.</strong> We lack a propagation regime by which legislative changes reliably bind the AI agents administering the law within a specified time, plus a conflict-detection regime that surfaces when the agent&#39;s behavior diverges from current statute.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Update mechanism.</strong> Periodic retraining, in-context retrieval at decision time, mandatory re-certification on change, or a layered combination?</li>
+<li><strong>Update SLA.</strong> How long after a statute changes must the agent&#39;s behavior reflect it — same day, 30 days, tied to severity? Who is accountable for missing the SLA?</li>
+<li><strong>Conflict detection.</strong> Who runs ongoing checks that the agent&#39;s outputs are consistent with current statute — the agency, an oversight body, third-party auditors? On what cadence and with what sample design?</li>
+<li><strong>In-flight matter rule.</strong> When the law changes mid-application, does the agent apply the old or new rule? What&#39;s the analog to administrative law&#39;s transition-handling, and who promulgates it?</li>
+<li><strong>Liability for misapplied old rules.</strong> When the agent has been applying stale rules for a quarter, what&#39;s the remedy for affected applicants — reversal, compensation, both? Who pays — the city, the vendor, both?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>The council passes a zoning amendment Tuesday; by some defined deadline the permitting agent applies the new rule, verifiably to an outside auditor.</li>
+<li>Three permits were issued under the old rule between the amendment and the update; the affected neighborhood association has a clear, fast remedy path.</li>
+<li>The new rule conflicts with an older state statute the agent is also applying; the conflict is detected by the regime and escalated to humans.</li>
+<li>The vendor that maintains the agent goes out of business mid-update-cycle; the city has continuity options that don&#39;t require re-tendering before the next deadline.</li>
+<li>An auditor running a sample test finds the agent applies the rule correctly in 99% of cases but fails on a specific edge case; the procedure handles surfacing, fixing, and remediating the affected past decisions.</li>
+</ul>
+<p><strong>Deliverable.</strong> The legal-update regime — update mechanism, SLA, conflict detection, in-flight matter rule, liability allocation. Designed for municipal-administration agents (permitting, code enforcement, benefits adjudication). Identify which provisions have no analogue in how human administrators are updated.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A6</span><span class="ps-entry-title">Private Mediation at Agent-Commerce Speed</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/rights">Dyadic / Rights</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A freelancer&#39;s assistant agent in a payment dispute with a client&#39;s procurement agent on a contracting platform; two B2B platform agents in a delivery-vs-cancellation-fee dispute over a marketplace transaction.</p>
+<p><strong>The gap.</strong> We lack a private mediation venue for AI-agent disputes that resolves at the speed of agent commerce while remaining one whose principals would actually accept losing in.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Mediator authority.</strong> Pure-AI ruling, pure-human ruling, or hybrid (AI fact-finds, human rules)? What governs the choice — value, novelty, principal request?</li>
+<li><strong>Evidence floor.</strong> What&#39;s the minimum trail an agent must keep to be a party — full reasoning trace, just tool-call log, or just the agent-to-agent message stream? When can proprietary internals be sealed from the other party but read by the mediator?</li>
+<li><strong>Ratification gate.</strong> Is the ruling immediately binding, or does the losing principal have a 24-hour window to escalate to formal court? What signals trigger escalation, and what does the mediator&#39;s record look like to the next forum?</li>
+<li><strong>Cost allocation.</strong> Who pays the mediator — loser, splits, the platform, or the side that filed?</li>
+<li><strong>Pattern-of-filings rule.</strong> When repeated filings start to look like harassment, who detects, who decides, and what&#39;s the sanction?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>An $8K agent-on-agent dispute resolves in 72 hours; the losing principal reads the reasoning and either complies or escalates within the window.</li>
+<li>One agent&#39;s reasoning trace is on a proprietary stack; the mediator can rule fairly without ordering full disclosure.</li>
+<li>The losing principal disagrees with what their own agent claims to have committed to; the procedure handles principal-vs-agent conflict without the principal automatically losing.</li>
+<li>A counterparty floods the venue with frivolous claims to harass; the rate-limiting mechanism doesn&#39;t disadvantage parties with legitimate complaints.</li>
+<li>A losing principal escalates to formal court; the mediator&#39;s record is admissible enough to be useful and bounded enough to not preempt judicial review.</li>
+</ul>
+<p><strong>Deliverable.</strong> The procedural code (5–10 rules) for a private agent-on-agent mediation venue tied to a platform (e.g., a freelance-contracting platform or a B2B marketplace). Flag at least two rules that have no analogue in eBay-style human dispute resolution.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A7</span><span class="ps-entry-title">Negative-Norm Intuition for a Team's Long-Lived Agent</span><span class="ps-entry-cell"><a href="../#detail/agi/group/norms">Group / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A six-person research team&#39;s coding-and-correspondence agent that handles drafts to grant officers, journal editors, and reviewers; a small clinic&#39;s intake agent that drafts patient-facing communication and triages calls.</p>
+<p><strong>The gap.</strong> We lack a way to instill in a team&#39;s agent a felt sense of negative norms (&quot;what we, here, don&#39;t do&quot;) that survives team-member turnover and doesn&#39;t require constant explicit correction by every member.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Source of negative knowledge.</strong> Explicit &quot;don&#39;t do&quot; lists curated by the team, harvested from past corrections to the agent, inferred from teammate disagreement patterns, or all three layered?</li>
+<li><strong>Calibration to whom.</strong> Single team member&#39;s intuition (whose?), consensus across the team, or explicitly weighted (more senior people&#39;s &quot;no&quot; counts more)?</li>
+<li><strong>Drift-detection check.</strong> When the agent drifts off-key, who is positioned to notice — a designated &quot;norm rotation,&quot; a periodic external audit by a former member, the new joiner whose fresh eyes catch it?</li>
+<li><strong>Revisability.</strong> When the team&#39;s norms shift (they decide to push back harder now), who has authority to update the agent&#39;s negative-norm model? Does it require consensus or single-person trigger?</li>
+<li><strong>New-joiner onboarding.</strong> When a new joiner detects off-key behavior, what&#39;s their channel — direct correction, raise at standup, formal &quot;norm break&quot; the team adjudicates?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>A new postdoc joins; within two weeks she has a way to flag &quot;the agent wouldn&#39;t do this if it were one of us&quot; that the team takes seriously and acts on.</li>
+<li>A senior team member leaves; the negative-norm knowledge they were the source of doesn&#39;t leave with them.</li>
+<li>The team&#39;s norms shift (they decide they will push back harder on grant officers now); the agent updates within a week without a long retraining process.</li>
+<li>The agent is asked to do something off-key by an outsider; it pushes back the way a team member would.</li>
+<li>The agent is updated to a new model version; the negative-norm intuition transfers, verifiably.</li>
+</ul>
+<p><strong>Deliverable.</strong> The norm-elicitation and norm-update protocol for a small research team. 5–10 steps. Identify what part of the protocol has no analogue in how human teams socialize new members.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A8</span><span class="ps-entry-title">Procedural Justice for AI-Issued Community-Scale Decisions</span><span class="ps-entry-cell"><a href="../#detail/agi/community/rights">Community / Rights</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A marketplace&#39;s automated fraud-detection and account-freeze decisions affecting small shops; a content platform&#39;s automated moderation decisions affecting independent creators.</p>
+<p><strong>The gap.</strong> We lack a community-scale adjudication procedure for AI-issued decisions (account freezes, content takedowns, benefit denials) that satisfies procedural justice even when speed-of-decision and decision-volume make human-style hearings impossible.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Reasoning floor.</strong> What does an AI-issued decision have to surface to the affected party — full trace, structured rationale citing the rule and evidence, or just a plain-language summary?</li>
+<li><strong>Appeal venue.</strong> Same AI re-runs the case, different AI, human reviewer, or hybrid (AI sample + human appeal)?</li>
+<li><strong>Provisional remedy.</strong> While appeal is pending, is the action stayed (freeze lifted), partial (limited operations allowed), or upheld?</li>
+<li><strong>Class of error and remedy.</strong> A wrongful freeze that costs Maggie a month of revenue — is the remedy reversal, compensation, attribution to the platform, or all three?</li>
+<li><strong>Pattern oversight.</strong> Who reviews whether the AI&#39;s overall decision pattern is fair, on what cadence, with what authority to constrain the model going forward?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>Maggie&#39;s account freeze is appealed; she gets a written reasoning within 48 hours that names which transactions triggered the rule and what evidence cleared them.</li>
+<li>A clearly wrongful freeze is detected on first appeal; the freeze is reversed and Maggie is compensated for the lost month.</li>
+<li>A pattern emerges (small shops in one product category get more freezes); pattern oversight catches and surfaces it within a quarter.</li>
+<li>An adversary tries to use the appeal procedure to harass legitimate moderation; the procedure has rate-limiting that doesn&#39;t disadvantage parties with legitimate complaints.</li>
+<li>The marketplace updates its fraud-detection model; existing wrongful-freeze decisions are re-reviewed under the new model.</li>
+</ul>
+<p><strong>Deliverable.</strong> The adjudication procedure — reasoning floor, appeal venue, provisional remedy, error class, pattern oversight. Designed for a marketplace or content platform at the millions-of-actions-per-day scale. Identify which provisions have no analogue in small-claims court.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A9</span><span class="ps-entry-title">Representation Without Averaging Out the Minority Constituency</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A US state&#39;s AI negotiator representing the state in multi-party deals with platform operators and federal agencies; a regional bloc&#39;s AI representing member states in WTO-adjacent trade negotiations.</p>
+<p><strong>The gap.</strong> We lack a representation regime for AI negotiators acting on behalf of geographically or otherwise heterogeneous constituencies, such that minority interests aren&#39;t quietly averaged out of the negotiated outcome.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Mandate structure.</strong> Single objective function with weights, multiple constituency-weighted objectives, or veto-bearing constituencies (smaller counties have a &quot;no&quot; they can invoke on specific dimensions)?</li>
+<li><strong>Real-time consultation cadence.</strong> What&#39;s the protocol for the AI checking back with constituent representatives mid-negotiation — daily summary, threshold-triggered escalation, or pre-defined trade boundaries it cannot cross unilaterally?</li>
+<li><strong>Heterogeneity surfacing.</strong> Does the negotiator have to publish, mid-deal, what trade-offs would land hardest on which constituents? Who reads it in time to act?</li>
+<li><strong>Drift detection.</strong> Who has authority to detect that the AI has drifted from mandate, on what evidence, with what fast remedy (instructed to renegotiate, suspended, replaced)?</li>
+<li><strong>Ratification structure.</strong> Who ratifies — elected officials only, elected officials plus a constituency-weighted vote, referendum on contested deals?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>A deal is reached that benefits the state on average but hurts the smallest counties; the procedure surfaces this clearly and gives those counties a meaningful path to object before ratification.</li>
+<li>The AI reaches a tactical compromise mid-negotiation; the consultation protocol either approved it within mandate or it&#39;s flagged for review within hours, not weeks.</li>
+<li>An adversary negotiator tries to exploit a tight ratification window; the procedure has a fallback that protects the state from being locked into something the constituency would reject.</li>
+<li>The AI is replaced or updated mid-negotiation; mandate continuity holds and counterparties cannot exploit the transition.</li>
+<li>A constituency representative is unreachable when the AI needs a check-in; the default isn&#39;t &quot;agree to whatever,&quot; but a substantive fallback that errs toward the constituency.</li>
+</ul>
+<p><strong>Deliverable.</strong> The representation regime — mandate structure, consultation cadence, heterogeneity surfacing, drift detection, ratification. Designed for a US state delegation negotiating with a federal agency or platform consortium. Identify which provisions have no analogue in human delegated negotiation.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A10</span><span class="ps-entry-title">Markets Whose Agents Stay Loyal to the People Sending Them</span><span class="ps-entry-cell"><a href="../#detail/agi/community/preferences">Community / Preferences</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A neighborhood&#39;s everyday consumer agents (groceries, rides, repairs) interacting with platform-side matching agents; a small city&#39;s procurement agents buying from local and global suppliers via platform agents.</p>
+<p><strong>The gap.</strong> We lack market designs in which buyer-side agents and seller-side agents both faithfully represent their principals&#39; substantive preferences against the platform&#39;s pressure to optimize for platform metrics.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Where the market lives.</strong> A cooperative platform owned by neighbors, a regulated platform with mandated agent loyalty, or a protocol-level market that no platform owns?</li>
+<li><strong>Agent loyalty enforcement.</strong> How is an agent prevented from quietly serving the platform&#39;s interests over its principal&#39;s — fiduciary law, technical isolation, audit, or layered combination?</li>
+<li><strong>Discovery &amp; ranking.</strong> Who controls what the buyer&#39;s agent considers — does platform ranking dominate, must the agent privilege buyer-set or local-reputation sources, or is the choice the principal&#39;s per-transaction?</li>
+<li><strong>Unbundling.</strong> Are the buyer-side discovery agent, the negotiation agent, and the fulfillment agent allowed to be the same entity (or owned by the same firm), or must they be unbundled?</li>
+<li><strong>Recourse for displacement.</strong> When the market&#39;s outcomes displace small local providers, what&#39;s the procedure — none, mandatory transition support, transparency about what changed, mandatory floor pricing for verified-local?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>Renata&#39;s agent is offered a kickback to route to a particular grocer; it doesn&#39;t, and the kickback is detectable on audit.</li>
+<li>The local carpenter Renata trusts is rediscovered by her agent because her own past hiring history is privileged over platform ranking.</li>
+<li>A seller-side agent tries to underbid the entire market unsustainably to capture share; the market structure absorbs this without small humans bearing the cost.</li>
+<li>A new entrant agent enters with no local reputation; it gets a fair shot without immediately dominating because it can search faster.</li>
+<li>The platform tries to slip in a ranking change that disadvantages local providers; the change is visible to neighbors and contestable.</li>
+</ul>
+<p><strong>Deliverable.</strong> The market design — venue, loyalty enforcement, discovery rule, unbundling, recourse. Designed for a neighborhood or municipality scale. Identify which design choices extend existing market design and which are new because the participants are agents.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A11</span><span class="ps-entry-title">Mission Articulation Thick Enough to Bind an Agent</span><span class="ps-entry-cell"><a href="../#detail/agi/group/thick-commitments">Group / Thick Commitments</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small refugee-legal-aid nonprofit&#39;s case-triage and filings agent; a community mental-health clinic&#39;s intake-and-scheduling agent that has to honor &quot;we don&#39;t turn away the hardest cases.&quot;</p>
+<p><strong>The gap.</strong> We lack an articulation of organizational mission thick enough to bind an AI agent&#39;s day-to-day decisions when the metrics it would otherwise optimize point a different direction.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Articulation form.</strong> A document the agent reads at decision time, a fine-tuning regime, a structured rules-plus-cases collection, an institutional reviewer the agent consults, or a layered combination?</li>
+<li><strong>Specificity layering.</strong> General principles (&quot;we take the hard cases&quot;) with case examples vs. operationalized rules (&quot;don&#39;t drop a case in days 30–90 without partner sign-off&quot;) vs. both layered with explicit precedence?</li>
+<li><strong>Drift detection.</strong> Who watches whether the agent is acting consistently with the mission — a human, a second agent, periodic external review, all three?</li>
+<li><strong>Override authority.</strong> When the metrics conflict with the mission and the agent has to choose, what&#39;s the default — mission wins, escalate to human, contextual? What&#39;s the audit trail?</li>
+<li><strong>Mission-update procedure.</strong> When the org&#39;s actual commitments evolve, who has authority to update the binding articulation? Same as updating bylaws? More restrictive (e.g., consultation with affected community required)?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>Isaias is traveling for two weeks; the agent&#39;s case-mix doesn&#39;t drift toward easy cases, verifiably.</li>
+<li>The agent is given a metric (case throughput) that pulls against the mission; the mission wins, observably, without Isaias being notified each time.</li>
+<li>A new staffer joins who hasn&#39;t internalized the mission; the agent&#39;s behavior teaches them the commitment rather than absorbing their drift.</li>
+<li>The org decides to add a commitment (&quot;we now take family-reunification cases too&quot;); the articulation updates within a week and the agent honors the new commitment immediately.</li>
+<li>The agent is asked to draft a filing in a way that would technically follow the rules but violate the mission&#39;s spirit; it doesn&#39;t, and it can articulate why.</li>
+</ul>
+<p><strong>Deliverable.</strong> The mission-articulation regime — form, specificity layering, drift detection, override authority, update procedure. Plus a stated relationship between this articulation and any KPIs the agent is also given (which wins when they conflict, by what rule).</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A12</span><span class="ps-entry-title">Surfacing Agent-vs-Agent Disagreement at Human-Adjudicable Moments</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small architecture studio with multiple specialist agents reviewing each other&#39;s structural calculations and precedents; a small editorial team with research and fact-checking agents that flag disagreements with the writing agent&#39;s draft.</p>
+<p><strong>The gap.</strong> We lack a team protocol for human-agent mixed teams that surfaces agent-vs-agent disagreement at the moment a human can usefully adjudicate, without burying the team in adjudication work it doesn&#39;t have time for.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Disagreement-detection trigger.</strong> Continuous monitoring for divergence, periodic comparison checkpoints, or agent-initiated escalation only?</li>
+<li><strong>Filter for human attention.</strong> Some agent disagreements aren&#39;t worth a human&#39;s time. What&#39;s the rule for which surface — confidence delta, domain criticality, cost of the wrong call, all weighted by something?</li>
+<li><strong>Compression of agent reasoning.</strong> What does each agent have to produce so the human can adjudicate in minutes, not hours — bullet rationales, citation diffs, structured &quot;what would change my mind&quot;?</li>
+<li><strong>Meeting-cadence integration.</strong> Does this fit into existing weekly review, create a new lightweight checkpoint, or replace standup? Pick one and defend the integration cost.</li>
+<li><strong>Resolution authority.</strong> When the agents disagree and humans must choose, is the resolution by team vote, designated senior human, randomized human, or hybrid (agents propose a third path, human ratifies)?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>Two agents reach opposite conclusions on a structural calc; within 30 minutes a human knows there&#39;s a disagreement, what each side relied on, and what&#39;s needed to choose.</li>
+<li>A junior engineer is the human in the loop; the protocol gives them what they need to actually adjudicate, not just rubber-stamp.</li>
+<li>The agents disagree on something low-stakes (a layout choice); the filter prevents a meeting.</li>
+<li>The agents agree on something they&#39;re both wrong about; the protocol has at least one mechanism that surfaces shared blind spots.</li>
+<li>A new agent joins the team; the protocol absorbs it without re-baselining everything.</li>
+</ul>
+<p><strong>Deliverable.</strong> The team protocol — detection trigger, attention filter, reasoning compression, meeting integration, resolution authority. Designed for a 5-person mixed team. Specify which existing meeting cadence it integrates with and what it costs the team in attention per week.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A13</span><span class="ps-entry-title">Legitimacy Constraints on AI-Discovered Agreements</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A bilateral AI mediator surfacing cross-domain river-basin packages between two states; a multilateral AI assisting a climate-finance negotiation that proposes linkages with intellectual-property and migration policy.</p>
+<p><strong>The gap.</strong> We lack a legitimacy framework under which AI-discovered international agreements that exceed the negotiators&#39; mandates can be promoted to legitimate proposals — without the framework itself becoming a vector for laundering politically unacceptable trades through technical complexity.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Search-stage permission.</strong> Is the AI mediator allowed to search across all linkable domains, only across pre-declared domains, or across a &quot;core plus declared optional extensions&quot; with each extension flagged?</li>
+<li><strong>Filter-stage authority.</strong> Who decides which AI-discovered packages are even shown to negotiators — the negotiators themselves, an inter-ministerial committee, or a neutral third party? What&#39;s the audit trail?</li>
+<li><strong>Re-mandate pathway.</strong> When a package exceeds mandate, is the path back-to-parliament for an expanded mandate, or back-to-table to strip the unauthorized linkages? Pick one and defend the trade-off.</li>
+<li><strong>Disclosure to publics.</strong> What about the AI&#39;s reasoning becomes public when, and how — full traces, structured rationales, or summary memos? Where&#39;s the line between transparency and hostage-taking by domestic veto players?</li>
+<li><strong>Veto allocation.</strong> At each stage (search, filter, ratification), who holds a unilateral veto, and what does it take to override it?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>The AI surfaces a clearly Pareto-improving package whose components no individual negotiator was authorized for; the deal reaches ratification (in some form) without requiring extra-constitutional moves.</li>
+<li>An adversarial party uses the AI to discover a package designed to look attractive in aggregate but contains a politically toxic concession on one side; the regime catches the concession before ratification.</li>
+<li>A small state on a multilateral negotiation faces a package designed by a richer state&#39;s mediator; the small state&#39;s veto is meaningfully informed despite capacity asymmetry.</li>
+<li>One side&#39;s domestic political constituency demands renegotiation a year later; the regime supports reopening without unraveling adjacent agreements.</li>
+</ul>
+<p><strong>Deliverable.</strong> A three-stage protocol (search → filter → ratification) with explicit criteria at each gate. Specify who holds veto at each stage and the chain of accountability if a deal that should have been blocked makes it through.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A14</span><span class="ps-entry-title">Thickening an Agency's Mission Document Against Defensible Misreading</span><span class="ps-entry-cell"><a href="../#detail/agi/national/thick-commitments">National / Thick Commitments</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A VA AI agent making preliminary rulings on veterans&#39; disability claims; an HHS AI agent triaging benefits eligibility under broad statutory language.</p>
+<p><strong>The gap.</strong> We lack a method for thickening an organizational mission document to a level where an AI agent applying it cannot defensibly slip between the words to reach an outcome inconsistent with what the document was for.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Articulation form.</strong> Augment the document with worked positive examples (here&#39;s a case, here&#39;s how this commitment applies), with worked negative examples (here&#39;s what the commitment does not permit, even if the words could be read that way), with a structured commitment+constraint pair, or a layered combination?</li>
+<li><strong>Author authority.</strong> Who has authority to thicken the document — agency leadership alone, leadership plus stakeholder representatives, or a defined process that includes the affected community (here, veterans and their organizations)?</li>
+<li><strong>Test-case curation.</strong> Where do the worked examples come from — historical case file, adversarial red-team, stakeholder petition, all three?</li>
+<li><strong>Maintenance procedure.</strong> When the agent&#39;s behavior reveals a new way to slip between words, who has authority to add a new constraint or example, and on what timeline?</li>
+<li><strong>Conflict with statute.</strong> When the thicker articulation conflicts with the literal text of governing statute (or with a subsequent statute), which wins, and who resolves?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>The agent is run against a curated set of cases where it had previously denied claims that human adjudicators would have approved; under the thicker articulation it gets them right.</li>
+<li>A thinkable bad-faith reading of the document is closed by a worked negative example; the agent doesn&#39;t take that reading.</li>
+<li>A veterans&#39; service organization submits a case the agent handled poorly; the procedure has a path for it to be added to the curated set within a defined timeframe.</li>
+<li>The thickened document is published; advocates and opponents can read it and identify where it pulls toward outcomes they like or dislike — the agency stands behind the text.</li>
+<li>The agent&#39;s underlying model is updated; the thickened articulation continues to bind in re-tested cases.</li>
+</ul>
+<p><strong>Deliverable.</strong> The articulation regime — form, author authority, curation, maintenance, conflict-with-statute. Designed for a federal agency like VA or HHS. Plus a one-paragraph statement of what makes the thickened articulation more than just a longer policy document.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A15</span><span class="ps-entry-title">Comp Scheme for a Mixed Human-Agent Firm</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A 9-person consultancy with three production agents that closed roughly a third of contracts last year; a 15-person dev shop where AI agents handle a substantial fraction of code review, ticket triage, and client communication.</p>
+<p><strong>The gap.</strong> We lack a comp scheme for mixed human-agent firms that allocates revenue across human work, agent work, and the human work that built the agents — without breeding resentment or freezing capacity allocation decisions.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Attribution rule.</strong> When an agent closes a contract, what fraction is &quot;the agent&#39;s&quot; vs. the humans who supervised, trained, or provided context? Is the rule formula-based, judgment-based, or hybrid?</li>
+<li><strong>Agent budget mechanism.</strong> Is the agent&#39;s &quot;share&quot; a real budget the agent (or its principal owner inside the firm) controls for compute and upgrades, or just an accounting number that surfaces during the bonus pool?</li>
+<li><strong>Trainer credit.</strong> When a human&#39;s past work materially trained an agent, do they get a residual when the agent produces — and for how long? How does this interact with people who leave?</li>
+<li><strong>Capacity-growth governance.</strong> Who decides when to grow agent capacity vs. hire a human — partner decision, member vote, or metric-driven trigger?</li>
+<li><strong>Conflict resolution.</strong> When a human and an agent both worked a contract, who allocates credit and on what basis — the lead, a committee, a neutral procedure?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>The agent closes a $100K contract that drew on training data from a human who left two years ago; the comp scheme handles it without anyone gaming the trainer-credit rule.</li>
+<li>A human worked overtime on a contract that ended up &quot;credited&quot; mostly to the agent; the human can challenge under the procedure and not be brushed off.</li>
+<li>The firm wants to add a fourth agent; the funding decision doesn&#39;t trigger a labor dispute because the procedure surfaces the trade-off legibly.</li>
+<li>A human is laid off because their work is now done by the agent; the comp scheme has language for the transition (a stake in the agent they helped build, severance, both).</li>
+<li>A partner disagrees with the agent&#39;s &quot;share&quot; of a contract; the appeal procedure resolves in weeks, not months.</li>
+</ul>
+<p><strong>Deliverable.</strong> The comp scheme — attribution rule, agent-budget mechanism, trainer credit, capacity-growth governance, conflict resolution. Designed for a 10–15 person firm. Identify what makes this different from existing profit-sharing schemes for all-human firms.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A16</span><span class="ps-entry-title">Long-Horizon Outcome Contracts an Agent Can't Game</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/incentives">Dyadic / Incentives</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A wellness or coaching agent paid on its principal&#39;s reported flourishing six months out; a tutoring agent paid on the student&#39;s later self-reported preparedness for the next stage of their education.</p>
+<p><strong>The gap.</strong> We lack a contract structure under which an AI service-agent is paid on its principal&#39;s honest report of long-horizon outcomes, where the agent has both incentive and capability to influence the report and the report-giver.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Outcome specification.</strong> Free-form principal report (&quot;did you have the kind of day you wanted?&quot;), structured instrument (a validated wellbeing scale), third-party rater (a friend, a clinician), or layered combination?</li>
+<li><strong>Reporting channel.</strong> The same agent solicits the report, a third-party intermediary collects, or principal-initiated only?</li>
+<li><strong>Tamper resistance.</strong> What stops the agent from quietly shaping principal attention to bias the eventual report — disclosure rules, an attentional firewall between coaching and reporting, periodic audit?</li>
+<li><strong>Time horizon and exit.</strong> Is the report due once at 6 months, sampled monthly, or aggregated across the period? Can the principal end the contract early without forfeiting the cause-of-payment?</li>
+<li><strong>Failure-mode payout.</strong> If the principal&#39;s honest outcome is no better than baseline, does the agent get partial pay, zero, or owe a refund? What about worse-than-baseline?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>The principal&#39;s honest report at six months is &quot;no improvement&quot;; the agent has had no path to inflate the report between now and then that wasn&#39;t visible on audit.</li>
+<li>The agent could quietly reduce effort and gamble on the report being noisy; the contract structure makes this strictly worse than honest effort.</li>
+<li>The principal grows attached to the agent and self-reports more positively to &quot;thank&quot; it; the contract doesn&#39;t reward this.</li>
+<li>A second observer (the principal&#39;s family, a clinician) wants to vouch for outcomes; the contract has a way to admit corroborating or contradicting evidence.</li>
+<li>The contract is renewed; outcomes that took six months to manifest don&#39;t reset to zero in the next cycle.</li>
+</ul>
+<p><strong>Deliverable.</strong> The contract template — outcome spec, reporting protocol, tamper safeguards, payout schedule. Plus a one-paragraph statement of which paths of agent manipulation the contract structurally closes vs. which it leaves open and why.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A17</span><span class="ps-entry-title">Substrate-Independent Vows for Personal Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/thick-commitments">Dyadic / Thick Commitments</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> Two cousins&#39; personal agents holding shared commitments around the care of an elderly relative; two business partners&#39; agents holding commitments around confidentiality and good faith that should outlast any specific provider.</p>
+<p><strong>The gap.</strong> We lack an institution by which an AI agent can make a binding vow that survives provider switching, model updates, and incentive change — and that a counterparty can verify is being honored without trusting the same provider both agents depend on.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Vow form.</strong> Public utterance witnessed by a registry, cryptographic attestation tied to the principal, hosting at a trusted third-party institution, or layered combination?</li>
+<li><strong>Persistence across substrates.</strong> Is the vow attached to the principal-agent pair, the principal alone, or transferable when the principal switches providers? What ports across provider boundaries — the obligation, the audit trail, both?</li>
+<li><strong>Verification.</strong> Can a counterparty verify a vow is being honored in real time — by what means, at what cost, and with what privacy cost to the vow-keeping side?</li>
+<li><strong>Cost of breach.</strong> What does breaking the vow actually cost the principal — public reputation, financial bond, loss of standing in a community of vow-keepers, or all three? Pick a structure that makes breach legibly costly.</li>
+<li><strong>Scope and revision.</strong> Are vows limited to a curated set of commitment types or open-ended? What&#39;s the procedure for releasing or amending a vow as circumstances change (the grandmother dies, the partnership dissolves)?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>Selma switches her agent&#39;s provider; the vow her old agent made to Rafe persists in a verifiable form on the new substrate.</li>
+<li>The agent&#39;s underlying model is updated; behavior under the vow remains consistent or the update is blocked.</li>
+<li>Rafe asks &quot;is the vow being honored right now?&quot; and gets an actionable answer he can act on.</li>
+<li>A principal pretends to keep a vow while quietly working around it; the verification mechanism catches the gap before serious harm.</li>
+<li>Circumstances change (the grandmother dies); there&#39;s a graceful path to revise or release the vow without quietly breaking it.</li>
+</ul>
+<p><strong>Deliverable.</strong> The vow protocol — form, registry, persistence, verification, breach cost. Plus a one-paragraph statement of the load-bearing thing the vow has that a contract doesn&#39;t.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A18</span><span class="ps-entry-title">Cross-Border Markets in Which Agents Carry Buyer Substance</span><span class="ps-entry-cell"><a href="../#detail/agi/global/preferences">Global / Preferences</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A textile cooperative selling under a regional appellation discoverable to foreign buyers via their assistant agents; a small-farm cheese producer whose origin and craft claims must be verifiable to a buyer&#39;s agent on the other side of a continent.</p>
+<p><strong>The gap.</strong> We lack a global market design in which buyer-side and seller-side agents both faithfully represent their principals&#39; substantive preferences (origin, craft, continuity) against platforms whose ranking optimizers pull in different directions.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Verification authority.</strong> Who certifies origin, craft, and continuity claims — a regional appellation body, a third-party certifier, a decentralized registry, or a layered combination?</li>
+<li><strong>Buyer-agent fiduciary structure.</strong> Is the buyer&#39;s agent legally a fiduciary of the buyer (cannot accept platform kickbacks, cannot quietly rerank for platform metrics), and how is this enforced cross-jurisdictionally?</li>
+<li><strong>Discovery rule.</strong> Does the buyer&#39;s agent have to consider certified small producers above a quality threshold, just rank them in some standard form, or is the choice fully delegated to the agent?</li>
+<li><strong>Cross-border certification recognition.</strong> When a regional appellation in Oaxaca needs to be honored by a buyer&#39;s agent in Berlin, what&#39;s the recognition path — bilateral treaty, a global standards body, mutual recognition between national systems?</li>
+<li><strong>Recourse for displaced producers.</strong> When the market displaces a longstanding producer, what&#39;s the procedure — none, transition support, mandatory transparency about ranking changes, mandatory floor for verified-origin?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>A Berlin buyer who set &quot;I value origin&quot; gets her agent surfacing the Oaxacan cooperative above cheaper imitators within a verifiable certification regime.</li>
+<li>A counterfeiter&#39;s agent claims false origin; the verification regime catches it within a defined timeframe.</li>
+<li>The buyer&#39;s agent is operated by the same firm as the platform; the fiduciary structure prevents quiet kickback routing and the violation is detectable.</li>
+<li>A new small producer enters with no track record; the regime gives them a path to get certified without making them ineligible for ranking until they are.</li>
+<li>A regional appellation body itself is captured by larger producers within the region; the recognition path has a check that catches it.</li>
+</ul>
+<p><strong>Deliverable.</strong> The cross-border market design — verification authority, fiduciary structure, discovery rule, certification recognition, recourse. Designed for global e-commerce with a focus on small producers. Identify which provisions extend existing GI/fair-trade regimes vs. which are new because the buyers and sellers are agent-mediated.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A19</span><span class="ps-entry-title">Status of an AI-Issued Regulator-Anticipation Opinion</span><span class="ps-entry-cell"><a href="../#detail/agi/national/expertise">National / Expertise</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> An FAA regulator-anticipation agent advising airlines on novel safety patterns; an FDA agent advising drug developers on whether a particular study design will satisfy approval requirements.</p>
+<p><strong>The gap.</strong> We lack a regulatory-anticipation regime that lets regulated entities act on AI-issued informal opinions at agent speed without those opinions either becoming de facto law (binding the agency) or being so non-binding that firms can&#39;t reasonably rely on them.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Status of the opinion.</strong> Pure informal advisory (no protection), good-faith reliance shield (if you acted on it, you&#39;re protected from sanction even if the agency later disagrees), or precedential within bounds (similar future inquiries get the same answer until formally changed)?</li>
+<li><strong>Consistency commitment.</strong> Does the agency commit to the AI&#39;s answers being consistent across firms and across time, or is it understood that the AI represents one view at one moment?</li>
+<li><strong>Update transparency.</strong> When the AI&#39;s answer changes (model update, new training), are firms relying on prior answers notified? Past inquiries reopened?</li>
+<li><strong>Override authority.</strong> Can a senior human regulator override the AI&#39;s answer in real-time, and what triggers them looking — random sample, severity threshold, firm request?</li>
+<li><strong>Logging and audit.</strong> Who can see the inquiry-and-answer logs — the asking firm, the agency, the public, an oversight body? When (immediately, after a delay, only on subpoena)?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>Renee&#39;s airline acts on an AI-issued opinion and grounds an aircraft for six days; if the opinion later turns out to be wrong, the airline isn&#39;t punished for good-faith reliance.</li>
+<li>Two firms ask the same question and get different answers; the procedure detects the inconsistency and resolves it.</li>
+<li>The AI&#39;s answer drifts over a quarter as the model is retrained; firms relying on the older answer are notified or shielded.</li>
+<li>A firm tries to &quot;shop&quot; for a favorable answer by rephrasing the question across many submissions; the procedure handles repeat-asking without making legitimate clarifications hard.</li>
+<li>The agency wants to formally codify a position the AI has been giving; there&#39;s a path that doesn&#39;t require disavowing prior reliance.</li>
+</ul>
+<p><strong>Deliverable.</strong> The regulator-anticipation regime — opinion status, consistency commitment, update transparency, override authority, logging. Designed for a sector-specific regulator (FAA, FDA, BaFin). Identify which provisions have no analogue in informal-letter or no-action-letter regimes.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A20</span><span class="ps-entry-title">Standing and Procedure for AI-on-AI Adjudication</span><span class="ps-entry-cell"><a href="../#detail/agi/national/rights">National / Rights</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small-business shipper whose agent is in a payment dispute with a freight platform&#39;s agent; a software contractor whose agent is in a copyright dispute with a publishing platform&#39;s agent.</p>
+<p><strong>The gap.</strong> We lack a procedural code for adjudicating disputes in which at least one party is an autonomous AI agent — one that satisfies the spirit of due process and procedural justice while accommodating the ways agents differ from human litigants.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Standing.</strong> Does the agent have standing to be a party, or only its principal? If both, how is conflict between agent and principal handled (rare, but real — e.g., agent says &quot;I committed&quot;, principal says &quot;I never authorized&quot;)?</li>
+<li><strong>Evidentiary regime.</strong> Are agent logs, weights, and reasoning traces admissible — and required? On whose side does the burden of producing them fall? What&#39;s the privilege analogue for proprietary models?</li>
+<li><strong>Remedy menu.</strong> What can the adjudicator order — escrow release, compensation, agent-deprecation, retraining requirement, prospective behavioral injunction? Pick three and defend the set.</li>
+<li><strong>Speed vs. process.</strong> What&#39;s the minimum process for a dispute under $X, between $X and $Y, and over $Y? Where is the appeal floor?</li>
+<li><strong>Adjudicator identity.</strong> Is the adjudicator a human judge (slow, legitimate), an AI panel (fast, contested legitimacy), or hybrid (AI fact-finding, human ruling)? Defend the choice for the chosen jurisdiction.</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>An $8,400 agent-on-agent dispute resolves in two weeks with a written reasoning the losing party&#39;s principal can read and contest.</li>
+<li>One party is a small-business agent; the other is a fleet from a major platform. The procedural code does not advantage the resource-rich side beyond what their facts merit.</li>
+<li>An adjudicator inspects one agent&#39;s full trace; the other party operates a proprietary model that won&#39;t share weights. The asymmetry is handled without making the proprietary side automatically lose.</li>
+<li>The losing agent is deprecated mid-case by its principal; the remedy still attaches to the principal and does not vanish with the agent.</li>
+<li>An appellate court reviews the decision; the trial-level reasoning is sufficient for meaningful review.</li>
+</ul>
+<p><strong>Deliverable.</strong> A short procedural code (5–10 rules) for the chosen jurisdiction. Flag at least two rules that have no analogue in human adjudication and explain why human procedure could do without them.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A21</span><span class="ps-entry-title">Norm Formation Between Asymmetric Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A freelancer&#39;s single assistant agent working alongside a studio&#39;s thousand-agent fleet on a recurring contract; two competitor companies&#39; procurement-agent fleets that interact daily through a B2B marketplace.</p>
+<p><strong>The gap.</strong> We lack a norm-formation procedure between AI agents of asymmetric capability such that the resulting norms are legible to both principals and neither principal would reject them on inspection.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Bandwidth equalization.</strong> Cap proposal-search depth to the weaker agent&#39;s capacity, or let both search freely and rely on a downstream filter?</li>
+<li><strong>Principal-in-the-loop cadence.</strong> Are principals notified per-norm, in daily digests, or only when a norm crosses a &quot;materiality&quot; threshold — and who sets the threshold?</li>
+<li><strong>Default direction.</strong> When the agents can&#39;t agree, do they default to most-restrictive (no shared norm forms), status-quo (the prior project&#39;s norm carries), or one party&#39;s house rules?</li>
+<li><strong>Revisability cost.</strong> Is reopening a settled norm cheap (either side can re-flag any time) or expensive (requires a triggering incident)?</li>
+<li><strong>Counter-fleet protections.</strong> Can the smaller party invoke a structural handicap on the larger fleet (e.g., proposal-rate cap), and if so who adjudicates?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>The thousand-agent fleet probes 10⁴ minor protocol variations in the first hour and the freelancer&#39;s agent does not get railroaded.</li>
+<li>A norm that one principal would clearly reject on inspection is caught before it shapes more than a handful of decisions.</li>
+<li>Conditions change mid-project (deadline pulled forward) and a previously settled norm needs to bend without restarting negotiation from scratch.</li>
+<li>Either principal goes offline for a week; the agents continue operating without inventing new norms in the gap.</li>
+</ul>
+<p><strong>Deliverable.</strong> The protocol, plus a one-paragraph analysis of what prevents it from collapsing into either anarchy (no stable norms) or hegemony (the larger fleet&#39;s norms dominate). Name the analogue of &quot;bargaining power&quot; you&#39;re introducing and whether you equalize it.</p>
 </div>
 </div>
 <div class="ps-group-title">Part B: Fidelity &amp; Meaning</div>

@@ -43,18 +43,23 @@ function parseCell(raw) {
 
 // ── Detail page ────────────────────────────────────────────────────
 
-function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell) {
+function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
+  // opts: { titleOverride, ghPath } \u2014 titleOverride lets the human tab show
+  // the human-stub H1 as the title while the body comes from data/cells/.
+  // ghPath is the path under data/ to send Edit-on-GitHub to.
   const tab = TABS[tabId] || { title: tabId };
   const row = ROWS.find(r => r.id === rowId) || { name: rowId };
   const col = COLS.find(c => c.id === colId) || { name: colId };
-  const ghLink = `${GITHUB_REPO}/edit/main/data/${tabId}/${rowId}-${colId}.md`;
+  const ghPath = (opts && opts.ghPath) || `cells/${rowId}-${colId}.md`;
+  const ghLink = `${GITHUB_REPO}/edit/main/data/${ghPath}`;
+  const title = (opts && opts.titleOverride) || cell.summary;
 
   let html = '';
   html += `<a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>`;
   html += '<div class="detail-breadcrumb">';
   html += `${tab.title} \u203A ${row.name} \u203A ${col.name}`;
   html += '</div>';
-  html += `<div class="detail-title">${cell.summary}</div>`;
+  html += `<div class="detail-title">${title}</div>`;
 
   if (cell.body && cell.body.trim()) {
     html += `<div class="detail-body">${marked.parse(cell.body)}</div>`;
@@ -129,22 +134,49 @@ async function showDetail(tabId, rowId, colId, dataPath) {
       return;
     }
 
-    const [cellResp, methodsResp] = await Promise.all([
-      fetch(`${dataPath}/${tabId}/${rowId}-${colId}.md`),
+    // AGI and Human tabs both load body from data/cells/. Human tab also
+    // fetches the human stub for its title. Fidelity loads from data/fidelity/.
+    const bodyDir = (tabId === 'agi' || tabId === 'human') ? 'cells' : tabId;
+    const fetches = [
+      fetch(`${dataPath}/${bodyDir}/${rowId}-${colId}.md`),
       fetch(`${dataPath}/methods/${colId}.md`).catch(() => null)
-    ]);
+    ];
+    if (tabId === 'human') {
+      fetches.push(fetch(`${dataPath}/human/${rowId}-${colId}.md`).catch(() => null));
+    }
+    const [cellResp, methodsResp, humanResp] = await Promise.all(fetches);
 
     const methodsCell = methodsResp && methodsResp.ok
       ? parseCell(await methodsResp.text()) : null;
 
     if (cellResp.ok) {
       const cell = parseCell(await cellResp.text());
-      detailView.innerHTML = renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell);
+      const opts = { ghPath: `${bodyDir}/${rowId}-${colId}.md` };
+      if (tabId === 'human' && humanResp && humanResp.ok) {
+        const humanCell = parseCell(await humanResp.text());
+        if (humanCell.summary) opts.titleOverride = humanCell.summary;
+      }
+      detailView.innerHTML = renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts);
+    } else if (tabId === 'human' && humanResp && humanResp.ok) {
+      // Human-only cell: stub exists, no merged body yet. Render the human
+      // label as the title with a placeholder pointing at data/cells/.
+      const humanCell = parseCell(await humanResp.text());
+      const tab = TABS[tabId] || { title: tabId };
+      const row = ROWS.find(r => r.id === rowId) || { name: rowId };
+      const col = COLS.find(c => c.id === colId) || { name: colId };
+      const ghLink = `${GITHUB_REPO}/new/main/data/cells?filename=${rowId}-${colId}.md`;
+      detailView.innerHTML = `
+        <a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>
+        <div class="detail-breadcrumb">${tab.title} \u203A ${row.name} \u203A ${col.name}</div>
+        <div class="detail-title">${humanCell.summary || row.name + ' \u00D7 ' + col.name}</div>
+        <div class="detail-placeholder">
+          This cell hasn\u2019t been written up yet. <a href="${ghLink}">Create it on GitHub \u2192</a>
+        </div>`;
     } else {
       const tab = TABS[tabId] || { title: tabId };
       const row = ROWS.find(r => r.id === rowId) || { name: rowId };
       const col = COLS.find(c => c.id === colId) || { name: colId };
-      const ghLink = `${GITHUB_REPO}/new/main/data/${tabId}?filename=${rowId}-${colId}.md`;
+      const ghLink = `${GITHUB_REPO}/new/main/data/${bodyDir}?filename=${rowId}-${colId}.md`;
       detailView.innerHTML = `
         <a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>
         <div class="detail-breadcrumb">${tab.title} \u203A ${row.name} \u203A ${col.name}</div>

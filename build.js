@@ -28,6 +28,12 @@ function esc(s) { return s.replace(/&/g, '&amp;'); }
 
 const TAB_ORDER = ['agi', 'human', 'fidelity'];
 
+// Tab → directory under data/ that supplies its grid summaries.
+// AGI and Human grids both render bodies from data/cells/, but their grid
+// labels come from different files: the merged H1 (cells/) for AGI,
+// and the human-stub H1 (human/) for Human. Fidelity is unchanged.
+const TAB_SUMMARY_DIR = { agi: 'cells', human: 'human', fidelity: 'fidelity' };
+
 const ROWS = [
   { id: 'dyadic', name: 'Dyadic', desc: '2 parties' },
   { id: 'group', name: 'Group', desc: 'teams, clubs' },
@@ -60,8 +66,8 @@ function parseCell(raw) {
   return { summary, body: bodyAfterH1 };
 }
 
-function loadCells(tabId) {
-  const dir = path.join(__dirname, 'data', tabId);
+function loadCells(dirName) {
+  const dir = path.join(__dirname, 'data', dirName);
   const cells = {};
   if (!fs.existsSync(dir)) return cells;
 
@@ -107,10 +113,10 @@ function getMethodsForCol(colId, tabId, methods) {
 
 function generateManifest() {
   const manifest = {};
-  for (const tabId of TAB_ORDER) {
-    const dir = path.join(__dirname, 'data', tabId);
-    if (!fs.existsSync(dir)) { manifest[tabId] = []; continue; }
-    manifest[tabId] = fs.readdirSync(dir)
+  for (const dirName of ['cells', 'human', 'fidelity']) {
+    const dir = path.join(__dirname, 'data', dirName);
+    if (!fs.existsSync(dir)) { manifest[dirName] = []; continue; }
+    manifest[dirName] = fs.readdirSync(dir)
       .filter(f => f.endsWith('.md'))
       .map(f => f.replace('.md', ''))
       .sort();
@@ -133,9 +139,17 @@ function cellsWithProblemSets(cells) {
   return ps;
 }
 
-function renderGrid(tabId, cells, methods, dataPath) {
+function renderGrid(tabId, summaryCells, mergedCells, methods, dataPath) {
+  // summaryCells: cells whose H1 supplies the grid label for THIS tab.
+  //   - AGI tab: summaryCells === mergedCells (data/cells/)
+  //   - Human tab: summaryCells === human stubs (data/human/)
+  //   - Fidelity tab: summaryCells === fidelityCells (data/fidelity/)
+  // mergedCells: data/cells/ — used to compute the has-ps highlight for AGI/Human.
   const tab = TABS[tabId];
-  const psKeys = cellsWithProblemSets(cells);
+  // For Fidelity, problem-set highlight derives from its own cells (which == summaryCells).
+  // For AGI and Human, it derives from the merged cells.
+  const psSource = tabId === 'fidelity' ? summaryCells : mergedCells;
+  const psKeys = cellsWithProblemSets(psSource);
   let html = '';
   html += `<div class="pane-title">${esc(tab.title)}</div>\n`;
   html += `<div class="pane-subtitle">${esc(tab.subtitle)}</div>\n`;
@@ -152,7 +166,7 @@ function renderGrid(tabId, cells, methods, dataPath) {
     html += `<th class="row-header"><span class="row-name">${row.name}</span><span class="row-desc">${row.desc}</span></th>`;
     for (const col of COLS) {
       const key = `${row.id}-${col.id}`;
-      const cell = cells[key];
+      const cell = summaryCells[key];
       if (cell) {
         const psClass = psKeys.has(key) ? ' has-ps' : '';
         html += `<td class="clickable${psClass}" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;
@@ -211,23 +225,23 @@ function extractProblemSets(tabId, cells) {
 }
 
 function renderProblemSetsPage(allCells) {
-  const tabLabels = {
-    agi: { label: 'Part A: AGI Institutions (Required)', prefix: 'A' },
-    fidelity: { label: 'Part B: Fidelity &amp; Meaning', prefix: 'B' },
-    human: { label: 'Part C: Existing Human Institutions', prefix: 'C' }
-  };
+  // allCells: { merged, fidelity }. The old AGI and Human sections are now
+  // a single "merged" section since both grids share storage in data/cells/.
+  const sections = [
+    { id: 'merged', label: 'Part A: AGI-Era Institutions', prefix: 'A', linkTab: 'agi' },
+    { id: 'fidelity', label: 'Part B: Fidelity &amp; Meaning', prefix: 'B', linkTab: 'fidelity' }
+  ];
 
   let html = '';
   html += '<a href="../" class="detail-back">&larr; Back to grid</a>\n';
   html += '<div class="ps-page-title">Problem Sets</div>\n';
   html += '<div class="ps-page-subtitle">For pairs/trios. ~1 hour each. Produce a concrete design sketch, not a literature review.</div>\n';
 
-  for (const tabId of ['agi', 'fidelity', 'human']) {
-    const problems = extractProblemSets(tabId, allCells[tabId] || {});
+  for (const section of sections) {
+    const problems = extractProblemSets(section.id, allCells[section.id] || {});
     if (problems.length === 0) continue;
 
-    const { label, prefix } = tabLabels[tabId];
-    html += `<div class="ps-group-title">${label}</div>\n`;
+    html += `<div class="ps-group-title">${section.label}</div>\n`;
 
     problems.forEach((ps, i) => {
       const parts = ps.cellKey.split('-');
@@ -236,14 +250,14 @@ function renderProblemSetsPage(allCells) {
       const row = ROWS.find(r => r.id === rowId);
       const col = COLS.find(c => c.id === colId);
       const cellLabel = row && col ? `${row.name} / ${col.name}` : ps.cellKey;
-      const num = `${prefix}${i + 1}`;
+      const num = `${section.prefix}${i + 1}`;
 
       html += '<div class="ps-entry">\n';
       html += '<div class="ps-entry-header">';
       html += `<span class="ps-entry-number">${num}</span>`;
       html += `<span class="ps-entry-title">${ps.title}</span>`;
-      const pageBase = ps.tabId === 'agi' ? '..' : `../${ps.tabId}`;
-      html += `<span class="ps-entry-cell"><a href="${pageBase}/#detail/${ps.tabId}/${rowId}/${colId}">${cellLabel}</a></span>`;
+      const pageBase = section.linkTab === 'agi' ? '..' : `../${section.linkTab}`;
+      html += `<span class="ps-entry-cell"><a href="${pageBase}/#detail/${section.linkTab}/${rowId}/${colId}">${cellLabel}</a></span>`;
       html += '</div>\n';
       html += `<div class="ps-entry-body">${marked.parse(ps.body)}</div>\n`;
       html += '</div>\n';
@@ -263,7 +277,8 @@ function renderProblemSetsPage(allCells) {
 // ── Generate grid page HTML ─────────────────────────────────────────
 
 function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
-  const grid = renderGrid(tabId, allCells[tabId], methods, dataPath);
+  const summaryDir = TAB_SUMMARY_DIR[tabId];
+  const grid = renderGrid(tabId, allCells[summaryDir], allCells.cells, methods, dataPath);
   const tabLinks = TAB_ORDER.map(t => {
     const tab = TABS[t];
     const active = t === tabId ? ' active' : '';
@@ -343,10 +358,13 @@ ${content}
 // ── Main ───────────────────────────────────────────────────────────
 
 const methods = loadMethods();
-const allCells = {};
-for (const tabId of TAB_ORDER) {
-  allCells[tabId] = loadCells(tabId);
-}
+const allCells = {
+  cells: loadCells('cells'),
+  human: loadCells('human'),
+  fidelity: loadCells('fidelity')
+};
+// Alias for renderProblemSetsPage which expects { merged, fidelity }
+allCells.merged = allCells.cells;
 
 generateManifest();
 

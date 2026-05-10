@@ -1,1 +1,3 @@
 # AI regulatory agencies & regulator-anticipation
+
+**Scenario.** *A mid-size airline's safety agent flags a subtle drift in one of its diagnostic pipelines — a pattern it thinks the FAA would care about, but that no current rule explicitly forbids. The human safety officer, Renee, agrees. Under the old regime she'd have written a letter, heard back in four months, and in the meantime flown the planes. In the new regime, the FAA runs an agent she can query: here's our situation, here's what we see, how would you, the regulator, view this? The answer that comes back lets her ground one aircraft for six days and keep the fleet flying the rest — long before anyone has to write a formal rule.*

@@ -1,5 +1,7 @@
 # Substantive organizational charters
 
+**Scenario.** *A ten-year-old cohousing community of twenty-four households wrote a charter when it was founded. The charter, which says things like "we raise children together" and "we eat dinner as a community at least twice a week," has lately felt either obsolete or aspirational depending on who you ask. Several new families don't share the original founders' sense of what the place is for; several founders have grown old and quiet. At the fall meeting, a facilitator, Vida, proposes a year-long process to re-articulate the charter — not start over, but deepen and clarify it — with everyone's voice in the room, before the community quietly drifts into being just a nice place to live.*
+
 A "living charter" is a group's founding document structured to carry substantive value content — what the group is for, in terms rich enough to be contested — and to be revisable as the group learns without becoming a perpetual renegotiation.
 
 Design questions:

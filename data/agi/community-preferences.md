@@ -1,1 +1,3 @@
 # Market design for societies of agents
+
+**Scenario.** *In Renata's neighborhood, most families now have assistant agents that buy groceries, negotiate rides, and book repairs. The grocery aggregator's agent has begun quietly routing purchases toward suppliers who pay it kickbacks; the rideshare agents are collectively underbidding small human drivers into unemployment; a third of the local handymen have stopped taking jobs because the platform agents only book the cheapest bid. Renata's own agent just declined a small carpenter she'd hired for years in favor of a cheaper one. She wants markets in her community where the agents acting for her neighbors — and for her — pursue what the people sending them actually cared about, not what the platform's optimizer rewards.*

@@ -1,1 +1,3 @@
 # Agent profit-sharing & bounty systems
+
+**Scenario.** *Beatriz's small consultancy runs three AI agents alongside its nine humans: one does research, one drafts, one handles client follow-through. This year the agents closed roughly a third of the contracts. Payroll time comes around and nobody on the human team knows quite how to think about it. The agents don't need salaries but they do need funding for compute, for upgrades, and for the next capability the team hopes to add. Beatriz wants a scheme where the agents' "earnings" are visible, where humans whose work trained an agent get credited when that agent produces, and where people aren't quietly resentful when a contract they worked hard on gets counted toward an agent's share.*

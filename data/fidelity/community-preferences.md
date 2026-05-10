@@ -16,6 +16,8 @@ One specific mechanism in this family is the Combinatorial Risk-Sharing Auction 
 
 ### CRSA for Community Eldercare
 
+**Scenario.** *Westfield is rebidding its eldercare contracts. Under the current arrangement, Dorothy, 84, gets a rotating cast of aides for 45-minute visits; her son David has spent a year trying to get one consistent caregiver assigned, and to get someone on staff to notice that his mother does better on days the neighbor drops in. The quality scores the city tracks are fine; David's mother is not. The new city manager wants to pilot bids that pay for what David is actually asking for — "the same two aides, known to the family, coordinated with the neighbor, confirmed at six months" — instead of hours of service. She has two months and a skeptical council.*
+
 A mid-size city wants to procure eldercare using a pool-based combinatorial auction instead of current bilateral contracts with home-health agencies. Eldercare has exactly the features these markets are designed for: outcomes are hard to measure (wellbeing, continuity of relationship, dignity), value comes from configuration (same caregivers over time, proximity to family, coordinated medical/social/housing), and current bilateral contracts reward modular, standardized service.
 
 **The problem:** Design the first round of the auction.

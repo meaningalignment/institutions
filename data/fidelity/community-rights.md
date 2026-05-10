@@ -14,6 +14,8 @@ Design questions:
 
 ### Standing and Standard of Review in Fidelity Courts
 
+**Scenario.** *Eastbridge adopted a thick mandate for its transit authority six years ago — not just "efficient transportation" but a specific commitment to neighborhood connectivity, dignity on the bus, and service that fits people's real lives. Since then, three routes that served older residents and night-shift workers have been cut for underperformance, a fleet renewal left the low-floor buses the wheelchair users relied on out of the order, and the authority's own drivers have quietly stopped recommending the service to their own parents. A group led by Renata, a hospital janitor who takes the 5am bus, and Sam, a retired planner, want to bring a claim. They are not asking the court to run the authority; they are asking whether it is still doing what it was committed to do.*
+
 A city has adopted a substantive mandate for its public transit authority—not just "efficient transportation" but a thick description of what good transit means for the community (accessibility, neighborhood connectivity, dignity of the transit experience, etc.). A group of residents believes the authority is optimizing for ridership numbers at the expense of the mandate's thicker commitments.
 
 **The problem:** Design the adjudication mechanism:

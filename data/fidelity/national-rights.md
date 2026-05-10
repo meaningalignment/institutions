@@ -19,6 +19,8 @@ Design questions:
 
 ### Drafting Fidelity as Constitutional Doctrine
 
+**Scenario.** *Eight years ago, Liana's father signed up for a social platform whose tagline was "stay close to the people you love." It's where the family group chat lives; it's where photos of the grandkids arrive. Over the past two years, the feed has filled up with strangers, the group-chat notifications have grown quieter, and her father now spends most of his evenings on it alone, watching short videos. Internal documents leaked last month show the product team quietly retired its "friendship-formation" metric in favor of session time. Liana, a retired civil-rights lawyer, wants to bring a claim that the platform has walked away from what it publicly committed to. She cannot find a doctrine that lets her.*
+
 You are drafting either a model constitutional amendment or an interpretive doctrine that establishes "fidelity" as a justiciable principle alongside liberty and equality. Fidelity here means: institutions must act in accordance with their thick mandates, not substitute thin proxies.
 
 **The problem:**

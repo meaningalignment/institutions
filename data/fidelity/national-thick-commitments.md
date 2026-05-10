@@ -1,5 +1,7 @@
 # Constitutions with substantive value content
 
+**Scenario.** *A small democracy in the middle of a constitutional convention has spent three months debating the usual list — executive powers, judicial review, bill of rights. A working group led by a legal scholar, Amara, has proposed a chapter few other constitutions carry: a substantive articulation of what the country's major public institutions are for, thick enough that ordinary people could invoke it if an institution went adrift, and revisable every generation so it doesn't freeze in one era's language. The critics worry it will become an impossible standard. Amara's working group is about to present their draft to the full convention, and needs to show it can bind without petrifying.*
+
 Many modern constitutions already specify substantive values — dignity, equality, welfare — in terms thicker than pure proceduralism. A fidelity-oriented constitution would extend this: articulating the values carefully enough that institutions below the constitutional level can be held to them, without the articulation becoming a frozen imposition of one generation's understanding on all subsequent ones.
 
 Design questions:

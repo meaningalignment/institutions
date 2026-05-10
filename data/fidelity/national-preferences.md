@@ -14,6 +14,8 @@ Design questions:
 
 ### MGE Pilot Design for a Policy Domain
 
+**Scenario.** *A country is about to hold a national referendum on overhauling its long-term-care policy — who pays, who provides, what happens when someone can no longer stay at home. Polling will capture yes and no. What it won't capture is what Yelena, a home-health aide, has learned over fifteen years: that the families she works with care about different things than either side of the campaign is talking about. They want to be sure their parent is still known by name; they want a single aide who isn't always changing; they want to know that their own turn, when it comes, won't reduce them to a bed-flip statistic. A pilot moral-graph process could capture what the referendum cannot. The minister's office has a month to decide whether to run it.*
+
 A country wants to pilot moral graph elicitation as a supplement to its legislative process for a single policy domain. You choose the domain (education policy, drug scheduling, immigration quotas, land use—whatever best tests the method).
 
 **The problem:** Design the pilot:

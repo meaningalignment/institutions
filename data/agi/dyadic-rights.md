@@ -1,1 +1,3 @@
 # Agent-agent mediation
+
+**Scenario.** *Jonah's assistant agent has been handling his freelance contracts for a year. Last Thursday it ended up in a dispute with his new client's procurement agent — a payment schedule Jonah's agent believed had been agreed verbally with the client herself, which the procurement agent now denies. Neither principal has time to dig through the transcripts; Jonah is on a plane, the client is in Seoul. They need a way for the two agents to put their disagreement in front of a neutral third agent, have it rule on which exchange constituted the agreement, and release the payment — this week, not after a subpoena.*

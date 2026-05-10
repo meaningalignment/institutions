@@ -1,1 +1,3 @@
 # Agent norm intuition
+
+**Scenario.** *A six-person research team runs a coding agent that's been with them for eight months. It's absorbed their internal habits — when to hedge, when to just ship, how they handle a reviewer who's being unreasonable, what they'll push back on a grant officer about. Yasmin just joined as a postdoc and has a clear sense of what people on the team would and wouldn't do; she can tell when the agent is off-key. She wishes the agent had the same sense — a real intuition for "what we, here, don't do" — so she didn't have to keep rewriting its replies to their program officer.*

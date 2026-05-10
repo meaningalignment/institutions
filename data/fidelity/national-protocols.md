@@ -1,5 +1,7 @@
 # Shared standards for mandate articulation
 
+**Scenario.** *A federal ombudsman's office has been asked to evaluate whether three different agencies — the VA, a consumer protection bureau, and a community development fund — are living up to their public commitments. In each case, the ombudsman, Lucia, finds the same problem: the mandates are written at a level of abstraction that makes them impossible to test. "Serve veterans with dignity." "Protect consumers." "Strengthen communities." Each agency has meanwhile invented its own internal vocabulary for what it is actually doing. Lucia realizes she is writing the same memo three times. She wants a shared national standard for how mandates are articulated thickly enough to be tested — not one she has to reinvent for every agency.*
+
 To apply the value of fidelity broadly, a society needs shared infrastructure: standards for articulating what institutions are for (in terms thick enough to be contestable), standards for measuring whether they are serving those purposes, and channels for practitioner and stakeholder signal.
 
 Design questions:

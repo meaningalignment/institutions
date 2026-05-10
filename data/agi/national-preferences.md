@@ -1,1 +1,3 @@
 # Agents that represent national interests / large groups
+
+**Scenario.** *A state government is rolling out a consumer-protection initiative and, for the first time, is represented in the multi-party deals being struck between platform operators and local utility regulators by an AI negotiator. State Senator Fielder, who pushed the bill, watches it work through the first dry run and feels a tight mix of pride and worry. The agent is faster and better-briefed than any staff she could afford; on paper, it secures terms she would have pushed for. But it is also making compromises on consumer remedies that she knows her constituents in the smaller counties would not accept. She needs to be sure the agent is representing her state, not optimizing an average.*

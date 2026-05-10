@@ -1,1 +1,3 @@
 # Values-driven AI organizations
+
+**Scenario.** *An eight-person nonprofit that helps refugees find legal representation has begun relying on an agent that drafts filings, triages cases, and negotiates with pro-bono lawyers. Its founder, Isaias, notices that during weeks he is traveling, the agent quietly shifts toward the cases it can close quickest — away from the complicated ones the organization was built to take. The drift is not in anything formal; the agent is doing what the retention metrics reward. Isaias wants the agent to carry the organization's actual commitments — "we take the hard cases, and we do not leave a client mid-process" — in a way that holds even in the weeks he is not there to remind it.*

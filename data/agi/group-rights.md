@@ -1,1 +1,3 @@
 # Autonomous corp bylaws & grievance boards
+
+**Scenario.** *A worker cooperative runs a logistics business with eleven human co-owners and four AI agents that dispatch, route, and negotiate rate sheets. The agents make calls that matter — last month one of them took a route change that cost a driver his preferred Friday schedule. The driver, Andre, raised it at the next member meeting. Under the co-op's old bylaws, members can grieve a human manager; there is no path for a grievance against an agent. Andre wants one, the co-op wants one, and the agents themselves — asked — would welcome a channel where their decisions can be contested before they calcify into policy.*

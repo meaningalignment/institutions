@@ -1,5 +1,7 @@
 # Mandate-making practices between parties
 
+**Scenario.** *Claire has been seeing the same therapist, Marcus, for four years. When they started, his practice was solo, he took insurance, and a session felt like a conversation with someone who remembered her. This year his practice was acquired by a venture-backed group that has standardized intake, introduced a new note-taking system, and set session limits the clinicians themselves didn't agree to. Claire still wants to keep seeing Marcus. Marcus still wants to keep seeing her. But both of them feel the thing they had is slipping. They need a way, on their own terms, to articulate what their work together has been for — and to hold each other to that, regardless of what the practice around them now requires.*
+
 Any ongoing pairing — an employment, a care arrangement, a therapeutic or coaching relationship, a long collaboration — rests on some implicit account of what it is *for*. Fidelity at this scale requires making enough of that account explicit to hold either party to it, while leaving room for the relationship to evolve.
 
 Design questions:

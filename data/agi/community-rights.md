@@ -1,1 +1,3 @@
 # AI judges and adjudication
+
+**Scenario.** *Maggie's small e-commerce shop runs on a marketplace whose AI agents now handle nearly all disputes — delivery failures, return claims, chargebacks. Last month one of her orders was flagged by the platform's detection agent as fraudulent; her account was frozen, her inventory locked, and when she appealed, an adjudication agent reviewed the case in seven seconds and upheld the freeze. She doesn't know what reasoning it used, what evidence it weighed, or whom to appeal to. Her rent is due. She needs a system where the decisions made about her are legible, contestable, and reviewed by something she can actually address.*

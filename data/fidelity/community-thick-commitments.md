@@ -1,5 +1,7 @@
 # Covenants binding intentional communities
 
+**Scenario.** *A Benedictine monastery with a hundred-year-old hospitality mandate — receive every guest as Christ — is down to seven brothers, mostly over seventy. A partnership has been offered with a wellness chain that would keep the property in service and the doors open, rebranded, with staff who know nothing of the Rule. The prior, Brother Callistus, is tempted; the alternative is closure. But two of the brothers worry that what the monastery has actually been committed to — what generations of guests came here for, often without being able to name it — would not survive the deal. They need, before they decide, a way to articulate that thick commitment clearly enough to test any partner against it.*
+
 Some communities — monastic orders, cohousing, intentional-community projects, mission-driven neighborhoods, nonprofit federations — bind themselves by covenant: an articulated shared purpose that goes beyond procedural coexistence. Fidelity at this scale asks how the shared purpose is maintained, deepened, and revised across generations without either ossifying or dissolving into whatever the current membership happens to want.
 
 Design questions:

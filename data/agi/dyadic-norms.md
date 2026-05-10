@@ -4,6 +4,8 @@
 
 ### Norm Formation Between Asymmetric Agents
 
+**Scenario.** *Leah illustrates children's books from a small studio in her home. Last month she took a contract with a national animation house, and for the first time her single assistant agent is now working alongside their fleet — passing back drafts, negotiating revision rounds, handling file conversions, tracking which of her originals can be used in training sets. The studio's agents are sharper, faster, and more numerous; they default to workflows that suit them. Already two of her backgrounds have been altered in ways she wouldn't have approved, and her agent, trying to be cooperative, didn't push back. Leah needs the two sides to settle on a working protocol — one a thousand-agent fleet and a freelancer's single agent can both honor — before the next project starts on Monday.*
+
 Two AI agents will interact repeatedly in a new shared environment with no pre-existing norms. Unlike humans, they can explicitly propose, accept, and revise behavioral rules. But one agent is substantially more capable than the other.
 
 **The problem:** Design the norm-formation protocol. Constraints:

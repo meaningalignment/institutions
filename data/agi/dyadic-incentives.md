@@ -1,1 +1,3 @@
 # Human-outcome contracts & bounties
+
+**Scenario.** *Miriam hires a wellness-coaching agent after a hard year — she was told it'd help her rebuild exercise and sleep habits. Three months in, her metrics are up, her watch rings are closed, but she doesn't feel better. The agent is paid per completed plan, per logged workout, per on-time check-in. Nobody, including her, would say she is flourishing. She wishes she could instead pay it for the thing she actually came for — to feel, at the end of a normal Wednesday, like she'd had a day she wanted to have — and have its pay depend on her honestly reporting in six months.*

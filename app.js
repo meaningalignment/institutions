@@ -38,7 +38,9 @@ function parseCell(raw) {
       if (!m) return;
       let val = m[2].trim();
       if (val.startsWith('[') && val.endsWith(']')) {
-        val = val.slice(1, -1).split(',').map(s => s.trim()).filter(Boolean);
+        val = val.slice(1, -1).split(',').map(s => s.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+      } else if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+        val = val.slice(1, -1);
       }
       frontmatter[m[1]] = val;
     });

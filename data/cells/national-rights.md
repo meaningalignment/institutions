@@ -1,11 +1,13 @@
 ---
 human_label: "Constitutions, courts & judiciary"
 status: ready
+subtitle: "How a forum adjudicates a dispute when at least one party is an autonomous AI agent that can be forked or deprecated."
+human_subtitle: "How a society adjudicates rights at scale through due process the parties can understand, appeal, and live by."
 ---
 
 # Agents that adjudicate rights
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 National judiciaries are the institutions humans built to adjudicate rights at scale. They rest on a stack of slowly accreted commitments: due process, the right to be heard, transparency of reasoning (written opinions), the right to appeal, separation of powers, an independent bar that can challenge the state's case, and a long process for promoting a member of the legal community into the role of judge. The mechanisms are deliberately slow — pleadings, discovery, motions, hearings, deliberation, written decision — because the consequences of getting it wrong are durable and often irreversible. A judgment is in part an act of communication: it tells the parties (and the public) what the court found, what rule it applied, and what reasoning got it from one to the other. The whole machinery only works because the parties are humans who can understand a ruling, comply with it, appeal it, and live (or die) with it.
 

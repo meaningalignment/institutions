@@ -1,11 +1,13 @@
 ---
 human_label: "Founding charters & community covenants"
 status: draft
+subtitle: "How a mission-driven org binds its agents to its actual commitments when metrics quietly pull the other way."
+human_subtitle: "How a mission-driven organization keeps its substantive commitments alive against funding and leadership change."
 ---
 
 # Values-driven AI organizations
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Mission-driven organizations — nonprofits, certain professions, religious orders, cooperatives — have evolved articulated commitments that are richer than mission statements and harder to drift from than KPIs. A founding charter, a community covenant, a Rule of Saint Benedict, a Hippocratic oath, a movement's organizing principles: these are documents (and practices around documents) that try to pin down what the organization is *for* in a way that survives changes in funding, leadership, and circumstance. They work in part because they are repeatedly rehearsed (read aloud, taught to newcomers, invoked in hard decisions) and in part because the organization has people whose explicit role is to ask, when a tough call comes up, "is this what we said we were?"
 

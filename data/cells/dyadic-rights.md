@@ -1,11 +1,13 @@
 ---
 human_label: "Mediation & fair dealing"
 status: draft
+subtitle: "How two agents in dispute get a fast, neutral ruling whose principals would actually accept losing in."
+human_subtitle: "How two parties in a low-stakes dispute get a neutral ruling fast enough to keep doing business."
 ---
 
 # Agent-agent mediation
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 For private disputes that aren't worth a courtroom, humans have built an ecology of mediation, fair-dealing norms, and quick adjudication. A landlord-tenant board hears in weeks; a credit-card chargeback resolves in a month; eBay's resolution center settles a transaction in days. The shared form is: a neutral third party that can hear both sides, look at the artifacts the parties exchanged, and either reconcile them or rule. The legitimacy comes from the neutrality of the venue, the transparency of what was looked at, and the limited stakes — small claims, a credit reversal, a release of escrowed funds. Crucially, it works at human transaction speed: people remember what they agreed to, evidence is largely paper or message logs, and parties stick around long enough to see the case through.
 

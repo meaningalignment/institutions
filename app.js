@@ -26,21 +26,25 @@ const COLS = [
 
 const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 
-// Anchor heading used to detect whether this cell has an AGI-breakdown — drives
-// the "AGI breaks this" title badge.
-const AGI_SECTION_HEADING = 'Where AGI breaks it';
-
 // GFM alerts → callout extension for `marked`.
-// `> [!NOTE]` / `> [!WARNING]` blockquotes render as <aside class="callout …">.
-//   NOTE     → callout-human (tan/gold)  — vivid human case
-//   WARNING  → callout-agi   (orange)    — AGI scenario
+// `> [!TYPE]` blockquotes render as <aside class="callout …">.
+//   NOTE     → callout-human    (tan/gold) — example scenario in the "How humans solve this" section
+//   WARNING  → callout-agi      (orange)   — example scenario in the "Where AGI breaks it" section
+//   EXAMPLES → callout-examples (neutral)  — bulleted list of named institutions
 const GFM_ALERT_TYPES = {
-  NOTE:      { cls: 'callout-human', label: 'A vivid case' },
-  WARNING:   { cls: 'callout-agi',   label: 'How AGI breaks it — a scenario' },
-  TIP:       { cls: 'callout-tip',   label: 'Tip' },
+  NOTE:      { cls: 'callout-human',    label: 'An Example Scenario' },
+  WARNING:   { cls: 'callout-agi',      label: 'An Example Scenario' },
+  EXAMPLES:  { cls: 'callout-examples', label: 'Example Institutions' },
+  TIP:       { cls: 'callout-tip',       label: 'Tip' },
   IMPORTANT: { cls: 'callout-important', label: 'Important' },
-  CAUTION:   { cls: 'callout-caution', label: 'Caution' }
+  CAUTION:   { cls: 'callout-caution',   label: 'Caution' }
 };
+
+const COLLAPSIBLE_H2 = new Set([
+  'How do humans solve this today?',
+  'Where AGI breaks it',
+  'Problem Sets'
+]);
 
 function installGfmAlertExtension() {
   if (typeof marked === 'undefined' || marked._gfmAlertsInstalled) return;
@@ -50,7 +54,7 @@ function installGfmAlertExtension() {
       level: 'block',
       start(src) { return src.match(/^>\s*\[!/m)?.index; },
       tokenizer(src) {
-        const rule = /^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\][^\n]*\n((?:>[^\n]*\n?)*)/i;
+        const rule = /^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|EXAMPLES)\][^\n]*\n((?:>[^\n]*\n?)*)/i;
         const m = rule.exec(src);
         if (!m) return;
         const type = m[1].toUpperCase();
@@ -118,12 +122,45 @@ function parseCell(raw) {
 
 function renderBody(body) {
   installGfmAlertExtension();
-  let html = marked.parse(body);
-  html = html.replace(
-    new RegExp(`<h2(\\s[^>]*)?>${AGI_SECTION_HEADING}</h2>`),
-    `<h2 id="where-agi-breaks-it">${AGI_SECTION_HEADING}</h2>`
-  );
-  return html;
+  const html = marked.parse(body);
+  return wrapCollapsibleSections(html);
+}
+
+// Walk the rendered HTML and wrap each <h2> whose text is in COLLAPSIBLE_H2
+// together with everything up to the next <h2> in a <details open> element.
+function wrapCollapsibleSections(html) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  const children = Array.from(tmp.childNodes);
+  const out = document.createElement('div');
+  let i = 0;
+  while (i < children.length) {
+    const node = children[i];
+    const isCollapsibleH2 = node.nodeType === 1
+      && node.tagName === 'H2'
+      && COLLAPSIBLE_H2.has(node.textContent.trim());
+    if (!isCollapsibleH2) {
+      out.appendChild(node);
+      i++;
+      continue;
+    }
+    const details = document.createElement('details');
+    details.className = 'collapsible-section';
+    details.open = true;
+    const summary = document.createElement('summary');
+    summary.className = 'collapsible-summary';
+    const inner = document.createElement('h2');
+    inner.textContent = node.textContent;
+    summary.appendChild(inner);
+    details.appendChild(summary);
+    i++;
+    while (i < children.length && !(children[i].nodeType === 1 && children[i].tagName === 'H2')) {
+      details.appendChild(children[i]);
+      i++;
+    }
+    out.appendChild(details);
+  }
+  return out.innerHTML;
 }
 
 function escapeHtml(s) {
@@ -143,12 +180,7 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   const ghPath = (opts && opts.ghPath) || `cells/${rowId}-${colId}.md`;
   const ghLink = `${GITHUB_REPO}/edit/main/data/${ghPath}`;
   const title = (opts && opts.titleOverride) || cell.summary;
-
-  // Show "AGI breaks this" badge only on the Human tab — it flags that the existing
-  // institution is likely to break in a world of autonomous AI agents. On the AGI
-  // and Fidelity tabs the section is descriptive context, not a warning.
-  const showBadge = tabId === 'human'
-    && new RegExp(`^## ${AGI_SECTION_HEADING}$`, 'm').test(cell.body || '');
+  const subtitle = (opts && opts.subtitleOverride) || (cell.frontmatter && cell.frontmatter.subtitle);
 
   let html = '';
   html += `<a href="#" class="detail-back" onclick="hideDetail();return false;">← Back to grid</a>`;
@@ -156,32 +188,26 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += `${tab.title} › ${row.name} › ${col.name}`;
   html += '</div>';
 
-  html += '<div class="detail-title-row">';
   html += `<h1 class="detail-title">${escapeHtml(title)}</h1>`;
-  if (showBadge) {
-    html += `<a href="#where-agi-breaks-it" class="agi-breaks-badge" onclick="scrollToAgiBreaks(event)" title="This institution is likely to break in a world of autonomous AI agents">`;
-    html += `<span class="agi-breaks-dot"></span>AGI breaks this`;
-    html += `</a>`;
-  }
-  html += '</div>';
 
-  html += '<div class="detail-layout">';
-  html += '<div class="detail-main">';
+  if (subtitle) {
+    html += `<div class="detail-summary">${escapeHtml(subtitle)}</div>`;
+  }
+
   if (cell.body && cell.body.trim()) {
     html += `<div class="detail-body">${renderBody(cell.body)}</div>`;
   } else {
     html += `<div class="detail-placeholder">This cell hasn’t been documented yet. <a href="${ghLink}">Contribute on GitHub →</a></div>`;
   }
-  html += `<div class="detail-footer"><a href="${ghLink}">Edit this page on GitHub →</a></div>`;
-  html += '</div>';
 
   if (methodsCell && methodsCell.body && methodsCell.body.trim()) {
-    html += '<aside class="detail-rail">';
-    html += `<div class="rail-label">${col.name} — methods &amp; references</div>`;
-    html += `<div class="rail-body">${marked.parse(methodsCell.body)}</div>`;
-    html += '</aside>';
+    html += '<section class="detail-resources">';
+    html += `<div class="detail-resources-label">${col.name} — resources</div>`;
+    html += `<div class="detail-resources-body">${marked.parse(methodsCell.body)}</div>`;
+    html += '</section>';
   }
-  html += '</div>';
+
+  html += `<div class="detail-footer"><a href="${ghLink}">Edit this page on GitHub →</a></div>`;
   return html;
 }
 
@@ -208,15 +234,6 @@ function renderMethodsDetail(tabId, colId, cell) {
 }
 
 // ── Show/hide detail ───────────────────────────────────────────────
-
-function scrollToAgiBreaks(event) {
-  event.preventDefault();
-  const target = document.getElementById('where-agi-breaks-it');
-  if (!target) return;
-  const rect = target.getBoundingClientRect();
-  const top = rect.top + window.scrollY - 16;
-  window.scrollTo({ top, behavior: 'smooth' });
-}
 
 async function showDetail(tabId, rowId, colId, dataPath) {
   const gridView = document.getElementById('grid-view');
@@ -261,10 +278,14 @@ async function showDetail(tabId, rowId, colId, dataPath) {
 
     if (cellResp.ok) {
       const cell = parseCell(await cellResp.text());
+      const fm = cell.frontmatter || {};
       const opts = { ghPath: `${bodyDir}/${rowId}-${colId}.md` };
-      // On the Human tab, use frontmatter.human_label as the detail title if present.
-      if (tabId === 'human' && cell.frontmatter && cell.frontmatter.human_label) {
-        opts.titleOverride = cell.frontmatter.human_label;
+      // On the Human tab, use frontmatter.human_label / human_subtitle as overrides if present.
+      if (tabId === 'human' && fm.human_label) {
+        opts.titleOverride = fm.human_label;
+      }
+      if (tabId === 'human' && fm.human_subtitle) {
+        opts.subtitleOverride = fm.human_subtitle;
       }
       detailView.innerHTML = renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts);
     } else {

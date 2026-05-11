@@ -1,11 +1,13 @@
 ---
 human_label: "Substantive constitutions & founding value documents"
 status: draft
+subtitle: "How an organization articulates its mission thickly enough that an AI agent can't slip between the words."
+human_subtitle: "How an institution articulates what it is for in language that binds administrators across hard cases."
 ---
 
 # Substantive constitutions & AI alignment docs
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Founding documents do something thinner than the law: they articulate the substantive commitments that the laws are supposed to serve. A national constitution names what the polity is about (equal protection, due process, free speech), an agency's authorizing statute names what it exists to do (protect veterans, ensure clean air, maintain safe skies), a hospital's ethics code names what it owes its patients. These documents are typically thicker than slogans and thinner than rulebooks, and the gap is where institutions live. The work of an experienced administrator is partly to read the substantive commitments well — to feel when a procedurally valid decision still violates what the agency was *for* — and to articulate that reading to colleagues in language that holds.
 

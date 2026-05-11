@@ -1,11 +1,13 @@
 ---
 human_label: "Negotiation & bargaining"
 status: ready
+subtitle: "How a principal meaningfully consents to a deal struck by their agent that they can't follow the reasoning behind."
+human_subtitle: "How two people negotiating on others' behalf produce a deal the principals can actually consent to."
 ---
 
 # Agent negotiation & bargaining
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 When two people negotiate on each other's behalf — a real-estate agent, a divorce lawyer, a procurement officer — the human practice has a few load-bearing features. Negotiators carry an explicit *mandate* from their principal: a price range, a list of dealbreakers, a few items flagged "ask me." They negotiate at human speed, which means principals can be looped in mid-deal when something unexpected comes up. Final terms are presented in a *legible package* — an offer letter, a marked-up contract, a one-page summary — and ratification means the principal actually reading it before signing. Where the package is too complex to read (a corporate merger, a union contract), institutions have grown around it: lawyers explain, ratification votes happen with discussion, regulators review. The point is not that any of this is fast, but that the principal can actually consent to what they signed.
 

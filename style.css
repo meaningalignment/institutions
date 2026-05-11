@@ -31,10 +31,26 @@ body {
   font-size: 13px;
   color: #8a8378;
   letter-spacing: 0.3px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   text-align: center;
   max-width: 680px;
   line-height: 1.5;
+}
+
+.pane-definition {
+  font-size: 13px;
+  color: #5c5852;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 28px;
+  padding: 12px 20px;
+  border-top: 1px solid #ebe5d8;
+  border-bottom: 1px solid #ebe5d8;
+}
+.pane-definition-term {
+  font-style: italic;
+  color: #2d2a26;
 }
 
 .tab-bar {
@@ -171,12 +187,17 @@ td .cell-empty { color: #ccc; font-size: 13px; }
 }
 .detail-breadcrumb a:hover { color: #2d2a26; }
 
-.detail-title-row {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
+.detail-summary {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.55;
+  color: #6b6358;
+  font-weight: 400;
+  margin: 14px 0 44px;
+  padding-left: 14px;
+  border-left: 2px solid #d5cfc5;
+  max-width: 680px;
 }
 
 .detail-title {
@@ -184,40 +205,8 @@ td .cell-empty { color: #ccc; font-size: 13px; }
   font-size: 32px;
   font-weight: 400;
   color: #2d2a26;
-  margin: 0;
+  margin: 0 0 4px;
   line-height: 1.3;
-}
-
-/* "AGI breaks this" badge — links to the section */
-.agi-breaks-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: #a14a2a;
-  background: #fbeee6;
-  border: 1px solid #e8c8b4;
-  border-radius: 14px;
-  padding: 4px 10px;
-  text-decoration: none;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-  white-space: nowrap;
-}
-.agi-breaks-badge:hover {
-  background: #f3dccb;
-  color: #7a3819;
-  border-color: #d9b099;
-}
-.agi-breaks-badge .agi-breaks-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #c75d3a;
 }
 
 /* Examples list under title */
@@ -239,23 +228,34 @@ td .cell-empty { color: #ccc; font-size: 13px; }
   line-height: 1.4;
 }
 
-/* Callouts: vivid case (human) and AGI scenario */
+/* Callouts: vivid case (human), AGI scenario, and examples */
 .callout {
-  margin: 20px 0 24px;
-  padding: 18px 22px;
-  border-radius: 8px;
-  border-left: 3px solid;
+  margin: 22px 0 26px;
+  padding: 20px 24px;
+  border-radius: 10px;
   background: #faf7f0;
-  border-color: #d5cfc5;
+  border: 1px solid #ece6da;
 }
 .callout-label {
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
   color: #8a8378;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.callout-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
 }
 .callout-body {
   font-size: 14.5px;
@@ -266,14 +266,51 @@ td .cell-empty { color: #ccc; font-size: 13px; }
 .callout-body p { margin-bottom: 10px; }
 
 .callout-human {
-  background: #f5f1e8;
-  border-left-color: #b8a878;
+  background: #f7f2e6;
+  border-color: #e6dcc4;
 }
+.callout-human .callout-label { color: #9a7f3f; }
+
 .callout-agi {
   background: #fbeee6;
-  border-left-color: #c75d3a;
+  border-color: #f0d8c8;
 }
 .callout-agi .callout-label { color: #a14a2a; }
+
+.callout-examples {
+  background: #f3f0e8;
+  border-color: #e2ddd0;
+}
+.callout-examples .callout-label { color: #6b6358; }
+.callout-examples .callout-body { font-size: 14px; }
+.callout-examples .callout-body ul,
+.callout-examples .callout-body ol {
+  margin: 0;
+  padding-left: 18px;
+  columns: 2;
+  column-gap: 36px;
+  list-style: none;
+}
+.callout-examples .callout-body li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 6px;
+  break-inside: avoid;
+}
+.callout-examples .callout-body li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #b5a98f;
+}
+@media (max-width: 640px) {
+  .callout-examples .callout-body ul,
+  .callout-examples .callout-body ol { columns: 1; }
+}
 
 .detail-body {
   font-size: 15px;
@@ -290,6 +327,55 @@ td .cell-empty { color: #ccc; font-size: 13px; }
   margin-bottom: 12px;
   padding-bottom: 8px;
   border-bottom: 1px solid #e6e1d8;
+}
+
+/* Collapsible h2 sections (rendered from <details><summary><h2>) */
+.detail-body details.collapsible-section {
+  margin: 0;
+}
+.detail-body details.collapsible-section + details.collapsible-section {
+  margin-top: 0;
+}
+.detail-body details.collapsible-section > summary.collapsible-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 40px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e6e1d8;
+}
+.detail-body details.collapsible-section > summary.collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+.detail-body details.collapsible-section > summary.collapsible-summary::before {
+  content: '';
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-left: 6px solid #b5b0a8;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  transition: transform 0.15s ease;
+  align-self: center;
+}
+.detail-body details.collapsible-section[open] > summary.collapsible-summary::before {
+  transform: rotate(90deg);
+}
+.detail-body details.collapsible-section > summary.collapsible-summary:hover::before {
+  border-left-color: #8a8378;
+}
+.detail-body details.collapsible-section > summary.collapsible-summary > h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #2d2a26;
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: inline;
 }
 
 .detail-body h3 {
@@ -517,50 +603,56 @@ td.status-sketch::after {
   opacity: 0.55;
 }
 
-/* Detail page two-column layout: body left, methods rail right */
-.detail-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 40px;
-  align-items: start;
-  margin-top: 8px;
-}
-.detail-main { min-width: 0; }
-.detail-rail {
-  position: sticky;
-  top: 24px;
-  padding: 20px 22px;
+/* Resources section at the bottom of each cell */
+.detail-resources {
+  margin: 48px 0 0;
+  padding: 24px 28px;
   background: #f5f1e8;
   border: 1px solid #e6e1d8;
-  border-radius: 6px;
-  font-size: 13px;
-  line-height: 1.55;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
   color: #4a463f;
 }
-.rail-label {
+.detail-resources-label {
   font-family: 'DM Sans', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.8px;
   font-size: 11px;
   color: #8a8378;
-  font-weight: 500;
-  margin-bottom: 10px;
+  font-weight: 600;
+  margin-bottom: 14px;
 }
-.rail-body h2, .rail-body h3 {
+.detail-resources-body h2,
+.detail-resources-body h3 {
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: #2d2a26;
-  margin: 14px 0 6px;
+  margin: 18px 0 8px;
 }
-.rail-body h2:first-child, .rail-body h3:first-child { margin-top: 0; }
-.rail-body p { margin: 0 0 8px; }
-.rail-body ul, .rail-body ol { margin: 0 0 8px; padding-left: 18px; }
-.rail-body li { margin-bottom: 4px; }
-.rail-body a { color: #5c5852; text-decoration: underline; }
-.rail-body a:hover { color: #2d2a26; }
+.detail-resources-body h2:first-child,
+.detail-resources-body h3:first-child { margin-top: 0; }
+.detail-resources-body p { margin: 0 0 10px; }
+.detail-resources-body ul,
+.detail-resources-body ol {
+  margin: 0 0 10px;
+  padding-left: 20px;
+  columns: 2;
+  column-gap: 36px;
+}
+.detail-resources-body li {
+  margin-bottom: 6px;
+  break-inside: avoid;
+}
+.detail-resources-body a { color: #5c5852; text-decoration: underline; }
+.detail-resources-body a:hover { color: #2d2a26; }
+@media (max-width: 640px) {
+  .detail-resources-body ul,
+  .detail-resources-body ol { columns: 1; }
+}
 
 .detail-footer {
   margin-top: 40px;
@@ -640,8 +732,15 @@ tr.methods-row th.row-header {
 
   .pane-subtitle {
     font-size: 11px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     max-width: 100%;
+  }
+
+  .pane-definition {
+    font-size: 11px;
+    padding: 8px 12px;
+    margin-bottom: 14px;
+    line-height: 1.5;
   }
 
   table { min-width: 600px; }
@@ -686,14 +785,9 @@ tr.methods-row th.row-header {
   .detail-body { font-size: 14px; }
   .detail-body h2 { font-size: 18px; }
 
-  /* Stack rail below body on mobile */
-  .detail-layout {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .detail-rail {
-    position: static;
-    padding: 16px 18px;
+  .detail-resources {
+    padding: 18px 20px;
+    margin-top: 32px;
   }
 
   /* Problem sets mobile */

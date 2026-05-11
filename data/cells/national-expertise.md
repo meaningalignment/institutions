@@ -1,11 +1,13 @@
 ---
 human_label: "Regulatory agencies (FDA, BaFin)"
 status: draft
+subtitle: "How a firm can rely on an AI regulator's informal opinion at agent speed without it becoming de facto law."
+human_subtitle: "How regulated firms get the regulator's read on a novel question before committing to a consequential move."
 ---
 
 # AI regulatory agencies & regulator-anticipation
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 National regulatory agencies — the FDA, FAA, BaFin, the FTC and their international peers — translate science and policy into binding decisions over enormously consequential domains: drug approval, aircraft safety, financial stability, market conduct. The mechanism is recognizable: career experts inside the agency build deep domain knowledge, the agency publishes rules and guidance, regulated firms file for approval or report incidents, the agency reviews and responds. The slow rhythm — months for a no-action letter, years for a new rule — is partly defect (regulatory lag) and partly feature: it forces agencies to commit positions in writing that can be challenged, appealed, and litigated. Firms in the meantime act conservatively when they're unsure, often consulting senior regulators informally before making consequential moves.
 

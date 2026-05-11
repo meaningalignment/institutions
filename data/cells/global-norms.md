@@ -1,11 +1,13 @@
 ---
 human_label: "Diplomatic protocols & soft-law norms"
 status: ready
+subtitle: "How states ratify AI-discovered cross-domain deals that exceed any negotiator's mandate without laundering toxic trades."
+human_subtitle: "How states bargain through delegated negotiators while keeping domestic constituencies in legitimate consent."
 ---
 
 # Geopolitical supernegotiation
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Diplomatic norms and soft-law frameworks have evolved across centuries to handle the central problem of international agreement: states bargain through delegated negotiators whose mandates are bounded by domestic politics. Treaty texts circulate, working-group proposals are leaked deliberately to test domestic reception, "Track II" back-channels probe the space of what's actually possible, and legitimacy comes from a careful sequencing — exploration by negotiators, agreement at the table, then ratification by parliament or referendum. The norms about what topics can be linked (security and trade, but cautiously), what constitutes a credible signal, and when a side can walk away without losing face are mostly unwritten and learned slowly by professionals. The system is famously slow, but its slowness does work: it gives domestic constituencies time to absorb what's being agreed to, and it forces negotiators to bring back deals that look like the deals they were authorized to seek.
 

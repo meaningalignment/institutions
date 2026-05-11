@@ -32,13 +32,19 @@ Every file in `data/cells/` follows this structure. The build doesn't enforce it
 ```markdown
 ---
 human_label: Social conventions       # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
+subtitle: {one-liner framing the challenge this cell's institutions address.}   # optional; renders under the detail title.
+human_subtitle: {Human-tab override for subtitle.}                              # optional; falls back to subtitle on the Human tab.
 status: ready                          # sketch | draft | ready. Drives grid marker. Optional.
 related: [group-norms]                 # optional; reserved for future cross-linking.
 ---
 
 # {AGI summary — H1, used as the AGI grid label and the AGI detail-view title}
 
-## How humans solve this today
+## How do humans solve this today?
+
+### Examples
+
+- {4–8 named institutions, conventions, or mechanisms — short noun phrases, not sentences.}
 
 {1–3 paragraphs naming the actual existing institution(s) — not generic theory.
 End with a vivid micro-scenario, introduced by "A vivid case:".}
@@ -81,7 +87,7 @@ Multiple `###` problem sets under one cell are supported; each becomes its own e
 
 ### Why these particular sections
 
-- **How humans solve this today** anchors readers in something familiar before the AGI-specific design problem hits. Always concrete (named institutions, named mechanisms), never generic ("humans cooperate by…").
+- **How do humans solve this today?** anchors readers in something familiar before the AGI-specific design problem hits. Always concrete (named institutions, named mechanisms), never generic ("humans cooperate by…").
 - **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. Failure modes are concrete and enumerated; this is not the place for generic "AI is different."
 - **Scenarios** illustrate the breakdown with vivid, named-person, named-situation prose. Concrete enough to test design proposals against; broad enough to generalize.
 - **Anchor contexts** keep proposals testable against real scenarios while signaling they should generalize beyond them.

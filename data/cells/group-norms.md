@@ -1,11 +1,12 @@
 ---
 human_label: "Professional codes of conduct"
 status: draft
+subtitle: How a team builds and transmits a felt sense of what's in-character vs. off-key.
 ---
 
 # Agent norm intuition
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Norm intuition — the felt sense that an action is in-character or off-key — gets built in humans through several layered mechanisms, none of which fully replaces the others:
 

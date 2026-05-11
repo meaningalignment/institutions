@@ -1,11 +1,13 @@
 ---
 human_label: "Elections, deliberative polls & national exchanges"
 status: draft
+subtitle: "How an AI negotiator represents a heterogeneous constituency without quietly averaging out its minorities."
+human_subtitle: "How a large, heterogeneous constituency keeps its delegated negotiator faithful to what it was sent to do."
 ---
 
 # Agents that represent national interests / large groups
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 When a large constituency needs to be represented in a negotiation it can't all attend, humans have evolved layered representation: elected officials, deliberative polls, citizen assemblies, mandate-bound negotiating teams, public-comment periods on proposed deals, and ratification by legislature or referendum. The legitimacy comes from a chain — voters → representative → negotiator → outcome — that each link can in principle audit. Where the constituency is heterogeneous (rural and urban counties, different industries, different income groups), the practice is to bring those differences explicitly into the room: subcommittee structures, regional caucuses, dissents on the record. The system is slow and often imperfect, but the slowness gives the constituency time to notice when their representative is drifting from what they sent them to do.
 

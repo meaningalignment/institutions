@@ -1,11 +1,13 @@
 ---
 human_label: "Matching markets (kidney, school) & commons governance"
 status: ready
+subtitle: "How a shared resource stays governable when its commoners are autonomous AI agents with forkable identities."
+human_subtitle: "How communities sustain cooperation around a shared resource when each participant could free-ride."
 ---
 
 # AI commons management
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Some of the best-studied institutional design in social science concerns commons — fisheries, irrigation systems, alpine pastures, shared software, peer-reviewed knowledge. Elinor Ostrom's eight principles for long-enduring commons are the canonical result: clear boundaries, congruence between rules and local conditions, collective choice arenas, monitoring, graduated sanctions, accessible conflict resolution, recognized rights to organize, and nested governance. They depend on commoners who interact repeatedly, see each other's contributions, can detect free-riding, and can mete out social punishment that costs the offender something they care about. Many specific commons have layered formal mechanisms on top of these — fishing quotas, water boards, Wikipedia's edit-protection regime, open-source contributor agreements — but the underlying glue is mutual visibility and the slowness of replacing a community's accumulated trust.
 

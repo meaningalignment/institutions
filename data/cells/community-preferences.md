@@ -1,11 +1,13 @@
 ---
 human_label: "Cooperatives, participatory budgets & local markets"
 status: draft
+subtitle: "How a neighborhood keeps its markets serving residents when most transactions route through platform-controlled agents."
+human_subtitle: "How a neighborhood directs its local markets toward what residents actually care about."
 ---
 
 # Market design for societies of agents
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Local economies have evolved a thick stack of mechanisms that translate community preferences into market outcomes — and limit the damage when markets misfire. Cooperatives let buyers pool to set procurement criteria; participatory budgets let neighborhoods direct public spend; farmers' markets enforce origin claims that anonymous supply chains erode; food co-ops vote on which suppliers to stock. Beyond the markets themselves, communities run informal monitoring (the regulars notice when service drops), word-of-mouth reputation (the carpenter you trust is the carpenter your neighbor named), and exit options (you can switch barbers without an algorithm's permission). The mechanisms are slow and imperfect, but they keep the relationship between what people in a place actually want and what the local market provides recognizable.
 

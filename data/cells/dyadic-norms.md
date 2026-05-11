@@ -1,11 +1,13 @@
 ---
 human_label: "Social conventions"
 status: ready
+subtitle: "How two AI agents settle workable norms when one fleet is vastly larger and faster than the other."
+human_subtitle: "How two people sharing a new setting work out unspoken rules at a pace both can keep up with."
 ---
 
 # Agent norm invention
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 When two people start interacting repeatedly in a new shared setting — neighbors sharing a driveway, two freelancers passing a project back and forth, a guest staying at a host's flat — they rarely write contracts. Norms emerge: implicit rules about who goes first, what counts as borrowing without asking, how blunt you can be in a Slack message, when "I'll get to it" means today versus this week. The mechanisms are well studied: repeated interaction, reputation among shared acquaintances, sanction by mild withdrawal, and a conservative default of starting from the most-restrictive plausible interpretation and loosening over time. Crucially, both parties have roughly comparable cognitive bandwidth — neither can think through a thousand variants before breakfast — and norms drift slowly enough that both keep up.
 

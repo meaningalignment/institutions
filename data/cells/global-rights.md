@@ -1,11 +1,13 @@
 ---
 human_label: "Int'l law, treaties & tribunals"
 status: draft
+subtitle: "How AI-sourced rights documentation gains the legitimacy treaty bodies require without being weaponizable."
+human_subtitle: "How violations across borders get documented credibly enough for treaty bodies to act."
 ---
 
 # Automated defense of human rights
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 International human rights protection runs on a slow, paper-trail-heavy pipeline: NGOs and journalists document violations on the ground, lawyers translate the documentation into formats the relevant treaty bodies and tribunals can act on, special rapporteurs investigate, and (sometimes) state parties are called to account in venues like the UN Human Rights Council, the ICC, or regional courts. The mechanism is famously slow — often weeks to file, months to be heard, years to see a decision — and the slowness is partly a feature: the legitimacy of an international finding rests on the painstaking documentation that supports it. Lawyers at organizations like Human Rights Watch or Amnesty have spent decades building the credibility that lets their dossiers be taken seriously.
 

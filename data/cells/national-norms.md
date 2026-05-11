@@ -1,11 +1,13 @@
 ---
 human_label: "Legal codes & regulatory norms"
 status: draft
+subtitle: "How an AI administering the law actually knows when the law changes and applies the current rule."
+human_subtitle: "How an administrative state keeps the people applying its rules current as the law evolves."
 ---
 
 # AIs that follow and update the law
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 The administrative state's job is to apply law to cases — and to keep doing so as the law changes. The mechanisms are well developed: legislative bodies pass statutes, agencies publish implementing regulations, regulated entities and the public read the published codes, and courts adjudicate disputes about what the text actually requires. When a statute changes, agencies issue updated guidance, train staff, and (where it matters) accept a transition period during which the old rule applies to in-flight matters. The whole pipeline depends on the people applying the law actually knowing what the current rule is — and on a clear chain of accountability when they don't.
 

@@ -1,11 +1,13 @@
 ---
 human_label: "Bylaws & grievance boards"
 status: draft
+subtitle: "How members of an org can grieve an AI manager whose decisions are too dense and continuous to summon."
+human_subtitle: "How members of a self-governed organization contest a manager's decision through procedures they can invoke."
 ---
 
 # Autonomous corp bylaws & grievance boards
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Member-governed organizations — cooperatives, condo associations, unions, partnerships — encode rights and grievance procedures in their bylaws. The structure is familiar: members can propose changes, vote on policy, and grieve a manager's decision through a defined channel (a grievance committee, a member meeting, ultimately the courts). The mechanisms presume that managers are persons who can be summoned, questioned, and held to account — and that their decisions, while binding in the moment, can be revisited and reversed if a process finds them improper. The legitimacy comes from the bylaws being public, the procedures being followed, and the outcomes being applied consistently.
 

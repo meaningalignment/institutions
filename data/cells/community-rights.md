@@ -1,11 +1,13 @@
 ---
 human_label: "Municipal codes & local courts"
 status: draft
+subtitle: "How an everyday decision an AI made about you stays legible, contestable, and reviewable at platform scale."
+human_subtitle: "How everyday community disputes get heard, reasoned about, and appealed at a scale a neighbor can use."
 ---
 
 # AI judges and adjudication
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Communities resolve everyday disputes through institutions calibrated to their stakes: small-claims court, municipal code enforcement, marketplace dispute-resolution panels, the local mediator, the rabbi or imam, the homeowners' association board. Each handles a different magnitude of conflict — eviction, code violation, marketplace return, congregational disagreement, neighbor noise — and each carries some version of the same procedural commitments: the affected person can be heard, the basis of the decision is articulable, and there's some path to appeal a clear error. The community courts work in part because the judge is somebody's neighbor; the procedures matter, but so does the social embedding.
 

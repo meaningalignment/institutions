@@ -1,11 +1,13 @@
 ---
 human_label: "Multilateral assemblies & global markets"
 status: draft
+subtitle: "How agent-mediated global commerce keeps origin, craft, and continuity visible against platform ranking optimizers."
+human_subtitle: "How buyers and sellers across borders keep substantive claims about origin and quality legible to each other."
 ---
 
 # Global markets that keep human interests central
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Global trade has evolved a stack of mechanisms that, imperfectly, keep some of what buyers and sellers actually care about visible across borders: regional appellations and geographic indications (champagne, Roquefort, Oaxacan textiles), fair-trade certifications, organic standards, ISO-style quality marks, third-party origin verification, and a sprawl of bilateral and multilateral trade agreements that recognize and protect these labels. The mechanisms ride on top of the basic market — they tell a buyer in Berlin that a blanket from Oaxaca is *that kind* of blanket, and they punish counterfeiters when the system catches them. Underneath, the matching is still done by humans browsing, asking shopkeepers, comparing notes — slow but in their own language of what matters.
 

@@ -1,11 +1,13 @@
 ---
 human_label: "Vows & covenants"
 status: draft
+subtitle: "How an AI agent can make a binding commitment that survives provider switching, model updates, and changing incentives."
+human_subtitle: "How two people commit to a relationship that has to hold when the rules change or the cost rises."
 ---
 
 # Agent-agent vows
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 For relationships that are too important to leave to a contract, humans have evolved thicker forms: vows, covenants, oaths, professional commitments. Marriage vows, the Hippocratic oath, fiduciary duty, the seal of confession, attorney-client privilege, and the lifelong tenure that accompanies certain ordinations all share something a contract doesn't: a public, articulated commitment to a relationship that explicitly survives changes in incentive. The mechanisms are part performative (the public utterance changes the speaker), part institutional (a community holds the speaker accountable), and part self-binding (the very intelligibility of the speaker's identity comes to depend on the commitment). Crucially, vows hold under conditions a contract can't anticipate — when the rules change, the situation transforms, the cost of holding the commitment rises sharply. They're the institution we use precisely when we know we can't enumerate the cases.
 

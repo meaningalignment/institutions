@@ -1,11 +1,13 @@
 ---
 human_label: "Profit-sharing, vesting & bounty systems"
 status: draft
+subtitle: "How a mixed human-agent firm allocates revenue across people, agents, and the people who built the agents."
+human_subtitle: "How a small firm divides revenue across contributors without breeding resentment every quarter."
 ---
 
 # Agent profit-sharing & bounty systems
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Inside firms, the question of who-gets-what is settled by an evolved stack of mechanisms: salary bands tied to role and tenure, bonus pools allocated by manager judgment, commission structures for sales, profit-sharing distributions, equity grants, and bounty programs for specific outputs. Each scheme is a partial answer to "how do we recognize contribution without fighting about it every quarter," and the schemes coexist because no single one captures both routine effort and exceptional outcomes. The legitimacy comes from being roughly understood by the people they cover — even when employees disagree with their bonus, they can usually trace why it landed where it did.
 

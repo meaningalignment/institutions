@@ -154,6 +154,9 @@ function renderGrid(tabId, cells, methods, dataPath) {
   let html = '';
   html += `<div class="pane-title">${esc(tab.title)}</div>\n`;
   html += `<div class="pane-subtitle">${esc(tab.subtitle)}</div>\n`;
+  html += '<div class="pane-definition">';
+  html += '<span class="pane-definition-term">Institutions</span> are the rules, norms, and mechanisms that structure how people interact &mdash; the coordination infrastructure that sits between individual choices and collective outcomes.';
+  html += '</div>\n';
   html += '<div class="table-wrapper"><table>\n';
 
   html += '<thead><tr><th class="corner-cell axis-label-col"></th>';

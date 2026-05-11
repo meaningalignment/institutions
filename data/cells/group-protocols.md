@@ -1,11 +1,13 @@
 ---
 human_label: "Team protocols & workflows"
 status: draft
+subtitle: "How a small team surfaces agent-vs-agent disagreement at the moment a human can usefully adjudicate."
+human_subtitle: "How a small team converges on workflows that distribute legibility about what was decided and why."
 ---
 
 # Team protocols & workflows
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 Small teams converge on workflows the way long-married couples converge on division of labor: through repeated practice, occasional argument, and selective formalization. Engineering teams have stand-ups, design reviews, RFCs; medical teams have rounds and morbidity-and-mortality conferences; architecture studios have design crits and red-line reviews. The shared pattern is: at certain known moments, the team pauses, surfaces what's been decided and on what basis, lets disagreement be aired, and resolves it in front of the people whose work it affects. The protocols are partly about decisions; equally, they're about distributing legibility — every team member knows what was concluded and why, and could roughly defend it to an outsider.
 

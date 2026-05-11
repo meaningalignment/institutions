@@ -1,11 +1,13 @@
 ---
 human_label: "Contracts & escrow"
 status: draft
+subtitle: "How an AI service agent gets paid for a principal's real flourishing without gaming the report it depends on."
+human_subtitle: "How two parties pick a payment proxy that keeps the provider focused on the outcome that actually matters."
 ---
 
 # Human-outcome contracts & bounties
 
-## What problems do these institutions solve today?
+## How do humans solve this today?
 
 When two parties want one to do work for the other, humans have a long menu of incentive forms: hourly wages, fixed-fee contracts, retainers, bonuses, performance bounties, profit shares, contingency fees. Each picks a different proxy for "the thing we actually want" — hours worked, deliverables shipped, milestones met, revenue generated, cases won. The proxy is rarely the thing itself; both sides know it, and the social and legal scaffolding around the contract (a manager who can re-scope, a court that can apply good-faith doctrine, a reputation among repeat buyers) corrects for the gap. For services where the goal is a person's *flourishing* — a coach, a therapist, a tutor — humans have evolved the most subjective and most personal of these arrangements: paid by the session, with the relationship itself the load-bearing accountability.
 

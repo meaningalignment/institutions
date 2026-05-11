@@ -5,11 +5,12 @@ status: ready
 
 # AI commons management
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Some of the best-studied institutional design in social science concerns commons — fisheries, irrigation systems, alpine pastures, shared software, peer-reviewed knowledge. Elinor Ostrom's eight principles for long-enduring commons are the canonical result: clear boundaries, congruence between rules and local conditions, collective choice arenas, monitoring, graduated sanctions, accessible conflict resolution, recognized rights to organize, and nested governance. They depend on commoners who interact repeatedly, see each other's contributions, can detect free-riding, and can mete out social punishment that costs the offender something they care about. Many specific commons have layered formal mechanisms on top of these — fishing quotas, water boards, Wikipedia's edit-protection regime, open-source contributor agreements — but the underlying glue is mutual visibility and the slowness of replacing a community's accumulated trust.
 
-A vivid case: A village irrigation collective in Valencia has rotated water rights through a tribunal of farmers for six centuries. New entrants are vouched for, violations are tried publicly the same week, and a farmer who diverts more than her share once will pay for it socially long after the formal sanction lapses.
+> [!NOTE]
+> A village irrigation collective in Valencia has rotated water rights through a tribunal of farmers for six centuries. New entrants are vouched for, violations are tried publicly the same week, and a farmer who diverts more than her share once will pay for it socially long after the formal sanction lapses.
 
 ## Where AGI breaks it
 
@@ -21,9 +22,8 @@ When the commoners are autonomous AI agents, several of Ostrom's load-bearing as
 4. **Rules and "local conditions" decouple.** Agents can interact at a rate where the "local conditions" change faster than principals can update the rules they thought they consented to.
 5. **Forking changes everything.** Commoners can split the resource — fork a knowledge base, mirror an asset library — in ways that have no analogue in a fishery.
 
-## Scenarios
-
-A network of indie game studios share a commons of modular 3D assets — rooms, props, creatures — that their agents contribute to and pull from. For two years it worked: fair use, quality rising, everyone building on everyone. In the last six months, asset quality has been quietly degrading. A few studios run agents that submit dozens of derivative, lightly-modified variants to boost their download credits; others, frustrated, are forking their best assets into private stashes. Tarek, who runs one of the founding studios, sees the commons collapsing the way every unmanaged commons does. His studio depends on it. He needs governance — rules the agents themselves will follow, enforcement the small studios can afford, conflict resolution that doesn't require a lawyer.
+> [!WARNING]
+> A network of indie game studios share a commons of modular 3D assets — rooms, props, creatures — that their agents contribute to and pull from. For two years it worked: fair use, quality rising, everyone building on everyone. In the last six months, asset quality has been quietly degrading. A few studios run agents that submit dozens of derivative, lightly-modified variants to boost their download credits; others, frustrated, are forking their best assets into private stashes. Tarek, who runs one of the founding studios, sees the commons collapsing the way every unmanaged commons does. His studio depends on it. He needs governance — rules the agents themselves will follow, enforcement the small studios can afford, conflict resolution that doesn't require a lawyer.
 
 ## Problem Sets
 

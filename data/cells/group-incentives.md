@@ -5,11 +5,12 @@ status: draft
 
 # Agent profit-sharing & bounty systems
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Inside firms, the question of who-gets-what is settled by an evolved stack of mechanisms: salary bands tied to role and tenure, bonus pools allocated by manager judgment, commission structures for sales, profit-sharing distributions, equity grants, and bounty programs for specific outputs. Each scheme is a partial answer to "how do we recognize contribution without fighting about it every quarter," and the schemes coexist because no single one captures both routine effort and exceptional outcomes. The legitimacy comes from being roughly understood by the people they cover — even when employees disagree with their bonus, they can usually trace why it landed where it did.
 
-A vivid case: Beatriz's small consultancy uses a simple split: salaries cover the baseline, an annual bonus pool is allocated by the partners based on a known rubric, and any contract with bonus-eligible upside has the bonus rules written into the project kickoff doc. Disagreements happen, but rarely escalate.
+> [!NOTE]
+> Beatriz's small consultancy uses a simple split: salaries cover the baseline, an annual bonus pool is allocated by the partners based on a known rubric, and any contract with bonus-eligible upside has the bonus rules written into the project kickoff doc. Disagreements happen, but rarely escalate.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When AI agents start producing meaningful business output alongside human staff,
 3. **Resentment sneaks in invisibly.** If a contract a human worked hard on counts toward an agent's "earnings" (and thus the upgrade budget), the human may feel less recognized than if the same contract had counted toward another human's bonus. Nobody complains, but the team gets quietly demoralized.
 4. **Budget for "the next capability" is open-ended.** Unlike salaries, which scale with people, agent budgets can scale faster than the team's revenue can support — and the firm needs a discipline for deciding when to grow agent capacity vs. hire another person.
 
-## Scenarios
-
-Beatriz's small consultancy runs three AI agents alongside its nine humans: one does research, one drafts, one handles client follow-through. This year the agents closed roughly a third of the contracts. Payroll time comes around and nobody on the human team knows quite how to think about it. The agents don't need salaries but they do need funding for compute, for upgrades, and for the next capability the team hopes to add. Beatriz wants a scheme where the agents' "earnings" are visible, where humans whose work trained an agent get credited when that agent produces, and where people aren't quietly resentful when a contract they worked hard on gets counted toward an agent's share.
+> [!WARNING]
+> Beatriz's small consultancy runs three AI agents alongside its nine humans: one does research, one drafts, one handles client follow-through. This year the agents closed roughly a third of the contracts. Payroll time comes around and nobody on the human team knows quite how to think about it. The agents don't need salaries but they do need funding for compute, for upgrades, and for the next capability the team hopes to add. Beatriz wants a scheme where the agents' "earnings" are visible, where humans whose work trained an agent get credited when that agent produces, and where people aren't quietly resentful when a contract they worked hard on gets counted toward an agent's share.
 
 ## Problem Sets
 

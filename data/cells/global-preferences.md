@@ -5,11 +5,12 @@ status: draft
 
 # Global markets that keep human interests central
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Global trade has evolved a stack of mechanisms that, imperfectly, keep some of what buyers and sellers actually care about visible across borders: regional appellations and geographic indications (champagne, Roquefort, Oaxacan textiles), fair-trade certifications, organic standards, ISO-style quality marks, third-party origin verification, and a sprawl of bilateral and multilateral trade agreements that recognize and protect these labels. The mechanisms ride on top of the basic market — they tell a buyer in Berlin that a blanket from Oaxaca is *that kind* of blanket, and they punish counterfeiters when the system catches them. Underneath, the matching is still done by humans browsing, asking shopkeepers, comparing notes — slow but in their own language of what matters.
 
-A vivid case: When Natalia's textile cooperative entered a European market in the 1990s, the appellation badge meant that a buyer in Berlin who cared about origin could find them — not necessarily cheaper, but identifiable, and protected from imitations using the regional name.
+> [!NOTE]
+> When Natalia's textile cooperative entered a European market in the 1990s, the appellation badge meant that a buyer in Berlin who cared about origin could find them — not necessarily cheaper, but identifiable, and protected from imitations using the regional name.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When global discovery and matching is mediated by platform agents — ranking su
 3. **Counterfeiters' agents are smart now.** A counterfeiter's agent can promise faster shipping, smarter bundles, and a confident origin story; verification becomes a race the small original loses.
 4. **Communities of buyers can't coordinate.** A cooperative used to be able to talk to its committed customers; now those customers are reached only through platform agents whose loyalties run elsewhere.
 
-## Scenarios
-
-A textile cooperative in Oaxaca has, for four generations, sold blankets under a regional appellation. This year a global commerce platform's agent, optimizing for its consumer-side retention model, quietly reranked the cooperative below cheaper imitations — imitations whose agents can promise faster shipping and smarter bundling. The cooperative has had no voice in how the platform's matching works; nor has any of its customers, who care about where the blanket came from. The cooperative's young director, Natalia, wants a market in which agents acting for global buyers actually represent what those buyers care about — origin, craft, continuity — and not just what the platform ranks for them.
+> [!WARNING]
+> A textile cooperative in Oaxaca has, for four generations, sold blankets under a regional appellation. This year a global commerce platform's agent, optimizing for its consumer-side retention model, quietly reranked the cooperative below cheaper imitations — imitations whose agents can promise faster shipping and smarter bundling. The cooperative has had no voice in how the platform's matching works; nor has any of its customers, who care about where the blanket came from. The cooperative's young director, Natalia, wants a market in which agents acting for global buyers actually represent what those buyers care about — origin, craft, continuity — and not just what the platform ranks for them.
 
 ## Problem Sets
 

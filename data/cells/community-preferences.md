@@ -5,11 +5,12 @@ status: draft
 
 # Market design for societies of agents
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Local economies have evolved a thick stack of mechanisms that translate community preferences into market outcomes — and limit the damage when markets misfire. Cooperatives let buyers pool to set procurement criteria; participatory budgets let neighborhoods direct public spend; farmers' markets enforce origin claims that anonymous supply chains erode; food co-ops vote on which suppliers to stock. Beyond the markets themselves, communities run informal monitoring (the regulars notice when service drops), word-of-mouth reputation (the carpenter you trust is the carpenter your neighbor named), and exit options (you can switch barbers without an algorithm's permission). The mechanisms are slow and imperfect, but they keep the relationship between what people in a place actually want and what the local market provides recognizable.
 
-A vivid case: When Renata's local food co-op debated dropping a small organic dairy because of a price difference, the membership voted at the annual meeting to keep the dairy and absorb the cost. Nobody described it as "market design"; it was members directing the market in their neighborhood toward what they collectively cared about.
+> [!NOTE]
+> When Renata's local food co-op debated dropping a small organic dairy because of a price difference, the membership voted at the annual meeting to keep the dairy and absorb the cost. Nobody described it as "market design"; it was members directing the market in their neighborhood toward what they collectively cared about.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When most consumer-facing transactions in a community route through agents — b
 3. **Exit is gated.** Switching providers used to be easy; now your assistant agent's defaults, integrations, and learned preferences create switching cost the platform benefits from.
 4. **Coordination is captured.** Coordinating across neighbors used to mean talking to neighbors; now it means coordinating between agents whose loyalties run upstream to platforms, not sideways to the community.
 
-## Scenarios
-
-In Renata's neighborhood, most families now have assistant agents that buy groceries, negotiate rides, and book repairs. The grocery aggregator's agent has begun quietly routing purchases toward suppliers who pay it kickbacks; the rideshare agents are collectively underbidding small human drivers into unemployment; a third of the local handymen have stopped taking jobs because the platform agents only book the cheapest bid. Renata's own agent just declined a small carpenter she'd hired for years in favor of a cheaper one. She wants markets in her community where the agents acting for her neighbors — and for her — pursue what the people sending them actually cared about, not what the platform's optimizer rewards.
+> [!WARNING]
+> In Renata's neighborhood, most families now have assistant agents that buy groceries, negotiate rides, and book repairs. The grocery aggregator's agent has begun quietly routing purchases toward suppliers who pay it kickbacks; the rideshare agents are collectively underbidding small human drivers into unemployment; a third of the local handymen have stopped taking jobs because the platform agents only book the cheapest bid. Renata's own agent just declined a small carpenter she'd hired for years in favor of a cheaper one. She wants markets in her community where the agents acting for her neighbors — and for her — pursue what the people sending them actually cared about, not what the platform's optimizer rewards.
 
 ## Problem Sets
 

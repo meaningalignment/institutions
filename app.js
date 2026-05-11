@@ -26,10 +26,64 @@ const COLS = [
 
 const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 
+// Anchor heading used to detect whether this cell has an AGI-breakdown — drives
+// the "AGI breaks this" title badge.
+const AGI_SECTION_HEADING = 'Where AGI breaks it';
+
+// GFM alerts → callout extension for `marked`.
+// `> [!NOTE]` / `> [!WARNING]` blockquotes render as <aside class="callout …">.
+//   NOTE     → callout-human (tan/gold)  — vivid human case
+//   WARNING  → callout-agi   (orange)    — AGI scenario
+const GFM_ALERT_TYPES = {
+  NOTE:      { cls: 'callout-human', label: 'A vivid case' },
+  WARNING:   { cls: 'callout-agi',   label: 'How AGI breaks it — a scenario' },
+  TIP:       { cls: 'callout-tip',   label: 'Tip' },
+  IMPORTANT: { cls: 'callout-important', label: 'Important' },
+  CAUTION:   { cls: 'callout-caution', label: 'Caution' }
+};
+
+function installGfmAlertExtension() {
+  if (typeof marked === 'undefined' || marked._gfmAlertsInstalled) return;
+  marked.use({
+    extensions: [{
+      name: 'gfmAlert',
+      level: 'block',
+      start(src) { return src.match(/^>\s*\[!/m)?.index; },
+      tokenizer(src) {
+        const rule = /^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\][^\n]*\n((?:>[^\n]*\n?)*)/i;
+        const m = rule.exec(src);
+        if (!m) return;
+        const type = m[1].toUpperCase();
+        const inner = m[2]
+          .split('\n')
+          .map(line => line.replace(/^>\s?/, ''))
+          .join('\n')
+          .trim();
+        return {
+          type: 'gfmAlert',
+          raw: m[0],
+          alertType: type,
+          tokens: this.lexer.blockTokens(inner, [])
+        };
+      },
+      renderer(token) {
+        const meta = GFM_ALERT_TYPES[token.alertType] || { cls: 'callout-note', label: token.alertType };
+        const body = this.parser.parse(token.tokens);
+        return (
+          `<aside class="callout ${meta.cls}">` +
+          `<div class="callout-label">${meta.label}</div>` +
+          `<div class="callout-body">${body}</div>` +
+          `</aside>`
+        );
+      }
+    }]
+  });
+  marked._gfmAlertsInstalled = true;
+}
+
 // ── Cell parsing ───────────────────────────────────────────────────
 
 function parseCell(raw) {
-  // Strip YAML frontmatter if present; tiny inline parser for key: value and key: [a, b]
   let frontmatter = {};
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
   if (fmMatch) {
@@ -38,7 +92,14 @@ function parseCell(raw) {
       if (!m) return;
       let val = m[2].trim();
       if (val.startsWith('[') && val.endsWith(']')) {
-        val = val.slice(1, -1).split(',').map(s => s.trim()).filter(Boolean);
+        val = val.slice(1, -1)
+          .split(',')
+          .map(s => s.trim().replace(/^["']|["']$/g, ''))
+          .filter(Boolean);
+      } else if (val.startsWith('"') && val.endsWith('"')) {
+        val = val.slice(1, -1);
+      } else if (val.startsWith("'") && val.endsWith("'")) {
+        val = val.slice(1, -1);
       }
       frontmatter[m[1]] = val;
     });
@@ -53,12 +114,29 @@ function parseCell(raw) {
   return { summary, body: bodyAfterH1, frontmatter };
 }
 
+// ── Body rendering ────────────────────────────────────────────────
+
+function renderBody(body) {
+  installGfmAlertExtension();
+  let html = marked.parse(body);
+  html = html.replace(
+    new RegExp(`<h2(\\s[^>]*)?>${AGI_SECTION_HEADING}</h2>`),
+    `<h2 id="where-agi-breaks-it">${AGI_SECTION_HEADING}</h2>`
+  );
+  return html;
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 // ── Detail page ────────────────────────────────────────────────────
 
 function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
-  // opts: { titleOverride, ghPath } \u2014 titleOverride lets the human tab show
-  // the human_label as the title while the body comes from data/cells/.
-  // ghPath is the path under data/ to send Edit-on-GitHub to.
   const tab = TABS[tabId] || { title: tabId };
   const row = ROWS.find(r => r.id === rowId) || { name: rowId };
   const col = COLS.find(c => c.id === colId) || { name: colId };
@@ -66,27 +144,40 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   const ghLink = `${GITHUB_REPO}/edit/main/data/${ghPath}`;
   const title = (opts && opts.titleOverride) || cell.summary;
 
-  let html = '';
-  html += `<a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>`;
-  html += '<div class="detail-breadcrumb">';
-  html += `${tab.title} \u203A ${row.name} \u203A ${col.name}`;
-  html += '</div>';
-  html += `<div class="detail-title">${title}</div>`;
+  // Show "AGI breaks this" badge only on the Human tab — it flags that the existing
+  // institution is likely to break in a world of autonomous AI agents. On the AGI
+  // and Fidelity tabs the section is descriptive context, not a warning.
+  const showBadge = tabId === 'human'
+    && new RegExp(`^## ${AGI_SECTION_HEADING}$`, 'm').test(cell.body || '');
 
-  // Two-column layout: main body + methods rail
+  let html = '';
+  html += `<a href="#" class="detail-back" onclick="hideDetail();return false;">← Back to grid</a>`;
+  html += '<div class="detail-breadcrumb">';
+  html += `${tab.title} › ${row.name} › ${col.name}`;
+  html += '</div>';
+
+  html += '<div class="detail-title-row">';
+  html += `<h1 class="detail-title">${escapeHtml(title)}</h1>`;
+  if (showBadge) {
+    html += `<a href="#where-agi-breaks-it" class="agi-breaks-badge" onclick="scrollToAgiBreaks(event)" title="This institution is likely to break in a world of autonomous AI agents">`;
+    html += `<span class="agi-breaks-dot"></span>AGI breaks this`;
+    html += `</a>`;
+  }
+  html += '</div>';
+
   html += '<div class="detail-layout">';
   html += '<div class="detail-main">';
   if (cell.body && cell.body.trim()) {
-    html += `<div class="detail-body">${marked.parse(cell.body)}</div>`;
+    html += `<div class="detail-body">${renderBody(cell.body)}</div>`;
   } else {
-    html += `<div class="detail-placeholder">This cell hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
+    html += `<div class="detail-placeholder">This cell hasn’t been documented yet. <a href="${ghLink}">Contribute on GitHub →</a></div>`;
   }
-  html += `<div class="detail-footer"><a href="${ghLink}">Edit this page on GitHub \u2192</a></div>`;
+  html += `<div class="detail-footer"><a href="${ghLink}">Edit this page on GitHub →</a></div>`;
   html += '</div>';
 
   if (methodsCell && methodsCell.body && methodsCell.body.trim()) {
     html += '<aside class="detail-rail">';
-    html += `<div class="rail-label">${col.name} \u2014 methods &amp; references</div>`;
+    html += `<div class="rail-label">${col.name} — methods &amp; references</div>`;
     html += `<div class="rail-body">${marked.parse(methodsCell.body)}</div>`;
     html += '</aside>';
   }
@@ -100,24 +191,32 @@ function renderMethodsDetail(tabId, colId, cell) {
   const ghLink = `${GITHUB_REPO}/edit/main/data/methods/${colId}.md`;
 
   let html = '';
-  html += `<a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>`;
+  html += `<a href="#" class="detail-back" onclick="hideDetail();return false;">← Back to grid</a>`;
   html += '<div class="detail-breadcrumb">';
-  html += `${tab.title} \u203A Methods \u203A ${col.name}`;
+  html += `${tab.title} › Methods › ${col.name}`;
   html += '</div>';
-  html += `<div class="detail-title">${cell.summary}</div>`;
+  html += `<h1 class="detail-title">${escapeHtml(cell.summary)}</h1>`;
 
   if (cell.body && cell.body.trim()) {
     html += `<div class="detail-body">${marked.parse(cell.body)}</div>`;
   } else {
-    html += `<div class="detail-placeholder">This page hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
+    html += `<div class="detail-placeholder">This page hasn’t been documented yet. <a href="${ghLink}">Contribute on GitHub →</a></div>`;
   }
 
-  html += `<div style="margin-top:40px;padding-top:20px;border-top:1px solid #e6e1d8;font-size:12px;color:#b5b0a8;">`;
-  html += `<a href="${ghLink}" style="color:#8a8378;">Edit this page on GitHub \u2192</a></div>`;
+  html += `<div class="detail-footer"><a href="${ghLink}">Edit this page on GitHub →</a></div>`;
   return html;
 }
 
 // ── Show/hide detail ───────────────────────────────────────────────
+
+function scrollToAgiBreaks(event) {
+  event.preventDefault();
+  const target = document.getElementById('where-agi-breaks-it');
+  if (!target) return;
+  const rect = target.getBoundingClientRect();
+  const top = rect.top + window.scrollY - 16;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
 
 async function showDetail(tabId, rowId, colId, dataPath) {
   const gridView = document.getElementById('grid-view');
@@ -125,9 +224,10 @@ async function showDetail(tabId, rowId, colId, dataPath) {
   const controls = document.querySelector('.controls');
 
   gridView.style.display = 'none';
-  controls.style.display = 'none';
+  if (controls) controls.style.display = 'none';
   detailView.style.display = 'block';
   location.hash = `#detail/${tabId}/${rowId}/${colId}`;
+  window.scrollTo(0, 0);
 
   try {
     if (rowId === 'methods') {
@@ -139,11 +239,11 @@ async function showDetail(tabId, rowId, colId, dataPath) {
         const col = COLS.find(c => c.id === colId) || { name: colId };
         const ghLink = `${GITHUB_REPO}/new/main/data/methods?filename=${colId}.md`;
         detailView.innerHTML = `
-          <a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>
-          <div class="detail-breadcrumb">Methods \u203A ${col.name}</div>
-          <div class="detail-title">${col.name}</div>
+          <a href="#" class="detail-back" onclick="hideDetail();return false;">← Back to grid</a>
+          <div class="detail-breadcrumb">Methods › ${col.name}</div>
+          <h1 class="detail-title">${col.name}</h1>
           <div class="detail-placeholder">
-            This page hasn\u2019t been defined yet. <a href="${ghLink}">Create it on GitHub \u2192</a>
+            This page hasn’t been defined yet. <a href="${ghLink}">Create it on GitHub →</a>
           </div>`;
       }
       return;
@@ -173,11 +273,11 @@ async function showDetail(tabId, rowId, colId, dataPath) {
       const col = COLS.find(c => c.id === colId) || { name: colId };
       const ghLink = `${GITHUB_REPO}/new/main/data/${bodyDir}?filename=${rowId}-${colId}.md`;
       detailView.innerHTML = `
-        <a href="#" class="detail-back" onclick="hideDetail();return false;">\u2190 Back to grid</a>
-        <div class="detail-breadcrumb">${tab.title} \u203A ${row.name} \u203A ${col.name}</div>
-        <div class="detail-title">${row.name} \u00D7 ${col.name}</div>
+        <a href="#" class="detail-back" onclick="hideDetail();return false;">← Back to grid</a>
+        <div class="detail-breadcrumb">${tab.title} › ${row.name} › ${col.name}</div>
+        <h1 class="detail-title">${row.name} × ${col.name}</h1>
         <div class="detail-placeholder">
-          This cell hasn\u2019t been defined yet. <a href="${ghLink}">Create it on GitHub \u2192</a>
+          This cell hasn’t been defined yet. <a href="${ghLink}">Create it on GitHub →</a>
         </div>`;
     }
   } catch {
@@ -191,7 +291,7 @@ function hideDetail() {
   const controls = document.querySelector('.controls');
 
   detailView.style.display = 'none';
-  controls.style.display = 'flex';
+  if (controls) controls.style.display = 'flex';
   gridView.style.display = 'flex';
   history.replaceState(null, '', location.pathname);
 }
@@ -199,7 +299,6 @@ function hideDetail() {
 // ── Handle back/forward and direct detail links ────────────────────
 
 function getDataPath() {
-  // If app.js is loaded from ../app.js, we're in a subfolder
   const script = document.querySelector('script[src$="app.js"]');
   return script && script.getAttribute('src').startsWith('../') ? '../data' : 'data';
 }

@@ -5,11 +5,12 @@ status: draft
 
 # AIs that follow and update the law
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 The administrative state's job is to apply law to cases — and to keep doing so as the law changes. The mechanisms are well developed: legislative bodies pass statutes, agencies publish implementing regulations, regulated entities and the public read the published codes, and courts adjudicate disputes about what the text actually requires. When a statute changes, agencies issue updated guidance, train staff, and (where it matters) accept a transition period during which the old rule applies to in-flight matters. The whole pipeline depends on the people applying the law actually knowing what the current rule is — and on a clear chain of accountability when they don't.
 
-A vivid case: When Yvonne's city council updated the zoning code last spring, the planning department issued a new version of the permitting handbook within a month, the senior planners briefed the junior ones, and a transition memo specified which applications would be reviewed under the old code. Mistakes still happened, but you could trace them.
+> [!NOTE]
+> When Yvonne's city council updated the zoning code last spring, the planning department issued a new version of the permitting handbook within a month, the senior planners briefed the junior ones, and a transition memo specified which applications would be reviewed under the old code. Mistakes still happened, but you could trace them.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When the agents administering the law are AI systems trained on text — municip
 3. **Conflict-detection is missing.** A human planner who reads a new ordinance and then a permit can spot when the two are in tension. An agent applying the rule to a stream of applications may never notice the new statute conflicts with the old one it's invoking.
 4. **Update propagation has no obvious owner.** When the council passes a change, who is responsible for ensuring the permitting agent — possibly hosted by a vendor, possibly retrained on a quarterly cycle — actually applies the new rule? The accountability chain is broken.
 
-## Scenarios
-
-A city's permitting agent has been processing building applications under zoning rules that were rewritten last spring. A neighborhood association notices that its historical-district protections — which they spent five years getting on the books — are not being applied to three new approvals. The agent, it turns out, was trained on last year's municipal code and has been applying the old rules with polished confidence. The association's chair, Yvonne, needs more than a bug fix. She needs to know that when the council passes something, the agents that administer it actually know — and that if the agent's reading conflicts with the statute, someone is checking.
+> [!WARNING]
+> A city's permitting agent has been processing building applications under zoning rules that were rewritten last spring. A neighborhood association notices that its historical-district protections — which they spent five years getting on the books — are not being applied to three new approvals. The agent, it turns out, was trained on last year's municipal code and has been applying the old rules with polished confidence. The association's chair, Yvonne, needs more than a bug fix. She needs to know that when the council passes something, the agents that administer it actually know — and that if the agent's reading conflicts with the statute, someone is checking.
 
 ## Problem Sets
 

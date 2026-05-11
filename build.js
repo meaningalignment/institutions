@@ -56,7 +56,6 @@ const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 // ── Data loading ───────────────────────────────────────────────────
 
 function parseCell(raw) {
-  // Strip and parse YAML frontmatter if present.
   let frontmatter = {};
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
   if (fmMatch) {
@@ -233,8 +232,6 @@ function extractProblemSets(tabId, cells) {
 }
 
 function renderProblemSetsPage(allCells) {
-  // allCells: { merged, fidelity }. The old AGI and Human sections are now
-  // a single "merged" section since both grids share storage in data/cells/.
   const sections = [
     { id: 'merged', label: 'Part A: AGI-Era Institutions', prefix: 'A', linkTab: 'agi' },
     { id: 'fidelity', label: 'Part B: Fidelity &amp; Meaning', prefix: 'B', linkTab: 'fidelity' }
@@ -275,7 +272,7 @@ function renderProblemSetsPage(allCells) {
   html += '<div class="ps-notes">\n';
   html += '<h3>Notes for Facilitators</h3>\n<ul>\n';
   html += '<li>Each problem is designed to reward mixed teams (e.g., a mechanism designer + a legal scholar; an Ostrom person + an AI safety researcher).</li>\n';
-  html += '<li>The deliverables are deliberately concrete\u2014a protocol, a charter, amendment text\u2014to prevent the conversation from remaining at the level of \u201cthis is an important problem.\u201d</li>\n';
+  html += '<li>The deliverables are deliberately concrete—a protocol, a charter, amendment text—to prevent the conversation from remaining at the level of “this is an important problem.”</li>\n';
   html += '<li>Encourage teams to identify where their design <em>breaks</em> and to state the failure conditions explicitly.</li>\n';
   html += '</ul>\n</div>\n';
 
@@ -290,9 +287,6 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
   const tabLinks = TAB_ORDER.map(t => {
     const tab = TABS[t];
     const active = t === tabId ? ' active' : '';
-    const href = t === 'agi' ? (tabId === 'agi' ? '#' : `${tabId === 'agi' ? '' : '../'}`)
-      : (tabId === t ? '#' : `${tabId === 'agi' ? '' : '../'}${t}/`);
-    // Simplify: root = agi, others = subfolders
     let link;
     if (t === 'agi') link = tabId === 'agi' ? '.' : '..';
     else link = tabId === 'agi' ? t + '/' : (tabId === t ? '.' : '../' + t + '/');
@@ -370,7 +364,6 @@ const allCells = {
   cells: loadCells('cells'),
   fidelity: loadCells('fidelity')
 };
-// Alias for renderProblemSetsPage which expects { merged, fidelity }
 allCells.merged = allCells.cells;
 
 generateManifest();

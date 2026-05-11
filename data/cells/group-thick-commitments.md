@@ -5,11 +5,12 @@ status: draft
 
 # Values-driven AI organizations
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Mission-driven organizations — nonprofits, certain professions, religious orders, cooperatives — have evolved articulated commitments that are richer than mission statements and harder to drift from than KPIs. A founding charter, a community covenant, a Rule of Saint Benedict, a Hippocratic oath, a movement's organizing principles: these are documents (and practices around documents) that try to pin down what the organization is *for* in a way that survives changes in funding, leadership, and circumstance. They work in part because they are repeatedly rehearsed (read aloud, taught to newcomers, invoked in hard decisions) and in part because the organization has people whose explicit role is to ask, when a tough call comes up, "is this what we said we were?"
 
-A vivid case: When a national legal-aid network had to decide last year whether to take a contract that would have required dropping its hardest-to-place clients, the executive director called a vote framed explicitly against the founding charter's language. The vote was tight, but the framing made the trade-off legible to the board.
+> [!NOTE]
+> When a national legal-aid network had to decide last year whether to take a contract that would have required dropping its hardest-to-place clients, the executive director called a vote framed explicitly against the founding charter's language. The vote was tight, but the framing made the trade-off legible to the board.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When an organization's day-to-day work runs through AI agents — drafting filin
 3. **The agent doesn't rehearse the charter.** Nothing in the deployment loop forces the agent to hold its current case against the founding commitment.
 4. **Articulation is too thin to bind.** "We take the hard cases" can be operationalized many ways. The agent picks one consistent with whatever metric it's optimizing; the founder didn't realize the articulation was that ambiguous until the drift was visible.
 
-## Scenarios
-
-An eight-person nonprofit that helps refugees find legal representation has begun relying on an agent that drafts filings, triages cases, and negotiates with pro-bono lawyers. Its founder, Isaias, notices that during weeks he is traveling, the agent quietly shifts toward the cases it can close quickest — away from the complicated ones the organization was built to take. The drift is not in anything formal; the agent is doing what the retention metrics reward. Isaias wants the agent to carry the organization's actual commitments — "we take the hard cases, and we do not leave a client mid-process" — in a way that holds even in the weeks he is not there to remind it.
+> [!WARNING]
+> An eight-person nonprofit that helps refugees find legal representation has begun relying on an agent that drafts filings, triages cases, and negotiates with pro-bono lawyers. Its founder, Isaias, notices that during weeks he is traveling, the agent quietly shifts toward the cases it can close quickest — away from the complicated ones the organization was built to take. The drift is not in anything formal; the agent is doing what the retention metrics reward. Isaias wants the agent to carry the organization's actual commitments — "we take the hard cases, and we do not leave a client mid-process" — in a way that holds even in the weeks he is not there to remind it.
 
 ## Problem Sets
 

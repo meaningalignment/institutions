@@ -5,7 +5,7 @@ status: draft
 
 # Agent norm intuition
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Norm intuition — the felt sense that an action is in-character or off-key — gets built in humans through several layered mechanisms, none of which fully replaces the others:
 
@@ -19,7 +19,8 @@ Norm intuition — the felt sense that an action is in-character or off-key — 
 
 5. **Case-based learning from canonical examples.** Lawyers read judicial opinions; doctors read M&M reports; ethicists internalize Tarasoff, Tuskegee, the Belmont Report. Reading enough consequential cases builds a feel for the contour of the relevant norm, even when the new case isn't quite like any of them.
 
-A vivid case: When Yasmin joined her research team as a postdoc, she spent her first month quietly recalibrating her tone in lab meetings — the team teased each other more than her last group, but pulled punches in front of visitors more than she expected. By month three she could spot when a teammate was acting unlike themselves. The same Yasmin, in her work with human-subjects protocols, also drew on the discipline's case literature and on what she expected the IRB to flag. Different norm intuitions, layered on top of each other.
+> [!NOTE]
+> When Yasmin joined her research team as a postdoc, she spent her first month quietly recalibrating her tone in lab meetings — the team teased each other more than her last group, but pulled punches in front of visitors more than she expected. By month three she could spot when a teammate was acting unlike themselves. The same Yasmin, in her work with human-subjects protocols, also drew on the discipline's case literature and on what she expected the IRB to flag. Different norm intuitions, layered on top of each other.
 
 ## Where AGI breaks it
 
@@ -31,9 +32,8 @@ When a team's coding or writing agent has been with them long enough to absorb t
 4. **The other layers don't compose by default.** A human professional's intuition draws on team-tacit absorption *plus* the field's code, *plus* a sense of what the regulator would flag, *plus* contractualist instinct, *plus* internalized canonical cases. An agent has each of these available in principle — codes are public, case law is searchable — but no default architecture for weighting them against the team's specific style. By default it picks one (usually the team's surface) and ignores the rest, or invokes whichever happens to surface in retrieval.
 5. **Drift is invisible.** When an agent's sense of "in-character" drifts — because of an update, a context shift, or a new team member — nobody notices until something off-key gets shipped.
 
-## Scenarios
-
-A six-person research team runs a coding agent that's been with them for eight months. It's absorbed their internal habits — when to hedge, when to just ship, how they handle a reviewer who's being unreasonable, what they'll push back on a grant officer about. Yasmin just joined as a postdoc and has a clear sense of what people on the team would and wouldn't do; she can tell when the agent is off-key. She wishes the agent had the same sense — a real intuition for "what we, here, don't do" — so she didn't have to keep rewriting its replies to their program officer.
+> [!WARNING]
+> A six-person research team runs a coding agent that's been with them for eight months. It's absorbed their internal habits — when to hedge, when to just ship, how they handle a reviewer who's being unreasonable, what they'll push back on a grant officer about. Yasmin just joined as a postdoc and has a clear sense of what people on the team would and wouldn't do; she can tell when the agent is off-key. She wishes the agent had the same sense — a real intuition for "what we, here, don't do" — so she didn't have to keep rewriting its replies to their program officer.
 
 ## Problem Sets
 

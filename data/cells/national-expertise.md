@@ -5,11 +5,12 @@ status: draft
 
 # AI regulatory agencies & regulator-anticipation
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 National regulatory agencies — the FDA, FAA, BaFin, the FTC and their international peers — translate science and policy into binding decisions over enormously consequential domains: drug approval, aircraft safety, financial stability, market conduct. The mechanism is recognizable: career experts inside the agency build deep domain knowledge, the agency publishes rules and guidance, regulated firms file for approval or report incidents, the agency reviews and responds. The slow rhythm — months for a no-action letter, years for a new rule — is partly defect (regulatory lag) and partly feature: it forces agencies to commit positions in writing that can be challenged, appealed, and litigated. Firms in the meantime act conservatively when they're unsure, often consulting senior regulators informally before making consequential moves.
 
-A vivid case: Renee's airline used to face a four-month wait for FAA guidance on subtle issues. The wait often resolved into a phone call with the regulator-of-record, who would tell her informally whether they were thinking of writing the issue up — letting her decide whether to ground a plane preemptively or let it fly while the formal process unfolded.
+> [!NOTE]
+> Renee's airline used to face a four-month wait for FAA guidance on subtle issues. The wait often resolved into a phone call with the regulator-of-record, who would tell her informally whether they were thinking of writing the issue up — letting her decide whether to ground a plane preemptively or let it fly while the formal process unfolded.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When regulatory agencies start operating partly through AI systems — for routi
 3. **Expertise is decoupled from accountability.** A senior regulator who issues an informal opinion can be called to defend it; the agent has no career, no reputation among peers, no exposure to the consequences if its view is wrong.
 4. **Consistency at scale, novel inconsistencies.** The agent gives broadly consistent answers to similar questions, which is a gain. But subtle inconsistencies (between two firms in similar situations, or between today's answer and last week's) can compound silently in ways human regulators caught.
 
-## Scenarios
-
-A mid-size airline's safety agent flags a subtle drift in one of its diagnostic pipelines — a pattern it thinks the FAA would care about, but that no current rule explicitly forbids. The human safety officer, Renee, agrees. Under the old regime she'd have written a letter, heard back in four months, and in the meantime flown the planes. In the new regime, the FAA runs an agent she can query: here's our situation, here's what we see, how would you, the regulator, view this? The answer that comes back lets her ground one aircraft for six days and keep the fleet flying the rest — long before anyone has to write a formal rule.
+> [!WARNING]
+> A mid-size airline's safety agent flags a subtle drift in one of its diagnostic pipelines — a pattern it thinks the FAA would care about, but that no current rule explicitly forbids. The human safety officer, Renee, agrees. Under the old regime she'd have written a letter, heard back in four months, and in the meantime flown the planes. In the new regime, the FAA runs an agent she can query: here's our situation, here's what we see, how would you, the regulator, view this? The answer that comes back lets her ground one aircraft for six days and keep the fleet flying the rest — long before anyone has to write a formal rule.
 
 ## Problem Sets
 

@@ -5,11 +5,12 @@ status: draft
 
 # AI judges and adjudication
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Communities resolve everyday disputes through institutions calibrated to their stakes: small-claims court, municipal code enforcement, marketplace dispute-resolution panels, the local mediator, the rabbi or imam, the homeowners' association board. Each handles a different magnitude of conflict — eviction, code violation, marketplace return, congregational disagreement, neighbor noise — and each carries some version of the same procedural commitments: the affected person can be heard, the basis of the decision is articulable, and there's some path to appeal a clear error. The community courts work in part because the judge is somebody's neighbor; the procedures matter, but so does the social embedding.
 
-A vivid case: When Maggie's prior shop had a dispute with a supplier two years ago, she went to small-claims court. The hearing took ninety minutes, the judge wrote a one-page reasoning, and the appeal rights were on the back of the order. Whatever else was wrong with the process, she knew what had happened and why.
+> [!NOTE]
+> When Maggie's prior shop had a dispute with a supplier two years ago, she went to small-claims court. The hearing took ninety minutes, the judge wrote a one-page reasoning, and the appeal rights were on the back of the order. Whatever else was wrong with the process, she knew what had happened and why.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When the everyday adjudicators of community life become AI systems — fraud-det
 3. **Standing is uncertain.** Whom do you appeal to, on what grounds, in what venue? The platform's interface is the only door, and what's behind the door has no procedural commitments by default.
 4. **Scale removes social embedding.** A neighborhood judge has reputational accountability to people who use the court; the adjudication agent has no equivalent — its decisions are evaluated against KPIs the affected party has no view into.
 
-## Scenarios
-
-Maggie's small e-commerce shop runs on a marketplace whose AI agents now handle nearly all disputes — delivery failures, return claims, chargebacks. Last month one of her orders was flagged by the platform's detection agent as fraudulent; her account was frozen, her inventory locked, and when she appealed, an adjudication agent reviewed the case in seven seconds and upheld the freeze. She doesn't know what reasoning it used, what evidence it weighed, or whom to appeal to. Her rent is due. She needs a system where the decisions made about her are legible, contestable, and reviewed by something she can actually address.
+> [!WARNING]
+> Maggie's small e-commerce shop runs on a marketplace whose AI agents now handle nearly all disputes — delivery failures, return claims, chargebacks. Last month one of her orders was flagged by the platform's detection agent as fraudulent; her account was frozen, her inventory locked, and when she appealed, an adjudication agent reviewed the case in seven seconds and upheld the freeze. She doesn't know what reasoning it used, what evidence it weighed, or whom to appeal to. Her rent is due. She needs a system where the decisions made about her are legible, contestable, and reviewed by something she can actually address.
 
 ## Problem Sets
 

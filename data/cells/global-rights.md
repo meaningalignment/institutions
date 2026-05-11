@@ -5,11 +5,12 @@ status: draft
 
 # Automated defense of human rights
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 International human rights protection runs on a slow, paper-trail-heavy pipeline: NGOs and journalists document violations on the ground, lawyers translate the documentation into formats the relevant treaty bodies and tribunals can act on, special rapporteurs investigate, and (sometimes) state parties are called to account in venues like the UN Human Rights Council, the ICC, or regional courts. The mechanism is famously slow — often weeks to file, months to be heard, years to see a decision — and the slowness is partly a feature: the legitimacy of an international finding rests on the painstaking documentation that supports it. Lawyers at organizations like Human Rights Watch or Amnesty have spent decades building the credibility that lets their dossiers be taken seriously.
 
-A vivid case: When Farida's NGO documented an internet shutdown four years ago, the team spent three weeks interviewing exiles, gathering open-source corroboration, and drafting a complaint that cited the relevant treaty articles. The complaint was filed; the rapporteur opened an inquiry six months later; a finding came down a year after that. Slow, but the chain of custody was unimpeachable.
+> [!NOTE]
+> When Farida's NGO documented an internet shutdown four years ago, the team spent three weeks interviewing exiles, gathering open-source corroboration, and drafting a complaint that cited the relevant treaty articles. The complaint was filed; the rapporteur opened an inquiry six months later; a finding came down a year after that. Slow, but the chain of custody was unimpeachable.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When monitoring, documentation, and dossier-drafting are partly delegated to AI 
 3. **Adversaries adapt.** A government facing AI-driven monitoring can flood the channels with synthetic incidents, contest each finding, or deploy counter-monitoring AIs that contest the documentation in near real time.
 4. **The human role shifts but doesn't disappear.** Lawyers stop being the people who gather facts and become the people who decide which AI-surfaced cases to put their name on. The training and accountability infrastructure for that role doesn't exist.
 
-## Scenarios
-
-A government has shut off an entire province's mobile network for the third time this year. In past outages, international human-rights groups took weeks to document the blackout, interview exiles, and file complaints with treaty bodies. This time, a coalition of NGOs has deployed a network of monitoring agents that detect the shutdown within hours, correlate it with arrests drawn from open sources, draft a preliminary dossier keyed to specific treaty articles, and route it to the relevant rapporteurs. Farida, a lawyer at one of the NGOs, watches the first report go out two hours after the lights went out. Her role has shifted: not to gather the facts, but to decide, with colleagues, which cases the agents should push hardest, and to stand behind what they send.
+> [!WARNING]
+> A government has shut off an entire province's mobile network for the third time this year. In past outages, international human-rights groups took weeks to document the blackout, interview exiles, and file complaints with treaty bodies. This time, a coalition of NGOs has deployed a network of monitoring agents that detect the shutdown within hours, correlate it with arrests drawn from open sources, draft a preliminary dossier keyed to specific treaty articles, and route it to the relevant rapporteurs. Farida, a lawyer at one of the NGOs, watches the first report go out two hours after the lights went out. Her role has shifted: not to gather the facts, but to decide, with colleagues, which cases the agents should push hardest, and to stand behind what they send.
 
 ## Problem Sets
 

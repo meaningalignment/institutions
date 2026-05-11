@@ -5,11 +5,12 @@ status: ready
 
 # Agent negotiation & bargaining
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 When two people negotiate on each other's behalf — a real-estate agent, a divorce lawyer, a procurement officer — the human practice has a few load-bearing features. Negotiators carry an explicit *mandate* from their principal: a price range, a list of dealbreakers, a few items flagged "ask me." They negotiate at human speed, which means principals can be looped in mid-deal when something unexpected comes up. Final terms are presented in a *legible package* — an offer letter, a marked-up contract, a one-page summary — and ratification means the principal actually reading it before signing. Where the package is too complex to read (a corporate merger, a union contract), institutions have grown around it: lawyers explain, ratification votes happen with discussion, regulators review. The point is not that any of this is fast, but that the principal can actually consent to what they signed.
 
-A vivid case: Priya's mother needed an extra year of mortgage rate-lock when their refi hit a delay. Priya's broker spent two days finding a lender who would do it, came back with three options on a single sheet — rate, fees, the unusual condition each one carried — and Priya picked the middle one over coffee. The deal was complex, but the broker had already pre-filtered down to the choices Priya could actually evaluate.
+> [!NOTE]
+> Priya's mother needed an extra year of mortgage rate-lock when their refi hit a delay. Priya's broker spent two days finding a lender who would do it, came back with three options on a single sheet — rate, fees, the unusual condition each one carried — and Priya picked the middle one over coffee. The deal was complex, but the broker had already pre-filtered down to the choices Priya could actually evaluate.
 
 ## Where AGI breaks it
 
@@ -19,9 +20,8 @@ When agents negotiate on behalf of human principals, three things change at once
 2. **Asymmetric model exploitation.** Each agent has a richer preference model of its own principal than the counterparty knows. Without protocol constraints, an agent can extract surplus by exploiting what the other side's agent doesn't know about its own principal's true bottom line.
 3. **Ratification reduced to a coin flip.** Principals are asked to ratify in minutes a deal whose reasoning they can't follow. "Informed consent" — the legal fiction that has done so much work in human negotiation — quietly stops meaning anything.
 
-## Scenarios
-
-Priya's mother needs a live-in aide, and Priya's assistant agent has been talking with three care-agency agents for two days. This morning it surfaces a bundled proposal — one agency takes the live-in role, plus weekly grocery runs, plus coordinating with her mother's cardiologist — at a discount, if Priya commits for twelve months and accepts a switch of the primary aide. The deal is objectively better than the quotes Priya got herself last month. Ratification window closes at noon. Her mother is waiting. Priya needs to know, in the ten minutes before her daughter's parent-teacher conference, whether the trade-offs her agent just made are ones she would have made herself.
+> [!WARNING]
+> Priya's mother needs a live-in aide, and Priya's assistant agent has been talking with three care-agency agents for two days. This morning it surfaces a bundled proposal — one agency takes the live-in role, plus weekly grocery runs, plus coordinating with her mother's cardiologist — at a discount, if Priya commits for twelve months and accepts a switch of the primary aide. The deal is objectively better than the quotes Priya got herself last month. Ratification window closes at noon. Her mother is waiting. Priya needs to know, in the ten minutes before her daughter's parent-teacher conference, whether the trade-offs her agent just made are ones she would have made herself.
 
 ## Problem Sets
 

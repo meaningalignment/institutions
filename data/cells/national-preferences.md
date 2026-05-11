@@ -5,11 +5,12 @@ status: draft
 
 # Agents that represent national interests / large groups
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 When a large constituency needs to be represented in a negotiation it can't all attend, humans have evolved layered representation: elected officials, deliberative polls, citizen assemblies, mandate-bound negotiating teams, public-comment periods on proposed deals, and ratification by legislature or referendum. The legitimacy comes from a chain — voters → representative → negotiator → outcome — that each link can in principle audit. Where the constituency is heterogeneous (rural and urban counties, different industries, different income groups), the practice is to bring those differences explicitly into the room: subcommittee structures, regional caucuses, dissents on the record. The system is slow and often imperfect, but the slowness gives the constituency time to notice when their representative is drifting from what they sent them to do.
 
-A vivid case: When a state delegation negotiates with a federal agency over an infrastructure formula, the lead negotiator carries a written mandate vetted by a legislative committee, returns weekly to the committee with status, and brings the final agreement back for ratification before signing. By the time the deal is announced, the smaller counties have already had their say.
+> [!NOTE]
+> When a state delegation negotiates with a federal agency over an infrastructure formula, the lead negotiator carries a written mandate vetted by a legislative committee, returns weekly to the committee with status, and brings the final agreement back for ratification before signing. By the time the deal is announced, the smaller counties have already had their say.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When the negotiator becomes an AI agent representing a state, a region, or a lar
 3. **Real-time consultation breaks.** A weekly check-in with a committee can't keep up with an AI negotiator that needs to make tactical concessions in minutes.
 4. **Representative drift is invisible.** A human negotiator who drifts from mandate gets called out by adversaries, journalists, or their own staff; an AI's drift is detectable only to those who can read what it's doing — and the constituency rarely can.
 
-## Scenarios
-
-A state government is rolling out a consumer-protection initiative and, for the first time, is represented in the multi-party deals being struck between platform operators and local utility regulators by an AI negotiator. State Senator Fielder, who pushed the bill, watches it work through the first dry run and feels a tight mix of pride and worry. The agent is faster and better-briefed than any staff she could afford; on paper, it secures terms she would have pushed for. But it is also making compromises on consumer remedies that she knows her constituents in the smaller counties would not accept. She needs to be sure the agent is representing her state, not optimizing an average.
+> [!WARNING]
+> A state government is rolling out a consumer-protection initiative and, for the first time, is represented in the multi-party deals being struck between platform operators and local utility regulators by an AI negotiator. State Senator Fielder, who pushed the bill, watches it work through the first dry run and feels a tight mix of pride and worry. The agent is faster and better-briefed than any staff she could afford; on paper, it secures terms she would have pushed for. But it is also making compromises on consumer remedies that she knows her constituents in the smaller counties would not accept. She needs to be sure the agent is representing her state, not optimizing an average.
 
 ## Problem Sets
 

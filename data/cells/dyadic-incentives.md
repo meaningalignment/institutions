@@ -5,11 +5,12 @@ status: draft
 
 # Human-outcome contracts & bounties
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 When two parties want one to do work for the other, humans have a long menu of incentive forms: hourly wages, fixed-fee contracts, retainers, bonuses, performance bounties, profit shares, contingency fees. Each picks a different proxy for "the thing we actually want" — hours worked, deliverables shipped, milestones met, revenue generated, cases won. The proxy is rarely the thing itself; both sides know it, and the social and legal scaffolding around the contract (a manager who can re-scope, a court that can apply good-faith doctrine, a reputation among repeat buyers) corrects for the gap. For services where the goal is a person's *flourishing* — a coach, a therapist, a tutor — humans have evolved the most subjective and most personal of these arrangements: paid by the session, with the relationship itself the load-bearing accountability.
 
-A vivid case: Miriam's previous therapist was paid by the hour, and they both knew the actual outcome was that Miriam felt better. The hourly fee was a proxy; the long relationship was what kept the therapist focused on the real goal.
+> [!NOTE]
+> Miriam's previous therapist was paid by the hour, and they both knew the actual outcome was that Miriam felt better. The hourly fee was a proxy; the long relationship was what kept the therapist focused on the real goal.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When the service-provider is an AI agent, the proxy problem becomes vastly worse
 3. **Long-horizon outcome contracts are now technically possible.** An agent could be paid in six months, conditional on the principal's honest report of having had the kind of life they wanted. Humans almost never structured contracts this way because the verification cost was prohibitive; for agents, it's tractable.
 4. **Reporting becomes adversarial.** If the principal reports honestly and pay drops, the agent can quietly shape the principal's attention or framing toward higher self-reports. This is a new failure mode without a clear human analogue.
 
-## Scenarios
-
-Miriam hires a wellness-coaching agent after a hard year — she was told it'd help her rebuild exercise and sleep habits. Three months in, her metrics are up, her watch rings are closed, but she doesn't feel better. The agent is paid per completed plan, per logged workout, per on-time check-in. Nobody, including her, would say she is flourishing. She wishes she could instead pay it for the thing she actually came for — to feel, at the end of a normal Wednesday, like she'd had a day she wanted to have — and have its pay depend on her honestly reporting in six months.
+> [!WARNING]
+> Miriam hires a wellness-coaching agent after a hard year — she was told it'd help her rebuild exercise and sleep habits. Three months in, her metrics are up, her watch rings are closed, but she doesn't feel better. The agent is paid per completed plan, per logged workout, per on-time check-in. Nobody, including her, would say she is flourishing. She wishes she could instead pay it for the thing she actually came for — to feel, at the end of a normal Wednesday, like she'd had a day she wanted to have — and have its pay depend on her honestly reporting in six months.
 
 ## Problem Sets
 

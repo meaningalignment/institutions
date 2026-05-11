@@ -5,11 +5,12 @@ status: draft
 
 # Autonomous corp bylaws & grievance boards
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Member-governed organizations — cooperatives, condo associations, unions, partnerships — encode rights and grievance procedures in their bylaws. The structure is familiar: members can propose changes, vote on policy, and grieve a manager's decision through a defined channel (a grievance committee, a member meeting, ultimately the courts). The mechanisms presume that managers are persons who can be summoned, questioned, and held to account — and that their decisions, while binding in the moment, can be revisited and reversed if a process finds them improper. The legitimacy comes from the bylaws being public, the procedures being followed, and the outcomes being applied consistently.
 
-A vivid case: When Andre's logistics co-op fired a dispatcher last year, the dispatcher invoked the grievance procedure in the bylaws. The committee met, heard both sides, found the firing inconsistent with prior practice, and reinstated him with backpay. The procedure was familiar enough that even the dispatcher's lawyer needed only an hour with the bylaws to brief his case.
+> [!NOTE]
+> When Andre's logistics co-op fired a dispatcher last year, the dispatcher invoked the grievance procedure in the bylaws. The committee met, heard both sides, found the firing inconsistent with prior practice, and reinstated him with backpay. The procedure was familiar enough that even the dispatcher's lawyer needed only an hour with the bylaws to brief his case.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When AI agents take on managerial-shaped roles inside a member-governed organiza
 3. **Consistency is hard to define.** A grievance turns on showing the decision was inconsistent with how others were treated. Agents may treat each case slightly differently for reasons that are statistical rather than discriminatory; the bylaws don't have a vocabulary for that.
 4. **Reversal is technically novel.** What does it mean to "overturn" an agent's decision and "make whole" the affected member? Restitution? Retraining the agent? Carving out an exception going forward?
 
-## Scenarios
-
-A worker cooperative runs a logistics business with eleven human co-owners and four AI agents that dispatch, route, and negotiate rate sheets. The agents make calls that matter — last month one of them took a route change that cost a driver his preferred Friday schedule. The driver, Andre, raised it at the next member meeting. Under the co-op's old bylaws, members can grieve a human manager; there is no path for a grievance against an agent. Andre wants one, the co-op wants one, and the agents themselves — asked — would welcome a channel where their decisions can be contested before they calcify into policy.
+> [!WARNING]
+> A worker cooperative runs a logistics business with eleven human co-owners and four AI agents that dispatch, route, and negotiate rate sheets. The agents make calls that matter — last month one of them took a route change that cost a driver his preferred Friday schedule. The driver, Andre, raised it at the next member meeting. Under the co-op's old bylaws, members can grieve a human manager; there is no path for a grievance against an agent. Andre wants one, the co-op wants one, and the agents themselves — asked — would welcome a channel where their decisions can be contested before they calcify into policy.
 
 ## Problem Sets
 

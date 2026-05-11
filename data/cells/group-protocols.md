@@ -5,11 +5,12 @@ status: draft
 
 # Team protocols & workflows
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Small teams converge on workflows the way long-married couples converge on division of labor: through repeated practice, occasional argument, and selective formalization. Engineering teams have stand-ups, design reviews, RFCs; medical teams have rounds and morbidity-and-mortality conferences; architecture studios have design crits and red-line reviews. The shared pattern is: at certain known moments, the team pauses, surfaces what's been decided and on what basis, lets disagreement be aired, and resolves it in front of the people whose work it affects. The protocols are partly about decisions; equally, they're about distributing legibility — every team member knows what was concluded and why, and could roughly defend it to an outsider.
 
-A vivid case: At Nasir's architecture studio, every Wednesday the team puts current projects on the wall and walks through structural decisions, code-compliance issues, and any place two engineers had disagreed during the week. The disagreements are usually settled in twenty minutes, and the rest of the team learns the reasoning along the way.
+> [!NOTE]
+> At Nasir's architecture studio, every Wednesday the team puts current projects on the wall and walks through structural decisions, code-compliance issues, and any place two engineers had disagreed during the week. The disagreements are usually settled in twenty minutes, and the rest of the team learns the reasoning along the way.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When AI agents become full participants in the team's work — drafting structur
 3. **What the agent "relied on" is hard to expose.** A human reviewer can ask another human "why did you decide that?" and get a usable answer; an agent's reasoning trace may not compress to anything the human can evaluate.
 4. **Stand-up doesn't include agents in any meaningful sense.** Humans pause to share context; agents share none unless explicitly asked, and the protocol provides no asking.
 
-## Scenarios
-
-Nasir runs a five-person architecture studio. Three of them now work alongside AI agents that draft structural calculations, pull precedents, run code-compliance checks, and argue against each other's conclusions. This week two of the agents reached contradictory recommendations on a seismic retrofit, and neither Nasir nor his junior engineer could tell which was better reasoned — the traces were too long, the citations too dense. He needs a shared protocol his team and their agents all follow for flagging disagreement early, surfacing what each side actually relied on, and bringing humans in at the right moment. Without one, the studio keeps shipping work it can't quite stand behind.
+> [!WARNING]
+> Nasir runs a five-person architecture studio. Three of them now work alongside AI agents that draft structural calculations, pull precedents, run code-compliance checks, and argue against each other's conclusions. This week two of the agents reached contradictory recommendations on a seismic retrofit, and neither Nasir nor his junior engineer could tell which was better reasoned — the traces were too long, the citations too dense. He needs a shared protocol his team and their agents all follow for flagging disagreement early, surfacing what each side actually relied on, and bringing humans in at the right moment. Without one, the studio keeps shipping work it can't quite stand behind.
 
 ## Problem Sets
 

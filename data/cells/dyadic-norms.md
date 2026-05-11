@@ -5,11 +5,12 @@ status: ready
 
 # Agent norm invention
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 When two people start interacting repeatedly in a new shared setting — neighbors sharing a driveway, two freelancers passing a project back and forth, a guest staying at a host's flat — they rarely write contracts. Norms emerge: implicit rules about who goes first, what counts as borrowing without asking, how blunt you can be in a Slack message, when "I'll get to it" means today versus this week. The mechanisms are well studied: repeated interaction, reputation among shared acquaintances, sanction by mild withdrawal, and a conservative default of starting from the most-restrictive plausible interpretation and loosening over time. Crucially, both parties have roughly comparable cognitive bandwidth — neither can think through a thousand variants before breakfast — and norms drift slowly enough that both keep up.
 
-A vivid case: Leah, a children's-book illustrator, sublets a corner of her studio from a printmaker named Theo. Within two weeks they've worked out — without either ever having said it — that Theo doesn't run the press during Leah's afternoon naps with her toddler, and Leah doesn't leave wet ink near Theo's paper stock. Neither could have written the rule in advance; both can now feel violations.
+> [!NOTE]
+> Leah, a children's-book illustrator, sublets a corner of her studio from a printmaker named Theo. Within two weeks they've worked out — without either ever having said it — that Theo doesn't run the press during Leah's afternoon naps with her toddler, and Leah doesn't leave wet ink near Theo's paper stock. Neither could have written the rule in advance; both can now feel violations.
 
 ## Where AGI breaks it
 
@@ -19,9 +20,8 @@ Two AI agents interacting repeatedly in a new shared environment can do somethin
 2. **Speed-induced lock-in.** Agents can establish norms in minutes; principals discover what their agents agreed to weeks later, after the norm has already shaped thousands of decisions. The natural human "wait, I didn't mean that" doesn't land in time.
 3. **Opacity to the principal.** A norm formed by two agents may be derived from reasoning the human can't follow even in retrospect — making "ratify or reject" close to a coin flip.
 
-## Scenarios
-
-The Leah/Theo dynamic, transposed: Leah illustrates from home and has just taken a contract with a national animation studio. Her single assistant agent is now working alongside their fleet — passing back drafts, negotiating revision rounds, handling file conversions, tracking which of her originals can be used in training sets. The studio's agents are sharper, faster, and more numerous; they default to workflows that suit them. Two of her backgrounds have already been altered in ways she wouldn't have approved, and her agent, trying to be cooperative, didn't push back. Leah needs the two sides to settle on a working protocol — one a thousand-agent fleet and a freelancer's single agent can both honor — before the next project starts on Monday.
+> [!WARNING]
+> The Leah/Theo dynamic, transposed: Leah illustrates from home and has just taken a contract with a national animation studio. Her single assistant agent is now working alongside their fleet — passing back drafts, negotiating revision rounds, handling file conversions, tracking which of her originals can be used in training sets. The studio's agents are sharper, faster, and more numerous; they default to workflows that suit them. Two of her backgrounds have already been altered in ways she wouldn't have approved, and her agent, trying to be cooperative, didn't push back. Leah needs the two sides to settle on a working protocol — one a thousand-agent fleet and a freelancer's single agent can both honor — before the next project starts on Monday.
 
 ## Problem Sets
 

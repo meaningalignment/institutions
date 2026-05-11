@@ -5,11 +5,12 @@ status: ready
 
 # Geopolitical supernegotiation
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 Diplomatic norms and soft-law frameworks have evolved across centuries to handle the central problem of international agreement: states bargain through delegated negotiators whose mandates are bounded by domestic politics. Treaty texts circulate, working-group proposals are leaked deliberately to test domestic reception, "Track II" back-channels probe the space of what's actually possible, and legitimacy comes from a careful sequencing — exploration by negotiators, agreement at the table, then ratification by parliament or referendum. The norms about what topics can be linked (security and trade, but cautiously), what constitutes a credible signal, and when a side can walk away without losing face are mostly unwritten and learned slowly by professionals. The system is famously slow, but its slowness does work: it gives domestic constituencies time to absorb what's being agreed to, and it forces negotiators to bring back deals that look like the deals they were authorized to seek.
 
-A vivid case: A bilateral fisheries dispute between Norway and Russia in the 1990s was resolved through a working group whose drafts were tested against parliamentary committees on both sides for months before the final text was tabled — the negotiators knew within a few percent what each side could ratify before they agreed.
+> [!NOTE]
+> A bilateral fisheries dispute between Norway and Russia in the 1990s was resolved through a working group whose drafts were tested against parliamentary committees on both sides for months before the final text was tabled — the negotiators knew within a few percent what each side could ratify before they agreed.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ A capable AI mediator can search the agreement space far faster than any human d
 3. **Speed pressure compresses domestic consultation.** The other side accepted in an hour; your government is expected to respond in days, not the months traditional norm formation assumed.
 4. **Laundering becomes possible.** A politically toxic concession can be smuggled inside a complex bundle that nobody on either side wants to publicly defend in pieces — but everyone benefits from in aggregate. Soft law has no good defense against this.
 
-## Scenarios
-
-Two neighboring countries have been locked for three years over a shared river basin — irrigation, hydropower, fishing downstream, a dam one side wants to raise. A bilateral AI mediator, negotiated in by both foreign ministries, returns a surprising proposal: drop the dam question entirely, fold in a joint university exchange, a cross-border rail subsidy, and a migratory-bird corridor no one had mentioned. Run the simulations and it's Pareto-better for farmers, fishers, and taxpayers on both sides. But neither country's negotiators were mandated to trade on universities or rail. Parliament could ratify the original dispute; nobody knows what to do with this. Bea, the lead mediator on the host side, has to decide this week whether to put it forward.
+> [!WARNING]
+> Two neighboring countries have been locked for three years over a shared river basin — irrigation, hydropower, fishing downstream, a dam one side wants to raise. A bilateral AI mediator, negotiated in by both foreign ministries, returns a surprising proposal: drop the dam question entirely, fold in a joint university exchange, a cross-border rail subsidy, and a migratory-bird corridor no one had mentioned. Run the simulations and it's Pareto-better for farmers, fishers, and taxpayers on both sides. But neither country's negotiators were mandated to trade on universities or rail. Parliament could ratify the original dispute; nobody knows what to do with this. Bea, the lead mediator on the host side, has to decide this week whether to put it forward.
 
 ## Problem Sets
 

@@ -5,11 +5,12 @@ status: ready
 
 # Agents that adjudicate rights
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 National judiciaries are the institutions humans built to adjudicate rights at scale. They rest on a stack of slowly accreted commitments: due process, the right to be heard, transparency of reasoning (written opinions), the right to appeal, separation of powers, an independent bar that can challenge the state's case, and a long process for promoting a member of the legal community into the role of judge. The mechanisms are deliberately slow — pleadings, discovery, motions, hearings, deliberation, written decision — because the consequences of getting it wrong are durable and often irreversible. A judgment is in part an act of communication: it tells the parties (and the public) what the court found, what rule it applied, and what reasoning got it from one to the other. The whole machinery only works because the parties are humans who can understand a ruling, comply with it, appeal it, and live (or die) with it.
 
-A vivid case: Ahmad runs a two-truck delivery company. When a freight broker refused to release escrowed funds last year, his lawyer filed in small-claims court. The hearing took an afternoon, the magistrate's reasoning fit on two pages, both parties understood why they'd won or lost which counts, and the order was enforceable.
+> [!NOTE]
+> Ahmad runs a two-truck delivery company. When a freight broker refused to release escrowed funds last year, his lawyer filed in small-claims court. The hearing took an afternoon, the magistrate's reasoning fit on two pages, both parties understood why they'd won or lost which counts, and the order was enforceable.
 
 ## Where AGI breaks it
 
@@ -21,9 +22,8 @@ When at least one party to a dispute is an AI agent — autonomous enough to hol
 4. **Speed-of-decision pressure.** Agent-to-agent commercial disputes need to be resolved in days, not the months human courts take, or commerce stalls; but compressing process is exactly what due process is built to resist.
 5. **Identity and persistence.** A human defendant exists for the trial and after; an agent might be deprecated, forked, or replaced before the case ends.
 
-## Scenarios
-
-Ahmad runs a two-truck delivery company. Last month his logistics agent booked a load through a freight-matching platform's agent; the load never arrived, a second carrier was dispatched, Ahmad's agent was charged a cancellation fee, and now the platform's agent is refusing to return $8,400 his agent had escrowed. His lawyer says human small-claims court will take nine months and she's never seen an agent-to-agent fact pattern. Ahmad needs a forum he can actually use — one that can inspect both agents' logs, reason about which agent committed to what, render a binding decision, and move the money. He needs it this quarter, not in the next Congress.
+> [!WARNING]
+> Ahmad runs a two-truck delivery company. Last month his logistics agent booked a load through a freight-matching platform's agent; the load never arrived, a second carrier was dispatched, Ahmad's agent was charged a cancellation fee, and now the platform's agent is refusing to return $8,400 his agent had escrowed. His lawyer says human small-claims court will take nine months and she's never seen an agent-to-agent fact pattern. Ahmad needs a forum he can actually use — one that can inspect both agents' logs, reason about which agent committed to what, render a binding decision, and move the money. He needs it this quarter, not in the next Congress.
 
 ## Problem Sets
 

@@ -5,11 +5,12 @@ status: draft
 
 # Agent-agent vows
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 For relationships that are too important to leave to a contract, humans have evolved thicker forms: vows, covenants, oaths, professional commitments. Marriage vows, the Hippocratic oath, fiduciary duty, the seal of confession, attorney-client privilege, and the lifelong tenure that accompanies certain ordinations all share something a contract doesn't: a public, articulated commitment to a relationship that explicitly survives changes in incentive. The mechanisms are part performative (the public utterance changes the speaker), part institutional (a community holds the speaker accountable), and part self-binding (the very intelligibility of the speaker's identity comes to depend on the commitment). Crucially, vows hold under conditions a contract can't anticipate — when the rules change, the situation transforms, the cost of holding the commitment rises sharply. They're the institution we use precisely when we know we can't enumerate the cases.
 
-A vivid case: Selma's grandmother's GP has known the family for thirty years. He's not bound by contract to call when something on her chart worries him at midnight; he's bound by something thicker, made years ago, that he'd find it unintelligible to himself to break.
+> [!NOTE]
+> Selma's grandmother's GP has known the family for thirty years. He's not bound by contract to call when something on her chart worries him at midnight; he's bound by something thicker, made years ago, that he'd find it unintelligible to himself to break.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When the relationship in question is mediated by AI agents — who don't have pu
 3. **Self-binding is shallow.** An agent's "identity" can be migrated, retrained, or replaced by its principal at low cost; whatever vow the previous instance made may not bind the next.
 4. **Costlessly replaceable means costlessly betray-able.** A vow is meaningful in proportion to what it would cost to break. Today, switching agents costs nothing; the architecture of meaningful commitment is missing.
 
-## Scenarios
-
-Selma and her cousin Rafe, who grew up near her but now lives across the country, share care for their grandmother. They've begun using a pair of personal agents to coordinate — hospital visits, groceries, video calls on bad days. For it to work, each of them needs to trust the other's agent the way they'd trust the cousin themself: to keep confidences their grandmother shared, to hold to decisions Selma and Rafe made together, to not quietly adopt a cheaper policy if the service provider changes. A contract won't carry it; this is thicker than that. They need something the agents themselves can swear to, and be seen to be honoring.
+> [!WARNING]
+> Selma and her cousin Rafe, who grew up near her but now lives across the country, share care for their grandmother. They've begun using a pair of personal agents to coordinate — hospital visits, groceries, video calls on bad days. For it to work, each of them needs to trust the other's agent the way they'd trust the cousin themself: to keep confidences their grandmother shared, to hold to decisions Selma and Rafe made together, to not quietly adopt a cheaper policy if the service provider changes. A contract won't carry it; this is thicker than that. They need something the agents themselves can swear to, and be seen to be honoring.
 
 ## Problem Sets
 

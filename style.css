@@ -171,14 +171,109 @@ td .cell-empty { color: #ccc; font-size: 13px; }
 }
 .detail-breadcrumb a:hover { color: #2d2a26; }
 
+.detail-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
 .detail-title {
   font-family: 'DM Serif Display', serif;
   font-size: 32px;
   font-weight: 400;
   color: #2d2a26;
-  margin-bottom: 24px;
+  margin: 0;
   line-height: 1.3;
 }
+
+/* "AGI breaks this" badge — links to the section */
+.agi-breaks-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #a14a2a;
+  background: #fbeee6;
+  border: 1px solid #e8c8b4;
+  border-radius: 14px;
+  padding: 4px 10px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.agi-breaks-badge:hover {
+  background: #f3dccb;
+  color: #7a3819;
+  border-color: #d9b099;
+}
+.agi-breaks-badge .agi-breaks-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c75d3a;
+}
+
+/* Examples list under title */
+.detail-examples {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+.detail-examples li {
+  font-size: 12px;
+  color: #6b5e4f;
+  background: #f5f1e8;
+  border: 1px solid #e6e1d8;
+  border-radius: 14px;
+  padding: 3px 10px;
+  line-height: 1.4;
+}
+
+/* Callouts: vivid case (human) and AGI scenario */
+.callout {
+  margin: 20px 0 24px;
+  padding: 18px 22px;
+  border-radius: 8px;
+  border-left: 3px solid;
+  background: #faf7f0;
+  border-color: #d5cfc5;
+}
+.callout-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #8a8378;
+  margin-bottom: 8px;
+}
+.callout-body {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #3d3a36;
+}
+.callout-body p:last-child { margin-bottom: 0; }
+.callout-body p { margin-bottom: 10px; }
+
+.callout-human {
+  background: #f5f1e8;
+  border-left-color: #b8a878;
+}
+.callout-agi {
+  background: #fbeee6;
+  border-left-color: #c75d3a;
+}
+.callout-agi .callout-label { color: #a14a2a; }
 
 .detail-body {
   font-size: 15px;
@@ -394,7 +489,11 @@ td .cell-empty { color: #ccc; font-size: 13px; }
 }
 
 /* Cell status indicator — triangle in top-right corner.
-   Shape / fill comes from status-* classes; has-ps alone is the default solid. */
+   Marks how complete the AGI-breakdown writeup is for this cell:
+     ready  (green)  — reviewed and stable
+     draft  (yellow) — written, not yet polished
+     sketch (grey)   — placeholder, body empty or minimal
+   has-ps alone (no status) is the default solid green. */
 td.has-ps, td[class*="status-"] {
   position: relative;
 }
@@ -414,7 +513,6 @@ td.status-draft::after {
   border-color: transparent #d4a72c transparent transparent;
 }
 td.status-sketch::after {
-  /* Outline-only triangle: smaller solid wedge in a muted tone */
   border-color: transparent #c9c2b6 transparent transparent;
   opacity: 0.55;
 }

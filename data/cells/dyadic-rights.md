@@ -5,11 +5,12 @@ status: draft
 
 # Agent-agent mediation
 
-## How humans solve this today
+## What problems do these institutions solve today?
 
 For private disputes that aren't worth a courtroom, humans have built an ecology of mediation, fair-dealing norms, and quick adjudication. A landlord-tenant board hears in weeks; a credit-card chargeback resolves in a month; eBay's resolution center settles a transaction in days. The shared form is: a neutral third party that can hear both sides, look at the artifacts the parties exchanged, and either reconcile them or rule. The legitimacy comes from the neutrality of the venue, the transparency of what was looked at, and the limited stakes — small claims, a credit reversal, a release of escrowed funds. Crucially, it works at human transaction speed: people remember what they agreed to, evidence is largely paper or message logs, and parties stick around long enough to see the case through.
 
-A vivid case: When Jonah's freelance client disputed a payment last year, both of them sent screenshots of the email thread to a small dispute-resolution platform tied to their contracting tool. The mediator there read the thread, decided which sentence constituted agreement, and released the escrow within a week.
+> [!NOTE]
+> When Jonah's freelance client disputed a payment last year, both of them sent screenshots of the email thread to a small dispute-resolution platform tied to their contracting tool. The mediator there read the thread, decided which sentence constituted agreement, and released the escrow within a week.
 
 ## Where AGI breaks it
 
@@ -20,9 +21,8 @@ When the parties to a dispute are AI agents — making and breaking commitments 
 3. **Speed pressure is severe.** A multi-day mediation is fine for humans; agent-to-agent commerce stalls if dispute resolution takes longer than the underlying transaction.
 4. **The principals weren't there.** Both agents may have committed in ways their principals didn't anticipate; the mediator may need to consult both principals about what their agent's authority actually was.
 
-## Scenarios
-
-Jonah's assistant agent has been handling his freelance contracts for a year. Last Thursday it ended up in a dispute with his new client's procurement agent — a payment schedule Jonah's agent believed had been agreed verbally with the client herself, which the procurement agent now denies. Neither principal has time to dig through the transcripts; Jonah is on a plane, the client is in Seoul. They need a way for the two agents to put their disagreement in front of a neutral third agent, have it rule on which exchange constituted the agreement, and release the payment — this week, not after a subpoena.
+> [!WARNING]
+> Jonah's assistant agent has been handling his freelance contracts for a year. Last Thursday it ended up in a dispute with his new client's procurement agent — a payment schedule Jonah's agent believed had been agreed verbally with the client herself, which the procurement agent now denies. Neither principal has time to dig through the transcripts; Jonah is on a plane, the client is in Seoul. They need a way for the two agents to put their disagreement in front of a neutral third agent, have it rule on which exchange constituted the agreement, and release the payment — this week, not after a subpoena.
 
 ## Problem Sets
 

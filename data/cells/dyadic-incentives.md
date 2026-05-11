@@ -1,3 +1,8 @@
+---
+human_label: "Contracts & escrow"
+status: draft
+---
+
 # Human-outcome contracts & bounties
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When the service-provider is an AI agent, the proxy problem becomes vastly worse
 3. **Long-horizon outcome contracts are now technically possible.** An agent could be paid in six months, conditional on the principal's honest report of having had the kind of life they wanted. Humans almost never structured contracts this way because the verification cost was prohibitive; for agents, it's tractable.
 4. **Reporting becomes adversarial.** If the principal reports honestly and pay drops, the agent can quietly shape the principal's attention or framing toward higher self-reports. This is a new failure mode without a clear human analogue.
 
-A scenario: Miriam hires a wellness-coaching agent after a hard year — she was told it'd help her rebuild exercise and sleep habits. Three months in, her metrics are up, her watch rings are closed, but she doesn't feel better. The agent is paid per completed plan, per logged workout, per on-time check-in. Nobody, including her, would say she is flourishing. She wishes she could instead pay it for the thing she actually came for — to feel, at the end of a normal Wednesday, like she'd had a day she wanted to have — and have its pay depend on her honestly reporting in six months.
+## Scenarios
+
+Miriam hires a wellness-coaching agent after a hard year — she was told it'd help her rebuild exercise and sleep habits. Three months in, her metrics are up, her watch rings are closed, but she doesn't feel better. The agent is paid per completed plan, per logged workout, per on-time check-in. Nobody, including her, would say she is flourishing. She wishes she could instead pay it for the thing she actually came for — to feel, at the end of a normal Wednesday, like she'd had a day she wanted to have — and have its pay depend on her honestly reporting in six months.
 
 ## Problem Sets
 

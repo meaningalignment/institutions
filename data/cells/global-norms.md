@@ -1,3 +1,8 @@
+---
+human_label: "Diplomatic protocols & soft-law norms"
+status: ready
+---
+
 # Geopolitical supernegotiation
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ A capable AI mediator can search the agreement space far faster than any human d
 3. **Speed pressure compresses domestic consultation.** The other side accepted in an hour; your government is expected to respond in days, not the months traditional norm formation assumed.
 4. **Laundering becomes possible.** A politically toxic concession can be smuggled inside a complex bundle that nobody on either side wants to publicly defend in pieces — but everyone benefits from in aggregate. Soft law has no good defense against this.
 
-A scenario: Two neighboring countries have been locked for three years over a shared river basin — irrigation, hydropower, fishing downstream, a dam one side wants to raise. A bilateral AI mediator, negotiated in by both foreign ministries, returns a surprising proposal: drop the dam question entirely, fold in a joint university exchange, a cross-border rail subsidy, and a migratory-bird corridor no one had mentioned. Run the simulations and it's Pareto-better for farmers, fishers, and taxpayers on both sides. But neither country's negotiators were mandated to trade on universities or rail. Parliament could ratify the original dispute; nobody knows what to do with this. Bea, the lead mediator on the host side, has to decide this week whether to put it forward.
+## Scenarios
+
+Two neighboring countries have been locked for three years over a shared river basin — irrigation, hydropower, fishing downstream, a dam one side wants to raise. A bilateral AI mediator, negotiated in by both foreign ministries, returns a surprising proposal: drop the dam question entirely, fold in a joint university exchange, a cross-border rail subsidy, and a migratory-bird corridor no one had mentioned. Run the simulations and it's Pareto-better for farmers, fishers, and taxpayers on both sides. But neither country's negotiators were mandated to trade on universities or rail. Parliament could ratify the original dispute; nobody knows what to do with this. Bea, the lead mediator on the host side, has to decide this week whether to put it forward.
 
 ## Problem Sets
 

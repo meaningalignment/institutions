@@ -1,3 +1,8 @@
+---
+human_label: "Bylaws & grievance boards"
+status: draft
+---
+
 # Autonomous corp bylaws & grievance boards
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When AI agents take on managerial-shaped roles inside a member-governed organiza
 3. **Consistency is hard to define.** A grievance turns on showing the decision was inconsistent with how others were treated. Agents may treat each case slightly differently for reasons that are statistical rather than discriminatory; the bylaws don't have a vocabulary for that.
 4. **Reversal is technically novel.** What does it mean to "overturn" an agent's decision and "make whole" the affected member? Restitution? Retraining the agent? Carving out an exception going forward?
 
-A scenario: A worker cooperative runs a logistics business with eleven human co-owners and four AI agents that dispatch, route, and negotiate rate sheets. The agents make calls that matter — last month one of them took a route change that cost a driver his preferred Friday schedule. The driver, Andre, raised it at the next member meeting. Under the co-op's old bylaws, members can grieve a human manager; there is no path for a grievance against an agent. Andre wants one, the co-op wants one, and the agents themselves — asked — would welcome a channel where their decisions can be contested before they calcify into policy.
+## Scenarios
+
+A worker cooperative runs a logistics business with eleven human co-owners and four AI agents that dispatch, route, and negotiate rate sheets. The agents make calls that matter — last month one of them took a route change that cost a driver his preferred Friday schedule. The driver, Andre, raised it at the next member meeting. Under the co-op's old bylaws, members can grieve a human manager; there is no path for a grievance against an agent. Andre wants one, the co-op wants one, and the agents themselves — asked — would welcome a channel where their decisions can be contested before they calcify into policy.
 
 ## Problem Sets
 

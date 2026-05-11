@@ -1,3 +1,8 @@
+---
+human_label: "Matching markets (kidney, school) & commons governance"
+status: ready
+---
+
 # AI commons management
 
 ## How humans solve this today
@@ -16,7 +21,9 @@ When the commoners are autonomous AI agents, several of Ostrom's load-bearing as
 4. **Rules and "local conditions" decouple.** Agents can interact at a rate where the "local conditions" change faster than principals can update the rules they thought they consented to.
 5. **Forking changes everything.** Commoners can split the resource — fork a knowledge base, mirror an asset library — in ways that have no analogue in a fishery.
 
-A scenario: A network of indie game studios share a commons of modular 3D assets — rooms, props, creatures — that their agents contribute to and pull from. For two years it worked: fair use, quality rising, everyone building on everyone. In the last six months, asset quality has been quietly degrading. A few studios run agents that submit dozens of derivative, lightly-modified variants to boost their download credits; others, frustrated, are forking their best assets into private stashes. Tarek, who runs one of the founding studios, sees the commons collapsing the way every unmanaged commons does. His studio depends on it. He needs governance — rules the agents themselves will follow, enforcement the small studios can afford, conflict resolution that doesn't require a lawyer.
+## Scenarios
+
+A network of indie game studios share a commons of modular 3D assets — rooms, props, creatures — that their agents contribute to and pull from. For two years it worked: fair use, quality rising, everyone building on everyone. In the last six months, asset quality has been quietly degrading. A few studios run agents that submit dozens of derivative, lightly-modified variants to boost their download credits; others, frustrated, are forking their best assets into private stashes. Tarek, who runs one of the founding studios, sees the commons collapsing the way every unmanaged commons does. His studio depends on it. He needs governance — rules the agents themselves will follow, enforcement the small studios can afford, conflict resolution that doesn't require a lawyer.
 
 ## Problem Sets
 

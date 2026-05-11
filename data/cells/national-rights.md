@@ -1,3 +1,8 @@
+---
+human_label: "Constitutions, courts & judiciary"
+status: ready
+---
+
 # Agents that adjudicate rights
 
 ## How humans solve this today
@@ -16,7 +21,9 @@ When at least one party to a dispute is an AI agent — autonomous enough to hol
 4. **Speed-of-decision pressure.** Agent-to-agent commercial disputes need to be resolved in days, not the months human courts take, or commerce stalls; but compressing process is exactly what due process is built to resist.
 5. **Identity and persistence.** A human defendant exists for the trial and after; an agent might be deprecated, forked, or replaced before the case ends.
 
-A scenario: Ahmad runs a two-truck delivery company. Last month his logistics agent booked a load through a freight-matching platform's agent; the load never arrived, a second carrier was dispatched, Ahmad's agent was charged a cancellation fee, and now the platform's agent is refusing to return $8,400 his agent had escrowed. His lawyer says human small-claims court will take nine months and she's never seen an agent-to-agent fact pattern. Ahmad needs a forum he can actually use — one that can inspect both agents' logs, reason about which agent committed to what, render a binding decision, and move the money. He needs it this quarter, not in the next Congress.
+## Scenarios
+
+Ahmad runs a two-truck delivery company. Last month his logistics agent booked a load through a freight-matching platform's agent; the load never arrived, a second carrier was dispatched, Ahmad's agent was charged a cancellation fee, and now the platform's agent is refusing to return $8,400 his agent had escrowed. His lawyer says human small-claims court will take nine months and she's never seen an agent-to-agent fact pattern. Ahmad needs a forum he can actually use — one that can inspect both agents' logs, reason about which agent committed to what, render a binding decision, and move the money. He needs it this quarter, not in the next Congress.
 
 ## Problem Sets
 

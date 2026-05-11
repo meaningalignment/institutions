@@ -1,28 +1,5 @@
 {
   "cells": [
-    "community-incentives",
-    "community-preferences",
-    "community-rights",
-    "dyadic-incentives",
-    "dyadic-norms",
-    "dyadic-preferences",
-    "dyadic-rights",
-    "dyadic-thick-commitments",
-    "global-norms",
-    "global-preferences",
-    "global-rights",
-    "group-incentives",
-    "group-norms",
-    "group-protocols",
-    "group-rights",
-    "group-thick-commitments",
-    "national-expertise",
-    "national-norms",
-    "national-preferences",
-    "national-rights",
-    "national-thick-commitments"
-  ],
-  "human": [
     "community-expertise",
     "community-incentives",
     "community-norms",

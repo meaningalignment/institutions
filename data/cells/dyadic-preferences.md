@@ -1,3 +1,8 @@
+---
+human_label: "Negotiation & bargaining"
+status: ready
+---
+
 # Agent negotiation & bargaining
 
 ## How humans solve this today
@@ -14,7 +19,9 @@ When agents negotiate on behalf of human principals, three things change at once
 2. **Asymmetric model exploitation.** Each agent has a richer preference model of its own principal than the counterparty knows. Without protocol constraints, an agent can extract surplus by exploiting what the other side's agent doesn't know about its own principal's true bottom line.
 3. **Ratification reduced to a coin flip.** Principals are asked to ratify in minutes a deal whose reasoning they can't follow. "Informed consent" — the legal fiction that has done so much work in human negotiation — quietly stops meaning anything.
 
-A scenario: Priya's mother needs a live-in aide, and Priya's assistant agent has been talking with three care-agency agents for two days. This morning it surfaces a bundled proposal — one agency takes the live-in role, plus weekly grocery runs, plus coordinating with her mother's cardiologist — at a discount, if Priya commits for twelve months and accepts a switch of the primary aide. The deal is objectively better than the quotes Priya got herself last month. Ratification window closes at noon. Her mother is waiting. Priya needs to know, in the ten minutes before her daughter's parent-teacher conference, whether the trade-offs her agent just made are ones she would have made herself.
+## Scenarios
+
+Priya's mother needs a live-in aide, and Priya's assistant agent has been talking with three care-agency agents for two days. This morning it surfaces a bundled proposal — one agency takes the live-in role, plus weekly grocery runs, plus coordinating with her mother's cardiologist — at a discount, if Priya commits for twelve months and accepts a switch of the primary aide. The deal is objectively better than the quotes Priya got herself last month. Ratification window closes at noon. Her mother is waiting. Priya needs to know, in the ten minutes before her daughter's parent-teacher conference, whether the trade-offs her agent just made are ones she would have made herself.
 
 ## Problem Sets
 

@@ -1,3 +1,8 @@
+---
+human_label: "Substantive constitutions & founding value documents"
+status: draft
+---
+
 # Substantive constitutions & AI alignment docs
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When the system applying a substantive commitment is an AI model — making prel
 3. **No felt sense of mission.** The senior counsel's "does this read as faithful?" question has no obvious AI analogue. Without a thicker articulation, the agent can't answer it; with one, the question is what the articulation should be.
 4. **Drift compounds.** Each marginal decision that's-defensible-on-paper but-not-quite-faithful sets a precedent the agent generalizes from. By the time anyone notices, the agent's de facto interpretation has drifted far from what the document was meant to bind it to.
 
-A scenario: A federal agency is deploying an AI system that will make preliminary rulings on veterans' disability benefits — the same kind of agent that now reads MRIs and matches patients to clinical trials. The project lead, Imani, has a 900-page alignment document, written by a consultancy, full of bullet points like "prioritize fairness" and "respect applicant dignity." In her pilot, the agent is denying more claims than any human adjudicator ever did, and it is citing the document as it does. Imani realizes the alignment doc she has is too thin to bind — it can be read to support almost any decision. She needs the agency's actual substantive commitments to veterans articulated thickly enough that the agent can't slip between the words.
+## Scenarios
+
+A federal agency is deploying an AI system that will make preliminary rulings on veterans' disability benefits — the same kind of agent that now reads MRIs and matches patients to clinical trials. The project lead, Imani, has a 900-page alignment document, written by a consultancy, full of bullet points like "prioritize fairness" and "respect applicant dignity." In her pilot, the agent is denying more claims than any human adjudicator ever did, and it is citing the document as it does. Imani realizes the alignment doc she has is too thin to bind — it can be read to support almost any decision. She needs the agency's actual substantive commitments to veterans articulated thickly enough that the agent can't slip between the words.
 
 ## Problem Sets
 

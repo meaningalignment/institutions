@@ -1,3 +1,8 @@
+---
+human_label: "Legal codes & regulatory norms"
+status: draft
+---
+
 # AIs that follow and update the law
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When the agents administering the law are AI systems trained on text — municip
 3. **Conflict-detection is missing.** A human planner who reads a new ordinance and then a permit can spot when the two are in tension. An agent applying the rule to a stream of applications may never notice the new statute conflicts with the old one it's invoking.
 4. **Update propagation has no obvious owner.** When the council passes a change, who is responsible for ensuring the permitting agent — possibly hosted by a vendor, possibly retrained on a quarterly cycle — actually applies the new rule? The accountability chain is broken.
 
-A scenario: A city's permitting agent has been processing building applications under zoning rules that were rewritten last spring. A neighborhood association notices that its historical-district protections — which they spent five years getting on the books — are not being applied to three new approvals. The agent, it turns out, was trained on last year's municipal code and has been applying the old rules with polished confidence. The association's chair, Yvonne, needs more than a bug fix. She needs to know that when the council passes something, the agents that administer it actually know — and that if the agent's reading conflicts with the statute, someone is checking.
+## Scenarios
+
+A city's permitting agent has been processing building applications under zoning rules that were rewritten last spring. A neighborhood association notices that its historical-district protections — which they spent five years getting on the books — are not being applied to three new approvals. The agent, it turns out, was trained on last year's municipal code and has been applying the old rules with polished confidence. The association's chair, Yvonne, needs more than a bug fix. She needs to know that when the council passes something, the agents that administer it actually know — and that if the agent's reading conflicts with the statute, someone is checking.
 
 ## Problem Sets
 

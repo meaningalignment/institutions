@@ -28,11 +28,10 @@ function esc(s) { return s.replace(/&/g, '&amp;'); }
 
 const TAB_ORDER = ['agi', 'human', 'fidelity'];
 
-// Tab → directory under data/ that supplies its grid summaries.
-// AGI and Human grids both render bodies from data/cells/, but their grid
-// labels come from different files: the merged H1 (cells/) for AGI,
-// and the human-stub H1 (human/) for Human. Fidelity is unchanged.
-const TAB_SUMMARY_DIR = { agi: 'cells', human: 'human', fidelity: 'fidelity' };
+// AGI and Human grids both render from data/cells/. The Human grid uses
+// `human_label` frontmatter when present (falls back to H1). Fidelity has
+// its own directory.
+const TAB_BODY_DIR = { agi: 'cells', human: 'cells', fidelity: 'fidelity' };
 
 const ROWS = [
   { id: 'dyadic', name: 'Dyadic', desc: '2 parties' },
@@ -57,13 +56,22 @@ const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 // ── Data loading ───────────────────────────────────────────────────
 
 function parseCell(raw) {
+  // Strip and parse YAML frontmatter if present.
+  let frontmatter = {};
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+  if (fmMatch) {
+    try { frontmatter = yaml.load(fmMatch[1]) || {}; }
+    catch (e) { frontmatter = {}; }
+    raw = raw.slice(fmMatch[0].length);
+  }
+
   const h1Match = raw.match(/^#\s+(.+)$/m);
   const summary = h1Match ? h1Match[1].trim() : '';
   const bodyAfterH1 = h1Match
     ? raw.slice(raw.indexOf('\n', raw.indexOf(h1Match[0])) + 1).trim()
     : raw;
 
-  return { summary, body: bodyAfterH1 };
+  return { summary, body: bodyAfterH1, frontmatter };
 }
 
 function loadCells(dirName) {
@@ -113,7 +121,7 @@ function getMethodsForCol(colId, tabId, methods) {
 
 function generateManifest() {
   const manifest = {};
-  for (const dirName of ['cells', 'human', 'fidelity']) {
+  for (const dirName of ['cells', 'fidelity']) {
     const dir = path.join(__dirname, 'data', dirName);
     if (!fs.existsSync(dir)) { manifest[dirName] = []; continue; }
     manifest[dirName] = fs.readdirSync(dir)
@@ -139,17 +147,11 @@ function cellsWithProblemSets(cells) {
   return ps;
 }
 
-function renderGrid(tabId, summaryCells, mergedCells, methods, dataPath) {
-  // summaryCells: cells whose H1 supplies the grid label for THIS tab.
-  //   - AGI tab: summaryCells === mergedCells (data/cells/)
-  //   - Human tab: summaryCells === human stubs (data/human/)
-  //   - Fidelity tab: summaryCells === fidelityCells (data/fidelity/)
-  // mergedCells: data/cells/ — used to compute the has-ps highlight for AGI/Human.
+function renderGrid(tabId, cells, methods, dataPath) {
+  // cells: the dict for this tab's body source (data/cells/ for agi+human, data/fidelity/ for fidelity)
+  // Per-cell summary: AGI uses H1; Human uses frontmatter.human_label || H1; Fidelity uses H1.
   const tab = TABS[tabId];
-  // For Fidelity, problem-set highlight derives from its own cells (which == summaryCells).
-  // For AGI and Human, it derives from the merged cells.
-  const psSource = tabId === 'fidelity' ? summaryCells : mergedCells;
-  const psKeys = cellsWithProblemSets(psSource);
+  const psKeys = cellsWithProblemSets(cells);
   let html = '';
   html += `<div class="pane-title">${esc(tab.title)}</div>\n`;
   html += `<div class="pane-subtitle">${esc(tab.subtitle)}</div>\n`;
@@ -166,11 +168,17 @@ function renderGrid(tabId, summaryCells, mergedCells, methods, dataPath) {
     html += `<th class="row-header"><span class="row-name">${row.name}</span><span class="row-desc">${row.desc}</span></th>`;
     for (const col of COLS) {
       const key = `${row.id}-${col.id}`;
-      const cell = summaryCells[key];
-      if (cell) {
-        const psClass = psKeys.has(key) ? ' has-ps' : '';
-        html += `<td class="clickable${psClass}" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;
-        html += `<div class="cell-content">${cell.summary}</div></td>`;
+      const cell = cells[key];
+      const summary = cell && (
+        tabId === 'human' ? (cell.frontmatter?.human_label || cell.summary) : cell.summary
+      );
+      if (cell && summary) {
+        const classes = ['clickable'];
+        if (psKeys.has(key)) classes.push('has-ps');
+        const status = cell.frontmatter?.status;
+        if (status) classes.push(`status-${status}`);
+        html += `<td class="${classes.join(' ')}" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;
+        html += `<div class="cell-content">${summary}</div></td>`;
       } else {
         html += '<td><div class="cell-empty"></div></td>';
       }
@@ -277,8 +285,8 @@ function renderProblemSetsPage(allCells) {
 // ── Generate grid page HTML ─────────────────────────────────────────
 
 function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
-  const summaryDir = TAB_SUMMARY_DIR[tabId];
-  const grid = renderGrid(tabId, allCells[summaryDir], allCells.cells, methods, dataPath);
+  const bodyDir = TAB_BODY_DIR[tabId];
+  const grid = renderGrid(tabId, allCells[bodyDir], methods, dataPath);
   const tabLinks = TAB_ORDER.map(t => {
     const tab = TABS[t];
     const active = t === tabId ? ' active' : '';
@@ -360,7 +368,6 @@ ${content}
 const methods = loadMethods();
 const allCells = {
   cells: loadCells('cells'),
-  human: loadCells('human'),
   fidelity: loadCells('fidelity')
 };
 // Alias for renderProblemSetsPage which expects { merged, fidelity }

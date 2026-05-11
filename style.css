@@ -393,11 +393,12 @@ td .cell-empty { color: #ccc; font-size: 13px; }
   min-width: 28px;
 }
 
-/* Problem set indicator — green triangle in top-right corner */
-td.has-ps {
+/* Cell status indicator — triangle in top-right corner.
+   Shape / fill comes from status-* classes; has-ps alone is the default solid. */
+td.has-ps, td[class*="status-"] {
   position: relative;
 }
-td.has-ps::after {
+td.has-ps::after, td[class*="status-"]::after {
   content: '';
   position: absolute;
   top: 0;
@@ -406,30 +407,71 @@ td.has-ps::after {
   border-width: 0 12px 12px 0;
   border-color: transparent #6aaa64 transparent transparent;
 }
+td.status-ready::after {
+  border-color: transparent #6aaa64 transparent transparent;
+}
+td.status-draft::after {
+  border-color: transparent #d4a72c transparent transparent;
+}
+td.status-sketch::after {
+  /* Outline-only triangle: smaller solid wedge in a muted tone */
+  border-color: transparent #c9c2b6 transparent transparent;
+  opacity: 0.55;
+}
 
-/* Methods embed in cell detail view */
-.methods-embed {
-  margin-top: 36px;
+/* Detail page two-column layout: body left, methods rail right */
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 40px;
+  align-items: start;
+  margin-top: 8px;
+}
+.detail-main { min-width: 0; }
+.detail-rail {
+  position: sticky;
+  top: 24px;
+  padding: 20px 22px;
+  background: #f5f1e8;
+  border: 1px solid #e6e1d8;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #4a463f;
+}
+.rail-label {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 11px;
+  color: #8a8378;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.rail-body h2, .rail-body h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #2d2a26;
+  margin: 14px 0 6px;
+}
+.rail-body h2:first-child, .rail-body h3:first-child { margin-top: 0; }
+.rail-body p { margin: 0 0 8px; }
+.rail-body ul, .rail-body ol { margin: 0 0 8px; padding-left: 18px; }
+.rail-body li { margin-bottom: 4px; }
+.rail-body a { color: #5c5852; text-decoration: underline; }
+.rail-body a:hover { color: #2d2a26; }
+
+.detail-footer {
+  margin-top: 40px;
   padding-top: 20px;
   border-top: 1px solid #e6e1d8;
+  font-size: 12px;
+  color: #b5b0a8;
 }
-
-.methods-embed summary {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: #8a8378;
-  cursor: pointer;
-  padding: 8px 0;
-}
-
-.methods-embed summary:hover {
-  color: #2d2a26;
-}
-
-.methods-embed .detail-body {
-  margin-top: 12px;
-}
+.detail-footer a { color: #8a8378; }
 
 /* ── Mobile breakpoints ─────────────────────────────────────────── */
 
@@ -539,12 +581,22 @@ tr.methods-row th.row-header {
     padding: 1px 3px;
   }
 
-  td.has-ps::after { border-width: 0 7px 7px 0; }
+  td.has-ps::after, td[class*="status-"]::after { border-width: 0 7px 7px 0; }
 
   /* Detail page mobile */
   .detail-title { font-size: 24px; }
   .detail-body { font-size: 14px; }
   .detail-body h2 { font-size: 18px; }
+
+  /* Stack rail below body on mobile */
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .detail-rail {
+    position: static;
+    padding: 16px 18px;
+  }
 
   /* Problem sets mobile */
   .ps-page-title { font-size: 24px; }

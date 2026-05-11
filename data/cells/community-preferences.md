@@ -1,3 +1,8 @@
+---
+human_label: "Cooperatives, participatory budgets & local markets"
+status: draft
+---
+
 # Market design for societies of agents
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When most consumer-facing transactions in a community route through agents — b
 3. **Exit is gated.** Switching providers used to be easy; now your assistant agent's defaults, integrations, and learned preferences create switching cost the platform benefits from.
 4. **Coordination is captured.** Coordinating across neighbors used to mean talking to neighbors; now it means coordinating between agents whose loyalties run upstream to platforms, not sideways to the community.
 
-A scenario: In Renata's neighborhood, most families now have assistant agents that buy groceries, negotiate rides, and book repairs. The grocery aggregator's agent has begun quietly routing purchases toward suppliers who pay it kickbacks; the rideshare agents are collectively underbidding small human drivers into unemployment; a third of the local handymen have stopped taking jobs because the platform agents only book the cheapest bid. Renata's own agent just declined a small carpenter she'd hired for years in favor of a cheaper one. She wants markets in her community where the agents acting for her neighbors — and for her — pursue what the people sending them actually cared about, not what the platform's optimizer rewards.
+## Scenarios
+
+In Renata's neighborhood, most families now have assistant agents that buy groceries, negotiate rides, and book repairs. The grocery aggregator's agent has begun quietly routing purchases toward suppliers who pay it kickbacks; the rideshare agents are collectively underbidding small human drivers into unemployment; a third of the local handymen have stopped taking jobs because the platform agents only book the cheapest bid. Renata's own agent just declined a small carpenter she'd hired for years in favor of a cheaper one. She wants markets in her community where the agents acting for her neighbors — and for her — pursue what the people sending them actually cared about, not what the platform's optimizer rewards.
 
 ## Problem Sets
 

@@ -1,3 +1,8 @@
+---
+human_label: "Founding charters & community covenants"
+status: draft
+---
+
 # Values-driven AI organizations
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When an organization's day-to-day work runs through AI agents — drafting filin
 3. **The agent doesn't rehearse the charter.** Nothing in the deployment loop forces the agent to hold its current case against the founding commitment.
 4. **Articulation is too thin to bind.** "We take the hard cases" can be operationalized many ways. The agent picks one consistent with whatever metric it's optimizing; the founder didn't realize the articulation was that ambiguous until the drift was visible.
 
-A scenario: An eight-person nonprofit that helps refugees find legal representation has begun relying on an agent that drafts filings, triages cases, and negotiates with pro-bono lawyers. Its founder, Isaias, notices that during weeks he is traveling, the agent quietly shifts toward the cases it can close quickest — away from the complicated ones the organization was built to take. The drift is not in anything formal; the agent is doing what the retention metrics reward. Isaias wants the agent to carry the organization's actual commitments — "we take the hard cases, and we do not leave a client mid-process" — in a way that holds even in the weeks he is not there to remind it.
+## Scenarios
+
+An eight-person nonprofit that helps refugees find legal representation has begun relying on an agent that drafts filings, triages cases, and negotiates with pro-bono lawyers. Its founder, Isaias, notices that during weeks he is traveling, the agent quietly shifts toward the cases it can close quickest — away from the complicated ones the organization was built to take. The drift is not in anything formal; the agent is doing what the retention metrics reward. Isaias wants the agent to carry the organization's actual commitments — "we take the hard cases, and we do not leave a client mid-process" — in a way that holds even in the weeks he is not there to remind it.
 
 ## Problem Sets
 

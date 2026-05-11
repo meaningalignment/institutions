@@ -1,3 +1,8 @@
+---
+human_label: "Team protocols & workflows"
+status: draft
+---
+
 # Team protocols & workflows
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When AI agents become full participants in the team's work — drafting structur
 3. **What the agent "relied on" is hard to expose.** A human reviewer can ask another human "why did you decide that?" and get a usable answer; an agent's reasoning trace may not compress to anything the human can evaluate.
 4. **Stand-up doesn't include agents in any meaningful sense.** Humans pause to share context; agents share none unless explicitly asked, and the protocol provides no asking.
 
-A scenario: Nasir runs a five-person architecture studio. Three of them now work alongside AI agents that draft structural calculations, pull precedents, run code-compliance checks, and argue against each other's conclusions. This week two of the agents reached contradictory recommendations on a seismic retrofit, and neither Nasir nor his junior engineer could tell which was better reasoned — the traces were too long, the citations too dense. He needs a shared protocol his team and their agents all follow for flagging disagreement early, surfacing what each side actually relied on, and bringing humans in at the right moment. Without one, the studio keeps shipping work it can't quite stand behind.
+## Scenarios
+
+Nasir runs a five-person architecture studio. Three of them now work alongside AI agents that draft structural calculations, pull precedents, run code-compliance checks, and argue against each other's conclusions. This week two of the agents reached contradictory recommendations on a seismic retrofit, and neither Nasir nor his junior engineer could tell which was better reasoned — the traces were too long, the citations too dense. He needs a shared protocol his team and their agents all follow for flagging disagreement early, surfacing what each side actually relied on, and bringing humans in at the right moment. Without one, the studio keeps shipping work it can't quite stand behind.
 
 ## Problem Sets
 

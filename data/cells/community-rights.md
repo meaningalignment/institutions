@@ -1,3 +1,8 @@
+---
+human_label: "Municipal codes & local courts"
+status: draft
+---
+
 # AI judges and adjudication
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When the everyday adjudicators of community life become AI systems — fraud-det
 3. **Standing is uncertain.** Whom do you appeal to, on what grounds, in what venue? The platform's interface is the only door, and what's behind the door has no procedural commitments by default.
 4. **Scale removes social embedding.** A neighborhood judge has reputational accountability to people who use the court; the adjudication agent has no equivalent — its decisions are evaluated against KPIs the affected party has no view into.
 
-A scenario: Maggie's small e-commerce shop runs on a marketplace whose AI agents now handle nearly all disputes — delivery failures, return claims, chargebacks. Last month one of her orders was flagged by the platform's detection agent as fraudulent; her account was frozen, her inventory locked, and when she appealed, an adjudication agent reviewed the case in seven seconds and upheld the freeze. She doesn't know what reasoning it used, what evidence it weighed, or whom to appeal to. Her rent is due. She needs a system where the decisions made about her are legible, contestable, and reviewed by something she can actually address.
+## Scenarios
+
+Maggie's small e-commerce shop runs on a marketplace whose AI agents now handle nearly all disputes — delivery failures, return claims, chargebacks. Last month one of her orders was flagged by the platform's detection agent as fraudulent; her account was frozen, her inventory locked, and when she appealed, an adjudication agent reviewed the case in seven seconds and upheld the freeze. She doesn't know what reasoning it used, what evidence it weighed, or whom to appeal to. Her rent is due. She needs a system where the decisions made about her are legible, contestable, and reviewed by something she can actually address.
 
 ## Problem Sets
 

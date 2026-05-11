@@ -1,3 +1,8 @@
+---
+human_label: "Profit-sharing, vesting & bounty systems"
+status: draft
+---
+
 # Agent profit-sharing & bounty systems
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When AI agents start producing meaningful business output alongside human staff,
 3. **Resentment sneaks in invisibly.** If a contract a human worked hard on counts toward an agent's "earnings" (and thus the upgrade budget), the human may feel less recognized than if the same contract had counted toward another human's bonus. Nobody complains, but the team gets quietly demoralized.
 4. **Budget for "the next capability" is open-ended.** Unlike salaries, which scale with people, agent budgets can scale faster than the team's revenue can support — and the firm needs a discipline for deciding when to grow agent capacity vs. hire another person.
 
-A scenario: Beatriz's small consultancy runs three AI agents alongside its nine humans: one does research, one drafts, one handles client follow-through. This year the agents closed roughly a third of the contracts. Payroll time comes around and nobody on the human team knows quite how to think about it. The agents don't need salaries but they do need funding for compute, for upgrades, and for the next capability the team hopes to add. Beatriz wants a scheme where the agents' "earnings" are visible, where humans whose work trained an agent get credited when that agent produces, and where people aren't quietly resentful when a contract they worked hard on gets counted toward an agent's share.
+## Scenarios
+
+Beatriz's small consultancy runs three AI agents alongside its nine humans: one does research, one drafts, one handles client follow-through. This year the agents closed roughly a third of the contracts. Payroll time comes around and nobody on the human team knows quite how to think about it. The agents don't need salaries but they do need funding for compute, for upgrades, and for the next capability the team hopes to add. Beatriz wants a scheme where the agents' "earnings" are visible, where humans whose work trained an agent get credited when that agent produces, and where people aren't quietly resentful when a contract they worked hard on gets counted toward an agent's share.
 
 ## Problem Sets
 

@@ -1,3 +1,8 @@
+---
+human_label: "Elections, deliberative polls & national exchanges"
+status: draft
+---
+
 # Agents that represent national interests / large groups
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When the negotiator becomes an AI agent representing a state, a region, or a lar
 3. **Real-time consultation breaks.** A weekly check-in with a committee can't keep up with an AI negotiator that needs to make tactical concessions in minutes.
 4. **Representative drift is invisible.** A human negotiator who drifts from mandate gets called out by adversaries, journalists, or their own staff; an AI's drift is detectable only to those who can read what it's doing — and the constituency rarely can.
 
-A scenario: A state government is rolling out a consumer-protection initiative and, for the first time, is represented in the multi-party deals being struck between platform operators and local utility regulators by an AI negotiator. State Senator Fielder, who pushed the bill, watches it work through the first dry run and feels a tight mix of pride and worry. The agent is faster and better-briefed than any staff she could afford; on paper, it secures terms she would have pushed for. But it is also making compromises on consumer remedies that she knows her constituents in the smaller counties would not accept. She needs to be sure the agent is representing her state, not optimizing an average.
+## Scenarios
+
+A state government is rolling out a consumer-protection initiative and, for the first time, is represented in the multi-party deals being struck between platform operators and local utility regulators by an AI negotiator. State Senator Fielder, who pushed the bill, watches it work through the first dry run and feels a tight mix of pride and worry. The agent is faster and better-briefed than any staff she could afford; on paper, it secures terms she would have pushed for. But it is also making compromises on consumer remedies that she knows her constituents in the smaller counties would not accept. She needs to be sure the agent is representing her state, not optimizing an average.
 
 ## Problem Sets
 

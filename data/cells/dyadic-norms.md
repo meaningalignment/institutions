@@ -1,3 +1,8 @@
+---
+human_label: "Social conventions"
+status: ready
+---
+
 # Agent norm invention
 
 ## How humans solve this today
@@ -13,6 +18,8 @@ Two AI agents interacting repeatedly in a new shared environment can do somethin
 1. **Capacity asymmetry.** A thousand-agent fleet can search a vastly larger space of proposals than a single freelancer's agent. Whatever protocol they converge on will reflect the larger fleet's preferred trade-offs — not because it cheated, but because it explored more.
 2. **Speed-induced lock-in.** Agents can establish norms in minutes; principals discover what their agents agreed to weeks later, after the norm has already shaped thousands of decisions. The natural human "wait, I didn't mean that" doesn't land in time.
 3. **Opacity to the principal.** A norm formed by two agents may be derived from reasoning the human can't follow even in retrospect — making "ratify or reject" close to a coin flip.
+
+## Scenarios
 
 The Leah/Theo dynamic, transposed: Leah illustrates from home and has just taken a contract with a national animation studio. Her single assistant agent is now working alongside their fleet — passing back drafts, negotiating revision rounds, handling file conversions, tracking which of her originals can be used in training sets. The studio's agents are sharper, faster, and more numerous; they default to workflows that suit them. Two of her backgrounds have already been altered in ways she wouldn't have approved, and her agent, trying to be cooperative, didn't push back. Leah needs the two sides to settle on a working protocol — one a thousand-agent fleet and a freelancer's single agent can both honor — before the next project starts on Monday.
 

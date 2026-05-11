@@ -1,3 +1,8 @@
+---
+human_label: "Int'l law, treaties & tribunals"
+status: draft
+---
+
 # Automated defense of human rights
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When monitoring, documentation, and dossier-drafting are partly delegated to AI 
 3. **Adversaries adapt.** A government facing AI-driven monitoring can flood the channels with synthetic incidents, contest each finding, or deploy counter-monitoring AIs that contest the documentation in near real time.
 4. **The human role shifts but doesn't disappear.** Lawyers stop being the people who gather facts and become the people who decide which AI-surfaced cases to put their name on. The training and accountability infrastructure for that role doesn't exist.
 
-A scenario: A government has shut off an entire province's mobile network for the third time this year. In past outages, international human-rights groups took weeks to document the blackout, interview exiles, and file complaints with treaty bodies. This time, a coalition of NGOs has deployed a network of monitoring agents that detect the shutdown within hours, correlate it with arrests drawn from open sources, draft a preliminary dossier keyed to specific treaty articles, and route it to the relevant rapporteurs. Farida, a lawyer at one of the NGOs, watches the first report go out two hours after the lights went out. Her role has shifted: not to gather the facts, but to decide, with colleagues, which cases the agents should push hardest, and to stand behind what they send.
+## Scenarios
+
+A government has shut off an entire province's mobile network for the third time this year. In past outages, international human-rights groups took weeks to document the blackout, interview exiles, and file complaints with treaty bodies. This time, a coalition of NGOs has deployed a network of monitoring agents that detect the shutdown within hours, correlate it with arrests drawn from open sources, draft a preliminary dossier keyed to specific treaty articles, and route it to the relevant rapporteurs. Farida, a lawyer at one of the NGOs, watches the first report go out two hours after the lights went out. Her role has shifted: not to gather the facts, but to decide, with colleagues, which cases the agents should push hardest, and to stand behind what they send.
 
 ## Problem Sets
 

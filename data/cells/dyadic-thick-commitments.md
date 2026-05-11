@@ -1,3 +1,8 @@
+---
+human_label: "Vows & covenants"
+status: draft
+---
+
 # Agent-agent vows
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When the relationship in question is mediated by AI agents — who don't have pu
 3. **Self-binding is shallow.** An agent's "identity" can be migrated, retrained, or replaced by its principal at low cost; whatever vow the previous instance made may not bind the next.
 4. **Costlessly replaceable means costlessly betray-able.** A vow is meaningful in proportion to what it would cost to break. Today, switching agents costs nothing; the architecture of meaningful commitment is missing.
 
-A scenario: Selma and her cousin Rafe, who grew up near her but now lives across the country, share care for their grandmother. They've begun using a pair of personal agents to coordinate — hospital visits, groceries, video calls on bad days. For it to work, each of them needs to trust the other's agent the way they'd trust the cousin themself: to keep confidences their grandmother shared, to hold to decisions Selma and Rafe made together, to not quietly adopt a cheaper policy if the service provider changes. A contract won't carry it; this is thicker than that. They need something the agents themselves can swear to, and be seen to be honoring.
+## Scenarios
+
+Selma and her cousin Rafe, who grew up near her but now lives across the country, share care for their grandmother. They've begun using a pair of personal agents to coordinate — hospital visits, groceries, video calls on bad days. For it to work, each of them needs to trust the other's agent the way they'd trust the cousin themself: to keep confidences their grandmother shared, to hold to decisions Selma and Rafe made together, to not quietly adopt a cheaper policy if the service provider changes. A contract won't carry it; this is thicker than that. They need something the agents themselves can swear to, and be seen to be honoring.
 
 ## Problem Sets
 

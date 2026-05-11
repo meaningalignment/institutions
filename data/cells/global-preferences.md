@@ -1,3 +1,8 @@
+---
+human_label: "Multilateral assemblies & global markets"
+status: draft
+---
+
 # Global markets that keep human interests central
 
 ## How humans solve this today
@@ -15,7 +20,9 @@ When global discovery and matching is mediated by platform agents — ranking su
 3. **Counterfeiters' agents are smart now.** A counterfeiter's agent can promise faster shipping, smarter bundles, and a confident origin story; verification becomes a race the small original loses.
 4. **Communities of buyers can't coordinate.** A cooperative used to be able to talk to its committed customers; now those customers are reached only through platform agents whose loyalties run elsewhere.
 
-A scenario: A textile cooperative in Oaxaca has, for four generations, sold blankets under a regional appellation. This year a global commerce platform's agent, optimizing for its consumer-side retention model, quietly reranked the cooperative below cheaper imitations — imitations whose agents can promise faster shipping and smarter bundling. The cooperative has had no voice in how the platform's matching works; nor has any of its customers, who care about where the blanket came from. The cooperative's young director, Natalia, wants a market in which agents acting for global buyers actually represent what those buyers care about — origin, craft, continuity — and not just what the platform ranks for them.
+## Scenarios
+
+A textile cooperative in Oaxaca has, for four generations, sold blankets under a regional appellation. This year a global commerce platform's agent, optimizing for its consumer-side retention model, quietly reranked the cooperative below cheaper imitations — imitations whose agents can promise faster shipping and smarter bundling. The cooperative has had no voice in how the platform's matching works; nor has any of its customers, who care about where the blanket came from. The cooperative's young director, Natalia, wants a market in which agents acting for global buyers actually represent what those buyers care about — origin, craft, continuity — and not just what the platform ranks for them.
 
 ## Problem Sets
 

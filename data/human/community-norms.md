@@ -1,1 +1,0 @@
-# Guild standards & HOA rules

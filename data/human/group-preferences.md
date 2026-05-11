@@ -1,1 +1,0 @@
-# Committee voting & prediction markets

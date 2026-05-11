@@ -1,1 +1,0 @@
-# Regulatory agencies (FDA, BaFin)

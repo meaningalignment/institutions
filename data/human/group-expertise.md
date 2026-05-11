@@ -1,1 +1,0 @@
-# Peer review & quality circles

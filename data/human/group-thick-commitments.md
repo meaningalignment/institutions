@@ -1,1 +1,0 @@
-# Founding charters & community covenants

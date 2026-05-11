@@ -1,1 +1,0 @@
-# Handshake protocols & shared formats

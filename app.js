@@ -55,6 +55,21 @@ function parseCell(raw) {
   return { summary, body: bodyAfterH1, frontmatter };
 }
 
+// ── Markdown post-processing ───────────────────────────────────────
+
+// Wrap any paragraph that opens with "A vivid case:" in a styled callout.
+// Runs on the HTML produced by marked, so the input is `<p>A vivid case: ...</p>`.
+function renderVividCases(html) {
+  return html.replace(
+    /<p>A vivid case:\s*([\s\S]*?)<\/p>/g,
+    '<aside class="vivid-case"><span class="vivid-case-label">A vivid case</span><p>$1</p></aside>'
+  );
+}
+
+function renderBody(md) {
+  return renderVividCases(marked.parse(md));
+}
+
 // ── Detail page ────────────────────────────────────────────────────
 
 function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
@@ -79,7 +94,7 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += '<div class="detail-layout">';
   html += '<div class="detail-main">';
   if (cell.body && cell.body.trim()) {
-    html += `<div class="detail-body">${marked.parse(cell.body)}</div>`;
+    html += `<div class="detail-body">${renderBody(cell.body)}</div>`;
   } else {
     html += `<div class="detail-placeholder">This cell hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
   }
@@ -111,7 +126,7 @@ function renderMethodsDetail(tabId, colId, cell) {
   html += `<div class="detail-title">${cell.summary}</div>`;
 
   if (cell.body && cell.body.trim()) {
-    html += `<div class="detail-body">${marked.parse(cell.body)}</div>`;
+    html += `<div class="detail-body">${renderBody(cell.body)}</div>`;
   } else {
     html += `<div class="detail-placeholder">This page hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
   }

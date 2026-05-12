@@ -237,6 +237,30 @@ td .cell-empty { color: #ccc; font-size: 13px; }
   color: #2d2a26;
 }
 
+.detail-body .vivid-case {
+  margin: 20px 0;
+  padding: 16px 20px 18px;
+  background: #f6efe1;
+  border-left: 3px solid #c9a86a;
+  border-radius: 2px;
+}
+
+.detail-body .vivid-case-label {
+  display: block;
+  font-family: 'DM Serif Display', serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a6d3a;
+  margin-bottom: 6px;
+}
+
+.detail-body .vivid-case p {
+  margin: 0;
+  font-style: italic;
+  color: #4a4138;
+}
+
 .detail-placeholder {
   font-size: 14px;
   color: #b5b0a8;

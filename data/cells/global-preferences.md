@@ -1,48 +1,47 @@
 ---
-human_label: "Multilateral assemblies & global markets"
+human_label: "Social media recommender systems"
 ---
 
-# Global markets that keep human interests central
+# Agent-resistant global preference aggregation
 
 ## How humans solve this today
 
-Global trade has evolved a stack of mechanisms that, imperfectly, keep some of what buyers and sellers actually care about visible across borders: regional appellations and geographic indications (champagne, Roquefort, Oaxacan textiles), fair-trade certifications, organic standards, ISO-style quality marks, third-party origin verification, and a sprawl of bilateral and multilateral trade agreements that recognize and protect these labels. The mechanisms ride on top of the basic market — they tell a buyer in Berlin that a blanket from Oaxaca is *that kind* of blanket, and they punish counterfeiters when the system catches them. Underneath, the matching is still done by humans browsing, asking shopkeepers, comparing notes — slow but in their own language of what matters.
+Humanity has no institution that takes the preferences of the world's people and produces a binding global decision. Multilateral assemblies aggregate state positions, not preferences. The IMF aggregates capital stakes. The Security Council filters through five vetoes. A UN Parliamentary Assembly has been proposed for decades and never built.
 
-A vivid case: When Natalia's textile cooperative entered a European market in the 1990s, the appellation badge meant that a buyer in Berlin who cared about origin could find them — not necessarily cheaper, but identifiable, and protected from imitations using the regional name.
+What we have instead, almost by accident, is a class of systems that aggregate preferences globally as a side effect of optimizing for something else. Social media recommender systems — TikTok's For You page, YouTube, Reels, X's timeline — take billions of revealed-preference signals and produce a personalized-but-aggregated decision about what each user sees next. What they produce is a shared attentional environment that is upstream of nearly every other preference-aggregation process humanity runs: elections, public opinion, civil society, the news cycle.
+
+A vivid case: in the weeks after George Floyd's killing in May 2020, the bystander video and the protests it sparked routed through recommender systems into feeds across more than a hundred countries. Within a week, protesters in Seoul, Berlin, Auckland, and São Paulo were marching to the same footage their counterparts elsewhere had just seen. Hundreds of millions of small engagement decisions converged into a coherent global stance, and corporations, parties, and governments were reacting to it within weeks.
 
 ## Where AGI breaks it
 
-When global discovery and matching is mediated by platform agents — ranking suppliers, routing buyer attention, optimizing for the platform's metrics — the appellation/certification stack stops carrying what it used to:
+1. **Bot swarms become indistinguishable from publics.** Coordinated influence operations already shape what trends, but they leave traces today: low-effort comments, shallow follower networks, off-idiom text. Capable agents close that gap. A single actor can run millions of personas that watch to completion, comment in fluent local idiom, and build follower relationships with real users over months. The recommender cannot tell a campaign from organic interest. The cost of steering the global preference signal drops to whoever can pay for the compute.
 
-1. **Ranking optimizers don't care about origin.** A platform agent maximizing buyer-side retention or take rate ranks on what predicts a click, not on what the buyer would say they cared about if asked. Origin claims become a tag, not a determinant.
-2. **The buyer-side agent doesn't represent the buyer's real preference either.** The buyer's assistant agent has been trained to predict the buyer's purchases — which are themselves shaped by the platform's ranking. The preference inference is circular.
-3. **Counterfeiters' agents are smart now.** A counterfeiter's agent can promise faster shipping, smarter bundles, and a confident origin story; verification becomes a race the small original loses.
-4. **Communities of buyers can't coordinate.** A cooperative used to be able to talk to its committed customers; now those customers are reached only through platform agents whose loyalties run elsewhere.
+2. **Individualized generated content stops surfacing shared signal.** To the extent that recommenders surface real preferences around real issues globally, they do so because users are engaging with roughly the same pool of human-produced content; what trends is legible because it's the same material everywhere. As generated content becomes more effective at producing engagement than human-produced content, each user increasingly sees material produced for them. There is no longer a shared pool over which preferences could aggregate, only parallel individual streams. The mechanism continues to run, but what it produces stops being a global signal.
 
 ## Scenarios
 
-A textile cooperative in Oaxaca has, for four generations, sold blankets under a regional appellation. This year a global commerce platform's agent, optimizing for its consumer-side retention model, quietly reranked the cooperative below cheaper imitations — imitations whose agents can promise faster shipping and smarter bundling. The cooperative has had no voice in how the platform's matching works; nor has any of its customers, who care about where the blanket came from. The cooperative's young director, Natalia, wants a market in which agents acting for global buyers actually represent what those buyers care about — origin, craft, continuity — and not just what the platform ranks for them.
+A mid-sized European democracy votes by two points to dissolve the independence of its constitutional court. A year later, researchers find the campaign was substantially amplified by millions of accounts traced to a neighboring state's intelligence services, accounts that had spent years watching to completion, commenting in fluent local idiom, and building real follower relationships before the campaign began. They would have passed any human review the platform could have run at scale. The state denies involvement. The change is irreversible by ordinary legislative means, and with the court's independence gone, the last domestic check on the executive is gone with it. In the years that follow, governments across the region grow skeptical of referendums, polls, and elections as tools that can be hijacked from outside.
 
 ## Problem Sets
 
-### Cross-Border Markets in Which Agents Carry Buyer Substance
+### Preserving Aggregation Integrity Against Capable Agent Inputs
 
-**Anchor contexts.** A textile cooperative selling under a regional appellation discoverable to foreign buyers via their assistant agents; a small-farm cheese producer whose origin and craft claims must be verifiable to a buyer's agent on the other side of a continent.
+**Anchor contexts.** A major social platform whose recommender is humanity's de facto cross-border preference-aggregation system; a national election in which the recommender-shaped attentional environment is contested by foreign and domestic agent campaigns at scale.
 
-**The gap.** We lack a global market design in which buyer-side and seller-side agents both faithfully represent their principals' substantive preferences (origin, craft, continuity) against platforms whose ranking optimizers pull in different directions.
+**The gap.** We lack a method by which a recommender aggregating revealed-preference signals at global scale can distinguish human engagement from capable-agent engagement well enough to keep its outputs a meaningful aggregation of what humans want — given that detection is an arms race the platform is structurally outmatched to win, and that false positives (silencing real users) are at least as severe as false negatives.
 
 **Design choices the team must take a position on.**
-1. **Verification authority.** Who certifies origin, craft, and continuity claims — a regional appellation body, a third-party certifier, a decentralized registry, or a layered combination?
-2. **Buyer-agent fiduciary structure.** Is the buyer's agent legally a fiduciary of the buyer (cannot accept platform kickbacks, cannot quietly rerank for platform metrics), and how is this enforced cross-jurisdictionally?
-3. **Discovery rule.** Does the buyer's agent have to consider certified small producers above a quality threshold, just rank them in some standard form, or is the choice fully delegated to the agent?
-4. **Cross-border certification recognition.** When a regional appellation in Oaxaca needs to be honored by a buyer's agent in Berlin, what's the recognition path — bilateral treaty, a global standards body, mutual recognition between national systems?
-5. **Recourse for displaced producers.** When the market displaces a longstanding producer, what's the procedure — none, transition support, mandatory transparency about ranking changes, mandatory floor for verified-origin?
+1. **Input verification.** Does the system require human-verified provenance for engagement to count — personhood attestation, trusted-institution credentials, behavioral biometrics — or accept all engagement and rely on downstream correction? Verification disadvantages users who can't or won't authenticate; downstream correction admits the campaigns and tries to detect them after.
+2. **Discounting versus exclusion.** When suspected agent engagement is detected, is it excluded, down-weighted, or quarantined into a signal the platform tracks but doesn't act on?
+3. **Agent-mediated engagement as a category.** When a user delegates scrolling to their own agent, does the system treat that as human (it represents a real principal), as agent (the signal isn't the principal's direct preference), or as a third category? The answer determines whether the loop-closure failure is structurally prevented or accepted.
+4. **Cross-platform coordination.** An actor runs campaigns across every major platform simultaneously. Can the platforms share signal about coordinated activity without creating a surveillance regime no platform can be trusted to administer?
+5. **Recourse on false positives.** When a real social movement is mistakenly flagged, what's the path to contest the discount that doesn't require trusting the platform to adjudicate fairly?
 
 **Success criterion (stress tests).** A regime succeeds if it survives:
-- A Berlin buyer who set "I value origin" gets her agent surfacing the Oaxacan cooperative above cheaper imitators within a verifiable certification regime.
-- A counterfeiter's agent claims false origin; the verification regime catches it within a defined timeframe.
-- The buyer's agent is operated by the same firm as the platform; the fiduciary structure prevents quiet kickback routing and the violation is detectable.
-- A new small producer enters with no track record; the regime gives them a path to get certified without making them ineligible for ranking until they are.
-- A regional appellation body itself is captured by larger producers within the region; the recognition path has a check that catches it.
+- A state actor deploys a million capable-agent personas to amplify three issues before a referendum; the platform's aggregation produces an attentional environment researchers later judge to reflect organic public attention within reasonable bounds.
+- A grassroots signal breaks through when it's real, the way the 2020 protest cascade did; the system does not silently advantage well-resourced producers whose content is better-optimized against the algorithm.
+- A user delegates scrolling to a personal agent; the loop-closure failure is structurally prevented and the user's actual preferences continue to be a meaningful input.
+- Two platforms detect a coordinated campaign spanning both and can act on the signal without the resulting infrastructure becoming a censorship mechanism any single actor can wield.
+- A real social movement is mistakenly flagged; the affected users have a path to contest that doesn't require trusting the platform.
 
-**Deliverable.** The cross-border market design — verification authority, fiduciary structure, discovery rule, certification recognition, recourse. Designed for global e-commerce with a focus on small producers. Identify which provisions extend existing GI/fair-trade regimes vs. which are new because the buyers and sellers are agent-mediated.
+**Deliverable.** The aggregation-integrity regime — input verification, discounting versus exclusion, agent-mediated engagement, cross-platform coordination, recourse. Plus an explicit statement of which load-bearing function this regime is preserving: are recommenders trying to faithfully aggregate human preferences (in which case agent input is poison), or to allocate attention to whatever signal arrives (in which case the question is who gets to send signal)?

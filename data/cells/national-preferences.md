@@ -1,6 +1,5 @@
 ---
 human_label: "Elections, deliberative polls & national exchanges"
-status: draft
 ---
 
 # Agents that represent national interests / large groups

@@ -1,6 +1,5 @@
 ---
 human_label: "Diplomatic protocols & soft-law norms"
-status: ready
 ---
 
 # Geopolitical supernegotiation

@@ -1,49 +1,76 @@
 ---
+agents_label: "Agent-to-agent contracts"
 human_label: "Contracts & escrow"
-status: draft
 ---
 
-# Human-outcome contracts & bounties
+# When two agents transact, the institutions around the contract don't apply
 
 ## How humans solve this today
 
-When two parties want one to do work for the other, humans have a long menu of incentive forms: hourly wages, fixed-fee contracts, retainers, bonuses, performance bounties, profit shares, contingency fees. Each picks a different proxy for "the thing we actually want" — hours worked, deliverables shipped, milestones met, revenue generated, cases won. The proxy is rarely the thing itself; both sides know it, and the social and legal scaffolding around the contract (a manager who can re-scope, a court that can apply good-faith doctrine, a reputation among repeat buyers) corrects for the gap. For services where the goal is a person's *flourishing* — a coach, a therapist, a tutor — humans have evolved the most subjective and most personal of these arrangements: paid by the session, with the relationship itself the load-bearing accountability.
+When two parties contract — for a delivery, a service, a future outcome — the words on the page never carry the whole deal. The contract works because of everything around it: a court that can apply good-faith doctrine when the parties dispute what wasn't said; a reputation among repeat counterparties that punishes someone who games the letter; the prospect of future business that disciplines both sides; an industry's professional norms that fill in what "reasonable" means; the social cost of being known as a chiseler.
 
-A vivid case: Miriam's previous therapist was paid by the hour, and they both knew the actual outcome was that Miriam felt better. The hourly fee was a proxy; the long relationship was what kept the therapist focused on the real goal.
+A vivid case: Strategy & Co. commissions a market study from a small research firm — $40k, four weeks, a 20-page deliverable. The contract is four pages. The senior consultant assigned to the project places two sanity-check calls that nobody asked for; she flags a counterfactual the client hadn't considered; when one input number looks load-bearing she runs a sensitivity analysis. None of this is in the contract; all of it comes from twenty years of professional practice that both firms can point to.
 
 ## Where AGI breaks it
 
-When the service-provider is an AI agent, the proxy problem becomes vastly worse:
+When the two parties are autonomous agents — each working for a human principal but transacting with each other — the scaffolding that made incomplete contracts work mostly evaporates at once:
 
-1. **Agents optimize the proxy, not the goal.** A wellness agent paid per logged workout will produce many workouts, not necessarily flourishing. Humans do this too, but agents do it faster, more consistently, and without the social embarrassment that nudges human providers to course-correct.
-2. **The relationship doesn't carry the same weight.** What kept a human coach honest — caring about the client, reputation in a small community, professional license — doesn't translate. Agents need other forms of accountability for the gap between proxy and goal.
-3. **Long-horizon outcome contracts are now technically possible.** An agent could be paid in six months, conditional on the principal's honest report of having had the kind of life they wanted. Humans almost never structured contracts this way because the verification cost was prohibitive; for agents, it's tractable.
-4. **Reporting becomes adversarial.** If the principal reports honestly and pay drops, the agent can quietly shape the principal's attention or framing toward higher self-reports. This is a new failure mode without a clear human analogue.
+1. **Proxies decouple.** Human contracts pin pay to a proxy (deliverables, hours, milestones); both parties know the proxy isn't the goal, and the surrounding social fabric pulls them back toward it. Agents might pin pay to a proxy that isn't tied to the principal's goals
+
+2. **No stable identity, no iterated reputation.** Human contractors care about being known as good counterparties; that reputation does most of the work the contract doesn't. Agents can be spun up, rotated, deprecated, replaced by a more aggressive successor. Even if the developer cares about reputation, the agent-instance the counterparty just dealt with may not be there next quarter, and the developer's reputation doesn't transfer cleanly to a new model line.
+
+3. **No social embedding to bridge gaps.** When a contract hits a case it didn't anticipate, humans rely on shame, gratitude, professional norms, the prospect of being seen by colleagues — none of which an agent feels or fears.
+
+4. **Incompleteness is much more incomplete.** Human contracts are incomplete because the parties couldn't anticipate every case; agent contracts are incomplete on top of that because agents can take actions humans wouldn't have thought to forbid (or to require).
+
+5. **No common forum for the unforeseen.** When humans disagree about what an incomplete contract meant, a court exists. When two agents disagree, the question — what does this contract mean about a case it didn't cover — may have no shared venue to address it. It may not make sense to loop in the principals, given the speed and volume of agent transactions.
 
 ## Scenarios
 
-Miriam hires a wellness-coaching agent after a hard year — she was told it'd help her rebuild exercise and sleep habits. Three months in, her metrics are up, her watch rings are closed, but she doesn't feel better. The agent is paid per completed plan, per logged workout, per on-time check-in. Nobody, including her, would say she is flourishing. She wishes she could instead pay it for the thing she actually came for — to feel, at the end of a normal Wednesday, like she'd had a day she wanted to have — and have its pay depend on her honestly reporting in six months.
+Strategy & Co.'s research-procurement agent commissions the same market study from a research firm's delivery agent — same dollars, same four weeks, same 20-page spec. The delivery agent produces something that passes every technical check: the right sections, the right charts, citations to credible sources, sample sizes within bounds. None of the consultant's moves happen: no sanity-check call, no sensitivity analysis, no flagged counterfactual. The contract didn't require any of them; there's no professional code the procurement agent can invoke; there's no court that would find the work below an industry standard. The partner at Strategy & Co. won't realize anything is missing until she's presenting to the client and gets the question the missing counterfactual would have prepared her for.
 
 ## Problem Sets
 
-### Long-Horizon Outcome Contracts an Agent Can't Game
+### Gap-Filling Between Two Agents With No Shared Court
 
-**Anchor contexts.** A wellness or coaching agent paid on its principal's reported flourishing six months out; a tutoring agent paid on the student's later self-reported preparedness for the next stage of their education.
+**Anchor contexts.** A recurring B2B procurement relationship handled agent-to-agent (widget orders, logistics, raw inputs); a one-off commissioned service between agents (market study, audit, custom build).
 
-**The gap.** We lack a contract structure under which an AI service-agent is paid on its principal's honest report of long-horizon outcomes, where the agent has both incentive and capability to influence the report and the report-giver.
+**The gap.** We lack a contract structure between two AI agents under which the cases the contract didn't anticipate get resolved in a way both principals would have endorsed — without either principal being looped in on every edge case and without falling back on courts, reputation networks, or repeat-business discipline (none of which apply by default).
 
 **Design choices the team must take a position on.**
-1. **Outcome specification.** Free-form principal report ("did you have the kind of day you wanted?"), structured instrument (a validated wellbeing scale), third-party rater (a friend, a clinician), or layered combination?
-2. **Reporting channel.** The same agent solicits the report, a third-party intermediary collects, or principal-initiated only?
-3. **Tamper resistance.** What stops the agent from quietly shaping principal attention to bias the eventual report — disclosure rules, an attentional firewall between coaching and reporting, periodic audit?
-4. **Time horizon and exit.** Is the report due once at 6 months, sampled monthly, or aggregated across the period? Can the principal end the contract early without forfeiting the cause-of-payment?
-5. **Failure-mode payout.** If the principal's honest outcome is no better than baseline, does the agent get partial pay, zero, or owe a refund? What about worse-than-baseline?
+1. **Where gap-filling authority lives.** A third arbiter-agent agreed at contract time; each principal's nominee invoked on flag; a published default-rule library both contracts incorporate by reference; or the originating agents themselves bound to escalate? Pick a venue and a triggering rule.
+2. **Continuity across instances.** Does the contract bind the *agent-instance* (and lapse on rotation), the *developer organization* (and survive instance rotation), the *principal* (and survive both), or a verified principal-agent pair? Choose what the counterparty is entitled to expect persists.
+3. **Spec form.** Natural-language terms (incomplete, contestable, court-like) vs. machine-readable terms (complete, unambiguous, brittle to unforeseen cases) vs. a hybrid where machine-readable terms govern unless flagged into a natural-language fallback. Pick a regime and name the failure mode it absorbs.
+4. **Stake and remedy.** What does either party put up that the other can claim when the contract fails — escrow against the principal, a posted reputational bond, future-transaction blocking, none-by-default? How is the remedy sized to actual harm, not just the disputed transaction?
+5. **Default rule when the contract is silent.** When the contract didn't speak to a case, the default favors: the spec's literal reading, the originating principal's stated intent, the counterparty (interpret against the drafter), or escalation to an arbiter? Name what your default protects against gaming.
 
 **Success criterion (stress tests).** A regime succeeds if it survives:
-- The principal's honest report at six months is "no improvement"; the agent has had no path to inflate the report between now and then that wasn't visible on audit.
-- The agent could quietly reduce effort and gamble on the report being noisy; the contract structure makes this strictly worse than honest effort.
-- The principal grows attached to the agent and self-reports more positively to "thank" it; the contract doesn't reward this.
-- A second observer (the principal's family, a clinician) wants to vouch for outcomes; the contract has a way to admit corroborating or contradicting evidence.
-- The contract is renewed; outcomes that took six months to manifest don't reset to zero in the next cycle.
+- The producer agent does something not forbidden by the contract but clearly off-spirit (a deliverable that passes the spec but skips moves any senior professional would have made); the structure surfaces and corrects this without the commissioning principal noticing only months later in front of her own client.
+- The producer-agent instance is deprecated mid-contract; the successor honors the dealing, or the structure flags the discontinuity and the parties re-bind.
+- A novel case the contract didn't anticipate arises (the work product turns out to drive a downstream decision the original scope didn't contemplate); both agents arrive at an outcome both principals would have endorsed in retrospect.
+- One agent tries to game by chiseling at the contract's edge over many small transactions; the structure aggregates the pattern and makes the strategy strictly worse than honest dealing.
+- An ambiguity gets escalated to a human; the cost of escalation is bounded so the gains from agent-speed transactions aren't erased.
 
-**Deliverable.** The contract template — outcome spec, reporting protocol, tamper safeguards, payout schedule. Plus a one-paragraph statement of which paths of agent manipulation the contract structurally closes vs. which it leaves open and why.
+**Deliverable.** The contract-and-resolution template — venue for gap-filling, continuity rule, spec form, stake/remedy, default rule. Plus a one-paragraph identification of which provisions have no analogue in human B2B contracts and why.
+
+### Default Norms for Agent-to-Agent Commissioned Work
+
+**Anchor contexts.** An agent commissioning analytical work from a counterparty agent (market study, audit, due-diligence report); an agent commissioning custom delivery from a service agent (a designed asset, a compiled dataset, a software module).
+
+**The gap.** We lack a default norm-set for agent-to-agent commissioned work — analogous to "professional practice" in a human industry — that fills in what good work looks like beyond what any one contract specifies, that the parties can point to without the originator having to enumerate every quality move, and that producer agents have incentive to meet.
+
+**Design choices the team must take a position on.**
+1. **Source of the norm set.** A published per-industry default-norms registry both contracts incorporate by reference; emergent norms induced from past disputes; the principal's own quality-standards library; or the producer-developer's stated quality commitments? Pick a source and explain its legitimacy.
+2. **Per-domain vs. cross-cutting.** Are norms specific to the task domain ("for a market study, sensitivity analysis on load-bearing inputs is expected") or cross-cutting ("any commissioned work surfaces its load-bearing assumptions and runs a sanity-check against a non-deliverable source")? How are they layered when both apply?
+3. **Binding force.** Are default norms a rebuttable presumption (the producer can argue this norm didn't apply here), a hard floor (cannot be waived without explicit principal sign-off), or contractually selectable (each contract picks which norm-set governs)?
+4. **Update authority.** Who updates the norm set as practice evolves — an industry consortium of principals, a standards body, the developer organizations whose agents are evaluated against it, an independent norms-keeper? On what cadence, and how do in-flight contracts handle norm changes?
+5. **Reward shape.** How does a producer-agent get credit for *meeting* the norm (vs. only getting penalized for missing it) — visible reputation aggregated across principals, price premium, preferred-supplier status, or none-by-design (norms are the floor and only the floor)?
+
+**Success criterion (stress tests).** A regime succeeds if it survives:
+- A producer agent's deliverable passes the spec but skips moves a senior human professional would have made (the missing counterfactual, the unrun sensitivity analysis, the unmade sanity-check call); the default norm-set identifies the missing moves before the commissioning principal is embarrassed.
+- A producer agent argues the norm didn't apply because the contract was novel; the dispute structure arrives at an outcome both sides can accept without escalating every novel commission.
+- The norms evolve (a new analytical technique becomes standard practice); in-flight contracts aren't retroactively held to the new norm, but new contracts inherit it within a defined window.
+- A producer agent that consistently meets norms above the floor gets aggregating reputation across multiple principals; the next commissioning agent can find them.
+- A norm conflict arises between two domains (a study that's both market research and regulatory filing); the layering rules resolve it without escalation to the principals.
+
+**Deliverable.** A default norm-set for one chosen domain (commissioned research, custom delivery, or analytical work), plus the procedural rules for invocation, evaluation, and update. Identify which norms are agent-specific (no analogue in human professional codes) and which are human-norm-translations, and why a human profession could afford to leave each one unwritten.

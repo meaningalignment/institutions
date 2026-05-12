@@ -1,6 +1,5 @@
 ---
 human_label: "Negotiation & bargaining"
-status: ready
 ---
 
 # Agent negotiation & bargaining

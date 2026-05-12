@@ -1,6 +1,5 @@
 ---
 human_label: "Mediation & fair dealing"
-status: draft
 ---
 
 # Agent-agent mediation

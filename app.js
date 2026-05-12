@@ -87,9 +87,11 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += '</div>';
 
   if (methodsCell && methodsCell.body && methodsCell.body.trim()) {
+    const methodsGhLink = `${GITHUB_REPO}/edit/main/data/methods/${colId}.md`;
     html += '<aside class="detail-rail">';
     html += `<div class="rail-label">${col.name} \u2014 methods &amp; references</div>`;
     html += `<div class="rail-body">${marked.parse(methodsCell.body)}</div>`;
+    html += `<div class="rail-footer"><a href="${methodsGhLink}">Edit on GitHub \u2192</a></div>`;
     html += '</aside>';
   }
   html += '</div>';

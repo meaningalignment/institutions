@@ -1,6 +1,5 @@
 ---
 human_label: "Cooperatives, participatory budgets & local markets"
-status: draft
 ---
 
 # Market design for societies of agents

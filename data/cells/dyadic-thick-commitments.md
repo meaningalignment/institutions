@@ -1,6 +1,5 @@
 ---
 human_label: "Vows & covenants"
-status: draft
 ---
 
 # Agent-agent vows

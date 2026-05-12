@@ -1,6 +1,5 @@
 ---
 human_label: "Substantive constitutions & founding value documents"
-status: draft
 ---
 
 # Substantive constitutions & AI alignment docs

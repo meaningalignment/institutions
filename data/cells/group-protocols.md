@@ -1,6 +1,5 @@
 ---
 human_label: "Team protocols & workflows"
-status: draft
 ---
 
 # Team protocols & workflows

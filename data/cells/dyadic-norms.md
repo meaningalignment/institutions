@@ -1,6 +1,5 @@
 ---
 human_label: "Social conventions"
-status: ready
 ---
 
 # Agent norm invention

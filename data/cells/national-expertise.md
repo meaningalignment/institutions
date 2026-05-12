@@ -1,6 +1,5 @@
 ---
 human_label: "Regulatory agencies (FDA, BaFin)"
-status: draft
 ---
 
 # AI regulatory agencies & regulator-anticipation

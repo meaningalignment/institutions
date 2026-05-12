@@ -1,6 +1,5 @@
 ---
 human_label: "Bylaws & grievance boards"
-status: draft
 ---
 
 # Autonomous corp bylaws & grievance boards

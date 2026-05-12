@@ -1,6 +1,5 @@
 ---
 human_label: "Profit-sharing, vesting & bounty systems"
-status: draft
 ---
 
 # Agent profit-sharing & bounty systems

@@ -1,6 +1,5 @@
 ---
 human_label: "Constitutions, courts & judiciary"
-status: ready
 ---
 
 # Agents that adjudicate rights

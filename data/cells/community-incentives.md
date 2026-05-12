@@ -1,6 +1,5 @@
 ---
 human_label: "Matching markets (kidney, school) & commons governance"
-status: ready
 ---
 
 # AI commons management

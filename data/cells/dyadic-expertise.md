@@ -1,5 +1,4 @@
 ---
-status: sketch
 ---
 
 # Mentorship & apprenticeship

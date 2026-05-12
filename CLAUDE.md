@@ -21,7 +21,7 @@ This generates `index.html` (AGI grid), `human/index.html`, `fidelity/index.html
 
 ## Data layout
 
-- `data/cells/{row}-{col}.md` — canonical cell. The H1 becomes the AGI grid summary and the detail-view title. The optional `human_label:` frontmatter field becomes the Human grid summary (and the Human-tab detail title). The body is the detail content for both tabs.
+- `data/cells/{row}-{col}.md` — canonical cell. The H1 is the cell's real title (the gap statement) and is shown as the AGI-tab detail-view title. The optional `agents_label:` frontmatter field provides a short AGI-grid summary (falls back to H1). The optional `human_label:` field provides the Human-grid summary and the Human-tab detail title (falls back to H1). The body is the detail content for both tabs.
 - `data/fidelity/{row}-{col}.md` — separate content for the Fidelity tab. Same schema as `data/cells/` but rendered standalone.
 - `data/methods/{col}.md` — column-level reference (textbooks, tutorials, key concepts) shared across all three tabs. Frontmatter declares which method tags appear in the grid's methods row and whether they're bolded per tab. Methods content shows as a right-side rail on each detail page.
 
@@ -31,12 +31,13 @@ Every file in `data/cells/` follows this structure. The build doesn't enforce it
 
 ```markdown
 ---
-human_label: Social conventions       # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
+agents_label: Norms between agents     # optional; AGI-grid summary (short). Falls back to H1.
+human_label: Social conventions        # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
 status: ready                          # sketch | draft | ready. Drives grid marker. Optional.
 related: [group-norms]                 # optional; reserved for future cross-linking.
 ---
 
-# {AGI summary — H1, used as the AGI grid label and the AGI detail-view title}
+# {Cell title — the gap statement. Shown as the AGI-tab detail-view title.}
 
 ## How humans solve this today
 
@@ -45,14 +46,27 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 ## Where AGI breaks it
 
-{1–3 numbered failure modes (1., 2., 3.) describing specifically how the human
-mechanism fails when one or more parties is an autonomous AI agent. Pure
-failure-mode analysis — no scenario lives here.}
+{Open with a short enumeration (3–5) of the agent-vs-human differences
+load-bearing for this cell — properties like "no personal stake,"
+"re-instanceable," "tireless and autonomous within scope," "no felt cost of
+attention," "behavior shaped by developer instrumentation," "perfect recall
+and retrieval." Then derive the per-mechanism failures: for each human
+mechanism, name which differences make it fail to bind agents and how.
+Naming differences once and referencing them makes the analysis a
+derivation rather than a series of separate stipulations. Avoid
+anthropomorphism — agents are a different kind of entity, not defective
+humans. When a mechanism could in principle apply to agents but with
+different objects (e.g. contractualist reasoning over agent counterparties
+rather than humans), say so explicitly. No scenario lives here.}
 
 ## Scenarios
 
-{The vivid AGI scenario(s) showing the breakdown. Single scenario as prose;
-multiple scenarios as ### subheadings.}
+{Default form: one vivid AGI breakdown scene in named-person, named-situation
+prose. Variant for cells whose "How humans solve this" enumerates layered
+mechanisms (e.g. 5 sub-mechanisms): instead a numbered survey of how each
+mechanism could be rebuilt for agents — one sketch per mechanism, each a
+starting point not a worked design. Multiple vivid scenarios use ###
+subheadings.}
 
 ## Problem Sets
 
@@ -82,13 +96,17 @@ Multiple `###` problem sets under one cell are supported; each becomes its own e
 ### Why these particular sections
 
 - **How humans solve this today** anchors readers in something familiar before the AGI-specific design problem hits. Always concrete (named institutions, named mechanisms), never generic ("humans cooperate by…").
-- **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. Failure modes are concrete and enumerated; this is not the place for generic "AI is different."
-- **Scenarios** illustrate the breakdown with vivid, named-person, named-situation prose. Concrete enough to test design proposals against; broad enough to generalize.
+- **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. Open with a short list of the agent-vs-human differences relevant to this cell — tireless, autonomous within scope, re-instanceable, no personal stake, no felt cost of attention, behavior shaped by developer instrumentation, perfect recall and retrieval — and then derive per-mechanism failures from those differences. Naming differences once and referencing them makes the analysis a derivation rather than a series of separate stipulations, and the differences carry forward into the Scenarios section as the constraints the rebuilds have to design around. Resist anthropomorphism — agents are a different kind of entity, not defective humans; don't write that they "fail to feel," "lack shame," or "miss the felt sense of." When a mechanism could apply to agents but with different objects (e.g. contractualist reasoning over agent counterparties whose training/principals/constraints are what's being modeled, not their reactions), name that explicitly rather than declaring the mechanism broken.
+- **Scenarios** illustrate the breakdown with vivid, named-person, named-situation prose — concrete enough to test design proposals against. For cells structured around layered mechanisms, Scenarios can alternatively be a numbered survey of how each mechanism could be rebuilt for agents (one sketch per mechanism), making the design space visible before the problem sets pick from it.
 - **Anchor contexts** keep proposals testable against real scenarios while signaling they should generalize beyond them.
 - **The gap** forces the brief to name an institutional absence ("we lack a procedure by which …") rather than a topic ("AI agents need to negotiate").
 - **Design choices** force the team to take positions on 3–5 specific forks any answer must address. If you can't list them, the brief is still a topic, not a problem.
 - **Success criterion (stress tests)** lets reviewers evaluate proposals against a shared standard rather than each importing their own.
 - **Deliverable** keeps the conversation from staying at "this is an important problem."
+
+### Voice
+
+Rigorous, not bombastic. Don't claim "load-bearing" without showing why. Don't reach for rhetorical flourish ("the trader's chill," "the silhouette of disaster," "felt cost"). Don't anthropomorphize agents — when you find yourself writing about what an agent "feels," "lacks the sense of," or is "embarrassed by," stop and instead name the structural property of the human institution that doesn't apply to agents. The reader is a serious institutional designer; the prose should read as sober analysis, not as advocacy.
 
 ### Status field
 

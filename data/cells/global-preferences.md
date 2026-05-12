@@ -1,6 +1,5 @@
 ---
 human_label: "Multilateral assemblies & global markets"
-status: draft
 ---
 
 # Global markets that keep human interests central

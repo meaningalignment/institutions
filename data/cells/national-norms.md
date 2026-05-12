@@ -1,6 +1,5 @@
 ---
 human_label: "Legal codes & regulatory norms"
-status: draft
 ---
 
 # AIs that follow and update the law

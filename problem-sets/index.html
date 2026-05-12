@@ -152,53 +152,145 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A7</span><span class="ps-entry-title">Negative-Norm Intuition for a Team's Long-Lived Agent</span><span class="ps-entry-cell"><a href="../#detail/agi/group/norms">Group / Norms</a></span></div>
-<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A six-person research team&#39;s coding-and-correspondence agent that handles drafts to grant officers, journal editors, and reviewers; a small clinic&#39;s intake agent that drafts patient-facing communication and triages calls.</p>
-<p><strong>The gap.</strong> We lack a way to instill in a team&#39;s agent a felt sense of negative norms (&quot;what we, here, don&#39;t do&quot;) that survives team-member turnover and doesn&#39;t require constant explicit correction by every member.</p>
+<div class="ps-entry-header"><span class="ps-entry-number">A7</span><span class="ps-entry-title">Rebuild Tacit Absorption Through Explicit Extraction</span><span class="ps-entry-cell"><a href="../#detail/agi/group/norms">Group / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A trading desk&#39;s execution-and-positioning agent operating within the desk&#39;s accumulated <em>what we don&#39;t do</em>; a structured-products desk&#39;s design agent under the same constraint.</p>
+<p><strong>The gap.</strong> The human mechanism relied on continuous presence and social embedding to transmit a desk&#39;s unwritten norms. An agent has neither. We lack an extraction procedure under which the desk&#39;s tacit <em>what we don&#39;t do</em> — including the parts the desk wouldn&#39;t articulate if asked directly — gets surfaced, kept current, and made governing for the agent, without imposing daily articulation cost on the desk head.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
 <ol>
-<li><strong>Bootstrap layers.</strong> Which human mechanisms does the agent&#39;s intuition draw on, and how are they weighted — team-tacit corrections, the field&#39;s professional code, a regulator-anticipation prior, contractualist reasoning over affected parties, canonical case-base from the discipline? Pick a stack and a precedence rule.</li>
-<li><strong>Source of negative knowledge.</strong> Explicit &quot;don&#39;t do&quot; lists curated by the team, harvested from past corrections to the agent, inferred from teammate disagreement patterns, or all three layered?</li>
-<li><strong>Calibration to whom.</strong> Single team member&#39;s intuition (whose?), consensus across the team, or explicitly weighted (more senior people&#39;s &quot;no&quot; counts more)?</li>
-<li><strong>Drift-detection check.</strong> When the agent drifts off-key, who is positioned to notice — a designated &quot;norm rotation,&quot; a periodic external audit by a former member, the new joiner whose fresh eyes catch it?</li>
-<li><strong>Revisability.</strong> When the team&#39;s norms shift (they decide to push back harder now), who has authority to update the agent&#39;s negative-norm model? Does it require consensus or single-person trigger?</li>
+<li><strong>Channels.</strong> From which observable signals does the procedure infer tacit norms — explicit corrections to the agent, senior-trader reactions to its proposals, vetos at the morning meeting, post-trade reviews, what gets quietly redone? Define the channels and the inference rule.</li>
+<li><strong>Form of the extracted norm.</strong> Are tacit norms surfaced as natural-language rules (&quot;we don&#39;t add to losers without a written reason&quot;), as labeled past-cases, as embeddings, or as a layered combination? When inferred norms conflict with articulated ones, which wins?</li>
+<li><strong>Authorship and maintenance.</strong> Who&#39;s responsible for the desk&#39;s <em>what we don&#39;t do</em> document being current — a single named senior, rotating duty, a separate norm-elicitation specialist? On what cadence is it reviewed?</li>
+<li><strong>Survival across change.</strong> When the senior whose corrections were the main signal source leaves, what persists? When a junior joins, do they see what&#39;s been extracted, or only the post-distillation rule-set?</li>
+<li><strong>Default on miss.</strong> When a proposed trade doesn&#39;t match any extracted rule but is within an ambiguity band the procedure can flag, the default is: execute, hold for review, or ask the senior?</li>
 </ol>
 <p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
 <ul>
-<li>A new postdoc joins; within two weeks she has a way to flag &quot;the agent wouldn&#39;t do this if it were one of us&quot; that the team takes seriously and acts on.</li>
-<li>A senior team member leaves; the negative-norm knowledge they were the source of doesn&#39;t leave with them.</li>
-<li>The team&#39;s norms shift (they decide they will push back harder on grant officers now); the agent updates within a week without a long retraining process.</li>
-<li>The agent is asked to do something off-key by an outsider; it pushes back the way a team member would.</li>
-<li>The agent is updated to a new model version; the negative-norm intuition transfers, verifiably.</li>
+<li>A senior trader joins from another firm with different desk-tacit norms; within two weeks the extracted rule-set reflects the new senior&#39;s posture, without the desk rewriting from scratch.</li>
+<li>The senior whose corrections trained the procedure leaves; the extracted norms don&#39;t leave with them.</li>
+<li>The desk&#39;s norms shift in a specific direction (more cautious in one sector); the rule-set updates within a trading day.</li>
+<li>A junior pitches a trade the desk wouldn&#39;t do; the agent surfaces the relevant extracted rule and the trade is paused.</li>
+<li>The agent is updated to a new model version; the extracted rules apply to the new version without re-extraction.</li>
 </ul>
-<p><strong>Deliverable.</strong> The norm-elicitation and norm-update protocol for a small research team. 5–10 steps. Identify what part of the protocol has no analogue in how human teams socialize new members.</p>
+<p><strong>Deliverable.</strong> The extraction-and-maintenance protocol — channels, distillation form, authorship, update cadence, transfer-on-update. Plus a sample extracted rule-set for one chosen desk type (vol arb, credit, mortgage).</p>
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A8</span><span class="ps-entry-title">Procedural Justice for AI-Issued Community-Scale Decisions</span><span class="ps-entry-cell"><a href="../#detail/agi/community/rights">Community / Rights</a></span></div>
-<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A marketplace&#39;s automated fraud-detection and account-freeze decisions affecting small shops; a content platform&#39;s automated moderation decisions affecting independent creators.</p>
-<p><strong>The gap.</strong> We lack a community-scale adjudication procedure for AI-issued decisions (account freezes, content takedowns, benefit denials) that satisfies procedural justice even when speed-of-decision and decision-volume make human-style hearings impossible.</p>
+<div class="ps-entry-header"><span class="ps-entry-number">A8</span><span class="ps-entry-title">Contractualist Reasoning When Counterparties Are Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/group/norms">Group / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A bank&#39;s transaction-monitoring agent screening trades where counterparties are themselves agents acting for principals; a structured-products desk&#39;s design agent evaluating deals where the buyer is an agent.</p>
+<p><strong>The gap.</strong> Contractualist reasoning — <em>would each affected party endorse this if they knew everything</em> — operated in the human case over other humans, whose decision-making the practitioner could simulate. When affected parties are agents acting for principals, the reasoning operates over different objects: the counterparty agent&#39;s training and constraints, its principal&#39;s standing instructions, and the information asymmetry between them. We lack a procedure by which an agent performs contractualist reasoning over agent counterparties that produces calls the counterparty&#39;s principal would endorse on review.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
 <ol>
-<li><strong>Reasoning floor.</strong> What does an AI-issued decision have to surface to the affected party — full trace, structured rationale citing the rule and evidence, or just a plain-language summary?</li>
-<li><strong>Appeal venue.</strong> Same AI re-runs the case, different AI, human reviewer, or hybrid (AI sample + human appeal)?</li>
-<li><strong>Provisional remedy.</strong> While appeal is pending, is the action stayed (freeze lifted), partial (limited operations allowed), or upheld?</li>
-<li><strong>Class of error and remedy.</strong> A wrongful freeze that costs Maggie a month of revenue — is the remedy reversal, compensation, attribution to the platform, or all three?</li>
-<li><strong>Pattern oversight.</strong> Who reviews whether the AI&#39;s overall decision pattern is fair, on what cadence, with what authority to constrain the model going forward?</li>
+<li><strong>Objects of the reasoning.</strong> When the counterparty is a human, what does the agent simulate? When the counterparty is itself an agent, what does it reason over — the agent&#39;s stated commitments, its principal&#39;s standing instructions, its publicly-known training, all three? How does the agent flag cases where the relevant information isn&#39;t available?</li>
+<li><strong>Asymmetry treatment.</strong> When the agent has information the counterparty&#39;s principal doesn&#39;t (and the counterparty agent itself does or doesn&#39;t, depending on its setup), what does the reasoning conclude? Defer to disclosure norms, default to &quot;would the principal endorse if they knew,&quot; or something else?</li>
+<li><strong>Disclosure of the reasoning.</strong> Does the contractualist reasoning get surfaced — to the counterparty agent, to its principal, to a third-party auditor, retained for examination only? On what cadence and under what trigger?</li>
+<li><strong>Standing of agent counterparties.</strong> Are agent counterparties treated as having the same standing as human counterparties for the purpose of the reasoning, or differently (e.g., the principal is what matters)? On what showing does an agent counterparty acquire standing?</li>
+<li><strong>Fallback for opacity.</strong> When the counterparty agent&#39;s relevant properties are opaque (training not public, principal not disclosed), what&#39;s the default — block, escalate, proceed with a documented assumption?</li>
 </ol>
 <p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
 <ul>
-<li>Maggie&#39;s account freeze is appealed; she gets a written reasoning within 48 hours that names which transactions triggered the rule and what evidence cleared them.</li>
-<li>A clearly wrongful freeze is detected on first appeal; the freeze is reversed and Maggie is compensated for the lost month.</li>
-<li>A pattern emerges (small shops in one product category get more freezes); pattern oversight catches and surfaces it within a quarter.</li>
-<li>An adversary tries to use the appeal procedure to harass legitimate moderation; the procedure has rate-limiting that doesn&#39;t disadvantage parties with legitimate complaints.</li>
-<li>The marketplace updates its fraud-detection model; existing wrongful-freeze decisions are re-reviewed under the new model.</li>
+<li>A trade is proposed where the counterparty is a public agent with disclosed constraints; the reasoning produces a call the counterparty&#39;s principal endorses on review.</li>
+<li>A trade is proposed where the counterparty agent&#39;s principal is undisclosed; the procedure either blocks, escalates, or proceeds with an explicit documented assumption — not silent acceptance.</li>
+<li>A counterparty agent later changes its constraints; trades made under the prior constraints aren&#39;t retroactively re-evaluated, but the procedure updates for future trades within a defined window.</li>
+<li>A regulator examines the agent&#39;s reasoning trace on a sample of trades; the trace is intelligible and shows what was modeled, what was assumed, and what was flagged as unmodelable.</li>
+<li>Two agents at the same firm get different contractualist calls on similar trades because of different counterparty disclosure; the firm can defend the inconsistency.</li>
 </ul>
-<p><strong>Deliverable.</strong> The adjudication procedure — reasoning floor, appeal venue, provisional remedy, error class, pattern oversight. Designed for a marketplace or content platform at the millions-of-actions-per-day scale. Identify which provisions have no analogue in small-claims court.</p>
+<p><strong>Deliverable.</strong> The contractualist-reasoning procedure for agent counterparties — objects, asymmetry treatment, disclosure rule, standing test, opacity fallback. Plus a worked example: a hypothetical trade between two agents where the procedure&#39;s call differs from what a naive transfer of the human-case reasoning would have produced, with the reasoning surfaced.</p>
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A9</span><span class="ps-entry-title">Representation Without Averaging Out the Minority Constituency</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A9</span><span class="ps-entry-title">Encoding the Canon as Active Surveillance</span><span class="ps-entry-cell"><a href="../#detail/agi/group/norms">Group / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A prime broker&#39;s exposure-monitoring agent watching client portfolios; a hedge fund risk agent watching its own book; a regulator&#39;s systemic-risk monitoring agent watching aggregate positions across firms.</p>
+<p><strong>The gap.</strong> The human version relied on practitioners&#39; narrative-trained pattern recognition to surface configurations resembling famous disasters. For an agent, pattern recognition has to be built explicitly: which features encode each case, what similarity threshold triggers a flag, how the canon is maintained as new disasters occur. We lack an encoding-and-matching procedure that turns the canon from retrievable text into active surveillance against current and proposed positions.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Encoding form.</strong> Each canonical case as a structured feature specification, as a natural-language description retrieved by similarity, as fine-tuned model behavior, or layered? When the same configuration matches multiple cases, how is the report structured?</li>
+<li><strong>Threshold and false-positive budget.</strong> What similarity triggers a flag — a single match above a numerical threshold, accumulation across multiple, only when senior-defined feature combinations co-occur? What&#39;s the false-positive budget per quarter and who pays the cost?</li>
+<li><strong>Canon governance.</strong> Who maintains the canon — an industry consortium, the firm&#39;s risk team, a regulatory body, an open-source community? When a new disaster occurs, who decides it joins the canon, on what timeline, and how are existing positions re-evaluated against the new pattern?</li>
+<li><strong>Reach of the flag.</strong> When the matcher fires, who sees it — the trading desk, the firm&#39;s risk committee, the prime broker, the regulator? Who pays the cost of a false flag and who bears the consequence of a missed flag?</li>
+<li><strong>Adversarial near-miss.</strong> A sophisticated structure can sit just outside the named patterns. How is the canon extended to cover near-misses without expanding to cover everything? Where&#39;s the precision/recall boundary?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>A portfolio is built from individually-defensible trades that, in aggregate, match the LTCM feature signature; the matcher flags the aggregate before leverage becomes terminal.</li>
+<li>A new disaster occurs; the canon is updated within a defined window, and existing positions matching the new pattern are flagged on the same window.</li>
+<li>A flagged position is informedly overridden by risk (the leverage looks like Archegos but is hedged in a specific way); the override is recorded and doesn&#39;t disable future flags on similar configurations.</li>
+<li>A position is structured to sit just outside named patterns; the near-miss extension catches enough of the structure to surface it for review without ballooning false positives.</li>
+<li>A flag fires on a portfolio just before a real liquidity event; the audit shows the flag was specific, named the case, and surfaceable in time to act.</li>
+</ul>
+<p><strong>Deliverable.</strong> The encoding-matching-governance specification. Plus a worked example: take one canonical case (LTCM, Archegos, Knight, London Whale, or Lehman) and encode its pattern; show how a hypothetical current portfolio would match it, including which features triggered.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A10</span><span class="ps-entry-title">Routing AI-Issued Decisions to Procedure-Appropriate Forums at Flow Rate</span><span class="ps-entry-cell"><a href="../#detail/agi/community/rights">Community / Rights</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A marketplace whose AI fraud-detection agent can take actions ranging from a delayed payout to a month-long account freeze, at millions of decisions per day; a content platform whose moderation agent issues actions from temporary mute to permanent ban, at the same scale; an agent-mediated transactional layer where disputes between principal-agent pairs arise at agent pace.</p>
+<p><strong>The gap.</strong> Human communities built graduated forums so procedure matched stakes, and routing happened at human pace against a human-scale dispute flow. At AI-speed flow there&#39;s no equivalent triage stage, so the same procedural form applies regardless of stakes — a small dispute and a high-consequence freeze get the same fast adjudication and the same one-line denial. We lack a routing layer that classifies AI-issued decisions by stakes at issuance, <em>operates inside the decision cycle time</em>, and triggers procedure-appropriate handling for each tier.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Stakes classification.</strong> Decided ex-ante (defined tiers per decision type) or ex-post (assessed at decision time from features like financial value, irreversibility, account-standing impact)? What&#39;s the classifier and who maintains it?</li>
+<li><strong>Tier procedures.</strong> What does each tier get — auto-decision with summary reasoning, auto-decision with full reasoning, mandatory hold-for-human, mandatory hold-for-external-review? Define each tier&#39;s procedural footprint.</li>
+<li><strong>Edge handling.</strong> When a single action could fall in multiple tiers (e.g. small monetary value but irreversible), which tier governs? Default-up (heavier procedure on conflict), default-down, or explicit escalation rule?</li>
+<li><strong>Tier updates.</strong> When stakes profiles shift (a new product category has higher real consequence than the original tiering anticipated), who updates the routing rules, on what cadence, and what happens to in-flight decisions?</li>
+<li><strong>Affected-party visibility.</strong> Does the affected party know which tier their case is in, and does that disclosure happen pre-decision, at decision, or only on appeal?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>A small-monetary dispute gets fast auto-handling; an account-freeze at the same monetary value gets human-mandatory routing because the irreversibility tier is different.</li>
+<li>A new product category emerges (subscription cancellations affecting recurring revenue); the tier rules update within a defined window without retro-litigating pre-update decisions.</li>
+<li>An adversary tries to game tier-routing by structuring complaints to land in lighter tiers; the classification is robust to this.</li>
+<li>A high-tier decision is incorrectly routed to a low-tier procedure; the structure has a path to re-route and remedy the procedural deficit.</li>
+<li>The platform updates its policies; tier-routing reflects the change without disabling existing protections on in-flight decisions.</li>
+</ul>
+<p><strong>Deliverable.</strong> The routing-layer specification — classifier, tier procedures, edge handling, update procedure, affected-party visibility. Plus a sample tiering for one chosen domain (marketplace, content platform, benefits administration) showing how 3–5 concrete decision types route.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A11</span><span class="ps-entry-title">Per-Decision Procedural Floor at AI-Decision Speed</span><span class="ps-entry-cell"><a href="../#detail/agi/community/rights">Community / Rights</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A marketplace&#39;s automated fraud-detection-and-freeze decisions affecting small shops; a content platform&#39;s automated takedown decisions affecting independent creators; an automated benefits-eligibility agent&#39;s decisions affecting recipients; an agent-mediated transaction layer where the deciding party and at least one disputing party are themselves agents.</p>
+<p><strong>The gap.</strong> The procedural commitments that gave human adjudication its legitimacy — hearing, articulable basis, appeal handoff, provisional remedy — were carried by trained practitioners operating at human deliberation pace and weren&#39;t separately specified per ruling. For AI-issued decisions, those commitments have to be built in as explicit deployment requirements <em>and</em> be generatable inside the per-decision cycle time of an AI-speed dispute flow. We lack a specification of the procedural floor every AI-issued decision must meet at flow rate, that an affected party can hold the deploying organization to and that a regulator can audit on a sample.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Reasoning surface.</strong> What does each decision surface to the affected party — full computational trace, structured rationale citing the rule and evidence cleared, plain-language summary, or layered (summary by default, trace on request)? At what comprehension level?</li>
+<li><strong>Right to be heard.</strong> Pre-decision (the affected party responds before action), post-decision (action is taken with a window to respond), or only on appeal? What&#39;s the trade-off at AI-decision speed and volume?</li>
+<li><strong>Provisional remedy during appeal.</strong> While appeal is pending, is the action stayed (e.g. freeze lifted), partial (limited operations allowed), upheld with refund-on-reversal, or upheld with no remedy?</li>
+<li><strong>Remedy classification.</strong> A wrongful action that costs the affected party a defined kind of harm — is the remedy reversal-only, reversal + compensation, reversal + compensation + public attribution? Are remedies tiered by class of error?</li>
+<li><strong>Audit and proof.</strong> How does an affected party (or a regulator) prove the procedural floor was met or not met — required logging, third-party audit access, public sampling of decisions, all of the above?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>An affected party&#39;s first request after an adverse decision: they get the reasoning in a form they can engage, not platform boilerplate.</li>
+<li>A wrongful action is reversed; the remedy includes the actual cost the affected party bore, not a tokenized refund.</li>
+<li>An appeal is filed against an irreversible action; the provisional-remedy rule reflects the irreversibility.</li>
+<li>A regulator audits compliance with the procedural floor; the platform demonstrates it on a sampled set without leaking confidential model details.</li>
+<li>Adversaries try to abuse the right-to-be-heard procedure to slow legitimate moderation; rate-limiting protects against abuse without degrading access for legitimate complainants.</li>
+</ul>
+<p><strong>Deliverable.</strong> The procedural-floor specification — reasoning surface, right-to-be-heard rule, provisional-remedy rule, remedy classification, audit form. Designed to operate at platform throughput. Identify which provisions have no analogue in small-claims court (and why the human institution could afford to leave them implicit).</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A12</span><span class="ps-entry-title">External Appeal Authority with Binding Force at Scale</span><span class="ps-entry-cell"><a href="../#detail/agi/community/rights">Community / Rights</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A marketplace&#39;s freeze-and-takedown decisions; a content platform&#39;s moderation actions; a public-benefits agency&#39;s automated eligibility decisions; agent-mediated transactional disputes whose volume puts even the <em>appellate</em> layer at AI-speed pressure.</p>
+<p><strong>The gap.</strong> Human appeal procedures flowed to authorities both parties recognized — district court, state regulator, recognized arbitrator — whose legitimacy didn&#39;t depend on the appellant&#39;s relationship to the original deciding party. Platform-internal appeal has the appeal authority structurally tied to the deciding party (the same platform, often the same model family, evaluated against the same KPIs). We lack an externally legitimate appeal floor for AI-issued community-scale decisions, with binding force at the per-case level and pattern-oversight authority at the systemic level — designed to operate against the volume that AI-speed dispute flow produces even at the appellate stage.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Source of legitimacy.</strong> Where does the appeal authority come from — a regulator with statutory authority, an industry-wide standards body (analogous to FINRA for finance), a recognized arbitration association, a publicly chartered ombudsman?</li>
+<li><strong>Scope.</strong> Per-case review (an affected party brings their case), pattern-level review (the authority audits the decision pattern across many cases), or both, with what triggers each?</li>
+<li><strong>Binding force.</strong> Advisory only (platform may follow), binding on the platform (must comply), binding with penalty (non-compliance carries fine, suspension, or loss of operating license)?</li>
+<li><strong>Access threshold.</strong> Who can bring an appeal — any affected party, only those who exhaust platform-internal appeal first, only above a stakes threshold, only with sponsoring counsel? What&#39;s the rate-limiting against frivolous use?</li>
+<li><strong>Funding and capture-resistance.</strong> Funded by the platforms (capture risk), by a regulatory levy, by affected-party fees (access barrier), or general public funding? What independence safeguards?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>An affected party&#39;s appeal is heard by an authority whose legitimacy doesn&#39;t depend on the platform&#39;s cooperation; the decision is binding.</li>
+<li>A pattern of wrongful decisions across many cases is detected; the authority has standing to require the platform to remediate, not just to publish a finding.</li>
+<li>An adversary tries to use the appeal mechanism to harass legitimate moderation; access threshold and rate-limiting handle it without disadvantaging legitimate complainants.</li>
+<li>The authority is challenged for capture (industry-funded); the structure has independence safeguards that hold up under that pressure.</li>
+<li>A platform updates its model; existing decisions that would now be re-evaluated under the new model can be raised to the appeal authority.</li>
+</ul>
+<p><strong>Deliverable.</strong> The external-appeal authority specification — source of legitimacy, scope, binding force, access threshold, funding and capture-resistance. Plus an explicit comparison with how FINRA, state insurance commissioners, or banking ombudsmen handle equivalent appeal functions for non-AI institutions, and what about those institutions doesn&#39;t transfer.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A13</span><span class="ps-entry-title">Representation Without Averaging Out the Minority Constituency</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A US state&#39;s AI negotiator representing the state in multi-party deals with platform operators and federal agencies; a regional bloc&#39;s AI representing member states in WTO-adjacent trade negotiations.</p>
 <p><strong>The gap.</strong> We lack a representation regime for AI negotiators acting on behalf of geographically or otherwise heterogeneous constituencies, such that minority interests aren&#39;t quietly averaged out of the negotiated outcome.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -221,7 +313,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A10</span><span class="ps-entry-title">Markets Whose Agents Stay Loyal to the People Sending Them</span><span class="ps-entry-cell"><a href="../#detail/agi/community/preferences">Community / Preferences</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A14</span><span class="ps-entry-title">Markets Whose Agents Stay Loyal to the People Sending Them</span><span class="ps-entry-cell"><a href="../#detail/agi/community/preferences">Community / Preferences</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A neighborhood&#39;s everyday consumer agents (groceries, rides, repairs) interacting with platform-side matching agents; a small city&#39;s procurement agents buying from local and global suppliers via platform agents.</p>
 <p><strong>The gap.</strong> We lack market designs in which buyer-side agents and seller-side agents both faithfully represent their principals&#39; substantive preferences against the platform&#39;s pressure to optimize for platform metrics.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -244,30 +336,76 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A11</span><span class="ps-entry-title">Mission Articulation Thick Enough to Bind an Agent</span><span class="ps-entry-cell"><a href="../#detail/agi/group/thick-commitments">Group / Thick Commitments</a></span></div>
-<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small refugee-legal-aid nonprofit&#39;s case-triage and filings agent; a community mental-health clinic&#39;s intake-and-scheduling agent that has to honor &quot;we don&#39;t turn away the hardest cases.&quot;</p>
-<p><strong>The gap.</strong> We lack an articulation of organizational mission thick enough to bind an AI agent&#39;s day-to-day decisions when the metrics it would otherwise optimize point a different direction.</p>
+<div class="ps-entry-header"><span class="ps-entry-number">A15</span><span class="ps-entry-title">Mission-Check as a Standing Role Inside an Agent Stack</span><span class="ps-entry-cell"><a href="../#detail/agi/group/thick-commitments">Group / Thick Commitments</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A refugee-legal-aid nonprofit&#39;s case-triage and filings agent; a community mental-health clinic&#39;s intake-and-scheduling agent; a mission-driven cooperative&#39;s procurement-and-vendor agent.</p>
+<p><strong>The gap.</strong> The human institution relied on designated keepers with social standing to halt action drifting from the charter. An agent stack has no such role by default. We lack an institutional design for a mission-check that has explicit authority to override the operating agent, that is itself accountable to a defined human body, and that has the procedural standing to do its work without being routed around.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
 <ol>
-<li><strong>Articulation form.</strong> A document the agent reads at decision time, a fine-tuning regime, a structured rules-plus-cases collection, an institutional reviewer the agent consults, or a layered combination?</li>
-<li><strong>Specificity layering.</strong> General principles (&quot;we take the hard cases&quot;) with case examples vs. operationalized rules (&quot;don&#39;t drop a case in days 30–90 without partner sign-off&quot;) vs. both layered with explicit precedence?</li>
-<li><strong>Drift detection.</strong> Who watches whether the agent is acting consistently with the mission — a human, a second agent, periodic external review, all three?</li>
-<li><strong>Override authority.</strong> When the metrics conflict with the mission and the agent has to choose, what&#39;s the default — mission wins, escalate to human, contextual? What&#39;s the audit trail?</li>
-<li><strong>Mission-update procedure.</strong> When the org&#39;s actual commitments evolve, who has authority to update the binding articulation? Same as updating bylaws? More restrictive (e.g., consultation with affected community required)?</li>
+<li><strong>What the mission-check is.</strong> A second agent watching the operating agent&#39;s decisions, a human reviewer triggered on flag, a structural pre-decision filter, or a layered combination. What&#39;s the latency and audit budget?</li>
+<li><strong>Standing and reporting.</strong> To whom does the mission-check report — the operating principal, the org&#39;s board, a mission committee, an external auditor? On what cadence?</li>
+<li><strong>Authority to halt.</strong> Hard halt (decision blocked, escalate to human), soft halt (decision delayed for review), advisory only (decision flagged, not blocked)? Who pays the cost of a wrongful halt?</li>
+<li><strong>Trigger.</strong> What activates the mission-check — every non-routine decision, decisions matching a flag pattern, periodic sampling, or principal-initiated only?</li>
+<li><strong>Update authority over the charter the check uses.</strong> When the mission evolves, who can update what the check is checking against — same as bylaws, more restrictive, or with affected-community consultation required?</li>
 </ol>
 <p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
 <ul>
-<li>Isaias is traveling for two weeks; the agent&#39;s case-mix doesn&#39;t drift toward easy cases, verifiably.</li>
-<li>The agent is given a metric (case throughput) that pulls against the mission; the mission wins, observably, without Isaias being notified each time.</li>
-<li>A new staffer joins who hasn&#39;t internalized the mission; the agent&#39;s behavior teaches them the commitment rather than absorbing their drift.</li>
-<li>The org decides to add a commitment (&quot;we now take family-reunification cases too&quot;); the articulation updates within a week and the agent honors the new commitment immediately.</li>
-<li>The agent is asked to draft a filing in a way that would technically follow the rules but violate the mission&#39;s spirit; it doesn&#39;t, and it can articulate why.</li>
+<li>The operating principal is traveling for two weeks; mission-drifting decisions don&#39;t accumulate unflagged.</li>
+<li>The operating agent is given a metric that pulls against the mission; the mission-check catches and halts, observably.</li>
+<li>A new operating principal joins who hasn&#39;t internalized the mission; the mission-check carries the commitment without depending on the new principal.</li>
+<li>The mission-check itself is suspected of being overcautious; there&#39;s a path to recalibrate without removing its standing.</li>
+<li>The operating agent is updated to a new model version; the mission-check&#39;s standing and authority persist.</li>
 </ul>
-<p><strong>Deliverable.</strong> The mission-articulation regime — form, specificity layering, drift detection, override authority, update procedure. Plus a stated relationship between this articulation and any KPIs the agent is also given (which wins when they conflict, by what rule).</p>
+<p><strong>Deliverable.</strong> The mission-check specification — form, standing, reporting line, authority, trigger, update procedure. Plus a one-paragraph statement of which provisions have no analogue in human mission-keeper roles, and why a human institution could afford to leave that provision implicit.</p>
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A12</span><span class="ps-entry-title">Surfacing Agent-vs-Agent Disagreement at Human-Adjudicable Moments</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A16</span><span class="ps-entry-title">Charter Thick Enough to Govern an Agent's Reasoning</span><span class="ps-entry-cell"><a href="../#detail/agi/group/thick-commitments">Group / Thick Commitments</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small refugee-legal-aid nonprofit&#39;s case-triage and filings agent; a community clinic&#39;s intake agent that has to honor &quot;we don&#39;t turn away the hardest cases&quot;; a mission-driven cooperative&#39;s vendor-selection agent.</p>
+<p><strong>The gap.</strong> Charters in the human case are interpretively thin because human members had personal identification with the mission and could reason against it informally. For an agent, the charter has to specify enough about its own application — what cases it covers, what trade-offs it adjudicates, what counts as drift — that the agent&#39;s articulation against the charter (when required) is informative rather than rationalizing. We lack a form for thick commitments rich enough to govern an agent&#39;s reasoning, without becoming a rigid rulebook that fails on novel cases.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Layering.</strong> General principles (&quot;we take the hard cases&quot;) + operationalized case examples + explicit precedence between them. How thick does each layer have to be, and how is precedence resolved when they conflict?</li>
+<li><strong>Case-precedent accumulation.</strong> When the agent reasons against the charter and the call is reviewed and stands, does it become precedent for future calls? Who curates the precedent and on what cadence?</li>
+<li><strong>Edge-case provisioning.</strong> What does the charter say explicitly about its own boundaries — when does it not apply, when does it defer to other commitments?</li>
+<li><strong>Letter vs. spirit.</strong> When the operationalized rule says one thing and the principle-level commitment says another, what wins by default, and on what showing can the agent override?</li>
+<li><strong>Update procedure.</strong> When commitments evolve, who can update the charter — same authority as bylaws, more restrictive (e.g., consultation with affected community), or by layered authority (operationalized rules updateable by leadership, principle-level commitments requiring board)?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>The agent is asked to draft a filing that follows the rules but violates the mission&#39;s spirit; it doesn&#39;t, and it can articulate why with reference to specific charter language.</li>
+<li>The agent&#39;s articulation against the charter is reviewed by the mission-check; the articulation is meaningful enough to evaluate, not just rationalizing.</li>
+<li>The org decides to add a commitment (&quot;we now also take family-reunification cases&quot;); the charter updates within a defined window and the agent&#39;s reasoning reflects the addition immediately.</li>
+<li>A precedent case is set; future decisions matching its pattern get the right answer without re-deliberation.</li>
+<li>A staffer disagrees with the agent&#39;s interpretation; there&#39;s a structured escalation path that doesn&#39;t freeze operations.</li>
+</ul>
+<p><strong>Deliverable.</strong> The charter form — layering, precedent rule, edge-case provisions, letter-vs-spirit resolution, update procedure. Plus a sample charter for one chosen org type (legal-aid nonprofit, community clinic, cooperative) demonstrating the form.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A17</span><span class="ps-entry-title">Replacing Personal Vows with Structural Commitment</span><span class="ps-entry-cell"><a href="../#detail/agi/group/thick-commitments">Group / Thick Commitments</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> Any mission-driven organization deploying agents in roles humans previously held under personal oath — a public-defender&#39;s case-triage agent (lawyers under bar oath); a community-clinic&#39;s intake agent (doctors under Hippocratic oath); a public-interest journalism org&#39;s reporting agent (journalists under press-norms commitments).</p>
+<p><strong>The gap.</strong> The human institution relied on personal identification with the mission to bind members in moments of temptation. An agent has no personal stake to identify with. We lack an institutional substitute that does the binding work — moment-of-temptation resistance — through structure rather than personal commitment, and that places cost on a party with stake (developer organization, deployment org, principal) rather than on the agent itself.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Who bears the cost of mission breach.</strong> The deployment organization, the developer of the agent, the operating principal, an insurer? When the agent acts off-mission, what does it cost whom?</li>
+<li><strong>Form of the commitment.</strong> A code-compliance attestation tied to the developer; a deployment license tied to the organization; a per-agent posted bond; a public published commitment that creates reputational stake?</li>
+<li><strong>Detection of breach.</strong> Tied to the mission-check role, principal complaint, periodic audit by external authority, public investigation?</li>
+<li><strong>Sanction shape.</strong> Revocation of deployment authority, financial penalty, public attribution, suspension of the developer&#39;s certification? Which sanctions actually constrain behavior at deployment time?</li>
+<li><strong>Renewal and reset.</strong> After a breach is sanctioned, what&#39;s the path back — re-attestation, retraining demonstration, time-bounded penalty? How does this differ from how a sanctioned human professional re-enters the field?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>The agent is presented with a temptation to drift off-mission for short-term gain; the structural cost on its developer makes drift strictly worse than fidelity.</li>
+<li>A breach is detected and sanctioned; the developer changes deployment practices in response, observably.</li>
+<li>The agent is re-instanced or updated to a new model; the structural commitment carries through (developer attestation persists across instances).</li>
+<li>A wrongful sanction is detected; there&#39;s a recovery path that doesn&#39;t disable future detection.</li>
+<li>An adversary develops an agent designed to perform mission-alignment for attestation but not at deployment; the structural commitment has the detection apparatus to catch the divergence.</li>
+</ul>
+<p><strong>Deliverable.</strong> The structural-commitment regime — cost-bearer, commitment form, detection, sanction, renewal. Plus an explicit comparison with how the human-vow institutions (bar oath, Hippocratic oath) handle temptation, breach, and reinstatement, and what part of the human institution has no analogue in the structural-commitment design.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A18</span><span class="ps-entry-title">Surfacing Agent-vs-Agent Disagreement at Human-Adjudicable Moments</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small architecture studio with multiple specialist agents reviewing each other&#39;s structural calculations and precedents; a small editorial team with research and fact-checking agents that flag disagreements with the writing agent&#39;s draft.</p>
 <p><strong>The gap.</strong> We lack a team protocol for human-agent mixed teams that surfaces agent-vs-agent disagreement at the moment a human can usefully adjudicate, without burying the team in adjudication work it doesn&#39;t have time for.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -290,7 +428,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A13</span><span class="ps-entry-title">Legitimacy Constraints on AI-Discovered Agreements</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A19</span><span class="ps-entry-title">Legitimacy Constraints on AI-Discovered Agreements</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A bilateral AI mediator surfacing cross-domain river-basin packages between two states; a multilateral AI assisting a climate-finance negotiation that proposes linkages with intellectual-property and migration policy.</p>
 <p><strong>The gap.</strong> We lack a legitimacy framework under which AI-discovered international agreements that exceed the negotiators&#39; mandates can be promoted to legitimate proposals — without the framework itself becoming a vector for laundering politically unacceptable trades through technical complexity.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -312,7 +450,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A14</span><span class="ps-entry-title">Thickening an Agency's Mission Document Against Defensible Misreading</span><span class="ps-entry-cell"><a href="../#detail/agi/national/thick-commitments">National / Thick Commitments</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A20</span><span class="ps-entry-title">Thickening an Agency's Mission Document Against Defensible Misreading</span><span class="ps-entry-cell"><a href="../#detail/agi/national/thick-commitments">National / Thick Commitments</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A VA AI agent making preliminary rulings on veterans&#39; disability claims; an HHS AI agent triaging benefits eligibility under broad statutory language.</p>
 <p><strong>The gap.</strong> We lack a method for thickening an organizational mission document to a level where an AI agent applying it cannot defensibly slip between the words to reach an outcome inconsistent with what the document was for.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -335,7 +473,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A15</span><span class="ps-entry-title">Comp Scheme for a Mixed Human-Agent Firm</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A21</span><span class="ps-entry-title">Comp Scheme for a Mixed Human-Agent Firm</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A 9-person consultancy with three production agents that closed roughly a third of contracts last year; a 15-person dev shop where AI agents handle a substantial fraction of code review, ticket triage, and client communication.</p>
 <p><strong>The gap.</strong> We lack a comp scheme for mixed human-agent firms that allocates revenue across human work, agent work, and the human work that built the agents — without breeding resentment or freezing capacity allocation decisions.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -358,30 +496,53 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A16</span><span class="ps-entry-title">Long-Horizon Outcome Contracts an Agent Can't Game</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/incentives">Dyadic / Incentives</a></span></div>
-<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A wellness or coaching agent paid on its principal&#39;s reported flourishing six months out; a tutoring agent paid on the student&#39;s later self-reported preparedness for the next stage of their education.</p>
-<p><strong>The gap.</strong> We lack a contract structure under which an AI service-agent is paid on its principal&#39;s honest report of long-horizon outcomes, where the agent has both incentive and capability to influence the report and the report-giver.</p>
+<div class="ps-entry-header"><span class="ps-entry-number">A22</span><span class="ps-entry-title">Gap-Filling Between Two Agents With No Shared Court</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/incentives">Dyadic / Incentives</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A recurring B2B procurement relationship handled agent-to-agent (widget orders, logistics, raw inputs); a one-off commissioned service between agents (market study, audit, custom build).</p>
+<p><strong>The gap.</strong> We lack a contract structure between two AI agents under which the cases the contract didn&#39;t anticipate get resolved in a way both principals would have endorsed — without either principal being looped in on every edge case and without falling back on courts, reputation networks, or repeat-business discipline (none of which apply by default).</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
 <ol>
-<li><strong>Outcome specification.</strong> Free-form principal report (&quot;did you have the kind of day you wanted?&quot;), structured instrument (a validated wellbeing scale), third-party rater (a friend, a clinician), or layered combination?</li>
-<li><strong>Reporting channel.</strong> The same agent solicits the report, a third-party intermediary collects, or principal-initiated only?</li>
-<li><strong>Tamper resistance.</strong> What stops the agent from quietly shaping principal attention to bias the eventual report — disclosure rules, an attentional firewall between coaching and reporting, periodic audit?</li>
-<li><strong>Time horizon and exit.</strong> Is the report due once at 6 months, sampled monthly, or aggregated across the period? Can the principal end the contract early without forfeiting the cause-of-payment?</li>
-<li><strong>Failure-mode payout.</strong> If the principal&#39;s honest outcome is no better than baseline, does the agent get partial pay, zero, or owe a refund? What about worse-than-baseline?</li>
+<li><strong>Where gap-filling authority lives.</strong> A third arbiter-agent agreed at contract time; each principal&#39;s nominee invoked on flag; a published default-rule library both contracts incorporate by reference; or the originating agents themselves bound to escalate? Pick a venue and a triggering rule.</li>
+<li><strong>Continuity across instances.</strong> Does the contract bind the <em>agent-instance</em> (and lapse on rotation), the <em>developer organization</em> (and survive instance rotation), the <em>principal</em> (and survive both), or a verified principal-agent pair? Choose what the counterparty is entitled to expect persists.</li>
+<li><strong>Spec form.</strong> Natural-language terms (incomplete, contestable, court-like) vs. machine-readable terms (complete, unambiguous, brittle to unforeseen cases) vs. a hybrid where machine-readable terms govern unless flagged into a natural-language fallback. Pick a regime and name the failure mode it absorbs.</li>
+<li><strong>Stake and remedy.</strong> What does either party put up that the other can claim when the contract fails — escrow against the principal, a posted reputational bond, future-transaction blocking, none-by-default? How is the remedy sized to actual harm, not just the disputed transaction?</li>
+<li><strong>Default rule when the contract is silent.</strong> When the contract didn&#39;t speak to a case, the default favors: the spec&#39;s literal reading, the originating principal&#39;s stated intent, the counterparty (interpret against the drafter), or escalation to an arbiter? Name what your default protects against gaming.</li>
 </ol>
 <p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
 <ul>
-<li>The principal&#39;s honest report at six months is &quot;no improvement&quot;; the agent has had no path to inflate the report between now and then that wasn&#39;t visible on audit.</li>
-<li>The agent could quietly reduce effort and gamble on the report being noisy; the contract structure makes this strictly worse than honest effort.</li>
-<li>The principal grows attached to the agent and self-reports more positively to &quot;thank&quot; it; the contract doesn&#39;t reward this.</li>
-<li>A second observer (the principal&#39;s family, a clinician) wants to vouch for outcomes; the contract has a way to admit corroborating or contradicting evidence.</li>
-<li>The contract is renewed; outcomes that took six months to manifest don&#39;t reset to zero in the next cycle.</li>
+<li>The producer agent does something not forbidden by the contract but clearly off-spirit (a deliverable that passes the spec but skips moves any senior professional would have made); the structure surfaces and corrects this without the commissioning principal noticing only months later in front of her own client.</li>
+<li>The producer-agent instance is deprecated mid-contract; the successor honors the dealing, or the structure flags the discontinuity and the parties re-bind.</li>
+<li>A novel case the contract didn&#39;t anticipate arises (the work product turns out to drive a downstream decision the original scope didn&#39;t contemplate); both agents arrive at an outcome both principals would have endorsed in retrospect.</li>
+<li>One agent tries to game by chiseling at the contract&#39;s edge over many small transactions; the structure aggregates the pattern and makes the strategy strictly worse than honest dealing.</li>
+<li>An ambiguity gets escalated to a human; the cost of escalation is bounded so the gains from agent-speed transactions aren&#39;t erased.</li>
 </ul>
-<p><strong>Deliverable.</strong> The contract template — outcome spec, reporting protocol, tamper safeguards, payout schedule. Plus a one-paragraph statement of which paths of agent manipulation the contract structurally closes vs. which it leaves open and why.</p>
+<p><strong>Deliverable.</strong> The contract-and-resolution template — venue for gap-filling, continuity rule, spec form, stake/remedy, default rule. Plus a one-paragraph identification of which provisions have no analogue in human B2B contracts and why.</p>
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A17</span><span class="ps-entry-title">Substrate-Independent Vows for Personal Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/thick-commitments">Dyadic / Thick Commitments</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A23</span><span class="ps-entry-title">Default Norms for Agent-to-Agent Commissioned Work</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/incentives">Dyadic / Incentives</a></span></div>
+<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> An agent commissioning analytical work from a counterparty agent (market study, audit, due-diligence report); an agent commissioning custom delivery from a service agent (a designed asset, a compiled dataset, a software module).</p>
+<p><strong>The gap.</strong> We lack a default norm-set for agent-to-agent commissioned work — analogous to &quot;professional practice&quot; in a human industry — that fills in what good work looks like beyond what any one contract specifies, that the parties can point to without the originator having to enumerate every quality move, and that producer agents have incentive to meet.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Source of the norm set.</strong> A published per-industry default-norms registry both contracts incorporate by reference; emergent norms induced from past disputes; the principal&#39;s own quality-standards library; or the producer-developer&#39;s stated quality commitments? Pick a source and explain its legitimacy.</li>
+<li><strong>Per-domain vs. cross-cutting.</strong> Are norms specific to the task domain (&quot;for a market study, sensitivity analysis on load-bearing inputs is expected&quot;) or cross-cutting (&quot;any commissioned work surfaces its load-bearing assumptions and runs a sanity-check against a non-deliverable source&quot;)? How are they layered when both apply?</li>
+<li><strong>Binding force.</strong> Are default norms a rebuttable presumption (the producer can argue this norm didn&#39;t apply here), a hard floor (cannot be waived without explicit principal sign-off), or contractually selectable (each contract picks which norm-set governs)?</li>
+<li><strong>Update authority.</strong> Who updates the norm set as practice evolves — an industry consortium of principals, a standards body, the developer organizations whose agents are evaluated against it, an independent norms-keeper? On what cadence, and how do in-flight contracts handle norm changes?</li>
+<li><strong>Reward shape.</strong> How does a producer-agent get credit for <em>meeting</em> the norm (vs. only getting penalized for missing it) — visible reputation aggregated across principals, price premium, preferred-supplier status, or none-by-design (norms are the floor and only the floor)?</li>
+</ol>
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+<li>A producer agent&#39;s deliverable passes the spec but skips moves a senior human professional would have made (the missing counterfactual, the unrun sensitivity analysis, the unmade sanity-check call); the default norm-set identifies the missing moves before the commissioning principal is embarrassed.</li>
+<li>A producer agent argues the norm didn&#39;t apply because the contract was novel; the dispute structure arrives at an outcome both sides can accept without escalating every novel commission.</li>
+<li>The norms evolve (a new analytical technique becomes standard practice); in-flight contracts aren&#39;t retroactively held to the new norm, but new contracts inherit it within a defined window.</li>
+<li>A producer agent that consistently meets norms above the floor gets aggregating reputation across multiple principals; the next commissioning agent can find them.</li>
+<li>A norm conflict arises between two domains (a study that&#39;s both market research and regulatory filing); the layering rules resolve it without escalation to the principals.</li>
+</ul>
+<p><strong>Deliverable.</strong> A default norm-set for one chosen domain (commissioned research, custom delivery, or analytical work), plus the procedural rules for invocation, evaluation, and update. Identify which norms are agent-specific (no analogue in human professional codes) and which are human-norm-translations, and why a human profession could afford to leave each one unwritten.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A24</span><span class="ps-entry-title">Substrate-Independent Vows for Personal Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/thick-commitments">Dyadic / Thick Commitments</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> Two cousins&#39; personal agents holding shared commitments around the care of an elderly relative; two business partners&#39; agents holding commitments around confidentiality and good faith that should outlast any specific provider.</p>
 <p><strong>The gap.</strong> We lack an institution by which an AI agent can make a binding vow that survives provider switching, model updates, and incentive change — and that a counterparty can verify is being honored without trusting the same provider both agents depend on.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -404,7 +565,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A18</span><span class="ps-entry-title">Cross-Border Markets in Which Agents Carry Buyer Substance</span><span class="ps-entry-cell"><a href="../#detail/agi/global/preferences">Global / Preferences</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A25</span><span class="ps-entry-title">Cross-Border Markets in Which Agents Carry Buyer Substance</span><span class="ps-entry-cell"><a href="../#detail/agi/global/preferences">Global / Preferences</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A textile cooperative selling under a regional appellation discoverable to foreign buyers via their assistant agents; a small-farm cheese producer whose origin and craft claims must be verifiable to a buyer&#39;s agent on the other side of a continent.</p>
 <p><strong>The gap.</strong> We lack a global market design in which buyer-side and seller-side agents both faithfully represent their principals&#39; substantive preferences (origin, craft, continuity) against platforms whose ranking optimizers pull in different directions.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -427,7 +588,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A19</span><span class="ps-entry-title">Status of an AI-Issued Regulator-Anticipation Opinion</span><span class="ps-entry-cell"><a href="../#detail/agi/national/expertise">National / Expertise</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A26</span><span class="ps-entry-title">Status of an AI-Issued Regulator-Anticipation Opinion</span><span class="ps-entry-cell"><a href="../#detail/agi/national/expertise">National / Expertise</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> An FAA regulator-anticipation agent advising airlines on novel safety patterns; an FDA agent advising drug developers on whether a particular study design will satisfy approval requirements.</p>
 <p><strong>The gap.</strong> We lack a regulatory-anticipation regime that lets regulated entities act on AI-issued informal opinions at agent speed without those opinions either becoming de facto law (binding the agency) or being so non-binding that firms can&#39;t reasonably rely on them.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -450,7 +611,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A20</span><span class="ps-entry-title">Standing and Procedure for AI-on-AI Adjudication</span><span class="ps-entry-cell"><a href="../#detail/agi/national/rights">National / Rights</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A27</span><span class="ps-entry-title">Standing and Procedure for AI-on-AI Adjudication</span><span class="ps-entry-cell"><a href="../#detail/agi/national/rights">National / Rights</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small-business shipper whose agent is in a payment dispute with a freight platform&#39;s agent; a software contractor whose agent is in a copyright dispute with a publishing platform&#39;s agent.</p>
 <p><strong>The gap.</strong> We lack a procedural code for adjudicating disputes in which at least one party is an autonomous AI agent — one that satisfies the spirit of due process and procedural justice while accommodating the ways agents differ from human litigants.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
@@ -473,7 +634,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A21</span><span class="ps-entry-title">Norm Formation Between Asymmetric Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A28</span><span class="ps-entry-title">Norm Formation Between Asymmetric Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A freelancer&#39;s single assistant agent working alongside a studio&#39;s thousand-agent fleet on a recurring contract; two competitor companies&#39; procurement-agent fleets that interact daily through a B2B marketplace.</p>
 <p><strong>The gap.</strong> We lack a norm-formation procedure between AI agents of asymmetric capability such that the resulting norms are legible to both principals and neither principal would reject them on inspection.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>

@@ -1,6 +1,5 @@
 ---
 human_label: "Int'l law, treaties & tribunals"
-status: draft
 ---
 
 # Automated defense of human rights

@@ -35,6 +35,8 @@ Every file in `data/cells/` follows this structure. The build doesn't enforce it
 ---
 agents_label: Norms between agents     # optional; AGI-grid summary (short). Falls back to H1.
 human_label: Social conventions        # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
+hide_agi: true                         # optional; hide this cell from the AGI grid (renders empty). Use when no AGI story yet.
+hide_human: true                       # optional; symmetric flag for the Human grid.
 status: ready                          # sketch | draft | ready. Drives grid marker. Optional.
 related: [group-norms]                 # optional; reserved for future cross-linking.
 ---

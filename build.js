@@ -169,7 +169,11 @@ function renderGrid(tabId, cells, methods, dataPath) {
     for (const col of COLS) {
       const key = `${row.id}-${col.id}`;
       const cell = cells[key];
-      const summary = cell && (
+      const hideOnTab = cell && (
+        (tabId === 'agi' && cell.frontmatter?.hide_agi === true) ||
+        (tabId === 'human' && cell.frontmatter?.hide_human === true)
+      );
+      const summary = cell && !hideOnTab && (
         tabId === 'human' ? (cell.frontmatter?.human_label || cell.summary)
         : tabId === 'agi' ? (cell.frontmatter?.agents_label || cell.summary)
         : cell.summary

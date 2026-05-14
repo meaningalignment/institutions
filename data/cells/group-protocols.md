@@ -3,6 +3,8 @@ human_label: "Team protocols & workflows"
 problem: "How a small team coordinates handoffs and shared work without constant meetings."
 examples: ["Stand-ups & sprint rituals", "On-call rotations", "Pull-request review", "Shift handoff in hospitals", "Cockpit checklists"]
 agi_breaks: ["Agents bypass team rituals and just act.", "Handoffs happen too fast to inspect.", "No shared situational picture among heterogeneous agents.", "Workflows assume human bandwidth limits agents don't have."]
+status: not_started
+owner: none
 ---
 
 # Team protocols & workflows

@@ -492,16 +492,22 @@ td.has-ps::after, td[class*="status-"]::after {
   border-width: 0 12px 12px 0;
   border-color: transparent #6aaa64 transparent transparent;
 }
-td.status-ready::after {
-  border-color: transparent #6aaa64 transparent transparent;
+/* 5-stage workflow: not_started → summary_draft → summary_ok → body_draft → body_ok */
+td.status-not-started::after {
+  border-color: transparent #c9c2b6 transparent transparent;
+  opacity: 0.45;
 }
-td.status-draft::after {
+td.status-summary-draft::after {
+  border-color: transparent #e8d27a transparent transparent;
+}
+td.status-summary-ok::after {
   border-color: transparent #d4a72c transparent transparent;
 }
-td.status-sketch::after {
-  /* Outline-only triangle: smaller solid wedge in a muted tone */
-  border-color: transparent #c9c2b6 transparent transparent;
-  opacity: 0.55;
+td.status-body-draft::after {
+  border-color: transparent #a8c95e transparent transparent;
+}
+td.status-body-ok::after {
+  border-color: transparent #6aaa64 transparent transparent;
 }
 
 /* Detail page two-column layout: body left, methods rail right */
@@ -769,3 +775,4 @@ tr.methods-row th.row-header {
 
   .pane-title { margin-top: 0; }
 }
+

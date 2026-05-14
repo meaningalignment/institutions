@@ -182,7 +182,7 @@ function renderGrid(tabId, cells, methods, dataPath) {
         const classes = ['clickable'];
         if (psKeys.has(key)) classes.push('has-ps');
         const status = cell.frontmatter?.status;
-        if (status) classes.push(`status-${status}`);
+        if (status) classes.push(`status-${status.replace(/_/g, '-')}`);
         html += `<td class="${classes.join(' ')}" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;
         html += `<div class="cell-content">${summary}</div></td>`;
       } else {

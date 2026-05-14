@@ -7,6 +7,12 @@
       "runtimeArgs": ["serve", "."],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "kanban",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["scripts/kanban.js"],
+      "port": 5174
     }
   ]
 }

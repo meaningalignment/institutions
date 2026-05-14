@@ -3,6 +3,8 @@ human_label: "Legal codes & regulatory norms"
 problem: "How a nation makes generally-binding rules of conduct stick across millions of actors."
 examples: ["Civil codes", "Criminal statutes", "Administrative regulations (CFR)", "UCC", "Health & safety codes"]
 agi_breaks: ["Statutes assume actors who can be deterred by punishment.", "Legal text gets reinterpreted by agents ad infinitum.", "Compliance is automated — and so is non-compliance.", "Regulatory updates lag agent-driven evasion."]
+status: not_started
+owner: none
 ---
 
 # AIs that follow and update the law

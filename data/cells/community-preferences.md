@@ -3,6 +3,8 @@ human_label: "Cooperatives, participatory budgets & local markets"
 problem: "How a community of thousands surfaces what residents want and turns it into shared decisions and allocations."
 examples: ["Participatory budgeting (Porto Alegre)", "Farmers' markets", "Consumer co-ops", "Local exchange networks", "Community land trusts"]
 agi_breaks: ["Residents' agents drown out residents.", "Markets clear faster than the public can react.", "Astroturf at population scale is cheap.", "Allocation algorithms are opaque to the people they bind."]
+status: not_started
+owner: none
 ---
 
 # Market design for societies of agents

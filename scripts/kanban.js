@@ -1,0 +1,458 @@
+#!/usr/bin/env bun
+// Standalone Kanban app — server + renderer + edit endpoint.
+//
+//   bun run kanban
+//
+// Then open http://127.0.0.1:5174/
+//
+// This is a LOCAL-ONLY tool. The deployed Vercel site does not include the
+// kanban page. Pages are rendered live from disk on each request, so there's
+// no build step — edit a cell and reload.
+//
+// Endpoints:
+//   GET  /              → kanban HTML (rendered from data/{cells,fidelity}/)
+//   GET  /kanban.css    → kanban styles
+//   GET  /data/*        → static cell files (so card links to ../#detail/...
+//                          can resolve when the user navigates back to the grid)
+//   PATCH /api/cell     → { dir, key, status, owner } updates frontmatter
+//   OPTIONS /api/cell   → probe for read-only mode detection (kept for legacy)
+//
+// Bound to 127.0.0.1 only. No auth.
+
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { join, resolve, normalize } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const REPO_ROOT = resolve(fileURLToPath(import.meta.url), '..', '..');
+const PORT = 5174;
+
+// ── Shared constants (mirrored from build.js, intentionally duplicated to
+//    keep this script independent) ────────────────────────────────────────
+
+const ROWS = [
+  { id: 'dyadic',    name: 'Dyadic' },
+  { id: 'group',     name: 'Group' },
+  { id: 'community', name: 'Community' },
+  { id: 'national',  name: 'National' },
+  { id: 'global',    name: 'Global' }
+];
+
+const COLS = [
+  { id: 'protocols',         name: 'Protocols' },
+  { id: 'preferences',       name: 'Preferences' },
+  { id: 'rights',            name: 'Rights' },
+  { id: 'incentives',        name: 'Incentives' },
+  { id: 'expertise',         name: 'Expertise' },
+  { id: 'norms',             name: 'Norms' },
+  { id: 'thick-commitments', name: 'Thick Commitments' }
+];
+
+const STAGES = [
+  { id: 'not_started',   name: 'Not started' },
+  { id: 'summary_draft', name: 'Summary — ready for review' },
+  { id: 'summary_ok',    name: 'Summary — OK' },
+  { id: 'body_draft',    name: 'Body — ready for review' },
+  { id: 'body_ok',       name: 'Body — OK' }
+];
+
+const OWNERS = ['oliver', 'joe', 'none'];
+const VALID_DIRS = new Set(['cells', 'fidelity']);
+const VALID_STATUSES = new Set(STAGES.map(s => s.id));
+const VALID_OWNERS = new Set(OWNERS);
+const KEY_RE = /^[a-z][a-z0-9-]*$/;
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function statusClass(s) {
+  return `status-${(s || 'not_started').replace(/_/g, '-')}`;
+}
+
+// ── Cell parsing (minimal frontmatter only — no body markdown needed) ────
+
+function parseCell(raw) {
+  let frontmatter = {};
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+  let body = raw;
+  if (fmMatch) {
+    fmMatch[1].split('\n').forEach(line => {
+      const m = line.match(/^(\w+):\s*(.*)$/);
+      if (!m) return;
+      let val = m[2].trim();
+      if ((val.startsWith('"') && val.endsWith('"')) ||
+          (val.startsWith("'") && val.endsWith("'"))) {
+        val = val.slice(1, -1);
+      }
+      frontmatter[m[1]] = val;
+    });
+    body = raw.slice(fmMatch[0].length);
+  }
+  const h1Match = body.match(/^#\s+(.+)$/m);
+  const summary = h1Match ? h1Match[1].trim() : '';
+  return { summary, frontmatter };
+}
+
+function loadCells(dirName) {
+  const dir = join(REPO_ROOT, 'data', dirName);
+  const cells = {};
+  if (!existsSync(dir)) return cells;
+  for (const file of readdirSync(dir)) {
+    if (!file.endsWith('.md')) continue;
+    const key = file.replace('.md', '');
+    cells[key] = parseCell(readFileSync(join(dir, file), 'utf8'));
+  }
+  return cells;
+}
+
+// ── Card data ────────────────────────────────────────────────────────────
+
+function buildCards(cells, dirName) {
+  const cards = [];
+  for (const [key, cell] of Object.entries(cells)) {
+    const parts = key.split('-');
+    const rowId = parts[0];
+    const colId = parts.slice(1).join('-');
+    const row = ROWS.find(r => r.id === rowId);
+    const col = COLS.find(c => c.id === colId);
+    if (!row || !col) continue;
+    const fm = cell.frontmatter || {};
+    cards.push({
+      key, dirName, rowId, colId,
+      rowName: row.name, colName: col.name,
+      status: fm.status || 'not_started',
+      owner:  fm.owner  || 'none',
+      title:  fm.agents_label || cell.summary || `${row.name} × ${col.name}`
+    });
+  }
+  return cards;
+}
+
+// ── HTML rendering ───────────────────────────────────────────────────────
+
+function renderCard(card) {
+  const fidelityNote = card.dirName === 'fidelity' ? ' · Fidelity' : '';
+  return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}">
+    <div class="kanban-card-breadcrumb">${esc(card.rowName)} / ${esc(card.colName)}${fidelityNote}</div>
+    <div class="kanban-card-title">${esc(card.title)}</div>
+    <div class="kanban-card-meta">
+      <button type="button" class="kanban-owner-pill owner-${esc(card.owner)}" data-owner-btn="1" title="Click to reassign">${esc(card.owner)}</button>
+    </div>
+  </div>`;
+}
+
+function renderKanbanHtml() {
+  const cells    = loadCells('cells');
+  const fidelity = loadCells('fidelity');
+  const cards = [
+    ...buildCards(cells, 'cells'),
+    ...buildCards(fidelity, 'fidelity')
+  ];
+
+  let cols = '';
+  for (const stage of STAGES) {
+    const stageCards = cards.filter(c => (c.status || 'not_started') === stage.id);
+    stageCards.sort((a, b) => a.key.localeCompare(b.key));
+    cols += `<div class="kanban-col" data-stage="${stage.id}">
+  <div class="kanban-col-header"><span class="kanban-col-name">${esc(stage.name)}</span><span class="kanban-col-count">${stageCards.length}</span></div>
+  <div class="kanban-col-body">
+${stageCards.map(renderCard).join('\n')}
+  </div>
+</div>
+`;
+  }
+
+  let filterButtons = '<button class="kanban-filter-btn active" data-filter="all">All</button>';
+  for (const o of OWNERS) {
+    filterButtons += `<button class="kanban-filter-btn" data-filter="${esc(o)}">${esc(o)}</button>`;
+  }
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanban — Institutions (local)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/kanban.css">
+</head>
+<body>
+
+<div id="kanban-view">
+  <div class="pane-title">Kanban</div>
+  <div class="pane-subtitle">Pick your name. Anything in a <b>Ready for review</b> column owned by the other person is yours to review.</div>
+  <div id="kanban-mode-banner" class="kanban-mode-banner">Edit mode — drag a card to a new column; click an owner pill to reassign.</div>
+
+  <div class="kanban-owner-filter">${filterButtons}</div>
+
+  <div id="kanban-root" class="kanban-page drag-enabled">
+${cols}
+  </div>
+</div>
+
+<footer class="site-footer">
+  Local Kanban — edits write to <code>data/*/*.md</code>. Reload to resync.
+</footer>
+
+<script>
+${PAGE_SCRIPT}
+</script>
+
+</body>
+</html>`;
+}
+
+// Client-side script inlined into the page. Kept as a JS template literal
+// (not a separate .js file) so the whole kanban is one self-contained script.
+const PAGE_SCRIPT = `
+(function(){
+  var OWNERS = ${JSON.stringify(OWNERS)};
+  var root = document.getElementById('kanban-root');
+
+  // ── Owner filter (persisted to localStorage) ──────────────────────
+  var btns = document.querySelectorAll('.kanban-filter-btn');
+  function applyFilter(f){
+    btns.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-filter') === f);
+    });
+    root.className = 'kanban-page drag-enabled' + (f === 'all' ? '' : ' filter-' + f);
+  }
+  try {
+    var saved = localStorage.getItem('kanban.filter');
+    if (saved && Array.from(btns).some(function(b){ return b.getAttribute('data-filter') === saved; })) {
+      applyFilter(saved);
+    }
+  } catch (e) {}
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var f = btn.getAttribute('data-filter');
+      applyFilter(f);
+      try { localStorage.setItem('kanban.filter', f); } catch (e) {}
+    });
+  });
+
+  // ── PATCH helper ──────────────────────────────────────────────────
+  function patchCell(card, fields){
+    return fetch('/api/cell', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        dir: card.getAttribute('data-dir'),
+        key: card.getAttribute('data-key'),
+        status: fields.status != null ? fields.status : card.getAttribute('data-status'),
+        owner:  fields.owner  != null ? fields.owner  : card.getAttribute('data-owner')
+      })
+    }).then(function(r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+  }
+
+  function updateCardOwner(card, newOwner){
+    card.setAttribute('data-owner', newOwner);
+    var pill = card.querySelector('.kanban-owner-pill');
+    if (pill){
+      OWNERS.forEach(function(o){ pill.classList.remove('owner-' + o); });
+      pill.classList.add('owner-' + newOwner);
+      pill.textContent = newOwner;
+    }
+  }
+
+  // ── Owner-edit popup ──────────────────────────────────────────────
+  var popup = null;
+  function closePopup(){
+    if (popup){ popup.remove(); popup = null; }
+    document.removeEventListener('click', onDocClick, true);
+    document.removeEventListener('keydown', onKey, true);
+  }
+  function onDocClick(e){ if (popup && !popup.contains(e.target)) closePopup(); }
+  function onKey(e){ if (e.key === 'Escape') closePopup(); }
+  function openOwnerPopup(card, anchor){
+    closePopup();
+    popup = document.createElement('div');
+    popup.className = 'kanban-popup';
+    popup.innerHTML = '<div class="kanban-popup-label">Assign to</div>' +
+      OWNERS.map(function(o){
+        var isCurrent = card.getAttribute('data-owner') === o;
+        return '<button type="button" class="kanban-popup-opt' + (isCurrent ? ' current' : '') + '" data-owner-opt="' + o + '">' + o + '</button>';
+      }).join('');
+    document.body.appendChild(popup);
+    var r = anchor.getBoundingClientRect();
+    popup.style.top  = (window.scrollY + r.bottom + 4) + 'px';
+    popup.style.left = (window.scrollX + r.left) + 'px';
+
+    popup.querySelectorAll('[data-owner-opt]').forEach(function(opt){
+      opt.addEventListener('click', function(){
+        var newOwner = opt.getAttribute('data-owner-opt');
+        var oldOwner = card.getAttribute('data-owner');
+        closePopup();
+        if (newOwner === oldOwner) return;
+        updateCardOwner(card, newOwner);
+        patchCell(card, { owner: newOwner }).catch(function(err){
+          updateCardOwner(card, oldOwner);
+          alert('Save failed: ' + err.message + '. Reload to resync.');
+        });
+      });
+    });
+    setTimeout(function(){
+      document.addEventListener('click', onDocClick, true);
+      document.addEventListener('keydown', onKey, true);
+    }, 0);
+  }
+
+  document.querySelectorAll('[data-owner-btn]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var card = btn.closest('.kanban-card');
+      if (card) openOwnerPopup(card, btn);
+    });
+  });
+
+  // ── Drag and drop ─────────────────────────────────────────────────
+  var dragged = null;
+  document.querySelectorAll('.kanban-card').forEach(function(card){
+    card.addEventListener('dragstart', function(e){
+      dragged = card;
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', card.dataset.key);
+    });
+    card.addEventListener('dragend', function(){
+      card.classList.remove('dragging');
+      dragged = null;
+      document.querySelectorAll('.kanban-col.drag-over').forEach(function(c){ c.classList.remove('drag-over'); });
+    });
+  });
+  document.querySelectorAll('.kanban-col').forEach(function(col){
+    col.addEventListener('dragover', function(e){
+      if (!dragged) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      col.classList.add('drag-over');
+    });
+    col.addEventListener('dragleave', function(e){
+      if (e.target === col) col.classList.remove('drag-over');
+    });
+    col.addEventListener('drop', function(e){
+      if (!dragged) return;
+      e.preventDefault();
+      col.classList.remove('drag-over');
+      var newStatus = col.getAttribute('data-stage');
+      var oldStatus = dragged.getAttribute('data-status');
+      if (newStatus === oldStatus) return;
+
+      var colBody = col.querySelector('.kanban-col-body');
+      colBody.appendChild(dragged);
+      dragged.setAttribute('data-status', newStatus);
+      dragged.className = dragged.className.replace(/status-[a-z-]+/, 'status-' + newStatus.replace(/_/g, '-'));
+      document.querySelectorAll('.kanban-col').forEach(function(c){
+        var n = c.querySelectorAll('.kanban-card').length;
+        c.querySelector('.kanban-col-count').textContent = n;
+      });
+
+      patchCell(dragged, { status: newStatus }).catch(function(err){
+        alert('Save failed: ' + err.message + '. Reload to resync.');
+      });
+    });
+  });
+})();
+`;
+
+// ── PATCH endpoint ───────────────────────────────────────────────────────
+
+function updateFrontmatter(filePath, status, owner) {
+  const raw = readFileSync(filePath, 'utf8');
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+  if (!fmMatch) {
+    writeFileSync(filePath, `---\nstatus: ${status}\nowner: ${owner}\n---\n${raw}`);
+    return;
+  }
+  let fmBody = fmMatch[1];
+  const rest = raw.slice(fmMatch[0].length);
+
+  if (/^status:\s*.*$/m.test(fmBody)) {
+    fmBody = fmBody.replace(/^status:\s*.*$/m, `status: ${status}`);
+  } else {
+    fmBody += `\nstatus: ${status}`;
+  }
+  if (/^owner:\s*.*$/m.test(fmBody)) {
+    fmBody = fmBody.replace(/^owner:\s*.*$/m, `owner: ${owner}`);
+  } else {
+    fmBody += `\nowner: ${owner}`;
+  }
+
+  writeFileSync(filePath, `---\n${fmBody}\n---\n${rest}`);
+}
+
+async function handleApi(req) {
+  if (req.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: { Allow: 'PATCH, OPTIONS' } });
+  }
+  if (req.method !== 'PATCH') {
+    return new Response('Method not allowed', { status: 405 });
+  }
+  let body;
+  try { body = await req.json(); }
+  catch { return Response.json({ error: 'invalid JSON' }, { status: 400 }); }
+
+  const { dir, key, status, owner } = body || {};
+  if (!VALID_DIRS.has(dir))         return Response.json({ error: 'bad dir' }, { status: 400 });
+  if (!KEY_RE.test(key || ''))      return Response.json({ error: 'bad key' }, { status: 400 });
+  if (!VALID_STATUSES.has(status))  return Response.json({ error: 'bad status' }, { status: 400 });
+  if (!VALID_OWNERS.has(owner))     return Response.json({ error: 'bad owner' }, { status: 400 });
+
+  const filePath = join(REPO_ROOT, 'data', dir, `${key}.md`);
+  if (!filePath.startsWith(join(REPO_ROOT, 'data') + '/') || !existsSync(filePath)) {
+    return Response.json({ error: 'not found' }, { status: 404 });
+  }
+
+  try {
+    updateFrontmatter(filePath, status, owner);
+    console.log(`PATCH ${dir}/${key} → status=${status} owner=${owner}`);
+    return Response.json({ ok: true });
+  } catch (e) {
+    console.error(e);
+    return Response.json({ error: String(e) }, { status: 500 });
+  }
+}
+
+// ── Server ───────────────────────────────────────────────────────────────
+
+const server = Bun.serve({
+  hostname: '127.0.0.1',
+  port: PORT,
+  fetch(req) {
+    const url = new URL(req.url);
+    const pathname = url.pathname;
+
+    if (pathname === '/api/cell') return handleApi(req);
+
+    if (pathname === '/' || pathname === '/index.html') {
+      return new Response(renderKanbanHtml(), {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      });
+    }
+
+    if (pathname === '/kanban.css') {
+      const file = Bun.file(join(REPO_ROOT, 'scripts', 'kanban.css'));
+      return new Response(file, { headers: { 'Content-Type': 'text/css' } });
+    }
+
+    // Static fallback for /data/*, /style.css, etc. — useful if the user
+    // runs the kanban without a separate static server and clicks "Show cell".
+    const rel = normalize(pathname).replace(/^(\.\.[/\\])+/, '');
+    const filePath = join(REPO_ROOT, rel);
+    if (filePath.startsWith(REPO_ROOT) && existsSync(filePath)) {
+      return new Response(Bun.file(filePath));
+    }
+    return new Response('Not found', { status: 404 });
+  }
+});
+
+console.log(`Kanban server running on http://127.0.0.1:${server.port}/`);
+console.log('Edits write back to data/*/*.md. Reload to resync.');

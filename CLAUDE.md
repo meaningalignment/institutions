@@ -13,6 +13,8 @@ npm run build
 
 This generates `index.html` (AGI grid), `human/index.html`, `fidelity/index.html`, `problem-sets/index.html`, and `data/manifest.json`. All HTML files are checked into git and deployed as static files via Vercel.
 
+The Kanban is a separate local-only tool — not part of the build, not deployed. Run `bun run kanban` to launch a small Bun server on http://127.0.0.1:5174/. It renders five status columns (`not_started` → `summary_draft` → `summary_ok` → `body_draft` → `body_ok`) live from the markdown files, lets you drag cards between columns and click owner pills to reassign (`oliver` / `joe` / `none`), and writes the edits back into the YAML frontmatter. Everything kanban-specific lives in `scripts/kanban.js` and `scripts/kanban.css`; `build.js` knows nothing about it.
+
 ## Stack
 
 - Static site, no framework — vanilla JS (`app.js`) + CSS (`style.css`)
@@ -37,7 +39,8 @@ agents_label: Norms between agents     # optional; AGI-grid summary (short). Fal
 human_label: Social conventions        # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
 hide_agi: true                         # optional; hide this cell from the AGI grid (renders empty). Use when no AGI story yet.
 hide_human: true                       # optional; symmetric flag for the Human grid.
-status: ready                          # sketch | draft | ready. Drives grid marker. Optional.
+status: body_ok                        # not_started | summary_draft | summary_ok | body_draft | body_ok. Drives grid marker and Kanban column.
+owner: oliver                          # oliver | joe | none. Drives Kanban filter.
 problem: "How two parties …"           # optional; one-liner naming the coordination challenge for this row × col. Rendered as the "Coordination challenge" row in the summary box at the top of the detail page on both AGI and Human tabs.
 examples: ["X", "Y", "Z"]              # optional; 3–5 short example-institution names for this row × col. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
 agi_breaks: ["…", "…", "…"]            # optional; 3–5 very short bullets (one line each) on how AGI breaks the human institutions in `examples`. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
@@ -117,13 +120,19 @@ Rigorous, not bombastic. Don't claim "load-bearing" without showing why. Don't r
 
 ### Status field
 
-`status:` in frontmatter takes one of three values:
+`status:` tracks where each cell sits in the writing pipeline. Five values, in order:
 
-- `sketch` — placeholder. Title only, body empty or minimal. Renders as a dim outline-style marker on the grid.
-- `draft` — written but not yet polished or reviewed. Half-saturated marker.
-- `ready` — reviewed and stable. Solid green marker.
+- `not_started` — placeholder; no frontmatter content yet. Faint gray corner marker.
+- `summary_draft` — the summary box (`problem` / `examples` / `agi_breaks` frontmatter) is drafted but not reviewed.
+- `summary_ok` — summary box reviewed.
+- `body_draft` — body sections (`## How humans solve this today`, `## Where AGI breaks it`, `## Scenarios`, `## Problem Sets`) are drafted but not reviewed.
+- `body_ok` — body reviewed and stable. Solid green marker.
 
-Cells without a `status` field render without a status marker (but a `has-ps` marker still appears if the cell contains a `## Problem Sets` section).
+The corresponding CSS classes use hyphens (`status-not-started`, `status-summary-draft`, etc.).
+
+### Owner field
+
+`owner:` is one of `oliver`, `joe`, or `none` (unassigned). Used by the Kanban page filter and the per-card "Assign to" popup. New cells start as `none`.
 
 ## Repo layout
 

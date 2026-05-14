@@ -3,6 +3,8 @@ human_label: "Diplomatic protocols & soft-law norms"
 problem: "How states settle on expectations of conduct toward each other without a global enforcer."
 examples: ["Diplomatic protocol (Vienna Convention)", "Customary international law", "Nuclear taboo", "Soft-law declarations", "Just-war norms"]
 agi_breaks: ["Negotiation cycles compress to seconds.", "Diplomats are advised by agents whose loyalties are unclear.", "Customary practice forms faster than it can be observed.", "Soft-law signals get crowded out by agent-driven noise."]
+status: not_started
+owner: none
 ---
 
 # Geopolitical supernegotiation

@@ -4,6 +4,8 @@ human_label: "Contracts & escrow"
 problem: "How two parties bind each other to follow through on a deal once stakes are in motion."
 examples: ["Written contracts", "Escrow accounts", "Letters of credit", "Performance bonds", "Earnest-money deposits"]
 agi_breaks: ["Agents commit on behalf of principals who can disclaim later.", "Natural-language terms get gamed at the edges.", "Speed of breach exceeds speed of remedy.", "An agent can be re-instanced to dodge reputation."]
+status: not_started
+owner: none
 ---
 
 # When two agents transact, the institutions around the contract don't apply

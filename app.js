@@ -280,5 +280,19 @@ function handleHash() {
   }
 }
 
+function updateScrollableState() {
+  document.querySelectorAll('.table-wrapper').forEach(w => {
+    w.classList.toggle('is-scrollable', w.scrollWidth > w.clientWidth + 1);
+  });
+}
+
 window.addEventListener('hashchange', handleHash);
-window.addEventListener('DOMContentLoaded', handleHash);
+window.addEventListener('DOMContentLoaded', () => {
+  handleHash();
+  updateScrollableState();
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(updateScrollableState);
+    document.querySelectorAll('.table-wrapper').forEach(w => ro.observe(w));
+  }
+});
+window.addEventListener('resize', updateScrollableState);

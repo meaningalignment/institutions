@@ -586,13 +586,13 @@ tr.methods-row th.row-header {
   background: #fff;
 }
 
-/* Scroll hint on table wrapper */
+/* Scroll hint on table wrapper — only shown when horizontally scrollable */
 .table-wrapper {
   position: relative;
 }
-.table-wrapper::after {
+.table-wrapper.is-scrollable::after {
   content: '';
-  position: sticky;
+  position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
@@ -600,7 +600,6 @@ tr.methods-row th.row-header {
   background: linear-gradient(to right, transparent, rgba(255,255,255,0.8));
   pointer-events: none;
   display: block;
-  position: absolute;
   height: 100%;
 }
 

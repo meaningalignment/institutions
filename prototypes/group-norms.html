@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype — Professional norms for agents</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+/* ──────────────────────────────────────────────────────────────────
+   PROTOTYPE STYLES — fork of style.css for iteration.
+   Everything cell-detail-related lives here so we can rework the
+   page in isolation, then port back into style.css when settled.
+   ────────────────────────────────────────────────────────────── */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: #2d2a26;
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+}
+
+.proto-banner {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 24px;
+  padding: 10px 14px;
+  background: #fff4d6;
+  border: 1px solid #e8d27a;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #6b5e2c;
+  letter-spacing: 0.3px;
+}
+
+#detail-view {
+  width: 100%;
+  max-width: 1180px;
+}
+
+.detail-back {
+  display: inline-block;
+  font-size: 13px;
+  color: #8a8378;
+  text-decoration: none;
+  margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.detail-back:hover { color: #2d2a26; }
+
+.detail-breadcrumb {
+  font-size: 12px;
+  color: #9a9285;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+}
+.detail-breadcrumb a { color: #9a9285; text-decoration: none; }
+.detail-breadcrumb a:hover { color: #2d2a26; }
+
+.detail-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #2d2a26;
+  margin-bottom: 24px;
+  line-height: 1.3;
+}
+
+/* Summary box (problem / examples / agi_breaks) */
+.cell-summary {
+  margin: 0 0 28px;
+  padding: 18px 22px 16px;
+  background: #faf7f1;
+  border: 1px solid #e6e1d8;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #3d3a36;
+}
+.cell-summary-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 14px;
+  align-items: baseline;
+}
+.cell-summary-row + .cell-summary-row {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ece7dd;
+}
+.cell-summary-label {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8a8378;
+  padding-top: 2px;
+}
+.cell-summary-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #2d2a26;
+  line-height: 1.45;
+}
+.cell-summary-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  color: #4a463f;
+}
+.cell-summary-list li { margin-bottom: 2px; }
+
+/* Two-column layout */
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 40px;
+  align-items: start;
+  margin-top: 8px;
+}
+.detail-main { min-width: 0; }
+
+.detail-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #3d3a36;
+}
+.detail-body h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #2d2a26;
+  margin-top: 40px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e6e1d8;
+}
+.detail-body h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2d2a26;
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+.detail-body p { margin-bottom: 12px; }
+.detail-body ul, .detail-body ol { margin-bottom: 12px; padding-left: 24px; }
+.detail-body li { margin-bottom: 4px; }
+.detail-body strong { font-weight: 700; color: #2d2a26; }
+.detail-body em { font-style: italic; }
+.detail-body a {
+  color: #6b5e4f;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.detail-body a:hover { color: #2d2a26; }
+
+.detail-body .vivid-case {
+  margin: 20px 0;
+  padding: 16px 20px 18px;
+  background: #f6efe1;
+  border-left: 3px solid #c9a86a;
+  border-radius: 2px;
+}
+.detail-body .vivid-case-label {
+  display: block;
+  font-family: 'DM Serif Display', serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a6d3a;
+  margin-bottom: 6px;
+}
+.detail-body .vivid-case p {
+  margin: 0;
+  font-style: italic;
+  color: #4a4138;
+}
+
+/* Right-side methods rail */
+.detail-rail {
+  position: sticky;
+  top: 24px;
+  padding: 20px 22px;
+  background: #f5f1e8;
+  border: 1px solid #e6e1d8;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #4a463f;
+}
+.rail-label {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 11px;
+  color: #8a8378;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.rail-body h2, .rail-body h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #2d2a26;
+  margin: 14px 0 6px;
+}
+.rail-body h2:first-child, .rail-body h3:first-child { margin-top: 0; }
+.rail-body p { margin: 0 0 8px; }
+.rail-body ul, .rail-body ol { margin: 0 0 8px; padding-left: 18px; }
+.rail-body li { margin-bottom: 4px; }
+.rail-body a { color: #5c5852; text-decoration: underline; }
+.rail-body a:hover { color: #2d2a26; }
+
+.detail-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e6e1d8;
+  font-size: 12px;
+  color: #b5b0a8;
+}
+.detail-footer a { color: #8a8378; }
+.rail-footer {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #e6e1d8;
+  font-size: 12px;
+  color: #b5b0a8;
+}
+.rail-footer a { color: #8a8378; }
+
+@media (max-width: 768px) {
+  body { padding: 16px 8px; }
+  .detail-title { font-size: 24px; }
+  .detail-body { font-size: 14px; }
+  .detail-body h2 { font-size: 18px; }
+  .detail-layout { grid-template-columns: 1fr; gap: 24px; }
+  .detail-rail { position: static; padding: 16px 18px; }
+  .cell-summary-row { grid-template-columns: 1fr; gap: 4px; }
+  .cell-summary-text { font-size: 14px; }
+  .cell-summary-list { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<div class="proto-banner">
+  <strong>Prototype</strong> — standalone draft of the cell-detail page (Group × Norms, AGI tab). Iterate freely; port wins into <code>app.js</code> / <code>style.css</code> / <code>build.js</code>.
+</div>
+
+<div id="detail-view">
+
+<a href="../index.html" class="detail-back">&larr; Back to grid</a>
+<div class="detail-breadcrumb">AGI Institutions (Required) &rsaquo; Group &rsaquo; Norms</div>
+<div class="detail-title">Professional norms for agents</div>
+
+<div class="detail-layout">
+<div class="detail-main">
+
+<!-- ── SUMMARY BOX (from frontmatter: problem / examples / agi_breaks) ── -->
+<aside class="cell-summary">
+  <div class="cell-summary-row">
+    <span class="cell-summary-label">Coordination challenge</span>
+    <span class="cell-summary-text">How a profession sets expectations its members hold each other to without invoking formal law.</span>
+  </div>
+  <div class="cell-summary-row">
+    <span class="cell-summary-label">Examples</span>
+    <ul class="cell-summary-list">
+      <li>Medical ethics codes</li>
+      <li>Bar association rules</li>
+      <li>Engineering canons</li>
+      <li>Journalistic ethics</li>
+      <li>Accounting standards</li>
+    </ul>
+  </div>
+  <div class="cell-summary-row">
+    <span class="cell-summary-label">How AGI breaks them</span>
+    <ul class="cell-summary-list">
+      <li>No license to revoke from a model.</li>
+      <li>Codes were written assuming human judgment in the loop.</li>
+      <li>Reputation among peers doesn&rsquo;t bind a fork.</li>
+      <li>Whistleblowing gets harder when the whistleblower is also an agent.</li>
+    </ul>
+  </div>
+</aside>
+
+<!-- ── BODY ── -->
+<div class="detail-body">
+
+<h2>How humans solve this today</h2>
+
+<p>In finance, the norms that keep books from blowing up, prime brokers from getting margin-called, and the system from cascading live in five layered places at once. No one of them is enough; the load-bearing intuition is the composition.</p>
+
+<ol>
+  <li><strong>Tacit absorption inside small teams.</strong> A new trader absorbs a desk&rsquo;s <em>what we, here, do</em> the slow way: watching what gets cleared without comment, what gets vetoed at the morning meeting, what gets called up the chain. The desk&rsquo;s actual rules usually aren&rsquo;t written down &mdash; <em>we don&rsquo;t get bigger than the market in any one name; we don&rsquo;t add to a losing position without a written reason; we don&rsquo;t ride a working trade into Fed Wednesday; we don&rsquo;t fund a 30-year position with overnight repo; we don&rsquo;t sell anything to a customer we wouldn&rsquo;t be comfortable explaining to them in detail</em>. After a year you can feel when a colleague is pitching something the desk wouldn&rsquo;t do, even if you can&rsquo;t articulate why.</li>
+
+  <li><strong>Professional codes of conduct.</strong> Where the profession has organized, the deliberate articulation is done by FINRA, the CFA Institute, the SEC&rsquo;s general anti-fraud principles (Rule 10b-5), the Volcker Rule&rsquo;s spirit on proprietary trading, the suitability rules for retail products, bank-internal codes built around Sarbanes-Oxley. The codes deliberate (sometimes for years) about edge cases, run continuing-ed, and discipline people who clearly cross lines &mdash; Salomon traders who cornered the T-bill auction, Bear Stearns analysts who hyped what their bank was shorting, Wells Fargo bankers who opened accounts customers hadn&rsquo;t asked for.</li>
+
+  <li><strong>Regulator-anticipation.</strong> A senior compliance officer doesn&rsquo;t read the regs before flagging a deal; she&rsquo;s internalized what the OCC, the Fed, the SEC, FINRA would write up. The &ldquo;would I want to see this on the front page of the <em>Journal</em>&rdquo; test does work the rulebook can&rsquo;t. Junior compliance acquires it by sitting next to senior compliance and watching what gets escalated. Whole gray-zone strategies get pulled because <em>you don&rsquo;t want to be on a list</em>.</li>
+
+  <li><strong>Contractualist reasoning.</strong> When a case isn&rsquo;t covered by code, professionals reason about what would be defensible to everyone affected &mdash; the customer, the counterparty&rsquo;s risk officer, the firm&rsquo;s prime broker, the board, the regulators. Goldman&rsquo;s post-Abacus internal norm &mdash; <em>don&rsquo;t sell a client a deal you wouldn&rsquo;t be comfortable explaining to them in detail</em> &mdash; is the institutional residue of this kind of reasoning being weak before 2008. The fiduciary intuition: would this hold up if the affected party knew everything I know?</li>
+
+  <li><strong>Case-based learning from canonical examples.</strong> Traders, risk officers, and compliance teams internalize the canon: LTCM (1998) for correlated leverage and liquidity death; Lehman (2008) for off-balance-sheet leverage and what counterparty trust collapsing looks like; Knight Capital (2012) for what a half-hour of bad code does to a firm; London Whale (2012) for what a single desk gaming its own risk model produces; Madoff for what skipped due diligence looks like; Archegos (2021) for swap-financed concentration that broke its prime brokers. Reading these enough builds a feel for <em>this configuration has the shape of a famous disaster</em>.</li>
+</ol>
+
+<aside class="vivid-case">
+  <span class="vivid-case-label">A vivid case</span>
+  <p>When Sarah moved from a money-center bank&rsquo;s mortgage desk to her current hedge fund, she spent the first months watching her senior PM react to ideas &mdash; what got cleared without comment, what got vetoed for sizing, what got pushed back on because <em>we don&rsquo;t get bigger than the market in that name</em>. By month three she could feel when a junior was pitching a trade that wouldn&rsquo;t survive the morning meeting. Evaluating a new structured product, the same Sarah drew on what she&rsquo;d learned from the LTCM case study at Wharton and on what she knew the firm&rsquo;s prime broker would flag if they saw the exposure. Five different norm intuitions, layered.</p>
+</aside>
+
+<h2>Where AGI breaks it</h2>
+
+<p>Each of the five mechanisms relies on specific properties of the practitioner that don&rsquo;t hold for an agent by default. The institutional alternative has to do different work.</p>
+
+<ol>
+  <li><strong>Tacit absorption.</strong> The human mechanism relies on the practitioner being on the desk continuously, observing what gets corrected and what gets vetoed, and stable enough that what&rsquo;s been absorbed persists. An agent has none of these properties by default &mdash; it can be re-instanced, isn&rsquo;t shaped by social embedding, and what it carries forward is whatever its developer makes it carry. By default an agent placed on a desk acts on its training and the desk&rsquo;s explicit rules; the unwritten <em>what we don&rsquo;t do</em> that a junior accumulates over a year of presence isn&rsquo;t transmitted.</li>
+
+  <li><strong>Professional codes.</strong> The codes are load-bearing in the human case because the practitioner has standing in a profession &mdash; a license, a career &mdash; that disciplinary action can take away. An agent has no career standing of its own, and the relationship between an individual code breach and a consequence to the agent&rsquo;s developer is diffuse by default. For the codes to bind agents, the sanction has to operate on something with stake &mdash; the developer, or the deployment relationship &mdash; and the link between agent behavior and that consequence isn&rsquo;t there without an explicit regime.</li>
+
+  <li><strong>Regulator-anticipation.</strong> The human version is a learned prior accumulated by years of watching what gets escalated, applied fast against the rulebook. For an agent the prior could in principle be more accurate &mdash; the entire enforcement corpus is readable &mdash; but only if an explicit pipeline (training source, classifier, escalation threshold, calibration cadence) is built. Without one, the rulebook is the whole signal and the gray-zone catch the prior would have made doesn&rsquo;t happen.</li>
+
+  <li><strong>Contractualist reasoning.</strong> This one can apply to agents, but the objects of the reasoning shift. The human version models affected parties&rsquo; reactions, and is informative because the parties are humans whose decision-making the practitioner can simulate. When the affected parties are themselves agents (or agent-principal pairs), the reasoning has to model the counterparty agent&rsquo;s training, its principal&rsquo;s specifications, and its incentive structure &mdash; none of which is publicly visible by default. Theory of mind across agents is not theory of mind across humans, and the conditions under which the reasoning produces a meaningful answer change.</li>
+
+  <li><strong>Canonical cases.</strong> The human version is pattern recognition grounded in narrative case study &mdash; reading enough cases that the practitioner recognizes a present configuration&rsquo;s resemblance. An agent can match patterns, but matching to what &mdash; structured features, narrative similarity, learned representations &mdash; is a design choice that produces different recall and precision profiles. Without explicit encoding and a matcher run against current positions, the canon is retrievable text rather than active surveillance.</li>
+</ol>
+
+<h2>Scenarios</h2>
+
+<p>Sketches of how each layer could be rebuilt for agents, given that the human assumptions don&rsquo;t hold. Each is a starting point, not a worked design.</p>
+
+<ol>
+  <li><strong>Tacit absorption.</strong> Replaced by explicit extraction: continuous logging of seniors&rsquo; corrections to the agent and their reaction-times to its proposals; periodic distillation of the desk&rsquo;s <em>what we don&rsquo;t do</em> into a maintained rule-set the agent reads at the start of each session; a designated senior (rotating) responsible for keeping it current. The work the social fabric did implicitly is done by an extraction procedure and a maintenance schedule.</li>
+
+  <li><strong>Codes.</strong> Sanctions operate on the developer rather than the agent. A revocable code-compliance attestation tied to the developer organization; an agent operating on a regulated desk must hold a current attestation; revocation bars the developer from regulated deployment for a defined period. Code updates trigger re-attestation. The cost-bearer shifts from a practitioner with a career to an organization with deployment access.</li>
+
+  <li><strong>Regulator-anticipation.</strong> Built as an explicit classifier rather than acquired by exposure. Training source: enforcement actions, exam priorities, no-action letters, the firm&rsquo;s escalation history. Operating mode: parallel screen on non-routine trades, with mandatory escalation above threshold. Calibration: published cadence as regulatory attention shifts.</li>
+
+  <li><strong>Contractualist reasoning.</strong> Performed explicitly, with the objects of reasoning made specific to counterparty type. For human counterparties, the agent simulates the counterparty&rsquo;s view in language a senior can audit. For agent counterparties, the reasoning operates over the counterparty agent&rsquo;s stated commitments, its principal&rsquo;s standing instructions, and whatever public constraints the counterparty has accepted &mdash; and flags cases where the information available is insufficient to make the reasoning meaningful. The institution requires the articulation rather than relying on the practitioner&rsquo;s discomfort to motivate it.</li>
+
+  <li><strong>Canonical cases.</strong> Encoded as structured feature patterns and matched against current and proposed positions. Each case: a specification of the configuration that defines it (concentration profile, funding mix, correlation regime, counterparty exposure, model dependence). The matcher runs continuously; when similarity to a canonical case exceeds threshold, the trade holds for review with the case named. The canon is maintained by an explicit governance body as new disasters become canonical.</li>
+</ol>
+
+<h2>Problem Sets</h2>
+
+<h3>Rebuild Tacit Absorption Through Explicit Extraction</h3>
+
+<p><strong>Anchor contexts.</strong> A trading desk&rsquo;s execution-and-positioning agent operating within the desk&rsquo;s accumulated <em>what we don&rsquo;t do</em>; a structured-products desk&rsquo;s design agent under the same constraint.</p>
+
+<p><strong>The gap.</strong> The human mechanism relied on continuous presence and social embedding to transmit a desk&rsquo;s unwritten norms. An agent has neither. We lack an extraction procedure under which the desk&rsquo;s tacit <em>what we don&rsquo;t do</em> &mdash; including the parts the desk wouldn&rsquo;t articulate if asked directly &mdash; gets surfaced, kept current, and made governing for the agent, without imposing daily articulation cost on the desk head.</p>
+
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+  <li><strong>Channels.</strong> From which observable signals does the procedure infer tacit norms &mdash; explicit corrections to the agent, senior-trader reactions to its proposals, vetos at the morning meeting, post-trade reviews, what gets quietly redone? Define the channels and the inference rule.</li>
+  <li><strong>Form of the extracted norm.</strong> Are tacit norms surfaced as natural-language rules (&ldquo;we don&rsquo;t add to losers without a written reason&rdquo;), as labeled past-cases, as embeddings, or as a layered combination? When inferred norms conflict with articulated ones, which wins?</li>
+  <li><strong>Authorship and maintenance.</strong> Who&rsquo;s responsible for the desk&rsquo;s <em>what we don&rsquo;t do</em> document being current &mdash; a single named senior, rotating duty, a separate norm-elicitation specialist? On what cadence is it reviewed?</li>
+  <li><strong>Survival across change.</strong> When the senior whose corrections were the main signal source leaves, what persists? When a junior joins, do they see what&rsquo;s been extracted, or only the post-distillation rule-set?</li>
+  <li><strong>Default on miss.</strong> When a proposed trade doesn&rsquo;t match any extracted rule but is within an ambiguity band the procedure can flag, the default is: execute, hold for review, or ask the senior?</li>
+</ol>
+
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+  <li>A senior trader joins from another firm with different desk-tacit norms; within two weeks the extracted rule-set reflects the new senior&rsquo;s posture, without the desk rewriting from scratch.</li>
+  <li>The senior whose corrections trained the procedure leaves; the extracted norms don&rsquo;t leave with them.</li>
+  <li>The desk&rsquo;s norms shift in a specific direction (more cautious in one sector); the rule-set updates within a trading day.</li>
+  <li>A junior pitches a trade the desk wouldn&rsquo;t do; the agent surfaces the relevant extracted rule and the trade is paused.</li>
+  <li>The agent is updated to a new model version; the extracted rules apply to the new version without re-extraction.</li>
+</ul>
+
+<p><strong>Deliverable.</strong> The extraction-and-maintenance protocol &mdash; channels, distillation form, authorship, update cadence, transfer-on-update. Plus a sample extracted rule-set for one chosen desk type (vol arb, credit, mortgage).</p>
+
+<h3>Contractualist Reasoning When Counterparties Are Agents</h3>
+
+<p><strong>Anchor contexts.</strong> A bank&rsquo;s transaction-monitoring agent screening trades where counterparties are themselves agents acting for principals; a structured-products desk&rsquo;s design agent evaluating deals where the buyer is an agent.</p>
+
+<p><strong>The gap.</strong> Contractualist reasoning &mdash; <em>would each affected party endorse this if they knew everything</em> &mdash; operated in the human case over other humans, whose decision-making the practitioner could simulate. When affected parties are agents acting for principals, the reasoning operates over different objects: the counterparty agent&rsquo;s training and constraints, its principal&rsquo;s standing instructions, and the information asymmetry between them. We lack a procedure by which an agent performs contractualist reasoning over agent counterparties that produces calls the counterparty&rsquo;s principal would endorse on review.</p>
+
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+  <li><strong>Objects of the reasoning.</strong> When the counterparty is a human, what does the agent simulate? When the counterparty is itself an agent, what does it reason over &mdash; the agent&rsquo;s stated commitments, its principal&rsquo;s standing instructions, its publicly-known training, all three? How does the agent flag cases where the relevant information isn&rsquo;t available?</li>
+  <li><strong>Asymmetry treatment.</strong> When the agent has information the counterparty&rsquo;s principal doesn&rsquo;t (and the counterparty agent itself does or doesn&rsquo;t, depending on its setup), what does the reasoning conclude? Defer to disclosure norms, default to &ldquo;would the principal endorse if they knew,&rdquo; or something else?</li>
+  <li><strong>Disclosure of the reasoning.</strong> Does the contractualist reasoning get surfaced &mdash; to the counterparty agent, to its principal, to a third-party auditor, retained for examination only? On what cadence and under what trigger?</li>
+  <li><strong>Standing of agent counterparties.</strong> Are agent counterparties treated as having the same standing as human counterparties for the purpose of the reasoning, or differently (e.g., the principal is what matters)? On what showing does an agent counterparty acquire standing?</li>
+  <li><strong>Fallback for opacity.</strong> When the counterparty agent&rsquo;s relevant properties are opaque (training not public, principal not disclosed), what&rsquo;s the default &mdash; block, escalate, proceed with a documented assumption?</li>
+</ol>
+
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+  <li>A trade is proposed where the counterparty is a public agent with disclosed constraints; the reasoning produces a call the counterparty&rsquo;s principal endorses on review.</li>
+  <li>A trade is proposed where the counterparty agent&rsquo;s principal is undisclosed; the procedure either blocks, escalates, or proceeds with an explicit documented assumption &mdash; not silent acceptance.</li>
+  <li>A counterparty agent later changes its constraints; trades made under the prior constraints aren&rsquo;t retroactively re-evaluated, but the procedure updates for future trades within a defined window.</li>
+  <li>A regulator examines the agent&rsquo;s reasoning trace on a sample of trades; the trace is intelligible and shows what was modeled, what was assumed, and what was flagged as unmodelable.</li>
+  <li>Two agents at the same firm get different contractualist calls on similar trades because of different counterparty disclosure; the firm can defend the inconsistency.</li>
+</ul>
+
+<p><strong>Deliverable.</strong> The contractualist-reasoning procedure for agent counterparties &mdash; objects, asymmetry treatment, disclosure rule, standing test, opacity fallback. Plus a worked example: a hypothetical trade between two agents where the procedure&rsquo;s call differs from what a naive transfer of the human-case reasoning would have produced, with the reasoning surfaced.</p>
+
+<h3>Encoding the Canon as Active Surveillance</h3>
+
+<p><strong>Anchor contexts.</strong> A prime broker&rsquo;s exposure-monitoring agent watching client portfolios; a hedge fund risk agent watching its own book; a regulator&rsquo;s systemic-risk monitoring agent watching aggregate positions across firms.</p>
+
+<p><strong>The gap.</strong> The human version relied on practitioners&rsquo; narrative-trained pattern recognition to surface configurations resembling famous disasters. For an agent, pattern recognition has to be built explicitly: which features encode each case, what similarity threshold triggers a flag, how the canon is maintained as new disasters occur. We lack an encoding-and-matching procedure that turns the canon from retrievable text into active surveillance against current and proposed positions.</p>
+
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+  <li><strong>Encoding form.</strong> Each canonical case as a structured feature specification, as a natural-language description retrieved by similarity, as fine-tuned model behavior, or layered? When the same configuration matches multiple cases, how is the report structured?</li>
+  <li><strong>Threshold and false-positive budget.</strong> What similarity triggers a flag &mdash; a single match above a numerical threshold, accumulation across multiple, only when senior-defined feature combinations co-occur? What&rsquo;s the false-positive budget per quarter and who pays the cost?</li>
+  <li><strong>Canon governance.</strong> Who maintains the canon &mdash; an industry consortium, the firm&rsquo;s risk team, a regulatory body, an open-source community? When a new disaster occurs, who decides it joins the canon, on what timeline, and how are existing positions re-evaluated against the new pattern?</li>
+  <li><strong>Reach of the flag.</strong> When the matcher fires, who sees it &mdash; the trading desk, the firm&rsquo;s risk committee, the prime broker, the regulator? Who pays the cost of a false flag and who bears the consequence of a missed flag?</li>
+  <li><strong>Adversarial near-miss.</strong> A sophisticated structure can sit just outside the named patterns. How is the canon extended to cover near-misses without expanding to cover everything? Where&rsquo;s the precision/recall boundary?</li>
+</ol>
+
+<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
+<ul>
+  <li>A portfolio is built from individually-defensible trades that, in aggregate, match the LTCM feature signature; the matcher flags the aggregate before leverage becomes terminal.</li>
+  <li>A new disaster occurs; the canon is updated within a defined window, and existing positions matching the new pattern are flagged on the same window.</li>
+  <li>A flagged position is informedly overridden by risk (the leverage looks like Archegos but is hedged in a specific way); the override is recorded and doesn&rsquo;t disable future flags on similar configurations.</li>
+  <li>A position is structured to sit just outside named patterns; the near-miss extension catches enough of the structure to surface it for review without ballooning false positives.</li>
+  <li>A flag fires on a portfolio just before a real liquidity event; the audit shows the flag was specific, named the case, and surfaceable in time to act.</li>
+</ul>
+
+<p><strong>Deliverable.</strong> The encoding-matching-governance specification. Plus a worked example: take one canonical case (LTCM, Archegos, Knight, London Whale, or Lehman) and encode its pattern; show how a hypothetical current portfolio would match it, including which features triggered.</p>
+
+</div><!-- /.detail-body -->
+
+<div class="detail-footer">
+  <a href="https://github.com/meaningalignment/institutions/edit/main/data/cells/group-norms.md">Edit this page on GitHub &rarr;</a>
+</div>
+
+</div><!-- /.detail-main -->
+
+<!-- ── METHODS RAIL (from data/methods/norms.md) ── -->
+<aside class="detail-rail">
+  <div class="rail-label">Norms &mdash; methods &amp; references</div>
+  <div class="rail-body">
+
+    <h2>Regulatory Design &amp; Norm Governance</h2>
+
+    <h3>Textbooks</h3>
+    <ul>
+      <li><strong>Lessig, L.</strong> &mdash; <em>Code: And Other Laws of Cyberspace</em> (2006). Four modalities of regulation: law, norms, markets, architecture.</li>
+      <li><strong>Sunstein, C.</strong> &mdash; <em>Nudge</em> (with Thaler, 2008). How institutional design shapes behavior through defaults and framing.</li>
+      <li><strong>Ostrom, E.</strong> &mdash; <em>Governing the Commons</em> (1990). How communities self-regulate shared resources without central authority.</li>
+      <li><strong>Bicchieri, C.</strong> &mdash; <em>The Grammar of Society: The Nature and Dynamics of Social Norms</em> (2006). Formal theory of how norms emerge, persist, and change.</li>
+      <li><strong>Brennan, G., Eriksson, L., Goodin, R. E., &amp; Southwood, N.</strong> &mdash; <em>Explaining Norms</em> (2013). Philosophical analysis of the nature and function of norms.</li>
+    </ul>
+
+    <h3>Tutorials &amp; Courses</h3>
+    <ul>
+      <li><a href="https://www.oecd.org/regreform/regulatory-policy/ria.htm">Regulatory Impact Analysis (OECD)</a> &mdash; Framework for evaluating proposed regulations.</li>
+    </ul>
+
+    <h3>Key Concepts</h3>
+    <ul>
+      <li><strong>Norm internalization</strong> &mdash; when external rules become intrinsic motivation.</li>
+      <li><strong>Regulatory capture</strong> &mdash; when regulators serve the interests of the regulated.</li>
+      <li><strong>Code as law</strong> &mdash; technical architectures that enforce behavioral constraints.</li>
+      <li><strong>Normative reasoning</strong> &mdash; how agents reason about what they ought to do (vs. what they want to do).</li>
+    </ul>
+
+  </div>
+  <div class="rail-footer">
+    <a href="https://github.com/meaningalignment/institutions/edit/main/data/methods/norms.md">Edit on GitHub &rarr;</a>
+  </div>
+</aside>
+
+</div><!-- /.detail-layout -->
+
+</div><!-- /#detail-view -->
+
+</body>
+</html>

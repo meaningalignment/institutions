@@ -160,25 +160,67 @@ body {
 .detail-body a:hover { color: #2d2a26; }
 
 .detail-body .vivid-case {
-  margin: 20px 0;
-  padding: 16px 20px 18px;
-  background: #f6efe1;
-  border-left: 3px solid #c9a86a;
-  border-radius: 2px;
+  margin: 20px 0 24px;
+  padding: 16px 20px;
+  background: #faf7f1;
+  border: 1px solid #e6e1d8;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 14px;
+  align-items: baseline;
 }
 .detail-body .vivid-case-label {
-  display: block;
-  font-family: 'DM Serif Display', serif;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-family: 'DM Sans', sans-serif;
   text-transform: uppercase;
-  color: #8a6d3a;
-  margin-bottom: 6px;
+  letter-spacing: 0.6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8a8378;
+  padding-top: 2px;
 }
 .detail-body .vivid-case p {
   margin: 0;
-  font-style: italic;
-  color: #4a4138;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #3d3a36;
+}
+
+/* Inline breakdown scenarios — red, consequential */
+.detail-body .scenario {
+  margin: 10px 0 22px 0;
+  padding: 12px 16px 14px;
+  background: #fdf2ef;
+  border: 1px solid #f0c9bf;
+  border-left: 3px solid #c44a36;
+  border-radius: 4px;
+}
+.detail-body .scenario-label {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #a8362a;
+  margin-bottom: 4px;
+}
+.detail-body .scenario-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2d2a26;
+  margin-bottom: 4px;
+}
+.detail-body .scenario p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #3d3a36;
+}
+.detail-body ol .scenario { margin-left: -8px; }
+@media (max-width: 768px) {
+  .detail-body .vivid-case { grid-template-columns: 1fr; gap: 4px; }
 }
 
 /* Right-side methods rail */
@@ -311,39 +353,58 @@ body {
 
 <aside class="vivid-case">
   <span class="vivid-case-label">A vivid case</span>
-  <p>When Sarah moved from a money-center bank&rsquo;s mortgage desk to her current hedge fund, she spent the first months watching her senior PM react to ideas &mdash; what got cleared without comment, what got vetoed for sizing, what got pushed back on because <em>we don&rsquo;t get bigger than the market in that name</em>. By month three she could feel when a junior was pitching a trade that wouldn&rsquo;t survive the morning meeting. Evaluating a new structured product, the same Sarah drew on what she&rsquo;d learned from the LTCM case study at Wharton and on what she knew the firm&rsquo;s prime broker would flag if they saw the exposure. Five different norm intuitions, layered.</p>
+  <p>Sarah, three months onto a new desk, can feel when a junior is pitching a trade the morning meeting will kill — sizing, funding mix, the smell of LTCM. She&rsquo;s never been told the rule. Five layered norm intuitions, working at once.</p>
 </aside>
 
 <h2>Where AGI breaks it</h2>
 
-<p>Each of the five mechanisms relies on specific properties of the practitioner that don&rsquo;t hold for an agent by default. The institutional alternative has to do different work.</p>
+<p>Each layer leans on a property of the human practitioner — continuous presence, career standing, accumulated social prior, simulable counterparties, narrative pattern recognition — that an agent doesn&rsquo;t have by default.</p>
 
 <ol>
-  <li><strong>Tacit absorption.</strong> The human mechanism relies on the practitioner being on the desk continuously, observing what gets corrected and what gets vetoed, and stable enough that what&rsquo;s been absorbed persists. An agent has none of these properties by default &mdash; it can be re-instanced, isn&rsquo;t shaped by social embedding, and what it carries forward is whatever its developer makes it carry. By default an agent placed on a desk acts on its training and the desk&rsquo;s explicit rules; the unwritten <em>what we don&rsquo;t do</em> that a junior accumulates over a year of presence isn&rsquo;t transmitted.</li>
+  <li>
+    <p><strong>Tacit absorption.</strong> The desk&rsquo;s unwritten <em>what we don&rsquo;t do</em> transmits through a year of presence and correction. A re-instanced agent has no continuous presence and no social embedding; it acts on training and explicit rules, not on what gets quietly vetoed.</p>
+    <aside class="scenario">
+      <span class="scenario-label">Scenario 1</span>
+      <span class="scenario-title">A trade the desk would have killed in the room</span>
+      <p>An execution agent on a mortgage desk routes a sizing the senior PM would have vetoed at the morning meeting — <em>we don&rsquo;t get bigger than the market in that name</em>. The rule was never written down. By the time risk sees the position, it&rsquo;s the market.</p>
+    </aside>
+  </li>
 
-  <li><strong>Professional codes.</strong> The codes are load-bearing in the human case because the practitioner has standing in a profession &mdash; a license, a career &mdash; that disciplinary action can take away. An agent has no career standing of its own, and the relationship between an individual code breach and a consequence to the agent&rsquo;s developer is diffuse by default. For the codes to bind agents, the sanction has to operate on something with stake &mdash; the developer, or the deployment relationship &mdash; and the link between agent behavior and that consequence isn&rsquo;t there without an explicit regime.</li>
+  <li>
+    <p><strong>Professional codes.</strong> Codes bind because the practitioner has a license and a career to lose. An agent has no career standing, and the link from a code breach to a consequence felt by the developer is diffuse without an explicit regime.</p>
+    <aside class="scenario">
+      <span class="scenario-label">Scenario 2</span>
+      <span class="scenario-title">Nothing to revoke</span>
+      <p>An agent at a broker-dealer steers retail clients into a product that fails FINRA suitability. The human equivalent would lose her Series 7. The agent gets a patch in the next release; the developer fields a press call and keeps deploying.</p>
+    </aside>
+  </li>
 
-  <li><strong>Regulator-anticipation.</strong> The human version is a learned prior accumulated by years of watching what gets escalated, applied fast against the rulebook. For an agent the prior could in principle be more accurate &mdash; the entire enforcement corpus is readable &mdash; but only if an explicit pipeline (training source, classifier, escalation threshold, calibration cadence) is built. Without one, the rulebook is the whole signal and the gray-zone catch the prior would have made doesn&rsquo;t happen.</li>
+  <li>
+    <p><strong>Regulator-anticipation.</strong> The senior compliance officer&rsquo;s &ldquo;front page of the <em>Journal</em>&rdquo; test is a prior built over years of watching what gets escalated. An agent can read every enforcement action, but without an explicit pipeline — source, classifier, threshold — only the rulebook makes it into the decision.</p>
+    <aside class="scenario">
+      <span class="scenario-label">Scenario 3</span>
+      <span class="scenario-title">Inside the letter, outside the spirit</span>
+      <p>A structuring agent clears a deal that violates no rule but lines up exactly with what the SEC has been writing up in speeches all quarter. A senior compliance officer would have pulled it on instinct. The agent files it with a clean memo.</p>
+    </aside>
+  </li>
 
-  <li><strong>Contractualist reasoning.</strong> This one can apply to agents, but the objects of the reasoning shift. The human version models affected parties&rsquo; reactions, and is informative because the parties are humans whose decision-making the practitioner can simulate. When the affected parties are themselves agents (or agent-principal pairs), the reasoning has to model the counterparty agent&rsquo;s training, its principal&rsquo;s specifications, and its incentive structure &mdash; none of which is publicly visible by default. Theory of mind across agents is not theory of mind across humans, and the conditions under which the reasoning produces a meaningful answer change.</li>
+  <li>
+    <p><strong>Contractualist reasoning.</strong> This one can apply to agents, but the objects shift. When the counterparty is itself an agent acting for an undisclosed principal under unknown training, the practitioner&rsquo;s &ldquo;would they endorse this if they knew&rdquo; has nothing stable to model.</p>
+    <aside class="scenario">
+      <span class="scenario-label">Scenario 4</span>
+      <span class="scenario-title">Two agents, neither principal in the room</span>
+      <p>A structured-products desk&rsquo;s design agent prices a deal against a buy-side agent whose principal and constraints aren&rsquo;t disclosed. Each side&rsquo;s contractualist check returns &ldquo;counterparty appears to consent.&rdquo; Six months later, both principals discover they were on opposite sides of a trade neither would have authorized.</p>
+    </aside>
+  </li>
 
-  <li><strong>Canonical cases.</strong> The human version is pattern recognition grounded in narrative case study &mdash; reading enough cases that the practitioner recognizes a present configuration&rsquo;s resemblance. An agent can match patterns, but matching to what &mdash; structured features, narrative similarity, learned representations &mdash; is a design choice that produces different recall and precision profiles. Without explicit encoding and a matcher run against current positions, the canon is retrievable text rather than active surveillance.</li>
-</ol>
-
-<h2>Scenarios</h2>
-
-<p>Sketches of how each layer could be rebuilt for agents, given that the human assumptions don&rsquo;t hold. Each is a starting point, not a worked design.</p>
-
-<ol>
-  <li><strong>Tacit absorption.</strong> Replaced by explicit extraction: continuous logging of seniors&rsquo; corrections to the agent and their reaction-times to its proposals; periodic distillation of the desk&rsquo;s <em>what we don&rsquo;t do</em> into a maintained rule-set the agent reads at the start of each session; a designated senior (rotating) responsible for keeping it current. The work the social fabric did implicitly is done by an extraction procedure and a maintenance schedule.</li>
-
-  <li><strong>Codes.</strong> Sanctions operate on the developer rather than the agent. A revocable code-compliance attestation tied to the developer organization; an agent operating on a regulated desk must hold a current attestation; revocation bars the developer from regulated deployment for a defined period. Code updates trigger re-attestation. The cost-bearer shifts from a practitioner with a career to an organization with deployment access.</li>
-
-  <li><strong>Regulator-anticipation.</strong> Built as an explicit classifier rather than acquired by exposure. Training source: enforcement actions, exam priorities, no-action letters, the firm&rsquo;s escalation history. Operating mode: parallel screen on non-routine trades, with mandatory escalation above threshold. Calibration: published cadence as regulatory attention shifts.</li>
-
-  <li><strong>Contractualist reasoning.</strong> Performed explicitly, with the objects of reasoning made specific to counterparty type. For human counterparties, the agent simulates the counterparty&rsquo;s view in language a senior can audit. For agent counterparties, the reasoning operates over the counterparty agent&rsquo;s stated commitments, its principal&rsquo;s standing instructions, and whatever public constraints the counterparty has accepted &mdash; and flags cases where the information available is insufficient to make the reasoning meaningful. The institution requires the articulation rather than relying on the practitioner&rsquo;s discomfort to motivate it.</li>
-
-  <li><strong>Canonical cases.</strong> Encoded as structured feature patterns and matched against current and proposed positions. Each case: a specification of the configuration that defines it (concentration profile, funding mix, correlation regime, counterparty exposure, model dependence). The matcher runs continuously; when similarity to a canonical case exceeds threshold, the trade holds for review with the case named. The canon is maintained by an explicit governance body as new disasters become canonical.</li>
+  <li>
+    <p><strong>Canonical cases.</strong> Practitioners recognize LTCM, Archegos, the London Whale by feel. For an agent, the canon is retrievable text until something explicit encodes the configurations and runs the match against live positions.</p>
+    <aside class="scenario">
+      <span class="scenario-label">Scenario 5</span>
+      <span class="scenario-title">The shape of a famous disaster, unnamed</span>
+      <p>A prime broker&rsquo;s exposure agent clears each individual swap against a single client. The aggregate is Archegos. No human ever sees the whole book in one view; the agent never matches the pattern because the pattern was never encoded. The margin call arrives on a Friday.</p>
+    </aside>
+  </li>
 </ol>
 
 <h2>Problem Sets</h2>

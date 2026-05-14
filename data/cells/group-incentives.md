@@ -1,5 +1,8 @@
 ---
 human_label: "Profit-sharing, vesting & bounty systems"
+problem: "How a team aligns individual payoffs with group results so people row in the same direction."
+examples: ["Equity vesting", "Sales commissions", "Profit-sharing pools", "Bug bounties", "Performance bonuses"]
+agi_breaks: ["Agents have no career stake in the team.", "Bounties get gamed at superhuman volume.", "Vesting assumes a person who stays — agents are forked.", "Incentives leak to whoever owns the agent not the team."]
 ---
 
 # Agent profit-sharing & bounty systems

@@ -36,6 +36,9 @@ Every file in `data/cells/` follows this structure. The build doesn't enforce it
 agents_label: Norms between agents     # optional; AGI-grid summary (short). Falls back to H1.
 human_label: Social conventions        # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
 status: ready                          # sketch | draft | ready. Drives grid marker. Optional.
+problem: "How two parties …"           # optional; one-liner naming the coordination challenge for this row × col. Rendered as the "Coordination challenge" row in the summary box at the top of the detail page on both AGI and Human tabs.
+examples: ["X", "Y", "Z"]              # optional; 3–5 short example-institution names for this row × col. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
+agi_breaks: ["…", "…", "…"]            # optional; 3–5 very short bullets (one line each) on how AGI breaks the human institutions in `examples`. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
 related: [group-norms]                 # optional; reserved for future cross-linking.
 ---
 

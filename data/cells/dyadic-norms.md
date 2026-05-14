@@ -1,5 +1,8 @@
 ---
 human_label: "Social conventions"
+problem: "How two parties in a recurring relationship build implicit rules of conduct without writing anything down."
+examples: ["Roommate etiquette", "Studio-share conventions", "Workplace politeness", "Neighborly courtesies", "Co-parenting routines"]
+agi_breaks: ["Agents propose and revise rules in seconds — humans can't keep up.", "No bandwidth-equalized drift; one side pre-computes everything.", "Sanctions like withdrawal don't cost an agent anything.", "Norms can be jailbroken via clever framings."]
 ---
 
 # Agent norm invention

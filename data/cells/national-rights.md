@@ -1,5 +1,8 @@
 ---
 human_label: "Constitutions, courts & judiciary"
+problem: "How a nation guarantees individual entitlements against the state and other powerful actors."
+examples: ["National constitutions", "Supreme courts", "Civil-rights statutes", "Habeas corpus", "Administrative law judges"]
+agi_breaks: ["Harms occur at machine speed; remedies don't.", "Victim and perpetrator are increasingly both agents.", "Standing assumes a person — not an inference run.", "Rights enforcement assumes legible decisions to challenge."]
 ---
 
 # Agents that adjudicate rights

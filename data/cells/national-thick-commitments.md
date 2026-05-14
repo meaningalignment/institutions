@@ -1,5 +1,8 @@
 ---
 human_label: "Substantive constitutions & founding value documents"
+problem: "How a nation declares the substantive values that orient its laws and self-understanding."
+examples: ["US Bill of Rights", "Declaration of the Rights of Man", "German Basic Law", "South African Constitution preamble", "UN Universal Declaration"]
+agi_breaks: ["Founding values get reinterpreted at agent speed.", "No civic body to live them out.", "Models internalize values opaquely — verification is hard.", "A different model could be aligned to a different constitution."]
 ---
 
 # Substantive constitutions & AI alignment docs

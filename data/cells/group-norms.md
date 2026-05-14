@@ -1,6 +1,9 @@
 ---
 agents_label: "Professional norms for agents"
 human_label: "Professional codes of conduct"
+problem: "How a profession sets expectations its members hold each other to without invoking formal law."
+examples: ["Medical ethics codes", "Bar association rules", "Engineering canons", "Journalistic ethics", "Accounting standards"]
+agi_breaks: ["No license to revoke from a model.", "Codes were written assuming human judgment in the loop.", "Reputation among peers doesn't bind a fork.", "Whistleblowing gets harder when the whistleblower is also an agent."]
 ---
 
 # Professional norms for agents

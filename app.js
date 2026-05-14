@@ -70,6 +70,52 @@ function renderBody(md) {
   return renderVividCases(marked.parse(md));
 }
 
+// ── Summary box at top of detail (problem + example institutions) ──
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function renderSummaryBox(fm) {
+  if (!fm) return '';
+  const problem = fm.problem;
+  const examples = Array.isArray(fm.examples) ? fm.examples : null;
+  const agiBreaks = Array.isArray(fm.agi_breaks) ? fm.agi_breaks : null;
+  if (!problem && (!examples || examples.length === 0) && (!agiBreaks || agiBreaks.length === 0)) return '';
+
+  const renderList = (items) => {
+    let h = '<ul class="cell-summary-list">';
+    for (const x of items) h += `<li>${escapeHtml(x)}</li>`;
+    h += '</ul>';
+    return h;
+  };
+
+  let html = '<aside class="cell-summary">';
+  if (problem) {
+    html += '<div class="cell-summary-row">';
+    html += '<span class="cell-summary-label">Coordination challenge</span>';
+    html += `<span class="cell-summary-text">${escapeHtml(problem)}</span>`;
+    html += '</div>';
+  }
+  if (examples && examples.length) {
+    html += '<div class="cell-summary-row">';
+    html += '<span class="cell-summary-label">Examples</span>';
+    html += renderList(examples);
+    html += '</div>';
+  }
+  if (agiBreaks && agiBreaks.length) {
+    html += '<div class="cell-summary-row">';
+    html += '<span class="cell-summary-label">How AGI breaks them</span>';
+    html += renderList(agiBreaks);
+    html += '</div>';
+  }
+  html += '</aside>';
+  return html;
+}
+
 // ── Detail page ────────────────────────────────────────────────────
 
 function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
@@ -93,6 +139,7 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   // Two-column layout: main body + methods rail
   html += '<div class="detail-layout">';
   html += '<div class="detail-main">';
+  html += renderSummaryBox(cell.frontmatter);
   if (cell.body && cell.body.trim()) {
     html += `<div class="detail-body">${renderBody(cell.body)}</div>`;
   } else {

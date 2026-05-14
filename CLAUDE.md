@@ -38,6 +38,9 @@ human_label: Social conventions        # optional; Human-grid summary + Human-ta
 hide_agi: true                         # optional; hide this cell from the AGI grid (renders empty). Use when no AGI story yet.
 hide_human: true                       # optional; symmetric flag for the Human grid.
 status: ready                          # sketch | draft | ready. Drives grid marker. Optional.
+problem: "How two parties …"           # optional; one-liner naming the coordination challenge for this row × col. Rendered as the "Coordination challenge" row in the summary box at the top of the detail page on both AGI and Human tabs.
+examples: ["X", "Y", "Z"]              # optional; 3–5 short example-institution names for this row × col. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
+agi_breaks: ["…", "…", "…"]            # optional; 3–5 very short bullets (one line each) on how AGI breaks the human institutions in `examples`. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
 related: [group-norms]                 # optional; reserved for future cross-linking.
 ---
 

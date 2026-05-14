@@ -180,6 +180,67 @@ td .cell-empty { color: #ccc; font-size: 13px; }
   line-height: 1.3;
 }
 
+.cell-summary {
+  margin: 0 0 28px;
+  padding: 18px 22px 16px;
+  background: #faf7f1;
+  border: 1px solid #e6e1d8;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #3d3a36;
+}
+
+.cell-summary-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.cell-summary-row + .cell-summary-row {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ece7dd;
+}
+
+.cell-summary-label {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8a8378;
+  padding-top: 2px;
+}
+
+.cell-summary-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #2d2a26;
+  line-height: 1.45;
+}
+
+.cell-summary-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  color: #4a463f;
+}
+
+.cell-summary-list li {
+  margin-bottom: 2px;
+}
+
+@media (max-width: 768px) {
+  .cell-summary-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .cell-summary-text { font-size: 14px; }
+  .cell-summary-list { font-size: 13px; }
+}
+
 .detail-body {
   font-size: 15px;
   line-height: 1.7;

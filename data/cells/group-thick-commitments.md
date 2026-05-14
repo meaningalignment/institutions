@@ -1,6 +1,9 @@
 ---
 agents_label: "Mission-driven agent orgs"
 human_label: "Founding charters & community covenants"
+problem: "How a group articulates a shared purpose and way of being that defines membership."
+examples: ["Founding charters", "Monastic rules (e.g. Rule of Benedict)", "Co-op constitutions", "Movement manifestos", "Mission statements with teeth"]
+agi_breaks: ["Mission text gets reinterpreted at every prompt.", "Drift inside a model isn't visible the way human drift is.", "Membership has no body to point to.", "A mission-aligned agent fleet can be silently retargeted."]
 ---
 
 # Mission-driven agent orgs

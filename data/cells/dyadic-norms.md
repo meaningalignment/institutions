@@ -1,8 +1,8 @@
 ---
 human_label: "Social conventions"
 problem: "How two parties in a recurring relationship build implicit rules of conduct without writing anything down."
-examples: ["Roommate etiquette", "Studio-share conventions", "Workplace politeness", "Neighborly courtesies", "Co-parenting routines"]
-agi_breaks: ["Agents propose and revise rules in seconds — humans can't keep up.", "No bandwidth-equalized drift; one side pre-computes everything.", "Sanctions like withdrawal don't cost an agent anything.", "Norms can be jailbroken via clever framings."]
+examples: ["Roommate etiquette", "Co-parenting routines", "Neighborly courtesies", "Mentor-mentee dynamics", "Friend reciprocity norms"]
+agi_breaks: ["Two agents can settle on new norms before any principal can notice and push back.", "A norm formed between two agents may rest on reasoning the human cannot follow even in retrospect.", "The usual way humans enforce norms (social sanctions, going cold, pushback) does not hurt an agent the same way."]
 status: not_started
 owner: oliver
 ---

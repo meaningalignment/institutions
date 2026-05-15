@@ -38,7 +38,27 @@ function parseCell(raw) {
       if (!m) return;
       let val = m[2].trim();
       if (val.startsWith('[') && val.endsWith(']')) {
-        val = val.slice(1, -1).split(',').map(s => s.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+        const inner = val.slice(1, -1);
+        const items = [];
+        let buf = '';
+        let quote = null;
+        for (let i = 0; i < inner.length; i++) {
+          const ch = inner[i];
+          if (quote) {
+            if (ch === '\\' && i + 1 < inner.length) { buf += ch + inner[++i]; continue; }
+            if (ch === quote) { quote = null; continue; }
+            buf += ch;
+          } else if (ch === '"' || ch === "'") {
+            quote = ch;
+          } else if (ch === ',') {
+            items.push(buf.trim());
+            buf = '';
+          } else {
+            buf += ch;
+          }
+        }
+        if (buf.trim()) items.push(buf.trim());
+        val = items.filter(Boolean);
       } else if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
         val = val.slice(1, -1);
       }

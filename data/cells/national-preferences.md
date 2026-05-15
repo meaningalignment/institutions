@@ -4,7 +4,7 @@ problem: "How a nation aggregates the views of millions into legitimate collecti
 examples: ["National elections", "Citizens' assemblies", "Deliberative polls", "Referenda", "Stock exchanges as preference aggregators"]
 agi_breaks: ["Persuasion is industrialized.", "Information environment is curated by agent-driven feeds.", "Astroturf is indistinguishable from speech.", "Voters delegate to agents whose interests are unclear."]
 status: not_started
-owner: none
+owner: oliver
 ---
 
 # Agents that represent national interests / large groups

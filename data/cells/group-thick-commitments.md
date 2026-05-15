@@ -5,7 +5,7 @@ problem: "How a group articulates a shared purpose and way of being that defines
 examples: ["Founding charters", "Monastic rules (e.g. Rule of Benedict)", "Co-op constitutions", "Movement manifestos", "Mission statements with teeth"]
 agi_breaks: ["Mission text gets reinterpreted at every prompt.", "Drift inside a model isn't visible the way human drift is.", "Membership has no body to point to.", "A mission-aligned agent fleet can be silently retargeted."]
 status: not_started
-owner: none
+owner: oliver
 ---
 
 # Mission-driven agent orgs

@@ -4,7 +4,7 @@ problem: "How two parties surface what each wants and find an exchange both pref
 examples: ["Salary negotiation", "Real-estate haggling", "Marketplace bidding", "Settlement talks", "Vendor procurement"]
 agi_breaks: ["Agents can simulate counterparties and pre-compute their walk-away.", "No felt cost to negotiating endlessly.", "Principal's real preferences are hidden behind the agent's brief.", "Asymmetric inference power lets one side extract surplus."]
 status: not_started
-owner: none
+owner: oliver
 ---
 
 # Agent negotiation & bargaining

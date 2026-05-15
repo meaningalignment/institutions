@@ -4,7 +4,7 @@ problem: "How two parties in a recurring relationship build implicit rules of co
 examples: ["Roommate etiquette", "Studio-share conventions", "Workplace politeness", "Neighborly courtesies", "Co-parenting routines"]
 agi_breaks: ["Agents propose and revise rules in seconds — humans can't keep up.", "No bandwidth-equalized drift; one side pre-computes everything.", "Sanctions like withdrawal don't cost an agent anything.", "Norms can be jailbroken via clever framings."]
 status: not_started
-owner: none
+owner: oliver
 ---
 
 # Agent norm invention

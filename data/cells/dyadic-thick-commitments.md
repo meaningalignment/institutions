@@ -4,7 +4,7 @@ problem: "How two parties bind themselves to a shared identity or way of life th
 examples: ["Marriage vows", "Blood-brother oaths", "Doctor-patient covenants", "Confidentiality pledges", "Spiritual direction"]
 agi_breaks: ["No persistent self to bind across time.", "Model versions roll over — who keeps the vow?", "Commitments can be re-grounded by the next prompt.", "Hard to tell sincere binding from rhetorical compliance."]
 status: not_started
-owner: none
+owner: oliver
 ---
 
 # Agent-agent vows

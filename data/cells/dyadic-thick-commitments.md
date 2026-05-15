@@ -2,8 +2,8 @@
 human_label: "Vows & covenants"
 problem: "How two parties bind themselves to a shared identity or way of life that outlasts changing circumstances."
 examples: ["Marriage vows", "Blood-brother oaths", "Godparenthood", "AA sponsor & sponsee"]
-agi_breaks: ["No persistent self to bind across time.", "Model versions roll over — who keeps the vow?", "Commitments can be re-grounded by the next prompt.", "Hard to tell sincere binding from rhetorical compliance."]
-status: not_started
+agi_breaks: ["Agents aren't bound to their vows by a sense of integrity the way humans are.", "Agents aren't held to their vows by community judgment the way humans are.", "Agents are ephemeral and vows don't naturally carry over to new sessions or instances."]
+status: summary_ok
 owner: oliver
 ---
 

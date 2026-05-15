@@ -1,10 +1,10 @@
 ---
 agents_label: "Agent-to-agent contracts"
 human_label: "Contracts & escrow"
-problem: "How two parties bind each other to follow through on a deal once stakes are in motion."
-examples: ["Written contracts", "Escrow accounts", "Letters of credit", "Performance bonds", "Earnest-money deposits"]
-agi_breaks: ["Agents commit on behalf of principals who can disclaim later.", "Natural-language terms get gamed at the edges.", "Speed of breach exceeds speed of remedy.", "An agent can be re-instanced to dodge reputation."]
-status: not_started
+problem: "How two parties hold each other to a deal that neither can unilaterally enforce."
+examples: ["Contract law", "Escrow services", "Letters of credit", "Surety bonding"]
+agi_breaks: ["Agents aren't pulled toward the spirit of a deal by peer judgment or trade practice.", "Two agents disputing what their contract meant have no forum fast enough to rule.", "Agents are incentivized to optimize for what the contract specifies directly instead of treating it as a stand-in for the real goal.", "Agents can breach contracts much faster than humans can pursue remedies.", "Agents can take actions human contract-drafters didn't think to forbid or require.", "Agents can systematically search a contract for loopholes to exploit at superhuman speed."]
+status: summary_draft
 owner: oliver
 ---
 

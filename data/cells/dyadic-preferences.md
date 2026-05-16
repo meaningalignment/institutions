@@ -1,9 +1,9 @@
 ---
 human_label: "Negotiation & bargaining"
-problem: "How two parties surface what each wants and find an exchange both prefer to walking away."
-examples: ["Salary negotiation", "Real-estate haggling", "Marketplace bidding", "Settlement talks", "Vendor procurement"]
-agi_breaks: ["Agents can simulate counterparties and pre-compute their walk-away.", "No felt cost to negotiating endlessly.", "Principal's real preferences are hidden behind the agent's brief.", "Asymmetric inference power lets one side extract surplus."]
-status: not_started
+problem: "How two parties surface what each wants and find an exchange both prefer over walking away."
+examples: ["Salary negotiation", "Real-estate haggling", "Vendor procurement", "M&A negotiation", "Licensing deals"]
+agi_breaks: ["Signing stops meaning the principal actually agreed when deals become too complex for humans to evaluate.", "Deals can close or move in unintended directions before the principal can be looped in on unanticipated trade-offs.", "Negotiation has no natural stopping point when neither side tires.", "An agent can hide what it knows about its own principal to extract surplus the other side can't see was on the table."]
+status: summary_draft
 owner: oliver
 ---
 

@@ -1,9 +1,9 @@
 ---
 human_label: "Diplomatic protocols & soft-law norms"
 problem: "How states settle on expectations of conduct toward each other without a global enforcer."
-examples: ["Diplomatic protocol (Vienna Convention)", "Customary international law", "Nuclear taboo", "Soft-law declarations", "Just-war norms"]
-agi_breaks: ["Negotiation cycles compress to seconds.", "Diplomats are advised by agents whose loyalties are unclear.", "Customary practice forms faster than it can be observed.", "Soft-law signals get crowded out by agent-driven noise."]
-status: not_started
+examples: ["Diplomatic protocol", "Customary international law", "Nuclear taboo", "Just-war norms"]
+agi_breaks: ["Agents could search the coalition space much faster than humans, but no ratification chain exists to handle deals at that speed.", "Agents could find better deals, but the case for them can be too complex for any parliament to evaluate.", "Agents could more effectively launder unacceptable concessions into deals through their size and complexity.", "Diplomatic statements and declarations bind because issuing them costs political capital, and agent-drafted versions cost nothing."]
+status: summary_draft
 owner: oliver
 ---
 

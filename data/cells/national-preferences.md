@@ -1,9 +1,9 @@
 ---
-human_label: "Elections, deliberative polls & national exchanges"
-problem: "How a nation aggregates the views of millions into legitimate collective choices."
-examples: ["National elections", "Citizens' assemblies", "Deliberative polls", "Referenda", "Stock exchanges as preference aggregators"]
-agi_breaks: ["Persuasion is industrialized.", "Information environment is curated by agent-driven feeds.", "Astroturf is indistinguishable from speech.", "Voters delegate to agents whose interests are unclear."]
-status: not_started
+human_label: "Elections, citizens' assemblies & national exchanges"
+problem: "How a nation aggregates millions of individual preferences into collective signals it acts on."
+examples: ["National elections", "Citizens' assemblies", "Referenda", "National exchanges (NYSE, CME)"]
+agi_breaks: ["Preference formation on an entirely new scale becomes possible.", "If agents deliberate or trade on citizens' behalf, it's unclear what makes the result legitimate.", "Agents can act on the world prices are about (placing orders, making calls, publishing news), turning trading into a feedback loop with the real economy."]
+status: summary_draft
 owner: oliver
 ---
 

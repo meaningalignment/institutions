@@ -2,8 +2,8 @@
 human_label: "Constitutions, courts & judiciary"
 problem: "How a nation guarantees individual entitlements against the state and other powerful actors."
 examples: ["National constitutions", "Supreme courts", "Civil-rights statutes", "Habeas corpus", "Administrative law judges"]
-agi_breaks: ["Harms occur at machine speed; remedies don't.", "Victim and perpetrator are increasingly both agents.", "Standing assumes a person — not an inference run.", "Rights enforcement assumes legible decisions to challenge."]
-status: not_started
+agi_breaks: ["The Constitution binds the state, but agents working for private actors might make the decisions that most determine whether a person can work, bank, communicate, or rent.", "Due process requires the state to explain adverse decisions, but agent assistance makes those explanations shallower even when a human still signs off.", "Court cases take months and doctrinal change takes decades, but agents can cause significant harm in minutes.", "Agents can generate complaints and appeals faster than judges can read them."]
+status: summary_draft
 owner: oliver
 ---
 

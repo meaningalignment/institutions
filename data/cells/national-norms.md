@@ -1,9 +1,9 @@
 ---
 human_label: "Legal codes & regulatory norms"
-problem: "How a nation makes generally-binding rules of conduct stick across millions of actors."
-examples: ["Civil codes", "Criminal statutes", "Administrative regulations (CFR)", "UCC", "Health & safety codes"]
-agi_breaks: ["Statutes assume actors who can be deterred by punishment.", "Legal text gets reinterpreted by agents ad infinitum.", "Compliance is automated — and so is non-compliance.", "Regulatory updates lag agent-driven evasion."]
-status: not_started
+problem: "How a nation holds millions of actors to one shared body of law."
+examples: ["US Tax Code", "Code of Federal Regulations", "Uniform Commercial Code", "federal criminal code"]
+agi_breaks: ["Law updates slowly enough that agent-equipped organizations can outpace it.", "Corporations stay inside the law partly because pushing its edges costs lawyer-hours, and agents make those hours cheap.", "Law works by sorting actors into categories like natural person and corporation, and agents don't fit any of them."]
+status: summary_draft
 owner: oliver
 ---
 

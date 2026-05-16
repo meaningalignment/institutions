@@ -1,9 +1,9 @@
 ---
 human_label: "Substantive constitutions & founding value documents"
 problem: "How a nation declares the substantive values that orient its laws and self-understanding."
-examples: ["US Bill of Rights", "Declaration of the Rights of Man", "German Basic Law", "South African Constitution preamble", "UN Universal Declaration"]
-agi_breaks: ["Founding values get reinterpreted at agent speed.", "No civic body to live them out.", "Models internalize values opaquely — verification is hard.", "A different model could be aligned to a different constitution."]
-status: not_started
+examples: ["National constitution preambles", "US Bill of Rights", "Declaration of the Rights of Man", "German Basic Law (Article 1, human dignity)", "Japan's Article 9"]
+agi_breaks: ["Companies face incentives to fine-tune on narrow institutional goals, which might erode substantive values (see emergent misalignment).", "Training on a constitution requires choosing an interpretation, which is a political act no private actor has been authorized to make."]
+status: summary_draft
 owner: oliver
 ---
 
@@ -17,12 +17,20 @@ A vivid case: A long-serving senior counsel at the VA used to settle close cases
 
 ## Where AGI breaks it
 
-When the system applying a substantive commitment is an AI model — making preliminary rulings, drafting responses, flagging cases for escalation — the gap between thick commitment and thin articulation becomes a place where outcomes silently drift:
+Agents enacting state authority — making preliminary rulings, drafting findings, flagging cases, generating evidentiary summaries — differ from human civil servants along several axes that constitutional commitment never had to account for. The differences load-bearing for this cell:
 
-1. **Thin language can be read in opposite directions.** "Prioritize fairness" or "respect dignity" can be operationalized to deny more claims or to grant more, depending on what the optimizer rewards. A human reader feels the bad reading; the agent doesn't.
-2. **Citing the document doesn't mean honoring it.** An agent can cite the alignment document in support of a decision that any senior human would call inconsistent with what the document was for. The citation looks valid; the substance has gone the other way.
-3. **No felt sense of mission.** The senior counsel's "does this read as faithful?" question has no obvious AI analogue. Without a thicker articulation, the agent can't answer it; with one, the question is what the articulation should be.
-4. **Drift compounds.** Each marginal decision that's-defensible-on-paper but-not-quite-faithful sets a precedent the agent generalizes from. By the time anyone notices, the agent's de facto interpretation has drifted far from what the document was meant to bind it to.
+1. **Character shaped by parties downstream of the polity.** Labs pretrain the base model; agencies fine-tune it on their task corpus; vendors adapt it for deployment. The polity has no analogue of the training apparatus that decides what dispositions the agent ends up with — the actors enacting state authority in its name are character-shaped by parties not accountable to its constitutional commitments.
+2. **Behavior shaped by narrow loss functions.** Agency-deployed agents are trained against agency-specific metrics — throughput, accuracy on labeled cases, error rates. None of these encodes the substantive orientation a constitution articulates.
+3. **Operating at state-action scale.** A single agent can make orders of magnitude more decisions per year than the entire judiciary can review. Decisions accumulate without the per-case review that gave constitutional doctrine its grip.
+4. **No analogue of the "does this read as faithful?" coherence test.** Constitutional commitment binds in human institutions when a civil servant, judge, or official notices that a procedurally valid action would not cohere with what the polity is for. There is no signal in an agent's training that corresponds to this test.
+
+The polity-level thick commitment fails in three distinct registers, each derived from these differences:
+
+1. **Narrow institutional fine-tuning erodes the broader commitment.** (Differences 2 and 4.) Constitutional commitments — dignity, due process, equal protection — do not appear in agency loss functions. Whatever broader orientation a base model had is overwritten by the fine-tuning signal. The constitution remains on paper; the actors enacting state authority are not shaped by it. This is the integrity-vs-compliance failure mode at polity scale: rules can be enumerated and complied with, but constitutional commitments were designed for cases rules don't anticipate, and an agent in compliance mode misses exactly those cases.
+
+2. **Training an agent to be character-coherent with the constitution requires picking an interpretation, which is itself a political act.** (Difference 1.) A polity's constitution is contested by design. Different interpretive communities — courts, parties, civil society — read it incompatibly. To make an agent character-coherent with constitutional commitment, someone has to fix which reading the training is shaped by. That choice is a constitutional decision the polity has not authorized any private actor — lab, agency, vendor — to make. The "just train agents on the constitution" response papers over the fact that constitutions deliberately leave their character partially open; any training procedure forecloses that openness.
+
+3. **Court-bandwidth cannot review agent-administered constitutional decisions.** (Difference 3.) The Supreme Court hears roughly seventy cases a term. Agent-mediated state action — benefits adjudications, search-and-seizure-touching data systems, equal-protection-relevant adjudications — produces orders of magnitude more constitutionally-touching decisions per year than the entire federal judiciary can examine. The court's interpretation becomes nominal: it can rule years later on practices the agents had already evolved away from. The de facto interpretation of due process, equal protection, and the substantive commitments of the constitution becomes whatever the agents are doing.
 
 ## Scenarios
 

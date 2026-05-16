@@ -6,6 +6,14 @@ The principles and checklist for cells in `data/cells/`. CLAUDE.md / AGENTS.md o
 
 These are what we landed on after working through dyadic-incentives, group-norms, group-thick-commitments, and community-rights together.
 
+### 0. The summary box stands alone.
+
+The frontmatter `problem` / `examples` / `agi_breaks` render as the cell's elevator pitch.
+
+- **`problem`**: "How [parties] [verb] [object]." A coordination challenge, not a topic.
+- **`examples`**: 3–5 named institutions (Marriage vows, US Tax Code), not statistics or generic phrases.
+- **`agi_breaks`**: 3–5 full sentences, each tying an agent property to a specific mechanism failure. Not telegraphic fragments.
+
 ### 1. The H1 names the gap, not the topic.
 
 "Procedural justice at AI speed" beats "AI judges and adjudication." "Professional norms for agents" beats "Agent norm intuition." `agents_label` mirrors H1 — both short, parallel to the human institution-family name in `human_label`.
@@ -69,6 +77,12 @@ Run this against any cell before declaring it done.
 □ Frontmatter
   □ agents_label set
   □ human_label set
+
+□ Summary box (problem / examples / agi_breaks)
+  □ problem: "How [parties] [verb] [object]." — coordination challenge, not topic
+  □ examples: 3–5 named human institutions (proper nouns), not statistics or generic phrases
+  □ agi_breaks: 3–5 full sentences, each tying an agent property to a specific mechanism failure in one of the examples
+  □ Reads as a standalone elevator pitch — coherent without the body
 
 □ H1
   □ Gap statement, not topic

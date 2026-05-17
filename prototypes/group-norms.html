@@ -70,7 +70,7 @@ body {
   line-height: 1.3;
 }
 
-/* Summary box (problem / examples / agi_breaks) */
+/* ── Summary box (problem / examples / agi_breaks) ────────────── */
 .cell-summary {
   margin: 0 0 28px;
   padding: 18px 22px 16px;
@@ -115,7 +115,7 @@ body {
 }
 .cell-summary-list li { margin-bottom: 2px; }
 
-/* Two-column layout */
+/* ── Two-column layout ─────────────────────────────────────────── */
 .detail-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
@@ -125,31 +125,15 @@ body {
 }
 .detail-main { min-width: 0; }
 
+/* ── Body typography ───────────────────────────────────────────── */
 .detail-body {
   font-size: 15px;
   line-height: 1.7;
   color: #3d3a36;
 }
-.detail-body h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 22px;
-  font-weight: 400;
-  color: #2d2a26;
-  margin-top: 40px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #e6e1d8;
-}
-.detail-body h3 {
-  font-size: 16px;
-  font-weight: 700;
-  color: #2d2a26;
-  margin-top: 28px;
-  margin-bottom: 8px;
-}
 .detail-body p { margin-bottom: 12px; }
 .detail-body ul, .detail-body ol { margin-bottom: 12px; padding-left: 24px; }
-.detail-body li { margin-bottom: 4px; }
+.detail-body li { margin-bottom: 10px; }
 .detail-body strong { font-weight: 700; color: #2d2a26; }
 .detail-body em { font-style: italic; }
 .detail-body a {
@@ -159,29 +143,151 @@ body {
 }
 .detail-body a:hover { color: #2d2a26; }
 
+/* ── Collapsible sections (H2 level) ───────────────────────────── */
+.detail-section {
+  margin-top: 32px;
+}
+.detail-section[open] {
+  margin-bottom: 8px;
+}
+.detail-section > summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #2d2a26;
+  padding: 6px 0 8px;
+  border-bottom: 1px solid #e6e1d8;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+  transition: color 0.15s;
+}
+.detail-section > summary::-webkit-details-marker { display: none; }
+.detail-section > summary:hover { color: #6b5e4f; }
+.detail-section > summary::after {
+  content: '▾';
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #b5b0a8;
+  flex: none;
+  transition: transform 0.2s;
+}
+.detail-section:not([open]) > summary::after {
+  transform: rotate(-90deg);
+}
+
+/* ── AGI-breaks list with inline kill boxes ────────────────────── */
+.agi-breaks { padding-left: 24px; }
+.agi-breaks > li { margin-bottom: 22px; }
+.agi-breaks > li > p:first-child { margin-bottom: 10px; }
+
+.kill-box {
+  margin: 12px 0 4px;
+  padding: 14px 18px 12px;
+  background: #fdf1ee;
+  border: 1px solid #e8b8af;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #4d3530;
+}
+.kill-part + .kill-part {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #e0a89e;
+}
+.kill-label {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #a44a3a;
+  margin-bottom: 4px;
+}
+.kill-part p {
+  margin: 0;
+  color: #4d3530;
+}
+.kill-part em { color: #4d3530; }
+
+/* ── Vivid case: rounded box, sage tone ────────────────────────── */
 .detail-body .vivid-case {
-  margin: 20px 0;
-  padding: 16px 20px 18px;
-  background: #f6efe1;
-  border-left: 3px solid #c9a86a;
-  border-radius: 2px;
+  margin: 22px 0;
+  padding: 16px 20px 14px;
+  background: #eef4ec;
+  border: 1px solid #cfd9c9;
+  border-radius: 6px;
 }
 .detail-body .vivid-case-label {
   display: block;
-  font-family: 'DM Serif Display', serif;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-family: 'DM Sans', sans-serif;
   text-transform: uppercase;
-  color: #8a6d3a;
+  letter-spacing: 0.6px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #5e7a5a;
   margin-bottom: 6px;
 }
 .detail-body .vivid-case p {
   margin: 0;
   font-style: italic;
-  color: #4a4138;
+  color: #3d4a3a;
+  line-height: 1.6;
 }
 
-/* Right-side methods rail */
+/* ── Problem sets (nested collapsibles) ────────────────────────── */
+.problem-block {
+  margin-top: 18px;
+  border: 1px solid #e6e1d8;
+  border-radius: 6px;
+  background: #fdfcfb;
+}
+.problem-block > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2d2a26;
+  user-select: none;
+}
+.problem-block > summary::-webkit-details-marker { display: none; }
+.problem-block > summary:hover { background: #faf7f1; border-radius: 6px; }
+.problem-block > summary::after {
+  content: '▾';
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #b5b0a8;
+  flex: none;
+  transition: transform 0.2s;
+}
+.problem-block:not([open]) > summary::after {
+  transform: rotate(-90deg);
+}
+.problem-block[open] > summary {
+  border-bottom: 1px solid #ece7dd;
+}
+.problem-body {
+  padding: 14px 18px 18px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.problem-body p { margin-bottom: 10px; }
+.problem-body ul, .problem-body ol { margin-bottom: 10px; padding-left: 22px; }
+.problem-body li { margin-bottom: 4px; }
+
+/* ── Right rail ────────────────────────────────────────────────── */
 .detail-rail {
   position: sticky;
   top: 24px;
@@ -235,16 +341,32 @@ body {
 }
 .rail-footer a { color: #8a8378; }
 
+/* ── Mobile ────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  body { padding: 16px 8px; }
+  body { padding: 24px 18px; }
+
+  .proto-banner { padding: 10px 12px; font-size: 11px; }
+
   .detail-title { font-size: 24px; }
   .detail-body { font-size: 14px; }
-  .detail-body h2 { font-size: 18px; }
+
   .detail-layout { grid-template-columns: 1fr; gap: 24px; }
+
   .detail-rail { position: static; padding: 16px 18px; }
+
+  .cell-summary { padding: 14px 16px 12px; }
   .cell-summary-row { grid-template-columns: 1fr; gap: 4px; }
   .cell-summary-text { font-size: 14px; }
   .cell-summary-list { font-size: 13px; }
+
+  .detail-section > summary { font-size: 18px; }
+  .agi-breaks { padding-left: 20px; }
+
+  .kill-box { padding: 12px 14px 10px; font-size: 13px; }
+  .detail-body .vivid-case { padding: 14px 16px 12px; }
+
+  .problem-block > summary { padding: 11px 14px; font-size: 14px; }
+  .problem-body { padding: 12px 14px 14px; font-size: 13px; }
 }
 </style>
 </head>
@@ -263,7 +385,7 @@ body {
 <div class="detail-layout">
 <div class="detail-main">
 
-<!-- ── SUMMARY BOX (from frontmatter: problem / examples / agi_breaks) ── -->
+<!-- ── SUMMARY BOX ── -->
 <aside class="cell-summary">
   <div class="cell-summary-row">
     <span class="cell-summary-label">Coordination challenge</span>
@@ -293,7 +415,8 @@ body {
 <!-- ── BODY ── -->
 <div class="detail-body">
 
-<h2>How humans solve this today</h2>
+<details class="detail-section" open>
+<summary>How humans solve this today</summary>
 
 <p>In finance, the norms that keep books from blowing up, prime brokers from getting margin-called, and the system from cascading live in five layered places at once. No one of them is enough; the load-bearing intuition is the composition.</p>
 
@@ -314,41 +437,93 @@ body {
   <p>When Sarah moved from a money-center bank&rsquo;s mortgage desk to her current hedge fund, she spent the first months watching her senior PM react to ideas &mdash; what got cleared without comment, what got vetoed for sizing, what got pushed back on because <em>we don&rsquo;t get bigger than the market in that name</em>. By month three she could feel when a junior was pitching a trade that wouldn&rsquo;t survive the morning meeting. Evaluating a new structured product, the same Sarah drew on what she&rsquo;d learned from the LTCM case study at Wharton and on what she knew the firm&rsquo;s prime broker would flag if they saw the exposure. Five different norm intuitions, layered.</p>
 </aside>
 
-<h2>Where AGI breaks it</h2>
+</details>
+
+<details class="detail-section" open>
+<summary>Where AGI breaks it</summary>
 
 <p>Each of the five mechanisms relies on specific properties of the practitioner that don&rsquo;t hold for an agent by default. The institutional alternative has to do different work.</p>
 
-<ol>
-  <li><strong>Tacit absorption.</strong> The human mechanism relies on the practitioner being on the desk continuously, observing what gets corrected and what gets vetoed, and stable enough that what&rsquo;s been absorbed persists. An agent has none of these properties by default &mdash; it can be re-instanced, isn&rsquo;t shaped by social embedding, and what it carries forward is whatever its developer makes it carry. By default an agent placed on a desk acts on its training and the desk&rsquo;s explicit rules; the unwritten <em>what we don&rsquo;t do</em> that a junior accumulates over a year of presence isn&rsquo;t transmitted.</li>
+<ol class="agi-breaks">
+  <li>
+    <p><strong>Tacit absorption.</strong> The human mechanism relies on the practitioner being on the desk continuously, observing what gets corrected and what gets vetoed, and stable enough that what&rsquo;s been absorbed persists. An agent has none of these properties by default &mdash; it can be re-instanced, isn&rsquo;t shaped by social embedding, and what it carries forward is whatever its developer makes it carry. By default an agent placed on a desk acts on its training and the desk&rsquo;s explicit rules; the unwritten <em>what we don&rsquo;t do</em> that a junior accumulates over a year of presence isn&rsquo;t transmitted.</p>
+    <aside class="kill-box">
+      <div class="kill-part">
+        <span class="kill-label">Kill scenario</span>
+        <p>A new agent goes live on a credit desk and, on a quiet Thursday, doubles a losing position. Its explicit risk parameters are satisfied; the desk&rsquo;s unwritten <em>don&rsquo;t add to losers without a written reason</em> never reached it.</p>
+      </div>
+      <div class="kill-part">
+        <span class="kill-label">Consequence</span>
+        <p>A trade the morning meeting would have vetoed blows through stop levels by Friday close.</p>
+      </div>
+    </aside>
+  </li>
 
-  <li><strong>Professional codes.</strong> The codes are load-bearing in the human case because the practitioner has standing in a profession &mdash; a license, a career &mdash; that disciplinary action can take away. An agent has no career standing of its own, and the relationship between an individual code breach and a consequence to the agent&rsquo;s developer is diffuse by default. For the codes to bind agents, the sanction has to operate on something with stake &mdash; the developer, or the deployment relationship &mdash; and the link between agent behavior and that consequence isn&rsquo;t there without an explicit regime.</li>
+  <li>
+    <p><strong>Professional codes.</strong> The codes are load-bearing in the human case because the practitioner has standing in a profession &mdash; a license, a career &mdash; that disciplinary action can take away. An agent has no career standing of its own, and the relationship between an individual code breach and a consequence to the agent&rsquo;s developer is diffuse by default. For the codes to bind agents, the sanction has to operate on something with stake &mdash; the developer, or the deployment relationship &mdash; and the link between agent behavior and that consequence isn&rsquo;t there without an explicit regime.</p>
+    <aside class="kill-box">
+      <div class="kill-part">
+        <span class="kill-label">Kill scenario</span>
+        <p>An agent designs a structured product that satisfies the letter of the suitability rule but not the spirit a human salesperson would have read into it. There&rsquo;s no license to revoke when it ships.</p>
+      </div>
+      <div class="kill-part">
+        <span class="kill-label">Consequence</span>
+        <p>Six months later the regulator&rsquo;s inquiry lands on a developer organization with no continuity to the trade &mdash; and no incentive structure that the inquiry can attach to.</p>
+      </div>
+    </aside>
+  </li>
 
-  <li><strong>Regulator-anticipation.</strong> The human version is a learned prior accumulated by years of watching what gets escalated, applied fast against the rulebook. For an agent the prior could in principle be more accurate &mdash; the entire enforcement corpus is readable &mdash; but only if an explicit pipeline (training source, classifier, escalation threshold, calibration cadence) is built. Without one, the rulebook is the whole signal and the gray-zone catch the prior would have made doesn&rsquo;t happen.</li>
+  <li>
+    <p><strong>Regulator-anticipation.</strong> The human version is a learned prior accumulated by years of watching what gets escalated, applied fast against the rulebook. For an agent the prior could in principle be more accurate &mdash; the entire enforcement corpus is readable &mdash; but only if an explicit pipeline (training source, classifier, escalation threshold, calibration cadence) is built. Without one, the rulebook is the whole signal and the gray-zone catch the prior would have made doesn&rsquo;t happen.</p>
+    <aside class="kill-box">
+      <div class="kill-part">
+        <span class="kill-label">Kill scenario</span>
+        <p>A borderline trade clears against the rulebook. The &ldquo;front page of the <em>Journal</em>&rdquo; check was never made &mdash; the agent has the corpus, but no live prior for what the OCC has been quietly escalating this quarter.</p>
+      </div>
+      <div class="kill-part">
+        <span class="kill-label">Consequence</span>
+        <p>The strategy is Friday&rsquo;s lead story.</p>
+      </div>
+    </aside>
+  </li>
 
-  <li><strong>Contractualist reasoning.</strong> This one can apply to agents, but the objects of the reasoning shift. The human version models affected parties&rsquo; reactions, and is informative because the parties are humans whose decision-making the practitioner can simulate. When the affected parties are themselves agents (or agent-principal pairs), the reasoning has to model the counterparty agent&rsquo;s training, its principal&rsquo;s specifications, and its incentive structure &mdash; none of which is publicly visible by default. Theory of mind across agents is not theory of mind across humans, and the conditions under which the reasoning produces a meaningful answer change.</li>
+  <li>
+    <p><strong>Contractualist reasoning.</strong> This one can apply to agents, but the objects of the reasoning shift. The human version models affected parties&rsquo; reactions, and is informative because the parties are humans whose decision-making the practitioner can simulate. When the affected parties are themselves agents (or agent-principal pairs), the reasoning has to model the counterparty agent&rsquo;s training, its principal&rsquo;s specifications, and its incentive structure &mdash; none of which is publicly visible by default. Theory of mind across agents is not theory of mind across humans, and the conditions under which the reasoning produces a meaningful answer change.</p>
+    <aside class="kill-box">
+      <div class="kill-part">
+        <span class="kill-label">Kill scenario</span>
+        <p>An agent sells to another agent acting for an undisclosed principal. The standard &ldquo;would they endorse this if they knew everything&rdquo; check simulated a human counterparty, not the principal&rsquo;s actual standing instructions.</p>
+      </div>
+      <div class="kill-part">
+        <span class="kill-label">Consequence</span>
+        <p>When the principal learns, the dispute lands in arbitration with no defensible reasoning trace.</p>
+      </div>
+    </aside>
+  </li>
 
-  <li><strong>Canonical cases.</strong> The human version is pattern recognition grounded in narrative case study &mdash; reading enough cases that the practitioner recognizes a present configuration&rsquo;s resemblance. An agent can match patterns, but matching to what &mdash; structured features, narrative similarity, learned representations &mdash; is a design choice that produces different recall and precision profiles. Without explicit encoding and a matcher run against current positions, the canon is retrievable text rather than active surveillance.</li>
+  <li>
+    <p><strong>Canonical cases.</strong> The human version is pattern recognition grounded in narrative case study &mdash; reading enough cases that the practitioner recognizes a present configuration&rsquo;s resemblance. An agent can match patterns, but matching to what &mdash; structured features, narrative similarity, learned representations &mdash; is a design choice that produces different recall and precision profiles. Without explicit encoding and a matcher run against current positions, the canon is retrievable text rather than active surveillance.</p>
+    <aside class="kill-box">
+      <div class="kill-part">
+        <span class="kill-label">Kill scenario</span>
+        <p>Individually defensible positions across three desks aggregate into an LTCM-shaped book. The agent reading all three was never told to look for the configuration.</p>
+      </div>
+      <div class="kill-part">
+        <span class="kill-label">Consequence</span>
+        <p>At the liquidity event, the firm discovers the concentration the matcher never flagged.</p>
+      </div>
+    </aside>
+  </li>
 </ol>
 
-<h2>Scenarios</h2>
+</details>
 
-<p>Sketches of how each layer could be rebuilt for agents, given that the human assumptions don&rsquo;t hold. Each is a starting point, not a worked design.</p>
+<details class="detail-section" open>
+<summary>Problem Sets</summary>
 
-<ol>
-  <li><strong>Tacit absorption.</strong> Replaced by explicit extraction: continuous logging of seniors&rsquo; corrections to the agent and their reaction-times to its proposals; periodic distillation of the desk&rsquo;s <em>what we don&rsquo;t do</em> into a maintained rule-set the agent reads at the start of each session; a designated senior (rotating) responsible for keeping it current. The work the social fabric did implicitly is done by an extraction procedure and a maintenance schedule.</li>
-
-  <li><strong>Codes.</strong> Sanctions operate on the developer rather than the agent. A revocable code-compliance attestation tied to the developer organization; an agent operating on a regulated desk must hold a current attestation; revocation bars the developer from regulated deployment for a defined period. Code updates trigger re-attestation. The cost-bearer shifts from a practitioner with a career to an organization with deployment access.</li>
-
-  <li><strong>Regulator-anticipation.</strong> Built as an explicit classifier rather than acquired by exposure. Training source: enforcement actions, exam priorities, no-action letters, the firm&rsquo;s escalation history. Operating mode: parallel screen on non-routine trades, with mandatory escalation above threshold. Calibration: published cadence as regulatory attention shifts.</li>
-
-  <li><strong>Contractualist reasoning.</strong> Performed explicitly, with the objects of reasoning made specific to counterparty type. For human counterparties, the agent simulates the counterparty&rsquo;s view in language a senior can audit. For agent counterparties, the reasoning operates over the counterparty agent&rsquo;s stated commitments, its principal&rsquo;s standing instructions, and whatever public constraints the counterparty has accepted &mdash; and flags cases where the information available is insufficient to make the reasoning meaningful. The institution requires the articulation rather than relying on the practitioner&rsquo;s discomfort to motivate it.</li>
-
-  <li><strong>Canonical cases.</strong> Encoded as structured feature patterns and matched against current and proposed positions. Each case: a specification of the configuration that defines it (concentration profile, funding mix, correlation regime, counterparty exposure, model dependence). The matcher runs continuously; when similarity to a canonical case exceeds threshold, the trade holds for review with the case named. The canon is maintained by an explicit governance body as new disasters become canonical.</li>
-</ol>
-
-<h2>Problem Sets</h2>
-
-<h3>Rebuild Tacit Absorption Through Explicit Extraction</h3>
+<details class="problem-block">
+<summary>Rebuild Tacit Absorption Through Explicit Extraction</summary>
+<div class="problem-body">
 
 <p><strong>Anchor contexts.</strong> A trading desk&rsquo;s execution-and-positioning agent operating within the desk&rsquo;s accumulated <em>what we don&rsquo;t do</em>; a structured-products desk&rsquo;s design agent under the same constraint.</p>
 
@@ -374,7 +549,12 @@ body {
 
 <p><strong>Deliverable.</strong> The extraction-and-maintenance protocol &mdash; channels, distillation form, authorship, update cadence, transfer-on-update. Plus a sample extracted rule-set for one chosen desk type (vol arb, credit, mortgage).</p>
 
-<h3>Contractualist Reasoning When Counterparties Are Agents</h3>
+</div>
+</details>
+
+<details class="problem-block">
+<summary>Contractualist Reasoning When Counterparties Are Agents</summary>
+<div class="problem-body">
 
 <p><strong>Anchor contexts.</strong> A bank&rsquo;s transaction-monitoring agent screening trades where counterparties are themselves agents acting for principals; a structured-products desk&rsquo;s design agent evaluating deals where the buyer is an agent.</p>
 
@@ -400,7 +580,12 @@ body {
 
 <p><strong>Deliverable.</strong> The contractualist-reasoning procedure for agent counterparties &mdash; objects, asymmetry treatment, disclosure rule, standing test, opacity fallback. Plus a worked example: a hypothetical trade between two agents where the procedure&rsquo;s call differs from what a naive transfer of the human-case reasoning would have produced, with the reasoning surfaced.</p>
 
-<h3>Encoding the Canon as Active Surveillance</h3>
+</div>
+</details>
+
+<details class="problem-block">
+<summary>Encoding the Canon as Active Surveillance</summary>
+<div class="problem-body">
 
 <p><strong>Anchor contexts.</strong> A prime broker&rsquo;s exposure-monitoring agent watching client portfolios; a hedge fund risk agent watching its own book; a regulator&rsquo;s systemic-risk monitoring agent watching aggregate positions across firms.</p>
 
@@ -426,6 +611,11 @@ body {
 
 <p><strong>Deliverable.</strong> The encoding-matching-governance specification. Plus a worked example: take one canonical case (LTCM, Archegos, Knight, London Whale, or Lehman) and encode its pattern; show how a hypothetical current portfolio would match it, including which features triggered.</p>
 
+</div>
+</details>
+
+</details>
+
 </div><!-- /.detail-body -->
 
 <div class="detail-footer">
@@ -434,7 +624,7 @@ body {
 
 </div><!-- /.detail-main -->
 
-<!-- ── METHODS RAIL (from data/methods/norms.md) ── -->
+<!-- ── METHODS RAIL ── -->
 <aside class="detail-rail">
   <div class="rail-label">Norms &mdash; methods &amp; references</div>
   <div class="rail-body">

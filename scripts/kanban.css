@@ -256,6 +256,25 @@ body {
 .kanban-page.filter-joe    .kanban-card:not([data-owner="joe"])    { display: none; }
 .kanban-page.filter-none   .kanban-card:not([data-owner="none"])   { display: none; }
 
+/* Kind toggle: by default hide human-only and fidelity cards.
+   The "Show human-only + fidelity" button toggles this off. */
+.kanban-page.hide-extra-kinds .kanban-card[data-kind="human-only"],
+.kanban-page.hide-extra-kinds .kanban-card[data-kind="fidelity"] { display: none; }
+
+/* Slight visual separation for the kind toggle so it doesn't read as
+   part of the owner-filter group. */
+.kanban-kind-toggle { margin-left: auto; }
+.kanban-kind-toggle.active {
+  background: #6b3e1f;
+  color: #fff;
+  border-color: #6b3e1f;
+}
+
+/* Faint marking so human-only and fidelity cards are distinguishable
+   from AGI cards when shown. */
+.kanban-card[data-kind="human-only"] { background: #faf6ee; }
+.kanban-card[data-kind="fidelity"]   { background: #f3eef9; }
+
 /* Mode banner */
 .kanban-mode-banner {
   font-size: 12px;

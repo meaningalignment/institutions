@@ -130,8 +130,12 @@ function buildCards(cells, dirName) {
     const col = COLS.find(c => c.id === colId);
     if (!row || !col) continue;
     const fm = cell.frontmatter || {};
+    let kind;
+    if (dirName === 'fidelity') kind = 'fidelity';
+    else if (String(fm.hide_agi) === 'true') kind = 'human-only';
+    else kind = 'agi';
     cards.push({
-      key, dirName, rowId, colId,
+      key, dirName, rowId, colId, kind,
       rowName: row.name, colName: col.name,
       status: fm.status || 'not_started',
       owner:  fm.owner  || 'none',
@@ -149,7 +153,7 @@ function renderCard(card) {
   const editorialBadge = card.editorialCount > 0
     ? `<span class="kanban-card-editorial-badge" title="${card.editorialCount} editorial note${card.editorialCount === 1 ? '' : 's'} in body">✎ ${card.editorialCount}</span>`
     : '';
-  return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}">
+  return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}" data-kind="${esc(card.kind)}">
     <div class="kanban-card-breadcrumb">${esc(card.rowName)} / ${esc(card.colName)}${fidelityNote}</div>
     <div class="kanban-card-title">${esc(card.title)}</div>
     <div class="kanban-card-meta">
@@ -184,6 +188,7 @@ ${stageCards.map(renderCard).join('\n')}
   for (const o of OWNERS) {
     filterButtons += `<button class="kanban-filter-btn" data-filter="${esc(o)}">${esc(o)}</button>`;
   }
+  filterButtons += `<button class="kanban-filter-btn kanban-kind-toggle" data-kind-toggle="1" title="Show cards from the Human-only and Fidelity tabs">Show human-only + fidelity</button>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -228,27 +233,47 @@ const PAGE_SCRIPT = `
   var OWNERS = ${JSON.stringify(OWNERS)};
   var root = document.getElementById('kanban-root');
 
-  // ── Owner filter (persisted to localStorage) ──────────────────────
-  var btns = document.querySelectorAll('.kanban-filter-btn');
-  function applyFilter(f){
-    btns.forEach(function(b){
-      b.classList.toggle('active', b.getAttribute('data-filter') === f);
+  // ── Owner filter + kind toggle (both persisted to localStorage) ───
+  var ownerBtns = document.querySelectorAll('.kanban-filter-btn[data-filter]');
+  var kindToggleBtn = document.querySelector('[data-kind-toggle]');
+  var currentOwner = 'all';
+  var showExtraKinds = false;
+
+  function applyState(){
+    ownerBtns.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-filter') === currentOwner);
     });
-    root.className = 'kanban-page drag-enabled' + (f === 'all' ? '' : ' filter-' + f);
+    if (kindToggleBtn) kindToggleBtn.classList.toggle('active', showExtraKinds);
+    var cls = 'kanban-page drag-enabled';
+    if (currentOwner !== 'all') cls += ' filter-' + currentOwner;
+    if (!showExtraKinds) cls += ' hide-extra-kinds';
+    root.className = cls;
+    updateCounts();
   }
+
   try {
-    var saved = localStorage.getItem('kanban.filter');
-    if (saved && Array.from(btns).some(function(b){ return b.getAttribute('data-filter') === saved; })) {
-      applyFilter(saved);
+    var savedOwner = localStorage.getItem('kanban.filter');
+    if (savedOwner && Array.from(ownerBtns).some(function(b){ return b.getAttribute('data-filter') === savedOwner; })) {
+      currentOwner = savedOwner;
     }
+    showExtraKinds = localStorage.getItem('kanban.showExtraKinds') === '1';
   } catch (e) {}
-  btns.forEach(function(btn){
+  applyState();
+
+  ownerBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
-      var f = btn.getAttribute('data-filter');
-      applyFilter(f);
-      try { localStorage.setItem('kanban.filter', f); } catch (e) {}
+      currentOwner = btn.getAttribute('data-filter');
+      applyState();
+      try { localStorage.setItem('kanban.filter', currentOwner); } catch (e) {}
     });
   });
+  if (kindToggleBtn) {
+    kindToggleBtn.addEventListener('click', function(){
+      showExtraKinds = !showExtraKinds;
+      applyState();
+      try { localStorage.setItem('kanban.showExtraKinds', showExtraKinds ? '1' : '0'); } catch (e) {}
+    });
+  }
 
   // ── PATCH helper ──────────────────────────────────────────────────
   function patchCell(card, fields){
@@ -267,9 +292,20 @@ const PAGE_SCRIPT = `
     });
   }
 
+  function isVisible(card){
+    if (currentOwner !== 'all' && card.getAttribute('data-owner') !== currentOwner) return false;
+    if (!showExtraKinds) {
+      var kind = card.getAttribute('data-kind');
+      if (kind === 'human-only' || kind === 'fidelity') return false;
+    }
+    return true;
+  }
   function updateCounts(){
     document.querySelectorAll('.kanban-col').forEach(function(c){
-      var n = c.querySelectorAll('.kanban-card').length;
+      var n = 0;
+      c.querySelectorAll('.kanban-card').forEach(function(card){
+        if (isVisible(card)) n++;
+      });
       c.querySelector('.kanban-col-count').textContent = n;
     });
   }

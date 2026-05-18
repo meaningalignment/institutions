@@ -1,6 +1,6 @@
 ---
 human_label: "Vows & covenants"
-status: summary_needs_work
+status: summary_draft
 owner: oliver
 ---
 

@@ -1,6 +1,6 @@
 ---
 human_label: "Negotiation & bargaining"
-status: summary_needs_work
+status: summary_ok
 owner: oliver
 ---
 
@@ -27,8 +27,6 @@ How two parties surface what each wants and find an exchange both prefer over wa
 - Negotiation has no natural stopping point when neither side tires.
 - An agent can hide what it knows about its own principal to extract surplus the other side can't see was on the table.
 - Asymmetric capabilities could potentially be much more extreme than the human case of a skilled negotiator versus an unskilled one, making it harder to find protocols that work for all parties.
-
-{{>> Added the last one. We might also want to link to contracts somehow (dyadic incentives) because those problems are also relevant here. <<}}
 
 ## How humans solve this today
 

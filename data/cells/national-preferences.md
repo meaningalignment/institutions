@@ -24,7 +24,8 @@ How a nation aggregates millions of individual preferences into collective decis
 ### How AGI breaks them
 
 - Agents can persuade at scale through one-on-one conversations, seeded online movements, manufactured polls and apparent majorities. Voter preferences become highly manipulable, by domestic and foreign actors alike.
-- Elections, assemblies, referenda, and polls are slow and costly, so there will be pressures toward synthetic assemblies and simulated deliberation. It's unclear how either can be democratically legitimate.
+- Elections, assemblies, referenda, and polls are slow and costly, so there will be pressures toward simulated polls and deliberation. It's unclear how they can be democratically legitimate.
+- If no preference-aggregation alternatives keep pace with an increasingly volatile world, the pull toward authoritarianism grows.
 
 ## How humans solve this today
 

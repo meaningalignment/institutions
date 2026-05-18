@@ -1,7 +1,7 @@
 ---
 human_label: "Cooperatives, participatory budgets & local markets"
 status: not_started
-owner: none
+owner: joe
 ---
 
 # Market design for societies of agents

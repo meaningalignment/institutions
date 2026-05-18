@@ -1,7 +1,7 @@
 ---
 human_label: "Matching markets (kidney, school) & commons governance"
-status: not_started
-owner: none
+status: summary_draft
+owner: joe
 ---
 
 # AI commons management

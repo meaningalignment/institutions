@@ -1,6 +1,7 @@
 ---
-human_label: "Elections, citizens' assemblies & national exchanges"
-status: summary_needs_work
+agents_label: "Elections and citizen assemblies"
+human_label: "Elections and citizen assemblies"
+status: summary_draft
 owner: oliver
 ---
 
@@ -10,20 +11,20 @@ owner: oliver
 
 ### Coordination challenge
 
-How a nation aggregates millions of individual preferences into collective signals it acts on.
+How a nation aggregates millions of individual preferences into collective decisions.
 
 ### Examples
 
 - National elections
 - Citizens' assemblies
 - Referenda
-- National exchanges (NYSE, CME)
+- Polls
+{>> joe — cut national exchanges (NYSE, CME) from here. only fits as "preference aggregation" if you really squint, and totally different solution space. —oliver <<}
 
 ### How AGI breaks them
 
-- Preference formation on an entirely new scale becomes possible.
-- If agents deliberate or trade on citizens' behalf, it's unclear what makes the result legitimate.
-- Agents can act on the world prices are about (placing orders, making calls, publishing news), turning trading into a feedback loop with the real economy.
+- Agents can persuade at scale through one-on-one conversations, seeded online movements, manufactured polls and apparent majorities. Voter preferences become highly manipulable, by domestic and foreign actors alike.
+- Elections, assemblies, referenda, and polls are slow and costly, so there will be pressures toward synthetic assemblies and simulated deliberation. It's unclear how either can be democratically legitimate.
 
 ## How humans solve this today
 

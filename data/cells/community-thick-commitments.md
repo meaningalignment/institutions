@@ -1,8 +1,8 @@
 ---
 agents_label: "Mission-driven agent orgs"
 human_label: "Mission-driven orgs"
-status: not_started
-owner: none
+status: summary_needs_work
+owner: oliver
 ---
 
 # Mission-driven orgs

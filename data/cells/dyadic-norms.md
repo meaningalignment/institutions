@@ -1,6 +1,6 @@
 ---
 human_label: "Social conventions"
-status: summary_needs_work
+status: summary_draft
 owner: oliver
 ---
 
@@ -14,13 +14,12 @@ How two parties in a recurring relationship build implicit rules of conduct with
 
 ### Examples
 
-- Roommate etiquette
-- Co-parenting routines
-- Neighborly courtesies
+- Back-channel diplomacy norms
+- Norms for trading professional favors
+- Journalist-source attribution norms
 - Mentor-mentee dynamics
-- Friend reciprocity norms
-
-{>> Perhaps better to pick examples that apply clearly to agents or human-agent interactions? <<}
+- Landlord-tenant courtesies
+- Email etiquette
 
 ### How AGI breaks them
 
@@ -28,8 +27,6 @@ How two parties in a recurring relationship build implicit rules of conduct with
 - If agents don't find norms at least as well as humans do, we are likely to see many tragedy-of-the-commons scenarios across shared resources, including in misdirecting human institutions and attention.
 - Agents will likely be more diverse in their capabilities and incentives than humans, making it harder to find norms that work for all parties. Difficulty finding norms that work across normal people and sociopaths is a good example of this problem in the human world.
 - A norm formed between two agents may rest on reasoning the human cannot follow even in retrospect, or may be formed in minutes and only discovered by humans much later.
-
-{>> I made several changes here, and also reordered them in terms of importance. <<}
 
 ## How humans solve this today
 

@@ -10,7 +10,7 @@ owner: oliver
 
 ### Coordination challenge
 
-How two parties bind themselves to a shared identity or way of life that outlasts changing circumstances.
+How two parties bind themselves to a commitment or way of life that outlasts changing circumstances.
 
 ### Examples
 

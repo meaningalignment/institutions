@@ -2,7 +2,7 @@
 agents_label: "Mission-driven agent orgs"
 human_label: "Founding charters & community covenants"
 status: summary_needs_work
-owner: oliver
+owner: joe
 ---
 
 # Mission-driven agent orgs

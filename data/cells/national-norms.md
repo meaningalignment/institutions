@@ -1,6 +1,6 @@
 ---
 human_label: "Legal codes & regulatory norms"
-status: summary_needs_work
+status: summary_draft
 owner: oliver
 ---
 
@@ -10,20 +10,20 @@ owner: oliver
 
 ### Coordination challenge
 
-How a nation holds millions of actors to one shared body of law.
+How a nation coordinates millions of actors around shared expectations of conduct.
 
 ### Examples
 
-- US Tax Code
-- Code of Federal Regulations
-- Uniform Commercial Code
-- federal criminal code
+- Federal statutes like the Internal Revenue Code
+- Agency regulations like the Code of Federal Regulations
+- Agency guidance like IRS revenue rulings and FDA guidance documents
+- Industry compliance practice like bank KYC programs
 
 ### How AGI breaks them
 
-- Law updates slowly enough that agent-equipped organizations can outpace it.
-- Corporations stay inside the law partly because pushing its edges costs lawyer-hours, and agents make those hours cheap.
-- Law works by sorting actors into categories like natural person and corporation, and agents don't fit any of them.
+- Law is slow. Corporations with powerful AI could find and rotate through loopholes faster than regulation can patch them.
+- The spirit of the law deters because edge cases are hard to judge. Powerful AI could read the whole code and work out exactly where the line is, leaving only the letter.
+- Firms stay back from the legal line because pushing it costs lawyer hours. Agents might make those hours cheap, and a backlog of legal but unused tactics opens up.
 
 ## How humans solve this today
 

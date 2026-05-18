@@ -171,10 +171,25 @@ body {
   border-color: transparent #c9c2b6 transparent transparent;
   opacity: 0.45;
 }
-.kanban-card.status-summary-draft::after { border-color: transparent #e8d27a transparent transparent; }
-.kanban-card.status-summary-ok::after    { border-color: transparent #d4a72c transparent transparent; }
-.kanban-card.status-body-draft::after    { border-color: transparent #a8c95e transparent transparent; }
-.kanban-card.status-body-ok::after       { border-color: transparent #6aaa64 transparent transparent; }
+.kanban-card.status-summary-draft::after      { border-color: transparent #e8d27a transparent transparent; }
+.kanban-card.status-summary-needs-work::after { border-color: transparent #e07b39 transparent transparent; }
+.kanban-card.status-summary-ok::after         { border-color: transparent #d4a72c transparent transparent; }
+.kanban-card.status-body-draft::after         { border-color: transparent #a8c95e transparent transparent; }
+.kanban-card.status-body-needs-work::after    { border-color: transparent #c44d2e transparent transparent; }
+.kanban-card.status-body-ok::after            { border-color: transparent #6aaa64 transparent transparent; }
+
+/* Editorial-note count badge: shown when the cell body contains
+   {>> ... <<} markers. Sits next to the owner pill. */
+.kanban-card-editorial-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #fdf0e6;
+  color: #c44d2e;
+  border: 1px solid #f0d4bd;
+  line-height: 1.4;
+}
 
 .kanban-owner-pill {
   font-size: 11px;

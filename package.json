@@ -6,6 +6,8 @@
   "scripts": {
     "build": "bun build.js",
     "kanban": "bun scripts/kanban.js",
+    "serve": "bun scripts/serve.js",
+    "dev": "bun scripts/dev.js",
     "pdf": "bun build.js && bun scripts/pdf.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

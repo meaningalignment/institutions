@@ -773,5 +773,14 @@
   Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
 
+<script>
+(function(){
+  var h = location.hostname;
+  if (h === 'localhost' || h === '127.0.0.1' || h === '' || /[?&]editorial(=|&|$)/.test(location.search)) {
+    document.documentElement.classList.add('show-editorial');
+  }
+})();
+</script>
+
 </body>
 </html>

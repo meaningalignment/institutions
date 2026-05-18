@@ -1,5 +1,25 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* Inline editorial notes: hidden by default, revealed on localhost or with
+   ?editorial in the URL (handled in app.js and the problem-sets inline script). */
+.editorial { display: none; }
+.show-editorial .editorial {
+  display: inline;
+  background: #fdf0e6;
+  color: #5a3a25;
+  border-left: 3px solid #c44d2e;
+  padding: 1px 8px 1px 6px;
+  margin: 0 2px;
+  border-radius: 0 3px 3px 0;
+  font-size: 0.9em;
+  font-style: italic;
+}
+.show-editorial .editorial::before {
+  content: '✎ ';
+  opacity: 0.7;
+  font-style: normal;
+}
+
 body {
   font-family: 'DM Sans', sans-serif;
   color: #2d2a26;
@@ -492,7 +512,8 @@ td.has-ps::after, td[class*="status-"]::after {
   border-width: 0 12px 12px 0;
   border-color: transparent #6aaa64 transparent transparent;
 }
-/* 5-stage workflow: not_started → summary_draft → summary_ok → body_draft → body_ok */
+/* 7-stage workflow: not_started → summary_draft → summary_needs_work → summary_ok
+                    → body_draft → body_needs_work → body_ok */
 td.status-not-started::after {
   border-color: transparent #c9c2b6 transparent transparent;
   opacity: 0.45;
@@ -500,11 +521,17 @@ td.status-not-started::after {
 td.status-summary-draft::after {
   border-color: transparent #e8d27a transparent transparent;
 }
+td.status-summary-needs-work::after {
+  border-color: transparent #e07b39 transparent transparent;
+}
 td.status-summary-ok::after {
   border-color: transparent #d4a72c transparent transparent;
 }
 td.status-body-draft::after {
   border-color: transparent #a8c95e transparent transparent;
+}
+td.status-body-needs-work::after {
+  border-color: transparent #c44d2e transparent transparent;
 }
 td.status-body-ok::after {
   border-color: transparent #6aaa64 transparent transparent;

@@ -19,7 +19,7 @@
 //
 // Bound to 127.0.0.1 only. No auth.
 
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, watch } from 'node:fs';
 import { join, resolve, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -48,12 +48,18 @@ const COLS = [
 ];
 
 const STAGES = [
-  { id: 'not_started',   name: 'Not started' },
-  { id: 'summary_draft', name: 'Summary — ready for review' },
-  { id: 'summary_ok',    name: 'Summary — OK' },
-  { id: 'body_draft',    name: 'Body — ready for review' },
-  { id: 'body_ok',       name: 'Body — OK' }
+  { id: 'not_started',        name: 'Not started' },
+  { id: 'summary_draft',      name: 'Summary — ready for review' },
+  { id: 'summary_needs_work', name: 'Summary — needs work' },
+  { id: 'summary_ok',         name: 'Summary — OK' },
+  { id: 'body_draft',         name: 'Body — ready for review' },
+  { id: 'body_needs_work',    name: 'Body — needs work' },
+  { id: 'body_ok',            name: 'Body — OK' }
 ];
+
+const EDITORIAL_RE = /\{>>[\s\S]*?<<\}/g;
+
+const RELOAD_SCRIPT = `<script>(function(){try{var es=new EventSource('/_reload');es.addEventListener('reload',function(){location.reload();});}catch(e){}})();</script>`;
 
 const OWNERS = ['oliver', 'joe', 'none'];
 const VALID_DIRS = new Set(['cells', 'fidelity']);
@@ -84,8 +90,10 @@ function parseCell(raw) {
       const m = line.match(/^(\w+):\s*(.*)$/);
       if (!m) return;
       let val = m[2].trim();
-      if ((val.startsWith('"') && val.endsWith('"')) ||
-          (val.startsWith("'") && val.endsWith("'"))) {
+      if (val.length >= 2 && val.startsWith('"') && val.endsWith('"')) {
+        try { val = JSON.parse(val); }
+        catch { val = val.slice(1, -1); }
+      } else if (val.length >= 2 && val.startsWith("'") && val.endsWith("'")) {
         val = val.slice(1, -1);
       }
       frontmatter[m[1]] = val;
@@ -94,7 +102,8 @@ function parseCell(raw) {
   }
   const h1Match = body.match(/^#\s+(.+)$/m);
   const summary = h1Match ? h1Match[1].trim() : '';
-  return { summary, frontmatter };
+  const editorialCount = (body.match(EDITORIAL_RE) || []).length;
+  return { summary, frontmatter, editorialCount };
 }
 
 function loadCells(dirName) {
@@ -126,6 +135,7 @@ function buildCards(cells, dirName) {
       rowName: row.name, colName: col.name,
       status: fm.status || 'not_started',
       owner:  fm.owner  || 'none',
+      editorialCount: cell.editorialCount || 0,
       title:  fm.agents_label || cell.summary || `${row.name} × ${col.name}`
     });
   }
@@ -136,11 +146,15 @@ function buildCards(cells, dirName) {
 
 function renderCard(card) {
   const fidelityNote = card.dirName === 'fidelity' ? ' · Fidelity' : '';
+  const editorialBadge = card.editorialCount > 0
+    ? `<span class="kanban-card-editorial-badge" title="${card.editorialCount} editorial note${card.editorialCount === 1 ? '' : 's'} in body">✎ ${card.editorialCount}</span>`
+    : '';
   return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}">
     <div class="kanban-card-breadcrumb">${esc(card.rowName)} / ${esc(card.colName)}${fidelityNote}</div>
     <div class="kanban-card-title">${esc(card.title)}</div>
     <div class="kanban-card-meta">
       <button type="button" class="kanban-owner-pill owner-${esc(card.owner)}" data-owner-btn="1" title="Click to reassign">${esc(card.owner)}</button>
+      ${editorialBadge}
     </div>
   </div>`;
 }
@@ -202,6 +216,7 @@ ${cols}
 ${PAGE_SCRIPT}
 </script>
 
+${RELOAD_SCRIPT}
 </body>
 </html>`;
 }
@@ -249,6 +264,13 @@ const PAGE_SCRIPT = `
     }).then(function(r){
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
+    });
+  }
+
+  function updateCounts(){
+    document.querySelectorAll('.kanban-col').forEach(function(c){
+      var n = c.querySelectorAll('.kanban-card').length;
+      c.querySelector('.kanban-col-count').textContent = n;
     });
   }
 
@@ -350,10 +372,7 @@ const PAGE_SCRIPT = `
       colBody.appendChild(dragged);
       dragged.setAttribute('data-status', newStatus);
       dragged.className = dragged.className.replace(/status-[a-z-]+/, 'status-' + newStatus.replace(/_/g, '-'));
-      document.querySelectorAll('.kanban-col').forEach(function(c){
-        var n = c.querySelectorAll('.kanban-card').length;
-        c.querySelector('.kanban-col-count').textContent = n;
-      });
+      updateCounts();
 
       patchCell(dragged, { status: newStatus }).catch(function(err){
         alert('Save failed: ' + err.message + '. Reload to resync.');
@@ -421,6 +440,37 @@ async function handleApi(req) {
   }
 }
 
+// ── Live-reload (SSE) ────────────────────────────────────────────────────
+
+const sseClients = new Set();
+function broadcastReload() {
+  const payload = 'event: reload\ndata: 1\n\n';
+  for (const ctrl of [...sseClients]) {
+    try { ctrl.enqueue(payload); }
+    catch { sseClients.delete(ctrl); }
+  }
+}
+
+let reloadTimer = null;
+function scheduleReload() {
+  clearTimeout(reloadTimer);
+  reloadTimer = setTimeout(() => {
+    reloadTimer = null;
+    broadcastReload();
+  }, 400);
+}
+
+// Watch data/ for content changes — kanban renders fresh on every request,
+// so we only need to nudge connected browsers to reload.
+try {
+  watch(join(REPO_ROOT, 'data'), { recursive: true }, (_event, filename) => {
+    if (!filename || filename.startsWith('.')) return;
+    scheduleReload();
+  });
+} catch (e) {
+  console.warn(`kanban: watch failed: ${e.message}`);
+}
+
 // ── Server ───────────────────────────────────────────────────────────────
 
 const server = Bun.serve({
@@ -431,6 +481,21 @@ const server = Bun.serve({
     const pathname = url.pathname;
 
     if (pathname === '/api/cell') return handleApi(req);
+
+    if (pathname === '/_reload') {
+      let myCtrl;
+      const stream = new ReadableStream({
+        start(c) { myCtrl = c; sseClients.add(c); c.enqueue(': hello\n\n'); },
+        cancel() { sseClients.delete(myCtrl); }
+      });
+      return new Response(stream, {
+        headers: {
+          'Content-Type': 'text/event-stream; charset=utf-8',
+          'Cache-Control': 'no-cache, no-transform',
+          'Connection': 'keep-alive'
+        }
+      });
+    }
 
     if (pathname === '/' || pathname === '/index.html') {
       return new Response(renderKanbanHtml(), {

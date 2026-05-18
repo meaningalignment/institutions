@@ -13,7 +13,18 @@ npm run build
 
 This generates `index.html` (AGI grid), `human/index.html`, `fidelity/index.html`, `problem-sets/index.html`, and `data/manifest.json`. All HTML files are checked into git and deployed as static files via Vercel.
 
-The Kanban is a separate local-only tool — not part of the build, not deployed. Run `bun run kanban` to launch a small Bun server on http://127.0.0.1:5174/. It renders five status columns (`not_started` → `summary_draft` → `summary_ok` → `body_draft` → `body_ok`) live from the markdown files, lets you drag cards between columns and click owner pills to reassign (`oliver` / `joe` / `none`), and writes the edits back into the YAML frontmatter. Everything kanban-specific lives in `scripts/kanban.js` and `scripts/kanban.css`; `build.js` knows nothing about it.
+### Dev workflow
+
+`npm run dev` starts both local servers at once with file-watch + live-reload:
+
+- `http://127.0.0.1:5173/` — main site. Watches `data/`, `app.js`, `style.css`, `build.js`; on change reruns `build.js` and pushes a reload event over SSE to every open tab.
+- `http://127.0.0.1:5174/` — Kanban (described below). Watches `data/` and pushes a reload event on change; the kanban renders fresh from disk on every request, so reload alone is enough.
+
+Both servers inject a tiny `<script>` that listens on `/_reload` (Server-Sent Events) and calls `location.reload()` when the watcher fires. Run either standalone with `npm run serve` / `npm run kanban`.
+
+### Kanban
+
+The Kanban is a local-only tool — not part of the build, not deployed. It renders seven status columns (`not_started` → `summary_draft` → `summary_needs_work` → `summary_ok` → `body_draft` → `body_needs_work` → `body_ok`) live from the markdown files, lets you drag cards between columns and click owner pills to reassign (`oliver` / `joe` / `none`), and writes the edits back into the YAML frontmatter. Cards with inline editorial notes in their body display a `✎ N` badge. Everything kanban-specific lives in `scripts/kanban.js` and `scripts/kanban.css`; `build.js` knows nothing about it.
 
 ## Stack
 
@@ -39,7 +50,7 @@ agents_label: Norms between agents     # optional; AGI-grid summary (short). Fal
 human_label: Social conventions        # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
 hide_agi: true                         # optional; hide this cell from the AGI grid (renders empty). Use when no AGI story yet.
 hide_human: true                       # optional; symmetric flag for the Human grid.
-status: body_ok                        # not_started | summary_draft | summary_ok | body_draft | body_ok. Drives grid marker and Kanban column.
+status: body_ok                        # not_started | summary_draft | summary_needs_work | summary_ok | body_draft | body_needs_work | body_ok. Drives grid marker and Kanban column.
 owner: oliver                          # oliver | joe | none. Drives Kanban filter.
 problem: "How two parties …"           # optional; one-liner naming the coordination challenge for this row × col. Rendered as the "Coordination challenge" row in the summary box at the top of the detail page on both AGI and Human tabs.
 examples: ["X", "Y", "Z"]              # optional; 3–5 short example-institution names for this row × col. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
@@ -120,15 +131,21 @@ Rigorous, not bombastic. Don't claim "load-bearing" without showing why. Don't r
 
 ### Status field
 
-`status:` tracks where each cell sits in the writing pipeline. Five values, in order:
+`status:` tracks where each cell sits in the writing pipeline. Seven values, in order:
 
 - `not_started` — placeholder; no frontmatter content yet. Faint gray corner marker.
-- `summary_draft` — the summary box (`problem` / `examples` / `agi_breaks` frontmatter) is drafted but not reviewed.
-- `summary_ok` — summary box reviewed.
-- `body_draft` — body sections (`## How humans solve this today`, `## Where AGI breaks it`, `## Scenarios`, `## Problem Sets`) are drafted but not reviewed.
+- `summary_draft` — the summary box (`problem` / `examples` / `agi_breaks` frontmatter) is drafted, ready for review.
+- `summary_needs_work` — reviewer has flagged the summary; specifics live in inline editorial notes (`{>> ... <<}`) in the body. Orange marker.
+- `summary_ok` — summary box reviewed and OK.
+- `body_draft` — body sections (`## How humans solve this today`, `## Where AGI breaks it`, `## Scenarios`, `## Problem Sets`) are drafted, ready for review.
+- `body_needs_work` — reviewer has flagged the body; specifics live in inline editorial notes (`{>> ... <<}`). Red marker.
 - `body_ok` — body reviewed and stable. Solid green marker.
 
-The corresponding CSS classes use hyphens (`status-not-started`, `status-summary-draft`, etc.).
+The corresponding CSS classes use hyphens (`status-not-started`, `status-summary-draft`, `status-summary-needs-work`, etc.).
+
+### Inline editorial notes
+
+Reviewers leave feedback inline using `{>> note text <<}` markers anywhere in the body. The build transforms them into `<span class="editorial">…</span>`. They are hidden on the deployed site by default and revealed on `localhost` / `127.0.0.1` or when `?editorial` is in the URL. The Kanban counts the markers per cell and shows a `✎ N` badge on the card when a cell has any. Multi-line notes are supported (the regex is `\{>>[\s\S]*?<<\}`). To address a note, edit the prose and delete the marker.
 
 ### Owner field
 

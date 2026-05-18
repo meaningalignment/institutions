@@ -4,6 +4,19 @@ const path = require('path');
 const yaml = require('js-yaml');
 const { marked } = require('marked');
 
+// Inline editorial notes: {>> note text <<} → <span class="editorial">…</span>.
+// CSS hides them by default; visible on localhost or with ?editorial in URL.
+// Duplicated in app.js so client-rendered cell bodies get the same treatment.
+function processEditorial(md) {
+  return md.replace(/\{>>\s*([\s\S]*?)\s*<<\}/g, (_, content) => {
+    const safe = content
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    return `<span class="editorial">${safe}</span>`;
+  });
+}
+
 // ── Constants (shared with app.js) ─────────────────────────────────
 
 const TABS = {
@@ -273,7 +286,7 @@ function renderProblemSetsPage(allCells) {
       const pageBase = section.linkTab === 'agi' ? '..' : `../${section.linkTab}`;
       html += `<span class="ps-entry-cell"><a href="${pageBase}/#detail/${section.linkTab}/${rowId}/${colId}">${cellLabel}</a></span>`;
       html += '</div>\n';
-      html += `<div class="ps-entry-body">${marked.parse(ps.body)}</div>\n`;
+      html += `<div class="ps-entry-body">${marked.parse(processEditorial(ps.body))}</div>\n`;
       html += '</div>\n';
     });
   }
@@ -364,6 +377,15 @@ ${content}
 <footer class="site-footer">
   Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
+
+<script>
+(function(){
+  var h = location.hostname;
+  if (h === 'localhost' || h === '127.0.0.1' || h === '' || /[?&]editorial(=|&|$)/.test(location.search)) {
+    document.documentElement.classList.add('show-editorial');
+  }
+})();
+</script>
 
 </body>
 </html>`;

@@ -26,6 +26,15 @@ const COLS = [
 
 const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 
+// Inline editorial notes ({>> ... <<}) are hidden by default. Reveal them
+// when viewing locally or when the URL has ?editorial.
+(function showEditorialIfLocal() {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '';
+  const flagged = /[?&]editorial(=|&|$)/.test(location.search);
+  if (local || flagged) document.documentElement.classList.add('show-editorial');
+})();
+
 // ── Cell parsing ───────────────────────────────────────────────────
 
 function parseCell(raw) {
@@ -86,8 +95,20 @@ function renderVividCases(html) {
   );
 }
 
+// Inline editorial notes: {>> note text <<} → <span class="editorial">…</span>.
+// CSS hides them by default; visible on localhost or with ?editorial in the URL.
+function processEditorial(md) {
+  return md.replace(/\{>>\s*([\s\S]*?)\s*<<\}/g, (_, content) => {
+    const safe = content
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    return `<span class="editorial">${safe}</span>`;
+  });
+}
+
 function renderBody(md) {
-  return renderVividCases(marked.parse(md));
+  return renderVividCases(marked.parse(processEditorial(md)));
 }
 
 // ── Summary box at top of detail (problem + example institutions) ──
@@ -172,7 +193,7 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
     const methodsGhLink = `${GITHUB_REPO}/edit/main/data/methods/${colId}.md`;
     html += '<aside class="detail-rail">';
     html += `<div class="rail-label">${col.name} \u2014 methods &amp; references</div>`;
-    html += `<div class="rail-body">${marked.parse(methodsCell.body)}</div>`;
+    html += `<div class="rail-body">${marked.parse(processEditorial(methodsCell.body))}</div>`;
     html += `<div class="rail-footer"><a href="${methodsGhLink}">Edit on GitHub \u2192</a></div>`;
     html += '</aside>';
   }

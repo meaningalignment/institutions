@@ -1,11 +1,11 @@
 ---
-human_label: "Intentional communities & mission-driven orgs"
-hide_agi: true
+agents_label: "Mission-driven agent orgs"
+human_label: "Mission-driven orgs"
 status: not_started
 owner: none
 ---
 
-# Intentional communities & mission-driven orgs
+# Mission-driven orgs
 
 ## At a glance
 
@@ -15,11 +15,11 @@ How a community organizes itself around a shared substantive purpose that member
 
 ### Examples
 
-- Kibbutzim
-- Catholic Worker houses
-- Quaker meetings
-- Burning Man camps
-- Mission-driven nonprofits
+- WWF
+- Patagonia
+- The Vatican
+- Médecins Sans Frontières
+- Greenpeace
 
 ### How AGI breaks them
 

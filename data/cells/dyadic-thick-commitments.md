@@ -16,7 +16,7 @@ How two parties bind themselves to a shared identity or way of life that outlast
 
 - Vows exchanged in witness of others
 - Jointly signed public manifestos
-- Promises to act faithfully for another (power of attorney)
+- Promises to act faithfully
 
 ### How AGI breaks them
 

@@ -1,14 +1,33 @@
 ---
 agents_label: "Global markets that keep human interests central"
 human_label: "Consumer markets, labor income & multilateral trade rules"
-problem: "How global markets stay aligned with human interests when humans stop being economically necessary as workers and as consumers."
-examples: ["Stable labor share of GDP (~60%)", "Consumer spending as ~70% of GDP", "Boycotts, strikes & ESG screens", "WTO/ILO/Paris Agreement provisions", "Sovereign wealth funds (Norway GPFG, Alaska PF)"]
-agi_breaks: ["AI labor replaces the labor-share alignment by default.", "AI mediates and increasingly is the consumer.", "Race to the bottom across jurisdictions that constrain AI participation.", "Explicit steering loses bite when humans lose economic weight.", "Economic dominance feeds political and cultural capture."]
 status: body_draft
 owner: none
 ---
 
 # Global markets that keep human interests central
+
+## At a glance
+
+### Coordination challenge
+
+How global markets stay aligned with human interests when humans stop being economically necessary as workers and as consumers.
+
+### Examples
+
+- Stable labor share of GDP (~60%)
+- Consumer spending as ~70% of GDP
+- Boycotts, strikes & ESG screens
+- WTO/ILO/Paris Agreement provisions
+- Sovereign wealth funds (Norway GPFG, Alaska PF)
+
+### How AGI breaks them
+
+- AI labor replaces the labor-share alignment by default.
+- AI mediates and increasingly is the consumer.
+- Race to the bottom across jurisdictions that constrain AI participation.
+- Explicit steering loses bite when humans lose economic weight.
+- Economic dominance feeds political and cultural capture.
 
 ## How humans solve this today
 

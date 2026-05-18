@@ -1,13 +1,29 @@
 ---
 human_label: "Substantive constitutions & founding value documents"
-problem: "How a nation declares the substantive values that orient its laws and self-understanding."
-examples: ["National constitution preambles", "US Bill of Rights", "Declaration of the Rights of Man", "German Basic Law (Article 1, human dignity)", "Japan's Article 9"]
-agi_breaks: ["Companies face incentives to fine-tune on narrow institutional goals, which might erode substantive values (see emergent misalignment).", "Training on a constitution requires choosing an interpretation, which is a political act no private actor has been authorized to make."]
 status: summary_draft
 owner: oliver
 ---
 
 # Substantive constitutions & AI alignment docs
+
+## At a glance
+
+### Coordination challenge
+
+How a nation declares the substantive values that orient its laws and self-understanding.
+
+### Examples
+
+- National constitution preambles
+- US Bill of Rights
+- Declaration of the Rights of Man
+- German Basic Law (Article 1, human dignity)
+- Japan's Article 9
+
+### How AGI breaks them
+
+- Companies face incentives to fine-tune on narrow institutional goals, which might erode substantive values (see emergent misalignment).
+- Training on a constitution requires choosing an interpretation, which is a political act no private actor has been authorized to make.
 
 ## How humans solve this today
 

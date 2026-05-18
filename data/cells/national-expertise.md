@@ -1,13 +1,31 @@
 ---
 human_label: "Regulatory agencies (FDA, BaFin)"
-problem: "How a nation vests technical authority to gatekeep what enters markets and protect the public from bad outcomes."
-examples: ["FDA", "FAA", "EPA", "BaFin", "FERC"]
-agi_breaks: ["Regulators can't audit black-box models.", "Filings are agent-generated faster than they can be reviewed.", "Regulated entities use agents to anticipate and dodge rules.", "Public-interest expertise is itself being automated."]
 status: not_started
 owner: none
 ---
 
 # AI regulatory agencies & regulator-anticipation
+
+## At a glance
+
+### Coordination challenge
+
+How a nation vests technical authority to gatekeep what enters markets and protect the public from bad outcomes.
+
+### Examples
+
+- FDA
+- FAA
+- EPA
+- BaFin
+- FERC
+
+### How AGI breaks them
+
+- Regulators can't audit black-box models.
+- Filings are agent-generated faster than they can be reviewed.
+- Regulated entities use agents to anticipate and dodge rules.
+- Public-interest expertise is itself being automated.
 
 ## How humans solve this today
 

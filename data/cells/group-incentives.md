@@ -1,14 +1,32 @@
 ---
 agents_label: "Human-Outcome Contracts & Bounties"
 human_label: "Value-based care, bounties & risk-sharing pools"
-problem: "How a small group structures payments so money flows toward outcomes its members actually want, rather than toward easy-to-measure proxies."
-examples: ["Capitation & value-based care contracts", "Kaggle prizes & bug bounties", "Mutual-aid pools & worker-co-op health plans", "Social impact bonds (Peterborough)", "Development impact bonds (Educate Girls)"]
-agi_breaks: ["Agents saturate any gameable proxy at superhuman volume.", "A re-instanced agent escapes the bounty-failure history that disciplined humans.", "Long-horizon reports get shaped by the agent whose pay depends on them.", "When the verifier is also an agent, it shares incentives with the supplier."]
 status: body_draft
 owner: none
 ---
 
 # Human-Outcome Contracts & Bounties
+
+## At a glance
+
+### Coordination challenge
+
+How a small group structures payments so money flows toward outcomes its members actually want, rather than toward easy-to-measure proxies.
+
+### Examples
+
+- Capitation & value-based care contracts
+- Kaggle prizes & bug bounties
+- Mutual-aid pools & worker-co-op health plans
+- Social impact bonds (Peterborough)
+- Development impact bonds (Educate Girls)
+
+### How AGI breaks them
+
+- Agents saturate any gameable proxy at superhuman volume.
+- A re-instanced agent escapes the bounty-failure history that disciplined humans.
+- Long-horizon reports get shaped by the agent whose pay depends on them.
+- When the verifier is also an agent, it shares incentives with the supplier.
 
 ## How humans solve this today
 

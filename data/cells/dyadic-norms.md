@@ -1,13 +1,30 @@
 ---
 human_label: "Social conventions"
-problem: "How two parties in a recurring relationship build implicit rules of conduct without writing anything down."
-examples: ["Roommate etiquette", "Co-parenting routines", "Neighborly courtesies", "Mentor-mentee dynamics", "Friend reciprocity norms"]
-agi_breaks: ["Two agents can settle on new norms before any principal can notice and push back.", "A norm formed between two agents may rest on reasoning the human cannot follow even in retrospect.", "The usual way humans enforce norms (social sanctions, going cold, pushback) does not hurt an agent the same way."]
 status: summary_draft
 owner: oliver
 ---
 
 # Agent norm invention
+
+## At a glance
+
+### Coordination challenge
+
+How two parties in a recurring relationship build implicit rules of conduct without writing anything down.
+
+### Examples
+
+- Roommate etiquette
+- Co-parenting routines
+- Neighborly courtesies
+- Mentor-mentee dynamics
+- Friend reciprocity norms
+
+### How AGI breaks them
+
+- Two agents can settle on new norms before any principal can notice and push back.
+- A norm formed between two agents may rest on reasoning the human cannot follow even in retrospect.
+- The usual way humans enforce norms (social sanctions, going cold, pushback) does not hurt an agent the same way.
 
 ## How humans solve this today
 

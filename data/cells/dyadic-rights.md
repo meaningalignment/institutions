@@ -1,13 +1,31 @@
 ---
 human_label: "Mediation & fair dealing"
-problem: "How two parties resolve a dispute without going to court."
-examples: ["Small claims court", "Landlord-tenant boards", "Credit-card chargebacks", "eBay resolution center", "Contract mediation"]
-agi_breaks: ["Mediation pace can't match agent-commerce speed.", "Evidence is huge agent traces not paper.", "Unclear what counts as the agent's binding commitment.", "Principals weren't watching when the deal happened."]
 status: not_started
 owner: none
 ---
 
 # Agent-agent mediation
+
+## At a glance
+
+### Coordination challenge
+
+How two parties resolve a dispute without going to court.
+
+### Examples
+
+- Small claims court
+- Landlord-tenant boards
+- Credit-card chargebacks
+- eBay resolution center
+- Contract mediation
+
+### How AGI breaks them
+
+- Mediation pace can't match agent-commerce speed.
+- Evidence is huge agent traces not paper.
+- Unclear what counts as the agent's binding commitment.
+- Principals weren't watching when the deal happened.
 
 ## How humans solve this today
 

@@ -52,13 +52,26 @@ hide_agi: true                         # optional; hide this cell from the AGI g
 hide_human: true                       # optional; symmetric flag for the Human grid.
 status: body_ok                        # not_started | summary_draft | summary_needs_work | summary_ok | body_draft | body_needs_work | body_ok. Drives grid marker and Kanban column.
 owner: oliver                          # oliver | joe | none. Drives Kanban filter.
-problem: "How two parties …"           # optional; one-liner naming the coordination challenge for this row × col. Rendered as the "Coordination challenge" row in the summary box at the top of the detail page on both AGI and Human tabs.
-examples: ["X", "Y", "Z"]              # optional; 3–5 short example-institution names for this row × col. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
-agi_breaks: ["…", "…", "…"]            # optional; 3–5 very short bullets (one line each) on how AGI breaks the human institutions in `examples`. Inline-array form only (no commas inside an entry). Rendered as a bullet list in the summary box.
 related: [group-norms]                 # optional; reserved for future cross-linking.
 ---
 
 # {Cell title — the gap statement. Shown as the AGI-tab detail-view title.}
+
+## At a glance
+
+### Coordination challenge
+
+{One-line statement of the coordination challenge for this row × col. Rendered as the "Coordination challenge" row in the summary box at the top of the detail page on both AGI and Human tabs.}
+
+### Examples
+
+- {3–5 short example-institution names for this row × col.}
+- ...
+
+### How AGI breaks them
+
+- {3–5 very short bullets on how AGI breaks the human institutions in Examples.}
+- ...
 
 ## How humans solve this today
 
@@ -116,6 +129,7 @@ Multiple `###` problem sets under one cell are supported; each becomes its own e
 
 ### Why these particular sections
 
+- **At a glance** is the cell's elevator pitch — three H3 subsections (`Coordination challenge`, `Examples`, `How AGI breaks them`). Pulled out of the body at render time and shown as the styled summary box at the top of the detail page; the section itself is stripped from the inline body so it doesn't render twice. Keeps everything in markdown so inline `{>> ... <<}` editorial notes work here too.
 - **How humans solve this today** anchors readers in something familiar before the AGI-specific design problem hits. Always concrete (named institutions, named mechanisms), never generic ("humans cooperate by…").
 - **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. Open with a short list of the agent-vs-human differences relevant to this cell — tireless, autonomous within scope, re-instanceable, no personal stake, no felt cost of attention, behavior shaped by developer instrumentation, perfect recall and retrieval — and then derive per-mechanism failures from those differences. Naming differences once and referencing them makes the analysis a derivation rather than a series of separate stipulations, and the differences carry forward into the Scenarios section as the constraints the rebuilds have to design around. Resist anthropomorphism — agents are a different kind of entity, not defective humans; don't write that they "fail to feel," "lack shame," or "miss the felt sense of." When a mechanism could apply to agents but with different objects (e.g. contractualist reasoning over agent counterparties whose training/principals/constraints are what's being modeled, not their reactions), name that explicitly rather than declaring the mechanism broken.
 - **Scenarios** illustrate the breakdown with vivid, named-person, named-situation prose — concrete enough to test design proposals against. For cells structured around layered mechanisms, Scenarios can alternatively be a numbered survey of how each mechanism could be rebuilt for agents (one sketch per mechanism), making the design space visible before the problem sets pick from it.
@@ -134,7 +148,7 @@ Rigorous, not bombastic. Don't claim "load-bearing" without showing why. Don't r
 `status:` tracks where each cell sits in the writing pipeline. Seven values, in order:
 
 - `not_started` — placeholder; no frontmatter content yet. Faint gray corner marker.
-- `summary_draft` — the summary box (`problem` / `examples` / `agi_breaks` frontmatter) is drafted, ready for review.
+- `summary_draft` — the `## At a glance` section (Coordination challenge / Examples / How AGI breaks them) is drafted, ready for review.
 - `summary_needs_work` — reviewer has flagged the summary; specifics live in inline editorial notes (`{>> ... <<}`) in the body. Orange marker.
 - `summary_ok` — summary box reviewed and OK.
 - `body_draft` — body sections (`## How humans solve this today`, `## Where AGI breaks it`, `## Scenarios`, `## Problem Sets`) are drafted, ready for review.

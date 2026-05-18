@@ -1,13 +1,31 @@
 ---
 human_label: "Negotiation & bargaining"
-problem: "How two parties surface what each wants and find an exchange both prefer over walking away."
-examples: ["Salary negotiation", "Real-estate haggling", "Vendor procurement", "M&A negotiation", "Licensing deals"]
-agi_breaks: ["Signing stops meaning the principal actually agreed when deals become too complex for humans to evaluate.", "Deals can close or move in unintended directions before the principal can be looped in on unanticipated trade-offs.", "Negotiation has no natural stopping point when neither side tires.", "An agent can hide what it knows about its own principal to extract surplus the other side can't see was on the table."]
 status: summary_draft
 owner: oliver
 ---
 
 # Agent negotiation & bargaining
+
+## At a glance
+
+### Coordination challenge
+
+How two parties surface what each wants and find an exchange both prefer over walking away.
+
+### Examples
+
+- Salary negotiation
+- Real-estate haggling
+- Vendor procurement
+- M&A negotiation
+- Licensing deals
+
+### How AGI breaks them
+
+- Signing stops meaning the principal actually agreed when deals become too complex for humans to evaluate.
+- Deals can close or move in unintended directions before the principal can be looped in on unanticipated trade-offs.
+- Negotiation has no natural stopping point when neither side tires.
+- An agent can hide what it knows about its own principal to extract surplus the other side can't see was on the table.
 
 ## How humans solve this today
 

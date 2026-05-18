@@ -1,13 +1,31 @@
 ---
 human_label: "Bylaws & grievance boards"
-problem: "How a team gives members standing entitlements and a forum to challenge how power inside the group is used."
-examples: ["Corporate bylaws", "HR grievance boards", "Union shop stewards", "University ombuds", "Co-op member rights"]
-agi_breaks: ["Agents are members of nothing — no standing.", "Power inside the org gets concentrated by whoever runs the agents.", "Grievance procedures assume human grievants.", "An agent can flood a board with filings."]
 status: not_started
 owner: none
 ---
 
 # Autonomous corp bylaws & grievance boards
+
+## At a glance
+
+### Coordination challenge
+
+How a team gives members standing entitlements and a forum to challenge how power inside the group is used.
+
+### Examples
+
+- Corporate bylaws
+- HR grievance boards
+- Union shop stewards
+- University ombuds
+- Co-op member rights
+
+### How AGI breaks them
+
+- Agents are members of nothing — no standing.
+- Power inside the org gets concentrated by whoever runs the agents.
+- Grievance procedures assume human grievants.
+- An agent can flood a board with filings.
 
 ## How humans solve this today
 

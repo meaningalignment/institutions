@@ -465,6 +465,9 @@ function scheduleReload() {
 try {
   watch(join(REPO_ROOT, 'data'), { recursive: true }, (_event, filename) => {
     if (!filename || filename.startsWith('.')) return;
+    // Skip generated files (e.g., data/manifest.json) so that rebuilds
+    // happening in a sibling process don't pile up reload events.
+    if (!filename.endsWith('.md')) return;
     scheduleReload();
   });
 } catch (e) {

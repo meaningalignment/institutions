@@ -20,6 +20,30 @@
   font-style: normal;
 }
 
+/* Editorial notes inside ## At a glance. A note attached to a known H3
+   renders inside that H3's row; notes that don't belong to any recognized
+   H3 render in a catch-all "Notes" row. All hidden on deploy; revealed
+   together under .show-editorial. */
+.cell-summary-note { display: none; }
+.cell-summary-notes-row { display: none; }
+.show-editorial .cell-summary-notes-row { display: grid; }
+.show-editorial .cell-summary-note {
+  display: block;
+  margin-top: 6px;
+  background: #fdf0e6;
+  border-left: 3px solid #c44d2e;
+  padding: 4px 10px;
+  border-radius: 0 3px 3px 0;
+  font-style: italic;
+  color: #5a3a25;
+  font-size: 0.95em;
+}
+.show-editorial .cell-summary-note::before {
+  content: '✎ ';
+  opacity: 0.7;
+  font-style: normal;
+}
+
 body {
   font-family: 'DM Sans', sans-serif;
   color: #2d2a26;

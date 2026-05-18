@@ -1,13 +1,29 @@
 ---
 human_label: "Legal codes & regulatory norms"
-problem: "How a nation holds millions of actors to one shared body of law."
-examples: ["US Tax Code", "Code of Federal Regulations", "Uniform Commercial Code", "federal criminal code"]
-agi_breaks: ["Law updates slowly enough that agent-equipped organizations can outpace it.", "Corporations stay inside the law partly because pushing its edges costs lawyer-hours, and agents make those hours cheap.", "Law works by sorting actors into categories like natural person and corporation, and agents don't fit any of them."]
 status: summary_draft
 owner: oliver
 ---
 
 # AIs that follow and update the law
+
+## At a glance
+
+### Coordination challenge
+
+How a nation holds millions of actors to one shared body of law.
+
+### Examples
+
+- US Tax Code
+- Code of Federal Regulations
+- Uniform Commercial Code
+- federal criminal code
+
+### How AGI breaks them
+
+- Law updates slowly enough that agent-equipped organizations can outpace it.
+- Corporations stay inside the law partly because pushing its edges costs lawyer-hours, and agents make those hours cheap.
+- Law works by sorting actors into categories like natural person and corporation, and agents don't fit any of them.
 
 ## How humans solve this today
 

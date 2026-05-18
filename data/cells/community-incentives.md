@@ -1,13 +1,31 @@
 ---
 human_label: "Matching markets (kidney, school) & commons governance"
-problem: "How a community allocates a shared scarce resource and keeps users from depleting it."
-examples: ["Kidney exchange (NKR)", "School-choice matching", "Lobster gangs of Maine", "Irrigation water boards", "Fishery quotas"]
-agi_breaks: ["Agents extract from commons faster than humans monitor.", "Sybil identities defeat per-user quotas.", "Local social pressure has no purchase on a fleet.", "Matching algorithms get strategically gamed."]
 status: not_started
 owner: none
 ---
 
 # AI commons management
+
+## At a glance
+
+### Coordination challenge
+
+How a community allocates a shared scarce resource and keeps users from depleting it.
+
+### Examples
+
+- Kidney exchange (NKR)
+- School-choice matching
+- Lobster gangs of Maine
+- Irrigation water boards
+- Fishery quotas
+
+### How AGI breaks them
+
+- Agents extract from commons faster than humans monitor.
+- Sybil identities defeat per-user quotas.
+- Local social pressure has no purchase on a fleet.
+- Matching algorithms get strategically gamed.
 
 ## How humans solve this today
 

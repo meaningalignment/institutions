@@ -1,14 +1,32 @@
 ---
 agents_label: "Coordination protocols across the human-agent cadence gap"
 human_label: "Team protocols & workflows"
-problem: "How a small team coordinates handoffs, shared formats, and status when some members work at machine cadence and others at human cadence."
-examples: ["Daily stand-ups & sprint rituals", "Pull-request workflows (templates, two-reviewer rule)", "Shift handoff protocols (medical SBAR, aviation briefings)", "RFCs/ADRs & commit-message conventions", "Postmortems & incident reviews"]
-agi_breaks: ["Cadence rituals assume bounded work hours.", "Handoff formats are calibrated to human reading time.", "Shared-format conventions flood faster than the team can read.", "Postmortems can't reach the instance that ran the incident."]
 status: body_draft
 owner: none
 ---
 
 # Coordination protocols across the human-agent cadence gap
+
+## At a glance
+
+### Coordination challenge
+
+How a small team coordinates handoffs, shared formats, and status when some members work at machine cadence and others at human cadence.
+
+### Examples
+
+- Daily stand-ups & sprint rituals
+- Pull-request workflows (templates, two-reviewer rule)
+- Shift handoff protocols (medical SBAR, aviation briefings)
+- RFCs/ADRs & commit-message conventions
+- Postmortems & incident reviews
+
+### How AGI breaks them
+
+- Cadence rituals assume bounded work hours.
+- Handoff formats are calibrated to human reading time.
+- Shared-format conventions flood faster than the team can read.
+- Postmortems can't reach the instance that ran the incident.
 
 ## How humans solve this today
 

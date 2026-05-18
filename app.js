@@ -81,7 +81,98 @@ function parseCell(raw) {
   const bodyAfterH1 = h1Match
     ? raw.slice(raw.indexOf('\n', raw.indexOf(h1Match[0])) + 1).trim()
     : raw;
-  return { summary, body: bodyAfterH1, frontmatter };
+
+  // Pull the `## At a glance` section into frontmatter fields for the
+  // existing renderSummaryBox path, and strip it from the body so it
+  // doesn't also render inline.
+  const ag = extractAtGlance(bodyAfterH1);
+  if (ag.problem) frontmatter.problem = ag.problem;
+  if (ag.examples) frontmatter.examples = ag.examples;
+  if (ag.examplesNotes) frontmatter.examples_notes = ag.examplesNotes;
+  if (ag.agiBreaks) frontmatter.agi_breaks = ag.agiBreaks;
+  if (ag.agiBreaksNotes) frontmatter.agi_breaks_notes = ag.agiBreaksNotes;
+  if (ag.notes) frontmatter.at_glance_notes = ag.notes;
+
+  return { summary, body: ag.body, frontmatter };
+}
+
+// Extract the `## At a glance` section: H3 subsections for `Coordination
+// challenge`, `Examples`, `How AGI breaks them`. Returns the parsed data
+// plus the body with the section removed.
+function extractAtGlance(body) {
+  const m = body.match(/## At a glance\n([\s\S]*?)(?=\n## [^#]|$)/);
+  if (!m) return { problem: null, examples: null, agiBreaks: null, notes: null, body };
+
+  const sub = {};
+  let label = null;
+  let buf = [];
+  const flush = () => { if (label) sub[label] = buf.join('\n').trim(); buf = []; };
+  for (const line of m[1].split('\n')) {
+    const hm = line.match(/^### (.+?)\s*$/);
+    if (hm) { flush(); label = hm[1].trim(); }
+    else if (label) buf.push(line);
+  }
+  flush();
+
+  const listItems = (text) => {
+    if (!text) return null;
+    const out = [];
+    for (const line of text.split('\n')) {
+      const lm = line.match(/^\s*-\s+(.+)$/);
+      if (lm) out.push(lm[1].trim());
+    }
+    return out.length ? out : null;
+  };
+
+  // Extract editorial markers from a subsection's captured text that
+  // aren't inside its rendered items — these are standalone notes the
+  // reviewer dropped under the H3 and we'll show them in that H3's row.
+  const subsectionNotes = (text, renderedItems) => {
+    if (!text) return null;
+    const consumed = (renderedItems || []).join('\n');
+    const out = [];
+    const re = /\{>>\s*([\s\S]*?)\s*<<\}/g;
+    let mm;
+    while ((mm = re.exec(text)) !== null) {
+      if (!consumed.includes(mm[0])) out.push(mm[1].trim());
+    }
+    return out.length ? out : null;
+  };
+
+  const problem = sub['Coordination challenge'] || sub['Problem'] || null;
+  const examples = listItems(sub['Examples']);
+  const agiBreaks = listItems(sub['How AGI breaks them']);
+
+  // Notes attached to each H3. Coordination challenge prose flows through
+  // escapeRich, so any `{>> ... <<}` already renders inline — no extra
+  // collection needed. Examples / AGI breaks render only the bullet items,
+  // so a paragraph-style note under those H3s would otherwise vanish.
+  const examplesNotes = subsectionNotes(sub['Examples'], examples);
+  const agiBreaksNotes = subsectionNotes(sub['How AGI breaks them'], agiBreaks);
+
+  // Notes that aren't inside any recognized H3 (before the first H3, or
+  // under an unrecognized H3) — surface them in a catch-all "Notes" row.
+  const subText = Object.values(sub).join('\n');
+  const orphanNotes = [];
+  const noteRe = /\{>>\s*([\s\S]*?)\s*<<\}/g;
+  let nm;
+  while ((nm = noteRe.exec(m[1])) !== null) {
+    if (!subText.includes(nm[0])) orphanNotes.push(nm[1].trim());
+  }
+
+  const stripped = (body.slice(0, m.index) + body.slice(m.index + m[0].length))
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+  return {
+    problem,
+    examples,
+    examplesNotes,
+    agiBreaks,
+    agiBreaksNotes,
+    notes: orphanNotes.length ? orphanNotes : null,
+    body: stripped
+  };
 }
 
 // ── Markdown post-processing ───────────────────────────────────────
@@ -120,37 +211,70 @@ function escapeHtml(s) {
     .replace(/>/g, '&gt;');
 }
 
+// Like escapeHtml, but lets `{>> note <<}` markers through as trusted
+// <span class="editorial">…</span>. For use in the summary box where the
+// content is plain text (not full markdown).
+function escapeRich(s) {
+  return escapeHtml(s).replace(
+    /\{&gt;&gt;\s*([\s\S]*?)\s*&lt;&lt;\}/g,
+    '<span class="editorial">$1</span>'
+  );
+}
+
 function renderSummaryBox(fm) {
   if (!fm) return '';
   const problem = fm.problem;
   const examples = Array.isArray(fm.examples) ? fm.examples : null;
   const agiBreaks = Array.isArray(fm.agi_breaks) ? fm.agi_breaks : null;
-  if (!problem && (!examples || examples.length === 0) && (!agiBreaks || agiBreaks.length === 0)) return '';
+  const notes = Array.isArray(fm.at_glance_notes) ? fm.at_glance_notes : null;
+  if (!problem && (!examples || examples.length === 0) && (!agiBreaks || agiBreaks.length === 0) && (!notes || notes.length === 0)) return '';
 
   const renderList = (items) => {
     let h = '<ul class="cell-summary-list">';
-    for (const x of items) h += `<li>${escapeHtml(x)}</li>`;
+    for (const x of items) h += `<li>${escapeRich(x)}</li>`;
     h += '</ul>';
     return h;
   };
+
+  const renderNotes = (items) => {
+    if (!items || !items.length) return '';
+    let h = '';
+    for (const n of items) h += `<div class="cell-summary-note">${escapeHtml(n)}</div>`;
+    return h;
+  };
+
+  const examplesNotes = Array.isArray(fm.examples_notes) ? fm.examples_notes : null;
+  const agiBreaksNotes = Array.isArray(fm.agi_breaks_notes) ? fm.agi_breaks_notes : null;
 
   let html = '<aside class="cell-summary">';
   if (problem) {
     html += '<div class="cell-summary-row">';
     html += '<span class="cell-summary-label">Coordination challenge</span>';
-    html += `<span class="cell-summary-text">${escapeHtml(problem)}</span>`;
+    html += `<span class="cell-summary-text">${escapeRich(problem)}</span>`;
     html += '</div>';
   }
   if (examples && examples.length) {
     html += '<div class="cell-summary-row">';
     html += '<span class="cell-summary-label">Examples</span>';
+    html += '<div class="cell-summary-cell">';
     html += renderList(examples);
+    html += renderNotes(examplesNotes);
+    html += '</div>';
     html += '</div>';
   }
   if (agiBreaks && agiBreaks.length) {
     html += '<div class="cell-summary-row">';
     html += '<span class="cell-summary-label">How AGI breaks them</span>';
+    html += '<div class="cell-summary-cell">';
     html += renderList(agiBreaks);
+    html += renderNotes(agiBreaksNotes);
+    html += '</div>';
+    html += '</div>';
+  }
+  if (notes && notes.length) {
+    html += '<div class="cell-summary-row cell-summary-notes-row">';
+    html += '<span class="cell-summary-label">Notes</span>';
+    html += `<div class="cell-summary-cell">${renderNotes(notes)}</div>`;
     html += '</div>';
   }
   html += '</aside>';

@@ -1,14 +1,31 @@
 ---
 agents_label: "Mission-driven agent orgs"
 human_label: "Founding charters & community covenants"
-problem: "How a group stays faithful to a mission across changing circumstances and changing members."
-examples: ["Rule of Benedict", "Hippocratic Oath", "Médecins Sans Frontières Charter", "Patagonia Purpose Trust"]
-agi_breaks: ["With no living tradition of practice to keep re-interpreting a charter, agents might follow it to the letter as its spirit drifts in face of changing circumstances.", "Agents have no reputation or sense of integrity at stake that foregoing the mission could cost them.", "Agents might not pick up the mission tacitly the way humans do from veteran colleagues.", "Agents have no analogue to sacrificing something for a mission (eg. an alternative life path) which makes human commitment meaningful."]
 status: summary_draft
 owner: oliver
 ---
 
 # Mission-driven agent orgs
+
+## At a glance
+
+### Coordination challenge
+
+How a group stays faithful to a mission across changing circumstances and changing members.
+
+### Examples
+
+- Rule of Benedict
+- Hippocratic Oath
+- Médecins Sans Frontières Charter
+- Patagonia Purpose Trust
+
+### How AGI breaks them
+
+- With no living tradition of practice to keep re-interpreting a charter, agents might follow it to the letter as its spirit drifts in face of changing circumstances.
+- Agents have no reputation or sense of integrity at stake that foregoing the mission could cost them.
+- Agents might not pick up the mission tacitly the way humans do from veteran colleagues.
+- Agents have no analogue to sacrificing something for a mission (eg. an alternative life path) which makes human commitment meaningful.
 
 ## How humans solve this today
 

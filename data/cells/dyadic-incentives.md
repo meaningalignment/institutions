@@ -1,14 +1,33 @@
 ---
 agents_label: "Agent-to-agent contracts"
 human_label: "Contracts & escrow"
-problem: "How two parties hold each other to a deal that neither can unilaterally enforce."
-examples: ["Contract law", "Escrow services", "Letters of credit", "Surety bonding"]
-agi_breaks: ["Agents aren't pulled toward the spirit of a deal by peer judgment or trade practice.", "Two agents disputing what their contract meant have no forum fast enough to rule.", "Agents are incentivized to optimize for what the contract specifies directly instead of treating it as a stand-in for the real goal.", "Agents can breach contracts much faster than humans can pursue remedies.", "Agents can take actions human contract-drafters didn't think to forbid or require.", "Agents can systematically search a contract for loopholes to exploit at superhuman speed."]
 status: summary_ok
 owner: oliver
 ---
 
 # When two agents transact, the institutions around the contract don't apply
+
+## At a glance
+
+### Coordination challenge
+
+How two parties hold each other to a deal that neither can unilaterally enforce.
+
+### Examples
+
+- Contract law
+- Escrow services
+- Letters of credit
+- Surety bonding
+
+### How AGI breaks them
+
+- Agents aren't pulled toward the spirit of a deal by peer judgment or trade practice.
+- Two agents disputing what their contract meant have no forum fast enough to rule.
+- Agents are incentivized to optimize for what the contract specifies directly instead of treating it as a stand-in for the real goal.
+- Agents can breach contracts much faster than humans can pursue remedies.
+- Agents can take actions human contract-drafters didn't think to forbid or require.
+- Agents can systematically search a contract for loopholes to exploit at superhuman speed.
 
 ## How humans solve this today
 

@@ -77,6 +77,9 @@ for (const rel of WATCH_TARGETS) {
   try {
     watch(p, opts, (_event, filename) => {
       if (filename && filename.startsWith('.')) return;
+      // Inside data/, only .md edits should trigger a rebuild — otherwise
+      // build.js writing data/manifest.json kicks off an infinite loop.
+      if (rel === 'data' && filename && !filename.endsWith('.md')) return;
       scheduleBuild();
     });
   } catch (e) {

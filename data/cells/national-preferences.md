@@ -1,13 +1,29 @@
 ---
 human_label: "Elections, citizens' assemblies & national exchanges"
-problem: "How a nation aggregates millions of individual preferences into collective signals it acts on."
-examples: ["National elections", "Citizens' assemblies", "Referenda", "National exchanges (NYSE, CME)"]
-agi_breaks: ["Preference formation on an entirely new scale becomes possible.", "If agents deliberate or trade on citizens' behalf, it's unclear what makes the result legitimate.", "Agents can act on the world prices are about (placing orders, making calls, publishing news), turning trading into a feedback loop with the real economy."]
 status: summary_draft
 owner: oliver
 ---
 
 # Agents that represent national interests / large groups
+
+## At a glance
+
+### Coordination challenge
+
+How a nation aggregates millions of individual preferences into collective signals it acts on.
+
+### Examples
+
+- National elections
+- Citizens' assemblies
+- Referenda
+- National exchanges (NYSE, CME)
+
+### How AGI breaks them
+
+- Preference formation on an entirely new scale becomes possible.
+- If agents deliberate or trade on citizens' behalf, it's unclear what makes the result legitimate.
+- Agents can act on the world prices are about (placing orders, making calls, publishing news), turning trading into a feedback loop with the real economy.
 
 ## How humans solve this today
 

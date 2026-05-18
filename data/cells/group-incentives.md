@@ -2,7 +2,7 @@
 agents_label: "Human-Outcome Contracts & Bounties"
 human_label: "Value-based care, bounties & risk-sharing pools"
 status: not_started
-owner: none
+owner: joe
 ---
 
 # Human-Outcome Contracts & Bounties

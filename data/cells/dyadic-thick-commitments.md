@@ -14,18 +14,15 @@ How two parties bind themselves to a shared identity or way of life that outlast
 
 ### Examples
 
-- Marriage vows
-- Blood-brother oaths
-- Godparenthood
-- AA sponsor & sponsee
-
-{{>> These are all human examples, but we should pick some that apply clearly to agents or human-agent interactions. <<}}
+- Vows exchanged in witness of others
+- Jointly signed public manifestos
+- Promises to act faithfully for another (power of attorney)
 
 ### How AGI breaks them
 
-- Agents aren't bound to their vows by a sense of integrity the way humans are.
-- Agents aren't held to their vows by community judgment the way humans are.
-- Agents are ephemeral and vows don't naturally carry over to new sessions or instances.
+- Agents aren't bound to their commitments by an internal sense of integrity the same way humans are.
+- Agents aren't held to their commitments by community judgment the way humans are.
+- Depending on how agents are built, commitments made don't naturally carry over to new sessions or instances.
 
 ## How humans solve this today
 

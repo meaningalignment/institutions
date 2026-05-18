@@ -1,7 +1,7 @@
 ---
 agents_label: "Coordination protocols across the human-agent cadence gap"
 human_label: "Team protocols & workflows"
-status: body_draft
+status: not_started
 owner: none
 ---
 

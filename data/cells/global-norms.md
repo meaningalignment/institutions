@@ -1,6 +1,6 @@
 ---
 human_label: "Diplomatic protocols & soft-law norms"
-status: summary_draft
+status: summary_ok
 owner: oliver
 ---
 

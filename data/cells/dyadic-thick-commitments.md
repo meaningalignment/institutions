@@ -1,6 +1,6 @@
 ---
 human_label: "Vows & covenants"
-status: summary_draft
+status: summary_needs_work
 owner: oliver
 ---
 
@@ -18,6 +18,8 @@ How two parties bind themselves to a shared identity or way of life that outlast
 - Blood-brother oaths
 - Godparenthood
 - AA sponsor & sponsee
+
+{{>> These are all human examples, but we should pick some that apply clearly to agents or human-agent interactions. <<}}
 
 ### How AGI breaks them
 

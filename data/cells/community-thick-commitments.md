@@ -3,6 +3,7 @@ agents_label: "Mission-driven agent orgs"
 human_label: "Mission-driven orgs"
 status: summary_needs_work
 owner: oliver
+starred: true
 ---
 
 # Mission-driven orgs

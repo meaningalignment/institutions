@@ -139,6 +139,7 @@ function buildCards(cells, dirName) {
       rowName: row.name, colName: col.name,
       status: fm.status || 'not_started',
       owner:  fm.owner  || 'none',
+      starred: String(fm.starred) === 'true',
       editorialCount: cell.editorialCount || 0,
       title:  fm.agents_label || cell.summary || `${row.name} × ${col.name}`
     });
@@ -153,9 +154,13 @@ function renderCard(card) {
   const editorialBadge = card.editorialCount > 0
     ? `<span class="kanban-card-editorial-badge" title="${card.editorialCount} editorial note${card.editorialCount === 1 ? '' : 's'} in body">✎ ${card.editorialCount}</span>`
     : '';
-  return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}" data-kind="${esc(card.kind)}">
+  const starBtn = `<button type="button" class="kanban-star-btn${card.starred ? ' starred' : ''}" data-star-btn="1" title="${card.starred ? 'Unstar' : 'Star — focus on now'}">${card.starred ? '★' : '☆'}</button>`;
+  return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-starred="${card.starred ? '1' : '0'}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}" data-kind="${esc(card.kind)}">
     <div class="kanban-card-breadcrumb">${esc(card.rowName)} / ${esc(card.colName)}${fidelityNote}</div>
-    <div class="kanban-card-title">${esc(card.title)}</div>
+    <div class="kanban-card-title-row">
+      ${starBtn}
+      <div class="kanban-card-title">${esc(card.title)}</div>
+    </div>
     <div class="kanban-card-meta">
       <button type="button" class="kanban-owner-pill owner-${esc(card.owner)}" data-owner-btn="1" title="Click to reassign">${esc(card.owner)}</button>
       ${editorialBadge}
@@ -184,10 +189,12 @@ ${stageCards.map(renderCard).join('\n')}
 `;
   }
 
+  const starredCount = cards.filter(c => c.starred).length;
   let filterButtons = '<button class="kanban-filter-btn active" data-filter="all">All</button>';
   for (const o of OWNERS) {
     filterButtons += `<button class="kanban-filter-btn" data-filter="${esc(o)}">${esc(o)}</button>`;
   }
+  filterButtons += `<button class="kanban-filter-btn kanban-star-filter" data-star-filter="1" title="Show only starred cards">★ Starred <span class="kanban-star-count">${starredCount}</span></button>`;
   filterButtons += `<button class="kanban-filter-btn kanban-kind-toggle" data-kind-toggle="1" title="Show cards from the Human-only and Fidelity tabs">Show human-only + fidelity</button>`;
 
   return `<!DOCTYPE html>
@@ -233,19 +240,23 @@ const PAGE_SCRIPT = `
   var OWNERS = ${JSON.stringify(OWNERS)};
   var root = document.getElementById('kanban-root');
 
-  // ── Owner filter + kind toggle (both persisted to localStorage) ───
+  // ── Owner filter + kind toggle + starred filter (all persisted to localStorage) ───
   var ownerBtns = document.querySelectorAll('.kanban-filter-btn[data-filter]');
   var kindToggleBtn = document.querySelector('[data-kind-toggle]');
+  var starFilterBtn = document.querySelector('[data-star-filter]');
   var currentOwner = 'all';
   var showExtraKinds = false;
+  var starredOnly = false;
 
   function applyState(){
     ownerBtns.forEach(function(b){
       b.classList.toggle('active', b.getAttribute('data-filter') === currentOwner);
     });
     if (kindToggleBtn) kindToggleBtn.classList.toggle('active', showExtraKinds);
+    if (starFilterBtn) starFilterBtn.classList.toggle('active', starredOnly);
     var cls = 'kanban-page drag-enabled';
     if (currentOwner !== 'all') cls += ' filter-' + currentOwner;
+    if (starredOnly) cls += ' filter-starred';
     if (!showExtraKinds) cls += ' hide-extra-kinds';
     root.className = cls;
     updateCounts();
@@ -257,6 +268,7 @@ const PAGE_SCRIPT = `
       currentOwner = savedOwner;
     }
     showExtraKinds = localStorage.getItem('kanban.showExtraKinds') === '1';
+    starredOnly = localStorage.getItem('kanban.starredOnly') === '1';
   } catch (e) {}
   applyState();
 
@@ -274,6 +286,13 @@ const PAGE_SCRIPT = `
       try { localStorage.setItem('kanban.showExtraKinds', showExtraKinds ? '1' : '0'); } catch (e) {}
     });
   }
+  if (starFilterBtn) {
+    starFilterBtn.addEventListener('click', function(){
+      starredOnly = !starredOnly;
+      applyState();
+      try { localStorage.setItem('kanban.starredOnly', starredOnly ? '1' : '0'); } catch (e) {}
+    });
+  }
 
   // ── PATCH helper ──────────────────────────────────────────────────
   function patchCell(card, fields){
@@ -284,7 +303,8 @@ const PAGE_SCRIPT = `
         dir: card.getAttribute('data-dir'),
         key: card.getAttribute('data-key'),
         status: fields.status != null ? fields.status : card.getAttribute('data-status'),
-        owner:  fields.owner  != null ? fields.owner  : card.getAttribute('data-owner')
+        owner:  fields.owner  != null ? fields.owner  : card.getAttribute('data-owner'),
+        starred: fields.starred != null ? fields.starred : (card.getAttribute('data-starred') === '1')
       })
     }).then(function(r){
       if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -294,6 +314,7 @@ const PAGE_SCRIPT = `
 
   function isVisible(card){
     if (currentOwner !== 'all' && card.getAttribute('data-owner') !== currentOwner) return false;
+    if (starredOnly && card.getAttribute('data-starred') !== '1') return false;
     if (!showExtraKinds) {
       var kind = card.getAttribute('data-kind');
       if (kind === 'human-only' || kind === 'fidelity') return false;
@@ -371,6 +392,41 @@ const PAGE_SCRIPT = `
     });
   });
 
+  // ── Star toggle ───────────────────────────────────────────────────
+  function applyStarToCard(card, starred){
+    card.setAttribute('data-starred', starred ? '1' : '0');
+    var btn = card.querySelector('.kanban-star-btn');
+    if (btn) {
+      btn.classList.toggle('starred', starred);
+      btn.textContent = starred ? '★' : '☆';
+      btn.title = starred ? 'Unstar' : 'Star — focus on now';
+    }
+  }
+  function updateStarCount(){
+    var n = document.querySelectorAll('.kanban-card[data-starred="1"]').length;
+    var span = starFilterBtn && starFilterBtn.querySelector('.kanban-star-count');
+    if (span) span.textContent = n;
+  }
+  document.querySelectorAll('[data-star-btn]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var card = btn.closest('.kanban-card');
+      if (!card) return;
+      var wasStarred = card.getAttribute('data-starred') === '1';
+      var newStarred = !wasStarred;
+      applyStarToCard(card, newStarred);
+      updateStarCount();
+      updateCounts();
+      patchCell(card, { starred: newStarred }).catch(function(err){
+        applyStarToCard(card, wasStarred);
+        updateStarCount();
+        updateCounts();
+        alert('Save failed: ' + err.message + '. Reload to resync.');
+      });
+    });
+  });
+
   // ── Drag and drop ─────────────────────────────────────────────────
   var dragged = null;
   document.querySelectorAll('.kanban-card').forEach(function(card){
@@ -420,11 +476,12 @@ const PAGE_SCRIPT = `
 
 // ── PATCH endpoint ───────────────────────────────────────────────────────
 
-function updateFrontmatter(filePath, status, owner) {
+function updateFrontmatter(filePath, status, owner, starred) {
   const raw = readFileSync(filePath, 'utf8');
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
   if (!fmMatch) {
-    writeFileSync(filePath, `---\nstatus: ${status}\nowner: ${owner}\n---\n${raw}`);
+    const starLine = starred ? '\nstarred: true' : '';
+    writeFileSync(filePath, `---\nstatus: ${status}\nowner: ${owner}${starLine}\n---\n${raw}`);
     return;
   }
   let fmBody = fmMatch[1];
@@ -439,6 +496,15 @@ function updateFrontmatter(filePath, status, owner) {
     fmBody = fmBody.replace(/^owner:\s*.*$/m, `owner: ${owner}`);
   } else {
     fmBody += `\nowner: ${owner}`;
+  }
+  if (starred) {
+    if (/^starred:\s*.*$/m.test(fmBody)) {
+      fmBody = fmBody.replace(/^starred:\s*.*$/m, `starred: true`);
+    } else {
+      fmBody += `\nstarred: true`;
+    }
+  } else {
+    fmBody = fmBody.replace(/^starred:\s*.*\n?/m, '').replace(/\n$/, '');
   }
 
   writeFileSync(filePath, `---\n${fmBody}\n---\n${rest}`);
@@ -455,11 +521,12 @@ async function handleApi(req) {
   try { body = await req.json(); }
   catch { return Response.json({ error: 'invalid JSON' }, { status: 400 }); }
 
-  const { dir, key, status, owner } = body || {};
+  const { dir, key, status, owner, starred } = body || {};
   if (!VALID_DIRS.has(dir))         return Response.json({ error: 'bad dir' }, { status: 400 });
   if (!KEY_RE.test(key || ''))      return Response.json({ error: 'bad key' }, { status: 400 });
   if (!VALID_STATUSES.has(status))  return Response.json({ error: 'bad status' }, { status: 400 });
   if (!VALID_OWNERS.has(owner))     return Response.json({ error: 'bad owner' }, { status: 400 });
+  if (typeof starred !== 'boolean') return Response.json({ error: 'bad starred' }, { status: 400 });
 
   const filePath = join(REPO_ROOT, 'data', dir, `${key}.md`);
   if (!filePath.startsWith(join(REPO_ROOT, 'data') + '/') || !existsSync(filePath)) {
@@ -467,8 +534,8 @@ async function handleApi(req) {
   }
 
   try {
-    updateFrontmatter(filePath, status, owner);
-    console.log(`PATCH ${dir}/${key} → status=${status} owner=${owner}`);
+    updateFrontmatter(filePath, status, owner, starred);
+    console.log(`PATCH ${dir}/${key} → status=${status} owner=${owner} starred=${starred}`);
     return Response.json({ ok: true });
   } catch (e) {
     console.error(e);

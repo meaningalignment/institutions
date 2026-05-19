@@ -3,6 +3,7 @@ agents_label: "Agent-to-agent contracts"
 human_label: "Contracts & escrow"
 status: summary_ok
 owner: oliver
+starred: true
 ---
 
 # When two agents transact, the institutions around the contract don't apply

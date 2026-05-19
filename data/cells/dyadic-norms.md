@@ -3,6 +3,7 @@ agents_label: "Tacit dyadic norms"
 human_label: "Social conventions"
 status: summary_draft
 owner: joe
+starred: true
 ---
 
 # Tacit norms in two-party interactions

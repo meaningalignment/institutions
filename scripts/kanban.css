@@ -137,18 +137,29 @@ body {
   transform: translateY(-1px);
 }
 .kanban-card-breadcrumb {
-  font-size: 11px;
+  font-size: 10px;
   color: #8a8378;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  text-align: right;
+  /* Reserve space on the right so the status corner triangle doesn't
+     overlap the breadcrumb text. */
+  padding-right: 12px;
   margin-bottom: 4px;
+}
+.kanban-card-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
 }
 .kanban-card-title {
   font-size: 14px;
   font-weight: 500;
   color: #2a261f;
   line-height: 1.35;
-  margin-bottom: 8px;
+  flex: 1;
+  min-width: 0;
 }
 .kanban-card-meta {
   display: flex;
@@ -189,6 +200,27 @@ body {
   color: #c44d2e;
   border: 1px solid #f0d4bd;
   line-height: 1.4;
+}
+
+.kanban-star-btn {
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 2px;
+  margin: -2px 0;
+  border: none;
+  background: transparent;
+  color: #c9c2b6;
+  cursor: pointer;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+.kanban-star-btn:hover { color: #8a8378; }
+.kanban-star-btn.starred { color: #d4a72c; }
+
+.kanban-star-count {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-left: 2px;
 }
 
 .kanban-owner-pill {
@@ -255,6 +287,12 @@ body {
 .kanban-page.filter-oliver .kanban-card:not([data-owner="oliver"]) { display: none; }
 .kanban-page.filter-joe    .kanban-card:not([data-owner="joe"])    { display: none; }
 .kanban-page.filter-none   .kanban-card:not([data-owner="none"])   { display: none; }
+
+/* Starred filter: hide non-starred cards. Composes with owner filter. */
+.kanban-page.filter-starred .kanban-card:not([data-starred="1"]) { display: none; }
+
+/* Accent on starred cards so they read as starred even when filter is off. */
+.kanban-card[data-starred="1"] { box-shadow: 0 0 0 1px #d4a72c66; }
 
 /* Kind toggle: by default hide human-only and fidelity cards.
    The "Show human-only + fidelity" button toggles this off. */

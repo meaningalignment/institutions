@@ -2,6 +2,7 @@
 human_label: "Negotiation & bargaining"
 status: summary_ok
 owner: oliver
+starred: true
 ---
 
 # Agent negotiation & bargaining

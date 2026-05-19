@@ -3,6 +3,7 @@ agents_label: "Professional norms for agents"
 human_label: "Professional codes of conduct"
 status: summary_draft
 owner: joe
+starred: true
 ---
 
 # Professional norms for agents

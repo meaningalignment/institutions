@@ -28,13 +28,16 @@ Work with the user through three questions:
 
 1. **Coordination challenge.** What is the institutional problem in one "How [parties] [verb] [object] [under friction]" sentence?
 2. **Examples.** Which 3-5 named human institutions or practices best reveal the mechanism?
-3. **How AGI breaks them.** Which 3-5 agent properties break those examples at the mechanism level?
+3. **How AGI breaks them.** Which 3-6 agent-era properties or institutional changes break those examples at the mechanism level?
 
 Good dialogue moves:
 
 - Offer two or three candidate phrasings when the frame is fuzzy.
 - Ask whether an industry anchor would sharpen the examples.
 - Split any AGI-breaks bullet that hides multiple failures behind "and" or "or."
+- Keep AGI-breaks bullets at the mechanism level; avoid turning them into proposed fixes too early.
+- Preserve warranted uncertainty when a bullet depends on future agent capabilities or adoption patterns.
+- Watch for system-level failures, not only failures inside a single agent.
 - Keep the bullets short enough to survive in the grid.
 
 Do not move on until the summary names the right institution-family. A weak summary usually means the body will sprawl.
@@ -64,6 +67,7 @@ Good dialogue moves:
 
 - Show the user the proposed mechanism list before drafting deeply.
 - Check that the AGI-breaks body is not inventing a different taxonomy from the summary bullets.
+- Re-check the problem sets after the AGI-breaks bullets change; old problem sets often solve yesterday's framing.
 - Ask "is this the right human anchor?" before investing in a full rewrite.
 - Treat the vivid case as a test object: if it does not exercise the mechanisms, revise it.
 - Keep scenario prose out of the AGI-breaks section; put concrete scenes inside the problem sets that use them.
@@ -100,14 +104,14 @@ When the user asks to codify what happened:
 1. Update `STANDARDS.md` if the lesson changes the quality bar for many cells.
 2. Update this skill if the lesson changes how Codex should collaborate with the user.
 3. Keep page-specific insights in the page; do not inflate the standard with one-off details.
-4. Name the exemplar cell in the standard when it genuinely demonstrates the rule.
+4. Keep standards and skill guidance generic across rows, columns, domains, and mechanisms.
 
 ## Voice and collaboration
 
 Be rigorous without becoming ceremonial. The user is a thinking partner, not a ticket submitter. Make clear editorial judgments, but present uncertain choices as choices. Good prompts are concrete and small:
 
-- "I see two possible anchors: finance-specific professional norms, or cross-professional codes. I prefer finance because it makes the transmission mechanisms visible."
-- "This AGI-breaks bullet is doing two jobs. I would split discipline from regulator-anticipation."
-- "The problem set is still a topic. The missing procedure seems to be the extraction-and-maintenance protocol."
+- "I see two possible anchors. I prefer the more specific one because it makes the mechanisms visible."
+- "This AGI-breaks bullet is doing two jobs. I would split the two failure modes."
+- "The problem set is still a topic. The missing procedure seems to be more specific than the heading."
 
 Avoid long abstract lectures, generic praise, and dramatic prose. The work should feel like two people sharpening an institutional design brief at the table.

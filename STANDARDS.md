@@ -1,22 +1,18 @@
 # Cell Standards
 
-The quality bar for cells in `data/cells/`. CLAUDE.md and AGENTS.md own schema mechanics: frontmatter, section headings, build behavior, Kanban status values. This file owns what makes a cell good.
-
 Work through a cell in this order:
 
 1. **At a glance** - the summary box: Coordination challenge / Examples / How AGI breaks them.
 2. **How humans solve this today / Where AGI breaks it** - the analytical core.
-3. **Scenarios and Problem Sets** - scenario-grounded design briefs.
+3. **Problem Sets** - scenario-grounded design briefs.
 
-Do not treat these as independent chores. Each stage should tighten the next one: the summary names the institutional family, the body explains the mechanisms, and the problem sets turn selected scenarios into design work.
-
-The current body exemplar is [community-norms](data/cells/community-norms.md). Use it as the reference shape for layered cells.
+Each stage should tighten the next one: the summary names the institutional family, the body explains the mechanisms, and the problem sets turn selected scenarios into design work.
 
 ---
 
 ## 1. What makes a good "At a glance" section
 
-The summary box has to stand alone. A reader who sees only the three subsections should come away knowing what coordination problem the cell is about, which human institutions currently address it, and why agents threaten those institutions.
+The summary box has to stand alone. A reader who sees only the three subsections should understand the coordination problem, the existing human institutions or practices, and why autonomous agents put pressure on them.
 
 ### 1.1 Coordination challenge
 
@@ -24,65 +20,61 @@ Use one sentence in the form: **How [parties] [verb] [object/outcome] [under fri
 
 Each element should be doing work:
 
-- **Parties.** Who is being coordinated: two parties, a profession, a community, states.
-- **Verb.** The coordination act: hold each other to, allocate, settle on, set expectations.
-- **Object.** What gets coordinated: a deal, conduct, a scarce resource, public authority.
-- **Friction.** Why coordination is hard: without formal law, without a global enforcer, where neither party can unilaterally enforce.
-
-Good examples:
-
-- "How two parties hold each other to a deal that neither can unilaterally enforce." - [dyadic-incentives](data/cells/dyadic-incentives.md)
-- "How a community allocates a shared scarce resource and keeps users from depleting it." - [community-incentives](data/cells/community-incentives.md)
-- "How a profession sets expectations its members hold each other to without invoking formal law." - [community-norms](data/cells/community-norms.md)
-- "How states settle on expectations of conduct toward each other without a global enforcer." - [global-norms](data/cells/global-norms.md)
+- **Parties.** Who is being coordinated.
+- **Verb.** The coordination act.
+- **Object.** What gets coordinated.
+- **Friction.** Why the coordination is hard or cannot be solved unilaterally.
 
 ### 1.2 Examples
 
-Use three to five named human institutions, proper nouns, or recognizable named practices. The Examples list is not for statistics, generic social facts, or issue areas.
+Use three to five named human institutions, proper nouns, or recognizable named practices. The Examples list is not for statistics, generic social facts, broad domains, or abstract mechanisms.
 
-Good examples:
+Good examples have this shape:
 
-- "Contract law / Escrow services / Letters of credit / Surety bonding" - [dyadic-incentives](data/cells/dyadic-incentives.md)
-- "FINRA member conduct rules / CFA Institute Code and Standards / SEC Rule 10b-5 compliance norms / Volcker Rule trading restraints / LTCM and Archegos risk postmortems" - [community-norms](data/cells/community-norms.md)
-- "Kidney exchange (NKR) / School-choice matching / Lobster gangs of Maine / Irrigation water boards / Fishery quotas" - [community-incentives](data/cells/community-incentives.md)
+- Named institution
+- Named practice
+- Named forum or procedure
+- Named rule family or code
+- Named canonical case, if cases are part of how the institution teaches itself
 
-Avoid examples like "stable labor share of GDP" or "consumer spending as 70% of GDP." Those may be useful facts for the body, but they are not institutions.
+Bad examples have this shape:
 
-Industry anchoring is often the difference between a generic cell and a usable one. Finance sharpens professional norms because the relevant codes, regulator-anticipation, and disaster canon are named and teachable. Use an industry anchor when it reveals the mechanism; stay cross-cutting when the institution really is cross-cutting.
+- A statistic
+- A vague sector or issue area
+- A general social fact
+- A future design proposal
+- A failure mode rather than a human institution
+
+Use a domain anchor when it makes the mechanism visible. Do not anchor in a domain merely for color; the domain should supply named institutions, roles, cases, or procedures the body can use.
 
 ### 1.3 How AGI breaks them
 
-Use three to five short bullets. Each bullet should tie an agent property to a specific mechanism failure in one of the examples. These bullets are the compressed outline for `## Where AGI breaks it`; the body section should expand them in the same order, not introduce a second list of failures.
+Use roughly three to six short bullets. Each bullet should tie an agent-era property or institutional change to a specific mechanism failure in the examples. These bullets are the compressed outline for `## Where AGI breaks it`; the body section should expand them in the same order, not introduce a second taxonomy.
 
 Strong bullets:
 
-- Name one failure, not a cluster joined by "and."
-- Make the agent property visible: re-instanceable, agent-paced, no career stake, behavior shaped by standing instructions, text retrievable but not active.
-- Point to a human mechanism: peer judgment, license discipline, tacit absorption, regulator-anticipation, canon recognition.
-- Read as a complete sentence.
-
-Current exemplar pattern from [community-norms](data/cells/community-norms.md):
-
-- "Agents do not pick up a desk's unwritten 'we do not do that' rules just by reading policies."
-- "Licenses and discipline reach human professionals and firms, not replaceable agent copies."
-- "Agents need an explicit way to flag trades that are legal but would look indefensible to regulators."
-- "When both sides use agents, ethics checks have to ask what the human principals would actually endorse."
-- "Past disasters only help if agents actively watch for similar patterns in today's portfolios."
+- Name one failure mode, not a cluster joined by "and."
+- Stay at the mechanism level: formation, transmission, enforcement, representation, ratification, appeal, revision, allocation, review, or accountability.
+- Use uncertainty when the claim is empirical or capability-dependent: "may," "likely," "can," "could."
+- Point to the institution or mechanism that has to adapt, not just to an implementation fix.
+- Include system-level failures when they are the point: speed, scale, diversity, opacity, delegation, or principal lag can break institutions even if individual agents are capable.
+- Read as complete sentences.
 
 Failure patterns to avoid:
 
-- **Conflation.** "AI mediates consumer choice and increasingly is the consumer" hides mediation, principalship, and demand composition.
-- **Topic-level stakes.** "If agents do not develop norms, shared resources collapse" names the importance of the topic, not the mechanism that breaks.
-- **Unsupported empirical claims.** If the claim is shaky, reformulate around the institutional failure or hedge.
-- **Missing mechanisms.** If the Examples list has five layered institutions, the break bullets should not all attack only one layer.
+- **Conflation.** One bullet hides multiple distinct failure modes whose fixes would differ.
+- **Topic-level stakes.** The bullet says the problem matters, but not what institutional mechanism breaks.
+- **Unsupported certainty.** The bullet predicts capabilities or adoption patterns too confidently.
+- **Premature rebuilds.** The bullet names a proposed fix before naming the failure that makes the fix necessary.
 
 ### 1.4 At a glance checklist
 
 Before moving on, check:
 
 - The coordination challenge is one sentence, not a topic label.
-- The examples are named institutions or named practices.
+- The examples are named institutions or practices.
 - The AGI-breaks bullets are mechanism-level and paired roughly with the examples.
+- The AGI-breaks bullets outline the body section below.
 - The summary can be understood without the body.
 - The prose is spare enough to survive in the grid.
 
@@ -104,25 +96,25 @@ For single-mechanism cells, do not force a numbered list. A single layered parag
 
 ### 2.2 How humans solve this today
 
-**Anchor in named institutions, not generic theory.** "Humans coordinate by shared expectations" is not enough. The community-norms anchor names finance desks, FINRA, the CFA Institute, SEC Rule 10b-5, the Volcker Rule, Goldman/Abacus, LTCM, Lehman, Knight Capital, the London Whale, and Archegos.
+**Anchor in named institutions, not generic theory.** Name the actual institutions, roles, procedures, cases, and practices humans use today.
 
-**Layer when the institution-family is plural.** Some problems have one main human answer, like contract law for dyadic incentives. Others work through several mechanisms in composition. Professional norms in finance use tacit absorption, codes, regulator-anticipation, contractualist reasoning, and case-based recognition. Name those layers once and keep the names stable.
+**Layer when the institution-family is plural.** Some coordination challenges have one main human answer. Others work through several mechanisms in composition. Name the layers once and keep the names stable.
 
-**Choose the right industry anchor.** Use a specific industry when it makes mechanisms visible. Finance is useful for professional norms; medicine might be better for triage expertise; courts might be better for procedural rights. Do not add an industry merely for color.
+**Choose the right domain anchor.** Use a specific domain when it makes mechanisms visible. Stay cross-domain when the institution genuinely works across domains.
 
-**Close with a vivid case.** The case should show the mechanisms operating together in a named situation. It is not an anecdotal flourish; it is the concrete object the rest of the page can test against.
+**Close with a vivid case.** The case should show the mechanisms operating together in a named situation. It is not decorative; it is the concrete object the rest of the page can test against.
 
 ### 2.3 Where AGI breaks it
 
 **Expand the At a Glance bullets.** Treat each `How AGI breaks them` bullet as the topic sentence for one paragraph or numbered item in `Where AGI breaks it`. The body can add derivation, institutional detail, and caveats, but it should not surprise the reader with a new failure taxonomy.
 
-**Name the relevant agent properties inside the expansions.** Each paragraph should explain why a human mechanism no longer transmits, binds, restrains, or recognizes in the same way. Mention the relevant structural properties where they matter, but do not begin the section with a separate preamble.
+**Name the relevant agent properties inside the expansions.** Each paragraph should explain why a human mechanism no longer transmits, binds, represents, restrains, revises, allocates, or resolves in the same way. Mention the relevant structural properties where they matter, but do not begin the section with a separate preamble.
 
-**Thread the mechanism labels.** If the human section has "1. Tacit absorption," the breaks section should have the corresponding "1. Tacit absorption..." failure. The same labels should appear again in the selected Problem Sets.
+**Thread the mechanism labels.** If the human section uses numbered mechanism labels, the breaks section should use the same labels or visibly corresponding ones. The selected problem sets should then pick from that same mechanism list.
 
-**Say when a mechanism transposes.** Some human mechanisms do not simply fail. Contractualist reasoning, for example, can still operate, but over different objects: principals, standing instructions, disclosed constraints, and counterparty agents.
+**Say when a mechanism transposes.** Some human mechanisms do not simply fail. They may still apply, but over different objects, with different evidence, authority, timing, or accountability.
 
-**Avoid anthropomorphism.** Do not say agents "lack shame," "fail to feel," or "miss the felt sense." Name the institutional property instead: no professional membership, no career stake, no social embedding, no license, no local absorption pathway.
+**Avoid anthropomorphism.** Agents are different institutional actors, not defective humans. Name structural properties instead of implying that agents lack human feelings or social intuitions.
 
 **Keep the tone sober.** No rhetorical flourish, no "load-bearing" claim without showing the load, no dramatic phrasing that asks the reader to be impressed before the mechanism is clear.
 
@@ -142,39 +134,35 @@ Before moving on, check:
 
 ---
 
-## 3. What makes good Scenarios and Problem Sets
+## 3. What makes good Problem Sets
 
-These sections turn analysis into design work. They should make the reader want to build a procedure, not merely agree that a problem exists.
+Problem sets turn analysis into design work. They should make the reader want to build a procedure, not merely agree that a problem exists.
 
-### 3.1 Scenarios
+There is no separate `## Scenarios` section. Scenarios live inside problem sets, where they serve as high-stakes test objects for the design work.
 
-Scenarios live inside problem sets. A separate `## Scenarios` section tends to split the page into analysis, then speculative rebuild sketches, then design briefs; the better shape is to put the concrete case directly in the brief that uses it.
+Each problem set needs:
 
-Each problem set should begin with a short `**Scenario.**` paragraph. Fold the domain context into the scenario instead of using a separate `Anchor contexts` line.
+- **Scenario.** A high-stakes example of the target coordination mechanism or institution working, failing, or needing to be rebuilt. Fold necessary context and stakes into this paragraph. Use plain language even when the scenario is domain-grounded.
+- **Challenge:** The design task, success criterion, and deliverable. Prefer "Design a procedure by which..." over "We lack a procedure by which...". Include how the proposed institution will be judged and what the team should produce.
+- **Design choices.** Three to five forks. Each fork should show the available choices, not merely name a topic.
 
 Good scenarios:
 
 - Name the coordination mechanism or institution the team is supposed to design.
 - Show a high-stakes case of that mechanism working, failing, or needing to be rebuilt.
 - Name concrete institutions, roles, and consequences.
-- Use plain language even when the scenario is grounded in a technical domain.
 - Give the design team a test object: the proposed institution should make this scenario come out right.
 - Make the stakes clear: who gets harmed, what breaks, or what loss becomes possible.
 - Stay short enough that the challenge and design choices remain the center of the brief.
 
-### 3.2 Problem Sets
+Good challenges:
 
-Use two or three problem sets per cell. Each should pick one rebuild problem from the analysis. Avoid an omnibus prompt like "design professional norms for agents"; it is too broad to answer or evaluate.
+- Name the missing or inadequate institutional procedure.
+- Include the success criterion inside the challenge.
+- Include the deliverable inside the challenge.
+- Make clear what counts as a better or worse proposal.
 
-Each problem set needs:
-
-- **Scenario.** A high-stakes example of the target coordination mechanism or institution working, failing, or needing to be rebuilt. Fold necessary context and stakes into this paragraph.
-- **Challenge:** The design task, success criterion, and deliverable. Prefer "Design a procedure by which..." over "We lack a procedure by which...". Include how the proposed institution will be judged and what the team should produce.
-- **Design choices.** Three to five forks. Each fork should show the available choices, not merely name a topic.
-
-Strong problem sets often ask the team to identify which provisions have no analogue in the human institution and why. That prompt forces the design past translation.
-
-### 3.3 Scenarios and problem sets checklist
+### 3.1 Problem-set checklist
 
 Before declaring the body done, check:
 
@@ -202,8 +190,3 @@ Run this once the cell feels close:
 - The analysis is specific, non-anthropomorphic, and institutionally concrete.
 - The problem sets are usable by a group in roughly one hour.
 - The page teaches a designer what has to be rebuilt.
-
-## Open Questions
-
-- **Agent-property vocabulary.** Tireless, re-instanceable, no career stake, agent-paced, jurisdiction-portable, behavior shaped by standing instructions, text retrievable but not active: these recur. A shared glossary may eventually prevent drift.
-- **Cross-cell links.** Some problem sets solve pieces of other cells. The reserved `related:` field may become useful once more bodies are at `body_ok`.

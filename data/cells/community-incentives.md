@@ -1,7 +1,7 @@
 ---
 agents_label: "AI commons management"
 human_label: "Commons governance, quotas & access pricing"
-status: body_draft
+status: body_ok
 owner: joe
 starred: true
 ---
@@ -26,7 +26,7 @@ How a community allocates access to a shared resource and deters overuse when ea
 
 - Agent deployment separates the resource user from the accountable community member.
 - Agents convert informal slack into exploitable capacity by searching, booking, extracting, and contributing continuously.
-- Agent fleet-scale users (or coordinated fleets) can overwhelm allocation rules built for roughly comparable human participants while formally obeying them.
+- Agent fleets can overwhelm allocation rules built for roughly comparable human participants while formally obeying them.
 - Monitoring and appeal records become strategic inputs when agents can generate contributions, complaints, evidence, and explanations at scale.
 - Digital commons become easier to mirror, fork, and mine than to govern, weakening incentives to contribute to the mainline.
 
@@ -36,7 +36,7 @@ Long-running commons make use conditional: access is tied to standing, withdrawa
 
 1. **Accountable standing.** A commons first decides who counts as a participant the community can recognize and discipline. Fisheries quotas tie standing to licensed vessels or quota holders; Wikipedia ties some standing to accounts, edit history, and page-specific permissions. The user of the resource must be close enough to an accountable member for warnings, reputation, suspension, and exclusion to matter.
 
-2. **Measured withdrawal.** The community then specifies what each participant may take, do, reserve, or change. Catch shares allocate harvest rights; congestion charges price scarce road capacity; edit protection changes who can write to a high-conflict page. These rules work partly because the measured unit fits the human pattern of use.
+2. **Measured withdrawal.** The community then specifies what each participant may take, do, reserve, or change. Catch shares allocate harvest rights; congestion charges price scarce road capacity; edit protection changes who can write to a high-conflict Wikipedia page. These rules work partly because the measured unit fits the human pattern of use.
 
 3. **Rough symmetry among users.** Human commons usually tolerate imperfect allocation because participants have bounded and roughly comparable operating bandwidth. Fishers can work longer hours, drivers can choose different routes, editors can watch a page closely, but none of them can search every opening continuously. This lets a community use simple quotas, prices, turns, and edit limits without every small gap becoming immediately decisive.
 
@@ -50,7 +50,7 @@ Long-running commons make use conditional: access is tied to standing, withdrawa
 
 2. **Agents convert informal slack into exploitable capacity by searching, booking, extracting, and contributing continuously.** Many commons rules depend on friction that has been taken for granted: people sleep, wait in lines, miss openings, tire of marginal gains, and do not search every loophole all day. Agents can reserve curb slots, scrape a database, watch quota windows, edit pages, or submit derivative contributions continuously.
 
-3. **Fleet-scale users can overwhelm allocation rules built for roughly comparable human participants while formally obeying them.** Catch shares, congestion charges, edit limits, and access permits often assume that participants have different interests but broadly comparable operating bandwidth. Agent fleets break that, and may be able to turn a rule meant for ordinary use into a high-volume extraction channel.
+3. **Agent fleets can overwhelm allocation rules built for roughly comparable human participants while formally obeying them.** Catch shares, congestion charges, edit limits, and access permits often assume that participants have different interests but broadly comparable operating bandwidth. Users equipped with a fleet of agents break that, and may be able to turn a rule meant for ordinary use into a high-volume extraction channel.
 
 4. **Monitoring and appeal records become strategic inputs when agents can generate contributions, complaints, evidence, and explanations at scale.** Human commons use records as governance inputs: edit histories, catch logs, curb reservations, inspection reports, complaints, appeals, and testimony. Agent-mediated participation can flood those inputs with plausible but low-value contributions, synthetic disputes, optimized explanations, or selectively produced audit trails. Monitoring thus needs a way to keep the evidentiary substrate from becoming another resource agents compete to shape.
 

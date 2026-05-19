@@ -18,9 +18,9 @@ How a profession sets expectations its members hold each other to without invoki
 
 - FINRA member conduct rules
 - CFA Institute Code and Standards
-- SEC Rule 10b-5 compliance norms
-- Volcker Rule trading restraints
-- LTCM and Archegos risk postmortems
+- Firm compliance committees and desk norms
+- SEC enforcement guidance and no-action practice
+- LTCM / Archegos / London Whale postmortems
 
 ### How AGI breaks them
 
@@ -49,15 +49,17 @@ A vivid case: Sarah's first months at a hedge fund desk were spent watching her 
 
 ## Where AGI breaks it
 
-1. **Agents do not pick up a desk's unwritten "we do not do that" rules just by reading policies.** The desk's unwritten boundaries reach humans through repeated exposure to local approvals, vetoes, jokes, escalation patterns, and postmortems. Those signals do not automatically become governing constraints for an agent. If the agent only sees written rules, trade data, and task prompts, the most important "we do not do that here" lessons remain outside the control surface.
+1. **Existing mechanisms for professional norms may not keep up with the speed and scale of agent practice.** Finance norms evolve through slow bodies: compliance committees, regulator guidance, enforcement actions, professional education, and post-incident review. Even if agents are somehow listening to these bodies, they may not be able to keep up with the pace of change in agent practice.
 
-2. **Licenses and discipline reach human professionals and firms, not replaceable agent copies.** FINRA or CFA discipline can still bind licensed people and firms, but the acting system has no license, career, or professional membership of its own. A code violation therefore needs a path from agent behavior to costs borne by some accountable actor: the supervisor, firm, vendor, developer, principal, or an agent registry. Without that path, the code names misconduct without reaching the place where the decision was made.
+2. **The usual way humans enforce norms (social sanctions, going cold, pushback) may not affect agents the same way.** Professional norms often work because people care about being trusted, staffed, invited back, or treated as serious by peers. You're going to think twice about screwing your competitor if you're golfing with them next week. Agents can be corrected or shut off, but are not disciplined by embarrassment, exclusion from lunch, or loss of professional reputation in the same way. If the only enforcement channel is human social pressure, the pressure reaches the firm or supervisor indirectly and may not reach the decision-making system at all.
 
-3. **Agents need an explicit way to flag trades that are legal but would look indefensible to regulators.** A human compliance officer has seen enough enforcement actions and internal escalations to identify deals that are formally arguable but predictably indefensible. An agent can in principle do this better, because the corpus is readable and current. But unless a regulator-anticipation model is explicitly built, updated, and given authority to pause actions, the written rulebook becomes the whole signal.
+3. **Agents may not excel at the normative reasoning required to anticipate how a peer or regulator would react to an action.** A senior compliance officer can often say, before citing a rule, that a trade will look indefensible to FINRA, the SEC, a client board, etc. An agent may be weaker at modeling that social and institutional reaction. The problem becomes harder when the peer or regulator is also an agent, because the reasoning has to account for principals, instructions, disclosure, and review standards rather than ordinary human reaction alone.
 
-4. **When both sides use agents, ethics checks have to ask what the human principals would actually endorse.** The human version asks what affected people could endorse if the material facts were visible. When counterparties are agents, the relevant objects include the counterparty agent's disclosed constraints, its principal's instructions, the principal's likely review standard, and the information asymmetry between principal and agent. The norm can transpose, but it cannot be copied unchanged.
+4. **Agents likely have more diverse capabilities and incentives than humans, making it harder to find norms that work for all parties.** Human professional norms are already strained by variation in judgment, risk tolerance, and bad faith. Agent practice adds wider variation: some agents may search a space exhaustively, some may be tightly constrained, some may represent principals with unusual goals, and some may be optimized for narrow success measures. A norm that keeps ordinary human professionals coordinated may be too weak for high-capability agents, too restrictive for low-capability ones, or gameable by agents whose incentives sit outside the assumed range.
 
-5. **Past disasters only help if agents actively watch for similar patterns in today's portfolios.** An agent may retrieve every LTCM or Archegos account on demand while still failing to treat the current portfolio as a cousin of those cases. Professional memory has to be translated into live feature matchers, thresholds, escalation rules, and update governance. Otherwise the canon is available as text but absent as protection.
+5. **Agents may not pick up on unwritten rules just by reading policies.** Norms reach humans through repeated exposure to local approvals, vetoes, jokes, escalation patterns, and postmortems. Those signals may not automatically become governing constraints for an agent. If the agent only sees written rules or task prompts, important lessons may not be absorbed.
+
+6. **Even if agents can develop their own norms, they may outrun us.** Agents may converge on stable practices among themselves before principals, professional bodies, or regulators understand what has happened. By the time humans discover the new norm, it may already have shaped pricing, client treatment, risk management, or market access across many decisions.
 
 ## Problem Sets
 
@@ -87,15 +89,15 @@ A vivid case: Sarah's first months at a hedge fund desk were spent watching her 
 4. **Standing of agent counterparties.** Does an agent counterparty have standing in the reasoning, or only the human/legal principal behind it? If both matter, how are conflicts handled?
 5. **Opacity fallback.** When the counterparty agent's relevant constraints are unavailable, is the default block, escalate, proceed with assumptions, or price the opacity into the transaction?
 
-### Encoding the Canon as Active Surveillance
+### Ratifying Agent-Speed Professional Norms
 
-**Scenario.** A prime broker finances trades for a fast-growing client. Each trade looks acceptable on its own, and each desk sees only part of the exposure. Taken together, the client is building a concentrated bet like Archegos: if prices move sharply, several banks could rush to sell at once and deepen the loss. The firm has studied Archegos, but the lesson sits in slide decks while the monitoring agent approves the trades one by one.
+**Scenario.** Several large banks use agents to screen a new kind of structured product. Within a week, the agents converge on the same market practice: the product can be sold to smaller pension funds as long as a dense risk appendix is attached. No regulator has ruled on it, and no professional body has discussed it. By the time trustees begin to complain that they did not understand the risk, the practice has already shaped hundreds of sales.
 
-**Challenge:** Design an encoding-and-matching procedure by which a profession's disaster canon becomes active surveillance against current and proposed positions. The procedure succeeds if it flags the scenario before the client becomes too large to unwind safely, updates when a new disaster enters the canon, records informed overrides without disabling future warnings, and catches near-misses without overwhelming reviewers. The team should produce a governance specification plus one worked example that encodes LTCM, Archegos, Knight Capital, the London Whale, or Lehman as a pattern and shows how a current portfolio would match it.
+**Challenge:** Design a ratification procedure by which agent-discovered professional norms are surfaced, slowed, reviewed, and either approved, revised, or rejected before they become settled practice. The procedure succeeds if it catches the scenario norm before it spreads through the market, gives professional bodies and regulators a legible record of what agents are converging on, and prevents the largest agent fleets from deciding the profession's norms by moving first. The team should produce the procedure plus a worked example of one proposed agent norm moving through review.
 
 **Design choices the team must take a position on.**
-1. **Encoding form.** Is each canonical case encoded as a structured feature specification, a natural-language description retrieved by similarity, fine-tuned model behavior, or a layered combination?
-2. **Threshold and false-positive budget.** What similarity triggers a flag: one match above a threshold, accumulation across multiple cases, or senior-defined feature combinations? Who pays the cost of false positives?
-3. **Canon governance.** Who maintains the canon: the firm's risk team, an industry consortium, a regulator, or an open-source community? When a new disaster occurs, who decides whether it joins the canon and on what timeline?
-4. **Reach of the flag.** When the matcher fires, who sees it: the desk, risk committee, prime broker, regulator, or client? Who can override it?
-5. **Adversarial near-miss.** How does the procedure catch structures designed to sit just outside named patterns without expanding until everything looks like a warning?
+1. **Detection threshold.** What counts as an emerging norm: repeated behavior across agents, explicit agent-to-agent agreement, convergence inside one large fleet, or material effects on clients?
+2. **Pacing.** When a norm is detected, is practice paused, slowed, labeled provisional, or allowed to continue while review happens?
+3. **Review authority.** Who can ratify or reject the norm: the firm, a professional association, a regulator, a client fiduciary, or some combination?
+4. **Fleet asymmetry.** How does the procedure keep the largest agent deployments from setting norms simply because they generate the most examples fastest?
+5. **Rollback.** If a norm is rejected after agents have already acted on it, which past decisions are grandfathered, audited, compensated, or reopened?

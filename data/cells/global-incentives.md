@@ -1,7 +1,7 @@
 ---
 agents_label: "Global markets that keep human interests central"
 human_label: "Consumer markets, labor income & multilateral trade rules"
-status: summary_draft
+status: summary_needs_work
 owner: joe
 starred: true
 ---
@@ -21,10 +21,15 @@ How global markets stay aligned with human interests when humans stop being econ
 - WTO/ILO/Paris Agreement provisions
 - Sovereign wealth funds (Norway GPFG, Alaska PF)
 
+{{>>The first two aren't really institutions but just facts about markets. I think potentially you could say something about capital income tax and unions here instead . And include the stats in the relevant "How AGI Breaks Them" bullets, saying "Traditionally, labor share has been stable at ~60%" etc.<<}}
+
 ### How AGI breaks them
 - Wealth concentrates into asset speculation and luxury rather than consumption; AI itself buys compute, energy, and materials at scale for projects that don't route back to humans.
+{{>>luxury is a kind of consumption?<<}}
 - AI labor replaces labor-share; humans are no longer necessary inputs to production.
 - Assistant-agents pick for buyers without a stake in the choice, perhaps keeping them entertained and fed, but not necessarily steering toward what they actually want or need.
+{{>>I don't know about the stake in choice thing; seems like the opposite is true so far? https://x.com/alexolegimas/status/2055675368661483524?s=20<<}}
+{{>>Wonder if we could say something more specific here also about this point around human relational work not being priced well by markets due to incomplete contracting. Or maybe for the body expansion on the labor displacement point.<<}}
 
 ## How humans solve this today
 

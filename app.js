@@ -28,8 +28,8 @@ const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 
 // Inline editorial notes ({>> ... <<}) are hidden by default. Reveal them
 // when viewing locally or when the URL has ?editorial.
-// On the deployed site, cells whose status isn't `body_draft` or `body_ok`
-// have their grid summary hidden behind a placeholder — click still works.
+// On the deployed site, cells whose status isn't `body_ok` have their
+// grid summary hidden behind a placeholder — click still works.
 // Override with ?showall.
 (function applyViewerFlags() {
   const host = location.hostname;

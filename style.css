@@ -193,13 +193,13 @@ tr:last-child td { border-bottom: none; }
 td .cell-empty { color: #ccc; font-size: 13px; }
 
 /* Deployed site: on the detail page, hide the body of cells whose status
-   isn't `body_draft` or `body_ok`. The summary box at the top still shows.
+   isn't `body_ok`. The summary box at the top still shows.
    Override with ?showall. Locally everything is visible. */
 .detail-body-hidden-notice { display: none; }
-.hide-unready .detail-body:not(.status-body-draft):not(.status-body-ok) {
+.hide-unready .detail-body:not(.status-body-ok) {
   display: none;
 }
-.hide-unready .detail-body:not(.status-body-draft):not(.status-body-ok) + .detail-body-hidden-notice {
+.hide-unready .detail-body:not(.status-body-ok) + .detail-body-hidden-notice {
   display: block;
 }
 
@@ -647,11 +647,11 @@ td.status-body-ok::after {
   border-color: transparent #6aaa64 transparent transparent;
 }
 
-/* Deployed site: only the green (body_draft / body_ok) corner triangles
-   are shown — these match the cells whose body is revealed on the
-   deployed site. Override with ?showall. */
-.hide-unready td.has-ps:not(.status-body-ok):not(.status-body-draft)::after,
-.hide-unready td[class*="status-"]:not(.status-body-ok):not(.status-body-draft)::after {
+/* Deployed site: only the green (body_ok) corner triangles are shown —
+   these match the cells whose body is revealed on the deployed site.
+   Override with ?showall. */
+.hide-unready td.has-ps:not(.status-body-ok)::after,
+.hide-unready td[class*="status-"]:not(.status-body-ok)::after {
   display: none;
 }
 

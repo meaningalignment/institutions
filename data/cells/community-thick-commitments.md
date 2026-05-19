@@ -27,8 +27,9 @@ How a community organizes itself around a mission or way of life and protects it
 - In human orgs the people doing the work are likeliest to notice mission failures first and propagate them upward; in agent-first orgs the humans are far from the actual work and may dismiss drift concerns even when agents propagate them.
 - If agents act faster than a human oversight board can deliberate, drift gets named too late and governance becomes post-hoc rationalization.
 - If agents inherit the sycophantic tendencies of current models, they might rationalize the org's current direction rather than name the gap between it and the mission.
-
-{{>> Plus (1) human mission orgs are not just conveyed by mission statement but by a bunch of other mechanisms like hiring, training, internal debate, etc, which are not easily replaced by a prompt; and (2) especially with hiring executives, issues of character and commitment that are visible in a human org may not be evaluable in an agent org; and (3) it can be much harder to see when an agent has a 'stake' in the org's mission than it is to see when a human does <<}}
+- Human mission orgs convey the mission not just through a stated charter but through hiring, training, internal debate, and culture; these mechanisms cannot easily be replaced by a prompt.
+- Character and commitment that are legible when hiring a human executive, especially at senior levels, are not straightforwardly evaluable in an agent.
+- It is much harder to see whether an agent has a real stake in the org's mission than to see whether a human does.
 
 ## How humans solve this today
 

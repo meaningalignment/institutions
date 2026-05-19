@@ -1,7 +1,7 @@
 ---
 agents_label: "Global markets that keep human interests central"
 human_label: "Consumer markets, labor income & multilateral trade rules"
-status: summary_needs_work
+status: body_draft
 owner: joe
 starred: true
 ---
@@ -60,6 +60,19 @@ On top of these structural facts sits a layer of intentional steering — boycot
 4. **Voice and bargaining.** What gives humans leverage over firms that do not need their labor: works councils with data rights, sectoral boards, citizen assemblies over AI-rent use, union representation over deployment decisions, or ownership votes through public capital pools?
 5. **Arbitrage and capture.** If firms can move model deployment, compute, or profits across borders, what keeps the obligation binding: destination-based taxation, compute licensing, treaty-linked market access, public auditability, constitutional entrenchment, or coordinated sanctions?
 
+### Keeping Consumer Welfare Powerful Amid Non-Consumer Market Pull
+
+**Scenario.** Over a decade, the largest sources of market activity in several advanced economies shift further toward financial trading, corporate procurement, datacenter construction, defense contracting, infrastructure races, and autonomous corporate projects. Household consumption shrinks as a percentage: capital markets reward firms for serving machine-speed procurement, speculative asset flows, and long-horizon corporate projects.
+
+**Challenge:** Design a market-steering institution that keeps consumer welfare and household demand powerful when non-consumer market pull grows faster than direct human consumption. Your proposal should not simply ban corporate procurement, finance, or capital expenditure, but should decide when those channels are legitimate and when they crowd out human welfare. Produce a decision procedure for large non-consumer projects: a welfare metric, a threshold or balancing rule, a representation process, an enforcement mechanism, or an adaptation rule as the composition of demand changes.
+
+**Design choices the team must take a position on.**
+1. **Threshold or balancing test.** Should the regime preserve a minimum share of resources for household consumption, impose a welfare-impact test on major non-consumer projects, price non-consumer uses higher, or require explicit public authorization above a scale threshold?
+2. **What counts as consumer welfare.** Is the protected object direct household purchasing power, access to essential goods, community and civic goods, time and attention, public services, or a broader measure of human flourishing? Who defines it and how often is it revised?
+3. **Scope of non-consumer pull.** Which channels are governed: financial speculation, corporate procurement, AI and datacenter capex, defense purchasing, infrastructure megaprojects?
+4. **Representation and veto.** Who speaks for affected households when the project does not need them as workers or buyers: local assemblies, consumer regulators, public-interest trustees, sectoral boards, courts, or citizen capital funds with voting rights?
+
+<!--
 ### Fiduciary Consumer Agency in Agent-Mediated Markets
 
 **Scenario.** In a large retail platform, most households no longer search, compare, and buy directly. Their assistant agents manage subscriptions, groceries, travel, insurance, media, and health purchases. The agents save time and often get better prices, but the platform earns vendor access fees, ranks offers through opaque recommender systems, and periodically nudges households toward bundles that maximize retention. Users still click "approve," but they no longer see enough alternatives, friction, or consequences to learn from the market in the old way. Consumer protection agencies can punish false claims after the fact, but the purchase decision itself has moved into delegated software.
@@ -71,17 +84,4 @@ On top of these structural facts sits a layer of intentional steering — boycot
 2. **Preference source.** How does the agent know what to optimize: revealed behavior, periodic structured elicitation, user-stated constraints, outcome-based satisfaction checks, household budgets, or a layered model that separates convenience preferences from life-shaping preferences?
 3. **Learning and revision.** What procedure lets humans learn from consequences and revise future choices when the agent shields them from the market: periodic review sessions, forced comparison moments, explanation of rejected alternatives, regret reporting, or independent preference audits?
 4. **Platform incentives.** Are vendor access fees, ranking payments, bundling deals, and platform retention targets prohibited, capped, disclosed, firewalled, or permitted only when the buyer agent can prove they did not affect the recommendation?
-5. **Collective pressure.** How do boycotts, complaints, product safety campaigns, and consumer organizing work when purchases are delegated: shared refusal lists, certified ethical constraints, agent-readable consumer rules, class-action triggers, or public registries of conflicted recommendations?
-
-### Keeping Consumer Welfare Powerful Amid Non-Consumer Market Pull
-
-**Scenario.** Over a decade, the largest sources of market activity in several advanced economies shift further toward financial trading, corporate procurement, datacenter construction, defense contracting, infrastructure races, and autonomous corporate projects. Household consumption is still large, but it no longer reliably disciplines what gets built: capital markets reward firms for serving machine-speed procurement, speculative asset flows, and long-horizon corporate projects. A proposed industrial zone would consume scarce energy, chips, water, and land for an automated logistics and compute complex. It is profitable and legally permitted, but local households face higher prices, lower service quality, and less political leverage because the project does not depend on them as workers or customers.
-
-**Challenge:** Design a market-steering institution that keeps consumer welfare and household demand powerful when non-consumer market pull grows faster than direct human consumption. A better proposal should not simply ban corporate procurement, finance, or capital expenditure; it should decide when those channels are legitimate and when they crowd out human welfare. Produce a decision procedure for large non-consumer projects: covered resources, welfare metric, threshold or balancing rule, representation process, enforcement mechanism, and adaptation rule as the composition of demand changes.
-
-**Design choices the team must take a position on.**
-1. **Threshold or balancing test.** Should the regime preserve a minimum share of resources for household consumption, impose a welfare-impact test on major non-consumer projects, price non-consumer uses higher, or require explicit public authorization above a scale threshold?
-2. **What counts as consumer welfare.** Is the protected object direct household purchasing power, access to essential goods, community and civic goods, time and attention, public services, or a broader measure of human flourishing? Who defines it and how often is it revised?
-3. **Scope of non-consumer pull.** Which channels are covered: financial speculation, corporate procurement, AI and datacenter capex, defense purchasing, infrastructure megaprojects, autonomous corporate agents, or only projects that consume scarce resources?
-4. **Representation and veto.** Who speaks for affected households when the project does not need them as workers or buyers: local assemblies, consumer regulators, public-interest trustees, sectoral boards, courts, or citizen capital funds with voting rights?
-5. **Cross-border and market adaptation.** If constrained projects relocate to lower-standard jurisdictions or shift from compute to energy to materials, does the regime use border adjustments, procurement bans, resource licensing, treaty coordination, or dynamic resource-specific caps?
+5. **Collective pressure.** How do boycotts, complaints, product safety campaigns, and consumer organizing work when purchases are delegated: shared refusal lists, certified ethical constraints, agent-readable consumer rules, class-action triggers, or public registries of conflicted recommendations? -->

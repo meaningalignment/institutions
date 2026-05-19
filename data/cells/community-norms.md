@@ -12,7 +12,7 @@ starred: true
 
 ### Coordination challenge
 
-How a profession sets expectations its members hold each other to without invoking formal law.
+How a profession sets expectations its members hold each other to without invoking formal law. If agents don't find norms at least as well as humans do, we are likely to see many tragedy-of-the-commons scenarios.
 
 ### Examples
 
@@ -24,11 +24,12 @@ How a profession sets expectations its members hold each other to without invoki
 
 ### How AGI breaks them
 
-- Agents do not pick up a desk's unwritten "we do not do that" rules just by reading policies.
-- Licenses and discipline reach human professionals and firms, not replaceable agent copies.
-- Agents need an explicit way to flag trades that are legal but would look indefensible to regulators.
-- When both sides use agents, ethics checks have to ask what the human principals would actually endorse.
-- Past disasters only help if agents actively watch for similar patterns in today's portfolios.
+- Existing mechanisms for professional norms may not keep up with the speed and scale of agent practice.
+- The usual way humans enforce norms (social sanctions, going cold, pushback) may not affect agents the same way.
+- Agents may not excel at the normative reasoning required to anticipate how a peer or regulator would react to an action (and that reasoning may be harder when the peer or regulator is itself an agent).
+- Agents likely have more diverse capabilities and incentives than humans, making it harder to find norms that work for all parties. (Difficulty finding norms that work across normal people and sociopaths is a good example of this problem in the human world.)
+- Agents may not pick up on unwritten rules just by reading policies.
+- Even if agents can develop their own norms, they may outrun us. Principals may discover what their agents agreed to after they've shaped many decisions.
 
 ## How humans solve this today
 

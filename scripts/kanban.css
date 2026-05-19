@@ -160,6 +160,14 @@ body {
   line-height: 1.35;
   flex: 1;
   min-width: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.kanban-card-title:hover {
+  color: #6b3e1f;
+  text-decoration: underline;
+  text-decoration-color: #c9c2b6;
+  text-underline-offset: 2px;
 }
 .kanban-card-meta {
   display: flex;

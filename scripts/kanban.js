@@ -149,6 +149,15 @@ function buildCards(cells, dirName) {
 
 // ── HTML rendering ───────────────────────────────────────────────────────
 
+// URL of the cell's detail page on the main dev server (port 5173).
+// Kanban is only ever run locally, so we hardcode the localhost origin.
+function cellDetailUrl(card) {
+  const base = 'http://127.0.0.1:5173';
+  if (card.kind === 'fidelity')    return `${base}/fidelity/#detail/fidelity/${card.rowId}/${card.colId}`;
+  if (card.kind === 'human-only')  return `${base}/human/#detail/human/${card.rowId}/${card.colId}`;
+  return `${base}/#detail/agi/${card.rowId}/${card.colId}`;
+}
+
 function renderCard(card) {
   const fidelityNote = card.dirName === 'fidelity' ? ' · Fidelity' : '';
   const editorialBadge = card.editorialCount > 0
@@ -159,7 +168,7 @@ function renderCard(card) {
     <div class="kanban-card-breadcrumb">${esc(card.rowName)} / ${esc(card.colName)}${fidelityNote}</div>
     <div class="kanban-card-title-row">
       ${starBtn}
-      <div class="kanban-card-title">${esc(card.title)}</div>
+      <a class="kanban-card-title" href="${esc(cellDetailUrl(card))}" target="_blank" rel="noopener" draggable="false" title="Open cell page (opens in new tab)">${esc(card.title)}</a>
     </div>
     <div class="kanban-card-meta">
       <button type="button" class="kanban-owner-pill owner-${esc(card.owner)}" data-owner-btn="1" title="Click to reassign">${esc(card.owner)}</button>

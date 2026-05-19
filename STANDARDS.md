@@ -140,6 +140,8 @@ Problem sets turn analysis into design work. They should make the reader want to
 
 There is no separate `## Scenarios` section. Scenarios live inside problem sets, where they serve as high-stakes test objects for the design work.
 
+Choose problem sets after the At a Glance bullets and `Where AGI breaks it` section have stabilized. If the framing changes, re-audit the problem sets; old briefs often keep solving the previous version of the page.
+
 Each problem set needs:
 
 - **Scenario.** A high-stakes example of the target coordination mechanism or institution working, failing, or needing to be rebuilt. Fold necessary context and stakes into this paragraph. Use plain language even when the scenario is domain-grounded.
@@ -162,6 +164,14 @@ Good challenges:
 - Include the deliverable inside the challenge.
 - Make clear what counts as a better or worse proposal.
 
+Good problem-set selections:
+
+- Cover the most important rebuilds implied by the AGI-breaks bullets.
+- Do not merely mirror every bullet one-for-one.
+- Avoid niche rebuilds unless they reveal the cell's core design problem.
+- Work as a coherent set: each brief should cover a different institutional capacity.
+- Remain open to replacement if a sharper scenario exposes a better design problem.
+
 ### 3.1 Problem-set checklist
 
 Before declaring the body done, check:
@@ -170,6 +180,8 @@ Before declaring the body done, check:
 - Each scenario is a high-stakes test object for the institution the problem set asks the team to design.
 - Each scenario is clear to a serious general reader, even when domain-grounded.
 - Problem sets pick two or three mechanisms rather than the whole cell.
+- The selected problem sets match the final AGI-breaks framing.
+- The selected problem sets cover distinct institutional capacities.
 - Every challenge names the design task, success criterion, and deliverable.
 - Design choices are forks.
 - Success criteria are specific enough that two proposals can be compared against them.

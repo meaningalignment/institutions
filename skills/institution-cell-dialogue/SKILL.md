@@ -88,6 +88,8 @@ For each selected problem set:
 Good dialogue moves:
 
 - Ask the user which rebuilds feel most underspecified or most important.
+- Offer several candidate problem-set trios when the framing has changed, then let the user pick or recombine.
+- Test each candidate problem set against the final AGI-breaks bullets: what failure does it serve?
 - Move any standalone scenario material into the relevant problem set.
 - Make sure the scenario names the institution the team is supposed to design, keeps jargon low, and makes the stakes clear.
 - Convert vague topics into design challenges.

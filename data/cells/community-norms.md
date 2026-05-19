@@ -1,7 +1,7 @@
 ---
 agents_label: "Professional norms for agents"
 human_label: "Professional codes of conduct"
-status: body_ok
+status: body_draft
 owner: joe
 starred: true
 ---
@@ -63,18 +63,31 @@ A vivid case: Sarah's first months at a hedge fund desk were spent watching her 
 
 ## Problem Sets
 
-### Rebuild Tacit Absorption Through Explicit Extraction
+### Agent Judgment in Gray Zones
 
-**Scenario.** At a hedge fund, senior traders keep younger traders from taking positions that could trap the firm in a market it cannot exit. They do this mostly by rejecting bad trades in the morning meeting, not by writing rules. A new trading agent does not know that history. It finds a trade that looks profitable and legal, but if the market turns, the fund could be stuck holding a position too large to sell without moving the price against itself.
+**Scenario.** A bank's agent proposes a fee-heavy product for a city pension plan. The disclosures are complete, the sale is legal, and the expected return is defensible on paper. But any senior banker would know the deal will look abusive if the city loses money: the trustees do not understand the downside, the bank is paid up front, and the public will ask why the bank sold this to them at all.
 
-**Challenge:** Design an extraction-and-maintenance protocol by which a desk's unwritten professional norms are surfaced, kept current, and made governing for an agent without requiring the desk head to explain every norm in advance. The protocol succeeds if it catches the kind of trade in the scenario before execution, survives a senior trader leaving or joining, updates when the desk's risk posture changes, and still applies after the agent is upgraded. The team should produce the protocol plus a sample extracted norm set for one desk type: vol arb, credit, mortgages, or structured products.
+**Challenge:** Design a gray-zone judgment procedure by which an agent can flag actions that are legal and profitable but would be seen by peers, clients, regulators, or the public as professionally indefensible. The procedure succeeds if it catches the scenario before execution, explains the concern in language a human supervisor can assess, updates as enforcement and professional expectations change, and does not turn every hard case into a blanket ban. The team should produce the procedure plus a worked example showing one action that is allowed, one that is escalated, and one that is blocked.
 
 **Design choices the team must take a position on.**
-1. **Signal channels.** Does the procedure infer norms from explicit corrections to the agent, senior-trader reactions to its proposals, vetoes at the morning meeting, post-trade reviews, quiet rewrites, or some combination?
-2. **Norm form.** Are extracted norms represented as natural-language rules, labeled past cases, embeddings, executable constraints, or a layered combination? When extracted norms conflict with written rules, which source controls?
-3. **Authorship and maintenance.** Is one named senior responsible for the norm set, is stewardship rotated, or does a separate norm-elicitation role own it? On what cadence is it reviewed?
-4. **Survival across change.** When the senior whose corrections trained the procedure leaves, what persists? When a new senior arrives with a different risk posture, how quickly can the norm set change?
-5. **Default on ambiguity.** When a proposed trade matches no extracted rule but sits near an ambiguity boundary, does the agent execute, pause for review, ask the senior, or produce options with a risk label?
+1. **Audience modeled.** Whose likely reaction matters: peer practitioners, clients, regulators, courts, the press, affected third parties, or some weighted combination?
+2. **Evidence base.** Does the procedure learn from enforcement actions, internal escalations, professional codes, postmortems, senior-review decisions, public controversies, or all of these?
+3. **Escalation threshold.** What makes a case gray enough to pause: reputational risk, client misunderstanding, asymmetric payoff, novelty, public-sector exposure, or similarity to prior scandals?
+4. **Explanation form.** Does the agent explain the concern as a rule, an analogy to a past case, a predicted reaction from each audience, or a short memo for human review?
+5. **Authority to override.** Who can approve a flagged action, what must they certify, and how is the override recorded for later review?
+
+### Professional Discipline Without Social Sanctions
+
+**Scenario.** An asset manager's agent repeatedly pushes counterparties into small disadvantages: slightly unfavorable timing, confusing disclosures, and negotiation terms that humans would read as sharp practice. No single incident is worth a lawsuit. A human employee who behaved this way would stop getting trusted by peers. The agent is patched after complaints and redeployed under a new name.
+
+**Challenge:** Design a professional discipline regime that makes norm violations by agents costly to the actors who deploy, supervise, or profit from them, even when ordinary social sanctions do not reach the agent itself. The regime succeeds if repeated low-level misconduct cannot be washed away by patching or renaming the agent, if small counterparties have an affordable path to complain, and if sanctions distinguish between a one-off mistake, negligent supervision, and a business model built around sharp practice. The team should produce the regime plus a sample disciplinary record for the scenario.
+
+**Design choices the team must take a position on.**
+1. **Sanction target.** Does discipline attach to the firm, the licensed supervisor, the vendor, the deployment, an agent registry entry, or several of these at once?
+2. **Identity persistence.** How are complaints and sanctions carried across model updates, redeployments, renamed agents, and vendor changes?
+3. **Threshold for discipline.** What pattern turns isolated agent errors into professional misconduct: number of complaints, severity, recurrence after warning, intent of the principal, or failure to monitor?
+4. **Complaint channel.** Who can bring a complaint, what evidence is required, and how can smaller counterparties use the process without spending more than the harm is worth?
+5. **Remedy menu.** Are sanctions warnings, mandatory review, restitution, deployment suspension, supervisor discipline, vendor remediation, loss of authorization, or public censure?
 
 ### Contractualist Reasoning When Counterparties Are Agents
 
@@ -88,16 +101,3 @@ A vivid case: Sarah's first months at a hedge fund desk were spent watching her 
 3. **Reasoning disclosure.** Is the reasoning trace shown to the counterparty agent, the counterparty principal, a third-party auditor, or retained only for examination? What triggers disclosure?
 4. **Standing of agent counterparties.** Does an agent counterparty have standing in the reasoning, or only the human/legal principal behind it? If both matter, how are conflicts handled?
 5. **Opacity fallback.** When the counterparty agent's relevant constraints are unavailable, is the default block, escalate, proceed with assumptions, or price the opacity into the transaction?
-
-### Ratifying Agent-Speed Professional Norms
-
-**Scenario.** Several large banks use agents to screen a new kind of structured product. Within a week, the agents converge on the same market practice: the product can be sold to smaller pension funds as long as a dense risk appendix is attached. No regulator has ruled on it, and no professional body has discussed it. By the time trustees begin to complain that they did not understand the risk, the practice has already shaped hundreds of sales.
-
-**Challenge:** Design a ratification procedure by which agent-discovered professional norms are surfaced, slowed, reviewed, and either approved, revised, or rejected before they become settled practice. The procedure succeeds if it catches the scenario norm before it spreads through the market, gives professional bodies and regulators a legible record of what agents are converging on, and prevents the largest agent fleets from deciding the profession's norms by moving first. The team should produce the procedure plus a worked example of one proposed agent norm moving through review.
-
-**Design choices the team must take a position on.**
-1. **Detection threshold.** What counts as an emerging norm: repeated behavior across agents, explicit agent-to-agent agreement, convergence inside one large fleet, or material effects on clients?
-2. **Pacing.** When a norm is detected, is practice paused, slowed, labeled provisional, or allowed to continue while review happens?
-3. **Review authority.** Who can ratify or reject the norm: the firm, a professional association, a regulator, a client fiduciary, or some combination?
-4. **Fleet asymmetry.** How does the procedure keep the largest agent deployments from setting norms simply because they generate the most examples fastest?
-5. **Rollback.** If a norm is rejected after agents have already acted on it, which past decisions are grandfathered, audited, compensated, or reopened?

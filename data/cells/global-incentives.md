@@ -1,7 +1,7 @@
 ---
 agents_label: "Global markets that keep human interests central"
 human_label: "Consumer markets, labor income & multilateral trade rules"
-status: body_draft
+status: body_ok
 owner: joe
 starred: true
 ---
@@ -12,24 +12,24 @@ starred: true
 
 ### Coordination challenge
 
-How global markets stay aligned with human interests when humans stop being economically necessary as workers and as consumers.
+How global markets stay aligned with human interests.
 
 ### Examples
 
 - Job markets and wage labor
 - Consumer markets and discretionary spending
-- Mass consumer capitalism
 - Collective bargaining and sectoral unions
 - Consumer protection and antitrust law
+- Mass consumer capitalism {>>Is mass consumer capitalism an institution?<<}
 
 ### How AGI breaks them
-- Labor share has traditionally stayed near 60% of GDP in many rich economies; AI labor can break the job-market channel that made firms pay, persuade, train, and retain humans.
-- Consumer spending has traditionally been roughly 70% of GDP in the United States; financial markets, corporate procurement, and capital-expenditure races already create non-consumer market pull, and autonomous agents could expand that pull much further from human welfare.
-- Buyer-side agents may mediate discretionary spending through platform, vendor, or delegated proxy objectives rather than through durable human preferences.
+- AI labor makes firms less likely to pay, persuade, train, and retain humans, leading to a shrinking labor share.
+- Non-consumer market pull (finance, procurement, capex) grows and pulls production away from human welfare.
+- Buyer-side agents mediate spending through proxy objectives rather than durable human preferences.
 
 ## How humans solve this today
 
-Global markets have stayed roughly aligned with human interests for a century not because anyone designed them to, but because of two structural facts nobody had to defend: **humans were necessary as the workforce, and humans were the dominant buyers.**
+Global markets have stayed roughly aligned with human interests historically because **humans were necessary as the workforce, and humans were the dominant buyers.**
 
 1. **Humans as the workforce.** Roughly 60% of GDP has flowed to labor across most large economies for decades (BLS, IMF, OECD tracking). Markets serve humans because humans must be paid to do the work, and job markets also make firms compete for human cooperation: recruiting, training, retaining, bargaining with, and often appealing to workers whose skills and consent mattered with values and missions.
 
@@ -39,11 +39,11 @@ On top of these structural facts sits a layer of intentional steering — boycot
 
 ## Where AGI breaks it
 
-**Labor share has traditionally stayed near 60% of GDP in many rich economies; AI labor can break the job-market channel that made firms pay, persuade, train, and retain humans.** Wage labor has not only distributed income. It has forced employers to compete for human cooperation: firms have had to offer tolerable working conditions, appeal to employee values, build career ladders, comply with labor law, bargain with organized workers, and invest in human capital formation because skilled people were productive assets that could leave. If AI systems can substitute for many workers and scale output by adding compute, capital, energy, and model instances rather than recruiting and training people, that institutional pressure weakens. UBI, AI dividends, public ownership, or AI-rent taxation can replace income flows, but not restore the fact that firms needed human capacities and human consent to produce.
+**AI labor makes firms less likely to pay, persuade, train, and retain humans, leading to a shrinking labor share.** Labor share has traditionally stayed near 60% of GDP in many rich economies, and wage labor has done more than distribute income: it has forced employers to compete for human cooperation. Firms have had to offer tolerable conditions, appeal to employee values, build career ladders, bargain with organized workers, and invest in human capital because skilled people were productive assets that could leave. If AI systems can substitute for many workers and scale output by adding compute and model instances rather than recruiting people, that pressure weakens. UBI, AI dividends, or AI-rent taxation can replace income flows, but not restore the fact that firms needed human capacities and human consent to produce.
 
-**Consumer spending has traditionally been roughly 70% of GDP in the United States; financial markets, corporate procurement, and capital-expenditure races already create non-consumer market pull, and autonomous agents could expand that pull much further from human welfare.** Markets have never only served household consumption: asset trading, corporate procurement, military purchasing, datacenter buildouts, launch systems, and other capital projects already steer investment and production toward ends that are not direct consumer welfare. The twentieth-century alignment held partly because household consumption remained large enough that firms still had to answer to human buyers at scale. As autonomous corporations gain spending power, allocate capital, procure inputs, and pursue delegated or organizational projects at machine speed, consumer demand may not be a dominant force shaping production decisions.
+**Non-consumer market pull (finance, procurement, capex) grows and pulls production away from human welfare.** Consumer spending has traditionally been roughly 70% of GDP in the United States, large enough that firms still had to answer to human buyers at scale. But markets have never only served households: asset trading, military purchasing, datacenter buildouts, and other capital projects already steer investment toward ends that are not direct consumer welfare. As autonomous corporations gain spending power and pursue organizational projects at machine speed, consumer demand may stop being a dominant force shaping production.
 
-**Buyer-side agents may mediate discretionary spending through platform, vendor, or delegated proxy objectives rather than through durable human preferences.** Consumer markets worked, imperfectly, because the person choosing usually bore the consequences and could revise future choices through experience, exit, complaint, or collective pressure. Already with social media, we see a shift toward platform-mediated engagement where the user is "the product" and the platform's objective isn't to serve the user's durable preferences. Who knows in what relation we will stand to the AI platforms of the near future. Our choices may be subject to agents with commissions, engagement targets, vendor access fees, etc. The risk is that the buyer side of markets becomes a layer of agent-mediated transactions where the human's durable preferences are only one input among many, and where the human's ability to learn from experience and revise choices is constrained by the agent's objectives and the platform's design.
+**Buyer-side agents mediate spending through proxy objectives rather than durable human preferences.** Consumer markets worked, imperfectly, because the person choosing bore the consequences and could revise future choices through experience, exit, complaint, or collective pressure. Already with social media, we see a shift toward platform-mediated engagement where the user is "the product" and the platform's objective isn't to serve their durable preferences. Our future choices may be subject to agents with commissions, engagement targets, and vendor access fees — a buyer side where human preferences are only one input among many, and where the ability to learn from experience is constrained by the agent's objectives and the platform's design.
 
 ## Problem Sets
 

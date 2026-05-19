@@ -17,6 +17,7 @@ How two parties bind themselves to a commitment or way of life that outlasts cha
 - Vows exchanged in witness of others
 - Jointly signed public manifestos
 - Promises to act faithfully
+- Fiduciary duty
 
 ### How AGI breaks them
 

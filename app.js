@@ -346,7 +346,7 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   const statusClass = status ? ` status-${status.replace(/_/g, '-')}` : '';
   if (cell.body && cell.body.trim()) {
     html += `<div class="detail-body${statusClass}">${renderBody(cell.body)}</div>`;
-    html += `<div class="detail-placeholder detail-body-hidden-notice">This cell isn\u2019t ready yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
+    html += `<div class="detail-placeholder detail-body-hidden-notice">This cell isn\u2019t ready yet.</div>`;
   } else {
     html += `<div class="detail-placeholder">This cell hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
   }

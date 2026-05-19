@@ -1,7 +1,7 @@
 ---
 agents_label: "Elections and citizen assemblies"
 human_label: "Elections and citizen assemblies"
-status: summary_needs_work
+status: summary_ok
 owner: oliver
 ---
 
@@ -25,8 +25,7 @@ How a nation aggregates millions of individual preferences into collective decis
 - Agents can persuade at scale through one-on-one conversations, seeded online movements, manufactured polls and apparent majorities. Voter preferences become highly manipulable, by domestic and foreign actors alike.
 - Elections, assemblies, referenda, and polls are slow and costly, so there will be pressures toward simulated polls and deliberation. It's unclear how they can be democratically legitimate.
 - If no preference-aggregation alternatives keep pace with an increasingly volatile world, the pull toward authoritarianism grows.
-
-{>> Also, if we have AGI lawmakers and executive branches, they are likely to be able to move quickly and unexpectedly in ways that make even Trump easy to track. For this reason, they may need a clearer mandate from the people, more substantial than just their name on a ballot. <<}
+- If we have AI lawmakers and executive branches, they are likely to be able to move quickly and unexpectedly in ways. For this reason, we may need a much clearer and continuous mandate from the people.
 
 ## How humans solve this today
 
@@ -42,6 +41,7 @@ When the negotiator becomes an AI agent representing a state, a region, or a lar
 2. **Constituency heterogeneity gets averaged.** AI optimizers tend to maximize an aggregate; minority constituencies (smaller counties, harder-hit industries) lose at the average and the system has no native vocabulary for surfacing the loss.
 3. **Real-time consultation breaks.** A weekly check-in with a committee can't keep up with an AI negotiator that needs to make tactical concessions in minutes.
 4. **Representative drift is invisible.** A human negotiator who drifts from mandate gets called out by adversaries, journalists, or their own staff; an AI's drift is detectable only to those who can read what it's doing — and the constituency rarely can.
+5. **A ballot is no longer a mandate.** If we have AI lawmakers and executive branches, they are likely to be able to move quickly and unexpectedly in ways. For this reason, we may need a much clearer and continuous mandate from the people.
 
 ## Scenarios
 

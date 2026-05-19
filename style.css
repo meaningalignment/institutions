@@ -522,6 +522,59 @@ td .cell-empty { color: #ccc; font-size: 13px; }
   min-width: 28px;
 }
 
+/* Problem set boxes inside a cell's detail page (under ## Problem Sets) */
+.detail-body .ps-detail-entry {
+  margin: 18px 0 22px;
+  padding: 18px 22px 14px;
+  border: 1px solid #e6e1d8;
+  border-radius: 8px;
+  background: #fdfcfb;
+}
+
+.detail-body .ps-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.detail-body .ps-detail-number {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #6b5e4f;
+  color: #fdfcfb;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.detail-body .ps-detail-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #2d2a26;
+  line-height: 1.3;
+}
+
+.detail-body .ps-detail-body > p:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .detail-body .ps-detail-entry { padding: 14px 16px 10px; }
+  .detail-body .ps-detail-title { font-size: 15px; }
+  .detail-body .ps-detail-number {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+}
+
 /* Cell status indicator — triangle in top-right corner.
    Shape / fill comes from status-* classes; has-ps alone is the default solid. */
 td.has-ps, td[class*="status-"] {

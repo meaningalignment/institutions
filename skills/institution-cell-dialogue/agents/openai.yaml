@@ -1,0 +1,4 @@
+interface:
+  display_name: "Institution Cell Dialogue"
+  short_description: "Collaborate on institution cell pages"
+  default_prompt: "Use $institution-cell-dialogue to help revise one institution grid cell with me."

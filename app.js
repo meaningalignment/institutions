@@ -198,8 +198,40 @@ function processEditorial(md) {
   });
 }
 
+// Wrap each H3 under the "Problem Sets" H2 in a numbered box. Operates on
+// the HTML produced by marked.
+function wrapProblemSets(html) {
+  const headerMatch = html.match(/<h2[^>]*>\s*Problem Sets\s*<\/h2>/i);
+  if (!headerMatch) return html;
+  const startIdx = headerMatch.index + headerMatch[0].length;
+  const rest = html.slice(startIdx);
+  const nextH2 = rest.match(/<h2[^>]*>/);
+  const sectionEnd = nextH2 ? startIdx + nextH2.index : html.length;
+  const section = html.slice(startIdx, sectionEnd);
+
+  const h3Re = /<h3[^>]*>([\s\S]*?)<\/h3>/g;
+  const h3s = [];
+  let m;
+  while ((m = h3Re.exec(section)) !== null) {
+    h3s.push({ start: m.index, end: m.index + m[0].length, title: m[1] });
+  }
+  if (h3s.length === 0) return html;
+
+  let wrapped = section.slice(0, h3s[0].start);
+  h3s.forEach((h, i) => {
+    const bodyEnd = i + 1 < h3s.length ? h3s[i + 1].start : section.length;
+    const body = section.slice(h.end, bodyEnd).trim();
+    wrapped += `<div class="ps-detail-entry">`;
+    wrapped += `<div class="ps-detail-header"><span class="ps-detail-number">${i + 1}</span><span class="ps-detail-title">${h.title}</span></div>`;
+    wrapped += `<div class="ps-detail-body">${body}</div>`;
+    wrapped += `</div>`;
+  });
+
+  return html.slice(0, startIdx) + wrapped + html.slice(sectionEnd);
+}
+
 function renderBody(md) {
-  return renderVividCases(marked.parse(processEditorial(md)));
+  return wrapProblemSets(renderVividCases(marked.parse(processEditorial(md))));
 }
 
 // ── Summary box at top of detail (problem + example institutions) ──

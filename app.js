@@ -28,11 +28,16 @@ const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 
 // Inline editorial notes ({>> ... <<}) are hidden by default. Reveal them
 // when viewing locally or when the URL has ?editorial.
-(function showEditorialIfLocal() {
+// On the deployed site, cells whose status isn't `body_draft` or `body_ok`
+// have their grid summary hidden behind a placeholder — click still works.
+// Override with ?showall.
+(function applyViewerFlags() {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '';
-  const flagged = /[?&]editorial(=|&|$)/.test(location.search);
-  if (local || flagged) document.documentElement.classList.add('show-editorial');
+  const editorialFlag = /[?&]editorial(=|&|$)/.test(location.search);
+  const showAllFlag = /[?&]showall(=|&|$)/.test(location.search);
+  if (local || editorialFlag) document.documentElement.classList.add('show-editorial');
+  if (!local && !showAllFlag) document.documentElement.classList.add('hide-unready');
 })();
 
 // ── Cell parsing ───────────────────────────────────────────────────
@@ -337,8 +342,11 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += '<div class="detail-layout">';
   html += '<div class="detail-main">';
   html += renderSummaryBox(cell.frontmatter);
+  const status = (cell.frontmatter && cell.frontmatter.status) || '';
+  const statusClass = status ? ` status-${status.replace(/_/g, '-')}` : '';
   if (cell.body && cell.body.trim()) {
-    html += `<div class="detail-body">${renderBody(cell.body)}</div>`;
+    html += `<div class="detail-body${statusClass}">${renderBody(cell.body)}</div>`;
+    html += `<div class="detail-placeholder detail-body-hidden-notice">This cell isn\u2019t ready yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
   } else {
     html += `<div class="detail-placeholder">This cell hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
   }

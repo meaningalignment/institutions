@@ -1,10 +1,12 @@
 ---
 human_label: "Legal codes & regulatory norms"
-status: summary_draft
+status: summary_ok
 owner: oliver
 ---
 
 # AIs that follow and update the law
+
+{>> This looks good to me but might want to run it past Nick C!<<}
 
 ## At a glance
 

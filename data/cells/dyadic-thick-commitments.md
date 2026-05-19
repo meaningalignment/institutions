@@ -1,6 +1,6 @@
 ---
 human_label: "Vows & covenants"
-status: summary_draft
+status: summary_ok
 owner: oliver
 ---
 
@@ -21,8 +21,8 @@ How two parties bind themselves to a commitment or way of life that outlasts cha
 
 ### How AGI breaks them
 
-- Agents aren't bound to their commitments by an internal sense of integrity the same way humans are.
-- Agents aren't held to their commitments by community judgment the way humans are.
+- Agents may not be bound to their commitments by an internal sense of integrity the same way humans are.
+- Agents may not be held to their commitments by community judgment the way humans are.
 - Depending on how agents are built, commitments made don't naturally carry over to new sessions or instances.
 
 ## How humans solve this today

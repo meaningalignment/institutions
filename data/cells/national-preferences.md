@@ -1,7 +1,7 @@
 ---
 agents_label: "Elections and citizen assemblies"
 human_label: "Elections and citizen assemblies"
-status: summary_draft
+status: summary_needs_work
 owner: oliver
 ---
 
@@ -19,13 +19,14 @@ How a nation aggregates millions of individual preferences into collective decis
 - Citizens' assemblies
 - Referenda
 - Polls
-{>> joe — cut national exchanges (NYSE, CME) from here. only fits as "preference aggregation" if you really squint, and totally different solution space. —oliver <<}
 
 ### How AGI breaks them
 
 - Agents can persuade at scale through one-on-one conversations, seeded online movements, manufactured polls and apparent majorities. Voter preferences become highly manipulable, by domestic and foreign actors alike.
 - Elections, assemblies, referenda, and polls are slow and costly, so there will be pressures toward simulated polls and deliberation. It's unclear how they can be democratically legitimate.
 - If no preference-aggregation alternatives keep pace with an increasingly volatile world, the pull toward authoritarianism grows.
+
+{>> Also, if we have AGI lawmakers and executive branches, they are likely to be able to move quickly and unexpectedly in ways that make even Trump easy to track. For this reason, they may need a clearer mandate from the people, more substantial than just their name on a ballot. <<}
 
 ## How humans solve this today
 

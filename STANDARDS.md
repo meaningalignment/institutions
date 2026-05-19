@@ -12,7 +12,7 @@ The frontmatter `problem` / `examples` / `agi_breaks` render as the cell's eleva
 
 - **`problem`**: "How [parties] [verb] [object]." A coordination challenge, not a topic.
 - **`examples`**: 3–5 named institutions (Marriage vows, US Tax Code), not statistics or generic phrases.
-- **`agi_breaks`**: 3–5 full sentences, each tying an agent property to a specific mechanism failure. Not telegraphic fragments.
+- **`agi_breaks`**: 3–5 short sentences, ideally paired 1:1 with the Examples. Each ties an agent property to a specific mechanism failure. No bold lead labels — just the sentence. Aim for ~10–15 words per bullet; group-norms is the gold-standard exemplar.
 
 ### 1. The H1 names the gap, not the topic.
 
@@ -127,6 +127,18 @@ Run this against any cell before declaring it done.
   □ Mechanism names thread anchor → breaks-it → scenarios → problem sets
   □ Same numbered ordering across sections
 ```
+
+## Review prompts
+
+Audit questions to apply when drafting (or redrafting) a cell body given an "At a glance" section.
+
+- **Conflation check.** Is any bullet (in agi_breaks, or in agent/context properties) hiding multiple distinct failure modes that should be split? Conflated bullets often have "and" or "or" connecting two analytically different beats; the underlying rebuilds are different. (Global-incentives had "AI mediates consumer choice and increasingly is the consumer" — hiding mediation, principalship, and demand composition as three separate failures.)
+
+- **Layering check.** Is each anchor mechanism load-bearing on its own, or derivative from a more fundamental fact? When mechanisms have asymmetric load — some structural-implicit (humans as workforce, as buyers) and some intentional-explicit (boycotts, treaties) — separate them as primary + derivative rather than enumerating in parallel. The intentional layer typically presupposes the structural one; treating them as parallel hides causal structure.
+
+- **Pairing check.** Do agi_breaks bullets pair 1:1 with Examples? Do per-mechanism failures pair with named differences? If pairing is uneven, what's leaking — a missing example, an orphan property, a hidden conflation, a mechanism that doesn't really fail the way the cell claims?
+
+- **Originality check.** What's the cell's analytical contribution that isn't already in the source literature it draws on?
 
 ## Open questions
 

@@ -23,12 +23,9 @@ How global markets stay aligned with human interests when humans stop being econ
 - Sovereign wealth funds (Norway GPFG, Alaska PF)
 
 ### How AGI breaks them
-
-- AI labor replaces the labor-share alignment by default.
-- AI mediates and increasingly is the consumer.
-- Race to the bottom across jurisdictions that constrain AI participation.
-- Explicit steering loses bite when humans lose economic weight.
-- Economic dominance feeds political and cultural capture.
+- Wealth concentrates into asset speculation and luxury rather than consumption; AI itself buys compute, energy, and materials at scale for projects that don't route back to humans.
+- AI labor replaces labor-share; humans are no longer necessary inputs to production.
+- Assistant-agents pick for buyers without a stake in the choice, perhaps keeping them entertained and fed, but not necessarily steering toward what they actually want or need.
 
 ## How humans solve this today
 
@@ -48,23 +45,29 @@ A vivid case: After the 2013 Rana Plaza collapse, the global pressure on the gar
 
 ## Where AGI breaks it
 
-Five differences load-bear here. They are not agent properties in the narrow "the agent has perfect recall" sense — they are properties of how AI economic activity displaces the structural facts that did the load-bearing work, plus the feedback loops that follow.
+The load-bearing differences here are partly properties of agents as economic actors and partly properties of the deployment context. The four anchor mechanisms held together because production required human inputs; the differences that follow each undo a piece of that structural fact.
 
-- **AI labor replaces human labor share.** Income stops flowing to humans by default, with nobody acting maliciously. The deepest implicit alignment — wages going to humans because production requires them — dissolves structurally as a more competitive substitute exists.
-- **AI mediates consumer choice and increasingly is the consumer.** What gets aggregated as "demand" becomes platform-curated revealed behavior; over time, AI agents become principals to transactions in their own right. Production gets pulled toward signals that no longer track human preference.
-- **Cross-border race to the bottom.** Countries that constrain AI economic participation lose to those that don't. Per Kulveit et al., this risks a world in which "the most powerful economies are in states where the population is most disempowered."
-- **Explicit steering weakens with the steerers' economic weight.** Boycotts, divestment, strikes, ethical purchasing presuppose that the steering party carries leverage. As humans hold less of it, the lever breaks; explicit mechanisms become advisory rather than binding.
-- **Economic dominance feeds political and cultural capture.** Companies use growing AI-driven economic power to shape regulation and narrative in ways that protect further AI-driven displacement. The feedback loop reinforces itself.
+**Agent properties:**
 
-The four anchor mechanisms fail differently:
+- **Substitutable for wage labor.** Agents can perform a growing fraction of what wage-earning humans were structurally necessary for. Adding production no longer requires routing wages to humans.
+- **Re-instanceable at low marginal cost.** Scaling output adds compute and capital cost, not wages. The link between scale-of-production and scale-of-labor-income that gave the labor share its stability doesn't hold.
+- **Mediator with no personal stake in the choice.** When an assistant-agent picks between brands for its principal, it has no internalized cost of an unethical choice; the steering channel from buyer ethics to producer behavior depended on a buyer who carried that cost.
+- **Capable of principal-like roles in transactions.** Agents can hold balances, allocate capital, execute under standing instructions, and increasingly act on their own behalf in defined classes of trade. What gets aggregated as "demand" begins to include behavior whose ultimate principal is itself agent-mediated.
 
-1. **Labor share.** Dissolves by *AI labor replacing human labor*. No specific decision makes this happen; it is the structural consequence of a more competitive substitute existing. Redistribution proposals (UBI, AI dividends, progressive AI-revenue taxation) try to patch the income flow, but they do not restore the alignment that came from humans being necessary.
+**Context properties:**
 
-2. **Consumer demand.** Bifurcates by *AI mediating consumer choice* and *AI participating as consumer*. Production decisions get pulled toward whatever signals AI-curated demand sends; revealed preference becomes a measurement of AI-shaped behavior, not human preference. The aggregation that worked for a century — pull production toward what humans buy — keeps running but stops aggregating what it used to.
+- **Jurisdiction-portable.** AI deployment can relocate across borders far faster and more cheaply than human labor can migrate. The arbitrage that drove labor-cost competition for decades sharpens.
+- **Economic scale precedes political feedback.** Capacity deploys in months; treaty regimes evolve in decades; political constituencies adjust on yet a third timescale. The asymmetry favors capture by AI-deploying interests.
 
-3. **Explicit steering.** Loses bite because *the steerers lose economic weight* and because *steering is itself agent-mediated*. A boycott routed through assistant agents whose loyalties lie with the platform doesn't punish the boycotted brand the way a human-led boycott did.
+These differences break the four anchor mechanisms:
 
-4. **Cross-border governance.** Erodes by *race to the bottom* and *capture feedback*. The WTO, ILO, and treaty regimes that priced human-relevant externalities depend on national capacity and political will, both of which the capture loop weakens.
+1. **Labor share.** Dissolves from *substitutability* and *re-instanceability*: production no longer requires routing wages to humans. The deepest implicit alignment — markets serve humans because production requires paying humans — dissolves as a more competitive substitute exists. Redistribution proposals (UBI, AI dividends, progressive AI-revenue taxation) try to patch the income flow, but they do not restore the alignment that came from humans being necessary inputs.
+
+2. **Consumer demand.** Bifurcates from *mediator with no stake* and *principal-like roles*: revealed behavior at scale starts measuring the mediation layer's objectives rather than human substantive preference, and as agents take principal-like roles in defined transactions, what's aggregated stops being human preference even nominally. The aggregation that worked for a century — pull production toward what humans buy — keeps running but stops aggregating what it used to.
+
+3. **Explicit steering.** Loses bite from *substitutability* (humans hold less of the economic weight that gave boycotts, divestment, and strikes their leverage) and *mediator with no stake* (the channel between buyer ethics and producer behavior runs through agents whose loyalties lie with the platform). The mechanism could still apply with different objects — boycotts of platform operators by capital pools that retain economic weight, rather than consumer boycotts of brands — but the consumer-led form doesn't transfer.
+
+4. **Cross-border governance.** Erodes from *jurisdiction-portability* and *scale-preceding-feedback*: the rents from a less-constrained jurisdiction grow faster than coordinated countermeasures can be negotiated. The treaty regimes that priced human-relevant externalities depended on national capacity and political will rooted in domestic constituencies; both weaken as the economic base detaches from those constituencies. Per Kulveit et al., this risks a world in which "the most powerful economies are in states where the population is most disempowered."
 
 ## Scenarios
 

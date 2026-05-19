@@ -1,6 +1,6 @@
 ---
 human_label: "Constitutions, courts & judiciary"
-status: summary_needs_work
+status: summary_draft
 owner: oliver
 ---
 
@@ -14,18 +14,19 @@ How a nation guarantees individual entitlements against the state and other powe
 
 ### Examples
 
-- National constitutions
-- Supreme courts
-- Civil-rights statutes
-- Habeas corpus
-- Administrative law judges
+- Adversarial trial procedure
+- Civil settlement and dockets
+- Federal Rules of Evidence
+- Jury trial and the right to be heard
+- Common-law precedent
 
 ### How AGI breaks them
 
-- The Constitution binds the state, but agents working for private actors might make the decisions that most determine whether a person can work, bank, communicate, or rent.
-- Due process requires the state to explain adverse decisions, but agent assistance makes those explanations shallower even when a human still signs off.
-- Court cases take months and doctrinal change takes decades, but agents can cause significant harm in minutes.
-- Agents can generate complaints and appeals faster than judges can read them.
+- We could see an explosion of agent-to-agent disputes that no human court is capable of handling.
+- Adversarial procedure assumes both sides pay to fight, but agents let one side bury the other in motions.
+- Handing adjudication to AI to speed things up breaks the legitimacy courts depend on.
+- Settlement clears dockets because suing is costly, but agents make it cheap for whoever can afford them.
+- AI could generate fake documents and recordings, enabling malicious actors to overwhelm evidence law.
 
 ## How humans solve this today
 

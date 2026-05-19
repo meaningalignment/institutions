@@ -390,6 +390,7 @@ async function showDetail(tabId, rowId, colId, dataPath) {
   gridView.style.display = 'none';
   controls.style.display = 'none';
   detailView.style.display = 'block';
+  document.body.classList.add('viewing-detail');
   location.hash = `#detail/${tabId}/${rowId}/${colId}`;
 
   try {
@@ -456,6 +457,7 @@ function hideDetail() {
   detailView.style.display = 'none';
   controls.style.display = 'flex';
   gridView.style.display = 'flex';
+  document.body.classList.remove('viewing-detail');
   history.replaceState(null, '', location.pathname);
 }
 

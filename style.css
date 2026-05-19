@@ -830,7 +830,14 @@ tr.methods-row th.row-header {
 /* ── Print / PDF export ───────────────────────────────────────────── */
 
 @media print {
+  /* Default page: portrait letter — used for detail pages and problem-sets. */
   @page {
+    size: letter portrait;
+    margin: 0.55in;
+  }
+
+  /* Wide landscape page — used for the grid via `page: wide`. */
+  @page wide {
     size: 1280px 920px;
     margin: 24px;
   }
@@ -846,36 +853,133 @@ tr.methods-row th.row-header {
   }
 
   .controls,
-  .nav-link,
-  .tab-bar,
-  #detail-view,
   .site-footer,
-  .table-wrapper::after {
+  .table-wrapper::after,
+  .detail-back,
+  .detail-footer,
+  .rail-footer {
     display: none !important;
   }
 
-  .table-wrapper {
+  /* Editorial markers never print, even on localhost where they're visible on screen. */
+  .editorial,
+  .cell-summary-note,
+  .cell-summary-notes-row {
+    display: none !important;
+  }
+
+  /* ── Grid print (grid pages when not viewing detail) ─────────────── */
+
+  body:has(#grid-view):not(.viewing-detail) {
+    page: wide;
+  }
+
+  body:not(.viewing-detail) #detail-view {
+    display: none !important;
+  }
+
+  body:not(.viewing-detail) #grid-view {
+    display: block;
+    width: 100%;
+  }
+
+  body:not(.viewing-detail) .table-wrapper {
     overflow: visible !important;
     position: static;
   }
 
-  table {
+  body:not(.viewing-detail) table {
     min-width: 0;
     margin: 0 auto;
     page-break-inside: avoid;
   }
 
-  th.row-header,
-  tr.methods-row th.row-header {
+  body:not(.viewing-detail) th.row-header,
+  body:not(.viewing-detail) tr.methods-row th.row-header {
     position: static !important;
     background: transparent !important;
   }
 
-  #grid-view {
-    display: block;
-    width: 100%;
+  body:not(.viewing-detail) .pane-title { margin-top: 0; }
+
+  /* ── Detail print ────────────────────────────────────────────────── */
+
+  body.viewing-detail #grid-view {
+    display: none !important;
   }
 
-  .pane-title { margin-top: 0; }
+  body.viewing-detail #detail-view {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.viewing-detail .detail-breadcrumb {
+    font-size: 9pt;
+    margin-bottom: 4px;
+  }
+
+  body.viewing-detail .detail-title {
+    font-size: 22pt;
+    margin-bottom: 14px;
+    line-height: 1.2;
+    page-break-after: avoid;
+  }
+
+  body.viewing-detail .detail-body {
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  body.viewing-detail .detail-body h2 {
+    font-size: 15pt;
+    margin-top: 18pt;
+    page-break-after: avoid;
+  }
+
+  body.viewing-detail .detail-body h3 {
+    font-size: 12pt;
+    page-break-after: avoid;
+  }
+
+  /* Stack body + rail vertically for portrait print. */
+  body.viewing-detail .detail-layout {
+    display: block !important;
+  }
+
+  body.viewing-detail .detail-main { width: 100%; }
+
+  body.viewing-detail .detail-rail {
+    position: static !important;
+    margin-top: 24px;
+    page-break-inside: avoid;
+    background: #f5f1e8 !important;
+  }
+
+  /* Keep callouts and problem-set boxes intact across pages where possible. */
+  body.viewing-detail .cell-summary,
+  body.viewing-detail .detail-body .vivid-case,
+  body.viewing-detail .detail-body .ps-detail-entry {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  body.viewing-detail .cell-summary { background: #faf7f1 !important; }
+  body.viewing-detail .detail-body .vivid-case { background: #f6efe1 !important; }
+  body.viewing-detail .detail-body .ps-detail-entry { background: #fdfcfb !important; }
+  body.viewing-detail .detail-body .ps-detail-number {
+    background: #6b5e4f !important;
+    color: #fdfcfb !important;
+  }
+
+  /* ── Problem-sets aggregate page ─────────────────────────────────── */
+
+  .ps-entry {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    background: #fdfcfb !important;
+  }
+  .ps-group-title { page-break-after: avoid; }
+  .ps-notes { background: #faf9f7 !important; }
 }
 

@@ -335,7 +335,6 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
   <nav class="tab-bar">
 ${tabLinks}
   </nav>
-  <a href="${psLink}" class="nav-link">Problem Sets</a>
 </div>
 
 <div id="grid-view">

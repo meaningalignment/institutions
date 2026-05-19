@@ -235,8 +235,18 @@ function wrapProblemSets(html) {
   return html.slice(0, startIdx) + wrapped + html.slice(sectionEnd);
 }
 
+// Wrap the "Design choices the team must take a position on." paragraph and
+// the immediately-following <ol> in a <details open> so users can collapse it.
+// Duplicated in build.js for the standalone problem-sets page.
+function wrapDesignChoices(html) {
+  const re = /<p><strong>Design choices the team must take a position on\.?<\/strong><\/p>\s*<ol>([\s\S]*?)<\/ol>/g;
+  return html.replace(re, (_, items) => {
+    return `<details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>${items}</ol></details>`;
+  });
+}
+
 function renderBody(md) {
-  return wrapProblemSets(renderVividCases(marked.parse(processEditorial(md))));
+  return wrapDesignChoices(wrapProblemSets(renderVividCases(marked.parse(processEditorial(md)))));
 }
 
 // ── Summary box at top of detail (problem + example institutions) ──

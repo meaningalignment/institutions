@@ -504,6 +504,28 @@ td .cell-empty { color: #ccc; font-size: 13px; }
 .ps-entry-body li { margin-bottom: 3px; }
 .ps-entry-body strong { font-weight: 700; color: #2d2a26; }
 
+details.design-choices { margin: 10px 0; }
+details.design-choices > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #2d2a26;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+details.design-choices > summary::-webkit-details-marker { display: none; }
+details.design-choices > summary::before {
+  content: "▸";
+  display: inline-block;
+  font-size: 0.85em;
+  color: #8a8275;
+  transition: transform 0.15s ease;
+}
+details.design-choices[open] > summary::before { transform: rotate(90deg); }
+details.design-choices > ol { margin-top: 8px; }
+
 .ps-notes {
   margin-top: 48px;
   padding: 20px 24px;

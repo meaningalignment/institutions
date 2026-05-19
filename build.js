@@ -17,6 +17,16 @@ function processEditorial(md) {
   });
 }
 
+// Wrap the "Design choices the team must take a position on." paragraph and
+// the immediately-following <ol> in a <details open> so users can collapse it.
+// Duplicated in app.js for client-rendered cell bodies.
+function wrapDesignChoices(html) {
+  const re = /<p><strong>Design choices the team must take a position on\.?<\/strong><\/p>\s*<ol>([\s\S]*?)<\/ol>/g;
+  return html.replace(re, (_, items) => {
+    return `<details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>${items}</ol></details>`;
+  });
+}
+
 // ── Constants (shared with app.js) ─────────────────────────────────
 
 const TABS = {
@@ -286,7 +296,7 @@ function renderProblemSetsPage(allCells) {
       const pageBase = section.linkTab === 'agi' ? '..' : `../${section.linkTab}`;
       html += `<span class="ps-entry-cell"><a href="${pageBase}/#detail/${section.linkTab}/${rowId}/${colId}">${cellLabel}</a></span>`;
       html += '</div>\n';
-      html += `<div class="ps-entry-body">${marked.parse(processEditorial(ps.body))}</div>\n`;
+      html += `<div class="ps-entry-body">${wrapDesignChoices(marked.parse(processEditorial(ps.body)))}</div>\n`;
       html += '</div>\n';
     });
   }

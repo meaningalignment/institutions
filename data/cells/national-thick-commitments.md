@@ -10,20 +10,20 @@ owner: oliver
 
 ### Coordination challenge
 
-How a nation declares the substantive values that orient its laws and self-understanding.
+How a nation (or entity of comparable scale) declares the values that orient its laws and self-understanding.
 
 ### Examples
 
 - National constitution preambles
 - US Bill of Rights
 - Declaration of the Rights of Man
-- German Basic Law (Article 1, human dignity)
-- Japan's Article 9
+- Article 9 of the Constitution of Japan
 
 ### How AGI breaks them
 
-- Companies face incentives to fine-tune on narrow institutional goals, which might erode substantive values (see emergent misalignment).
-- Training on a constitution requires choosing an interpretation, which is a political act no private actor has been authorized to make.
+- National founding documents derive their authority from a process the affected stakeholders deemed legitimate. AI alignment documents will need something analogous, or they will not hold up when the decisions they govern are contested.
+- National founding documents survive changing circumstance because they pair an abstract text with an institution for legitimately reinterpreting it. AI alignment documents have no analogous institution.
+- Our tradition of substantive founding documents (the Bill of Rights, the Declaration of the Rights of Man) names rights and negative liberties. We have no tradition of prescribing positive action, e.g. "the president shall be wise." AI alignment documents will have to grapple with this, since AI by design has far more affordances for action than a state.
 
 ## How humans solve this today
 

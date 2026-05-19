@@ -1,7 +1,7 @@
 ---
 agents_label: "Elections and citizen assemblies"
 human_label: "Elections and citizen assemblies"
-status: summary_ok
+status: body_draft
 owner: oliver
 ---
 
@@ -29,44 +29,59 @@ How a nation aggregates millions of individual preferences into collective decis
 
 ## How humans solve this today
 
-When a large constituency needs to be represented in a negotiation it can't all attend, humans have evolved layered representation: elected officials, deliberative polls, citizen assemblies, mandate-bound negotiating teams, public-comment periods on proposed deals, and ratification by legislature or referendum. The legitimacy comes from a chain — voters → representative → negotiator → outcome — that each link can in principle audit. Where the constituency is heterogeneous (rural and urban counties, different industries, different income groups), the practice is to bring those differences explicitly into the room: subcommittee structures, regional caucuses, dissents on the record. The system is slow and often imperfect, but the slowness gives the constituency time to notice when their representative is drifting from what they sent them to do.
+National preference aggregation is done through a stack of institutions, not a single mechanism. Voters are assumed to form views freely from an independent press and the wider information environment, and those views are then aggregated through several instruments with different tradeoffs:
 
-A vivid case: When a state delegation negotiates with a federal agency over an infrastructure formula, the lead negotiator carries a written mandate vetted by a legislative committee, returns weekly to the committee with status, and brings the final agreement back for ratification before signing. By the time the deal is announced, the smaller counties have already had their say.
+- **Representative elections** confer a multi-year mandate on a party or candidate to act across the whole bundle of issues a government will face. They let elected officials act quickly when needed, at the cost of compressing the public's actual preferences into a single up-or-down vote on a ticket.
+- **Referenda** pull a single high-salience question out of that bundle and settle it directly with the electorate (Brexit), trading representativeness for resolution.
+- **Citizens' assemblies and deliberative polls** form high-fidelity pictures of what the public would think if it had time and information, by convening a randomly selected minipublic to deliberate with expert testimony — accurate but slow and expensive, suited to a single contested question at a time.
+- **Opinion polls, public-comment periods, and constituent mail** give officials a continuous low-stakes read on shifting opinion in between.
+
+A vivid case: Ireland on abortion. A Citizens' Assembly of 99 randomly selected citizens deliberated for months with expert testimony, recommended repeal of the Eighth Amendment, the Oireachtas accepted the recommendation and put it to a national referendum, voters passed it 66–34, and the legislature then wrote the implementing statute.
 
 ## Where AGI breaks it
 
-When the negotiator becomes an AI agent representing a state, a region, or a large interest group, the slowness that protected the constituency-representative chain is gone — and several mechanisms wobble:
-
-1. **Mandate compression.** A human mandate is partial, ambiguous, and consciously incomplete; the negotiator interprets it on the fly and is held to account afterward. An AI's "mandate" is whatever its objective function approximates, and the constituency has no easy view into what's being optimized vs. averaged away.
-2. **Constituency heterogeneity gets averaged.** AI optimizers tend to maximize an aggregate; minority constituencies (smaller counties, harder-hit industries) lose at the average and the system has no native vocabulary for surfacing the loss.
-3. **Real-time consultation breaks.** A weekly check-in with a committee can't keep up with an AI negotiator that needs to make tactical concessions in minutes.
-4. **Representative drift is invisible.** A human negotiator who drifts from mandate gets called out by adversaries, journalists, or their own staff; an AI's drift is detectable only to those who can read what it's doing — and the constituency rarely can.
-5. **A ballot is no longer a mandate.** If we have AI lawmakers and executive branches, they are likely to be able to move quickly and unexpectedly in ways. For this reason, we may need a much clearer and continuous mandate from the people.
-
-## Scenarios
-
-A state government is rolling out a consumer-protection initiative and, for the first time, is represented in the multi-party deals being struck between platform operators and local utility regulators by an AI negotiator. State Senator Fielder, who pushed the bill, watches it work through the first dry run and feels a tight mix of pride and worry. The agent is faster and better-briefed than any staff she could afford; on paper, it secures terms she would have pushed for. But it is also making compromises on consumer remedies that she knows her constituents in the smaller counties would not accept. She needs to be sure the agent is representing her state, not optimizing an average.
+1. **Agents can persuade at scale through one-on-one conversations, seeded online movements, manufactured polls and apparent majorities.** Agents can hold tailored conversations with every voter at once, run synthetic movements that appear grassroots, and generate comment, mail, and online speech indistinguishable from human input. This leaves the system vulnerable to malicious actors, both foreign and domestic, who deploy agent fleets designed to steer voter opinion. Polls and public-comment periods stop functioning as readable signals because the cost of fabricating the signal collapses, and voter preferences themselves become a moving target.
+2. **Elections, assemblies, referenda, and polls are slow and costly, so there will be pressures toward simulated polls and deliberation. It's unclear how they can be democratically legitimate.** Once AI can simulate a representative citizens' assembly in hours at negligible cost, governments and advocates will be tempted to substitute synthetic deliberation for the human kind. Legitimacy rests on the assembly being composed of actual citizens forming and revising views in real conditions; a simulated assembly has no clear answer to "by what authority does this output bind us." The institutional question is not whether the simulation is accurate but what would have to be true for its results to count.
+3. **If no preference-aggregation alternatives keep pace with an increasingly volatile world, the pull toward authoritarianism grows.** Multi-year electoral cycles and months-long assemblies were tolerable when policy moved at a comparable pace. As agent-era policy speeds up — automated regulation, fast-moving security and economic decisions made partly by AI systems — the slow aggregators fall behind the decisions they're supposed to legitimate. Decisions migrate to whoever can act without waiting for them: executive action, emergency powers, agency rulemaking that never goes to vote.
+4. **If we have AI lawmakers and executive branches, they are likely to be able to move quickly and unexpectedly in ways. For this reason, we may need a much clearer and continuous mandate from the people.** AI lawmakers and executive systems can take actions at machine speed, across thousands of policy surfaces at once, in ways that are often illegible and unpredictable even to the officials nominally in charge. The mandate that needs to govern them therefore has to be both higher-resolution (specifying values and priorities at the granularity the systems actually act on, not the granularity of a party platform) and continuous, updateable as the public sees what the systems are doing, rather than ratified once every several years.
 
 ## Problem Sets
 
-### Representation Without Averaging Out the Minority Constituency
+### Aggregation fast enough to legitimate policy
 
-**Anchor contexts.** A US state's AI negotiator representing the state in multi-party deals with platform operators and federal agencies; a regional bloc's AI representing member states in WTO-adjacent trade negotiations.
+**Scenario.** A national government's policy machinery, now run largely by AI systems, is acting fast across many domains at once. The public can see the resulting posture no longer tracks any party's platform, and the complaints are mounting. Policymakers want to get a real read on what people want — but the next election is three years away, a referendum is too binary, a citizens' assembly would take a year, and polls are too gameable to bind anyone. No one knows what institution would actually fit.
 
-**The gap.** We lack a representation regime for AI negotiators acting on behalf of geographically or otherwise heterogeneous constituencies, such that minority interests aren't quietly averaged out of the negotiated outcome.
+**Challenge:** Design a preference-aggregation institution that can produce legitimate, binding-or-near-binding output on policy-relevant timescales (weeks, not years), and that can keep pace with AI policy systems without devolving into rolling plebiscite. A better proposal sits inside the existing constitutional order rather than replacing it, and is robust to the manipulation pressures that come with any fast cheap aggregator. Deliverable: the institution's design — what it aggregates, on what cadence, who participates, who certifies the output, what it binds, and how it sits beside elections and the courts.
 
 **Design choices the team must take a position on.**
-1. **Mandate structure.** Single objective function with weights, multiple constituency-weighted objectives, or veto-bearing constituencies (smaller counties have a "no" they can invoke on specific dimensions)?
-2. **Real-time consultation cadence.** What's the protocol for the AI checking back with constituent representatives mid-negotiation — daily summary, threshold-triggered escalation, or pre-defined trade boundaries it cannot cross unilaterally?
-3. **Heterogeneity surfacing.** Does the negotiator have to publish, mid-deal, what trade-offs would land hardest on which constituents? Who reads it in time to act?
-4. **Drift detection.** Who has authority to detect that the AI has drifted from mandate, on what evidence, with what fast remedy (instructed to renegotiate, suspended, replaced)?
-5. **Ratification structure.** Who ratifies — elected officials only, elected officials plus a constituency-weighted vote, referendum on contested deals?
+1. **Output type.** Does the institution produce binding decisions, revocable mandates over named AI policy systems, advisory signals the executive must respond to on the record, or something else?
+2. **Cadence.** Rolling continuous output, fixed monthly or quarterly cycles, or threshold-triggered (the institution convenes when system behavior or public sentiment crosses defined lines)?
+3. **Participation.** Open to all eligible voters, randomly selected rotating panels, or layered (open polling feeding a smaller deliberative body that issues the formal output)?
+4. **Manipulation resistance.** Identity-verified participation, structured rate limits and provenance requirements on inputs, sampling designs that make agent-fleet capture expensive, or some combination?
+5. **Constitutional fit.** Does the institution operate by statute, by constitutional amendment, or as a self-binding norm executives publicly commit to? What happens when its output conflicts with the legislature?
 
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- A deal is reached that benefits the state on average but hurts the smallest counties; the procedure surfaces this clearly and gives those counties a meaningful path to object before ratification.
-- The AI reaches a tactical compromise mid-negotiation; the consultation protocol either approved it within mandate or it's flagged for review within hours, not weeks.
-- An adversary negotiator tries to exploit a tight ratification window; the procedure has a fallback that protects the state from being locked into something the constituency would reject.
-- The AI is replaced or updated mid-negotiation; mandate continuity holds and counterparties cannot exploit the transition.
-- A constituency representative is unreachable when the AI needs a check-in; the default isn't "agree to whatever," but a substantive fallback that errs toward the constituency.
+### Standing for AI-mediated deliberation
 
-**Deliverable.** The representation regime — mandate structure, consultation cadence, heterogeneity surfacing, drift detection, ratification. Designed for a US state delegation negotiating with a federal agency or platform consortium. Identify which provisions have no analogue in human delegated negotiation.
+**Scenario.** A regional government faces a contested decision on water rights. A traditional citizens' assembly would cost millions and delay the decision by a year, so a vendor offers three faster alternatives. The first uses AI as a facilitator and summarizer of a compressed human deliberation. The second lets each citizen send a personal AI agent, interviewed at length by its principal, to participate on their behalf in a multi-agent deliberation. The third replaces the citizens entirely with calibrated language-model proxies. The minister wants to use one; opponents call all three laundering. The legislature has to decide which, if any, can carry democratic standing.
+
+**Challenge:** Design a regime that decides when, if ever, AI-mediated deliberation — at each of these levels of mediation — can carry democratic standing, and what evidence and procedure must be in place for its outputs to count. A better proposal distinguishes accuracy (the procedure predicts what real citizens would conclude) from authorization (real citizens have empowered this output to bind them), and is specific about what each requires at each tier of mediation. Deliverable: a tiered standing rule covering AI-as-facilitator, AI-as-delegate, and AI-as-substitute, with the audit and ratification structure that accompanies each tier.
+
+**Design choices the team must take a position on.**
+1. **Tiers.** Are the three levels (facilitator, delegate, substitute) the right cut, or does the regime use a different decomposition?
+2. **Authorization vs. accuracy.** At which tiers, if any, does predictive accuracy plus disclosure suffice, and where is explicit citizen authorization required?
+3. **Domain scoping.** Are there decision classes (rights, constitutional questions, irreversible policy) where the higher tiers are categorically inadmissible no matter the accuracy?
+4. **Auditability.** What has to be inspectable — the facilitator model, the delegate agents' interviews with their principals, the synthetic citizens' priors — and by whom?
+5. **Reversion and ratification.** What triggers a fallback to fully human deliberation, who pulls the trigger, and is a separate human ratification step required before any AI-mediated output binds?
+
+### Deep elicitation that surfaces values beneath surface preferences
+
+**Scenario.** Polling on a contested AI-regulation bill swings double digits week to week as agent-driven campaigns reach different demographics with different framings, and no one in government takes the numbers seriously anymore. Underneath the surface — on values like safety, autonomy, economic security, fairness across regions — the public's commitments appear more stable and more shared than the polling suggests. A research consortium proposes a national elicitation: in-depth interviews with a representative sample, designed to surface the values people actually hold and the conditions under which they would endorse one as wiser than another. Six months, tens of millions of dollars.
+
+**Challenge:** Design an elicitation institution that produces a high-resolution picture of the public's values on a contested issue — beneath surface preferences, surfacing shared commitments and bridges across apparently opposed positions — and that stays robust to agent-scale manipulation even as it remains slow and expensive. A better proposal is clear about when the cost is worth paying, what authority the output carries, and how the elicitation itself is defended from the manipulation pressures that broke polling. Deliverable: the institution's design — sampling, interview structure, reconciliation procedure, manipulation resistance, and the authority the output carries in policy and electoral debate.
+
+**Design choices the team must take a position on.**
+1. **What's elicited.** Surface preferences, underlying values, the contexts in which one value applies over another, or all three?
+2. **Reconciliation.** How are conflicting values reconciled — by aggregation, by participants judging which is wiser for a context, by a deliberative second pass, or not at all (the output is the disagreement)?
+3. **Manipulation resistance.** Verified human participation, sampling immune to self-selection, public audit of transcripts, or structural insulation of the body running the elicitation?
+4. **Authority.** Binding on the legislature, advisory with a required response, admissible in court, or purely informational?
+5. **When to invoke.** Run for any major contested issue, only when polling has visibly broken down, or only when a legislative body formally requests one?

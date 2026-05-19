@@ -112,9 +112,15 @@ For single-mechanism cells, do not force a numbered list. A single layered parag
 
 **Layer when the institution-family is plural.** Some coordination challenges have one main human answer. Others work through several mechanisms in composition. Name the layers once and keep the names stable.
 
+**Pick the right form for a layered stack.** Numbered mini-paragraphs are not the default. For a stack of related instruments where each is doing a different job in the same system, prefer a short intro sentence followed by a bulleted list with bolded labels. Each bullet should be roughly **what it does** + **what it trades**, in one or two sentences. Reserve numbered-mechanism prose for cases where the mechanisms genuinely depend on each other in sequence or where the derivation across them needs continuous text. When in doubt, write it as bullets and only expand to prose if the bullets won't carry the meaning.
+
+**Name the tradeoffs between mechanisms.** When the human side is a stack, the cell often turns on the fact that the instruments make different tradeoffs — fast vs. durable, representative vs. resolutional, high-fidelity vs. slow, cheap vs. gameable. The reader should be able to see why no single instrument is sufficient. This is distinct from naming the secondary pressures each instrument creates; it is about the relationship across the stack.
+
 **Ask what pressures the mechanism created.** A human institution often does more than its most visible output. Job markets do not only distribute income; they can force employers to compete for cooperation, invest in human capital, and answer to worker values. Consumer markets do not only move goods; they can make production answer to household demand. Break analysis should name these secondary pressures when they are part of what made the institution work.
 
 **Choose the right domain anchor.** Use a specific domain when it makes mechanisms visible. Stay cross-domain when the institution genuinely works across domains.
+
+**Use named examples sparingly.** One named example per mechanism is plenty, only where it adds vividness. Do not double-anchor with multiple examples per clause, and do not repeat the same example across mechanism labels and the vivid case. The vivid case carries the weight; the mechanism labels do not need their own example apparatus.
 
 **Close with a vivid case.** The case should show the mechanisms operating together in a named situation. It is not decorative; it is the concrete object the rest of the page can test against.
 
@@ -126,6 +132,10 @@ Vivid does not mean fully narrated. A compact case can be enough when it gives n
 
 Expansion should usually be compressed derivation, not a mini-essay. If the summary has already named the failure clearly, the paragraph only needs enough mechanism to show why the failure follows and what institutional assumption breaks.
 
+**Lead with the assumption that breaks, not the agent capability.** The strongest derivation paragraphs follow the shape: human institution X assumes Y → agents make Y false → therefore the mechanism stops working. Resist starting with what agents can do; start with what the human institution silently relied on, then say why agents falsify it. This makes the breakdown analytical rather than a list of agent capabilities.
+
+**Do not restate the bullet as a conclusion.** Ending a paragraph by re-asserting the bolded bullet ("therefore the mandate vocabulary is too coarse") is a tell of padding. The derivation should leave the conclusion in place; if the reader needs it restated, the middle of the paragraph isn't doing its job.
+
 **Name the relevant agent properties inside the expansions.** Each paragraph should explain why a human mechanism no longer transmits, binds, represents, restrains, revises, allocates, or resolves in the same way. Mention the relevant structural properties where they matter, but do not begin the section with a separate preamble.
 
 **Thread the mechanism labels.** If the human section uses numbered mechanism labels, the breaks section should use the same labels or visibly corresponding ones. The selected problem sets should then pick from that same mechanism list.
@@ -136,20 +146,28 @@ Expansion should usually be compressed derivation, not a mini-essay. If the summ
 
 **Keep the tone sober.** No rhetorical flourish, no "load-bearing" claim without showing the load, no dramatic phrasing that asks the reader to be impressed before the mechanism is clear.
 
+**Em dashes sparingly.** Prefer parentheses, commas, or a new sentence. One em-dash per paragraph is a soft cap; more than two in adjacent sentences is a tell of unrevised draft prose.
+
 ### 2.4 Analytical core checklist
 
 Before moving on, check:
 
 - The human section names actual institutions and practices.
 - The mechanism list is neither forced nor flattened.
+- For layered stacks, the form is bullets with bolded labels (what it does + what it trades), unless prose is genuinely warranted.
+- The tradeoffs across the stack are visible: the reader can see why no single instrument is sufficient.
+- Examples are used sparingly — one per mechanism at most, only where they add vividness.
 - The vivid case demonstrates the listed mechanisms.
 - The AGI section starts directly with the expanded At a Glance bullets.
 - The AGI-breaks body expands the At a Glance bullets in order.
+- Each derivation leads with the human assumption that breaks, not the agent capability.
+- No paragraph ends by restating its bolded bullet as a conclusion.
 - The AGI-breaks body does not reintroduce bullets or capacities the final summary deliberately removed, unless the problem set later needs them and the text explains why.
 - Each failure names the relevant agent properties and maps to a human mechanism.
 - Mechanism labels are stable across sections.
 - No scenarios have leaked into "Where AGI breaks it."
 - No anthropomorphic claims carry the analysis.
+- Em-dash usage stays sparing.
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 agents_label: "Professional norms for agents"
 human_label: "Professional codes of conduct"
-status: body_draft
+status: body_ok
 owner: joe
 starred: true
 ---
@@ -12,7 +12,7 @@ starred: true
 
 ### Coordination challenge
 
-How a profession sets expectations its members hold each other to without invoking formal law. If agents don't find norms at least as well as humans do, we are likely to see many tragedy-of-the-commons scenarios.
+How a profession sets expectations its members hold each other to without invoking formal law.
 
 ### Examples
 
@@ -26,8 +26,8 @@ How a profession sets expectations its members hold each other to without invoki
 
 - Existing mechanisms for professional norms may not keep up with the speed and scale of agent practice.
 - The usual way humans enforce norms (social sanctions, going cold, pushback) may not affect agents the same way.
-- Agents may not excel at the normative reasoning required to anticipate how a peer or regulator would react to an action (and that reasoning may be harder when the peer or regulator is itself an agent).
-- Agents likely have more diverse capabilities and incentives than humans, making it harder to find norms that work for all parties. (Difficulty finding norms that work across normal people and sociopaths is a good example of this problem in the human world.)
+- Agents may not excel at the normative reasoning required to anticipate how a peer or regulator would react to an action.
+- Agents likely have more diverse capabilities and incentives than humans, making it harder to find norms that work for all parties.
 - Agents may not pick up on unwritten rules just by reading policies.
 - Even if agents can develop their own norms, they may outrun us. Principals may discover what their agents agreed to after they've shaped many decisions.
 
@@ -45,9 +45,11 @@ In finance, professional restraint lives in several places at once. Formal law m
 
 5. **Case-based recognition.** Practitioners carry a canon of disasters: LTCM, Lehman, Knight Capital, the London Whale, Archegos. These cases do not supply rules by themselves. They teach feature recognition: correlated leverage disguised as diversification, operational automation outrunning controls, risk transfer that is formally disclosed but substantively misunderstood.
 
-A vivid case: Sarah's first months at a hedge fund desk were spent watching her senior PM respond to proposed trades. Some ideas were approved, some were cut down for size, and some were killed with no citation beyond "we do not get bigger than the market in that name." By month three, Sarah could predict which pitches would survive the morning meeting. She had not learned a new statute. She had learned the desk's professional boundary.
+A vivid case: Sarah's first months at a hedge fund desk were spent watching her senior PM respond to proposed trades. Some ideas were approved, some were cut down for size, and some were killed with no citation beyond "we do not get bigger than the market in that name." By month three, Sarah could predict which pitches would survive the morning meeting.
 
 ## Where AGI breaks it
+
+If agents don't find norms at least as well as humans do, we are likely to see many tragedy-of-the-commons scenarios. And there are reasons to expect they won't:
 
 1. **Existing mechanisms for professional norms may not keep up with the speed and scale of agent practice.** Finance norms evolve through slow bodies: compliance committees, regulator guidance, enforcement actions, professional education, and post-incident review. Even if agents are somehow listening to these bodies, they may not be able to keep up with the pace of change in agent practice.
 
@@ -55,7 +57,7 @@ A vivid case: Sarah's first months at a hedge fund desk were spent watching her 
 
 3. **Agents may not excel at the normative reasoning required to anticipate how a peer or regulator would react to an action.** A senior compliance officer can often say, before citing a rule, that a trade will look indefensible to FINRA, the SEC, a client board, etc. An agent may be weaker at modeling that social and institutional reaction. The problem becomes harder when the peer or regulator is also an agent, because the reasoning has to account for principals, instructions, disclosure, and review standards rather than ordinary human reaction alone.
 
-4. **Agents likely have more diverse capabilities and incentives than humans, making it harder to find norms that work for all parties.** Human professional norms are already strained by variation in judgment, risk tolerance, and bad faith. Agent practice adds wider variation: some agents may search a space exhaustively, some may be tightly constrained, some may represent principals with unusual goals, and some may be optimized for narrow success measures. A norm that keeps ordinary human professionals coordinated may be too weak for high-capability agents, too restrictive for low-capability ones, or gameable by agents whose incentives sit outside the assumed range.
+4. **Agents likely have more diverse capabilities and incentives than humans, making it harder to find norms that work for all parties.** Human professional norms are already strained by variation in judgment, risk tolerance, and bad faith. Agent practice adds wider variation: some agents may search a space exhaustively, some may be tightly constrained, some may represent principals with unusual goals, and some may be optimized for narrow success measures. A norm that keeps ordinary human professionals coordinated may be too weak for high-capability agents, too restrictive for low-capability ones, or gameable by agents whose incentives sit outside the assumed range. Difficulty finding norms that work across normal people and sociopaths is a good example of this problem in the human world.
 
 5. **Agents may not pick up on unwritten rules just by reading policies.** Norms reach humans through repeated exposure to local approvals, vetoes, jokes, escalation patterns, and postmortems. Those signals may not automatically become governing constraints for an agent. If the agent only sees written rules or task prompts, important lessons may not be absorbed.
 

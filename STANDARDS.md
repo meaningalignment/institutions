@@ -35,6 +35,7 @@ Good examples have this shape:
 
 - Named institution
 - Named practice
+- Recognizable market channel or institutionalized transaction pattern, such as job markets, consumer markets, or discretionary spending, when that is the actual mechanism the cell is about
 - Recognizable everyday practice that carries the institution in ordinary life
 - Named forum or procedure
 - Named rule family or code
@@ -51,6 +52,8 @@ Bad examples have this shape:
 Use a domain anchor when it makes the mechanism visible. Do not anchor in a domain merely for color; the domain should supply named institutions, roles, cases, or procedures the body can use.
 
 Do not over-formalize the examples just to make them sound institution-like. "Email etiquette" may be better than a narrower formal substitute when the cell is about tacit social coordination and the everyday practice is the point.
+
+When a fact or statistic is tempting as an example, usually move it into `How AGI breaks them` or the body as a baseline that the institution has historically produced. The example should name the practice or institution; the statistic should help explain what changes when the mechanism breaks.
 
 ### 1.3 How AGI breaks them
 
@@ -108,6 +111,8 @@ For single-mechanism cells, do not force a numbered list. A single layered parag
 **Anchor in named institutions, not generic theory.** Name the actual institutions, roles, procedures, cases, and practices humans use today.
 
 **Layer when the institution-family is plural.** Some coordination challenges have one main human answer. Others work through several mechanisms in composition. Name the layers once and keep the names stable.
+
+**Ask what pressures the mechanism created.** A human institution often does more than its most visible output. Job markets do not only distribute income; they can force employers to compete for cooperation, invest in human capital, and answer to worker values. Consumer markets do not only move goods; they can make production answer to household demand. Break analysis should name these secondary pressures when they are part of what made the institution work.
 
 **Choose the right domain anchor.** Use a specific domain when it makes mechanisms visible. Stay cross-domain when the institution genuinely works across domains.
 

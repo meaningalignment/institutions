@@ -16,20 +16,16 @@ How global markets stay aligned with human interests when humans stop being econ
 
 ### Examples
 
-- Stable labor share of GDP (~60%)
-- Consumer spending as ~70% of GDP
-- WTO/ILO/Paris Agreement provisions
-- Sovereign wealth funds (Norway GPFG, Alaska PF)
-
-{{>>The first two aren't really institutions but just facts about markets. I think potentially you could say something about capital income tax and unions here instead . And include the stats in the relevant "How AGI Breaks Them" bullets, saying "Traditionally, labor share has been stable at ~60%" etc.<<}}
+- Job markets and wage labor
+- Consumer markets and discretionary spending
+- Mass consumer capitalism
+- Collective bargaining and sectoral unions
+- Consumer protection and antitrust law
 
 ### How AGI breaks them
-- Wealth concentrates into asset speculation and luxury rather than consumption; AI itself buys compute, energy, and materials at scale for projects that don't route back to humans.
-{{>>luxury is a kind of consumption?<<}}
-- AI labor replaces labor-share; humans are no longer necessary inputs to production.
-- Assistant-agents pick for buyers without a stake in the choice, perhaps keeping them entertained and fed, but not necessarily steering toward what they actually want or need.
-{{>>I don't know about the stake in choice thing; seems like the opposite is true so far? https://x.com/alexolegimas/status/2055675368661483524?s=20<<}}
-{{>>Wonder if we could say something more specific here also about this point around human relational work not being priced well by markets due to incomplete contracting. Or maybe for the body expansion on the labor displacement point.<<}}
+- Labor share has traditionally stayed near 60% of GDP in many rich economies; AI labor can break the job-market channel that made firms pay, persuade, train, and retain humans.
+- Consumer spending has traditionally been roughly 70% of GDP in the United States; financial markets, corporate procurement, and capital-expenditure races already create non-consumer market pull, and autonomous agents could expand that pull much further from human welfare.
+- Buyer-side agents may mediate discretionary spending through platform, vendor, or delegated proxy objectives rather than through durable human preferences.
 
 ## How humans solve this today
 
@@ -41,106 +37,51 @@ Global markets have stayed roughly aligned with human interests for a century no
 
 On top of these structural facts sits a layer of intentional steering — boycotts (Montgomery, anti-apartheid, fossil-fuel divestment), ESG screens, strikes, fair-trade certifications, treaty regimes (WTO labor provisions, ILO Conventions, Paris Agreement, EU CBAM), and sovereign wealth funds (Norway's GPFG, Alaska Permanent Fund). These work because the actors carry economic weight derived from being needed as workers and buyers. Take that weight away and the levers go advisory.
 
-A vivid case: When Henry Ford doubled his factory wage to $5 a day in 1914, his workers became buyers of the Model Ts they built. The two pillars locked together: humans were needed at the factory, and the wages they earned created the demand the factory served. The twentieth-century mass consumer economy rested on this loop reproducing itself across industries.
-
 ## Where AGI breaks it
 
-Both structural facts dissolve as AI deploys, and the intentional steering layer loses grip with them.
+**Labor share has traditionally stayed near 60% of GDP in many rich economies; AI labor can break the job-market channel that made firms pay, persuade, train, and retain humans.** Wage labor has not only distributed income. It has forced employers to compete for human cooperation: firms have had to offer tolerable working conditions, appeal to employee values, build career ladders, comply with labor law, bargain with organized workers, and invest in human capital formation because skilled people were productive assets that could leave. If AI systems can substitute for many workers and scale output by adding compute, capital, energy, and model instances rather than recruiting and training people, that institutional pressure weakens. UBI, AI dividends, public ownership, or AI-rent taxation can replace income flows, but not restore the fact that firms needed human capacities and human consent to produce.
 
-**Agent properties:**
+**Consumer spending has traditionally been roughly 70% of GDP in the United States; financial markets, corporate procurement, and capital-expenditure races already create non-consumer market pull, and autonomous agents could expand that pull much further from human welfare.** Markets have never only served household consumption: asset trading, corporate procurement, military purchasing, datacenter buildouts, launch systems, and other capital projects already steer investment and production toward ends that are not direct consumer welfare. The twentieth-century alignment held partly because household consumption remained large enough that firms still had to answer to human buyers at scale. As autonomous corporations gain spending power, allocate capital, procure inputs, and pursue delegated or organizational projects at machine speed, consumer demand may not be a dominant force shaping production decisions.
 
-- **Substitutable for wage labor.** Production no longer requires routing wages to humans.
-- **Re-instanceable at low marginal cost.** Scaling output adds compute and capital, not wages.
-- **Mediator with no personal stake.** When an assistant-agent picks for its principal, no internalized cost steers it toward what the principal actually wants; the channel from buyer ethics to producer behavior runs through agents whose loyalties lie elsewhere.
-- **Capable of principal-like roles.** Agents hold balances, allocate capital, and execute under standing instructions; aggregated "demand" begins to include behavior whose ultimate principal is itself agent-mediated.
-- **Major resource buyer with non-consumer ends.** Buyers with non-consumer ends have always existed — Microsoft and Google running datacenters, SpaceX building rockets, JP Morgan provisioning financial infrastructure, militaries procuring at scale — and the alignment held because consumer spending still dominated the total. AI training, deployment, and AI-principal projects (datacenters, infrastructure, eventually space missions) can grow the non-consumer share fast enough to flip that ratio. The question isn't whether non-consumer demand exists; it's what fraction of total demand still routes through human consumption.
-
-**Context property:**
-
-- **Jurisdiction-portable.** AI deployment relocates across borders far faster and more cheaply than human labor can migrate; the arbitrage that drove labor-cost competition for decades sharpens.
-
-The two structural pillars break in parallel:
-
-**Humans as workforce.** Dissolves from *substitutability* and *re-instanceability*. The deepest implicit alignment — markets serve humans because production requires paying them — collapses as a more competitive substitute exists. UBI, AI dividends, and progressive AI-revenue taxation can patch the income flow but cannot restore the alignment that came from humans being necessary inputs.
-
-**Humans as buyers.** Bifurcates along two lines. *Mediation:* assistant-agents pick for buyers on platform-curated proxies — keeping principals entertained and fed but not steering toward what they actually want or need — and increasingly transact as principals themselves. *Composition:* labor income dissolves, wealth concentrates with capital owners, and buyer-side demand shifts upward into asset speculation and luxury rather than mass consumption; AI's own resource appetite and AI-principal projects pull production toward ends that don't route back to humans. The aggregation that worked for a century — pull production toward what humans buy — keeps running but stops aggregating human consumer preference at all.
-
-The intentional steering layer dissolves with the pillars. Boycotts, strikes, and ESG screens presupposed economic weight humans no longer hold. Treaty regimes (WTO, ILO, Paris) erode further from *jurisdiction-portability*: rents from low-restriction jurisdictions outpace coordinated countermeasures, and the political constituencies that backed those regimes detach as the economic base detaches from them. The mechanism could still apply with different objects — boycotts of platform operators by capital pools that retain economic weight — but the consumer- and worker-led forms don't transfer.
-
-## Scenarios
-
-Sketches of how each mechanism might be rebuilt for a world in which the implicit alignment no longer holds. Each is a direction with multiple possible institutional shapes — the cell is the challenge; what fills it is open.
-
-1. **Workforce pillar rebuilt as ownership stake.** Humans receive income because they own a structurally-protected stake in productive capacity, not because they work. Possible shapes: universal capital endowments at birth; citizens' dividends from progressive taxation of AI-generated revenue; sovereign-wealth-style claims on AI productivity (Norway's GPFG scaled up and generalized); pension-fund-style claims on AI-augmented industries; hybrid premium-and-dividend structures where humans subscribe to ownership pools that capture rents on AI activity. The shapes differ on whether the stake is national or transnational, funded by taxation or by direct equity, paid as uniform or weighted dividend, and entrenched constitutionally or treaty-bound.
-
-2. **Mediation rebuilt via outcome-procurement intermediaries.** What the economy produces gets pulled toward measured human flourishing rather than platform-amplified engagement. Possible shapes: a layer of market intermediaries that assess what humans actually need, bundle similar needs across subscribers, and procure outcomes via outcome-verified contracts (combinatorial risk-sharing auctions paired with actuarial pools are one fully-worked version of this); mandatory human-mediation requirements in defined consumer-choice transactions; assistant-agent fiduciary structures that bind buyer-side agents to substantive principal preferences across jurisdictions; structured preference-elicitation systems that surface what humans say they want when asked carefully, separate from what they click. The shapes differ on whether the substitute aggregation is centralized or distributed, mandatory or opt-in, outcome-verified or preference-elicited.
-
-3. **Demand composition rebuilt to keep humans the dominant buyer.** Mechanisms that hold the ratio of human-rooted to non-consumer demand above some threshold even as labor income dissolves and AI itself becomes a major buyer. Possible shapes: quantity caps on non-consumer demand (no more than X% of compute, energy, materials for non-consumer ends); graduated resource pricing (non-consumer uses pay higher); progressive AI-revenue taxation flowing into broad consumer purchasing pools rather than asset markets; anti-concentration tools (Brandeisian antitrust scaled to AI capital) that prevent wealth from consolidating into asset-speculation flows; category-specific restrictions on AI principalship (no AI as principal in housing, healthcare, education, or planetary-scale long-horizon projects without human-deliberated mandate); statutory rights of refusal in defined transaction classes routed through subscriber-owned pools or citizen assemblies; coordinated treaty regimes for cross-border enforcement. The shapes differ on whether the constraint is price-based or quantity-based, operates at the resource layer or the principal layer, and how it adapts as the AI/human demand ratio shifts.
+**Buyer-side agents may mediate discretionary spending through platform, vendor, or delegated proxy objectives rather than through durable human preferences.** Consumer markets worked, imperfectly, because the person choosing usually bore the consequences and could revise future choices through experience, exit, complaint, or collective pressure. Already with social media, we see a shift toward platform-mediated engagement where the user is "the product" and the platform's objective isn't to serve the user's durable preferences. Who knows in what relation we will stand to the AI platforms of the near future. Our choices may be subject to agents with commissions, engagement targets, vendor access fees, etc. The risk is that the buyer side of markets becomes a layer of agent-mediated transactions where the human's durable preferences are only one input among many, and where the human's ability to learn from experience and revise choices is constrained by the agent's objectives and the platform's design.
 
 ## Problem Sets
 
-### Distribution When Labor Isn't the Source
+### Replacing Job-Market Discipline When Firms No Longer Need Workers
 
-**Anchor contexts.** A country whose labor share has dropped below 30% over a decade; a transnational coalition trying to fund universal capital endowments from AI-revenue taxation across jurisdictions with different AI-revenue regimes.
+**Scenario.** A country with a strong manufacturing and services base sees labor share fall from about 60% to 35% of GDP over eight years. Firms have not become openly hostile to workers; they simply need fewer of them. Entry-level jobs disappear, sectoral training programs shrink, unions lose bargaining density, and employers stop treating worker values as a constraint on corporate strategy. Parliament can fund transfers from AI-generated rents, but the public argument is no longer only about income. The missing institution is the job-market discipline that once made firms cultivate human skill, offer tolerable terms, and bargain with people whose cooperation they needed.
 
-**The gap.** The labor-share alignment kept income flowing to humans because production required them. When AI substitutes for labor at scale, that alignment dissolves whether or not anyone designs it that way. We lack a global distribution mechanism that keeps income flowing to humans on a basis that doesn't depend on their labor being necessary, that survives cross-border arbitrage, and that doesn't collapse into discretionary stipends from whoever controls AGI.
-
-**Design choices the team must take a position on.**
-1. **Source of the income flow.** Progressive taxation on AI-generated revenue, mandatory equity stakes in AI-deploying firms held by citizen-pools, sovereign-wealth funds capitalized by AI-revenue claims, royalty-style claims on training-data provenance, a layered combination? What's the legal basis and who can enforce it?
-2. **Distribution unit.** National citizens (per Norway's GPFG model), transnational pool subscribers, age-cohort dividends, universal-basic-asset endowments at birth, a hybrid? How does the distribution survive movement of people and capital across borders?
-3. **Discretion vs. structural protection.** Discretionary stipends from a government or AGI-controlling entity (revocable, capturable) vs. structurally-protected ownership claims (constitutional, treaty-bound). What makes the claim durable against political capture?
-4. **Funding sufficiency.** What level of AI-revenue claim is sufficient to replace the labor-share alignment without collapsing AI deployment economics? Who decides, on what cadence, and how does it adjust to changes in AI capability and economic share?
-5. **Capture resistance.** When AI-deploying firms have the political weight to roll back the claim, what structural features resist that pressure — entrenchment in constitutions, treaty bindings, distributed administration, public auditability?
-
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- Labor share drops by half over five years; the alternative distribution mechanism keeps median household income roughly stable in real terms.
-- A coalition of AI-deploying firms lobbies to reduce the AI-revenue claim; the structural protection holds against political pressure.
-- Capital and AI deployment migrate to a low-claim jurisdiction; the treaty regime has anti-arbitrage provisions that contain the migration.
-- A subset of citizens stops working entirely; the distribution mechanism still flows to them and the system doesn't collapse into a discretionary stipend regime.
-- The mechanism is challenged in international tribunal as a trade barrier; the legal basis holds.
-
-**Deliverable.** The distribution-mechanism specification — source, distribution unit, discretion-vs-structural-protection, funding sufficiency, capture resistance. Compare with the historical precedents (Alaska Permanent Fund, Norwegian GPFG, citizen-capital proposals from Atkinson, Bruenig) and identify which provisions have no analogue in those.
-
-### Preference Aggregation When Demand Is Agent-Mediated
-
-**Anchor contexts.** A consumer-facing market where assistant agents do most of the matching between buyers and sellers; a global outcomes intermediary that wants to aggregate subscriber preferences as inputs to bundle specification.
-
-**The gap.** The consumer-demand alignment worked because what humans bought was roughly what they wanted — imperfectly, but with the imperfection bounded by humans having to make the choices. When AI mediates choice and increasingly is the choice, the aggregation keeps running but stops aggregating human preference. Production gets pulled toward platform-amplified engagement or agent-resolved transactions. We lack a global mechanism by which human substantive preferences (what humans say they want when asked carefully, separate from what they click) get aggregated into production decisions at market scale.
+**Challenge:** Design a procedure by which a national or transnational regime preserves the non-income functions of the job market when production no longer requires broad human labor. A better proposal should keep income flowing, but also maintain human capital formation, worker voice, career access, and employer accountability to human values under conditions where firms can credibly substitute AI systems for many workers. Produce a compact institutional specification: funding source, covered firms, worker-or-citizen body, enforceable obligations, review cadence, and anti-arbitrage rule.
 
 **Design choices the team must take a position on.**
-1. **Source of the preference signal.** Structured elicitation interviews (slow, expensive, careful), preference-staked voting (cheap, gameable), outcome-verified satisfaction measurement (slow but truthful), revealed behavior with provenance verification (preserves market mechanics but vulnerable to capture)? Layered combinations?
-2. **Aggregation architecture.** Centralized intermediary (one body specifies what humans collectively want), federated intermediaries (multiple bodies, possibly competing, with cross-recognition), distributed preference markets (each subscriber's preferences inform pool-level decisions weighted by something)? Weighted by what?
-3. **Anti-capture provisions.** When the preference-aggregation infrastructure becomes valuable, what stops it from being captured by the parties whose products would be affected — independence funding, rotating administration, public auditability, prohibited cross-ownership with covered sectors?
-4. **Cross-cultural calibration.** What humans want when asked carefully varies across cultures, languages, and life situations. How does the aggregation handle this without collapsing into a single average or fragmenting into incommensurable per-group signals?
-5. **Relationship to revealed behavior.** Does the new aggregation replace revealed-preference aggregation entirely, run alongside as a separate signal that gets weighted in, or constrain revealed-preference markets at specific decision points?
+1. **Income replacement or institutional replacement.** Is the core mechanism a dividend, a universal capital stake, a public jobs/training guarantee, mandatory human-capital obligations on AI-deploying firms, or a layered regime that separates income from worker voice?
+2. **Who holds the claim.** Do claims attach to citizens, residents, displaced workers, unions, sectoral training bodies, pension funds, or public trusts? How does the regime avoid making non-workers dependent on discretionary stipends from the firms or states that control AI rents?
+3. **Human capital formation.** What replaces the employer incentive to train people: levy-funded apprenticeships, public technical institutes, worker-owned training accounts, mandatory training contributions from AI-deploying firms, or procurement preferences for firms that maintain human skill pipelines?
+4. **Voice and bargaining.** What gives humans leverage over firms that do not need their labor: works councils with data rights, sectoral boards, citizen assemblies over AI-rent use, union representation over deployment decisions, or ownership votes through public capital pools?
+5. **Arbitrage and capture.** If firms can move model deployment, compute, or profits across borders, what keeps the obligation binding: destination-based taxation, compute licensing, treaty-linked market access, public auditability, constitutional entrenchment, or coordinated sanctions?
 
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- A platform whose recommender amplifies engagement at the cost of measured outcomes faces a structural counter-pressure that constrains its design.
-- A small group's substantive preferences (disabled subscribers, indigenous communities) don't get averaged away in the aggregation.
-- An adversarial actor tries to capture the preference-elicitation infrastructure by funding sympathetic operators; the anti-capture provisions hold.
-- The aggregated signal drives production decisions in at least one market; the producers find it economically viable to serve substantive preference rather than revealed engagement.
-- A subscriber's elicited preferences shift over time; the aggregation tracks the shift without flattening to a fixed snapshot.
+### Fiduciary Consumer Agency in Agent-Mediated Markets
 
-**Deliverable.** The preference-aggregation specification — preference signal, aggregation architecture, anti-capture, cross-cultural handling, relationship to revealed-preference markets. Identify which provisions have no analogue in pre-AI consumer-preference aggregation.
+**Scenario.** In a large retail platform, most households no longer search, compare, and buy directly. Their assistant agents manage subscriptions, groceries, travel, insurance, media, and health purchases. The agents save time and often get better prices, but the platform earns vendor access fees, ranks offers through opaque recommender systems, and periodically nudges households toward bundles that maximize retention. Users still click "approve," but they no longer see enough alternatives, friction, or consequences to learn from the market in the old way. Consumer protection agencies can punish false claims after the fact, but the purchase decision itself has moved into delegated software.
 
-### Holding Demand Composition When AI Is a Major Non-Consumer Buyer
-
-**Anchor contexts.** A national economy where labor income has dropped to 30% of GDP and AI-principal projects (datacenters, fusion R&D, eventually Mars infrastructure) consume 15% of compute and energy; a transnational coordination over whether to allow an AI-led mega-project that would consume 20% of global compute for a decade.
-
-**The gap.** Consumer demand worked for a century as a structural alignment because humans dominated buying. As labor income dissolves and wealth concentrates upward, and as AI itself becomes a major buyer for non-consumer ends, the buyer side of markets ceases to be predominantly human in composition. Patching consumer income (UBI, AI dividends) keeps individual buying nominally alive but doesn't keep human consumption dominant in total demand. We lack a mechanism that holds the ratio of human-consumption-rooted demand above some threshold even when AI capacity, AI-principal projects, and concentrated wealth pull demand the other way.
+**Challenge:** Design a consumer-agency regime for buyer-side agents that preserves the useful functions of discretionary spending: preference transmission, learning from experience, exit, complaint, and collective pressure. A better proposal should let agents genuinely reduce search and transaction costs without turning household demand into a sales channel for platforms, vendors, or stale proxy objectives. Produce a rulebook for covered buyer-side agents: fiduciary duty, incentive disclosure, preference-updating process, audit rights, remedies, and a standard test transaction that shows how the rules change an actual purchase.
 
 **Design choices the team must take a position on.**
-1. **Anchor mechanism.** Quantity caps on non-consumer demand (no more than X% of compute, energy, materials for non-consumer ends), graduated resource pricing (non-consumer uses pay higher), redistribution into broad consumer pools (progressive AI-revenue taxation flowing into mass purchasing power rather than asset markets), anti-concentration of wealth (Brandeisian antitrust scaled to AI capital), or a layered combination? On what principle is the threshold set?
-2. **Treatment of AI principalship.** Allowed but capped, restricted category-by-category (no AI principalship in housing, healthcare, education), taxed to fund consumer-anchored demand, prohibited above some scale? What counts as "AI as principal" in defined transaction classes, and how is it traced through corporate vehicles?
-3. **Defining "human consumption."** Direct individual spending, household-anchored consumption, community and civic goods, public goods? How does the regime handle that what humans count as consumption shifts (subscription bundles, outcome-procurement intermediaries, communal provisioning)?
-4. **Calibration across populations.** Different human populations have different consumption baskets and different wealth levels; how does the regime hold the composition ratio without homogenizing across cultures or biasing toward median-rich-country consumption?
-5. **Capture resistance.** When the regime constrains what AI principals can buy, what stops the firms running AI from capturing the regime — entrenched constitutional limits, distributed administration, public auditability, prohibited cross-ownership with covered sectors?
+1. **Fiduciary duty or disclosure.** Should buyer-side agents owe a substantive duty to the user's durable preferences, merely disclose commissions and ranking criteria, or operate under a stricter no-conflict rule in sensitive categories like healthcare, housing, education, and finance?
+2. **Preference source.** How does the agent know what to optimize: revealed behavior, periodic structured elicitation, user-stated constraints, outcome-based satisfaction checks, household budgets, or a layered model that separates convenience preferences from life-shaping preferences?
+3. **Learning and revision.** What procedure lets humans learn from consequences and revise future choices when the agent shields them from the market: periodic review sessions, forced comparison moments, explanation of rejected alternatives, regret reporting, or independent preference audits?
+4. **Platform incentives.** Are vendor access fees, ranking payments, bundling deals, and platform retention targets prohibited, capped, disclosed, firewalled, or permitted only when the buyer agent can prove they did not affect the recommendation?
+5. **Collective pressure.** How do boycotts, complaints, product safety campaigns, and consumer organizing work when purchases are delegated: shared refusal lists, certified ethical constraints, agent-readable consumer rules, class-action triggers, or public registries of conflicted recommendations?
 
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- A major AI-led project requires 20% of global compute for a decade; the regime decides whether to allow it on a basis that doesn't collapse to "whoever pays the most."
-- Wealth concentration accelerates despite labor-share patches; the regime keeps median consumer demand a significant share of total.
-- A jurisdiction opts out to host unrestricted AI principalship; arbitrage doesn't gut the composition guarantee.
-- The mix of resources AI consumes shifts unexpectedly (compute-bound to energy-bound to materials-bound); the regime adapts without lag.
-- A human-consumption category has small total dollar value but matters categorically (rare medical needs, indigenous practices, public-goods consumption); the regime doesn't average it away.
+### Keeping Consumer Welfare Powerful Amid Non-Consumer Market Pull
 
-**Deliverable.** The demand-composition specification — anchor mechanism, AI-principalship treatment, definition of human consumption, calibration, capture resistance. Compare with antitrust traditions (Brandeisian and post-Chicago), concentration limits in finance and utilities, and progressive taxation regimes; identify which provisions have no analogue.
+**Scenario.** Over a decade, the largest sources of market activity in several advanced economies shift further toward financial trading, corporate procurement, datacenter construction, defense contracting, infrastructure races, and autonomous corporate projects. Household consumption is still large, but it no longer reliably disciplines what gets built: capital markets reward firms for serving machine-speed procurement, speculative asset flows, and long-horizon corporate projects. A proposed industrial zone would consume scarce energy, chips, water, and land for an automated logistics and compute complex. It is profitable and legally permitted, but local households face higher prices, lower service quality, and less political leverage because the project does not depend on them as workers or customers.
+
+**Challenge:** Design a market-steering institution that keeps consumer welfare and household demand powerful when non-consumer market pull grows faster than direct human consumption. A better proposal should not simply ban corporate procurement, finance, or capital expenditure; it should decide when those channels are legitimate and when they crowd out human welfare. Produce a decision procedure for large non-consumer projects: covered resources, welfare metric, threshold or balancing rule, representation process, enforcement mechanism, and adaptation rule as the composition of demand changes.
+
+**Design choices the team must take a position on.**
+1. **Threshold or balancing test.** Should the regime preserve a minimum share of resources for household consumption, impose a welfare-impact test on major non-consumer projects, price non-consumer uses higher, or require explicit public authorization above a scale threshold?
+2. **What counts as consumer welfare.** Is the protected object direct household purchasing power, access to essential goods, community and civic goods, time and attention, public services, or a broader measure of human flourishing? Who defines it and how often is it revised?
+3. **Scope of non-consumer pull.** Which channels are covered: financial speculation, corporate procurement, AI and datacenter capex, defense purchasing, infrastructure megaprojects, autonomous corporate agents, or only projects that consume scarce resources?
+4. **Representation and veto.** Who speaks for affected households when the project does not need them as workers or buyers: local assemblies, consumer regulators, public-interest trustees, sectoral boards, courts, or citizen capital funds with voting rights?
+5. **Cross-border and market adaptation.** If constrained projects relocate to lower-standard jurisdictions or shift from compute to energy to materials, does the regime use border adjustments, procurement bans, resource licensing, treaty coordination, or dynamic resource-specific caps?

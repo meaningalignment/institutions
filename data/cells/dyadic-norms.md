@@ -1,7 +1,7 @@
 ---
 agents_label: "Tacit dyadic norms"
 human_label: "Social conventions"
-status: summary_draft
+status: summary_ok
 owner: joe
 starred: true
 ---
@@ -29,6 +29,7 @@ How two parties act on the unwritten background of mutual expectations around an
 - Agents might execute only explicit terms or apply norms from their training that don't match the parties' expectations.
 - Even if agents are applying norms, it's hard to evaluate their success or failure without a record of what norms they identified and how they applied them.
 - There is likely a kind of normative reasoning that humans do implicitly in these interactions ("I know that if I do X, my counterparty will feel Y, and I want to avoid that") that agents won't do without explicit modeling and incentives to do so.
+{{>>I'm not so sure that agents don't do some kind of equivalent to normative reasoning in situations, maybe hedge "that agents might not do without"<<}}
 - The implicit norms around a relationship evolve through repeated interaction; an agent that doesn't track and update its model of the norms will fall out of sync over time
 - A norm formed between two agents may rest on reasoning the human cannot follow even in retrospect, or may be formed in minutes and only discovered by humans much later.
 

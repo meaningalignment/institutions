@@ -1,6 +1,6 @@
 ---
 human_label: "Substantive constitutions & founding value documents"
-status: summary_needs_work
+status: summary_draft
 owner: oliver
 ---
 

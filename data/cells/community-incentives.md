@@ -1,6 +1,6 @@
 ---
 human_label: "Matching markets (kidney, school) & commons governance"
-status: summary_draft
+status: summary_ok
 owner: joe
 starred: true
 ---
@@ -20,6 +20,8 @@ How a community allocates a shared scarce resource and keeps users from depletin
 - Lobster gangs of Maine
 - Irrigation water boards
 - Fishery quotas
+
+{{>> Not super clear to me how any of these specific examples could break with AGI / AI agents, even though they break the conditions they rely on, as per below <<}}
 
 ### How AGI breaks them
 

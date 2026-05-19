@@ -1,7 +1,7 @@
 ---
 agents_label: "Professional norms for agents"
 human_label: "Professional codes of conduct"
-status: summary_draft
+status: summary_ok
 owner: joe
 starred: true
 ---
@@ -30,6 +30,8 @@ How a profession sets expectations its members hold each other to without invoki
 - The profession's mechanisms for forming and evolving norms may not be able to handle the speed and scale required to keep up with agent practice.
 - The normative reasoning required to anticipate how a peer or regulator would react to an action may not be present in an agent without explicit modeling and incentives to do so, and the reasoning may be less reliable when the peer or regulator is itself an agent.
 - If agents don't find norms at least as well as humans do, we are likely to see many tragedy-of-the-commons scenarios across shared resources, including in misdirecting human institutions and attention.
+
+{{>>Feels like the last point belongs somewhere else (this is about expectations and codes of conduct and industry ethics etc). In general I also feel like this is way too much for summary cells, but once we have the body we can trim.<<}}
 
 ## How humans solve this today
 

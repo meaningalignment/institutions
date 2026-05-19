@@ -255,7 +255,7 @@ function renderSummaryBox(fm) {
   }
   if (examples && examples.length) {
     html += '<div class="cell-summary-row">';
-    html += '<span class="cell-summary-label">Examples</span>';
+    html += '<span class="cell-summary-label">Human Examples</span>';
     html += '<div class="cell-summary-cell">';
     html += renderList(examples);
     html += renderNotes(examplesNotes);

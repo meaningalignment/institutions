@@ -34,6 +34,8 @@ Good dialogue moves:
 
 - Offer two or three candidate phrasings when the frame is fuzzy.
 - Ask whether an industry anchor would sharpen the examples.
+- If the user restores a plainer or more everyday At a Glance, infer the editorial lesson before editing again: the summary may need recognizable practice-language more than formal institutional taxonomy.
+- Preserve useful everyday named practices (for example, etiquette) when they are the real carrier of the mechanism; do not over-formalize examples just to make them sound institution-like.
 - Split any AGI-breaks bullet that hides multiple failures behind "and" or "or."
 - Keep AGI-breaks bullets at the mechanism level; avoid turning them into proposed fixes too early.
 - Preserve warranted uncertainty when a bullet depends on future agent capabilities or adoption patterns.
@@ -51,13 +53,13 @@ For **How humans solve this today**:
 1. Name actual institutions, practices, cases, and roles.
 2. Layer the mechanisms only when the human answer is genuinely plural.
 3. Keep mechanism names stable and numbered when layered.
-4. Close with a named vivid case introduced by "A vivid case:".
+4. Close with a named vivid case introduced by "A vivid case:"; keep it compact when the mechanism is already clear.
 
 For **Where AGI breaks it**:
 
 1. Do not write an intro paragraph.
 2. Treat the At a Glance `How AGI breaks them` bullets as the outline.
-3. Expand each bullet into a paragraph or numbered item in the same order.
+3. Expand each bullet into a paragraph or numbered item in the same order, starting with the bullet text in bold.
 4. Name the relevant structural agent properties inside those expansions.
 5. Keep the same mechanism labels and order from the human section.
 6. Say when a mechanism transposes rather than simply fails.
@@ -67,9 +69,12 @@ Good dialogue moves:
 
 - Show the user the proposed mechanism list before drafting deeply.
 - Check that the AGI-breaks body is not inventing a different taxonomy from the summary bullets.
+- When the user changes the At a Glance bullets, redraft `Where AGI breaks it` in the user's new order; do not keep a prior paragraph simply because it is analytically useful.
+- If the user compresses the body, preserve the compression unless it removes a load-bearing mechanism. `Where AGI breaks it` should often be a sharp derivation, not a full essay.
 - Re-check the problem sets after the AGI-breaks bullets change; old problem sets often solve yesterday's framing.
 - Ask "is this the right human anchor?" before investing in a full rewrite.
 - Treat the vivid case as a test object: if it does not exercise the mechanisms, revise it.
+- Do not inflate the vivid case into a scenario when a compact slice already shows the mechanism; save narrative weight for problem sets.
 - Keep scenario prose out of the AGI-breaks section; put concrete scenes inside the problem sets that use them.
 
 ## Stage 3: Scenarios and Problem Sets
@@ -90,6 +95,9 @@ Good dialogue moves:
 - Ask the user which rebuilds feel most underspecified or most important.
 - Offer several candidate problem-set trios when the framing has changed, then let the user pick or recombine.
 - Test each candidate problem set against the final AGI-breaks bullets: what failure does it serve?
+- When replacing a problem set, look for the uncovered institutional capacity in the current set (formation, transmission, application, enforcement, appeal, revision, ratification, accountability, allocation, evidence, etc.) rather than preserving a scenario because it is vivid.
+- Ask whether the missing institution might be a formation condition. Sometimes the problem is not that agents violate an existing norm or procedure, but that the interaction will not generate a useful local norm unless memory, observability, authority, and veto conditions are in place.
+- Avoid defaulting every problem set into enforcement or compliance. A strong brief can ask the team to design the setup under which a norm, protocol, commitment, evidentiary practice, or review habit can form and remain inspectable.
 - Move any standalone scenario material into the relevant problem set.
 - Make sure the scenario names the institution the team is supposed to design, keeps jargon low, and makes the stakes clear.
 - Convert vague topics into design challenges.

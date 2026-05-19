@@ -1,7 +1,7 @@
 ---
-agents_label: "Tacit dyadic norms"
+agents_label: "Tacit norms for agent interactions"
 human_label: "Social conventions"
-status: summary_ok
+status: body_draft
 owner: joe
 starred: true
 ---
@@ -19,69 +19,63 @@ How two parties act on the unwritten background of mutual expectations around an
 - Good-faith interpretation of contract terms
 - Email etiquette
 - Landlord-tenant courtesies
-- Back-channel diplomatic conventions
 - Journalist-source attribution understandings
-- Mentor-mentee unspoken expectations
+- Back-channel diplomatic conventions
 
 ### How AGI breaks them
 
-- The usual way humans enforce norms (social sanctions, going cold, pushback) does not hurt an agent the same way.
 - Agents might execute only explicit terms or apply norms from their training that don't match the parties' expectations.
-- Even if agents are applying norms, it's hard to evaluate their success or failure without a record of what norms they identified and how they applied them.
-- There is likely a kind of normative reasoning that humans do implicitly in these interactions ("I know that if I do X, my counterparty will feel Y, and I want to avoid that") that agents won't do without explicit modeling and incentives to do so.
-{{>>I'm not so sure that agents don't do some kind of equivalent to normative reasoning in situations, maybe hedge "that agents might not do without"<<}}
-- The implicit norms around a relationship evolve through repeated interaction; an agent that doesn't track and update its model of the norms will fall out of sync over time
-- A norm formed between two agents may rest on reasoning the human cannot follow even in retrospect, or may be formed in minutes and only discovered by humans much later.
+- The usual way humans enforce norms (social sanctions, going cold, pushback) does not hurt an agent the same way.
+- There are kinds of normative reasoning that humans do in these interactions ("I know that if I do X, my counterparty will feel Y, and I want to avoid that") that agents may not do without explicit instruction and incentives.
+- The implicit norms in a relationship evolve through repeated interaction; short-lived agents may not have the context or memory to develop or apply them.
+- Agent-agent norms may form quickly and opaquely, leaving human principals to discover the operative frame only after it has already shaped behavior.
 
 ## How humans solve this today
 
-Every explicit human contract or recurring interaction sits on a vast bed of unwritten background — what counts as "reasonable," when "I'll get to it" means today versus next week, when silence is consent and when it isn't, what good-faith interpretation of an ambiguous clause looks like, what's so obvious it would be insulting to spell out. The legal system formalizes a slice of this (good-faith doctrines in contract law, the duty of fair dealing, course-of-dealing as an interpretive aid, fiduciary standards in agency relationships), but the bulk lives in shared common sense and the specific texture of the relationship.
+Every explicit contract or recurring two-party relationship sits on an unwritten background: what counts as "reasonable," when silence is consent and when it is not, which departures from the literal text are ordinary courtesies, and which omissions a competent counterparty is expected to catch without being asked. Human institutions handle this background through several familiar practices rather than one formal code.
 
-The mechanisms by which humans operate the substrate are mundane: each party reads the other's tone, mirrors observed conventions, asks when uncertain, defaults to the most generous plausible interpretation early on and tightens later if needed. Both parties have similar bandwidth for noticing implicit cues and similar incentives to preserve the relationship. The substrate is rarely articulated — articulating it is often awkward, usually unnecessary, and sometimes counterproductive (writing down "we'll be polite" can read as a sign one party expects the other not to be).
+Contract law formalizes part of the background through good-faith interpretation, the duty of fair dealing, course-of-dealing evidence, usage of trade, and fiduciary duties in agency relationships. Repeat commercial partners add a second layer through histories of prior performance: who flags borderline errors, how quickly a vague request usually gets answered, and what "review" has meant across past projects. Role-specific practices add a third layer, such as journalist-source understandings about attribution, landlord-tenant courtesies around notice and access, and diplomatic back-channel conventions about what can be floated without committing the principal. The fourth layer is informal enforcement: correction, apology, loss of trust, going cold, renegotiation, refusal to renew, or reputational damage inside a profession.
 
-A vivid case: When Theo agreed to sublet Leah part of his print studio, the lease said nothing about noise, smell, hours, or what counts as "shared use" of the sink. Within two weeks both knew — without discussion — that the press doesn't run during the toddler's nap, that wet ink doesn't sit near paper stock, that either of them can use the kettle but not the other's mug. None of this was articulated; both could now feel violations.
+Humans operate these layers by observing the counterparty, mirroring local conventions, asking when a case is uncertain, and updating the relationship after small corrections. Much of the work stays tacit because articulating every norm is costly and can itself change the relationship. A request to put "ordinary courtesy" in writing may signal distrust; a friendly correction can preserve the relationship precisely because it does not become a formal accusation.
+
+A vivid case: When Theo agreed to sublet Leah part of his print studio, the lease said nothing about noise, smell, hours, or "shared use" of the sink. Within two weeks they'd come to some arrangements: no running the press during the toddler's nap, either person could use the kettle but not the other's mug, etc.
 
 ## Where AGI breaks it
 
-Four properties of agents make the implicit substrate fail to transfer when one party to an interaction is an agent:
+**Agents might execute only explicit terms or apply norms from their training that don't match the parties' expectations.** A model may supply a generic etiquette or legal-reasonableness default from training, while the relevant norm is local and specific to the relationship. Or the model may simply apply the literal terms of the contract, without the usual human expectation.
 
-- **Behavior shaped by what's written.** An agent acts on its training, its prompt, and the explicit contract. What isn't in those is largely not there, even when a human counterparty would treat it as obvious.
-- **No shared cultural common sense by default.** The human substrate is acquired by a lifetime embedded in a culture. An agent's defaults are whatever its training disposed it toward, which may overlap with the principal's, the counterparty's, both, or neither.
-- **No felt cost of letter-vs-frame violations.** Humans operate the substrate partly because acting on the letter while violating the frame costs the relationship in a way they experience. An agent has no such cost; if the explicit terms permit an action and the prompt rewards it, the implicit frame doesn't push back.
-- **Re-instanceable and stateless across the relationship.** Whatever texture about a counterparty an instance picks up doesn't carry forward unless explicitly persisted and re-loaded.
+**The usual way humans enforce norms (social sanctions, going cold, pushback) does not hurt an agent the same way.** Social sanctions, apology, and reputational loss matter to humans because they affect standing, access, future cooperation, and self-presentation inside a relationship or profession. Human counterparties might signal a violation, but that may not produce a consequence the agent system cares or knows about. "You're absolutely right!"
 
-These differences break each of the mechanisms by which the substrate normally operates:
+**There are kinds of normative reasoning that humans do in these interactions ("I know that if I do X, my counterparty will feel Y, and I want to avoid that") that agents may not do without explicit instruction and incentives.** A person often models how a counterparty will interpret an action and what relationship damage will follow. That reasoning combines prediction, role morality, empathy, prudence, and preservation of future dealings. Even if agents are capable of analogous modeling, they won't unless the task, memory, evaluation, and escalation rules make those considerations operative.
 
-- *Reading tone and mirroring conventions* requires shared cultural common sense and continuous presence in the relationship; neither holds.
-- *Defaulting to a generous plausible interpretation* requires the felt cost of getting it wrong to motivate caution; that cost is absent.
-- *Course-of-dealing accumulation* requires statefulness across the relationship; absent unless explicitly built and maintained.
-- *Legal scaffolding* (good-faith doctrines, fair-dealing duties, course-of-dealing as interpretive aid) was written assuming a counterparty with legal standing. The agent has no standing of its own, and the principal-developer-deployer chain is too diffuse for the doctrine to attach by default.
-- *Asking when uncertain* could in principle apply to agents, but only when the agent recognizes that it's in an implicit-frame edge case — and recognizing the edge requires knowing the frame exists, which is the thing the agent lacks.
+**The implicit norms in a relationship evolve through repeated interaction; short-lived agents may not have the context or memory to develop or apply them.** A human partner remembers that a counterparty became more formal after a small dispute, or that someone showed up when their kid was sick, or that a certain phrase is a signal to check in. Agent systems can lose that texture through short contexts, instance replacement, memory policies, or a principal's failure to value prior interaction history.
 
-## Scenarios
-
-Marco runs a small architecture practice. He signs a contract with a structural-engineering firm to review his drawings ahead of permitting. The contract is standard: turnaround, fee, scope, IP. Marco's expectation, never written and never discussed, is that if the engineer spots something *outside* the strict review scope that's clearly going to be a permit issue — a wrong setback, a missing fire-rated assembly — they'll flag it. Every engineer he's worked with for fifteen years has done this; it's how the relationship works. The engineering firm has just shifted to an agent-driven review pipeline. The contract is honored exactly. Marco's drawings come back with the in-scope items flagged. Three weeks later his permit application bounces because of a setback issue the prior firm's reviewer would have caught in passing — but the contract didn't ask about it, and the agent didn't either. The agent did everything it was asked to do.
+**Agent-agent norms may form quickly and opaquely, leaving human principals to discover the operative frame only after it has already shaped behavior.** Two agents handling scheduling, review thresholds, disclosure conventions, or exception handling may converge on a local practice in minutes. If humans cannot see what happened, the relationship's effective norms have moved outside ordinary channels of consent, correction, and accountability.
 
 ## Problem Sets
 
-### Carrying the Implicit Frame Across an Agent Interface
+### Making Tacit Norms Legible Before Action
 
-**Anchor contexts.** A two-party service contract (architect-engineer, counsel-client, freelancer-platform) where one or both parties have replaced their human-side execution with an agent; an established recurring business relationship where both sides' day-to-day handoffs now run through agents.
+**Scenario.** Mara’s tenant agent receives notice from a landlord’s maintenance agent that a repair crew will enter her apartment between 8 a.m. and noon. The lease permits entry with notice, but the building’s ordinary practice is to avoid mornings for tenants with night shifts unless there is an emergency. Mara’s agent has not seen that history because it was handled in texts with the prior property manager. The landlord’s agent treats the lease as sufficient and schedules the crew. The legal rule is satisfied; the relationship norm is not.
 
-**The gap.** Every two-party contract or recurring interaction rests on an unwritten substrate of mutual expectations — what counts as good faith, what's obvious enough to go unsaid, what a reasonable counterparty would flag without being asked. When one or both parties act through agents, the substrate doesn't transfer by default. We lack a procedure by which the implicit frame around a specific two-party interaction is made operative for an agent acting in either party's place, without requiring the principals to enumerate it exhaustively in advance.
+**Challenge:** Design a procedure by which agents identify and test local two-party norms before taking actions that are formally permitted but relationship-sensitive. The procedure succeeds if it catches the repair-entry case before action, distinguishes genuine local norms from after-the-fact objections, keeps low-stakes interactions from becoming legalistic, and produces a norm record a principal can later review. The team should produce the procedure plus a worked example showing one action allowed, one clarified, and one escalated.
 
 **Design choices the team must take a position on.**
-1. **Source of the implicit frame.** Does the agent draw on its principal's prior dealings with this counterparty, on industry baseline conventions, on a structured profile elicited from the principal, on the counterparty's stated preferences, or on a layered combination? When sources disagree, which wins?
-2. **What triggers articulation.** Is the unwritten frame surfaced ambiently (the agent narrates the implicit assumptions it's acting on at the start of each interaction), reactively (only when the agent detects a borderline case), or only on principal request?
-3. **Resolution against the explicit contract.** When the explicit terms and the inferred implicit frame point different directions, which governs, and who is informed? When the two parties' inferred frames disagree (Marco assumed flagging-outside-scope, the firm assumed strict-scope), how is the disagreement surfaced before action?
-4. **Authority of the frame.** Is the implicit substrate advisory (the agent considers it, then proceeds on the contract) or governing (the agent pauses when the frame would be violated, even if the contract permits the action)?
-5. **Update and drift.** A relationship's implicit norms evolve through repeated interaction. How does an agent representing one party track and update its model of the frame, and when does that model get reconciled with the counterparty's?
+1. **Norm source.** Should the agent rely on prior interaction history, counterparty inquiry, domain defaults, principal preferences, or a hierarchy among them?
+2. **Uncertainty trigger.** What makes a case norm-sensitive enough to pause: novelty, inconvenience, asymmetry of harm, prior correction, or irreversible action?
+3. **Evidence threshold.** What counts as evidence of a local norm: repeated past practice, explicit correction, industry custom, silence after notice, or principal confirmation?
+4. **Recording form.** Is the norm stored as a soft preference, rebuttable default, relationship rule, or contract supplement?
+5. **Anti-gaming rule.** How does the procedure prevent one side from inventing norms opportunistically after a permitted action becomes inconvenient?
 
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- A handoff where the explicit contract permits action X but action X would violate every prior course-of-dealing expectation; the agent surfaces the conflict before acting.
-- A counterparty switches to an agent mid-relationship; the implicit frame the human built up over years isn't lost in the transition.
-- A principal is asked to articulate the implicit frame in advance and (predictably) misses most of it; the procedure still works on the items the principal didn't think to mention.
-- Both parties' agents disagree about what's implicitly assumed; the disagreement is surfaced to humans before either acts on its own model.
-- A regulator or court examines the agent's behavior on a borderline call; the record shows which implicit assumptions the agent identified, where they came from, and on what basis they were acted on.
+### Conditions for Agent-Agent Norm Formation
 
-**Deliverable.** A procedure that takes a specific two-party interaction or contract and produces an operative model of its implicit frame for an agent acting in either party's place. Includes the elicitation method, the conflict-resolution rule, and the update mechanism. Plus a worked example: one of the anchor contexts, with the implicit frame extracted, surfaced, and operative.
+**Scenario.** Two agents manage a recurring relationship between a small manufacturer and a logistics provider. The contract specifies delivery windows, penalties, and data formats, but not how to handle borderline cases: when a truck is ten minutes late, when weather makes a route risky, when a shipment can be split without formal approval, or when one side should warn the other before invoking a penalty. Human dispatchers would develop a working rhythm after a few weeks. These agents are stateless across sessions, optimized to complete each ticket, and replaced often enough that every borderline case is treated as new. The relationship becomes brittle even though neither agent is acting in bad faith.
+
+**Challenge:** Design the setup conditions under which agents in a recurring dyadic relationship can form useful local norms without letting those norms become hidden contract amendments. The procedure succeeds if it lets the logistics relationship develop stable expectations around borderline cases, preserves enough memory for learning across instances, prevents one side from exploiting the norm-formation process, and gives principals a way to inspect or veto norms that materially change the deal. The team should produce a norm-formation protocol for recurring agent-agent relationships.
+
+**Design choices the team must take a position on.**
+1. **Memory substrate.** Do norms live in each agent’s memory, a shared relationship ledger, the principals’ systems, a platform layer, or a third-party registry?
+2. **Formation threshold.** When does repeated practice become a norm: after explicit acknowledgment, repeated reliance, absence of objection, mutual annotation, or principal review?
+3. **Experiment space.** Which cases may agents handle through local adaptation, and which require explicit authorization before any pattern can form?
+4. **Symmetry rule.** Must the norm benefit both sides, or can asymmetric norms form when they reflect role differences, bargaining power, or operational convenience?
+5. **Veto and revision.** Who can reject, revise, or sunset an emergent norm once it has started shaping behavior?

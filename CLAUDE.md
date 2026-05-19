@@ -42,7 +42,7 @@ The Kanban is a local-only tool — not part of the build, not deployed. It rend
 
 ## Cell schema
 
-Every file in `data/cells/` follows this structure. The build doesn't enforce it, but `extractProblemSets` keys off `## Problem Sets` and the per-problem `###` heading, so deviating from those names breaks the problem-sets aggregator. The grid uses frontmatter `status` to choose a marker variant (sketch / draft / ready); cells with no status get no marker.
+Every file in `data/cells/` follows this structure. The build doesn't enforce it, but `extractProblemSets` keys off `## Problem Sets` and the per-problem `###` heading, so deviating from those names breaks the problem-sets aggregator. The grid and Kanban use frontmatter `status` to choose a marker variant and workflow column.
 
 ```markdown
 ---
@@ -80,35 +80,15 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 ## Where AGI breaks it
 
-{Open with a short enumeration (3–5) of the agent-vs-human differences
-load-bearing for this cell — properties like "no personal stake,"
-"re-instanceable," "tireless and autonomous within scope," "no felt cost of
-attention," "behavior shaped by developer instrumentation," "perfect recall
-and retrieval." Then derive the per-mechanism failures: for each human
-mechanism, name which differences make it fail to bind agents and how.
-Naming differences once and referencing them makes the analysis a
-derivation rather than a series of separate stipulations. Avoid
-anthropomorphism — agents are a different kind of entity, not defective
-humans. When a mechanism could in principle apply to agents but with
-different objects (e.g. contractualist reasoning over agent counterparties
-rather than humans), say so explicitly. No scenario lives here.}
-
-## Scenarios
-
-{Default form: one vivid AGI breakdown scene in named-person, named-situation
-prose. Variant for cells whose "How humans solve this" enumerates layered
-mechanisms (e.g. 5 sub-mechanisms): instead a numbered survey of how each
-mechanism could be rebuilt for agents — one sketch per mechanism, each a
-starting point not a worked design. Multiple vivid scenarios use ###
-subheadings.}
+{Paragraph versions of the bullets under `### How AGI breaks them`, in the same order. Start each paragraph with the matching bullet text in bold, then derive why the human mechanism no longer transmits, binds, represents, restrains, revises, allocates, or resolves in the same way. Name relevant structural agent properties inside the derivation. Avoid anthropomorphism. No scenario lives here.}
 
 ## Problem Sets
 
 ### {Problem title — names the institutional gap, not the topic}
 
-**Anchor contexts.** {1–2 concrete settings the design must handle.}
+**Scenario.** {A high-stakes example of the target coordination mechanism or institution working, failing, or needing to be rebuilt. Fold necessary context and stakes into this paragraph. Use plain language even when the scenario is domain-grounded.}
 
-**The gap.** {One sentence in the form: "We lack a procedure by which … such that …".}
+**Challenge:** {Design a procedure by which... Include the design task, success criterion, and deliverable in one paragraph. Make clear what counts as a better or worse proposal and what the team should produce in roughly one hour.}
 
 **Design choices the team must take a position on.**
 1. **{Fork name}.** {Question phrased as a fork, not a topic.}
@@ -117,12 +97,6 @@ subheadings.}
 4. **{(optional) Fork}.** ...
 5. **{(optional) Fork}.** ...
 
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- {Stress test 1 — a specific adversarial or edge condition.}
-- {Stress test 2}
-- {Stress test 3}
-
-**Deliverable.** {What the team produces in ~1 hour — a protocol, a charter, a procedural code, amendment text.}
 ```
 
 Multiple `###` problem sets under one cell are supported; each becomes its own entry on the problem-sets aggregate page.
@@ -131,13 +105,9 @@ Multiple `###` problem sets under one cell are supported; each becomes its own e
 
 - **At a glance** is the cell's elevator pitch — three H3 subsections (`Coordination challenge`, `Examples`, `How AGI breaks them`). Pulled out of the body at render time and shown as the styled summary box at the top of the detail page; the section itself is stripped from the inline body so it doesn't render twice. Keeps everything in markdown so inline `{>> ... <<}` editorial notes work here too.
 - **How humans solve this today** anchors readers in something familiar before the AGI-specific design problem hits. Always concrete (named institutions, named mechanisms), never generic ("humans cooperate by…").
-- **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. Open with a short list of the agent-vs-human differences relevant to this cell — tireless, autonomous within scope, re-instanceable, no personal stake, no felt cost of attention, behavior shaped by developer instrumentation, perfect recall and retrieval — and then derive per-mechanism failures from those differences. Naming differences once and referencing them makes the analysis a derivation rather than a series of separate stipulations, and the differences carry forward into the Scenarios section as the constraints the rebuilds have to design around. Resist anthropomorphism — agents are a different kind of entity, not defective humans; don't write that they "fail to feel," "lack shame," or "miss the felt sense of." When a mechanism could apply to agents but with different objects (e.g. contractualist reasoning over agent counterparties whose training/principals/constraints are what's being modeled, not their reactions), name that explicitly rather than declaring the mechanism broken.
-- **Scenarios** illustrate the breakdown with vivid, named-person, named-situation prose — concrete enough to test design proposals against. For cells structured around layered mechanisms, Scenarios can alternatively be a numbered survey of how each mechanism could be rebuilt for agents (one sketch per mechanism), making the design space visible before the problem sets pick from it.
-- **Anchor contexts** keep proposals testable against real scenarios while signaling they should generalize beyond them.
-- **The gap** forces the brief to name an institutional absence ("we lack a procedure by which …") rather than a topic ("AI agents need to negotiate").
+- **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. It should be paragraph versions of the At a Glance `How AGI breaks them` bullets, in the same order, with no intro paragraph and no scenario prose. Resist anthropomorphism — agents are different institutional actors, not defective humans; don't write that they "fail to feel," "lack shame," or "miss the felt sense of." When a mechanism could apply to agents but with different objects (e.g. contractualist reasoning over agent counterparties whose training/principals/constraints are what's being modeled, not their reactions), name that explicitly rather than declaring the mechanism broken.
+- **Problem Sets** turn selected mechanisms into design work. Each problem set contains its own `**Scenario.**`, `**Challenge:**`, and `**Design choices the team must take a position on.**` Scenarios are high-stakes test objects, not a detached section. The challenge folds together the missing procedure, success criterion, and deliverable. Strong problem sets can target formation, transmission, application, enforcement, appeal, revision, ratification, accountability, allocation, or evidence.
 - **Design choices** force the team to take positions on 3–5 specific forks any answer must address. If you can't list them, the brief is still a topic, not a problem.
-- **Success criterion (stress tests)** lets reviewers evaluate proposals against a shared standard rather than each importing their own.
-- **Deliverable** keeps the conversation from staying at "this is an important problem."
 
 ### Voice
 
@@ -151,7 +121,7 @@ Rigorous, not bombastic. Don't claim "load-bearing" without showing why. Don't r
 - `summary_draft` — the `## At a glance` section (Coordination challenge / Examples / How AGI breaks them) is drafted, ready for review.
 - `summary_needs_work` — reviewer has flagged the summary; specifics live in inline editorial notes (`{>> ... <<}`) in the body. Orange marker.
 - `summary_ok` — summary box reviewed and OK.
-- `body_draft` — body sections (`## How humans solve this today`, `## Where AGI breaks it`, `## Scenarios`, `## Problem Sets`) are drafted, ready for review.
+- `body_draft` — body sections (`## How humans solve this today`, `## Where AGI breaks it`, `## Problem Sets`) are drafted, ready for review.
 - `body_needs_work` — reviewer has flagged the body; specifics live in inline editorial notes (`{>> ... <<}`). Red marker.
 - `body_ok` — body reviewed and stable. Solid green marker.
 
@@ -165,11 +135,16 @@ Reviewers leave feedback inline using `{>> note text <<}` markers anywhere in th
 
 `owner:` is one of `oliver`, `joe`, or `none` (unassigned). Used by the Kanban page filter and the per-card "Assign to" popup. New cells start as `none`.
 
+## Skills
+
+Repo-local skills live in `skills/`. The current project skill is `skills/institution-cell-dialogue`, a conversational workflow for revising one institution cell and codifying reusable lessons. To make slash or dollar skill invocation discover it in Codex, install or symlink it into `$CODEX_HOME/skills/institution-cell-dialogue` (usually `/Users/joe/.codex/skills/institution-cell-dialogue`) and start a new Codex thread so the skill registry refreshes.
+
 ## Repo layout
 
 - `build.js` — static site generator (run via `npm run build`)
 - `app.js` — client-side interactivity (detail views, navigation, sidebar layout)
 - `style.css` — all styles, including the detail-page two-column / mobile-stacking layout
 - `data/` — content (markdown + generated manifest)
+- `skills/` — repo-local Codex skills for this project
 - `vercel.json` — deployment config
-- `AGENTS.md` — kept in sync with this file for tools that look there
+- `AGENTS.md` / `CLAUDE.md` — kept in sync for tools that look at either file

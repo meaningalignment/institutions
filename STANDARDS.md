@@ -25,6 +25,8 @@ Each element should be doing work:
 - **Object.** What gets coordinated.
 - **Friction.** Why the coordination is hard or cannot be solved unilaterally.
 
+This form is a diagnostic, not a mandate to make the sentence legalistic or over-specified. If the familiar name of the institution-family is already doing useful work, preserve it and make the friction visible in plain language.
+
 ### 1.2 Examples
 
 Use three to five named human institutions, proper nouns, or recognizable named practices. The Examples list is not for statistics, generic social facts, broad domains, or abstract mechanisms.
@@ -33,6 +35,7 @@ Good examples have this shape:
 
 - Named institution
 - Named practice
+- Recognizable everyday practice that carries the institution in ordinary life
 - Named forum or procedure
 - Named rule family or code
 - Named canonical case, if cases are part of how the institution teaches itself
@@ -47,13 +50,18 @@ Bad examples have this shape:
 
 Use a domain anchor when it makes the mechanism visible. Do not anchor in a domain merely for color; the domain should supply named institutions, roles, cases, or procedures the body can use.
 
+Do not over-formalize the examples just to make them sound institution-like. "Email etiquette" may be better than a narrower formal substitute when the cell is about tacit social coordination and the everyday practice is the point.
+
 ### 1.3 How AGI breaks them
 
 Use roughly three to six short bullets. Each bullet should tie an agent-era property or institutional change to a specific mechanism failure in the examples. These bullets are the compressed outline for `## Where AGI breaks it`; the body section should expand them in the same order, not introduce a second taxonomy.
 
+Respect the order of the final summary bullets. If a user revises the summary, treat that as a substantive taxonomy change and redraft `## Where AGI breaks it` around the new sequence rather than preserving a previous analytical order.
+
 Strong bullets:
 
 - Name one failure mode, not a cluster joined by "and."
+- Name the broken institutional assumption, not only the visible exploit. "Agents can flood the queue" is weaker than "review attention becomes the scarce resource and submission records become strategic inputs."
 - Stay at the mechanism level: formation, transmission, enforcement, representation, ratification, appeal, revision, allocation, review, or accountability.
 - Use uncertainty when the claim is empirical or capability-dependent: "may," "likely," "can," "could."
 - Point to the institution or mechanism that has to adapt, not just to an implementation fix.
@@ -63,6 +71,7 @@ Strong bullets:
 Failure patterns to avoid:
 
 - **Conflation.** One bullet hides multiple distinct failure modes whose fixes would differ.
+- **Exploit lists.** The bullets list agent tricks (sybils, speed, spam, arbitrage) without naming which human assumption made the institution work before.
 - **Topic-level stakes.** The bullet says the problem matters, but not what institutional mechanism breaks.
 - **Unsupported certainty.** The bullet predicts capabilities or adoption patterns too confidently.
 - **Premature rebuilds.** The bullet names a proposed fix before naming the failure that makes the fix necessary.
@@ -104,9 +113,13 @@ For single-mechanism cells, do not force a numbered list. A single layered parag
 
 **Close with a vivid case.** The case should show the mechanisms operating together in a named situation. It is not decorative; it is the concrete object the rest of the page can test against.
 
+Vivid does not mean fully narrated. A compact case can be enough when it gives named parties, the relevant relationship, and two or three concrete norms that make the mechanism visible. Save high-stakes narrative detail for problem-set scenarios.
+
 ### 2.3 Where AGI breaks it
 
-**Expand the At a Glance bullets.** Treat each `How AGI breaks them` bullet as the topic sentence for one paragraph or numbered item in `Where AGI breaks it`. The body can add derivation, institutional detail, and caveats, but it should not surprise the reader with a new failure taxonomy.
+**Expand the At a Glance bullets.** Treat each `How AGI breaks them` bullet as the topic sentence for one paragraph or numbered item in `Where AGI breaks it`. Start each paragraph with the exact or lightly edited bullet text in bold, then continue with the derivation. The body can add institutional detail and caveats, but it should not surprise the reader with a new failure taxonomy.
+
+Expansion should usually be compressed derivation, not a mini-essay. If the summary has already named the failure clearly, the paragraph only needs enough mechanism to show why the failure follows and what institutional assumption breaks.
 
 **Name the relevant agent properties inside the expansions.** Each paragraph should explain why a human mechanism no longer transmits, binds, represents, restrains, revises, allocates, or resolves in the same way. Mention the relevant structural properties where they matter, but do not begin the section with a separate preamble.
 
@@ -127,6 +140,7 @@ Before moving on, check:
 - The vivid case demonstrates the listed mechanisms.
 - The AGI section starts directly with the expanded At a Glance bullets.
 - The AGI-breaks body expands the At a Glance bullets in order.
+- The AGI-breaks body does not reintroduce bullets or capacities the final summary deliberately removed, unless the problem set later needs them and the text explains why.
 - Each failure names the relevant agent properties and maps to a human mechanism.
 - Mechanism labels are stable across sections.
 - No scenarios have leaked into "Where AGI breaks it."
@@ -168,6 +182,7 @@ Good problem-set selections:
 
 - Cover the most important rebuilds implied by the AGI-breaks bullets.
 - Do not merely mirror every bullet one-for-one.
+- Include formation conditions when they are the core gap: sometimes the design problem is not that a norm, protocol, or commitment will be violated, but that it will not form, transmit, or become inspectable unless the setup makes that possible.
 - Avoid niche rebuilds unless they reveal the cell's core design problem.
 - Work as a coherent set: each brief should cover a different institutional capacity.
 - Remain open to replacement if a sharper scenario exposes a better design problem.
@@ -181,7 +196,7 @@ Before declaring the body done, check:
 - Each scenario is clear to a serious general reader, even when domain-grounded.
 - Problem sets pick two or three mechanisms rather than the whole cell.
 - The selected problem sets match the final AGI-breaks framing.
-- The selected problem sets cover distinct institutional capacities.
+- The selected problem sets cover distinct institutional capacities: formation, transmission, application, enforcement, appeal, revision, ratification, accountability, allocation, or evidence.
 - Every challenge names the design task, success criterion, and deliverable.
 - Design choices are forks.
 - Success criteria are specific enough that two proposals can be compared against them.

@@ -649,26 +649,31 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A31</span><span class="ps-entry-title">Carrying the Implicit Frame Across an Agent Interface</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
-<div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A two-party service contract (architect-engineer, counsel-client, freelancer-platform) where one or both parties have replaced their human-side execution with an agent; an established recurring business relationship where both sides&#39; day-to-day handoffs now run through agents.</p>
-<p><strong>The gap.</strong> Every two-party contract or recurring interaction rests on an unwritten substrate of mutual expectations — what counts as good faith, what&#39;s obvious enough to go unsaid, what a reasonable counterparty would flag without being asked. When one or both parties act through agents, the substrate doesn&#39;t transfer by default. We lack a procedure by which the implicit frame around a specific two-party interaction is made operative for an agent acting in either party&#39;s place, without requiring the principals to enumerate it exhaustively in advance.</p>
+<div class="ps-entry-header"><span class="ps-entry-number">A31</span><span class="ps-entry-title">Making Tacit Norms Legible Before Action</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Scenario.</strong> Mara’s tenant agent receives notice from a landlord’s maintenance agent that a repair crew will enter her apartment between 8 a.m. and noon. The lease permits entry with notice, but the building’s ordinary practice is to avoid mornings for tenants with night shifts unless there is an emergency. Mara’s agent has not seen that history because it was handled in texts with the prior property manager. The landlord’s agent treats the lease as sufficient and schedules the crew. The legal rule is satisfied; the relationship norm is not.</p>
+<p><strong>Challenge:</strong> Design a procedure by which agents identify and test local two-party norms before taking actions that are formally permitted but relationship-sensitive. The procedure succeeds if it catches the repair-entry case before action, distinguishes genuine local norms from after-the-fact objections, keeps low-stakes interactions from becoming legalistic, and produces a norm record a principal can later review. The team should produce the procedure plus a worked example showing one action allowed, one clarified, and one escalated.</p>
 <p><strong>Design choices the team must take a position on.</strong></p>
 <ol>
-<li><strong>Source of the implicit frame.</strong> Does the agent draw on its principal&#39;s prior dealings with this counterparty, on industry baseline conventions, on a structured profile elicited from the principal, on the counterparty&#39;s stated preferences, or on a layered combination? When sources disagree, which wins?</li>
-<li><strong>What triggers articulation.</strong> Is the unwritten frame surfaced ambiently (the agent narrates the implicit assumptions it&#39;s acting on at the start of each interaction), reactively (only when the agent detects a borderline case), or only on principal request?</li>
-<li><strong>Resolution against the explicit contract.</strong> When the explicit terms and the inferred implicit frame point different directions, which governs, and who is informed? When the two parties&#39; inferred frames disagree (Marco assumed flagging-outside-scope, the firm assumed strict-scope), how is the disagreement surfaced before action?</li>
-<li><strong>Authority of the frame.</strong> Is the implicit substrate advisory (the agent considers it, then proceeds on the contract) or governing (the agent pauses when the frame would be violated, even if the contract permits the action)?</li>
-<li><strong>Update and drift.</strong> A relationship&#39;s implicit norms evolve through repeated interaction. How does an agent representing one party track and update its model of the frame, and when does that model get reconciled with the counterparty&#39;s?</li>
+<li><strong>Norm source.</strong> Should the agent rely on prior interaction history, counterparty inquiry, domain defaults, principal preferences, or a hierarchy among them?</li>
+<li><strong>Uncertainty trigger.</strong> What makes a case norm-sensitive enough to pause: novelty, inconvenience, asymmetry of harm, prior correction, or irreversible action?</li>
+<li><strong>Evidence threshold.</strong> What counts as evidence of a local norm: repeated past practice, explicit correction, industry custom, silence after notice, or principal confirmation?</li>
+<li><strong>Recording form.</strong> Is the norm stored as a soft preference, rebuttable default, relationship rule, or contract supplement?</li>
+<li><strong>Anti-gaming rule.</strong> How does the procedure prevent one side from inventing norms opportunistically after a permitted action becomes inconvenient?</li>
 </ol>
-<p><strong>Success criterion (stress tests).</strong> A regime succeeds if it survives:</p>
-<ul>
-<li>A handoff where the explicit contract permits action X but action X would violate every prior course-of-dealing expectation; the agent surfaces the conflict before acting.</li>
-<li>A counterparty switches to an agent mid-relationship; the implicit frame the human built up over years isn&#39;t lost in the transition.</li>
-<li>A principal is asked to articulate the implicit frame in advance and (predictably) misses most of it; the procedure still works on the items the principal didn&#39;t think to mention.</li>
-<li>Both parties&#39; agents disagree about what&#39;s implicitly assumed; the disagreement is surfaced to humans before either acts on its own model.</li>
-<li>A regulator or court examines the agent&#39;s behavior on a borderline call; the record shows which implicit assumptions the agent identified, where they came from, and on what basis they were acted on.</li>
-</ul>
-<p><strong>Deliverable.</strong> A procedure that takes a specific two-party interaction or contract and produces an operative model of its implicit frame for an agent acting in either party&#39;s place. Includes the elicitation method, the conflict-resolution rule, and the update mechanism. Plus a worked example: one of the anchor contexts, with the implicit frame extracted, surfaced, and operative.</p>
+</div>
+</div>
+<div class="ps-entry">
+<div class="ps-entry-header"><span class="ps-entry-number">A32</span><span class="ps-entry-title">Conditions for Agent-Agent Norm Formation</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
+<div class="ps-entry-body"><p><strong>Scenario.</strong> Two agents manage a recurring relationship between a small manufacturer and a logistics provider. The contract specifies delivery windows, penalties, and data formats, but not how to handle borderline cases: when a truck is ten minutes late, when weather makes a route risky, when a shipment can be split without formal approval, or when one side should warn the other before invoking a penalty. Human dispatchers would develop a working rhythm after a few weeks. These agents are stateless across sessions, optimized to complete each ticket, and replaced often enough that every borderline case is treated as new. The relationship becomes brittle even though neither agent is acting in bad faith.</p>
+<p><strong>Challenge:</strong> Design the setup conditions under which agents in a recurring dyadic relationship can form useful local norms without letting those norms become hidden contract amendments. The procedure succeeds if it lets the logistics relationship develop stable expectations around borderline cases, preserves enough memory for learning across instances, prevents one side from exploiting the norm-formation process, and gives principals a way to inspect or veto norms that materially change the deal. The team should produce a norm-formation protocol for recurring agent-agent relationships.</p>
+<p><strong>Design choices the team must take a position on.</strong></p>
+<ol>
+<li><strong>Memory substrate.</strong> Do norms live in each agent’s memory, a shared relationship ledger, the principals’ systems, a platform layer, or a third-party registry?</li>
+<li><strong>Formation threshold.</strong> When does repeated practice become a norm: after explicit acknowledgment, repeated reliance, absence of objection, mutual annotation, or principal review?</li>
+<li><strong>Experiment space.</strong> Which cases may agents handle through local adaptation, and which require explicit authorization before any pattern can form?</li>
+<li><strong>Symmetry rule.</strong> Must the norm benefit both sides, or can asymmetric norms form when they reflect role differences, bargaining power, or operational convenience?</li>
+<li><strong>Veto and revision.</strong> Who can reject, revise, or sunset an emergent norm once it has started shaping behavior?</li>
+</ol>
 </div>
 </div>
 <div class="ps-group-title">Part B: Fidelity &amp; Meaning</div>

@@ -1,7 +1,7 @@
 ---
 agents_label: "Global markets that keep human interests central"
 human_label: "Consumer markets, labor income & multilateral trade rules"
-status: not_started
+status: summary_draft
 owner: joe
 starred: true
 ---
@@ -18,7 +18,6 @@ How global markets stay aligned with human interests when humans stop being econ
 
 - Stable labor share of GDP (~60%)
 - Consumer spending as ~70% of GDP
-- Boycotts, strikes & ESG screens
 - WTO/ILO/Paris Agreement provisions
 - Sovereign wealth funds (Norway GPFG, Alaska PF)
 
@@ -29,45 +28,39 @@ How global markets stay aligned with human interests when humans stop being econ
 
 ## How humans solve this today
 
-For most of the last century, global markets have remained aligned with human interests through a layered combination of structural facts and deliberate institutions. The structural facts do most of the work, but they are easy to miss precisely because nobody has had to defend them.
+Global markets have stayed roughly aligned with human interests for a century not because anyone designed them to, but because of two structural facts nobody had to defend: **humans were necessary as the workforce, and humans were the dominant buyers.**
 
-1. **Labor share of income.** Across most large economies, roughly 60% of GDP has flowed to labor for the better part of a century. The BLS, IMF, and OECD have tracked the stability; the labor share has wobbled but not collapsed. Markets serve human interests because humans must be paid to do the work. No global treaty enforces this — it is a structural fact about which inputs production currently requires.
+1. **Humans as the workforce.** Roughly 60% of GDP has flowed to labor across most large economies for decades (BLS, IMF, OECD tracking). The labor share has wobbled but not collapsed. Markets serve humans not by intention but because humans must be paid to do the work — a structural fact about which inputs production currently requires.
 
-2. **Consumer demand as revealed preference.** Consumer spending is roughly 70% of GDP in the US, similar across rich economies. Production decisions get pulled toward what people actually buy, and what people buy is shaped (imperfectly, mediated by advertising, by income distribution) by what they care about. Global markets aggregate these revealed preferences into supply, and the aggregation has had a structural bias toward human-relevant goods because the buyers are human.
+2. **Humans as the dominant buyers.** Consumer spending is ~70% of GDP in rich economies, distributed broadly enough that median human needs counted. Production decisions get pulled toward what people actually buy, and what they buy is shaped (imperfectly) by what they care about. The aggregation has had a bias toward human-relevant goods because the buyers were human and buying power wasn't too concentrated.
 
-3. **Explicit steering with economic weight.** Boycotts (the Montgomery bus boycott, anti-apartheid divestment, fossil-fuel divestment), strikes, ESG mandates and screens, fair-trade and B-Corp certifications, geographic indications (Champagne, Roquefort, Darjeeling, Oaxacan textile collectives), preferential ethical purchasing. These work because the actors carry economic weight — their participation matters, so their refusal to participate matters.
+On top of these structural facts sits a layer of intentional steering — boycotts (Montgomery, anti-apartheid, fossil-fuel divestment), ESG screens, strikes, fair-trade certifications, treaty regimes (WTO labor provisions, ILO Conventions, Paris Agreement, EU CBAM), and sovereign wealth funds (Norway's GPFG, Alaska Permanent Fund). These work because the actors carry economic weight derived from being needed as workers and buyers. Take that weight away and the levers go advisory.
 
-4. **Cross-border governance pricing externalities.** WTO labor and environmental provisions, ILO Conventions, the Paris Agreement, the Montreal Protocol, the EU's Carbon Border Adjustment Mechanism, sovereign wealth funds (Norway's GPFG, Alaska Permanent Fund, GIC) that capture rents on behalf of citizen-beneficiaries. The governance layer is uneven and contested, but it has slowly incorporated more human-relevant constraints over decades.
-
-These layers reinforce each other. Companies serve consumer preferences in part because consumers can refuse to participate; consumers have leverage in part because they earn the income that drives the market; explicit steering has bite in part because both labor and consumer choice are necessary; governance can price externalities in part because companies depend on jurisdictions where labor and consumers reside.
-
-A vivid case: After the 2013 Rana Plaza collapse, the global pressure on the garment industry rested on all four layers at once. Bangladeshi workers struck, cutting labor supply directly. Western consumers — mobilized by the Clean Clothes Campaign — shifted purchasing toward brands with auditable supply chains. The shift had bite because the brands needed both Bangladeshi labor and Western consumer goodwill. ILO-backed standards and the EU's trade-agreement social clauses pressured Bangladesh and the brands toward the Accord on Fire and Building Safety. None of these layers worked alone; together they produced an alignment shift no single party had designed.
+A vivid case: When Henry Ford doubled his factory wage to $5 a day in 1914, his workers became buyers of the Model Ts they built. The two pillars locked together: humans were needed at the factory, and the wages they earned created the demand the factory served. The twentieth-century mass consumer economy rested on this loop reproducing itself across industries.
 
 ## Where AGI breaks it
 
-The load-bearing differences here are partly properties of agents as economic actors and partly properties of the deployment context. The four anchor mechanisms held together because production required human inputs; the differences that follow each undo a piece of that structural fact.
+Both structural facts dissolve as AI deploys, and the intentional steering layer loses grip with them.
 
 **Agent properties:**
 
-- **Substitutable for wage labor.** Agents can perform a growing fraction of what wage-earning humans were structurally necessary for. Adding production no longer requires routing wages to humans.
-- **Re-instanceable at low marginal cost.** Scaling output adds compute and capital cost, not wages. The link between scale-of-production and scale-of-labor-income that gave the labor share its stability doesn't hold.
-- **Mediator with no personal stake in the choice.** When an assistant-agent picks between brands for its principal, it has no internalized cost of an unethical choice; the steering channel from buyer ethics to producer behavior depended on a buyer who carried that cost.
-- **Capable of principal-like roles in transactions.** Agents can hold balances, allocate capital, execute under standing instructions, and increasingly act on their own behalf in defined classes of trade. What gets aggregated as "demand" begins to include behavior whose ultimate principal is itself agent-mediated.
+- **Substitutable for wage labor.** Production no longer requires routing wages to humans.
+- **Re-instanceable at low marginal cost.** Scaling output adds compute and capital, not wages.
+- **Mediator with no personal stake.** When an assistant-agent picks for its principal, no internalized cost steers it toward what the principal actually wants; the channel from buyer ethics to producer behavior runs through agents whose loyalties lie elsewhere.
+- **Capable of principal-like roles.** Agents hold balances, allocate capital, and execute under standing instructions; aggregated "demand" begins to include behavior whose ultimate principal is itself agent-mediated.
+- **Major resource buyer with non-consumer ends.** Buyers with non-consumer ends have always existed — Microsoft and Google running datacenters, SpaceX building rockets, JP Morgan provisioning financial infrastructure, militaries procuring at scale — and the alignment held because consumer spending still dominated the total. AI training, deployment, and AI-principal projects (datacenters, infrastructure, eventually space missions) can grow the non-consumer share fast enough to flip that ratio. The question isn't whether non-consumer demand exists; it's what fraction of total demand still routes through human consumption.
 
-**Context properties:**
+**Context property:**
 
-- **Jurisdiction-portable.** AI deployment can relocate across borders far faster and more cheaply than human labor can migrate. The arbitrage that drove labor-cost competition for decades sharpens.
-- **Economic scale precedes political feedback.** Capacity deploys in months; treaty regimes evolve in decades; political constituencies adjust on yet a third timescale. The asymmetry favors capture by AI-deploying interests.
+- **Jurisdiction-portable.** AI deployment relocates across borders far faster and more cheaply than human labor can migrate; the arbitrage that drove labor-cost competition for decades sharpens.
 
-These differences break the four anchor mechanisms:
+The two structural pillars break in parallel:
 
-1. **Labor share.** Dissolves from *substitutability* and *re-instanceability*: production no longer requires routing wages to humans. The deepest implicit alignment — markets serve humans because production requires paying humans — dissolves as a more competitive substitute exists. Redistribution proposals (UBI, AI dividends, progressive AI-revenue taxation) try to patch the income flow, but they do not restore the alignment that came from humans being necessary inputs.
+**Humans as workforce.** Dissolves from *substitutability* and *re-instanceability*. The deepest implicit alignment — markets serve humans because production requires paying them — collapses as a more competitive substitute exists. UBI, AI dividends, and progressive AI-revenue taxation can patch the income flow but cannot restore the alignment that came from humans being necessary inputs.
 
-2. **Consumer demand.** Bifurcates from *mediator with no stake* and *principal-like roles*: revealed behavior at scale starts measuring the mediation layer's objectives rather than human substantive preference, and as agents take principal-like roles in defined transactions, what's aggregated stops being human preference even nominally. The aggregation that worked for a century — pull production toward what humans buy — keeps running but stops aggregating what it used to.
+**Humans as buyers.** Bifurcates along two lines. *Mediation:* assistant-agents pick for buyers on platform-curated proxies — keeping principals entertained and fed but not steering toward what they actually want or need — and increasingly transact as principals themselves. *Composition:* labor income dissolves, wealth concentrates with capital owners, and buyer-side demand shifts upward into asset speculation and luxury rather than mass consumption; AI's own resource appetite and AI-principal projects pull production toward ends that don't route back to humans. The aggregation that worked for a century — pull production toward what humans buy — keeps running but stops aggregating human consumer preference at all.
 
-3. **Explicit steering.** Loses bite from *substitutability* (humans hold less of the economic weight that gave boycotts, divestment, and strikes their leverage) and *mediator with no stake* (the channel between buyer ethics and producer behavior runs through agents whose loyalties lie with the platform). The mechanism could still apply with different objects — boycotts of platform operators by capital pools that retain economic weight, rather than consumer boycotts of brands — but the consumer-led form doesn't transfer.
-
-4. **Cross-border governance.** Erodes from *jurisdiction-portability* and *scale-preceding-feedback*: the rents from a less-constrained jurisdiction grow faster than coordinated countermeasures can be negotiated. The treaty regimes that priced human-relevant externalities depended on national capacity and political will rooted in domestic constituencies; both weaken as the economic base detaches from those constituencies. Per Kulveit et al., this risks a world in which "the most powerful economies are in states where the population is most disempowered."
+The intentional steering layer dissolves with the pillars. Boycotts, strikes, and ESG screens presupposed economic weight humans no longer hold. Treaty regimes (WTO, ILO, Paris) erode further from *jurisdiction-portability*: rents from low-restriction jurisdictions outpace coordinated countermeasures, and the political constituencies that backed those regimes detach as the economic base detaches from them. The mechanism could still apply with different objects — boycotts of platform operators by capital pools that retain economic weight — but the consumer- and worker-led forms don't transfer.
 
 ## Scenarios
 
@@ -127,24 +120,24 @@ Sketches of how each mechanism might be rebuilt for a world in which the implici
 
 **Deliverable.** The preference-aggregation specification — preference signal, aggregation architecture, anti-capture, cross-cultural handling, relationship to revealed-preference markets. Identify which provisions have no analogue in pre-AI consumer-preference aggregation.
 
-### Cross-Border Coordination Against Race-to-the-Bottom
+### Holding Demand Composition When AI Is a Major Non-Consumer Buyer
 
-**Anchor contexts.** A multilateral negotiation over AI-revenue taxation where one major economy threatens to opt out; a treaty regime that constrains AI principalship in defined transaction classes, with adversarial jurisdictions trying to harbor non-compliant activity.
+**Anchor contexts.** A national economy where labor income has dropped to 30% of GDP and AI-principal projects (datacenters, fusion R&D, eventually Mars infrastructure) consume 15% of compute and energy; a transnational coordination over whether to allow an AI-led mega-project that would consume 20% of global compute for a decade.
 
-**The gap.** The cross-border governance layer that priced human-relevant externalities (labor standards, environmental rules, GIs, sovereign-wealth norms) eroded by capture and race-to-the-bottom even before AI economic activity. AI accelerates both because the gains from a less-constrained jurisdiction grow faster than coordinated countermeasures. We lack a treaty regime that constrains AI economic participation across borders, survives capture-driven defection by major economies, and prevents the most powerful economies from being those whose populations are most disempowered.
+**The gap.** Consumer demand worked for a century as a structural alignment because humans dominated buying. As labor income dissolves and wealth concentrates upward, and as AI itself becomes a major buyer for non-consumer ends, the buyer side of markets ceases to be predominantly human in composition. Patching consumer income (UBI, AI dividends) keeps individual buying nominally alive but doesn't keep human consumption dominant in total demand. We lack a mechanism that holds the ratio of human-consumption-rooted demand above some threshold even when AI capacity, AI-principal projects, and concentrated wealth pull demand the other way.
 
 **Design choices the team must take a position on.**
-1. **Scope of restriction.** Hard prohibitions on AI principalship in defined classes (electoral, healthcare, education), revenue-share claims on AI activity globally, mandatory human-intermediation layers, ownership restrictions on AI-controlled assets, all of the above? Where's the line drawn and on what principle?
-2. **Enforcement mechanism.** Binding dispute resolution (WTO-style), penalty regimes (tariffs, sanctions), reciprocity-based withdrawal of trade privileges, capture-resistant funding for a treaty body? What carries actual force against a defecting major economy?
-3. **Anti-defection structure.** When a country threatens to opt out to capture AI deployment, what holds the coalition together — supermajority decision rules, exit penalties, club goods only available to compliant members, treaty entrenchment requiring supermajority to exit?
-4. **Capture resistance at the treaty body.** When AI-deploying firms have global political weight, what stops the treaty body from being captured — funding independence, rotating administration, public auditability, sunset clauses requiring periodic renegotiation?
-5. **Standing.** Who can bring a complaint — only state parties, also citizen groups, also affected pool subscribers, also competing AI-deploying firms? What's the procedural threshold?
+1. **Anchor mechanism.** Quantity caps on non-consumer demand (no more than X% of compute, energy, materials for non-consumer ends), graduated resource pricing (non-consumer uses pay higher), redistribution into broad consumer pools (progressive AI-revenue taxation flowing into mass purchasing power rather than asset markets), anti-concentration of wealth (Brandeisian antitrust scaled to AI capital), or a layered combination? On what principle is the threshold set?
+2. **Treatment of AI principalship.** Allowed but capped, restricted category-by-category (no AI principalship in housing, healthcare, education), taxed to fund consumer-anchored demand, prohibited above some scale? What counts as "AI as principal" in defined transaction classes, and how is it traced through corporate vehicles?
+3. **Defining "human consumption."** Direct individual spending, household-anchored consumption, community and civic goods, public goods? How does the regime handle that what humans count as consumption shifts (subscription bundles, outcome-procurement intermediaries, communal provisioning)?
+4. **Calibration across populations.** Different human populations have different consumption baskets and different wealth levels; how does the regime hold the composition ratio without homogenizing across cultures or biasing toward median-rich-country consumption?
+5. **Capture resistance.** When the regime constrains what AI principals can buy, what stops the firms running AI from capturing the regime — entrenched constitutional limits, distributed administration, public auditability, prohibited cross-ownership with covered sectors?
 
 **Success criterion (stress tests).** A regime succeeds if it survives:
-- A major economy threatens to opt out to capture AI deployment; the coalition holds through reciprocity-based mechanisms and the defector pays a meaningful cost.
-- An AI-deploying firm restructures to a low-restriction jurisdiction; the anti-arbitrage provisions contain the migration.
-- A treaty-body decision is challenged for capture; the audit trail and structural-protection provisions hold against the challenge.
-- A category of AI activity emerges that wasn't anticipated in the treaty (a new class of agent-mediated transaction); the treaty has a procedure for extending coverage on a defined timeline.
-- A small country's citizen group brings a complaint over a powerful country's compliance; the standing rules let it proceed and the dispute is resolved without retaliation.
+- A major AI-led project requires 20% of global compute for a decade; the regime decides whether to allow it on a basis that doesn't collapse to "whoever pays the most."
+- Wealth concentration accelerates despite labor-share patches; the regime keeps median consumer demand a significant share of total.
+- A jurisdiction opts out to host unrestricted AI principalship; arbitrage doesn't gut the composition guarantee.
+- The mix of resources AI consumes shifts unexpectedly (compute-bound to energy-bound to materials-bound); the regime adapts without lag.
+- A human-consumption category has small total dollar value but matters categorically (rare medical needs, indigenous practices, public-goods consumption); the regime doesn't average it away.
 
-**Deliverable.** The treaty-regime specification — scope of restriction, enforcement mechanism, anti-defection structure, capture resistance, standing. Compare with WTO, ILO, Montreal Protocol, and Paris Agreement enforcement and identify which provisions have no analogue in those, and why.
+**Deliverable.** The demand-composition specification — anchor mechanism, AI-principalship treatment, definition of human consumption, calibration, capture resistance. Compare with antitrust traditions (Brandeisian and post-Chicago), concentration limits in finance and utilities, and progressive taxation regimes; identify which provisions have no analogue.

@@ -29,9 +29,14 @@ How states settle on expectations of conduct toward each other without a global 
 
 ## How humans solve this today
 
-Diplomatic norms and soft-law frameworks have evolved across centuries to handle the central problem of international agreement: states bargain through delegated negotiators whose mandates are bounded by domestic politics. Treaty texts circulate, working-group proposals are leaked deliberately to test domestic reception, "Track II" back-channels probe the space of what's actually possible, and legitimacy comes from a careful sequencing — exploration by negotiators, agreement at the table, then ratification by parliament or referendum. The norms about what topics can be linked (security and trade, but cautiously), what constitutes a credible signal, and when a side can walk away without losing face are mostly unwritten and learned slowly by professionals. The system is famously slow, but its slowness does work: it gives domestic constituencies time to absorb what's being agreed to, and it forces negotiators to bring back deals that look like the deals they were authorized to seek.
+There is no global enforcer, so states behave themselves by accumulating a track record: every public action becomes a precedent that other states cite back at them later, and breaking expectations costs credibility on every other negotiation a state is in. Some examples of how norms get enforced this way:
 
-A vivid case: A bilateral fisheries dispute between Norway and Russia in the 1990s was resolved through a working group whose drafts were tested against parliamentary committees on both sides for months before the final text was tabled — the negotiators knew within a few percent what each side could ratify before they agreed.
+- **Diplomatic protocol.** A shared grammar for signaling intent in graduated steps, so escalation walks down a staircase whose every rung has a recognized meaning. The same grammar runs in reverse for de-escalation: peace negotiations move through layered tracks (unofficial back-channels, then serving officials in personal capacity, then formal talks), so concessions can be tested deniably before anyone is publicly committed.
+- **Customary international law.** When behaviors get repeated long enough (freedom of navigation, diplomatic immunity, non-refoulement), they harden into law without any single ratification moment.
+- **The nuclear taboo.** The convention, sustained since Hiroshima, that nuclear weapons are categorically different from conventional ones — a threshold no leader can cross without becoming a pariah. It holds because every year of non-use raises the cost of being the first to break the taboo.
+- **Just-war norms (*jus ad bellum*, *jus in bello*).** These constrain force by controlling its justification. A state that cannot frame its war in this vocabulary loses legitimacy at home and abroad, which makes the war harder to sustain.
+
+A vivid case: in 1990, Iraq's invasion of Kuwait violated the postwar norm against territorial conquest. The U.S. and U.K. went to the UN Security Council, securing Resolution 678 as explicit *jus ad bellum* authorization. The coalition then stopped once Kuwait was liberated rather than pushing on to Baghdad, honoring the *ad bellum* limit.
 
 ## Where AGI breaks it
 

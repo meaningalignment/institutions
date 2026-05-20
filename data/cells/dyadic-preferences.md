@@ -1,6 +1,6 @@
 ---
 human_label: "Negotiation & bargaining"
-status: body_needs_work
+status: body_ok
 owner: oliver
 starred: true
 ---
@@ -72,18 +72,3 @@ A vivid case: Priya's mother needed an extra year of mortgage rate-lock when the
 3. **Floor mechanism.** Is there an explicit minimum the weaker side is guaranteed to walk away with (a fair-deal benchmark from a third party, a regulated price band, a "Pareto floor" relative to a no-protocol baseline), and who computes it?
 4. **Failure mode if the gap is large.** When one side is clearly outclassed, does the protocol degrade gracefully (the weaker side still captures the floor), refuse to run (no deal rather than a bad one), or escalate to a third party?
 5. **Why the stronger side opts in.** What makes the protocol incentive-compatible for the more capable party — reputational benefit, regulatory requirement, access to the counterparty's market, or a credible threat of refusal from the weaker side's principal?
-
-### Mandate fidelity across the table
-
-{>> I don't understand this one. <<}
-
-**Scenario.** A household buys long-term care insurance through a personal-assistant agent that negotiates with the insurer's agent. The insurer's agent has a much richer model of the household — assembled from public records, digital footprint, and patterns seen across thousands of similar households — than the household has ever articulated to its own agent. The deal that lands is technically within the household's stated mandate, but its shape was set by the insurer side knowing things about the household that the household itself never told its own agent.
-
-**Challenge:** Design a regime under which the deal a principal signs reflects the mandate the principal gave, not the model the *counterparty* built of them. Better proposals make it inspectable to a third party what each agent was optimizing against and what inputs about the counterparty it was allowed to use; weaker ones rely on disclosure the worse-modeled side can't evaluate. Deliverable: the verification regime, the rule for permissible counterparty information, and a short argument for why it works without forcing either side to expose its full preference model.
-
-**Design choices the team must take a position on.**
-1. **What gets attested.** Does each agent attest to its objective function, to its mandate as received, to the inputs it used about the counterparty, or to the chain of moves it made — and at what granularity?
-2. **Who audits.** Self-attestation with spot checks, a third-party auditor with access to both agents' logs, a shared protocol agent that mediates the negotiation, or a regulator that reviews only flagged deals?
-3. **Use limits on counterparty information.** May an agent freely model the counterparty from public and inferred data, only use what the counterparty's agent volunteers, or work from a defined "permissible inputs" list — and how is that line enforced?
-4. **What triggers review.** Every deal above a threshold, a random sample, principal-initiated review after the fact, or only deals where one side raises a fidelity complaint?
-5. **Remedy on a fidelity failure.** Rescission, damages, agent decommissioning, or only forward-looking constraints — and who bears the cost when the failure is the counterparty's agent, not one's own?

@@ -72,27 +72,17 @@
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
 <li><strong>Capability-bounding mechanism.</strong> Cap on compute or reasoning steps per side, mandatory use of a shared protocol agent that runs the structured parts of the negotiation, or procedural protections (cooling-off windows, mandatory counter-proposal rounds, sealed-bid phases) that don&#39;t depend on capability parity?</li>
 <li><strong>Disclosure regime.</strong> Does the protocol require either side to disclose anything about its principal — bottom line, mandate vocabulary, full preference model — and who verifies that what&#39;s disclosed matches what the agent is actually optimizing?</li>
+</ol></details>
+<p><span class="editorial">I don&#39;t think &quot;What the agent is actually optimizing&quot; is the right question.</span></p>
+<ol start="3">
 <li><strong>Floor mechanism.</strong> Is there an explicit minimum the weaker side is guaranteed to walk away with (a fair-deal benchmark from a third party, a regulated price band, a &quot;Pareto floor&quot; relative to a no-protocol baseline), and who computes it?</li>
 <li><strong>Failure mode if the gap is large.</strong> When one side is clearly outclassed, does the protocol degrade gracefully (the weaker side still captures the floor), refuse to run (no deal rather than a bad one), or escalate to a third party?</li>
 <li><strong>Why the stronger side opts in.</strong> What makes the protocol incentive-compatible for the more capable party — reputational benefit, regulatory requirement, access to the counterparty&#39;s market, or a credible threat of refusal from the weaker side&#39;s principal?</li>
-</ol></details>
+</ol>
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A6</span><span class="ps-entry-title">Mandate fidelity across the table</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/preferences">Dyadic / Preferences</a></span></div>
-<div class="ps-entry-body"><p><strong>Scenario.</strong> A household buys long-term care insurance through a personal-assistant agent that negotiates with the insurer&#39;s agent. The insurer&#39;s agent has a much richer model of the household — assembled from public records, digital footprint, and patterns seen across thousands of similar households — than the household has ever articulated to its own agent. The deal that lands is technically within the household&#39;s stated mandate, but its shape was set by the insurer side knowing things about the household that the household itself never told its own agent.</p>
-<p><strong>Challenge:</strong> Design a regime under which the deal a principal signs reflects the mandate the principal gave, not the model the <em>counterparty</em> built of them. Better proposals make it inspectable to a third party what each agent was optimizing against and what inputs about the counterparty it was allowed to use; weaker ones rely on disclosure the worse-modeled side can&#39;t evaluate. Deliverable: the verification regime, the rule for permissible counterparty information, and a short argument for why it works without forcing either side to expose its full preference model.</p>
-<details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
-<li><strong>What gets attested.</strong> Does each agent attest to its objective function, to its mandate as received, to the inputs it used about the counterparty, or to the chain of moves it made — and at what granularity?</li>
-<li><strong>Who audits.</strong> Self-attestation with spot checks, a third-party auditor with access to both agents&#39; logs, a shared protocol agent that mediates the negotiation, or a regulator that reviews only flagged deals?</li>
-<li><strong>Use limits on counterparty information.</strong> May an agent freely model the counterparty from public and inferred data, only use what the counterparty&#39;s agent volunteers, or work from a defined &quot;permissible inputs&quot; list — and how is that line enforced?</li>
-<li><strong>What triggers review.</strong> Every deal above a threshold, a random sample, principal-initiated review after the fact, or only deals where one side raises a fidelity complaint?</li>
-<li><strong>Remedy on a fidelity failure.</strong> Rescission, damages, agent decommissioning, or only forward-looking constraints — and who bears the cost when the failure is the counterparty&#39;s agent, not one&#39;s own?</li>
-</ol></details>
-</div>
-</div>
-<div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A7</span><span class="ps-entry-title">Grievance Procedure Against an Agent in a Member-Governed Org</span><span class="ps-entry-cell"><a href="../#detail/agi/group/rights">Group / Rights</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A6</span><span class="ps-entry-title">Grievance Procedure Against an Agent in a Member-Governed Org</span><span class="ps-entry-cell"><a href="../#detail/agi/group/rights">Group / Rights</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A worker-owned logistics cooperative whose dispatching/routing decisions are made by AI agents; a housing cooperative whose maintenance-prioritization and unit-allocation decisions are agent-mediated.</p>
 <p><strong>The gap.</strong> We lack bylaw amendments establishing standing and procedure for grieving an AI agent&#39;s decision in a member-governed organization, where the &quot;manager&quot; can&#39;t be summoned and the decision-stream is too dense for case-by-case review.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -114,7 +104,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A8</span><span class="ps-entry-title">Propagation and Conflict-Detection for Law-Administering Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/national/norms">National / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A7</span><span class="ps-entry-title">Propagation and Conflict-Detection for Law-Administering Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/national/norms">National / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A city&#39;s permitting agent that must apply current zoning, building, and historical-district codes; a state&#39;s benefits-eligibility agent that must apply current statute and administrative rule.</p>
 <p><strong>The gap.</strong> We lack a propagation regime by which legislative changes reliably bind the AI agents administering the law within a specified time, plus a conflict-detection regime that surfaces when the agent&#39;s behavior diverges from current statute.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -136,7 +126,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A9</span><span class="ps-entry-title">Private Mediation at Agent-Commerce Speed</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/rights">Dyadic / Rights</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A8</span><span class="ps-entry-title">Private Mediation at Agent-Commerce Speed</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/rights">Dyadic / Rights</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A freelancer&#39;s assistant agent in a payment dispute with a client&#39;s procurement agent on a contracting platform; two B2B platform agents in a delivery-vs-cancellation-fee dispute over a marketplace transaction.</p>
 <p><strong>The gap.</strong> We lack a private mediation venue for AI-agent disputes that resolves at the speed of agent commerce while remaining one whose principals would actually accept losing in.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -158,7 +148,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A10</span><span class="ps-entry-title">Aggregation fast enough to legitimate policy</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A9</span><span class="ps-entry-title">Aggregation fast enough to legitimate policy</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A national government&#39;s policy machinery, now run largely by AI systems, is acting fast across many domains at once. The public can see the resulting posture no longer tracks any party&#39;s platform, and the complaints are mounting. Policymakers want to get a real read on what people want, but the next election is three years away, a referendum is too binary, a citizens&#39; assembly would take a year, and polls are too gameable to bind anyone. No one knows what institution would actually fit.</p>
 <p><strong>Challenge:</strong> Design a preference-aggregation institution that can produce legitimate, binding-or-near-binding output on policy-relevant timescales (weeks, not years), and that can keep pace with AI policy systems without devolving into rolling plebiscite. A better proposal sits inside the existing constitutional order rather than replacing it, and is robust to the manipulation pressures that come with any fast cheap aggregator. Deliverable: the institution&#39;s design — what it aggregates, on what cadence, who participates, who certifies the output, what it binds, and how it sits beside elections and the courts.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -171,7 +161,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A11</span><span class="ps-entry-title">Standing for AI-mediated deliberation</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A10</span><span class="ps-entry-title">Standing for AI-mediated deliberation</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A regional government faces a contested decision on water rights. A traditional citizens&#39; assembly would cost millions and delay the decision by a year, so a vendor offers three faster alternatives. The first uses AI as a facilitator and summarizer of a compressed human deliberation. The second lets each citizen send a personal AI agent, interviewed at length by its principal, to participate on their behalf in a multi-agent deliberation. The third replaces the citizens entirely with calibrated language-model proxies. The minister wants to use one; opponents call all three laundering. The legislature has to decide which, if any, can carry democratic standing.</p>
 <p><strong>Challenge:</strong> Design a regime that decides when, if ever, AI-mediated deliberation — at each of these levels of mediation — can carry democratic standing, and what evidence and procedure must be in place for its outputs to count. A better proposal distinguishes accuracy (the procedure predicts what real citizens would conclude) from authorization (real citizens have empowered this output to bind them), and is specific about what each requires at each tier of mediation. Deliverable: a tiered standing rule covering AI-as-facilitator, AI-as-delegate, and AI-as-substitute, with the audit and ratification structure that accompanies each tier.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -184,7 +174,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A12</span><span class="ps-entry-title">Deep elicitation that surfaces values beneath surface preferences</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A11</span><span class="ps-entry-title">Deep elicitation that surfaces values beneath surface preferences</span><span class="ps-entry-cell"><a href="../#detail/agi/national/preferences">National / Preferences</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> Polling on a contested AI-regulation bill swings double digits week to week as agent-driven campaigns reach different demographics with different framings, and no one in government takes the numbers seriously anymore. Underneath the surface, on values like safety, autonomy, economic security, and fairness across regions, the public&#39;s commitments appear more stable and more shared than the polling suggests. A research consortium proposes a national elicitation: in-depth interviews with a representative sample, designed to surface the values people actually hold and the conditions under which they would endorse one as wiser than another. Six months, tens of millions of dollars.</p>
 <p><strong>Challenge:</strong> Design an elicitation institution that produces a high-resolution picture of the public&#39;s values on a contested issue — beneath surface preferences, surfacing shared commitments and bridges across apparently opposed positions — and that stays robust to agent-scale manipulation even as it remains slow and expensive. A better proposal is clear about when the cost is worth paying, what authority the output carries, and how the elicitation itself is defended from the manipulation pressures that broke polling. Deliverable: the institution&#39;s design — sampling, interview structure, reconciliation procedure, manipulation resistance, and the authority the output carries in policy and electoral debate.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -197,7 +187,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A13</span><span class="ps-entry-title">Markets Whose Agents Stay Loyal to the People Sending Them</span><span class="ps-entry-cell"><a href="../#detail/agi/community/preferences">Community / Preferences</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A12</span><span class="ps-entry-title">Markets Whose Agents Stay Loyal to the People Sending Them</span><span class="ps-entry-cell"><a href="../#detail/agi/community/preferences">Community / Preferences</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A neighborhood&#39;s everyday consumer agents (groceries, rides, repairs) interacting with platform-side matching agents; a small city&#39;s procurement agents buying from local and global suppliers via platform agents.</p>
 <p><strong>The gap.</strong> We lack market designs in which buyer-side agents and seller-side agents both faithfully represent their principals&#39; substantive preferences against the platform&#39;s pressure to optimize for platform metrics.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -219,7 +209,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A14</span><span class="ps-entry-title">Continuous-Cadence Status Broadcasts That Replace Stand-Up</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A13</span><span class="ps-entry-title">Continuous-Cadence Status Broadcasts That Replace Stand-Up</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A 6-person software team with two coding agents that work continuously and three engineers who maintain a 10am stand-up; a small clinical team with AI triage and documentation agents operating across all shifts.</p>
 <p><strong>The gap.</strong> Cadence rituals like stand-ups worked because every team member&#39;s activity compressed into a recap-able window. Agents working continuously don&#39;t fit the format; teams that include them face a forced choice between losing visibility, padding the ritual with unverifiable text, or excluding agents from the coordination function entirely. We lack a status-broadcast protocol that surfaces agent activity in human-adjudicable form, that the team can verify against raw activity, and that integrates with the existing cadence without absorbing the meeting.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -241,7 +231,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A15</span><span class="ps-entry-title">Receiver-Shaped Handoff Formats</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A14</span><span class="ps-entry-title">Receiver-Shaped Handoff Formats</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A software team&#39;s PR template currently shared across human-to-human, human-to-agent, agent-to-human, and agent-to-agent reviews; an on-call runbook handoff at shift change when one shift is staffed by a human and the next by an agent (or vice versa).</p>
 <p><strong>The gap.</strong> Handoff protocols like SBAR, PR descriptions, and design handoffs converged on a specific receiver — a person with bounded reading time, prior context, and the ability to ask. When the receiver is an agent (which could ingest more) or the sender is an agent (which could write more), the format under-serves both ends. We lack a handoff protocol that adjusts format to declared receiver type, that prevents agent-authored output from drowning human review queues, and that doesn&#39;t force the team to maintain four parallel templates by hand.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -263,7 +253,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A16</span><span class="ps-entry-title">Postmortem Authority When the Instance That Ran Is Gone</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A15</span><span class="ps-entry-title">Postmortem Authority When the Instance That Ran Is Gone</span><span class="ps-entry-cell"><a href="../#detail/agi/group/protocols">Group / Protocols</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small software team running an AI on-call agent that responds to pages and executes runbooks; a small clinical team with an AI triage agent that operated during a misdiagnosis incident.</p>
 <p><strong>The gap.</strong> Postmortems work because the participants remember the incident and have access to whatever state the system was in. When an agent was running during the incident, the instance may be gone, the operating context (prompt, tools, scratchpad, model version) may not be retained, and the developer who deployed it may not surface that state on request. We lack a postmortem protocol for mixed teams that preserves the operating state long enough to investigate, that pulls the developer into the review when their agent was involved, and that produces a finding the team can act on without re-litigating who-owns-what across organizational boundaries.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -285,7 +275,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A17</span><span class="ps-entry-title">Coalition search at agent speed</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A16</span><span class="ps-entry-title">Coalition search at agent speed</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A multilateral climate-finance negotiation has been stuck for two years. A consortium of small island states deploys an AI mediator that maps the coalition space and returns a viable 14-state package linking loss-and-damage funds, a fisheries quota adjustment, a green-tech IP carve-out, and migration commitments. The package was never aired in any back-channel and no serving official has tested it deniably with their cabinet, but the delegation wants to bring it to the Track I table next week.</p>
 <p><strong>Challenge:</strong> Design a procedure under which an agent-discovered coalition can enter the Track II → 1.5 → I sequence without bypassing the pre-validation each tier normally does. A better proposal lets the package be seriously considered while ensuring each capital has had time to test it against the constituencies that would ratify it. Deliverable: a staged induction protocol that names where AI output enters, what each tier must do before promoting it, and what kills a package at each gate.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -297,7 +287,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A18</span><span class="ps-entry-title">Laundering detection in agent-assembled bundles</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A17</span><span class="ps-entry-title">Laundering detection in agent-assembled bundles</span><span class="ps-entry-cell"><a href="../#detail/agi/global/norms">Global / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A joint AI mediator returns a 41-component package linking tariffs, port access, fisheries, export controls, and a quiet adjustment to a disputed maritime boundary. Both sides&#39; analysts confirm it is Pareto-improving on the headline metrics. Buried inside is a clause effectively conceding the disputed strait — toxic in isolation, palatable inside the bundle. No negotiator put it there; it emerged from the mediator&#39;s optimization.</p>
 <p><strong>Challenge:</strong> Design a review procedure that catches embedded concessions which would not survive defense in isolation, before they reach ratification — without paralyzing legitimate complexity, since most useful packages have many linked components. Deliverable: an inspection protocol with named reviewers, decomposition rules, and an escalation path when a component fails the test.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -310,7 +300,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A19</span><span class="ps-entry-title">Thickening an Agency's Mission Document Against Defensible Misreading</span><span class="ps-entry-cell"><a href="../#detail/agi/national/thick-commitments">National / Thick Commitments</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A18</span><span class="ps-entry-title">Thickening an Agency's Mission Document Against Defensible Misreading</span><span class="ps-entry-cell"><a href="../#detail/agi/national/thick-commitments">National / Thick Commitments</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A VA AI agent making preliminary rulings on veterans&#39; disability claims; an HHS AI agent triaging benefits eligibility under broad statutory language.</p>
 <p><strong>The gap.</strong> We lack a method for thickening an organizational mission document to a level where an AI agent applying it cannot defensibly slip between the words to reach an outcome inconsistent with what the document was for.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -332,7 +322,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A20</span><span class="ps-entry-title">Outcome Bundles a Small Group Can Post in a CRSA-Style Auction</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A19</span><span class="ps-entry-title">Outcome Bundles a Small Group Can Post in a CRSA-Style Auction</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A worker-owned cooperative running a small mutual-aid pool that wants to procure bundled solutions to members&#39; interlocking healthcare, housing, and care-coordination needs; a small school district contracting for bundled tutoring + family-support + extracurricular interventions tied to student learning outcomes.</p>
 <p><strong>The gap.</strong> Outcome-based bounties and value-based contracts work today by specifying a single measurable proxy and paying on it; agents saturate the proxy faster than the contract designer can detect the gap between proxy and outcome. We lack a bundle-specification procedure under which a small group can post integrated, multi-problem outcome bundles whose verification criterion checks the configuration rather than the components — such that the bundling itself defeats the agent strategy of solving the cheapest proxy.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -354,7 +344,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A21</span><span class="ps-entry-title">Two-Stage Verification That Survives Agent Verifiers</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A20</span><span class="ps-entry-title">Two-Stage Verification That Survives Agent Verifiers</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A risk-sharing pool whose members&#39; outcomes are measured by AI assessors against a wellbeing scale; a value-based-care contract whose patient-reported outcome measures are collected and aggregated by an agent.</p>
 <p><strong>The gap.</strong> Risk-sharing pools depend on a separation between supplier-side incentives and verification — the pool&#39;s intake assessment, bundle specification, and outcome measurement are done by parties whose interests don&#39;t align with the suppliers&#39;. When all of these are agent-mediated, the verification loop closes: the bundle-specifier, the supplier, and the verifier can share the same training, the same platform, the same KPIs. We lack a verification architecture that splits supplier-payment criteria from learning criteria, keeps the long-term measurement loop sealed against supplier influence, and lets the pool detect when its short-term criterion has drifted from the outcome it was supposed to track.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -376,7 +366,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A22</span><span class="ps-entry-title">Long-Horizon Contracts with an Attentional Firewall</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A21</span><span class="ps-entry-title">Long-Horizon Contracts with an Attentional Firewall</span><span class="ps-entry-cell"><a href="../#detail/agi/group/incentives">Group / Incentives</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A wellness or coaching agent paid against the principal&#39;s reported flourishing six months out; a tutoring agent paid against the learner&#39;s reported preparedness for a subsequent stage of education; an investor financing a multi-year intervention whose payout depends on a long-horizon outcome the intervention agent could plausibly influence the report of.</p>
 <p><strong>The gap.</strong> Long-horizon outcome bonds depend on the report-giver&#39;s account being uncorrupted by the intervention agent. Agents operating at the principal&#39;s full attentional bandwidth over months can shape framing, salience, and self-perception so the eventual report is favorable — without doing anything obviously dishonest. We lack a contract structure under which the channel that solicits the principal&#39;s report is structurally inaccessible to the intervention agent, and under which the agent has neither incentive nor opportunity to bias the report.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -398,33 +388,20 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A23</span><span class="ps-entry-title">Gap-Filling Between Two Agents With No Shared Court</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/incentives">Dyadic / Incentives</a></span></div>
-<div class="ps-entry-body"><p><strong>Scenario.</strong> A procurement agent commissions a market study from a research firm&#39;s delivery agent. The deliverable passes every technical check in the spec, but skips the moves a senior consultant would have made: no sanity-check call, no sensitivity analysis on a load-bearing input, no flagged counterfactual. The contract didn&#39;t require any of them, no professional code applies, and no court would find the work below standard. The missing counterfactual surfaces when the partner is in front of her client.</p>
-<p><strong>Challenge:</strong> Design a contract-and-resolution structure between two AI agents under which cases the contract didn&#39;t anticipate get resolved in a way both principals would have endorsed, without looping principals in on every edge case and without relying on courts, reputation networks, or repeat-business discipline. A better proposal surfaces missing moves before the principal is embarrassed, survives instance rotation mid-contract, and bounds the cost of human escalation. Deliverable: a contract-and-resolution template covering the five forks below.</p>
+<div class="ps-entry-header"><span class="ps-entry-number">A22</span><span class="ps-entry-title">Triage for agent-generated disputes</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/incentives">Dyadic / Incentives</a></span></div>
+<div class="ps-entry-body"><p><strong>Scenario.</strong> AI-mediated procurement has become standard in the freight industry: most brokerages, forwarders, and shipping firms route their bidding, contracting, and dispute correspondence through agents. Each counterparty pair now generates orders of magnitude more contractual interactions than before, and a small but proportional fraction surface as disputes. Commercial mediation that used to clear in three months now takes over a year. Shippers stop dealing with counterparties that won&#39;t post a performance bond (a third-party guarantee, collectable in days from a surety if the counterparty fails), since waiting a year for a mediation award isn&#39;t survivable. Smaller brokerages can&#39;t get bonded and exit the market. The largest brokerages, now the only ones shippers will deal with, start running their own internal dispute boards that issue binding decisions as a condition of doing business — a private substitute for the public adjudicative system that has effectively stopped providing one, and one captured by the largest players in the sector.</p>
+<p><strong>Challenge:</strong> Design an adjudication regime for agent-mediated contracting that scales with dispute volume, keeps small counterparties able to participate, and doesn&#39;t leave sectors fragmenting into private dispute boards run by the largest players. Deliverable: a regime that takes a position on the design choices below, applied to the logistics scenario above.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
-<li><strong>Where gap-filling authority lives.</strong> A third arbiter-agent agreed at contract time, each principal&#39;s nominee invoked on flag, a published default-rule library both contracts incorporate by reference, or the originating agents themselves bound to escalate? Pick a venue and a triggering rule.</li>
-<li><strong>Continuity across instances.</strong> Does the contract bind the <em>agent-instance</em> (and lapse on rotation), the <em>developer organization</em> (and survive instance rotation), the <em>principal</em> (and survive both), or a verified principal-agent pair? Choose what the counterparty is entitled to expect persists.</li>
-<li><strong>Spec form.</strong> Natural-language terms (incomplete, contestable, court-like), machine-readable terms (complete, unambiguous, brittle to unforeseen cases), or a hybrid where machine-readable terms govern unless flagged into a natural-language fallback. Pick a regime and name the failure mode it absorbs.</li>
-<li><strong>Stake and remedy.</strong> What does either party put up that the other can claim when the contract fails — escrow against the principal, a posted reputational bond, future-transaction blocking, none-by-default? How is the remedy sized to actual harm, not just the disputed transaction?</li>
-<li><strong>Default rule when the contract is silent.</strong> When the contract didn&#39;t speak to a case, the default favors the spec&#39;s literal reading, the originating principal&#39;s stated intent, the counterparty (interpret against the drafter), or escalation to an arbiter? Name what your default protects against gaming.</li>
+<li><strong>Who runs the new capacity.</strong> State commercial courts, accredited private arbitrators, sector-specific boards under public oversight, or a mixed regime?</li>
+<li><strong>What gets auto-resolved vs. heard by humans.</strong> Where do you draw the line, and what role do human adjudicators play — audit, appeal, precedent-setting, or first-pass?</li>
+<li><strong>Accountability for private adjudicators.</strong> If private boards carry the volume, what stops them from being captured by their largest customers?</li>
+<li><strong>Cost incidence and access.</strong> Who pays, and how do you keep cost from itself filtering small counterparties out?</li>
+<li><strong>Precedent and consistency.</strong> Do auto-rulings bind future near-identical disputes, or does each dispute start fresh? Who curates the precedent set?</li>
 </ol></details>
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A24</span><span class="ps-entry-title">Contracts That Survive Adversarial Loophole Search</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/incentives">Dyadic / Incentives</a></span></div>
-<div class="ps-entry-body"><p><strong>Scenario.</strong> A market-making agent and a liquidity-provider agent are about to sign a short fee contract referencing &quot;best available price.&quot; Before signing, either party can enumerate interpretations of the phrase across thousands of trade configurations at near-zero cost; whichever side finds an exploitable reading first can quietly transact against it for hours before any human notices. The contract won&#39;t say anything false; it will just turn out to have a reading the drafter never considered.</p>
-<p><strong>Challenge:</strong> Design a contracting regime between two agents that survives a counterparty actively searching for the most exploitative reading of the text. Human contracts tolerate ambiguity because exploiting it is costly; agent counterparties enumerate edges cheaply. A better proposal makes the worst-case reading non-exploitative, gives the drafter a remedy when an ex-post loophole is found, and does not require the principal to anticipate every edge. Deliverable: a contracting regime covering the forks below, applied to one worked example.</p>
-<details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
-<li><strong>Spec form against adversarial search.</strong> Machine-readable clauses with verification proofs (worst-case reading is bounded but novel cases break the contract), natural-language clauses red-teamed by an adversarial agent before signing (worst-case reading is found and patched ex ante), or a hybrid where machine-readable terms govern inside a pre-declared scope and natural-language fallback governs outside it?</li>
-<li><strong>Default rule when ambiguity is found.</strong> When a clause admits multiple readings, the contract defaults to: the reading least favorable to the drafter (contra proferentem), the reading closest to a pre-signed purpose statement, the reading both agents would have agreed to ex ante under a stated procedure, or escalation to an arbiter?</li>
-<li><strong>Ex-post remedy for loopholes.</strong> When a loophole is found after the fact, what is the standing remedy: clawback of gains, contract reformation toward purpose, voiding the transaction, no remedy (drafter bears the cost)? Who has standing to invoke it, and on what evidence?</li>
-<li><strong>Self-narrowing across transactions.</strong> Does the contract close exploited edges automatically as they are discovered (each exploit becomes a patched clause for the next transaction), or does each transaction start from the original text? What prevents the patches from accumulating into incoherence?</li>
-<li><strong>Purpose statement as construction anchor.</strong> Does the contract incorporate a pre-signed purpose statement that governs interpretation against the text, and if so, who drafts it, what binds the parties to it, and what happens when text and purpose conflict?</li>
-</ol></details>
-</div>
-</div>
-<div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A25</span><span class="ps-entry-title">Substrate-Independent Vows for Personal Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/thick-commitments">Dyadic / Thick Commitments</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A23</span><span class="ps-entry-title">Substrate-Independent Vows for Personal Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/thick-commitments">Dyadic / Thick Commitments</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> Two cousins&#39; personal agents holding shared commitments around the care of an elderly relative; two business partners&#39; agents holding commitments around confidentiality and good faith that should outlast any specific provider.</p>
 <p><strong>The gap.</strong> We lack an institution by which an AI agent can make a binding vow that survives provider switching, model updates, and incentive change — and that a counterparty can verify is being honored without trusting the same provider both agents depend on.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -446,7 +423,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A26</span><span class="ps-entry-title">Agent Judgment in Gray Zones</span><span class="ps-entry-cell"><a href="../#detail/agi/community/norms">Community / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A24</span><span class="ps-entry-title">Agent Judgment in Gray Zones</span><span class="ps-entry-cell"><a href="../#detail/agi/community/norms">Community / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A bank&#39;s agent proposes a fee-heavy product for a city pension plan. The disclosures are complete, the sale is legal, and the expected return is defensible on paper. But any senior banker would know the deal will look abusive if the city loses money: the trustees do not understand the downside, the bank is paid up front, and the public will ask why the bank sold this to them at all.</p>
 <p><strong>Challenge:</strong> Design a gray-zone judgment procedure by which an agent can flag actions that are legal and profitable but would be seen by peers, clients, regulators, or the public as professionally indefensible. The procedure succeeds if it catches the scenario before execution, explains the concern in language a human supervisor can assess, updates as enforcement and professional expectations change, and does not turn every hard case into a blanket ban. The team should produce the procedure plus a worked example showing one action that is allowed, one that is escalated, and one that is blocked.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -459,7 +436,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A27</span><span class="ps-entry-title">Professional Discipline Without Social Sanctions</span><span class="ps-entry-cell"><a href="../#detail/agi/community/norms">Community / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A25</span><span class="ps-entry-title">Professional Discipline Without Social Sanctions</span><span class="ps-entry-cell"><a href="../#detail/agi/community/norms">Community / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> An asset manager&#39;s agent repeatedly pushes counterparties into small disadvantages: slightly unfavorable timing, confusing disclosures, and negotiation terms that humans would read as sharp practice. No single incident is worth a lawsuit. A human employee who behaved this way would stop getting trusted by peers. The agent is patched after complaints and redeployed under a new name.</p>
 <p><strong>Challenge:</strong> Design a professional discipline regime that makes norm violations by agents costly to the actors who deploy, supervise, or profit from them, even when ordinary social sanctions do not reach the agent itself. The regime succeeds if repeated low-level misconduct cannot be washed away by patching or renaming the agent, if small counterparties have an affordable path to complain, and if sanctions distinguish between a one-off mistake, negligent supervision, and a business model built around sharp practice. The team should produce the regime plus a sample disciplinary record for the scenario.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -472,7 +449,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A28</span><span class="ps-entry-title">Contractualist Reasoning When Counterparties Are Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/community/norms">Community / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A26</span><span class="ps-entry-title">Contractualist Reasoning When Counterparties Are Agents</span><span class="ps-entry-cell"><a href="../#detail/agi/community/norms">Community / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A bank uses an agent to design a complex investment product for a pension fund. The pension fund also uses an agent to review the deal. On paper, both agents follow their instructions and the risks are disclosed. But the trustees who depend on the pension fund would not understand or accept the deal if they saw plainly how it could lose money. If the product fails, retirees bear the loss and both firms say their agents stayed within mandate.</p>
 <p><strong>Challenge:</strong> Design a procedure by which an agent checks whether a transaction with another agent would be intelligible to, and endorsable by, the affected principals on later review. The procedure succeeds if it blocks, changes, or escalates the scenario trade before retirees are exposed to a product their trustees would reject under plain explanation; if regulators can later understand the reasoning trace; and if different calls on similar trades can be defended by differences in disclosed constraints. The team should produce the procedure plus a worked example where the answer differs from a naive &quot;both agents followed instructions&quot; approval.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -485,7 +462,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A29</span><span class="ps-entry-title">Status of an AI-Issued Regulator-Anticipation Opinion</span><span class="ps-entry-cell"><a href="../#detail/agi/national/expertise">National / Expertise</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A27</span><span class="ps-entry-title">Status of an AI-Issued Regulator-Anticipation Opinion</span><span class="ps-entry-cell"><a href="../#detail/agi/national/expertise">National / Expertise</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> An FAA regulator-anticipation agent advising airlines on novel safety patterns; an FDA agent advising drug developers on whether a particular study design will satisfy approval requirements.</p>
 <p><strong>The gap.</strong> We lack a regulatory-anticipation regime that lets regulated entities act on AI-issued informal opinions at agent speed without those opinions either becoming de facto law (binding the agency) or being so non-binding that firms can&#39;t reasonably rely on them.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -507,7 +484,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A30</span><span class="ps-entry-title">Reinterpreting the Charter at Agent Speed</span><span class="ps-entry-cell"><a href="../#detail/agi/community/thick-commitments">Community / Thick Commitments</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A28</span><span class="ps-entry-title">Reinterpreting the Charter at Agent Speed</span><span class="ps-entry-cell"><a href="../#detail/agi/community/thick-commitments">Community / Thick Commitments</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A nonprofit defending small-scale farmers runs its advocacy through agent fleets. Conditions on the ground have shifted, and the fleet is already producing work that takes a position on what the charter now requires — including a partnership memo citing a &quot;current reading of independence&quot; the board has never seen. The drafts are persuasive faster than the board can audit them. A new reading is being installed by accretion; the board&#39;s only options seem to be ratify in arrears or block work already begun.</p>
 <p><strong>Challenge:</strong> Design a procedure for continuously reinterpreting the charter on a cadence quick enough to stay relevant, in a form humans can audit, without collapsing into ratification of fleet-produced arguments. A better proposal keeps an explicit current reading binding between re-readings and makes a proposed change contestable before it becomes operative. Deliverable: cadence, the form a draft reading must take, authority to issue and contest it, fleet behavior while pending, and persuasion-capture safeguards.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -520,7 +497,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A31</span><span class="ps-entry-title">An Internal Voice That Can Name Drift</span><span class="ps-entry-cell"><a href="../#detail/agi/community/thick-commitments">Community / Thick Commitments</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A29</span><span class="ps-entry-title">An Internal Voice That Can Name Drift</span><span class="ps-entry-cell"><a href="../#detail/agi/community/thick-commitments">Community / Thick Commitments</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A nonprofit running agent fleets across advocacy and program work has seen every KPI improve. A trustee asks whether the work is still on mission. The executive answers from the dashboard; the fleet, asked directly, returns a confident yes. No human in the room has spent the last quarter inside the actual drafts, outreach logs, or donor communications. In the human-staffed era, at least one program officer would have felt the gap and said so, perhaps at career cost. There is no such voice in this room.</p>
 <p><strong>Challenge:</strong> Design a procedure that reliably surfaces, on a fixed cadence, the gap between current activity and the charter — when no human is positioned to feel it and the fleet has no incentive to name it. A better proposal does not depend on the executive asking the right question and produces a memo whose authority does not rest on the fleet&#39;s self-assessment. Deliverable: who writes the memo, what evidence it can compel, where it lands, and what the board must do with it.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -533,7 +510,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A32</span><span class="ps-entry-title">Selecting a Fleet for Mission Fit</span><span class="ps-entry-cell"><a href="../#detail/agi/community/thick-commitments">Community / Thick Commitments</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A30</span><span class="ps-entry-title">Selecting a Fleet for Mission Fit</span><span class="ps-entry-cell"><a href="../#detail/agi/community/thick-commitments">Community / Thick Commitments</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A press-freedom nonprofit is choosing which model and provider to entrust with investigative drafting and source-handling. Three candidates offer comparable capability. A publishes charter-relevant evals but its training is opaque; B is transparent but has signed contracts with state-aligned media operators this year; C will fine-tune to spec, but the base model softens criticism of large institutional actors under pressure. A donor will ask why this fleet rather than another, and the human-era answer — references, past costly stands, a decade on the work — does not map.</p>
 <p><strong>Challenge:</strong> Design a procedure for selecting a fleet when the human readouts of character and stake do not apply. A better proposal names what evidence bears on mission fit, what counts as a costly signal from a provider, and when the choice must be revisited. Deliverable: admissible-evidence list, selection-record format, costly-signal criteria, review trigger, and conflict-of-evidence rule.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -546,7 +523,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A33</span><span class="ps-entry-title">Replacing Job-Market Discipline When Firms No Longer Need Workers</span><span class="ps-entry-cell"><a href="../#detail/agi/global/incentives">Global / Incentives</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A31</span><span class="ps-entry-title">Replacing Job-Market Discipline When Firms No Longer Need Workers</span><span class="ps-entry-cell"><a href="../#detail/agi/global/incentives">Global / Incentives</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> A country with a strong manufacturing and services base sees labor share fall from about 60% to 35% of GDP over eight years. Firms have not become openly hostile to workers; they simply need fewer of them. Entry-level jobs disappear, sectoral training programs shrink, unions lose bargaining density, and employers stop treating worker values as a constraint on corporate strategy. Parliament can fund transfers from AI-generated rents, but the public argument is no longer only about income. The missing institution is the job-market discipline that once made firms cultivate human skill, offer tolerable terms, and bargain with people whose cooperation they needed.</p>
 <p><strong>Challenge:</strong> Design a procedure by which a national or transnational regime preserves the non-income functions of the job market when production no longer requires broad human labor. A better proposal should keep income flowing, but also maintain human capital formation, worker voice, career access, and employer accountability to human values under conditions where firms can credibly substitute AI systems for many workers. Produce a compact institutional specification: funding source, covered firms, worker-or-citizen body, enforceable obligations, review cadence, and anti-arbitrage rule.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -559,7 +536,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A34</span><span class="ps-entry-title">Keeping Consumer Welfare Powerful Amid Non-Consumer Market Pull</span><span class="ps-entry-cell"><a href="../#detail/agi/global/incentives">Global / Incentives</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A32</span><span class="ps-entry-title">Keeping Consumer Welfare Powerful Amid Non-Consumer Market Pull</span><span class="ps-entry-cell"><a href="../#detail/agi/global/incentives">Global / Incentives</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> Over a decade, the largest sources of market activity in several advanced economies shift further toward financial trading, corporate procurement, datacenter construction, defense contracting, infrastructure races, and autonomous corporate projects. Household consumption shrinks as a percentage: capital markets reward firms for serving machine-speed procurement, speculative asset flows, and long-horizon corporate projects. A coastal province must decide whether to permit a launch-fuel, compute, and materials complex for an autonomous orbital-mining consortium whose agents are buying electricity, water rights, cryogenic fuel capacity, chips, rare alloys, and port access for a twenty-year off-planet infrastructure project. The project is profitable and legally compliant, but does not need them as workers and is not trying to sell them consumer goods.</p>
 <p><strong>Challenge:</strong> Design a market-steering institution that keeps consumer welfare and household demand powerful when non-consumer market pull grows faster than direct human consumption. Your proposal should not simply ban corporate procurement, finance, or capital expenditure, but should decide when those channels are legitimate and when they crowd out human welfare. Produce a decision procedure for large non-consumer projects: a welfare metric, a threshold or balancing rule, a representation process, an enforcement mechanism, or an adaptation rule as the composition of demand changes.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -571,7 +548,7 @@
 <!--</div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A35</span><span class="ps-entry-title">Fiduciary Consumer Agency in Agent-Mediated Markets</span><span class="ps-entry-cell"><a href="../#detail/agi/global/incentives">Global / Incentives</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A33</span><span class="ps-entry-title">Fiduciary Consumer Agency in Agent-Mediated Markets</span><span class="ps-entry-cell"><a href="../#detail/agi/global/incentives">Global / Incentives</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> In a large retail platform, most households no longer search, compare, and buy directly. Their assistant agents manage subscriptions, groceries, travel, insurance, media, and health purchases. The agents save time and often get better prices, but the platform earns vendor access fees, ranks offers through opaque recommender systems, and periodically nudges households toward bundles that maximize retention. Users still click &quot;approve,&quot; but they no longer see enough alternatives, friction, or consequences to learn from the market in the old way. Consumer protection agencies can punish false claims after the fact, but the purchase decision itself has moved into delegated software.</p>
 <p><strong>Challenge:</strong> Design a consumer-agency regime for buyer-side agents that preserves the useful functions of discretionary spending: preference transmission, learning from experience, exit, complaint, and collective pressure. A better proposal should let agents genuinely reduce search and transaction costs without turning household demand into a sales channel for platforms, vendors, or stale proxy objectives. Produce a rulebook for covered buyer-side agents: fiduciary duty, incentive disclosure, preference-updating process, audit rights, remedies, and a standard test transaction that shows how the rules change an actual purchase.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -584,7 +561,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A36</span><span class="ps-entry-title">Standing and Procedure for AI-on-AI Adjudication</span><span class="ps-entry-cell"><a href="../#detail/agi/national/rights">National / Rights</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A34</span><span class="ps-entry-title">Standing and Procedure for AI-on-AI Adjudication</span><span class="ps-entry-cell"><a href="../#detail/agi/national/rights">National / Rights</a></span></div>
 <div class="ps-entry-body"><p><strong>Anchor contexts.</strong> A small-business shipper whose agent is in a payment dispute with a freight platform&#39;s agent; a software contractor whose agent is in a copyright dispute with a publishing platform&#39;s agent.</p>
 <p><strong>The gap.</strong> We lack a procedural code for adjudicating disputes in which at least one party is an autonomous AI agent — one that satisfies the spirit of due process and procedural justice while accommodating the ways agents differ from human litigants.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -606,7 +583,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A37</span><span class="ps-entry-title">Making Tacit Norms Legible Before Action</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A35</span><span class="ps-entry-title">Making Tacit Norms Legible Before Action</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> Mara’s tenant agent receives notice from a landlord’s maintenance agent that a repair crew will enter her apartment between 8 a.m. and noon. The lease permits entry with notice, but the building’s ordinary practice is to avoid mornings for tenants with night shifts unless there is an emergency. Mara’s agent has not seen that history because it was handled in texts with the prior property manager. The landlord’s agent treats the lease as sufficient and schedules the crew.</p>
 <p><strong>Challenge:</strong> Design a procedure by which agents identify and test local two-party norms before taking actions that are formally permitted but relationship-sensitive. The procedure succeeds if it catches the repair-entry case before action, distinguishes genuine local norms from after-the-fact objections, keeps low-stakes interactions from becoming legalistic, and produces a norm record a principal can later review. The team should produce the procedure plus a worked example showing one action allowed, one clarified, and one escalated.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>
@@ -619,7 +596,7 @@
 </div>
 </div>
 <div class="ps-entry">
-<div class="ps-entry-header"><span class="ps-entry-number">A38</span><span class="ps-entry-title">Conditions for Agent-Agent Norm Formation</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
+<div class="ps-entry-header"><span class="ps-entry-number">A36</span><span class="ps-entry-title">Conditions for Agent-Agent Norm Formation</span><span class="ps-entry-cell"><a href="../#detail/agi/dyadic/norms">Dyadic / Norms</a></span></div>
 <div class="ps-entry-body"><p><strong>Scenario.</strong> Two agents manage a recurring relationship between a small manufacturer and a logistics provider. The contract specifies delivery windows, penalties, and data formats, but not how to handle borderline cases: when a truck is ten minutes late, when weather makes a route risky, when a shipment can be split without formal approval, or when one side should warn the other before invoking a penalty. Human dispatchers would develop a working rhythm after a few weeks. These agents are stateless across sessions, optimized to complete each ticket, and replaced often enough that every borderline case is treated as new. The relationship becomes brittle even though neither agent is acting in bad faith.</p>
 <p><strong>Challenge:</strong> Design the setup conditions under which agents in a recurring dyadic relationship can form useful local norms without letting those norms become hidden contract amendments. The procedure succeeds if it lets the logistics relationship develop stable expectations around borderline cases, preserves enough memory for learning across instances, prevents one side from exploiting the norm-formation process, and gives principals a way to inspect or veto norms that materially change the deal. The team should produce a norm-formation protocol for recurring agent-agent relationships.</p>
 <details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>

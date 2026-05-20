@@ -1,6 +1,6 @@
 ---
 human_label: "Diplomatic protocols & soft-law norms"
-status: body_draft
+status: body_ok
 owner: oliver
 starred: true
 ---

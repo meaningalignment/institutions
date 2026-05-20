@@ -1,12 +1,11 @@
 ---
-agents_label: "Agent-to-agent contracts"
 human_label: "Contracts & escrow"
 status: body_needs_work
 owner: oliver
 starred: true
 ---
 
-# When two agents transact, the institutions around the contract don't apply
+# Agent-to-agent contracts
 
 {>> Doesn't seem quite right. <<}
 

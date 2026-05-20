@@ -1,5 +1,4 @@
 ---
-agents_label: "Global markets that keep human interests central"
 human_label: "Consumer markets, labor income & multilateral trade rules"
 status: body_ok
 owner: joe

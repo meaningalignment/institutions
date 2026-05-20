@@ -1,5 +1,4 @@
 ---
-agents_label: "Elections and citizen assemblies"
 human_label: "Elections and citizen assemblies"
 status: body_draft
 owner: oliver

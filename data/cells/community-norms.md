@@ -1,5 +1,4 @@
 ---
-agents_label: "Professional norms for agents"
 human_label: "Professional codes of conduct"
 status: body_ok
 owner: joe

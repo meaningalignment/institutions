@@ -1,12 +1,11 @@
 ---
-agents_label: "Tacit norms for agent interactions"
 human_label: "Social conventions"
 status: body_ok
 owner: joe
 starred: true
 ---
 
-# Tacit norms in two-party interactions
+# Tacit norms for agent interactions
 
 ## At a glance
 

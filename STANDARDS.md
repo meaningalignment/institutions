@@ -232,7 +232,7 @@ Before declaring the body done, check:
 
 Run this once the cell feels close:
 
-- The H1 and `agents_label` name the AGI-era gap, not just the topic.
+- The H1 names the AGI-era gap, not just the topic. **Do not change the H1 of an existing cell unless the user explicitly asks you to** — the H1 is the cell's identity, used as the AGI-grid label and the detail-view title, and authors rely on it being stable.
 - `human_label` names the existing human institution-family.
 - `status:` reflects the current Kanban stage.
 - At a glance stands alone.

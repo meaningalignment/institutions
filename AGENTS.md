@@ -36,7 +36,7 @@ The Kanban is a local-only tool — not part of the build, not deployed. It rend
 
 ## Data layout
 
-- `data/cells/{row}-{col}.md` — canonical cell. The H1 is the cell's real title (the gap statement) and is shown as the AGI-tab detail-view title. The optional `agents_label:` frontmatter field provides a short AGI-grid summary (falls back to H1). The optional `human_label:` field provides the Human-grid summary and the Human-tab detail title (falls back to H1). The body is the detail content for both tabs.
+- `data/cells/{row}-{col}.md` — canonical cell. The H1 is the cell's title and is used as both the AGI-grid summary and the AGI-tab detail-view title. The optional `human_label:` frontmatter field provides the Human-grid summary and the Human-tab detail title (falls back to H1). The body is the detail content for both tabs.
 - `data/fidelity/{row}-{col}.md` — separate content for the Fidelity tab. Same schema as `data/cells/` but rendered standalone.
 - `data/methods/{col}.md` — column-level reference (textbooks, tutorials, key concepts) shared across all three tabs. Frontmatter declares which method tags appear in the grid's methods row and whether they're bolded per tab. Methods content shows as a right-side rail on each detail page.
 
@@ -46,7 +46,6 @@ Every file in `data/cells/` follows this structure. The build doesn't enforce it
 
 ```markdown
 ---
-agents_label: Norms between agents     # optional; AGI-grid summary (short). Falls back to H1.
 human_label: Social conventions        # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
 hide_agi: true                         # optional; hide this cell from the AGI grid (renders empty). Use when no AGI story yet.
 hide_human: true                       # optional; symmetric flag for the Human grid.

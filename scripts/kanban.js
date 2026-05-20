@@ -141,7 +141,7 @@ function buildCards(cells, dirName) {
       owner:  fm.owner  || 'none',
       starred: String(fm.starred) === 'true',
       editorialCount: cell.editorialCount || 0,
-      title:  fm.agents_label || cell.summary || `${row.name} × ${col.name}`
+      title:  cell.summary || `${row.name} × ${col.name}`
     });
   }
   return cards;

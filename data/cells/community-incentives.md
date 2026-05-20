@@ -1,5 +1,4 @@
 ---
-agents_label: "AI commons management"
 human_label: "Commons governance, quotas & access pricing"
 status: body_ok
 owner: joe

@@ -51,9 +51,9 @@ function esc(s) { return s.replace(/&/g, '&amp;'); }
 
 const TAB_ORDER = ['agi', 'human', 'fidelity'];
 
-// AGI and Human grids both render from data/cells/. The AGI grid uses
-// `agents_label` frontmatter when present (falls back to H1); the Human
-// grid uses `human_label` (falls back to H1). Fidelity has its own directory.
+// AGI and Human grids both render from data/cells/. The AGI grid uses the
+// H1; the Human grid uses `human_label` frontmatter (falls back to H1).
+// Fidelity has its own directory.
 const TAB_BODY_DIR = { agi: 'cells', human: 'cells', fidelity: 'fidelity' };
 
 const ROWS = [
@@ -198,7 +198,6 @@ function renderGrid(tabId, cells, methods, dataPath) {
       );
       const summary = cell && !hideOnTab && (
         tabId === 'human' ? (cell.frontmatter?.human_label || cell.summary)
-        : tabId === 'agi' ? (cell.frontmatter?.agents_label || cell.summary)
         : cell.summary
       );
       if (cell && summary) {

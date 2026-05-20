@@ -192,7 +192,8 @@ Good scenarios:
 - Name concrete institutions, roles, and consequences.
 - Give the design team a test object: the proposed institution should make this scenario come out right.
 - Make the stakes clear: who gets harmed, what breaks, or what loss becomes possible.
-- Stay short enough that the challenge and design choices remain the center of the brief.
+- Cut any detail that isn't load-bearing for the design forks or for making the stakes clear.
+- Stay short enough that the challenge and design choices remain the center of the brief — usually three to five sentences.
 
 Good challenges:
 

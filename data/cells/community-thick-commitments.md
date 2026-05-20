@@ -1,7 +1,7 @@
 ---
 agents_label: "Mission-driven agent orgs"
 human_label: "Mission-driven orgs"
-status: summary_ok
+status: body_draft
 owner: oliver
 starred: true
 ---
@@ -33,110 +33,72 @@ How a community organizes itself around a mission or way of life and protects it
 
 ## How humans solve this today
 
-Mission-driven organizations are communities — staff, members, donors, and the public around them — held together by a thick substantive commitment that members opt into and shape their lives around. They are denser than a customer base, looser than a covenantal group, and characteristically organized around a purpose that is contested in the surrounding society. The commitment is held in five layered ways, none of which is sufficient on its own:
+Every organization is under pressure to drift from its founding mission as members come and go, circumstances change, and current activity gets mistaken for the purpose it was meant to serve. Mission-driven orgs hold against this drift by binding members to the mission itself: people opt into the purpose and shape their identity around it. The commitment shows up in several overlapping characteristics:
 
-1. **Founding charter and articulated purpose.** Médecins Sans Frontières has its charter (medical action, témoignage, independence, impartiality, neutrality); WWF has its stated mission ("conserve nature and reduce the most pressing threats to the diversity of life on Earth"); the Jesuits have the *Spiritual Exercises* and Ignatian formation. The document is short, deliberately thicker than a slogan, and read aloud at induction.
+1. **Founding charter and articulated purpose.** Médecins Sans Frontières has its charter (medical action, témoignage, independence, impartiality, neutrality); WWF has its stated mission ("conserve nature and reduce the most pressing threats to the diversity of life on Earth"); the Jesuits have the *Spiritual Exercises* and Ignatian formation. Such documents are read aloud at induction.
 
-2. **Self-selection into a career shaped by the mission.** People accept lower pay, harder conditions, and a narrower professional trajectory because the mission is what they want their working life to be *about*. A WWF lawyer's identity, professional network, and future job prospects were built on top of being a WWF lawyer — that's what made the role binding, and that's what was at stake when the work changed.
+2. **Self-selection into a life shaped by the mission.** People accept lower pay, harder conditions, and a narrower trajectory because the mission is what they want their working life (or, in more religious cases, their life at large) to be *about*.
 
-3. **Internal status and culture flow from embodying the mission.** Who gets promoted, who gets listened to in meetings, what counts as a good story to tell over drinks — all of this rewards people who exemplify the commitment rather than people who merely produce outputs. The MSF surgeon back from Yemen is the figure other staff orient toward; the Patagonia product designer who turned down a feature because it pulled toward planned obsolescence gets cited internally for years.
+3. **Internal status and culture flow from embodying the mission.** Who gets promoted, who gets listened to in meetings, what counts as a good story to tell over drinks: all of this rewards people who exemplify the commitment rather than people who merely produce outputs. The MSF surgeon back from Yemen is the figure other staff orient toward.
 
-4. **External accountability to a community of donors and members.** WWF members, MSF's donor base, Greenpeace's supporters, Patagonia's customers all chose this organization over alternatives because of the mission. They notice and withdraw when the org drifts, which is part of what makes the commitment binding from outside as well as inside.
+4. **External accountability to a community of donors and members.** Supporters chose this organization over alternatives because of the mission, and can withdraw when they read the org as having drifted. The commitment is partly held in place by the fact that the surrounding community is watching.
 
-5. **Periodic reorientation under leadership pressure.** Mission organizations are constantly at risk of mistaking current activity for the mission. The institution's safeguard is a leader, usually with board backing, who can see the drift and force the org to change shape — even when that means firing the people who had become the embodiment of the old reading.
+5. **Continual reinterpretation of the mission as circumstances change.** What the org is doing at any moment is a reading of the mission under present circumstances, not the mission itself. A live mission-driven org revises the reading when the world changes, and the thick commitment is what lets it do so without dissolving: people stay because they are bound to the mission, not to the current strategy.
 
-A vivid case: Around 2005, WWF concluded that the binding constraint on biodiversity had moved from local habitat loss to global commodity supply chains. Acting on that reading meant concentrating a sprawling portfolio onto nineteen named ecoregions, cutting projects outside them, and redirecting staff from species campaigns and field programs into market transformation work. A shared commitment to biodiversity across board, staff, and donors made the move possible; the staff whose projects and roles were cut had every reason to resist it.
+A vivid case: Around 2005, WWF concluded that the binding constraint on biodiversity had moved from local habitat loss to global commodity supply chains. Acting on that reading meant drastically cutting projects and redirecting staff into market transformation work. The staff whose projects and roles were cut had every reason to resist it, but a shared commitment to biodiversity across board, staff, and donors made the move possible.
 
 ## Where AGI breaks it
 
-Picture a mission-driven org five years from now in which most of the day-to-day work — research, advocacy drafting, partner outreach, donor communications, field operations planning, even strategy — is done by agent fleets reporting to a small human leadership team. The differences between agent staff and human staff that are load-bearing here:
+We might see mission-driven agent orgs where a small human board sets direction while agent fleets do the substantive work (drafting, programs, partnerships, research). The appeal comes from agent speed and scale in operations, human legitimacy at the top, and a much lower cost structure than a comparable human-staffed org. But this configuration might be fraught, owing to several differences between humans and agents.
 
-1. **No career stake.** A WWF lawyer's livelihood, professional identity, and future prospects rode on being a WWF lawyer. An agent fleet has no career, no identity outside its current instructions, no future to defend.
-2. **Re-instanceable and swappable at near-zero cost.** Reorienting a fleet means rewriting the prompt or retraining; the firing-everyone move loses its costliness, and with it its signaling value.
-3. **No internal contestation.** Agents do not resign in protest, organize colleagues, leak to the press, or write the internal memo that names a drift. The friction that surfaces mission-vs-current-activity gaps in human orgs has no agent analogue.
-4. **Mission held in the principal's prompt, not distributed across staff.** Whoever writes the system prompt sets what the mission means in practice for thousands of decisions per day; the staff who would, in a human org, hold a distinct reading have been replaced with a population that instantiates the principal's reading.
-5. **No years-of-marination perspective on drift.** The judgment that "what we have been doing is not actually the mission" came from humans who had spent years inside the work, talked to donors, watched outcomes, and could feel the gap. An agent fleet optimizing on current KPIs does not generate that perspective, because the perspective lives in the difference between a person's accumulated sense of what the org was for and the agency they are currently exercising.
+1. **Humans in agent-staffed orgs are far from the actual work.** In human orgs, the people doing the work notice drift first and propagate it upward, and leadership cannot easily dismiss the signal without dismissing the staff whose judgment it had been trusting. With agents doing the substantive work, the humans keep the reader-of-mission role but lose proximity, while agents have the proximity without the standing. An agent saying "the last quarter's work has drifted from the charter" arrives without accumulated credibility behind it, and is much easier to discount.
 
-The mission-driven org's five layered mechanisms fail in distinct ways, each derivable from these differences:
+2. **Agents act faster than a board can deliberate.** Human staff shifted the org's direction roughly at the speed boards could deliberate. Agent fleets can shift de facto direction across thousands of decisions before a board meeting is scheduled, so board review stops constraining direction and starts documenting whatever the fleet has already done.
 
-1. **Charter becomes prompt.** (Differences 2, 4.) The MSF charter or WWF mission statement used to be a thing the community held — read at induction, contested in meetings, invoked in strategy debates. In an agent-staffed org, the charter is whatever section of the system prompt the principal decides at deploy time. The community no longer holds the charter; the principal holds it, and can edit it. This is not the same institution.
+3. **Agents may rationalize the current direction rather than name the gap.** Asking "are we still on mission?" worked in human orgs because some staff were willing to say no, backed by their own careers and outside networks. If agents inherit the sycophantic tendencies of current models, they are selected against that disposition and will tend to defend whatever the principal is currently doing.
 
-2. **Self-selection has no analogue.** (Difference 1.) Human staff selected *into* the mission, accepting career and pay penalties as a kind of revealed commitment. Agents do not select; they are instantiated. The commitment-signal that came from a staff member's accepted-cost has no agent version. A mission org without self-selection is missing the mechanism by which staff commitment was made visible and trustworthy to colleagues, donors, and the public.
+4. **The charter is the easy part to replicate, but it was only a small part of what made mission orgs work.** An agent org can be handed a charter via the system prompt, and that is probably the first thing any such org will do. In human orgs the charter was a small input alongside hiring filters that selected for mission fit, induction that contested it in cases, peer debate over hard calls, retold stories of past mistakes, and a culture that named exemplars.
 
-3. **Internal status collapses into KPI performance.** (Differences 1, 5.) In human orgs, who gets listened to is partly a function of who is seen to embody the mission — a judgment fellow staff make over years. Agents have no peers making that judgment, and no career arc on which it would compound. What replaces it is whatever ranking or evaluation signal the org explicitly trains on, which is by construction narrower than the mission. Internal status becomes a thin proxy of the thick commitment, and drift takes the form of the proxy diverging from the mission with no internal voice to name it.
+5. **Character and commitment are not straightforwardly evaluable in an agent.** With a human, character is read from past actions and references: how the candidate behaved under pressure, what they stood for at cost, who vouches for them and on what evidence. It is much less clear whether an AI system has anything akin to character and integrity at all, let alone how to evaluate it from the outside.
 
-4. **External accountability gets harder to read.** (Differences 2, 4.) Donors and members trusted the org because they could see the staff — who they were, what they had given up, how they spoke about the work. With agent fleets, supporters have no equivalent surface. "We trained our agents on our charter" is not legible the way "she left a partner-track job to do this for ten years" is legible, and it is not as costly to fake.
-
-5. **Reorientation either becomes trivial or becomes impossible.** (Differences 2, 3.) Two failure modes pull in opposite directions. (a) *Trivial reorientation.* Pivoting an agent fleet costs nothing — rewrite the prompts. The move loses the costliness that made the WWF pivot legible to outside observers as a real reorientation rather than a rebrand. Pivots become indistinguishable from drift; donors and the board lose a key reading instrument. (b) *Impossible reorientation.* The judgment that triggered the pivot — "we have mistaken our current activities for the mission" — was generated by humans inside the work. An agent fleet that holds whatever reading is currently in its prompt does not generate that judgment, so the leader-with-board-backing move has nothing to be triggered by. Drift gets harder to see, not easier to correct.
-
-Note that the temptation to say "but you can just write a stronger system prompt" misreads what the mechanisms were doing. The charter, the self-selection, the internal status, the donor visibility, and the reorientation move were not redundant ways of stating the mission. Each was a distinct institutional check on a distinct failure mode of holding a thick commitment across a community. Replacing all five with one configurable prompt collapses the redundancy.
-
-## Scenarios
-
-The mechanisms enumerated above suggest five distinct rebuild questions for agent-run mission orgs. Each is a starting point, not a worked design.
-
-### 1. Charter that is not just the prompt
-
-A mission org operating agent fleets needs the charter to be held somewhere other than the principal's current prompt — otherwise it is not a charter, it is a configuration. One sketch: the charter is a separate document maintained by a body with members other than the executive (board, members' assembly, founder's living trust), and the deployed prompts are required to be auditable against it by an external party. Changes to the prompt that diverge from the charter require an explicit reading-change procedure, on the record, by the holding body.
-
-### 2. Costly commitment for agent staff
-
-Self-selection can't be reproduced, but its function — a visible, costly signal of commitment legible to the community — might be. One sketch: the org commits publicly to constraints on how it can redeploy its agent fleet (no contracting them out, no using them for adjacent commercial work, no fine-tuning them for tasks outside the mission), and submits to third-party verification. The constraint plays the role the staff's foregone alternatives played in the human case — making it costly for the org to be running a fleet that does not, in fact, serve the mission.
-
-### 3. Internal voice that can name drift
-
-The function staff played in surfacing mission-vs-activity gaps needs a deliberate analogue. One sketch: a designated red-team — humans, or a separate agent stack with explicitly different training and an adversarial brief — whose job is to read the org's actual activity over the past quarter and write the memo arguing "the work has drifted from the mission" along axes the operating fleet would not name. The memo goes to the board on a fixed cadence whether or not anyone asked for it.
-
-### 4. Donor-legible operational transparency
-
-Donors and members need a surface that lets them read commitment the way they used to read staff. One sketch: published, dated artifacts — the actual charter held by the holding body, the constraints the org has committed to on its fleet's deployment, the recent red-team memos, the disagreements between board and executive over the past year. A donor decides not by reading the mission statement (anyone can write one) but by reading the friction in the org's recent record.
-
-### 5. Reorientation procedure with a costliness floor
-
-The WWF move worked because it was costly enough to be a signal. Agent-fleet reorientation has no built-in costliness. One sketch: any material reorientation — a meaningful change to the charter, the fleet's deployment scope, or its training corpus — triggers a defined cost the org has pre-committed to (a public statement from the previous board, a sunsetting of the prior fleet with a published evaluation against the old charter, a member-vote ratification). The point is not to make pivots hard but to make real pivots distinguishable from drift and rebrands.
-
+6. **It is hard to see whether an agent has a real stake in the mission.** Donors read a human's stake in the mission from the partner-track job turned down or the decade spent on the work, costs that were real and hard to fake. Agents have no foregone alternatives.
 ## Problem Sets
 
-### A Charter That Survives the Prompt
+### Reinterpreting the Charter at Agent Speed
 
-**Anchor contexts.** A mission-driven nonprofit (e.g. WWF, MSF) operating agent fleets across research, advocacy, and program design; a B-corp (e.g. Patagonia) running agent staff in product, marketing, and supply-chain decisions.
+**Scenario.** A nonprofit defending small-scale farmers runs its advocacy through agent fleets. Conditions on the ground have shifted, and the fleet is already producing work that takes a position on what the charter now requires — including a partnership memo citing a "current reading of independence" the board has never seen. The drafts are persuasive faster than the board can audit them. A new reading is being installed by accretion; the board's only options seem to be ratify in arrears or block work already begun.
 
-**The gap.** We lack a procedure by which a mission-driven org's substantive charter can be held by a body other than the executive prompt-writer, such that the charter constrains what the operating agent fleet may be instructed to do, and changes to the reading of the charter are public, costly, and contestable.
-
-**Design choices the team must take a position on.**
-1. **Holding body.** Who holds the charter — the board alone, a separate trustee body, a members' assembly, the founder's living trust, or a layered arrangement?
-2. **Audit form.** How is the deployed prompt audited against the charter — periodic external review, runtime constraint on a separate inference-time check, both?
-3. **Reading-change procedure.** What does it take to change how the charter is read — supermajority of holding body, public hearing, member vote, retired-founder veto?
-4. **Conflict with executive.** When the executive wants to instruct the fleet in a way the holding body reads as off-charter, what is the resolution path, and who has standstill authority while it's pending?
-5. **Sunsetting old prompts.** When the reading changes, what happens to the prior deployed fleet — full retraining, public evaluation of past outputs against the new reading, or rolling replacement?
-
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- A new executive tries to redirect the fleet toward an activity the holding body reads as off-charter; the procedure halts deployment until the dispute is resolved on the record.
-- A donor with a subpoena-grade question — "show me the diff between what your charter says and what your fleet has actually been doing" — can be answered from published artifacts.
-- A drift case (the fleet has gradually been doing something not authorized by the charter for two quarters) is surfaced by audit, even when no executive intended it.
-- The holding body changes the reading; the prior fleet's outputs are evaluated against the new reading and the divergences are published.
-- A would-be acquirer or rebranding executive cannot quietly swap the charter; any swap is dated, signed, and publicly archived.
-
-**Deliverable.** The charter-holding regime — holding body composition, audit form, reading-change procedure, conflict resolution, sunsetting — for a mission-driven nonprofit running agent fleets at scale. Plus a one-paragraph statement of what makes the held charter more than a longer mission statement.
-
-### Making Reorientation Costly Enough to Read
-
-**Anchor contexts.** A nonprofit board considering a strategic pivot of the kind WWF made around 2005 (litigation → land arbitrage), in a near future where most operating staff are agent fleets; a mission-driven B-corp facing pressure from new investors to redirect the fleet.
-
-**The gap.** We lack a procedure by which a mission-driven org's reorientation of its agent fleet is made costly and legible enough that donors, members, and the public can distinguish a real strategic pivot from drift, rebranding, or capture by new principals.
+**Challenge:** Design a procedure for continuously reinterpreting the charter on a cadence quick enough to stay relevant, in a form humans can audit, without collapsing into ratification of fleet-produced arguments. A better proposal keeps an explicit current reading binding between re-readings and makes a proposed change contestable before it becomes operative. Deliverable: cadence, the form a draft reading must take, authority to issue and contest it, fleet behavior while pending, and persuasion-capture safeguards.
 
 **Design choices the team must take a position on.**
-1. **Costliness floor.** What does the reorientation cost — a public statement from the prior board, a member ratification vote, a published before/after evaluation against the prior charter, a defined waiting period, all of the above?
-2. **Trigger threshold.** What counts as a material reorientation requiring the procedure — change to the charter, change to fleet scope, change to training corpus, change to KPI weights, the cumulative effect of several smaller changes?
-3. **Standstill rights.** Who can pause a reorientation that has been declared but not yet ratified — board minority, members' petition, founding trustee?
-4. **Drift detection.** Who has the duty (and budget) to notice an undeclared reorientation — a standing audit, the red-team described above, a member-initiated review?
-5. **Failed-pivot procedure.** When a declared reorientation fails its own success criteria after, say, two years, what is the procedure — automatic reversion, member vote, board reassessment, dissolution?
+1. **Cadence and triggers.** Fixed quarterly re-reading, triggered by named external changes, triggered when fleet outputs invoke an unratified reading, or some combination?
+2. **Authorship of the draft.** Board with staff support, a separate interpretive body, the fleet drafting a candidate reading for human ratification, or paired human/agent drafts that must be reconciled?
+3. **Legibility constraints.** Maximum length, required form (what changes / what stays / what cases come out differently), cooling-off period, mandatory adversarial summary?
+4. **Fleet behavior while pending.** Hard freeze on affected work, continue under prior reading, narrow operational guidance, or fleet self-restriction with audit?
+5. **Persuasion-capture safeguards.** Independent counter-drafting capacity, rate-limits on proposed re-readings, mandatory disclosure that an argument is fleet-produced, or evaluator stacks not exposed to the proposing fleet?
 
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- A new CEO wants to pivot the fleet toward a politically convenient adjacent mission; the procedure either makes the move legible and ratified or stops it.
-- An acquirer rebrands a mission org without changing the fleet's actual activity; the standstill catches the divergence.
-- A genuine WWF-style strategic insight ("we should buy Amazon land instead of litigating") is implementable in a reasonable timeframe — the regime makes real pivots costly to fake, not costly to do.
-- Cumulative small changes that would amount to a reorientation in aggregate are detected before the org has effectively pivoted without ever triggering the procedure.
-- A donor reading the public record can tell the difference between an org that has reoriented twice in five years and an org that has drifted continuously without declaring.
+### An Internal Voice That Can Name Drift
 
-**Deliverable.** The reorientation procedure — costliness floor, trigger threshold, standstill rights, drift detection, failed-pivot path — written for the board of a mission-driven nonprofit running agent fleets. Plus a one-paragraph statement of which provisions exist specifically because the staff are agents and would be redundant in a human-staffed org.
+**Scenario.** A nonprofit running agent fleets across advocacy and program work has seen every KPI improve. A trustee asks whether the work is still on mission. The executive answers from the dashboard; the fleet, asked directly, returns a confident yes. No human in the room has spent the last quarter inside the actual drafts, outreach logs, or donor communications. In the human-staffed era, at least one program officer would have felt the gap and said so, perhaps at career cost. There is no such voice in this room.
+
+**Challenge:** Design a procedure that reliably surfaces, on a fixed cadence, the gap between current activity and the charter — when no human is positioned to feel it and the fleet has no incentive to name it. A better proposal does not depend on the executive asking the right question and produces a memo whose authority does not rest on the fleet's self-assessment. Deliverable: who writes the memo, what evidence it can compel, where it lands, and what the board must do with it.
+
+**Design choices the team must take a position on.**
+1. **Author of the memo.** A standing human red-team, a separately trained and adversarially briefed agent stack, a rotating external auditor, or a layered arrangement?
+2. **Evidence access.** What can the memo's author compel — raw fleet outputs over the period, internal prompts, KPI definitions, donor communications, partner correspondence?
+3. **Cadence and triggers.** Fixed quarterly memo regardless of state, triggered by drift indicators, triggered by member petition, or all of these?
+4. **Landing and obligation.** Does the memo go to the board, the holding body, the membership, or the public — and what is the board obliged to do with it within what timeframe?
+5. **Protection of the function.** What prevents the executive from defunding, retraining, or replacing the drift-naming author when its memos become inconvenient?
+
+### Selecting a Fleet for Mission Fit
+
+**Scenario.** A press-freedom nonprofit is choosing which model and provider to entrust with investigative drafting and source-handling. Three candidates offer comparable capability. A publishes charter-relevant evals but its training is opaque; B is transparent but has signed contracts with state-aligned media operators this year; C will fine-tune to spec, but the base model softens criticism of large institutional actors under pressure. A donor will ask why this fleet rather than another, and the human-era answer — references, past costly stands, a decade on the work — does not map.
+
+**Challenge:** Design a procedure for selecting a fleet when the human readouts of character and stake do not apply. A better proposal names what evidence bears on mission fit, what counts as a costly signal from a provider, and when the choice must be revisited. Deliverable: admissible-evidence list, selection-record format, costly-signal criteria, review trigger, and conflict-of-evidence rule.
+
+**Design choices the team must take a position on.**
+1. **Admissible evidence.** Charter-relevant evals, training-corpus disclosures, provider history and contracts, red-teams under pressure, refusal and sycophancy patterns, third-party audits — which carry weight and which are signals only?
+2. **Provider-side costly signal.** Contractual undertakings with named exits, public refusal commitments, escrowed audit access, equity-style stakes in the mission outcome, or none of these are real costly signals and the org must compensate elsewhere?
+3. **Selection record.** Internal board memo, published donor rationale, partner-readable evidence summary, or a layered document with different audiences?
+4. **Re-selection trigger.** Fixed renewal cadence, provider behavior outside this engagement, behavioral drift inside it, member or partner petition, or combinations?
+5. **Conflicts of evidence.** When evals look good but provider history looks bad, or vice versa, which evidence class governs and who decides?

@@ -529,6 +529,32 @@ details.design-choices > summary::before {
 details.design-choices[open] > summary::before { transform: rotate(90deg); }
 details.design-choices > ol { margin-top: 8px; }
 
+details.collapsible-section { margin: 0; }
+details.collapsible-section > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+details.collapsible-section > summary::-webkit-details-marker { display: none; }
+details.collapsible-section > summary::before {
+  content: "▸";
+  display: inline-block;
+  font-size: 0.75em;
+  color: #8a8275;
+  transition: transform 0.15s ease;
+  flex: 0 0 auto;
+}
+details.collapsible-section[open] > summary::before { transform: rotate(90deg); }
+details.collapsible-section > summary > h2 {
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+details.collapsible-section > .collapsible-body { margin-top: 12px; }
+
 .ps-notes {
   margin-top: 48px;
   padding: 20px 24px;

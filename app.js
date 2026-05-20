@@ -245,8 +245,44 @@ function wrapDesignChoices(html) {
   });
 }
 
+// Wrap each top-level `## …` section whose title is one of the targets in a
+// `<details open>` so the reader can collapse it. Operates on the HTML
+// produced by marked, after problem-set wrapping. The H2 becomes the
+// `<summary>`; everything up to the next H2 (or end) becomes the body.
+function wrapCollapsibleSections(html) {
+  const targets = new Set([
+    'How humans solve this today',
+    'Where AGI breaks it',
+    'Problem Sets',
+  ]);
+  const h2Re = /<h2[^>]*>([\s\S]*?)<\/h2>/g;
+  const matches = [];
+  let m;
+  while ((m = h2Re.exec(html)) !== null) {
+    matches.push({ start: m.index, end: m.index + m[0].length, title: m[1].trim(), full: m[0] });
+  }
+  if (matches.length === 0) return html;
+
+  let out = '';
+  let cursor = 0;
+  matches.forEach((h, i) => {
+    const sectionEnd = i + 1 < matches.length ? matches[i + 1].start : html.length;
+    out += html.slice(cursor, h.start);
+    if (targets.has(h.title)) {
+      const body = html.slice(h.end, sectionEnd);
+      const slug = h.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      out += `<details open class="collapsible-section collapsible-${slug}"><summary><h2>${h.title}</h2></summary><div class="collapsible-body">${body}</div></details>`;
+    } else {
+      out += html.slice(h.start, sectionEnd);
+    }
+    cursor = sectionEnd;
+  });
+  out += html.slice(cursor);
+  return out;
+}
+
 function renderBody(md) {
-  return wrapDesignChoices(wrapProblemSets(renderVividCases(marked.parse(processEditorial(md)))));
+  return wrapCollapsibleSections(wrapDesignChoices(wrapProblemSets(renderVividCases(marked.parse(processEditorial(md))))));
 }
 
 // ── Summary box at top of detail (problem + example institutions) ──

@@ -1,6 +1,6 @@
 ---
 human_label: "Contracts & escrow"
-status: body_ok
+status: body_draft
 owner: oliver
 starred: true
 ---

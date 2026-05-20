@@ -1,6 +1,6 @@
 ---
 human_label: "Negotiation & bargaining"
-status: body_draft
+status: body_needs_work
 owner: oliver
 starred: true
 ---
@@ -66,11 +66,16 @@ A vivid case: Priya's mother needed an extra year of mortgage rate-lock when the
 **Design choices the team must take a position on.**
 1. **Capability-bounding mechanism.** Cap on compute or reasoning steps per side, mandatory use of a shared protocol agent that runs the structured parts of the negotiation, or procedural protections (cooling-off windows, mandatory counter-proposal rounds, sealed-bid phases) that don't depend on capability parity?
 2. **Disclosure regime.** Does the protocol require either side to disclose anything about its principal — bottom line, mandate vocabulary, full preference model — and who verifies that what's disclosed matches what the agent is actually optimizing?
+
+{>> I don't think "What the agent is actually optimizing" is the right question. <<}
+
 3. **Floor mechanism.** Is there an explicit minimum the weaker side is guaranteed to walk away with (a fair-deal benchmark from a third party, a regulated price band, a "Pareto floor" relative to a no-protocol baseline), and who computes it?
 4. **Failure mode if the gap is large.** When one side is clearly outclassed, does the protocol degrade gracefully (the weaker side still captures the floor), refuse to run (no deal rather than a bad one), or escalate to a third party?
 5. **Why the stronger side opts in.** What makes the protocol incentive-compatible for the more capable party — reputational benefit, regulatory requirement, access to the counterparty's market, or a credible threat of refusal from the weaker side's principal?
 
 ### Mandate fidelity across the table
+
+{>> I don't understand this one. <<}
 
 **Scenario.** A household buys long-term care insurance through a personal-assistant agent that negotiates with the insurer's agent. The insurer's agent has a much richer model of the household — assembled from public records, digital footprint, and patterns seen across thousands of similar households — than the household has ever articulated to its own agent. The deal that lands is technically within the household's stated mandate, but its shape was set by the insurer side knowing things about the household that the household itself never told its own agent.
 

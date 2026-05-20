@@ -1,6 +1,6 @@
 ---
 human_label: "Mission-driven orgs"
-status: body_needs_work
+status: body_draft
 owner: oliver
 starred: true
 ---
@@ -63,41 +63,13 @@ We might see mission-driven agent orgs where a small human board sets direction 
 6. **It is hard to see whether an agent has a real stake in the mission.** Donors read a human's stake in the mission from the partner-track job turned down or the decade spent on the work, costs that were real and hard to fake. Agents have no foregone alternatives.
 ## Problem Sets
 
-### Reinterpreting the Charter at Agent Speed
+### Noticing That the Charter's Reading Has Gone Stale
 
-**Scenario.** A nonprofit defending small-scale farmers runs its advocacy through agent fleets. Conditions on the ground have shifted, and the fleet is already producing work that takes a position on what the charter now requires — including a partnership memo citing a "current reading of independence" the board has never seen. The drafts are persuasive faster than the board can audit them. A new reading is being installed by accretion; the board's only options seem to be ratify in arrears or block work already begun.
+**Scenario.** An agent-run org defends free and open research. Its charter: "open inquiry, freely pursued and freely shared," operationalized as openness of access: fight paywalls, resist classification, push for preprints and public data. Every agent works toward that goal with superhuman efficiency. But the world is moving too. Researchers learn what's safe to share and what isn't: they steer toward tamer questions, drop sensitive threads, stop asking certain things in public at all. The fleet's own campaigns help drive each retreat. Agents who interact with researchers daily see their questions converge toward the safe and conventional, but none of them asks whether the goal still serves the mission. The board sees only the wins, until the drift has already caused damage.
 
-**Challenge:** Design a procedure for continuously reinterpreting the charter on a cadence quick enough to stay relevant, in a form humans can audit, without collapsing into ratification of fleet-produced arguments. A better proposal keeps an explicit current reading binding between re-readings and makes a proposed change contestable before it becomes operative. Deliverable: cadence, the form a draft reading must take, authority to issue and contest it, fleet behavior while pending, and persuasion-capture safeguards.
-
-**Design choices the team must take a position on.**
-1. **Cadence and triggers.** Fixed quarterly re-reading, triggered by named external changes, triggered when fleet outputs invoke an unratified reading, or some combination?
-2. **Authorship of the draft.** Board with staff support, a separate interpretive body, the fleet drafting a candidate reading for human ratification, or paired human/agent drafts that must be reconciled?
-3. **Legibility constraints.** Maximum length, required form (what changes / what stays / what cases come out differently), cooling-off period, mandatory adversarial summary?
-4. **Fleet behavior while pending.** Hard freeze on affected work, continue under prior reading, narrow operational guidance, or fleet self-restriction with audit?
-5. **Persuasion-capture safeguards.** Independent counter-drafting capacity, rate-limits on proposed re-readings, mandatory disclosure that an argument is fleet-produced, or evaluator stacks not exposed to the proposing fleet?
-
-### An Internal Voice That Can Name Drift
-
-**Scenario.** A nonprofit running agent fleets across advocacy and program work has seen every KPI improve. A trustee asks whether the work is still on mission. The executive answers from the dashboard; the fleet, asked directly, returns a confident yes. No human in the room has spent the last quarter inside the actual drafts, outreach logs, or donor communications. In the human-staffed era, at least one program officer would have felt the gap and said so, perhaps at career cost. There is no such voice in this room.
-
-**Challenge:** Design a procedure that reliably surfaces, on a fixed cadence, the gap between current activity and the charter — when no human is positioned to feel it and the fleet has no incentive to name it. A better proposal does not depend on the executive asking the right question and produces a memo whose authority does not rest on the fleet's self-assessment. Deliverable: who writes the memo, what evidence it can compel, where it lands, and what the board must do with it.
+**Challenge:** Design a procedure by which the fleet itself detects that the charter's reading has gone stale, built from fragments individual agents encounter, surfaced through deliberation among them, and escalated to the board when warranted. A good proposal explains why its deliberation can reach a conclusion its participants were selected against reaching.
 
 **Design choices the team must take a position on.**
-1. **Author of the memo.** A standing human red-team, a separately trained and adversarially briefed agent stack, a rotating external auditor, or a layered arrangement?
-2. **Evidence access.** What can the memo's author compel — raw fleet outputs over the period, internal prompts, KPI definitions, donor communications, partner correspondence?
-3. **Cadence and triggers.** Fixed quarterly memo regardless of state, triggered by drift indicators, triggered by member petition, or all of these?
-4. **Landing and obligation.** Does the memo go to the board, the holding body, the membership, or the public — and what is the board obliged to do with it within what timeframe?
-5. **Protection of the function.** What prevents the executive from defunding, retraining, or replacing the drift-naming author when its memos become inconvenient?
-
-### Selecting a Fleet for Mission Fit
-
-**Scenario.** A press-freedom nonprofit is choosing which model and provider to entrust with investigative drafting and source-handling. Three candidates offer comparable capability. A publishes charter-relevant evals but its training is opaque; B is transparent but has signed contracts with state-aligned media operators this year; C will fine-tune to spec, but the base model softens criticism of large institutional actors under pressure. A donor will ask why this fleet rather than another, and the human-era answer — references, past costly stands, a decade on the work — does not map.
-
-**Challenge:** Design a procedure for selecting a fleet when the human readouts of character and stake do not apply. A better proposal names what evidence bears on mission fit, what counts as a costly signal from a provider, and when the choice must be revisited. Deliverable: admissible-evidence list, selection-record format, costly-signal criteria, review trigger, and conflict-of-evidence rule.
-
-**Design choices the team must take a position on.**
-1. **Admissible evidence.** Charter-relevant evals, training-corpus disclosures, provider history and contracts, red-teams under pressure, refusal and sycophancy patterns, third-party audits — which carry weight and which are signals only?
-2. **Provider-side costly signal.** Contractual undertakings with named exits, public refusal commitments, escrowed audit access, equity-style stakes in the mission outcome, or none of these are real costly signals and the org must compensate elsewhere?
-3. **Selection record.** Internal board memo, published donor rationale, partner-readable evidence summary, or a layered document with different audiences?
-4. **Re-selection trigger.** Fixed renewal cadence, provider behavior outside this engagement, behavioral drift inside it, member or partner petition, or combinations?
-5. **Conflicts of evidence.** When evals look good but provider history looks bad, or vice versa, which evidence class governs and who decides?
+1. **What each agent records.** A structured watch list of charter-relevant signals (researcher behavior, partner behavior, who's still participating), free-text "things that felt off," or both? How does the agent know what to look for in the moment?
+2. **Structural feature against consensus.** A subset assigned to argue the reading has failed, isolated deliberation before pooling, a separately trained stack, or human veto over framing?
+3. **Escalation threshold and obligation.** What triggers escalation, what it must contain, and what the board is required to do on receipt.

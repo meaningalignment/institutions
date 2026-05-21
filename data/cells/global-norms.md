@@ -51,7 +51,7 @@ A vivid case: in 1990, Iraq's invasion of Kuwait violated the postwar norm again
 
 **Scenario.** A multilateral climate-finance negotiation has been stuck for two years. A consortium of small island states deploys an AI mediator that maps the coalition space and returns a viable 14-state package linking loss-and-damage funds, a fisheries quota adjustment, a green-tech IP carve-out, and migration commitments. The package was never aired in any back-channel and no serving official has tested it deniably with their cabinet, but the delegation wants to bring it to the Track I table next week.
 
-**Challenge:** Design a procedure under which an agent-discovered coalition can enter the Track II → 1.5 → I sequence without bypassing the pre-validation each tier normally does. A better proposal lets the package be seriously considered while ensuring each capital has had time to test it against the constituencies that would ratify it. Deliverable: a staged induction protocol that names where AI output enters, what each tier must do before promoting it, and what kills a package at each gate.
+**Challenge:** Design a procedure under which an agent-discovered coalition can enter the Track II → 1.5 → I sequence without bypassing the pre-validation each tier normally does. A better proposal lets the package be seriously considered while ensuring each capital has had time to test it against the constituencies that would ratify it.
 
 **Design choices the team must take a position on.**
 1. **Entry point.** Does the package enter as Track II material regardless of how finished it looks, or as a new "Track 0" with its own promotion rules?
@@ -63,7 +63,7 @@ A vivid case: in 1990, Iraq's invasion of Kuwait violated the postwar norm again
 
 **Scenario.** A joint AI mediator returns a 41-component package linking tariffs, port access, fisheries, export controls, and a quiet adjustment to a disputed maritime boundary. Both sides' analysts confirm it is Pareto-improving on the headline metrics. Buried inside is a clause effectively conceding the disputed strait — toxic in isolation, palatable inside the bundle. No negotiator put it there; it emerged from the mediator's optimization.
 
-**Challenge:** Design a review procedure that catches embedded concessions which would not survive defense in isolation, before they reach ratification — without paralyzing legitimate complexity, since most useful packages have many linked components. Deliverable: an inspection protocol with named reviewers, decomposition rules, and an escalation path when a component fails the test.
+**Challenge:** Design a review procedure that catches embedded concessions which would not survive defense in isolation, before they reach ratification — without paralyzing legitimate complexity, since most useful packages have many linked components.
 
 **Design choices the team must take a position on.**
 1. **Decomposition rule.** How is a package broken into reviewable components — by domain, by affected constituency, or by the AI's own dependency graph?

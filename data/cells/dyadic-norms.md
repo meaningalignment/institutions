@@ -2,7 +2,7 @@
 human_label: "Social conventions"
 human_era: "Ancient / customary"
 human_era_bucket: ancient
-status: body_ok
+status: body_draft
 owner: joe
 starred: true
 ---

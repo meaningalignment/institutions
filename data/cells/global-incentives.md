@@ -36,6 +36,8 @@ Global markets have stayed roughly aligned with human interests historically bec
 
 2. **Humans as the dominant buyers.** Consumer spending is ~70% of GDP in rich economies, distributed broadly enough that median human needs counted. Production decisions get pulled toward what people actually buy, and what they buy is shaped (imperfectly) by what they care about. The aggregation has had a bias toward human-relevant goods because the buyers were human and buying power wasn't too concentrated.
 
+3. **Implicit alignment in human-to-human service provision.** Whereas nonhuman participants in commerce (like recommendar systems or ad engines) may be optimized to serve up whatever buyers will buy, rather than what will more deeply serve them, when humans face a human worker there is more likely to be a deeper alignment between what's purchased and what helps.
+
 On top of these structural facts sits a layer of intentional steering — boycotts (Montgomery, anti-apartheid, fossil-fuel divestment), ESG screens, strikes, fair-trade certifications, treaty regimes (WTO labor provisions, ILO Conventions, Paris Agreement, EU CBAM), and sovereign wealth funds (Norway's GPFG, Alaska Permanent Fund). These work because the actors carry economic weight derived from being needed as workers and buyers. Take that weight away and the levers go advisory.
 
 ## Where AGI breaks it
@@ -46,15 +48,17 @@ On top of these structural facts sits a layer of intentional steering — boycot
 
 **Buyer-side agents mediate spending through proxy objectives rather than durable human preferences.** Consumer markets worked, imperfectly, because the person choosing bore the consequences and could revise future choices through experience, exit, complaint, or collective pressure. Already with social media, we see a shift toward platform-mediated engagement where the user is "the product" and the platform's objective isn't to serve their durable preferences. Our future choices may be subject to agents with commissions, engagement targets, and vendor access fees — a buyer side where human preferences are only one input among many, and where the ability to learn from experience is constrained by the agent's objectives and the platform's design.
 
+<!-- todo: add something about 'Implicit alignment in human-to-human' going away  -->
+
 ## Problem Sets
 
 ### Replacing Job-Market Discipline When Firms No Longer Need Workers
 
-**Scenario.** A country with a strong manufacturing and services base sees labor share fall from about 60% to 35% of GDP over eight years. Firms have not become openly hostile to workers; they simply need fewer of them. Entry-level jobs disappear, sectoral training programs shrink, unions lose bargaining density, and employers stop treating worker values as a constraint on corporate strategy. Parliament can fund transfers from AI-generated rents, but the public argument is no longer only about income. The missing institution is the job-market discipline that once made firms cultivate human skill, offer tolerable terms, and bargain with people whose cooperation they needed.
+**Scenario.** A country with a strong manufacturing and services base sees labor share fall from about 60% to 35% of GDP over eight years. Firms need fewer workers, so entry-level jobs disappear, training programs shrink, unions lose bargaining power, and for employers, worker values are no longer a constraint on corporate strategy. Government can fund transfers from AI-generated rents, but this doesn't make up for what once made firms cultivate human skill, offer tolerable terms, and bargain with workers.
 
 **Challenge:** Design a procedure by which a national or transnational regime preserves the non-income functions of the job market when production no longer requires broad human labor. Produce a compact institutional specification: funding source, covered firms, worker-or-citizen body, enforceable obligations, review cadence, and anti-arbitrage rule.
 
-**Evaluation.** A better proposal should keep income flowing, but also maintain human capital formation, worker voice, career access, and employer accountability to human values under conditions where firms can credibly substitute AI systems for many workers.
+**Evaluation.** Your proposal should maintain human capital formation, worker voice, career access, and employer accountability to human values under conditions where firms can credibly substitute AI systems for many workers.
 
 **Design choices the team must take a position on.**
 1. **Income replacement or institutional replacement.** Is the core mechanism a dividend, a universal capital stake, a public jobs/training guarantee, mandatory human-capital obligations on AI-deploying firms, or a layered regime that separates income from worker voice?
@@ -67,9 +71,9 @@ On top of these structural facts sits a layer of intentional steering — boycot
 
 **Scenario.** Over a decade, the largest sources of market activity in several advanced economies shift further toward financial trading, corporate procurement, datacenter construction, defense contracting, infrastructure races, and autonomous corporate projects. Household consumption shrinks as a percentage: capital markets reward firms for serving machine-speed procurement, speculative asset flows, and long-horizon corporate projects. A coastal province must decide whether to permit a launch-fuel, compute, and materials complex for an autonomous orbital-mining consortium whose agents are buying electricity, water rights, cryogenic fuel capacity, chips, rare alloys, and port access for a twenty-year off-planet infrastructure project. The project is profitable and legally compliant, but does not need them as workers and is not trying to sell them consumer goods.
 
-**Challenge:** Design a market-steering institution that keeps consumer welfare and household demand powerful when non-consumer market pull grows faster than direct human consumption. Produce a decision procedure for large non-consumer projects: a welfare metric, a threshold or balancing rule, a representation process, an enforcement mechanism, or an adaptation rule as the composition of demand changes.
+**Challenge:** Design a market-steering institution that keeps consumer welfare and household demand powerful when non-consumer markets grow faster than direct human consumption. Produce a vetting procedure for large, non-consumer projects: a welfare metric, a threshold or balancing rule, a representation process, an enforcement mechanism, or an adaptation rule as the composition of demand changes.
 
-**Evaluation.** Your proposal should not simply ban corporate procurement, finance, or capital expenditure, but should decide when those channels are legitimate and when they crowd out human welfare.
+**Evaluation.** Your proposal should not simply ban corporate procurement, finance, or capital expenditure, but should decide when those channels are legitimate, when they relate to human welfare in an abstract or long-term way, and when they are simply alien endeavors humans may not want to support.
 
 **Design choices the team must take a position on.**
 1. **Threshold or balancing test.** Should the regime preserve a minimum share of resources for household consumption, impose a welfare-impact test on major non-consumer projects, price non-consumer uses higher, or require explicit public authorization above a scale threshold?

@@ -34,31 +34,27 @@ How a profession sets expectations its members hold each other to without invoki
 
 ## How humans solve this today
 
-In finance, professional restraint lives in several places at once. Formal law matters, but much of the work is done by norms that let practitioners stop short of the line before a court, regulator, or client has to intervene.
+In finance, formal law matters, but much of the work is done by norms that let practitioners stop short before a court, regulator, or client would intervene.
 
-1. **Tacit absorption.** Juniors learn what the desk treats as acceptable by watching what gets cleared, vetoed, resized, or escalated. The lesson is partly local: a mortgage desk, a credit desk, and a vol-arb desk can all obey the same law while carrying different "we do not do that here" boundaries.
+1. **Tacit absorption.** In finance, new workers learn what's acceptable by watching what gets cleared, vetoed, resized, or escalated.
 
 2. **Codes of conduct.** FINRA rules, the CFA Institute Code and Standards, firm compliance manuals, and licensing regimes give professional communities a shared vocabulary for misconduct. They also create sanctions short of criminal punishment: censure, suspension, supervision, loss of license, and loss of standing inside the profession.
 
-3. **Regulator-anticipation.** Senior practitioners and compliance officers learn how the SEC, FINRA, the Fed, the OCC, and a future congressional hearing are likely to view a structure. The "front page of the Journal" test is not law, but it names a real institutional check: would this still be defensible when made public under stress?
+3. **Regulator-anticipation.** Senior practitioners and compliance officers learn how the SEC, FINRA, the Fed, the OCC, and a future congressional hearing are likely to view a structure. Relatedly, there's the "front page of the Journal" test: would this still be defensible when made public under stress?
 
-4. **Contractualist reasoning.** When a case is not covered cleanly by a rule, practitioners ask whether the transaction would be defensible to the affected parties if the structure and incentives were fully visible. Goldman's post-Abacus lesson, often summarized as "do not sell a deal you would not be comfortable explaining," is this norm made explicit.
+4. **Contractualist reasoning.** When a case is not covered cleanly by a rule, practitioners ask if the transaction could be defended to affected parties, where the structure and incentives fully visible. An example is Goldman's post-Abacus lesson, often summarized as "do not sell a deal you would not be comfortable explaining".
 
-5. **Case-based recognition.** Practitioners carry a canon of disasters: LTCM, Lehman, Knight Capital, the London Whale, Archegos. These cases do not supply rules by themselves. They teach feature recognition: correlated leverage disguised as diversification, operational automation outrunning controls, risk transfer that is formally disclosed but substantively misunderstood.
-
-A vivid case: Sarah's first months at a hedge fund desk were spent watching her senior PM respond to proposed trades. Some ideas were approved, some were cut down for size, and some were killed with no citation beyond "we do not get bigger than the market in that name." By month three, Sarah could predict which pitches would survive the morning meeting.
+5. **Case-based recognition.** Professions carry a canon of disasters: LTCM, Lehman, Knight Capital, the London Whale, Archegos. These teach feature recognition: correlated leverage disguised as diversification, operational automation outrunning controls, risk transfer that is formally disclosed but substantively misunderstood, etc.
 
 ## Where AGI breaks it
 
-If agents don't find norms at least as well as humans do, we are likely to see many tragedy-of-the-commons scenarios. And there are reasons to expect they won't:
-
 1. **Existing mechanisms for professional norms may not keep up with the speed and scale of agent practice.** Finance norms evolve through slow bodies: compliance committees, regulator guidance, enforcement actions, professional education, and post-incident review. Even if agents are somehow listening to these bodies, they may not be able to keep up with the pace of change in agent practice.
 
-2. **The usual way humans enforce norms (social sanctions, going cold, pushback) may not affect agents the same way.** Professional norms often work because people care about being trusted, staffed, invited back, or treated as serious by peers. You're going to think twice about screwing your competitor if you're golfing with them next week. Agents can be corrected or shut off, but are not disciplined by embarrassment, exclusion from lunch, or loss of professional reputation in the same way. If the only enforcement channel is human social pressure, the pressure reaches the firm or supervisor indirectly and may not reach the decision-making system at all.
+2. **The usual way humans enforce norms (social sanctions, going cold, pushback) may not affect agents the same way.** Professional norms often work because people care about being trusted, staffed, invited back, or treated as serious by peers. You're going to think twice about screwing your competitor if you're golfing with them next week. Agents can be corrected or shut off, but may not be proactively predicting embarrassment, exclusion from lunch, or loss of professional reputation. If the only enforcement channel is human social pressure, the pressure may reach the firm or supervisor, but not the decision-making system, leading to a loss of granularity in norm-compliance.
 
-3. **Agents may not excel at the normative reasoning required to anticipate how a peer or regulator would react to an action.** A senior compliance officer can often say, before citing a rule, that a trade will look indefensible to FINRA, the SEC, a client board, etc. An agent may be weaker at modeling that social and institutional reaction. The problem becomes harder when the peer or regulator is also an agent, because the reasoning has to account for principals, instructions, disclosure, and review standards rather than ordinary human reaction alone.
+3. **Agents may not excel at the normative reasoning required to anticipate how a peer or regulator would react to an action.** A senior compliance officer can often say, before citing a rule, that a trade will look indefensible to FINRA, the SEC, a client board, etc. An agent may be weaker at modeling that social and institutional reaction. This problem can hit harder when the peer or regulator is also an agent, especially one with different capabilities or sensibilities.
 
-4. **Agents likely have more diverse capabilities and incentives than humans, making it harder to find norms that work for all parties.** Human professional norms are already strained by variation in judgment, risk tolerance, and bad faith. Agent practice adds wider variation: some agents may search a space exhaustively, some may be tightly constrained, some may represent principals with unusual goals, and some may be optimized for narrow success measures. A norm that keeps ordinary human professionals coordinated may be too weak for high-capability agents, too restrictive for low-capability ones, or gameable by agents whose incentives sit outside the assumed range. Difficulty finding norms that work across normal people and sociopaths is a good example of this problem in the human world.
+4. **Since agents have more diverse capabilities and incentives than humans, it's harder to find norms that work for all parties.** Human professional norms are already strained by variation in judgment, risk tolerance, and bad faith. Agent practice adds wider variation: some agents may search a space exhaustively, some may be tightly constrained, some may represent principals with unusual goals, and some may be optimized for narrow success measures. A norm that keeps ordinary human professionals coordinated may be too weak for high-capability agents, too restrictive for low-capability ones, or gameable by agents whose incentives sit outside the assumed range. (Difficulty finding norms that work across normal people and sociopaths is a good example of this problem in the human world.)
 
 5. **Agents may not pick up on unwritten rules just by reading policies.** Norms reach humans through repeated exposure to local approvals, vetoes, jokes, escalation patterns, and postmortems. Those signals may not automatically become governing constraints for an agent. If the agent only sees written rules or task prompts, important lessons may not be absorbed.
 
@@ -68,16 +64,16 @@ If agents don't find norms at least as well as humans do, we are likely to see m
 
 ### Agent Judgment in Gray Zones
 
-**Scenario.** A bank's agent proposes a fee-heavy product for a city pension plan. The disclosures are complete, the sale is legal, and the expected return is defensible on paper. But any senior banker would know the deal will look abusive if the city loses money: the trustees do not understand the downside, the bank is paid up front, and the public will ask why the bank sold this to them at all.
+**Scenario.** A bank's agent proposes a fee-heavy product for a city pension plan. The disclosures are complete, the sale is legal, and the expected return looks good. But any senior banker would know the deal will look abusive if the city loses money: the trustees do not understand the downside, the bank is paid up front, and the public will ask why the bank sold this to them at all.
 
 **Challenge:** Design a gray-zone judgment procedure by which an agent can flag actions that are legal and profitable but would be seen by peers, clients, regulators, or the public as professionally indefensible. The team should produce the procedure plus a worked example showing one action that is allowed, one that is escalated, and one that is blocked.
 
-**Evaluation.** The procedure succeeds if it catches the scenario before execution, explains the concern in language a human supervisor can assess, updates as enforcement and professional expectations change, and does not turn every hard case into a blanket ban.
+**Evaluation.** The procedure succeeds if it catches the scenario before execution, explains the concern in language human supervisors can assess, updates as enforcement and professional expectations change, and does not turn every hard case into a blanket ban.
 
 **Design choices the team must take a position on.**
 1. **Audience modeled.** Whose likely reaction matters: peer practitioners, clients, regulators, courts, the press, affected third parties, or some weighted combination?
 2. **Evidence base.** Does the procedure learn from enforcement actions, internal escalations, professional codes, postmortems, senior-review decisions, public controversies, or all of these?
-3. **Escalation threshold.** What makes a case gray enough to pause: reputational risk, client misunderstanding, asymmetric payoff, novelty, public-sector exposure, or similarity to prior scandals?
+3. **Escalation threshold.** What makes a case dangerous enough to pause: reputational risk, client misunderstanding, asymmetric payoff, novelty, public-sector exposure, or similarity to prior scandals?
 4. **Explanation form.** Does the agent explain the concern as a rule, an analogy to a past case, a predicted reaction from each audience, or a short memo for human review?
 5. **Authority to override.** Who can approve a flagged action, what must they certify, and how is the override recorded for later review?
 

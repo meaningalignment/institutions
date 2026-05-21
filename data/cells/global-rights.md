@@ -1,5 +1,6 @@
 ---
 human_label: "Int'l law, treaties & tribunals"
+hide_agi: true
 status: summary_needs_work
 owner: oliver
 ---

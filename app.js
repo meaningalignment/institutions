@@ -28,16 +28,16 @@ const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 
 const HUMAN_ERA_BUCKETS = [
   { id: 'ancient', code: 'An', label: 'Ancient / customary' },
-  { id: 'medieval', code: 'Md', label: 'Medieval' },
-  { id: 'early-modern', code: 'Em', label: 'Early modern' },
-  { id: 'industrial', code: 'In', label: 'Industrial' },
-  { id: 'twentieth', code: '20', label: '20th century' },
-  { id: 'digital', code: '21', label: 'Digital era' },
   { id: 'ancient-medieval', code: 'A-M', label: 'Ancient-medieval' },
   { id: 'ancient-modern', code: 'A+', label: 'Ancient-modern' },
   { id: 'medieval-modern', code: 'M+', label: 'Medieval-modern' },
   { id: 'early-modern-modern', code: 'E+', label: 'Early modern-modern' },
-  { id: 'industrial-digital', code: 'I+', label: 'Industrial-digital' }
+  { id: 'twentieth', code: '20', label: '20th century' },
+  { id: 'industrial-digital', code: 'I+', label: 'Industrial-digital' },
+  { id: 'digital', code: '21', label: 'Digital era' },
+  { id: 'medieval', code: 'Md', label: 'Medieval' },
+  { id: 'early-modern', code: 'Em', label: 'Early modern' },
+  { id: 'industrial', code: 'In', label: 'Industrial' }
 ];
 
 const HUMAN_ERA_BUCKET_IDS = new Set(HUMAN_ERA_BUCKETS.map(b => b.id));

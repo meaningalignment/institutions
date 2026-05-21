@@ -214,31 +214,13 @@ td .cell-content {
 .human-era-legend-item {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 7px 4px 4px;
+  padding: 5px 8px;
   border: 1px solid var(--era-border);
   border-radius: 4px;
   background: var(--era-bg);
   color: var(--era-text);
   font-size: 10px;
   line-height: 1;
-}
-
-.human-era-legend-code,
-.human-era-code {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 3px;
-  background: var(--era-chip);
-  color: #fff;
-  font-weight: 700;
-}
-
-.human-era-legend-code {
-  width: 20px;
-  height: 18px;
-  font-size: 9px;
 }
 
 .human-era-legend-label {
@@ -1005,14 +987,8 @@ tr.methods-row th.row-header {
     margin-bottom: 10px;
   }
   .human-era-legend-item {
-    gap: 4px;
-    padding: 3px 5px 3px 3px;
+    padding: 4px 5px;
     font-size: 8px;
-  }
-  .human-era-legend-code {
-    width: 16px;
-    height: 15px;
-    font-size: 7px;
   }
   td.human-era-tile .cell-content {
     gap: 2px;

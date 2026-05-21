@@ -87,7 +87,9 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 **Scenario.** {A high-stakes example of the target coordination mechanism or institution working, failing, or needing to be rebuilt. Fold necessary context and stakes into this paragraph. Use plain language even when the scenario is domain-grounded.}
 
-**Challenge:** {Design a procedure by which... Include the design task, success criterion, and deliverable in one paragraph. Make clear what counts as a better or worse proposal and what the team should produce in roughly one hour.}
+**Challenge:** {Design a procedure by which... One or two sentences naming the design task and what the team should produce in roughly one hour. Keep this tight; the rubric goes in Evaluation below.}
+
+**Evaluation.** {Optional. One or two sentences describing what separates strong proposals from weak ones — the rubric, not the forks. Skip when the Challenge already makes the standard obvious.}
 
 **Design choices the team must take a position on.**
 1. **{Fork name}.** {Question phrased as a fork, not a topic.}
@@ -105,7 +107,7 @@ Multiple `###` problem sets under one cell are supported; each becomes its own e
 - **At a glance** is the cell's elevator pitch — three H3 subsections (`Coordination challenge`, `Examples`, `How AGI breaks them`). Pulled out of the body at render time and shown as the styled summary box at the top of the detail page; the section itself is stripped from the inline body so it doesn't render twice. Keeps everything in markdown so inline `{>> ... <<}` editorial notes work here too.
 - **How humans solve this today** anchors readers in something familiar before the AGI-specific design problem hits. Always concrete (named institutions, named mechanisms), never generic ("humans cooperate by…").
 - **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. It should be paragraph versions of the At a Glance `How AGI breaks them` bullets, in the same order, with no intro paragraph and no scenario prose. Resist anthropomorphism — agents are different institutional actors, not defective humans; don't write that they "fail to feel," "lack shame," or "miss the felt sense of." When a mechanism could apply to agents but with different objects (e.g. contractualist reasoning over agent counterparties whose training/principals/constraints are what's being modeled, not their reactions), name that explicitly rather than declaring the mechanism broken.
-- **Problem Sets** turn selected mechanisms into design work. Each problem set contains its own `**Scenario.**`, `**Challenge:**`, and `**Design choices the team must take a position on.**` Scenarios are high-stakes test objects, not a detached section. The challenge folds together the missing procedure, success criterion, and deliverable. Strong problem sets can target formation, transmission, application, enforcement, appeal, revision, ratification, accountability, allocation, or evidence.
+- **Problem Sets** turn selected mechanisms into design work. Each problem set contains its own `**Scenario.**`, `**Challenge:**`, optional `**Evaluation.**`, and `**Design choices the team must take a position on.**` Scenarios are high-stakes test objects, not a detached section. Challenge is the design task in one or two sentences; Evaluation (when present) names what separates strong from weak proposals. Strong problem sets can target formation, transmission, application, enforcement, appeal, revision, ratification, accountability, allocation, or evidence.
 - **Design choices** force the team to take positions on 3–5 specific forks any answer must address. If you can't list them, the brief is still a topic, not a problem.
 
 ### Voice

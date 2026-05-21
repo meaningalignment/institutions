@@ -182,7 +182,8 @@ Choose problem sets after the At a Glance bullets and `Where AGI breaks it` sect
 Each problem set needs:
 
 - **Scenario.** A high-stakes example of the target coordination mechanism or institution working, failing, or needing to be rebuilt. Fold necessary context and stakes into this paragraph. Use plain language even when the scenario is domain-grounded.
-- **Challenge:** The design task, success criterion, and deliverable. Prefer "Design a procedure by which..." over "We lack a procedure by which...". Include how the proposed institution will be judged and what the team should produce.
+- **Challenge:** The design task and deliverable, in one or two sentences. Prefer "Design a procedure by which..." over "We lack a procedure by which...". Keep this tight; the rubric belongs in Evaluation.
+- **Evaluation.** *Optional.* One or two sentences naming what separates strong proposals from weak ones — the standard the forks get judged against. Skip when the Challenge already makes the standard obvious; include when there are non-obvious constraints (sits inside existing constitutional order, robust to manipulation, must compose with X, etc.).
 - **Design choices.** Three to five forks. Each fork should show the available choices, not merely name a topic.
 
 Good scenarios:
@@ -198,9 +199,9 @@ Good scenarios:
 Good challenges:
 
 - Name the missing or inadequate institutional procedure.
-- Include the success criterion inside the challenge.
 - Include the deliverable inside the challenge.
-- Make clear what counts as a better or worse proposal.
+- Stay tight — one or two sentences. Move the rubric (what makes a strong vs. weak proposal) into an optional **Evaluation.** paragraph that follows the Challenge.
+- Add an Evaluation paragraph when the standard is non-obvious — for example, must sit inside an existing legal order, must remain robust under manipulation, must compose with another mechanism. Skip it when the Challenge already implies the standard.
 
 Good problem-set selections:
 
@@ -221,9 +222,10 @@ Before declaring the body done, check:
 - Problem sets pick two or three mechanisms rather than the whole cell.
 - The selected problem sets match the final AGI-breaks framing.
 - The selected problem sets cover distinct institutional capacities: formation, transmission, application, enforcement, appeal, revision, ratification, accountability, allocation, or evidence.
-- Every challenge names the design task, success criterion, and deliverable.
+- Every challenge names the design task and deliverable in one or two sentences.
+- Where a non-obvious rubric exists, it lives in an **Evaluation.** paragraph rather than being folded into Challenge.
 - Design choices are forks.
-- Success criteria are specific enough that two proposals can be compared against them.
+- The rubric (in Challenge or Evaluation) is specific enough that two proposals can be compared against it.
 - Deliverables are concrete.
 
 ---

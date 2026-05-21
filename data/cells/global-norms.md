@@ -51,7 +51,9 @@ A vivid case: in 1990, Iraq's invasion of Kuwait violated the postwar norm again
 
 **Scenario.** A multilateral climate-finance negotiation has been stuck for two years. A consortium of small island states deploys an AI mediator that maps the coalition space and returns a viable 14-state package linking loss-and-damage funds, a fisheries quota adjustment, a green-tech IP carve-out, and migration commitments. The package was never aired in any back-channel and no serving official has tested it deniably with their cabinet, but the delegation wants to bring it to the Track I table next week.
 
-**Challenge:** Design a procedure under which an agent-discovered coalition can enter the Track II → 1.5 → I sequence without bypassing the pre-validation each tier normally does. A better proposal lets the package be seriously considered while ensuring each capital has had time to test it against the constituencies that would ratify it.
+**Challenge:** Design a procedure under which an agent-discovered coalition can enter the Track II → 1.5 → I sequence without bypassing the pre-validation each tier normally does.
+
+**Evaluation.** A better proposal lets the package be seriously considered while ensuring each capital has had time to test it against the constituencies that would ratify it.
 
 **Design choices the team must take a position on.**
 1. **Entry point.** Does the package enter as Track II material regardless of how finished it looks, or as a new "Track 0" with its own promotion rules?

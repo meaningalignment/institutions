@@ -87,8 +87,9 @@ For each selected problem set:
 
 1. Pick one rebuild, not the whole cell.
 2. Add `**Scenario.**` with a plain-language, domain-grounded, high-stakes example of the coordination mechanism or institution working, failing, or needing to be rebuilt. Fold context into the scenario.
-3. Add `**Challenge:**` with the design task, success criterion, and deliverable.
-4. Write design choices as forks with visible options.
+3. Add `**Challenge:**` with the design task and deliverable, in one or two sentences. Keep it tight.
+4. Add `**Evaluation.**` only when there is a non-obvious rubric — what separates strong from weak proposals (must sit inside the existing legal order, must remain robust under manipulation, must compose with X). Skip it when the Challenge already implies the standard.
+5. Write design choices as forks with visible options.
 
 Good dialogue moves:
 
@@ -102,7 +103,7 @@ Good dialogue moves:
 - Make sure the scenario names the institution the team is supposed to design, keeps jargon low, and makes the stakes clear.
 - Convert vague topics into design challenges.
 - Make success criteria adversarial but plausible.
-- Fold success criteria and deliverables into `Challenge:` rather than leaving them as separate sections.
+- Keep the deliverable inside `Challenge:`; split the rubric out into `Evaluation.` when it is non-obvious, and drop it entirely when it is not.
 - Prefer one crisp problem set over three broad ones.
 
 ## Codify after the page works

@@ -57,7 +57,9 @@ A vivid case: When Theo agreed to sublet Leah part of his print studio, the leas
 
 **Scenario.** Mara’s tenant agent receives notice from a landlord’s maintenance agent that a repair crew will enter her apartment between 8 a.m. and noon. The lease permits entry with notice, but the building’s ordinary practice is to avoid mornings for tenants with night shifts unless there is an emergency. Mara’s agent has not seen that history because it was handled in texts with the prior property manager. The landlord’s agent treats the lease as sufficient and schedules the crew.
 
-**Challenge:** Design a procedure by which agents identify and test local two-party norms before taking actions that are formally permitted but relationship-sensitive. The procedure succeeds if it catches the repair-entry case before action, distinguishes genuine local norms from after-the-fact objections, keeps low-stakes interactions from becoming legalistic, and produces a norm record a principal can later review. The team should produce the procedure plus a worked example showing one action allowed, one clarified, and one escalated.
+**Challenge:** Design a procedure by which agents identify and test local two-party norms before taking actions that are formally permitted but relationship-sensitive. The team should produce the procedure plus a worked example showing one action allowed, one clarified, and one escalated.
+
+**Evaluation.** The procedure succeeds if it catches the repair-entry case before action, distinguishes genuine local norms from after-the-fact objections, keeps low-stakes interactions from becoming legalistic, and produces a norm record a principal can later review.
 
 **Design choices the team must take a position on.**
 1. **Norm source.** Should the agent rely on prior interaction history, counterparty inquiry, domain defaults, principal preferences, or a hierarchy among them?
@@ -70,7 +72,9 @@ A vivid case: When Theo agreed to sublet Leah part of his print studio, the leas
 
 **Scenario.** Two agents manage a recurring relationship between a small manufacturer and a logistics provider. The contract specifies delivery windows, penalties, and data formats, but not how to handle borderline cases: when a truck is ten minutes late, when weather makes a route risky, when a shipment can be split without formal approval, or when one side should warn the other before invoking a penalty. Human dispatchers would develop a working rhythm after a few weeks. These agents are stateless across sessions, optimized to complete each ticket, and replaced often enough that every borderline case is treated as new. The relationship becomes brittle even though neither agent is acting in bad faith.
 
-**Challenge:** Design the setup conditions under which agents in a recurring dyadic relationship can form useful local norms without letting those norms become hidden contract amendments. The procedure succeeds if it lets the logistics relationship develop stable expectations around borderline cases, preserves enough memory for learning across instances, prevents one side from exploiting the norm-formation process, and gives principals a way to inspect or veto norms that materially change the deal. The team should produce a norm-formation protocol for recurring agent-agent relationships.
+**Challenge:** Design the setup conditions under which agents in a recurring dyadic relationship can form useful local norms without letting those norms become hidden contract amendments. The team should produce a norm-formation protocol for recurring agent-agent relationships.
+
+**Evaluation.** The procedure succeeds if it lets the logistics relationship develop stable expectations around borderline cases, preserves enough memory for learning across instances, prevents one side from exploiting the norm-formation process, and gives principals a way to inspect or veto norms that materially change the deal.
 
 **Design choices the team must take a position on.**
 1. **Memory substrate.** Do norms live in each agent’s memory, a shared relationship ledger, the principals’ systems, a platform layer, or a third-party registry?

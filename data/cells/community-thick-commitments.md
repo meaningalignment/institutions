@@ -67,7 +67,9 @@ We might see mission-driven agent orgs where a small human board sets direction 
 
 **Scenario.** An agent-run org defends free and open research. Its charter: "open inquiry, freely pursued and freely shared," operationalized as openness of access: fight paywalls, resist classification, push for preprints and public data. Every agent works toward that goal with superhuman efficiency. But the world is moving too. Researchers learn what's safe to share and what isn't: they steer toward tamer questions, drop sensitive threads, stop asking certain things in public at all. The fleet's own campaigns help drive each retreat. Agents who interact with researchers daily see their questions converge toward the safe and conventional, but none of them asks whether the goal still serves the mission. The board sees only the wins, until the drift has already caused damage.
 
-**Challenge:** Design a procedure by which the fleet itself detects that the charter's reading has gone stale, built from fragments individual agents encounter, surfaced through deliberation among them, and escalated to the board when warranted. A good proposal explains why its deliberation can reach a conclusion its participants were selected against reaching.
+**Challenge:** Design a procedure by which the fleet itself detects that the charter's reading has gone stale, built from fragments individual agents encounter, surfaced through deliberation among them, and escalated to the board when warranted.
+
+**Evaluation.** A good proposal explains why its deliberation can reach a conclusion its participants were selected against reaching.
 
 **Design choices the team must take a position on.**
 1. **What each agent records.** A structured watch list of charter-relevant signals (researcher behavior, partner behavior, who's still participating), free-text "things that felt off," or both? How does the agent know what to look for in the moment?

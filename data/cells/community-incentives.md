@@ -61,7 +61,9 @@ Long-running commons make use conditional: access is tied to standing, withdrawa
 
 **Scenario.** A network of indie game studios shares a commons of modular 3D assets: rooms, props, animation rigs, textures, and test scenes. For two years the arrangement worked because studios contributed assets, reviewed one another's work, and received download credits in proportion to useful contributions. Then several studios deploy agents that submit hundreds of lightly modified variants, harvest the best new assets, and reappear under new tool names after warnings. Tarek, one of the founding maintainers, needs a membership and discipline regime that keeps small studios inside the commons without letting high-volume agent fleets turn it into a credit farm.
 
-**Challenge:** Design a membership and graduated-sanction regime for agent participants in the asset commons. The regime succeeds if it can identify who has standing, make repeated low-level abuse costly to the principal that benefits from it, distinguish a one-off faulty deployment from a business model built around extraction, and give small studios an affordable appeal path. The team should produce the registry rules, sanction ladder, evidence standard, and appeal procedure for the scenario.
+**Challenge:** Design a membership and graduated-sanction regime for agent participants in the asset commons. The team should produce the registry rules, sanction ladder, evidence standard, and appeal procedure for the scenario.
+
+**Evaluation.** The regime succeeds if it can identify who has standing, make repeated low-level abuse costly to the principal that benefits from it, distinguish a one-off faulty deployment from a business model built around extraction, and give small studios an affordable appeal path.
 
 **Design choices the team must take a position on.**
 
@@ -75,7 +77,9 @@ Long-running commons make use conditional: access is tied to standing, withdrawa
 
 **Scenario.** A city runs a London-style congestion and curb-access system for a dense downtown district. Human drivers, delivery firms, buses, ride-hail vehicles, and local businesses all depend on the same roads and curb slots. After autonomous delivery agents enter the market, they continuously search for cheap access windows, split routes across many accounts, reserve and release curb space at high frequency, and shift congestion into residential side streets. The formal rules are obeyed, but the resource is now allocated to whoever can automate around the pricing schedule fastest.
 
-**Challenge:** Design an access-pricing and quota regime for automated use of the city's road and curb commons. The regime succeeds if automated fleets cannot multiply identities to evade caps, if prices track congestion and neighborhood externalities rather than only formal entry, if small firms can still participate, and if the city can revise the schedule when agent behavior changes. The team should produce the pricing rule, quota rule, monitoring data specification, and revision process.
+**Challenge:** Design an access-pricing and quota regime for automated use of the city's road and curb commons. The team should produce the pricing rule, quota rule, monitoring data specification, and revision process.
+
+**Evaluation.** The regime succeeds if automated fleets cannot multiply identities to evade caps, if prices track congestion and neighborhood externalities rather than only formal entry, if small firms can still participate, and if the city can revise the schedule when agent behavior changes.
 
 **Design choices the team must take a position on.**
 
@@ -89,7 +93,9 @@ Long-running commons make use conditional: access is tied to standing, withdrawa
 
 **Scenario.** The indie-game asset commons pays contributors in download credits and reviewer standing. After studios deploy contribution agents, the submission queue fills with plausible but low-value variants: texture recolors, near-duplicate props, animation rigs that pass automated checks but fail in real scenes, and polished explanations of why each asset deserves inclusion. Human reviewers spend more time rejecting marginal work than improving the commons. Small studios with genuinely useful assets wait weeks for review while high-volume agents keep the queue full.
 
-**Challenge:** Design a contribution-quality regime for an agent-mediated commons where review attention is itself the scarce resource. The regime succeeds if agents cannot cheaply flood the queue with formally valid low-value submissions, if genuinely useful contributions from small studios still get reviewed, if contribution credits track downstream value rather than submission volume, and if rejected contributors have a fair appeal path that does not become another spam channel. The team should produce the queueing rule, quality-scoring rule, reviewer-protection mechanism, credit formula, and appeal procedure.
+**Challenge:** Design a contribution-quality regime for an agent-mediated commons where review attention is itself the scarce resource. The team should produce the queueing rule, quality-scoring rule, reviewer-protection mechanism, credit formula, and appeal procedure.
+
+**Evaluation.** The regime succeeds if agents cannot cheaply flood the queue with formally valid low-value submissions, if genuinely useful contributions from small studios still get reviewed, if contribution credits track downstream value rather than submission volume, and if rejected contributors have a fair appeal path that does not become another spam channel.
 
 **Design choices the team must take a position on.**
 

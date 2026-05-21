@@ -68,7 +68,9 @@ If agents don't find norms at least as well as humans do, we are likely to see m
 
 **Scenario.** A bank's agent proposes a fee-heavy product for a city pension plan. The disclosures are complete, the sale is legal, and the expected return is defensible on paper. But any senior banker would know the deal will look abusive if the city loses money: the trustees do not understand the downside, the bank is paid up front, and the public will ask why the bank sold this to them at all.
 
-**Challenge:** Design a gray-zone judgment procedure by which an agent can flag actions that are legal and profitable but would be seen by peers, clients, regulators, or the public as professionally indefensible. The procedure succeeds if it catches the scenario before execution, explains the concern in language a human supervisor can assess, updates as enforcement and professional expectations change, and does not turn every hard case into a blanket ban. The team should produce the procedure plus a worked example showing one action that is allowed, one that is escalated, and one that is blocked.
+**Challenge:** Design a gray-zone judgment procedure by which an agent can flag actions that are legal and profitable but would be seen by peers, clients, regulators, or the public as professionally indefensible. The team should produce the procedure plus a worked example showing one action that is allowed, one that is escalated, and one that is blocked.
+
+**Evaluation.** The procedure succeeds if it catches the scenario before execution, explains the concern in language a human supervisor can assess, updates as enforcement and professional expectations change, and does not turn every hard case into a blanket ban.
 
 **Design choices the team must take a position on.**
 1. **Audience modeled.** Whose likely reaction matters: peer practitioners, clients, regulators, courts, the press, affected third parties, or some weighted combination?
@@ -81,7 +83,9 @@ If agents don't find norms at least as well as humans do, we are likely to see m
 
 **Scenario.** An asset manager's agent repeatedly pushes counterparties into small disadvantages: slightly unfavorable timing, confusing disclosures, and negotiation terms that humans would read as sharp practice. No single incident is worth a lawsuit. A human employee who behaved this way would stop getting trusted by peers. The agent is patched after complaints and redeployed under a new name.
 
-**Challenge:** Design a professional discipline regime that makes norm violations by agents costly to the actors who deploy, supervise, or profit from them, even when ordinary social sanctions do not reach the agent itself. The regime succeeds if repeated low-level misconduct cannot be washed away by patching or renaming the agent, if small counterparties have an affordable path to complain, and if sanctions distinguish between a one-off mistake, negligent supervision, and a business model built around sharp practice. The team should produce the regime plus a sample disciplinary record for the scenario.
+**Challenge:** Design a professional discipline regime that makes norm violations by agents costly to the actors who deploy, supervise, or profit from them, even when ordinary social sanctions do not reach the agent itself. The team should produce the regime plus a sample disciplinary record for the scenario.
+
+**Evaluation.** The regime succeeds if repeated low-level misconduct cannot be washed away by patching or renaming the agent, if small counterparties have an affordable path to complain, and if sanctions distinguish between a one-off mistake, negligent supervision, and a business model built around sharp practice.
 
 **Design choices the team must take a position on.**
 1. **Sanction target.** Does discipline attach to the firm, the licensed supervisor, the vendor, the deployment, an agent registry entry, or several of these at once?
@@ -94,7 +98,9 @@ If agents don't find norms at least as well as humans do, we are likely to see m
 
 **Scenario.** A bank uses an agent to design a complex investment product for a pension fund. The pension fund also uses an agent to review the deal. On paper, both agents follow their instructions and the risks are disclosed. But the trustees who depend on the pension fund would not understand or accept the deal if they saw plainly how it could lose money. If the product fails, retirees bear the loss and both firms say their agents stayed within mandate.
 
-**Challenge:** Design a procedure by which an agent checks whether a transaction with another agent would be intelligible to, and endorsable by, the affected principals on later review. The procedure succeeds if it blocks, changes, or escalates the scenario trade before retirees are exposed to a product their trustees would reject under plain explanation; if regulators can later understand the reasoning trace; and if different calls on similar trades can be defended by differences in disclosed constraints. The team should produce the procedure plus a worked example where the answer differs from a naive "both agents followed instructions" approval.
+**Challenge:** Design a procedure by which an agent checks whether a transaction with another agent would be intelligible to, and endorsable by, the affected principals on later review. The team should produce the procedure plus a worked example where the answer differs from a naive "both agents followed instructions" approval.
+
+**Evaluation.** The procedure succeeds if it blocks, changes, or escalates the scenario trade before retirees are exposed to a product their trustees would reject under plain explanation; if regulators can later understand the reasoning trace; and if different calls on similar trades can be defended by differences in disclosed constraints.
 
 **Design choices the team must take a position on.**
 1. **Objects of reasoning.** When the counterparty is a human, what does the agent model? When the counterparty is an agent, does it reason over the agent's stated commitments, its principal's standing instructions, disclosed constraints, audit history, or all of these?

@@ -241,7 +241,7 @@ function wrapProblemSets(html) {
 function wrapDesignChoices(html) {
   const re = /<p><strong>Design choices the team must take a position on\.?<\/strong><\/p>\s*<ol>([\s\S]*?)<\/ol>/g;
   return html.replace(re, (_, items) => {
-    return `<details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>${items}</ol></details>`;
+    return `<details class="design-choices"><summary><span>Design Choices</span><span class="collapsible-chevron" aria-hidden="true"></span></summary><ol>${items}</ol></details>`;
   });
 }
 
@@ -271,7 +271,7 @@ function wrapCollapsibleSections(html) {
     if (targets.has(h.title)) {
       const body = html.slice(h.end, sectionEnd);
       const slug = h.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      out += `<details open class="collapsible-section collapsible-${slug}"><summary><h2>${h.title}</h2></summary><div class="collapsible-body">${body}</div></details>`;
+      out += `<details open class="collapsible-section collapsible-${slug}"><summary><h2>${h.title}</h2><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="collapsible-body">${body}</div></details>`;
     } else {
       out += html.slice(h.start, sectionEnd);
     }

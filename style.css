@@ -513,41 +513,55 @@ details.design-choices > summary {
   font-weight: 700;
   color: #2d2a26;
   list-style: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
   user-select: none;
+  outline: none;
 }
 details.design-choices > summary::-webkit-details-marker { display: none; }
-details.design-choices > summary::before {
-  content: "▸";
-  display: inline-block;
-  font-size: 0.85em;
-  color: #8a8275;
+details.design-choices > summary > .collapsible-chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid #b5b0a8;
+  border-bottom: 1.5px solid #b5b0a8;
+  transform: rotate(-45deg);
   transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-bottom: 3px;
 }
-details.design-choices[open] > summary::before { transform: rotate(90deg); }
+details.design-choices[open] > summary > .collapsible-chevron {
+  transform: rotate(45deg);
+}
 details.design-choices > ol { margin-top: 8px; }
 
+details.collapsible-section + details.collapsible-section { margin-top: 24px; }
 details.collapsible-section { margin: 0; }
 details.collapsible-section > summary {
   cursor: pointer;
   list-style: none;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
   user-select: none;
+  outline: none;
 }
 details.collapsible-section > summary::-webkit-details-marker { display: none; }
-details.collapsible-section > summary::before {
-  content: "▸";
-  display: inline-block;
-  font-size: 0.75em;
-  color: #8a8275;
+details.collapsible-section > summary > .collapsible-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid #b5b0a8;
+  border-bottom: 1.5px solid #b5b0a8;
+  transform: rotate(-45deg);
   transition: transform 0.15s ease;
-  flex: 0 0 auto;
+  flex-shrink: 0;
+  margin-bottom: 6px;
 }
-details.collapsible-section[open] > summary::before { transform: rotate(90deg); }
+details.collapsible-section[open] > summary > .collapsible-chevron {
+  transform: rotate(45deg);
+}
 details.collapsible-section > summary > h2 {
   margin: 0;
   padding-bottom: 0;

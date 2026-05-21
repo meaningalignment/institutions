@@ -23,7 +23,7 @@ function processEditorial(md) {
 function wrapDesignChoices(html) {
   const re = /<p><strong>Design choices the team must take a position on\.?<\/strong><\/p>\s*<ol>([\s\S]*?)<\/ol>/g;
   return html.replace(re, (_, items) => {
-    return `<details class="design-choices"><summary>Design choices the team must take a position on.</summary><ol>${items}</ol></details>`;
+    return `<details class="design-choices"><summary><span>Design Choices</span><span class="collapsible-chevron" aria-hidden="true"></span></summary><ol>${items}</ol></details>`;
   });
 }
 

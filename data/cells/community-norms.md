@@ -1,5 +1,7 @@
 ---
 human_label: "Professional codes of conduct"
+human_era: "Ancient-20th c."
+human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true

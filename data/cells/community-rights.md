@@ -1,5 +1,7 @@
 ---
 human_label: "Municipal codes & local courts"
+human_era: "Ancient-modern"
+human_era_bucket: ancient-modern
 hide_agi: true
 status: not_started
 owner: none

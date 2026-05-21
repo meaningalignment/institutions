@@ -1,5 +1,7 @@
 ---
 human_label: "Bylaws & grievance boards"
+human_era: "Medieval-industrial"
+human_era_bucket: medieval-modern
 status: not_started
 owner: none
 ---

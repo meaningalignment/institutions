@@ -1,5 +1,7 @@
 ---
 human_label: "Int'l law, treaties & tribunals"
+human_era: "17th-20th c."
+human_era_bucket: early-modern-modern
 hide_agi: true
 status: summary_needs_work
 owner: oliver

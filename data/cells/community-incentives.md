@@ -1,5 +1,7 @@
 ---
 human_label: "Commons governance, quotas & access pricing"
+human_era: "Ancient-20th c."
+human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true

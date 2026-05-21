@@ -1,5 +1,7 @@
 ---
 human_label: "Negotiation & bargaining"
+human_era: "Ancient / customary"
+human_era_bucket: ancient
 status: body_ok
 owner: oliver
 starred: true

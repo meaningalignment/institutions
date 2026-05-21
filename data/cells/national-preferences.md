@@ -1,5 +1,7 @@
 ---
 human_label: "Elections and citizen assemblies"
+human_era: "Ancient-20th c."
+human_era_bucket: ancient-modern
 status: body_draft
 owner: oliver
 ---

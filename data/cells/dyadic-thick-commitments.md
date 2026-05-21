@@ -1,5 +1,7 @@
 ---
 human_label: "Vows & covenants"
+human_era: "Ancient / customary"
+human_era_bucket: ancient
 status: summary_ok
 owner: oliver
 ---

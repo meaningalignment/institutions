@@ -51,6 +51,22 @@ function esc(s) { return s.replace(/&/g, '&amp;'); }
 
 const TAB_ORDER = ['agi', 'human', 'fidelity'];
 
+const HUMAN_ERA_BUCKETS = [
+  { id: 'ancient', code: 'An', label: 'Ancient / customary' },
+  { id: 'medieval', code: 'Md', label: 'Medieval' },
+  { id: 'early-modern', code: 'Em', label: 'Early modern' },
+  { id: 'industrial', code: 'In', label: 'Industrial' },
+  { id: 'twentieth', code: '20', label: '20th century' },
+  { id: 'digital', code: '21', label: 'Digital era' },
+  { id: 'ancient-medieval', code: 'A-M', label: 'Ancient-medieval' },
+  { id: 'ancient-modern', code: 'A+', label: 'Ancient-modern' },
+  { id: 'medieval-modern', code: 'M+', label: 'Medieval-modern' },
+  { id: 'early-modern-modern', code: 'E+', label: 'Early modern-modern' },
+  { id: 'industrial-digital', code: 'I+', label: 'Industrial-digital' }
+];
+
+const HUMAN_ERA_BUCKET_IDS = new Set(HUMAN_ERA_BUCKETS.map(b => b.id));
+
 // AGI and Human grids both render from data/cells/. The AGI grid uses the
 // H1; the Human grid uses `human_label` frontmatter (falls back to H1).
 // Fidelity has its own directory.
@@ -170,6 +186,32 @@ function cellsWithProblemSets(cells) {
   return ps;
 }
 
+function getHumanEra(fm) {
+  const label = typeof fm?.human_era === 'string' ? fm.human_era.trim() : '';
+  const bucket = typeof fm?.human_era_bucket === 'string' ? fm.human_era_bucket.trim() : '';
+  if (!label || !HUMAN_ERA_BUCKET_IDS.has(bucket)) return null;
+  const meta = HUMAN_ERA_BUCKETS.find(b => b.id === bucket);
+  return { label, bucket, code: meta.code };
+}
+
+function renderHumanEraLegend(cells) {
+  const used = new Set(
+    Object.values(cells)
+      .map(cell => getHumanEra(cell.frontmatter)?.bucket)
+      .filter(Boolean)
+  );
+  let html = '<div class="human-era-legend" aria-label="Human institution design era">';
+  for (const bucket of HUMAN_ERA_BUCKETS) {
+    if (!used.has(bucket.id)) continue;
+    html += `<span class="human-era-legend-item era-${bucket.id}">`;
+    html += `<span class="human-era-legend-code">${bucket.code}</span>`;
+    html += `<span class="human-era-legend-label">${esc(bucket.label)}</span>`;
+    html += '</span>';
+  }
+  html += '</div>\n';
+  return html;
+}
+
 function renderGrid(tabId, cells, methods, dataPath) {
   // cells: the dict for this tab's body source (data/cells/ for agi+human, data/fidelity/ for fidelity)
   // Per-cell summary: AGI uses H1; Human uses frontmatter.human_label || H1; Fidelity uses H1.
@@ -178,6 +220,7 @@ function renderGrid(tabId, cells, methods, dataPath) {
   let html = '';
   html += `<div class="pane-title">${esc(tab.title)}</div>\n`;
   html += `<div class="pane-subtitle">${esc(tab.subtitle)}</div>\n`;
+  if (tabId === 'human') html += renderHumanEraLegend(cells);
   html += '<div class="table-wrapper"><table>\n';
 
   html += '<thead><tr><th class="corner-cell axis-label-col"></th>';
@@ -202,11 +245,20 @@ function renderGrid(tabId, cells, methods, dataPath) {
       );
       if (cell && summary) {
         const classes = ['clickable'];
-        if (psKeys.has(key)) classes.push('has-ps');
+        if (tabId === 'agi' && psKeys.has(key)) classes.push('has-ps');
         const status = cell.frontmatter?.status;
-        if (status) classes.push(`status-${status.replace(/_/g, '-')}`);
+        if (tabId === 'agi' && status) classes.push(`status-${status.replace(/_/g, '-')}`);
+        const humanEra = tabId === 'human' ? getHumanEra(cell.frontmatter) : null;
+        if (humanEra) classes.push('human-era-tile', `era-${humanEra.bucket}`);
         html += `<td class="${classes.join(' ')}" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;
-        html += `<div class="cell-content">${summary}</div></td>`;
+        if (humanEra) {
+          html += '<div class="cell-content">';
+          html += `<span class="human-era-label">${esc(humanEra.label)}</span>`;
+          html += `<span class="human-cell-label">${esc(summary)}</span>`;
+          html += '</div></td>';
+        } else {
+          html += `<div class="cell-content">${esc(summary)}</div></td>`;
+        }
       } else {
         html += '<td><div class="cell-empty"></div></td>';
       }

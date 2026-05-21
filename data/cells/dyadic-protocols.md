@@ -1,5 +1,7 @@
 ---
 human_label: "Handshake protocols & shared formats"
+human_era: "Ancient-digital"
+human_era_bucket: ancient-modern
 hide_agi: true
 status: not_started
 owner: none

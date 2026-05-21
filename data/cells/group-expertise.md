@@ -1,5 +1,7 @@
 ---
 human_label: "Peer review & quality circles"
+human_era: "17th-20th c."
+human_era_bucket: early-modern-modern
 hide_agi: true
 status: not_started
 owner: none

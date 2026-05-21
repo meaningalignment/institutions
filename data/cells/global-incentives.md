@@ -1,5 +1,7 @@
 ---
 human_label: "Consumer markets, labor income & multilateral trade rules"
+human_era: "Ancient-20th c."
+human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true

@@ -47,6 +47,8 @@ Every file in `data/cells/` follows this structure. The build doesn't enforce it
 ```markdown
 ---
 human_label: Social conventions        # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
+human_era: "Ancient / customary"       # optional; Human-tab display label for when the human institution-family was designed or became recognizable.
+human_era_bucket: ancient              # optional; Human-tab color bucket: ancient | medieval | early-modern | industrial | twentieth | digital | ancient-medieval | ancient-modern | medieval-modern | early-modern-modern | industrial-digital.
 hide_agi: true                         # optional; hide this cell from the AGI grid (renders empty). Use when no AGI story yet.
 hide_human: true                       # optional; symmetric flag for the Human grid.
 status: body_ok                        # not_started | summary_draft | summary_needs_work | summary_ok | body_draft | body_needs_work | body_ok. Drives grid marker and Kanban column.
@@ -105,6 +107,7 @@ Multiple `###` problem sets under one cell are supported; each becomes its own e
 ### Why these particular sections
 
 - **At a glance** is the cell's elevator pitch — three H3 subsections (`Coordination challenge`, `Examples`, `How AGI breaks them`). Pulled out of the body at render time and shown as the styled summary box at the top of the detail page; the section itself is stripped from the inline body so it doesn't render twice. Keeps everything in markdown so inline `{>> ... <<}` editorial notes work here too.
+- **Human era metadata** is display-only metadata for the Human tab. `human_era` is the visible label; `human_era_bucket` chooses the periodic-table color bucket. Use a span bucket such as `ancient-modern` or `early-modern-modern` when a single design century would be misleading.
 - **How humans solve this today** anchors readers in something familiar before the AGI-specific design problem hits. Always concrete (named institutions, named mechanisms), never generic ("humans cooperate by…").
 - **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. It should be paragraph versions of the At a Glance `How AGI breaks them` bullets, in the same order, with no intro paragraph and no scenario prose. Resist anthropomorphism — agents are different institutional actors, not defective humans; don't write that they "fail to feel," "lack shame," or "miss the felt sense of." When a mechanism could apply to agents but with different objects (e.g. contractualist reasoning over agent counterparties whose training/principals/constraints are what's being modeled, not their reactions), name that explicitly rather than declaring the mechanism broken.
 - **Problem Sets** turn selected mechanisms into design work. Each problem set contains its own `**Scenario.**`, `**Challenge:**`, optional `**Evaluation.**`, and `**Design choices the team must take a position on.**` Scenarios are high-stakes test objects, not a detached section. Challenge is the design task in one or two sentences; Evaluation (when present) names what separates strong from weak proposals. Strong problem sets can target formation, transmission, application, enforcement, appeal, revision, ratification, accountability, allocation, or evidence.

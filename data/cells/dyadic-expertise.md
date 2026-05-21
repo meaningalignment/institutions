@@ -1,5 +1,7 @@
 ---
 human_label: "Mentorship & apprenticeship"
+human_era: "Ancient / customary"
+human_era_bucket: ancient
 hide_agi: true
 status: not_started
 owner: none

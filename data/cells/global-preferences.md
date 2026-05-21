@@ -1,5 +1,7 @@
 ---
 human_label: "Social media recommender systems"
+human_era: "21st c."
+human_era_bucket: digital
 hide_agi: true
 status: not_started
 owner: none

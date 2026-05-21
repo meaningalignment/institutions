@@ -26,6 +26,22 @@ const COLS = [
 
 const GITHUB_REPO = 'https://github.com/meaningalignment/institutions';
 
+const HUMAN_ERA_BUCKETS = [
+  { id: 'ancient', code: 'An', label: 'Ancient / customary' },
+  { id: 'medieval', code: 'Md', label: 'Medieval' },
+  { id: 'early-modern', code: 'Em', label: 'Early modern' },
+  { id: 'industrial', code: 'In', label: 'Industrial' },
+  { id: 'twentieth', code: '20', label: '20th century' },
+  { id: 'digital', code: '21', label: 'Digital era' },
+  { id: 'ancient-medieval', code: 'A-M', label: 'Ancient-medieval' },
+  { id: 'ancient-modern', code: 'A+', label: 'Ancient-modern' },
+  { id: 'medieval-modern', code: 'M+', label: 'Medieval-modern' },
+  { id: 'early-modern-modern', code: 'E+', label: 'Early modern-modern' },
+  { id: 'industrial-digital', code: 'I+', label: 'Industrial-digital' }
+];
+
+const HUMAN_ERA_BUCKET_IDS = new Set(HUMAN_ERA_BUCKETS.map(b => b.id));
+
 // Inline editorial notes ({>> ... <<}) are hidden by default. Reveal them
 // when viewing locally or when the URL has ?editorial.
 // On the deployed site, cells whose status isn't `body_ok` have their
@@ -304,6 +320,23 @@ function escapeRich(s) {
   );
 }
 
+function getHumanEra(fm) {
+  const label = typeof fm?.human_era === 'string' ? fm.human_era.trim() : '';
+  const bucket = typeof fm?.human_era_bucket === 'string' ? fm.human_era_bucket.trim() : '';
+  if (!label || !HUMAN_ERA_BUCKET_IDS.has(bucket)) return null;
+  const meta = HUMAN_ERA_BUCKETS.find(b => b.id === bucket);
+  return { label, bucket, code: meta.code };
+}
+
+function renderHumanEraMeta(fm) {
+  const humanEra = getHumanEra(fm);
+  if (!humanEra) return '';
+  let html = `<div class="human-era-detail era-${humanEra.bucket}">`;
+  html += `<span class="human-era-label">${escapeHtml(humanEra.label)}</span>`;
+  html += '</div>';
+  return html;
+}
+
 function renderSummaryBox(fm) {
   if (!fm) return '';
   const problem = fm.problem;
@@ -383,6 +416,7 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += `${tab.title} \u203A ${row.name} \u203A ${col.name}`;
   html += '</div>';
   html += `<div class="detail-title">${title}</div>`;
+  if (tabId === 'human') html += renderHumanEraMeta(cell.frontmatter);
 
   // Two-column layout: main body + methods rail
   html += '<div class="detail-layout">';

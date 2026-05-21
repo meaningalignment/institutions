@@ -1,5 +1,7 @@
 ---
 human_label: "Regulatory agencies (FDA, BaFin)"
+human_era: "20th c."
+human_era_bucket: twentieth
 status: not_started
 owner: none
 ---

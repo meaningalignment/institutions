@@ -1,5 +1,7 @@
 ---
 human_label: "Constitutions, courts & judiciary"
+human_era: "18th-20th c."
+human_era_bucket: early-modern-modern
 status: summary_draft
 owner: oliver
 ---

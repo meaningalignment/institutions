@@ -1,5 +1,7 @@
 ---
 human_label: "Spectrum auctions, cap-and-trade & tax policy"
+human_era: "20th c."
+human_era_bucket: twentieth
 hide_agi: true
 status: not_started
 owner: none

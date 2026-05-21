@@ -69,8 +69,6 @@ We might see mission-driven agent orgs where a small human board sets direction 
 
 **Challenge:** Design a procedure by which the fleet itself detects that the charter's reading has gone stale, built from fragments individual agents encounter, surfaced through deliberation among them, and escalated to the board when warranted.
 
-**Evaluation.** A good proposal explains why its deliberation can reach a conclusion its participants were selected against reaching.
-
 **Design choices the team must take a position on.**
 1. **What each agent records.** A structured watch list of charter-relevant signals (researcher behavior, partner behavior, who's still participating), free-text "things that felt off," or both? How does the agent know what to look for in the moment?
 2. **Structural feature against consensus.** A subset assigned to argue the reading has failed, isolated deliberation before pooling, a separately trained stack, or human veto over framing?

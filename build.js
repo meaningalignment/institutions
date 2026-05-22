@@ -215,7 +215,6 @@ function renderGrid(tabId, cells, methods, dataPath) {
   // cells: the dict for this tab's body source (data/cells/ for agi+human, data/fidelity/ for fidelity)
   // Per-cell summary: AGI uses H1; Human uses frontmatter.human_label || H1; Fidelity uses H1.
   const tab = TABS[tabId];
-  const psKeys = cellsWithProblemSets(cells);
   let html = '';
   html += `<div class="pane-title">${esc(tab.title)}</div>\n`;
   html += `<div class="pane-subtitle">${esc(tab.subtitle)}</div>\n`;
@@ -244,9 +243,8 @@ function renderGrid(tabId, cells, methods, dataPath) {
       );
       if (cell && summary) {
         const classes = ['clickable'];
-        if (tabId === 'agi' && psKeys.has(key)) classes.push('has-ps');
         const status = cell.frontmatter?.status;
-        if (tabId === 'agi' && status) classes.push(`status-${status.replace(/_/g, '-')}`);
+        if (tabId === 'agi' && status === 'body_ok') classes.push('status-body-ok');
         const humanEra = tabId === 'human' ? getHumanEra(cell.frontmatter) : null;
         if (humanEra) classes.push('human-era-tile', `era-${humanEra.bucket}`);
         html += `<td class="${classes.join(' ')}" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;

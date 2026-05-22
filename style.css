@@ -775,12 +775,11 @@ details.collapsible-section > .collapsible-body { margin-top: 12px; }
   }
 }
 
-/* Cell status indicator — triangle in top-right corner.
-   Shape / fill comes from status-* classes; has-ps alone is the default solid. */
-td.has-ps, td[class*="status-"] {
+/* AGI readiness indicator — green triangle only when the cell body is OK. */
+td.status-body-ok {
   position: relative;
 }
-td.has-ps::after, td[class*="status-"]::after {
+td.status-body-ok::after {
   content: '';
   position: absolute;
   top: 0;
@@ -788,38 +787,6 @@ td.has-ps::after, td[class*="status-"]::after {
   border-style: solid;
   border-width: 0 12px 12px 0;
   border-color: transparent #6aaa64 transparent transparent;
-}
-/* 7-stage workflow: not_started → summary_draft → summary_needs_work → summary_ok
-                    → body_draft → body_needs_work → body_ok */
-td.status-not-started::after {
-  border-color: transparent #c9c2b6 transparent transparent;
-  opacity: 0.45;
-}
-td.status-summary-draft::after {
-  border-color: transparent #e8d27a transparent transparent;
-}
-td.status-summary-needs-work::after {
-  border-color: transparent #e07b39 transparent transparent;
-}
-td.status-summary-ok::after {
-  border-color: transparent #d4a72c transparent transparent;
-}
-td.status-body-draft::after {
-  border-color: transparent #a8c95e transparent transparent;
-}
-td.status-body-needs-work::after {
-  border-color: transparent #c44d2e transparent transparent;
-}
-td.status-body-ok::after {
-  border-color: transparent #6aaa64 transparent transparent;
-}
-
-/* Deployed site: only the green (body_ok) corner triangles are shown —
-   these match the cells whose body is revealed on the deployed site.
-   Override with ?showall. */
-.hide-unready td.has-ps:not(.status-body-ok)::after,
-.hide-unready td[class*="status-"]:not(.status-body-ok)::after {
-  display: none;
 }
 
 /* Detail page two-column layout: body left, methods rail right */
@@ -1012,7 +979,7 @@ tr.methods-row th.row-header {
     padding: 1px 3px;
   }
 
-  td.has-ps::after, td[class*="status-"]::after { border-width: 0 7px 7px 0; }
+  td.status-body-ok::after { border-width: 0 7px 7px 0; }
 
   /* Detail page mobile */
   .detail-title { font-size: 24px; }

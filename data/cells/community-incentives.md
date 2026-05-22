@@ -57,7 +57,7 @@ How a community allocates access to shared resources and deters overuse when eac
 
 ### Membership and Sanctions for Agent Commoners
 
-**Scenario.** A network of indie game studios shares a commons of modular 3D assets: rooms, props, animation rigs, textures, and test scenes. For two years the arrangement worked because studios contributed assets, reviewed one another's work, and received download credits in proportion to useful contributions. Then several studios deploy agents that submit hundreds of lightly modified variants, harvest the best new assets, and reappear under new tool names after warnings. Tarek, one of the founding maintainers, needs a membership and discipline regime that keeps small studios inside the commons without letting high-volume agent fleets turn it into a credit farm.
+**Scenario.** A network of indie game studios shares a commons of modular 3D assets: rooms, props, animation rigs, textures, and test scenes. For two years the arrangement worked because studios contributed assets, reviewed one another's work, and earned access to the things the commons could not give everyone at once: placement in curated starter packs, voting weight over taxonomy and compatibility standards, and early access to new high-demand asset drops. Then several studios deploy agents that submit hundreds of lightly modified variants, harvest the best new assets, and reappear under new tool names after warnings. Tarek, one of the founding maintainers, needs a membership and discipline regime that keeps small studios inside the commons without letting high-volume agent fleets turn curated placement, governance weight, and early access into extraction channels.
 
 **Challenge:** Design a membership and graduated-sanction regime for agent participants in the asset commons. The team should produce the registry rules, sanction ladder, evidence standard, and appeal procedure for the scenario.
 
@@ -89,18 +89,16 @@ How a community allocates access to shared resources and deters overuse when eac
 
 ### Contribution Quality in Agent-Mediated Commons
 
-<!-- todo: is 'download credits and reviewer standing' realistic? -->
+**Scenario.** An indie-game asset commons rewards useful contributors with three scarce internal goods: inclusion in curated starter packs that drive reuse, governance weight over tagging and compatibility standards, and early access to new high-demand assets before broad release. After studios deploy contribution agents, the submission queue fills with plausible but low-value variants: texture recolors, near-duplicate props, animation rigs that pass automated checks but fail in real scenes, and polished explanations of why each asset deserves inclusion. Agents also generate usage claims, endorsement requests, and compatibility notes meant to push their assets into curated packs. Human reviewers spend more time rejecting marginal work than improving the commons, while genuinely useful assets from small studios wait behind submissions engineered to win placement, votes, and early access.
 
-**Scenario.** An indie-game asset commons pays contributors in download credits and reviewer standing. But studios deploy contribution agents and the submission queue fills with plausible but low-value variants: texture recolors, near-duplicate props, animation rigs that pass automated checks but fail in real scenes, etc. Human reviewers spend time rejecting marginal work. Small studios with genuinely useful assets can't get reviews, while high-volume agents keep the queue full.
+**Challenge:** Design a contribution-quality regime for an agent-mediated commons where curated placement, governance weight, and early access are the internal rewards. The team should produce the queueing rule, quality-scoring rule, reviewer-protection mechanism, reward formula, and appeal procedure.
 
-**Challenge:** Design a contribution-quality regime for an agent-mediated commons. Produce, e.g., a queueing rule, quality-scoring rule, reviewer-protection mechanism, credit formula, and appeal procedure.
-
-**Evaluation.** The regime succeeds if agents cannot cheaply flood the queue with formally valid low-value submissions, if genuinely useful contributions from small studios still get reviewed, if contribution credits track downstream value rather than submission volume, and if rejected contributors have a fair appeal path that does not become another spam channel.
+**Evaluation.** The regime succeeds if agents cannot cheaply flood the queue with formally valid low-value submissions, if genuinely useful contributions from small studios still get reviewed, if curated placement and governance weight track downstream value rather than submission volume, and if rejected contributors have a fair appeal path that does not become another spam channel.
 
 **Design choices the team must take a position on.**
 
 1. **Queue access.** Are submissions admitted first-come-first-served, by contributor reputation, by staked review deposit, by random sampling, by downstream demand signal, or by a layered queue?
 2. **Quality measure.** Does quality mean human reviewer score, downstream reuse, interoperability with existing assets, novelty relative to the library, maintenance burden, or a weighted combination?
 3. **Cost of review.** Who pays when a submission consumes reviewer time but adds little value: the submitting studio, the agent deployment, a pooled review budget, or future credit earnings?
-4. **Credit formula.** Are contributors rewarded for accepted submissions, downstream use, reviewer-confirmed quality, scarcity of the asset type, maintenance over time, or some mix?
+4. **Reward formula.** Are contributors rewarded with curated-pack placement, governance weight, early access, or some mix? Which signals count: downstream use, reviewer-confirmed quality, scarcity of the asset type, compatibility work, maintenance over time, or user reports from shipped games?
 5. **Appeal throttling.** What gives rejected contributors a real appeal while preventing agents from turning appeals into a second queue flood?

@@ -27,14 +27,14 @@ How states settle on expectations of conduct toward each other without a global 
 - Agents could search the coalition space much faster than humans, but no ratification chain exists to handle deals at that speed.
 - Agents could find better deals, but the case for them can be too complex for any parliament to evaluate.
 - Agents could more effectively launder unacceptable concessions into deals through their size and complexity.
-- Powerful AI weapons could make war even more asymmetric than it is today, or decouple military might from the stablizing force of economic interdependence.
+- Powerful AI weapons could make war even more asymmetric than it is today, or decouple military might from the stabilizing force of economic interdependence.
 
 ## How humans solve this today
 
 - **Diplomatic protocol.** A shared grammar for signaling intent in graduated steps. One example is peace negotiation, which moves through layered tracks so concessions can be floated and walked back without anyone being publicly committed: unofficial back-channels (Track II) test what is imaginable, serving officials in personal capacity (Track 1.5) test what cabinets could survive, and only pre-validated shapes reach formal government-to-government talks (Track I).
 - **Customary international law.** When behaviors get repeated long enough (freedom of navigation, diplomatic immunity, non-refoulement), they harden into international law.
 - **The nuclear taboo.** The convention, sustained since Hiroshima, that nuclear weapons are categorically different from conventional ones.
-- **Just-war norms (*jus ad bellum*, *jus in bello*).** These constrain force by controlling its justification. A state that cannot frame its war in this vocabulary loses legitimacy among alies, making the war harder to sustain.
+- **Just-war norms (*jus ad bellum*, *jus in bello*).** These constrain force by controlling its justification. A state that cannot frame its war in this vocabulary loses legitimacy among allies, making the war harder to sustain.
 
 ## Where AGI breaks it
 
@@ -44,7 +44,7 @@ How states settle on expectations of conduct toward each other without a global 
 
 3. **Agents could more effectively launder unacceptable concessions into deals through their size and complexity.** Soft law historically defends against bad trades by making each concession publicly defensible in isolation; a démarche or a treaty article is a discrete object that domestic opponents can name and attack.
 
-<!-- todo: add the weapons one -->
+4. **Powerful AI weapons could make war even more asymmetric than it is today, or decouple military might from the stabilizing force of economic interdependence.** Nuclear taboo and just-war norms developed around weapons whose use was politically legible and whose destructive thresholds could be publicly named. AI-enabled cyber operations, autonomous targeting, drone swarms, model-assisted battlefield planning, and infrastructure attacks may blur those thresholds. If military advantage can be gained through deniable, fast, or highly asymmetric agentic systems, the reputational and economic costs that helped sustain restraint may become irrelevant.
 
 ## Problem Sets
 
@@ -74,3 +74,18 @@ How states settle on expectations of conduct toward each other without a global 
 3. **Bundling tolerance.** Some real deals only work bundled. What threshold of "improvement only in aggregate" is acceptable before a component must be defended separately?
 4. **Failure handling.** When a component fails the test, is it stripped, surfaced for public debate, or veto-killing the whole package?
 5. **Auditing the AI.** What trace must the mediator expose — full reasoning, nearby alternatives, or only the final structure — so reviewers can tell emergent from seeded?
+
+### Restraint Norms for AI-Enabled Weapons
+
+**Scenario.** Two rival states are economically interdependent but increasingly rely on autonomous cyber and drone systems for deterrence. One state discovers that an AI-enabled operation could disable the other's military logistics for 36 hours without obvious attribution and without crossing any existing nuclear or conventional red line. The operation looks reversible, but it could cascade into civilian infrastructure and would teach both sides that deniable agentic attacks are fair game.
+
+**Challenge:** Design a soft-law restraint norm for AI-enabled weapons whose effects are fast, deniable, and hard to classify under existing thresholds. The team should produce the norm, the notification or attribution procedure, the public justification test, and a mechanism for revising the norm as capabilities change.
+
+**Evaluation.** A strong proposal creates a threshold that states can recognize before use, cite after violations, and update without normalizing every new capability as acceptable.
+
+**Design choices the team must take a position on.**
+1. **Covered capability.** Does the norm govern autonomous targeting, cyber operations, model-assisted planning, infrastructure disruption, compute attacks, or any system whose effects outrun human authorization?
+2. **Threshold object.** Is the red line based on civilian harm, loss of control, deniability, speed, reversibility, scale, or attack on command-and-control systems?
+3. **Attribution and evidence.** What evidence is enough to accuse a state of violation when the operation is routed through agents, vendors, or proxies?
+4. **Permitted testing.** How can states test defensive systems or demonstrate capability without eroding the norm against operational use?
+5. **Revision venue.** Does the norm evolve through treaties, incident-response groups, military hotlines, expert panels, or repeated public justifications after crises?

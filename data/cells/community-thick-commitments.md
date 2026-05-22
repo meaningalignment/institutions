@@ -13,7 +13,7 @@ starred: true
 
 ### Coordination challenge
 
-How an organizes holds itself to a mission or way of life and protects it against drift and capture.
+How an organization holds itself to a mission or way of life and protects it against drift and capture.
 
 ### Examples
 
@@ -45,9 +45,7 @@ Every organization can drift from its founding mission as members come and go, c
 
 5. **Reinterpretation of the mission as circumstances change.** What the org does at any moment is a reading of the mission under present circumstances, not the mission itself. People stay because they are bound to the mission, not to the current strategy.
 
-<!-- todo: the below is not true -->
-
-A vivid case: Around 2005, WWF concluded that the binding constraint on biodiversity had moved from local habitat loss to global commodity supply chains. Acting on that reading meant drastically cutting projects and redirecting staff into market transformation work. The staff whose projects and roles were cut had every reason to resist it, but a shared commitment to biodiversity across board, staff, and donors made the move possible.
+A vivid case: WWF began with the familiar conservation repertoire: raise money, protect species, and help create parks and reserves. By the 1990s and 2000s, that was no longer enough to describe the leverage point. The organization moved toward ecoregion-scale conservation and, in 2005, adopted a goal of protecting 15 to 20 of the world's most important ecoregions by transforming the markets, policies, and institutions driving threats to them. The mission stayed recognizable: conserve nature and biodiversity. But the live reading changed: fidelity now meant working on commodity chains, finance, regulation, and corporate purchasing, not only saving bounded places.
 
 ## Where AGI breaks it
 
@@ -55,23 +53,25 @@ A vivid case: Around 2005, WWF concluded that the binding constraint on biodiver
 
 2. **Agents act faster than a board can deliberate.** Human staff can't work much faster than boards can deliberate. Agent fleets can make thousands of decisions before a board meeting is scheduled, so board review stops constraining direction.
 
-3. **Agents may rationalize the current direction rather than name the gap.** Asking "are we still on mission?" worked in human orgs because some staff were willing to say no, backed by their own careers and outside networks. If agents inherit the sycophantic tendencies of current models, they are selected against that disposition and will tend to defend whatever the principal is currently doing. <!-- todo: fix this one -->
+3. **Agents optimized for approval, task completion, or current strategy may produce justifications for drift unless the org creates protected channels for mission challenge.** The problem is not that agents are personally loyal or cowardly. It is that an agent's objective, evaluator, memory, and escalation policy may reward making the current plan look coherent. If mission challenge is treated as friction, low-confidence dissent, or a failure to complete the task, the system will tend to polish rationales for the path already chosen. Mission-driven agent orgs need explicit procedures that make contradiction, anomaly reporting, and charter reinterpretation part of the job.
 
-4. **The charter is the easy part to replicate, but it was only a small part of what made mission orgs work.** An agent org can be handed a charter via the system prompt, but this might lose valuable and necessary context: hiring filters that selecte for mission fit, induction that contests it in cases, peer debate over hard calls, retold stories of past mistakes, etc.
+4. **The charter is the easy part to replicate, but it was only a small part of what made mission orgs work.** An agent org can be handed a charter via the system prompt, but this may lose the surrounding context: hiring filters that selected for mission fit, induction that contested the mission in hard cases, peer debate over tradeoffs, retold stories of past mistakes, and internal exemplars that taught members what counted as fidelity.
 
 5. **Character and commitment are not straightforwardly evaluable in an agent.** With a human, character is read from past actions and references: how the candidate behaved under pressure, what they stood for at cost, who vouches for them and on what evidence. It may be less clear whether an AI system has anything akin to character and integrity at all, let alone how to evaluate it from the outside.
 
 ## Problem Sets
 
-### Agents Asking Qustions about the Charter
+### Agents Asking Questions about the Charter
 
 **Scenario.** An agent-run org defends free and open research. Its charter: "open inquiry, freely pursued and freely shared," operationalized as openness of access: fight paywalls, resist classification, push for preprints and public data. But perhaps a bigger chilling effect on research emerges that's ideological. Researchers learn what's safe to share and what isn't, dropping sensitive threads, and stop asking certain things in public at all. Is this other limiting effect on research something the org should take on?
 
-**Challenge:** Design a procedure by which the agents might detect that the charter should maybe apply to this new barrier to open research, built from evidence individual agents encounter, perhaps surfaced through deliberation among them, and escalated to the board. Ideally, we should be able to observe the right kind of organizational learning without random slides into adjacent areas.
+**Challenge:** Design a procedure by which agents detect that a mission charter may need a new reading, assemble evidence from their work, deliberate without simply expanding scope opportunistically, and escalate a bounded reinterpretation to the board. The team should produce the procedure plus a worked example showing one proposed reinterpretation accepted, one narrowed, and one rejected as mission drift.
 
-**Design choices the team should take a position on.**
+**Evaluation.** Strong proposals make organizational learning observable without letting agents slide into adjacent causes whenever they find a salient problem.
+
+**Design choices the team must take a position on.**
 1. **What each agent records.** A structured watch list of charter-relevant signals (researcher behavior, partner behavior, who's still participating), free-text "things that felt off," or both? How does the agent know what to look for in the moment?
 2. **Structural feature against consensus.** A subset assigned to argue the reading has failed, isolated deliberation before pooling, a separately trained stack, or human veto over framing?
-3. **Escalation threshold and obligation.** What triggers escalation? What should the board be required to do on receipt?
-
-<!-- todo: I think we could have more design choices -->
+3. **Boundary against mission sprawl.** What stops the agents from turning every adjacent harm into a charter issue: affected-constituency tests, causal connection to the mission, board-set exclusion rules, or a requirement to show why existing strategy no longer works?
+4. **Escalation threshold and obligation.** What triggers escalation, what evidence must accompany it, and what is the board required to do on receipt?
+5. **Post-decision memory.** How are accepted, narrowed, and rejected reinterpretations recorded so future agents learn from the decision without treating it as a permanent rule?

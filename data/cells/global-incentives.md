@@ -21,7 +21,7 @@ How global markets stay aligned with human interests.
 - Consumer markets and discretionary spending
 - Collective bargaining and sectoral unions
 - Consumer protection and antitrust law
-- Mass consumer capitalism {>>Is mass consumer capitalism an institution?<<}
+- Mass consumer retail and household-demand channels
 
 ### How AGI breaks them
 - AI labor makes firms less likely to pay, persuade, train, and retain humans, leading to a shrinking labor share.
@@ -36,7 +36,7 @@ Global markets have stayed roughly aligned with human interests historically bec
 
 2. **Humans as the dominant buyers.** Consumer spending is ~70% of GDP in rich economies, distributed broadly enough that median human needs counted. Production decisions get pulled toward what people actually buy, and what they buy is shaped (imperfectly) by what they care about. The aggregation has had a bias toward human-relevant goods because the buyers were human and buying power wasn't too concentrated.
 
-3. **Implicit alignment in human-to-human service provision.** Whereas nonhuman participants in commerce (like recommendar systems or ad engines) may be optimized to serve up whatever buyers will buy, rather than what will more deeply serve them, when humans face a human worker there is more likely to be a deeper alignment between what's purchased and what helps.
+3. **Implicit alignment in human-to-human service provision.** When humans buy from, hire, or bargain with other humans, the transaction often carries background alignment that is not written into the price: service workers notice distress, professionals exercise judgment, sellers worry about reputation, and buyers can complain to someone who understands the practical consequence. This does not make markets benevolent, but it means many exchanges are mediated by human interpretation rather than only by click-through optimization.
 
 On top of these structural facts sits a layer of intentional steering — boycotts (Montgomery, anti-apartheid, fossil-fuel divestment), ESG screens, strikes, fair-trade certifications, treaty regimes (WTO labor provisions, ILO Conventions, Paris Agreement, EU CBAM), and sovereign wealth funds (Norway's GPFG, Alaska Permanent Fund). These work because the actors carry economic weight derived from being needed as workers and buyers. Take that weight away and the levers go advisory.
 
@@ -48,11 +48,11 @@ On top of these structural facts sits a layer of intentional steering — boycot
 
 **Buyer-side agents mediate spending through proxy objectives rather than durable human preferences.** Consumer markets worked, imperfectly, because the person choosing bore the consequences and could revise future choices through experience, exit, complaint, or collective pressure. Already with social media, we see a shift toward platform-mediated engagement where the user is "the product" and the platform's objective isn't to serve their durable preferences. Our future choices may be subject to agents with commissions, engagement targets, and vendor access fees — a buyer side where human preferences are only one input among many, and where the ability to learn from experience is constrained by the agent's objectives and the platform's design.
 
-<!-- todo: add something about 'Implicit alignment in human-to-human' going away  -->
+**Implicit alignment in human-to-human service provision becomes harder to rely on when the transaction is routed through agents.** Human-facing markets often smuggled in extra care through professional judgment, local reputation, embarrassment, sympathy, and the ability to notice that a buyer's literal request would not actually help them. Agent-mediated transactions can strip out that layer. A buyer agent may optimize a stale proxy; a seller agent may optimize conversion or retention; neither side necessarily carries the informal human obligation to ask whether the transaction still serves the person.
 
 ## Problem Sets
 
-### Replacing Job-Market Discipline When Firms No Longer Need Workers
+### Replacing Job-Market Functions When Firms No Longer Need Workers
 
 **Scenario.** A country with a strong manufacturing and services base sees labor share fall from about 60% to 35% of GDP over eight years. Firms need fewer workers, so entry-level jobs disappear, training programs shrink, unions lose bargaining power, and for employers, worker values are no longer a constraint on corporate strategy. Government can fund transfers from AI-generated rents, but this doesn't make up for what once made firms cultivate human skill, offer tolerable terms, and bargain with workers.
 
@@ -67,7 +67,7 @@ On top of these structural facts sits a layer of intentional steering — boycot
 4. **Voice and bargaining.** What gives humans leverage over firms that do not need their labor: works councils with data rights, sectoral boards, citizen assemblies over AI-rent use, union representation over deployment decisions, or ownership votes through public capital pools?
 5. **Arbitrage and capture.** If firms can move model deployment, compute, or profits across borders, what keeps the obligation binding: destination-based taxation, compute licensing, treaty-linked market access, public auditability, constitutional entrenchment, or coordinated sanctions?
 
-### Keeping Consumer Welfare Powerful Amid Non-Consumer Market Pull
+### Keeping Consumer Welfare Powerful as Non-Consumer Markets Grow
 
 **Scenario.** Over a decade, the largest sources of market activity in several advanced economies shift further toward financial trading, corporate procurement, datacenter construction, defense contracting, infrastructure races, and autonomous corporate projects. Household consumption shrinks as a percentage: capital markets reward firms for serving machine-speed procurement, speculative asset flows, and long-horizon corporate projects. A coastal province must decide whether to permit a launch-fuel, compute, and materials complex for an autonomous orbital-mining consortium whose agents are buying electricity, water rights, cryogenic fuel capacity, chips, rare alloys, and port access for a twenty-year off-planet infrastructure project. The project is profitable and legally compliant, but does not need them as workers and is not trying to sell them consumer goods.
 
@@ -81,16 +81,17 @@ On top of these structural facts sits a layer of intentional steering — boycot
 3. **Scope of non-consumer pull.** Which channels are governed: financial speculation, corporate procurement, AI and datacenter capex, defense purchasing, infrastructure megaprojects?
 4. **Representation and veto.** Who speaks for affected households when the project does not need them as workers or buyers: local assemblies, consumer regulators, public-interest trustees, sectoral boards, courts, or citizen capital funds with voting rights?
 
-<!--
 ### Fiduciary Consumer Agency in Agent-Mediated Markets
 
 **Scenario.** In a large retail platform, most households no longer search, compare, and buy directly. Their assistant agents manage subscriptions, groceries, travel, insurance, media, and health purchases. The agents save time and often get better prices, but the platform earns vendor access fees, ranks offers through opaque recommender systems, and periodically nudges households toward bundles that maximize retention. Users still click "approve," but they no longer see enough alternatives, friction, or consequences to learn from the market in the old way. Consumer protection agencies can punish false claims after the fact, but the purchase decision itself has moved into delegated software.
 
-**Challenge:** Design a consumer-agency regime for buyer-side agents that preserves the useful functions of discretionary spending: preference transmission, learning from experience, exit, complaint, and collective pressure. A better proposal should let agents genuinely reduce search and transaction costs without turning household demand into a sales channel for platforms, vendors, or stale proxy objectives. Produce a rulebook for covered buyer-side agents: fiduciary duty, incentive disclosure, preference-updating process, audit rights, remedies, and a standard test transaction that shows how the rules change an actual purchase.
+**Challenge:** Design a consumer-agency regime for buyer-side agents that preserves the useful functions of discretionary spending: preference transmission, learning from experience, exit, complaint, and collective pressure. The team should produce a rulebook for covered buyer-side agents: fiduciary duty, incentive disclosure, preference-updating process, audit rights, remedies, and a standard test transaction that shows how the rules change an actual purchase.
+
+**Evaluation.** A strong proposal lets agents genuinely reduce search and transaction costs without turning household demand into a sales channel for platforms, vendors, or stale proxy objectives.
 
 **Design choices the team must take a position on.**
 1. **Fiduciary duty or disclosure.** Should buyer-side agents owe a substantive duty to the user's durable preferences, merely disclose commissions and ranking criteria, or operate under a stricter no-conflict rule in sensitive categories like healthcare, housing, education, and finance?
 2. **Preference source.** How does the agent know what to optimize: revealed behavior, periodic structured elicitation, user-stated constraints, outcome-based satisfaction checks, household budgets, or a layered model that separates convenience preferences from life-shaping preferences?
 3. **Learning and revision.** What procedure lets humans learn from consequences and revise future choices when the agent shields them from the market: periodic review sessions, forced comparison moments, explanation of rejected alternatives, regret reporting, or independent preference audits?
 4. **Platform incentives.** Are vendor access fees, ranking payments, bundling deals, and platform retention targets prohibited, capped, disclosed, firewalled, or permitted only when the buyer agent can prove they did not affect the recommendation?
-5. **Collective pressure.** How do boycotts, complaints, product safety campaigns, and consumer organizing work when purchases are delegated: shared refusal lists, certified ethical constraints, agent-readable consumer rules, class-action triggers, or public registries of conflicted recommendations? -->
+5. **Collective pressure.** How do boycotts, complaints, product safety campaigns, and consumer organizing work when purchases are delegated: shared refusal lists, certified ethical constraints, agent-readable consumer rules, class-action triggers, or public registries of conflicted recommendations?

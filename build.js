@@ -448,6 +448,95 @@ ${content}
 </html>`;
 }
 
+// ── Generate curriculum/index.html ─────────────────────────────────
+
+function generateCurriculumPage() {
+  const raw = fs.readFileSync(path.join(__dirname, 'data', 'curriculum.md'), 'utf8');
+
+  // Strip YAML frontmatter
+  let md = raw;
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+  let frontmatter = {};
+  if (fmMatch) {
+    try { frontmatter = yaml.load(fmMatch[1]) || {}; } catch (e) { /* */ }
+    md = raw.slice(fmMatch[0].length);
+  }
+
+  const title = frontmatter.title || 'Curriculum';
+  const subtitle = frontmatter.subtitle || '';
+
+  // Strip the H1 (already rendered as .curr-page-title from frontmatter)
+  md = md.replace(/^# .+$/m, '').trim();
+
+  // Split on H2 to create field sections
+  const parts = md.split(/(?=^## )/m);
+  const intro = parts[0]; // everything before the first H2
+  const fields = parts.slice(1);
+
+  let bodyHtml = marked.parse(processEditorial(intro));
+
+  // Build a table of contents
+  const tocEntries = [];
+  for (const field of fields) {
+    const h2Match = field.match(/^## (.+)$/m);
+    if (h2Match) {
+      const name = h2Match[1].trim();
+      const id = name.toLowerCase()
+        .replace(/[^a-z0-9\s]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+      tocEntries.push({ name, id });
+    }
+  }
+
+  if (tocEntries.length > 0) {
+    bodyHtml += '<nav class="curr-toc" aria-label="Fields">\n';
+    for (const entry of tocEntries) {
+      bodyHtml += `  <a href="#${entry.id}" class="curr-toc-link">${esc(entry.name)}</a>\n`;
+    }
+    bodyHtml += '</nav>\n';
+  }
+
+  // Render each field section
+  for (let i = 0; i < fields.length; i++) {
+    const field = fields[i];
+    const h2Match = field.match(/^## (.+)$/m);
+    const name = h2Match ? h2Match[1].trim() : '';
+    const id = tocEntries[i]?.id || '';
+
+    const fieldClean = field.replace(/\n---\s*$/m, '').trim();
+    bodyHtml += `<section class="curr-field" id="${id}">\n`;
+    bodyHtml += marked.parse(processEditorial(fieldClean));
+    bodyHtml += '</section>\n';
+  }
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(title)} — Institutions</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div id="curriculum-view" style="display:block;width:100%;max-width:740px;">
+<a href="../" class="detail-back">&larr; Back to grid</a>
+<div class="curr-page-title">${esc(title)}</div>
+<div class="curr-page-subtitle">${esc(subtitle)}</div>
+${bodyHtml}
+</div>
+
+<footer class="site-footer">
+  Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
+</footer>
+
+</body>
+</html>`;
+}
+
 // ── Main ───────────────────────────────────────────────────────────
 
 const methods = loadMethods();
@@ -484,3 +573,11 @@ fs.writeFileSync(
   generateProblemSetsPage(allCells)
 );
 console.log('Generated problem-sets/index.html');
+
+// Curriculum
+fs.mkdirSync(path.join(__dirname, 'curriculum'), { recursive: true });
+fs.writeFileSync(
+  path.join(__dirname, 'curriculum', 'index.html'),
+  generateCurriculumPage()
+);
+console.log('Generated curriculum/index.html');

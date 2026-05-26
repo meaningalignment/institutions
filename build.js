@@ -473,7 +473,7 @@ function generateCurriculumPage() {
   const intro = parts[0]; // everything before the first H2
   const fields = parts.slice(1);
 
-  let bodyHtml = marked.parse(processEditorial(intro));
+  const introHtml = marked.parse(processEditorial(intro));
 
   // Build a table of contents
   const tocEntries = [];
@@ -490,25 +490,50 @@ function generateCurriculumPage() {
     }
   }
 
+  // Mobile/top TOC (chips)
+  let tocHtml = '';
   if (tocEntries.length > 0) {
-    bodyHtml += '<nav class="curr-toc" aria-label="Fields">\n';
+    tocHtml += '<nav class="curr-toc" aria-label="Fields">\n';
     for (const entry of tocEntries) {
-      bodyHtml += `  <a href="#${entry.id}" class="curr-toc-link">${esc(entry.name)}</a>\n`;
+      tocHtml += `  <a href="#${entry.id}" class="curr-toc-link">${esc(entry.name)}</a>\n`;
     }
-    bodyHtml += '</nav>\n';
+    tocHtml += '</nav>\n';
   }
 
-  // Render each field section
+  // Desktop sidebar nav
+  let sidebarHtml = '';
+  if (tocEntries.length > 0) {
+    sidebarHtml += '<aside class="curr-sidebar" aria-label="Curriculum sections">\n';
+    sidebarHtml += '  <div class="curr-sidebar-title">Sections</div>\n';
+    sidebarHtml += '  <ul class="curr-sidebar-list">\n';
+    for (const entry of tocEntries) {
+      sidebarHtml += `    <li><a href="#${entry.id}" class="curr-sidebar-link" data-target="${entry.id}">${esc(entry.name)}</a></li>\n`;
+    }
+    sidebarHtml += '  </ul>\n';
+    sidebarHtml += '</aside>\n';
+  }
+
+  // Render each field section with a collapsible header
+  let sectionsHtml = '';
   for (let i = 0; i < fields.length; i++) {
     const field = fields[i];
     const h2Match = field.match(/^## (.+)$/m);
     const name = h2Match ? h2Match[1].trim() : '';
     const id = tocEntries[i]?.id || '';
 
-    const fieldClean = field.replace(/\n---\s*$/m, '').trim();
-    bodyHtml += `<section class="curr-field" id="${id}">\n`;
-    bodyHtml += marked.parse(processEditorial(fieldClean));
-    bodyHtml += '</section>\n';
+    // Strip the H2 from the field body so we can render our own collapsible header
+    const fieldClean = field.replace(/^## .+$/m, '').replace(/\n---\s*$/m, '').trim();
+    let inner = marked.parse(processEditorial(fieldClean));
+    // Tag the "Key concepts" UL so we can render it in two columns on desktop
+    inner = inner.replace(
+      /(<h3[^>]*>\s*Key concepts\s*<\/h3>\s*)<ul>/gi,
+      '$1<ul class="curr-key-concepts">'
+    );
+
+    sectionsHtml += `<details open class="curr-field" id="${id}">\n`;
+    sectionsHtml += `  <summary class="curr-field-summary"><h2 class="curr-field-name">${esc(name)}</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>\n`;
+    sectionsHtml += `  <div class="curr-field-body">\n${inner}\n  </div>\n`;
+    sectionsHtml += '</details>\n';
   }
 
   return `<!DOCTYPE html>
@@ -522,16 +547,49 @@ function generateCurriculumPage() {
 </head>
 <body>
 
-<div id="curriculum-view" style="display:block;width:100%;max-width:740px;">
+<div id="curriculum-view" class="curr-layout">
+${sidebarHtml}
+<div class="curr-main">
 <a href="../" class="detail-back">&larr; Back to grid</a>
 <div class="curr-page-title">${esc(title)}</div>
 <div class="curr-page-subtitle">${esc(subtitle)}</div>
-${bodyHtml}
+${introHtml}
+${tocHtml}
+${sectionsHtml}
+</div>
 </div>
 
 <footer class="site-footer">
   Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
+
+<script>
+(function () {
+  // Scrollspy: highlight sidebar link for the section in view
+  var links = document.querySelectorAll('.curr-sidebar-link');
+  if (links.length && 'IntersectionObserver' in window) {
+    var byId = {};
+    links.forEach(function (a) { byId[a.dataset.target] = a; });
+    var visible = new Set();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) visible.add(e.target.id);
+        else visible.delete(e.target.id);
+      });
+      // Pick the topmost visible section
+      var sections = Array.from(document.querySelectorAll('.curr-field'));
+      var current = null;
+      for (var i = 0; i < sections.length; i++) {
+        if (visible.has(sections[i].id)) { current = sections[i].id; break; }
+      }
+      links.forEach(function (a) {
+        a.classList.toggle('is-active', a.dataset.target === current);
+      });
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+    document.querySelectorAll('.curr-field').forEach(function (s) { io.observe(s); });
+  }
+})();
+</script>
 
 </body>
 </html>`;

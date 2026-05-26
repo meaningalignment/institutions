@@ -5,17 +5,17 @@ subtitle: A reading list for researchers working on institutions for a world wit
 
 # Curriculum
 
-This curriculum is for researchers — from social science, ML, or adjacent fields — who want to get up to speed on the disciplines that matter for designing institutions in a world with autonomous AI agents.
+This curriculum is for researchers who want to get up to speed on disciplines that matter for designing institutions in a world with autonomous AI agents.
 
-Each field section gives you an opinionated selection of the subfield we think is most relevant — not a survey of the discipline, but the slice that bears on institutional design for a world with powerful AI. For each, we provide core readings you should actually read, foundational works for going deeper, key concepts to internalize, and the thinkers whose work you'll keep encountering.
+The goal of this curriculum is not to be comprehensive, but to help you understand, for each field, why it matters and how to start communicating in its language and grammar.
 
-The goal is not comprehensive coverage. It's fluency — enough to see why a field matters for the institutional challenges ahead, and to communicate in its language.
+Note that we have not selected the most representative or famous works, but works that are accessible and highly relevant in our opinion.
 
 ---
 
-## General — The Big Picture
+## The Big Picture
 
-The mechanisms humans built to coordinate — norms, laws, markets, constitutions — assume human-scale agency, human-speed action, and human legibility. AGI breaks these assumptions. This section frames the specific institutional challenge: not "how do we align one model" but "what institutional infrastructure does a world with many powerful autonomous agents require, and what can we learn from the institutional infrastructure humans have already built?"
+What are the drivers of societal change? What's the relationship between institutions, culture and technology? 
 
 ### Core readings
 
@@ -32,22 +32,19 @@ The mechanisms humans built to coordinate — norms, laws, markets, constitution
 
 ### Key concepts
 
-- Institutions vs. organizations
-- Path dependence
-- Collective action problems
-- Credible commitment
+- Institutions
 - Social imaginaries
-- Institutional complementarity
+- Culture
 
 ### Key thinkers
 
-Douglass North, Elinor Ostrom, Daron Acemoglu, Charles Taylor, Deirdre McCloskey, Geoffrey Hodgson
+Douglass North, Elinor Ostrom, Daron Acemoglu, Charles Taylor, Deirdre McCloskey, Joel Mokyr
 
 ---
 
 ## AI Alignment
 
-Alignment research has produced mechanisms — RLHF, constitutional AI, scalable oversight — that are institutional designs in embryo. Understanding what alignment can and can't guarantee clarifies the gap that broader institutional design must fill: not "align one model" but "govern a world where many aligned-enough agents interact."
+AI will be deeply integrated in our future institutions. It's important to understand how these systems are trained to follow our instructions and intentions, and embody our values.
 
 ### Core readings
 
@@ -76,17 +73,16 @@ Alignment research has produced mechanisms — RLHF, constitutional AI, scalable
 - Reward hacking and Goodhart's law
 - Specification gaming
 - Model evaluations and red teaming
-- Incomplete contracting as alignment frame
 
 ### Key thinkers
 
-Paul Christiano, Jan Leike, Iason Gabriel, Dario Amodei, Stuart Russell, Evan Hubinger
+Paul Christiano, Jan Leike, Dario Amodei, Iason Gabriel, Stuart Russell, Evan Hubinger
 
 ---
 
-## Philosophy of Values
+## Philosophy of Values, Choice & Contractualism
 
-What values are, how they guide action, and why this matters for institutions that need to track and respond to them. This isn't political philosophy (that's next) — it's the prior question: what makes something a value, how do agents relate to their values, what is the structure of normativity, and what goes wrong when institutions flatten or ignore the structure of human valuing?
+Values is colloquially used to mean what's important to us. But what are values, exactly? How have values been encoded in and understood by our institutions before? Do AI give us new affordances to more deeply understand and model what's important to us?
 
 ### Core readings
 
@@ -122,7 +118,7 @@ Alasdair MacIntyre, Charles Taylor, T.M. Scanlon, Bernard Williams, David Vellem
 
 ## Microeconomics
 
-The field begins with Adam Smith's insight that self-interested exchange can produce public benefit, formalized through the marginal revolution into the edifice of price theory. Revealed preference theory then collapsed values into observed choices — shaping marketing, policy, and eventually the dominant approach to AI alignment. Institutional economics (Coase, Williamson, Ostrom) asked what happens when transaction costs, information gaps, and incomplete contracts mean markets can't do the job. With AGI, the failure landscape shifts again: labor's share of income, the nature of the firm, and what markets can even see are all in play.
+How do individual actors make choices under constraints, and how do their interactions add up to prices, firms, and allocations? What keeps markets tied to human wellbeing — and what happens when many of the actors are autonomous agents?
 
 ### Core readings
 
@@ -145,20 +141,19 @@ The field begins with Adam Smith's insight that self-interested exchange can pro
 ### Key concepts
 
 - Supply and demand
+- Elasticity
+- Transaction costs
 - Marginal utility
 - Revealed preference theory
-- Transaction costs
+- Rational Choice Theory
 - Information asymmetry
 - Moral hazard
 - Adverse selection
 - Externalities
-- Public goods
 - Contract incompleteness
 - Labor/capital share
 - Baumol's cost disease
 - Capabilities approach
-- Property rights
-- Returns to scale
 
 ### Key thinkers
 
@@ -168,7 +163,7 @@ Adam Smith, Ronald Coase, Friedrich Hayek, Oliver Williamson, Amartya Sen, Elino
 
 ## Political Theory
 
-How power is constituted, constrained, distributed, and made accountable. The design of governance itself — from the ancient question of who should rule to modern polycentric systems where authority is distributed and overlapping. AGI raises all of these questions again: who governs autonomous agents, how is that authority legitimated, what counts as rational public discourse about it, and what recourse exists when it fails?
+How is power constituted, constrained, and held accountable? What makes authority legitimate, and what recourse do people have when it fails?
 
 ### Core readings
 
@@ -207,7 +202,7 @@ John Rawls, Elinor Ostrom, Albert Hirschman, Jürgen Habermas, Robert Dahl, Jame
 
 ## Legal Theory
 
-How rules are made, interpreted, enforced, and contested. Law is the most developed technology humans have for governing behavior through explicit rules — and the American legal system in particular is an institutional design worth understanding in detail: how statutes, regulation, common law, and constitutional review interact, where the seams are, and why "rule of law" is harder than it sounds. The question of what all this means when agents are autonomous and rules are encoded in software is genuinely open.
+How are rules made, interpreted, enforced, and contested? Law is our most developed technology for governing behavior through explicit rules. What happens to it when many of the actors are autonomous AI agents?
 
 ### Core readings
 
@@ -224,16 +219,17 @@ How rules are made, interpreted, enforced, and contested. Law is the most develo
 
 ### Key concepts
 
+- Legal positivism vs. natural law
+- Legal validity and the rule of recognition
+- Common-law reasoning, case law
 - Primary vs. secondary rules
-- Inner morality of law
-- Rule of law
-- Adjudication
-- Due process
+- The inner morality of law (Fuller's procedural desiderata)
+- The rule of law
+- Adjudication, judicial discretion, and the hard-cases problem
+- Legal interpretation (textualism, purposivism, originalism)
 - Precedent and stare decisis
-- Statutory vs. common law
-- Judicial review
-- Regulatory design
-- Lex informatica
+- Judicial review and the countermajoritarian difficulty
+- Delegation and interpretive authority (who resolves rule ambiguity)
 
 ### Key thinkers
 
@@ -243,11 +239,10 @@ H.L.A. Hart, Lon Fuller, Lawrence Lessig, Gillian Hadfield, Cass Sunstein, Scott
 
 ## Game Theory, Mechanism Design & Social Choice
 
-The mathematical backbone: how strategic agents interact, how to design rules so self-interested behavior produces good outcomes, and why every system for aggregating preferences has tradeoffs. These three fields share formal foundations but ask different questions — game theory asks "what happens?", mechanism design asks "what rules would make good things happen?", and social choice asks "can we even define 'good' coherently for a group?"
+What happens when strategic agents interact? Can we design rules so that self-interested behavior produces good outcomes? And can we even define "good" coherently for a group? These three fields share formal foundations and become unavoidable once the strategic agents include AI.
 
 ### Core readings
 
-- John von Neumann & Oskar Morgenstern — *Theory of Games and Economic Behavior* (1944), ch. 1–3
 - Robert Axelrod — *The Evolution of Cooperation* (1984)
 - Thomas Schelling — *The Strategy of Conflict* (1960), ch. 3 (focal points)
 - Roger Myerson — Mechanism Design (2008 Nobel lecture)
@@ -256,9 +251,9 @@ The mathematical backbone: how strategic agents interact, how to design rules so
 
 ### Foundational works
 
+- John von Neumann & Oskar Morgenstern — *Theory of Games and Economic Behavior* (1944)
 - Robert Aumann — Agreeing to Disagree (1976)
 - William Vickrey — Counterspeculation, Auctions, and Competitive Sealed Tenders (1961)
-- Vitalik Buterin, Zoë Hitzig & Glen Weyl — A Flexible Design for Funding Public Goods (2019)
 - Amartya Sen — The Impossibility of a Paretian Liberal (1970)
 
 ### Key concepts

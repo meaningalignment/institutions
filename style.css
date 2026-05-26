@@ -1005,6 +1005,111 @@ tr.methods-row th.row-header {
 
 /* ── Curriculum page ──────────────────────────────────────────────── */
 
+.curr-layout {
+  display: block;
+  width: 100%;
+  max-width: 740px;
+}
+
+.curr-main {
+  min-width: 0;
+}
+
+.curr-sidebar { display: none; }
+
+@media (min-width: 960px) {
+  .curr-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 740px);
+    gap: 48px;
+    max-width: 1040px;
+    align-items: start;
+  }
+  .curr-sidebar {
+    display: block;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding-right: 8px;
+    font-size: 13px;
+  }
+  .curr-sidebar-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #8a8378;
+    margin-bottom: 10px;
+  }
+  .curr-sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-left: 1px solid #e6e1d8;
+  }
+  .curr-sidebar-list li { margin: 0; }
+  .curr-sidebar-link {
+    display: block;
+    padding: 6px 12px;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    color: #6b5e4f;
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .curr-sidebar-link:hover {
+    color: #2d2a26;
+    background: #f5f2ed;
+  }
+  .curr-sidebar-link.is-active {
+    color: #2d2a26;
+    border-left-color: #2d2a26;
+    font-weight: 500;
+  }
+  /* Top chip TOC redundant on desktop */
+  .curr-layout .curr-toc { display: none; }
+}
+
+details.curr-field { margin: 0 0 24px 0; }
+details.curr-field[open] { margin-bottom: 40px; }
+details.curr-field > summary.curr-field-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+}
+details.curr-field > summary.curr-field-summary::-webkit-details-marker { display: none; }
+details.curr-field > summary.curr-field-summary > .curr-field-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid #b5b0a8;
+  border-bottom: 1.5px solid #b5b0a8;
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+details.curr-field[open] > summary.curr-field-summary > .curr-field-chevron {
+  transform: rotate(45deg);
+}
+details.curr-field > summary.curr-field-summary > h2.curr-field-name {
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #2d2a26;
+  line-height: 1.2;
+}
+details.curr-field > .curr-field-body { margin-top: 12px; }
+
 .curr-page-title {
   font-family: 'DM Serif Display', serif;
   font-size: 36px;
@@ -1021,17 +1126,15 @@ tr.methods-row th.row-header {
   font-style: italic;
 }
 
-#curriculum-view > p {
+.curr-main > p {
   font-size: 15px;
   line-height: 1.7;
   color: #3d3a36;
   margin-bottom: 14px;
 }
 
-#curriculum-view > hr {
-  border: none;
-  border-top: 1px solid #e6e1d8;
-  margin: 32px 0;
+.curr-main > hr {
+  display: none;
 }
 
 .curr-toc {
@@ -1059,14 +1162,27 @@ tr.methods-row th.row-header {
 }
 
 .curr-field {
-  margin-bottom: 48px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid #e6e1d8;
+  margin-bottom: 40px;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .curr-field:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.curr-field-body > hr {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .curr-key-concepts {
+    column-count: 2;
+    column-gap: 32px;
+  }
+  .curr-key-concepts li {
+    break-inside: avoid;
+  }
 }
 
 .curr-field h2 {

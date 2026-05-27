@@ -1,21 +1,39 @@
 ---
-title: Curriculum
+
+## title: Curriculum
 subtitle: A reading list for researchers working on institutions for a world with powerful AI
----
 
 # Curriculum
 
-This curriculum is for researchers who want to get up to speed on disciplines that matter for designing institutions in a world with autonomous AI agents.
+*A reading list for researchers working on institutions for a world with powerful AI*
 
-The goal of this curriculum is not to be comprehensive, but to help you understand, for each field, why it matters and how to start communicating in its language and grammar.
+This curriculum collects the work we think is most useful for designing institutions for a world of powerful AI.
 
-Note that we have not selected the most representative or famous works, but works that are accessible and highly relevant in our opinion.
+**Who is it for?**
+
+Two groups. The first is researchers already working on these problems who want an 80/20 of an adjacent field — a fast read on what it covers and which work matters there.
+
+The second is people from a technical background interested in AI and society but not yet sure how to contribute, or how much relevant work already exists. If that's you, this should show why these problems are real and that fields well outside your own have a lot to say about them.
+
+**What's in it, and what isn't?**
+
+It is not comprehensive, and the pieces are not always a field's most famous or most representative. We picked work that is accessible and, in our judgment, directly relevant to the problems we face. Reading it should give you a sense of why each field matters, and enough of its vocabulary to start talking to the people who work in it.
+
+**How is it structured?**
+
+Eight fields, from the big picture down through AI alignment, philosophy of values, microeconomics, political theory, legal theory, game theory and mechanism design, and social choice. Each field opens with a question or two it answers, then lists core readings, foundational works for going deeper, key concepts, and key thinkers.
+
+**How should I use it?**
+
+The fields are independent; read them in any order. The core readings are the part to actually sit down with — and once you've done them, the key concepts are a good way to check whether a field has really landed.
 
 ---
 
 ## The Big Picture
 
-What are the drivers of societal change? What's the relationship between institutions, culture and technology? 
+What are the drivers of societal change? What's the relationship between institutions, culture and technology?
+
+*Core readings: ~3–5 hours.*
 
 ### Core readings
 
@@ -46,15 +64,15 @@ Douglass North, Elinor Ostrom, Daron Acemoglu, Charles Taylor, Deirdre McCloskey
 
 AI will be deeply integrated in our future institutions. It's important to understand how these systems are trained to follow our instructions and intentions, and embody our values.
 
+*Core readings: ~6–9 hours.*
+
 ### Core readings
 
 - Iason Gabriel — [Artificial Intelligence, Values, and Alignment](https://arxiv.org/abs/2001.09768) (2020)
 - Yuntao Bai et al. — Constitutional AI: Harmlessness from AI Feedback (2022)
 - Paul Christiano et al. — Deep Reinforcement Learning from Human Feedback (2017)
-- Jan Leike et al. — [Full-Stack Alignment](https://arxiv.org/abs/2512.03399) (2024)
-- Anthropic — [Claude's Character](https://www.anthropic.com/research/claude-character) (2024)
+- Edelman et al. — [Full-Stack Alignment](https://arxiv.org/abs/2512.03399) (2025)
 - Anthropic — Claude's Constitution (2025)
-- Dylan Hadfield-Menell & Gillian Hadfield — [Incomplete Contracting and AI Alignment](https://arxiv.org/abs/1804.04268) (2018)
 
 ### Foundational works
 
@@ -80,17 +98,19 @@ Paul Christiano, Jan Leike, Dario Amodei, Iason Gabriel, Stuart Russell, Evan Hu
 
 ---
 
-## Philosophy of Values, Choice & Contractualism
+## Philosophy of Values
 
 Values is colloquially used to mean what's important to us. But what are values, exactly? How have values been encoded in and understood by our institutions before? Do AI give us new affordances to more deeply understand and model what's important to us?
+
+*Core readings: ~8–12 hours.*
 
 ### Core readings
 
 - Alasdair MacIntyre — *After Virtue* (1981), ch. 14–15 (practices, virtues, and their relation)
 - Charles Taylor — What is Human Agency? (1977)
-- David Velleman — *The Possibility of Practical Reason* (2000)
+- David Velleman — *The Possibility of Practical Reason* (2000), ch. 1 (the title essay)
 - T.M. Scanlon — *What We Owe to Each Other* (1998), ch. 1–2
-- Philippa Foot — *Natural Goodness* (2001)
+- Philippa Foot — *Natural Goodness* (2001), ch. 1–3 (natural normativity)
 - Tan Zhi-Xuan et al. — [Beyond Preferences in AI Alignment](https://arxiv.org/abs/2408.16984) (2024)
 
 ### Foundational works
@@ -118,7 +138,9 @@ Alasdair MacIntyre, Charles Taylor, T.M. Scanlon, Bernard Williams, David Vellem
 
 ## Microeconomics
 
-How do individual actors make choices under constraints, and how do their interactions add up to prices, firms, and allocations? What keeps markets tied to human wellbeing — and what happens when many of the actors are autonomous agents?
+How do individual actors make choices under constraints, and how do their interactions add up to prices, firms, and allocations?
+
+*Core readings: ~8–11 hours.*
 
 ### Core readings
 
@@ -140,9 +162,9 @@ How do individual actors make choices under constraints, and how do their intera
 
 ### Key concepts
 
+- Transaction costs
 - Supply and demand
 - Elasticity
-- Transaction costs
 - Marginal utility
 - Revealed preference theory
 - Rational Choice Theory
@@ -151,9 +173,9 @@ How do individual actors make choices under constraints, and how do their intera
 - Adverse selection
 - Externalities
 - Contract incompleteness
-- Labor/capital share
 - Baumol's cost disease
 - Capabilities approach
+- Labor/capital share
 
 ### Key thinkers
 
@@ -165,17 +187,19 @@ Adam Smith, Ronald Coase, Friedrich Hayek, Oliver Williamson, Amartya Sen, Elino
 
 How is power constituted, constrained, and held accountable? What makes authority legitimate, and what recourse do people have when it fails?
 
+*Core readings: ~8–12 hours.*
+
 ### Core readings
 
 - John Rawls — *A Theory of Justice* (1971), ch. 1–3 (original position, veil of ignorance)
 - Alexander Hamilton & James Madison — Federalist Papers No. 10 and No. 51
 - Elinor Ostrom — Beyond Markets and States (2010 Nobel lecture)
-- Albert Hirschman — *Exit, Voice, and Loyalty* (1970)
-- Jürgen Habermas — *Between Facts and Norms* (1992)
+- Albert Hirschman — *Exit, Voice, and Loyalty* (1970), ch. 1–4 (the framework)
+- Jürgen Habermas — *Between Facts and Norms* (1992), ch. 7–8 (deliberative politics)
 
 ### Foundational works
 
-- Aristotle — *Politics*, Books I and III
+- Aristotle — *Politics*
 - Elinor Ostrom — *Governing the Commons* (1990)
 - Robert Dahl — *Democracy and Its Critics* (1989)
 - John Dryzek — *Deliberative Democracy and Beyond* (2000)
@@ -185,6 +209,7 @@ How is power constituted, constrained, and held accountable? What makes authorit
 - Social contract
 - Veil of ignorance
 - Separation of powers
+- Reflective Equilibrium
 - Polycentricity
 - Subsidiarity
 - Exit, voice, loyalty
@@ -192,7 +217,6 @@ How is power constituted, constrained, and held accountable? What makes authorit
 - Accountability
 - Discourse ethics
 - Communicative rationality
-- Deliberative democracy
 
 ### Key thinkers
 
@@ -204,13 +228,15 @@ John Rawls, Elinor Ostrom, Albert Hirschman, Jürgen Habermas, Robert Dahl, Jame
 
 How are rules made, interpreted, enforced, and contested? Law is our most developed technology for governing behavior through explicit rules. What happens to it when many of the actors are autonomous AI agents?
 
+*Core readings: ~6–9 hours.*
+
 ### Core readings
 
 - H.L.A. Hart — *The Concept of Law* (1961), ch. 5–6 (primary and secondary rules)
 - Lon Fuller — *The Morality of Law* (1964), ch. 2 (the inner morality of law)
 - Gillian Hadfield & Barry Weingast — [Microfoundations of the Rule of Law](http://pscourses.ucsd.edu/ps200b/Hadfield%20Weingast%20Microfoundations%20of%20rule%20of%20law.pdf) (2014)
 - Lawrence Lessig — Code is Law (1999)
-- Gillian Hadfield — *Rules for a Flat World* (2017)
+- Gillian Hadfield — *Rules for a Flat World* (2017), ch. 1–2 (the legal infrastructure gap)
 
 ### Foundational works
 
@@ -237,24 +263,24 @@ H.L.A. Hart, Lon Fuller, Lawrence Lessig, Gillian Hadfield, Cass Sunstein, Scott
 
 ---
 
-## Game Theory, Mechanism Design & Social Choice
+## Game Theory & Mechanism Design
 
-What happens when strategic agents interact? Can we design rules so that self-interested behavior produces good outcomes? And can we even define "good" coherently for a group? These three fields share formal foundations and become unavoidable once the strategic agents include AI.
+What happens when strategic agents interact, and can we design the rules of interaction so that self-interested behavior produces good outcomes? Game theory describes what people do; mechanism design works backwards from what we want them to do. Both become unavoidable once the strategic agents include AI.
+
+*Core readings: ~6–8 hours.*
 
 ### Core readings
 
-- Robert Axelrod — *The Evolution of Cooperation* (1984)
+- Robert Axelrod — *The Evolution of Cooperation* (1984), ch. 1–4 (the tournament and its lessons)
 - Thomas Schelling — *The Strategy of Conflict* (1960), ch. 3 (focal points)
 - Roger Myerson — Mechanism Design (2008 Nobel lecture)
 - Alvin Roth — The Economist as Engineer (2002)
-- Kenneth Arrow — *Social Choice and Individual Values* (1951)
 
 ### Foundational works
 
-- John von Neumann & Oskar Morgenstern — *Theory of Games and Economic Behavior* (1944)
+- John von Neumann & Oskar Morgenstern — *Theory of Games and Economic Behavior* (1944), ch. 1–3
 - Robert Aumann — Agreeing to Disagree (1976)
 - William Vickrey — Counterspeculation, Auctions, and Competitive Sealed Tenders (1961)
-- Amartya Sen — The Impossibility of a Paretian Liberal (1970)
 
 ### Key concepts
 
@@ -265,11 +291,42 @@ What happens when strategic agents interact? Can we design rules so that self-in
 - Incentive compatibility
 - Revelation principle
 - VCG mechanisms
-- Arrow's impossibility theorem
-- Strategy-proofness
-- Quadratic voting and funding
 - Matching markets
+- Auction design
 
 ### Key thinkers
 
-John von Neumann, John Nash, Thomas Schelling, Robert Axelrod, Roger Myerson, Alvin Roth, Kenneth Arrow, Amartya Sen, Glen Weyl
+John von Neumann, John Nash, Thomas Schelling, Robert Axelrod, Roger Myerson, Alvin Roth, William Vickrey
+
+---
+
+## Social Choice
+
+Can we even define "what the group wants" coherently? Social choice studies how individual preferences can — or can't — be aggregated into collective decisions, and which design choices about voting, deliberation, and elicitation are forced on us by impossibility results.
+
+*Core readings: ~4–6 hours.*
+
+### Core readings
+
+- Kenneth Arrow — *Social Choice and Individual Values* (1951), ch. 1–3 (the impossibility theorem)
+- Amartya Sen — The Impossibility of a Paretian Liberal (1970)
+- Vitalik Buterin, Zoë Hitzig & Glen Weyl — A Flexible Design for Funding Public Goods (2019)
+- Tan Zhi-Xuan et al. — [Beyond Preferences in AI Alignment](https://arxiv.org/abs/2408.16984) (2024)
+
+### Foundational works
+
+- Felix Brandt, Vincent Conitzer, Ulle Endriss, Jérôme Lang & Ariel Procaccia — *Handbook of Computational Social Choice* (2016), ch. 1–2
+- Amartya Sen — *Collective Choice and Social Welfare* (1970; expanded ed. 2017)
+
+### Key concepts
+
+- Arrow's impossibility theorem
+- Strategy-proofness
+- Condorcet cycles
+- Quadratic voting and funding
+- Generative social choice
+- Deliberative polling
+
+### Key thinkers
+
+Kenneth Arrow, Amartya Sen, Ariel Procaccia, Glen Weyl, Felix Brandt

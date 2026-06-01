@@ -65,7 +65,7 @@ Alignment is the youngest field here, grown out of machine learning and AI safet
 
 ### Core readings
 
-- Paul Christiano et al. — [Deep Reinforcement Learning from Human Feedback](https://arxiv.org/abs/1706.03741) (2017) — the technique that lets human judgment shape model behavior; the substrate most value-loading in deployed systems runs on.
+- Long Ouyang et al. — [Training Language Models to Follow Instructions with Human Feedback](https://arxiv.org/abs/2203.02155) (2022) — the InstructGPT paper that brought RLHF to language models; the technique that lets human judgment shape model behavior and the substrate most value-loading in deployed systems runs on.
 - Yuntao Bai et al. — [Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/abs/2212.08073) (2022) — training behavior against an explicit written set of principles rather than case-by-case labels; a concrete instance of encoding values as a governing document.
 - Iason Gabriel — [Artificial Intelligence, Values, and Alignment](https://arxiv.org/abs/2001.09768) (2020) — maps "align to what?" (instructions, intentions, preferences, values) and why the target choice is itself a normative, institutional question.
 - Anthropic — [Claude's Constitution](https://www.anthropic.com/news/claudes-constitution) (2025) — read as a worked example of constitutional and character-based training, i.e. what it looks like to specify an agent's standing dispositions, not as a canonical text.
@@ -73,6 +73,7 @@ Alignment is the youngest field here, grown out of machine learning and AI safet
 
 ### Foundational works
 
+- Paul Christiano et al. — [Deep Reinforcement Learning from Human Feedback](https://arxiv.org/abs/1706.03741) (2017) — the original RLHF paper; learning a reward model from human preference comparisons, the substrate InstructGPT later applied to language models.
 - Paul Christiano — What Failure Looks Like (2019)
 - Andrew Critch & David Krueger — AI Research Considerations for Human Existential Safety (2020)
 - Evan Hubinger et al. — Risks from Learned Optimization in Advanced Machine Learning Systems (2019)
@@ -96,9 +97,9 @@ Alignment is the youngest field here, grown out of machine learning and AI safet
 
 ## 3. Philosophy of Values
 
-"Values" colloquially means what is important to us. But what are values, exactly? How have institutions encoded and understood them before, and do AI give us new affordances for modeling what matters?
+"Values" colloquially refers to what is important to us. But what are values, exactly? How have institutions encoded and understood them before, and do AI give us new affordances for modeling what matters?
 
-Within philosophy this sits in ethics and metaethics — the questions of what is good, what we owe each other, and what kind of thing a value even is. For AI, the live question is how a value gets *represented*: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others. Those are different answers from different corners of the field, and which one an institution adopts shapes what it can encode. Language models are able to encode values in thick ways, allowing us to move away from thinking of human wanting in terms of mere preferences.
+Within philosophy this sits in ethics and metaethics. For AI, the live question is how a value gets *represented*: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others. Those are different answers from different corners of the field, and which one an institution adopts shapes what it can encode. Language models are able to encode values in thick ways, allowing us to move away from thinking of human wanting in terms of mere preferences.
 
 *Core readings: ~8–12 hours.*
 
@@ -106,8 +107,8 @@ Within philosophy this sits in ethics and metaethics — the questions of what i
 
 - Tan Zhi-Xuan et al. — [Beyond Preferences in AI Alignment](https://arxiv.org/abs/2408.16984) (2024) — argues preference-utility is too thin to carry what we mean by values; bridge between AI alignment and the philosophy of values.
 - Alasdair MacIntyre — *After Virtue* (1981), ch. 14–15 — values as virtues internal to social practices; explains why values stripped from their practice lose their grip.
-- Charles Taylor — What is Human Agency? (1977) — strong evaluation: some values are not just stronger preferences but frameworks that rank preferences themselves.
-- David Velleman — *The Possibility of Practical Reason* (2000), ch. 1 — values as reasons that can be acted on, not just states to be satisfied.
+- Charles Taylor — What is Human Agency? (1977) — values in terms of motivations for choice.
+- David Velleman — *The Possibility of Practical Reason* (2000), ch. 1 — values as reasons that can be acted on.
 - T.M. Scanlon — *What We Owe to Each Other* (1998), ch. 1–2 — values as what we can justify to others; the contractualist frame for agents whose principals and constraints are what's being reasoned over.
 
 ### Foundational works
@@ -120,7 +121,7 @@ Within philosophy this sits in ethics and metaethics — the questions of what i
 ### Key concepts
 
 - Values as preferences vs. as reasons
-- Values as virtues and character
+- Values as virtues
 - Values as social practices
 - Values as public justification
 - Strong evaluation
@@ -137,19 +138,20 @@ Within philosophy this sits in ethics and metaethics — the questions of what i
 
 Why do markets deliver some goods well and others badly — and what does AI do to that boundary?
 
-Microeconomics is the study of choice under constraint, but the parts that bear on institutions are its less textbook branches: contract theory, information economics, and the welfare and capability critiques that ask what markets fail to capture. The frictions these branches study — transaction costs, information asymmetry, what a contract can and can't specify — are exactly what set the limit on which goods a market can deliver, and they are precisely the frictions AI agents change. The readings take one canonical piece per branch; the two Klingefjord essays are MAI framing pieces that apply these ideas to the goods markets handle worst, not neutral core economics.
+Microeconomics is the study of choice under constraint, but the parts that bear on institutions are its less textbook branches: contract theory, information economics, and the welfare and capability critiques that ask what markets fail to capture. The readings take one canonical piece per branch; the two Klingefjord essays are MAI framing pieces that apply these ideas to the goods markets handle worst, not neutral core economics.
 
 *Core readings: ~8–11 hours.*
 
 ### Core readings
+
+- Oliver Klingefjord — [Coasean Compression](https://meaningalignment.substack.com/p/coasean-compression) (2026) — MAI framing: when a good is hard to specify and verify (connection, belonging), markets sell a cheaper contractible proxy instead of the real thing; how those frictions decide what markets can actually deliver.
+- Oliver Klingefjord — [Baumol's Sawdust](https://meaningalignment.substack.com/p/baumols-sawdust) (2026) — MAI framing: why cheap AI substitutes for relational goods thin the social infrastructure that made the real goods possible, so competition deepens the failure instead of correcting it.
 
 - Ronald Coase — The Nature of the Firm (1937) — firms exist because using the market is costly; the lens for asking which transactions AI agents pull inside an organization versus push back out to the market.
 - Friedrich Hayek — The Use of Knowledge in Society (1945) — prices as a decentralized system for transmitting dispersed knowledge; the benchmark any AI "central planner" claim has to beat.
 - George Akerlof — The Market for "Lemons" (1970) — how information asymmetry can collapse a market entirely; central to agents that can manufacture or detect asymmetry at scale.
 - Oliver Williamson — Transaction Cost Economics: The Governance of Contractual Relations (1979) — when to govern a relationship by contract, hierarchy, or hybrid; a menu of institutional forms for agent relationships.
 - Amartya Sen — Rational Fools (1977) — why revealed preference can't capture commitment and other-regarding reasons; the case against inferring values straight from behavior.
-- Oliver Klingefjord — [Coasean Compression](https://meaningalignment.substack.com/p/coasean-compression) (2026) — MAI framing: when a good is hard to specify and verify (connection, belonging), markets sell a cheaper contractible proxy instead of the real thing; how those frictions decide what markets can actually deliver.
-- Oliver Klingefjord — [Baumol's Sawdust](https://meaningalignment.substack.com/p/baumols-sawdust) (2026) — MAI framing: why cheap AI substitutes for relational goods thin the social infrastructure that made the real goods possible, so competition deepens the failure instead of correcting it.
 
 ### Foundational works
 
@@ -311,8 +313,9 @@ Social choice theory sits at the intersection of economics, political science, a
 
 ### Foundational works
 
-- Felix Brandt, Vincent Conitzer, Ulle Endriss, Jérôme Lang & Ariel Procaccia — *Handbook of Computational Social Choice* (2016), ch. 1–2
 - Amartya Sen — *Collective Choice and Social Welfare* (1970; expanded ed. 2017)
+
+- Felix Brandt, Vincent Conitzer, Ulle Endriss, Jérôme Lang & Ariel Procaccia — *Handbook of Computational Social Choice* (2016), ch. 1–2
 
 ### Key concepts
 

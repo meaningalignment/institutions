@@ -1001,6 +1001,10 @@ tr.methods-row th.row-header {
   .ps-entry { padding: 14px 16px; }
   .ps-entry-header { flex-wrap: wrap; gap: 6px; }
   .ps-entry-title { font-size: 14px; }
+
+  /* Curriculum is a reading page, so it needs more horizontal breathing
+     room than the grid — body drops to 8px so the wide table fits. */
+  #curriculum-view { padding: 0 12px; }
 }
 
 /* ── Curriculum page ──────────────────────────────────────────────── */

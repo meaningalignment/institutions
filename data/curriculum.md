@@ -1,10 +1,4 @@
----
-
-## title: Institutional Design for Powerful AI
-
-subtitle: A reading list for researchers designing the markets, laws, and governance systems a world of AI agents will run on.
-
-# Curriculum
+# AGI Institutions Curriculum
 
 **Who is it for?**
 
@@ -24,7 +18,7 @@ The fields are independent; read them in any order. The key concepts are a good 
 
 ---
 
-## The Big Picture
+## 1. The Big Picture
 
 What are the drivers of societal change? What is the relationship between institutions, culture, and technology?
 
@@ -61,7 +55,7 @@ This is the orienting section: it treats institutions not as abstractions but as
 
 ---
 
-## AI Alignment
+## 2. AI Alignment
 
 AI will be deeply embedded in our future institutions, so it matters how these systems are trained to follow instructions, represent values, and remain correctable.
 
@@ -100,7 +94,7 @@ Alignment is the youngest field here, grown out of machine learning and AI safet
 
 ---
 
-## Philosophy of Values
+## 3. Philosophy of Values
 
 "Values" colloquially means what is important to us. But what are values, exactly? How have institutions encoded and understood them before, and do AI give us new affordances for modeling what matters?
 
@@ -139,7 +133,7 @@ Within philosophy this sits in ethics and metaethics — the questions of what i
 
 ---
 
-## Microeconomics
+## 4. Microeconomics
 
 Why do markets deliver some goods well and others badly — and what does AI do to that boundary?
 
@@ -183,7 +177,7 @@ Microeconomics is the study of choice under constraint, but the parts that bear 
 
 ---
 
-## Political Theory
+## 5. Political Theory
 
 How is power constituted, constrained, and held accountable? What makes authority legitimate, and what recourse do people have when it fails?
 
@@ -223,7 +217,7 @@ Political theory asks how power is constituted, justified, and checked — runni
 
 ---
 
-## Legal Theory
+## 6. Legal Theory
 
 How are rules made, interpreted, enforced, and contested? Law is our most developed technology for governing behavior through explicit rules. What happens to it when many of the actors are autonomous AI agents?
 
@@ -262,7 +256,7 @@ Law quietly assumes a set of conditions: rules are costly to interpret, enforcem
 
 ---
 
-## Game Theory & Mechanism Design
+## 7. Game Theory & Mechanism Design
 
 What happens when strategic agents interact, and can we design the rules of interaction so that self-interested behavior produces good outcomes? Game theory describes what people do; mechanism design works backwards from what we want them to do. Both become unavoidable once the strategic agents include AI.
 
@@ -300,7 +294,7 @@ Game theory grew out of economics and mathematics to model strategic interaction
 
 ---
 
-## Social Choice
+## 8. Social Choice
 
 Can we even define "what the group wants" coherently? Social choice studies how individual preferences can — or can't — be aggregated into collective decisions, and which design choices about voting, deliberation, and elicitation the impossibility results force on us.
 

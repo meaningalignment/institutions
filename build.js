@@ -450,91 +450,59 @@ ${content}
 
 // ── Generate curriculum/index.html ─────────────────────────────────
 
+function slugify(text) {
+  return text.toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 function generateCurriculumPage() {
-  const raw = fs.readFileSync(path.join(__dirname, 'data', 'curriculum.md'), 'utf8');
+  let md = fs.readFileSync(path.join(__dirname, 'data', 'curriculum.md'), 'utf8');
 
-  // Strip YAML frontmatter
-  let md = raw;
-  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
-  let frontmatter = {};
-  if (fmMatch) {
-    try { frontmatter = yaml.load(fmMatch[1]) || {}; } catch (e) { /* */ }
-    md = raw.slice(fmMatch[0].length);
-  }
-
-  const title = frontmatter.title || 'Curriculum';
-  const subtitle = frontmatter.subtitle || '';
-
-  // Strip the H1 (already rendered as .curr-page-title from frontmatter)
+  // The H1 is the page title; pull it out, then split on H2:
+  // everything before the first H2 is the intro; each H2 starts a field.
+  const title = (md.match(/^# (.+)$/m) || [, 'Curriculum'])[1].trim();
   md = md.replace(/^# .+$/m, '').trim();
-
-  // Split on H2 to create field sections
-  const parts = md.split(/(?=^## )/m);
-  const intro = parts[0]; // everything before the first H2
-  const fields = parts.slice(1);
-
+  const [intro, ...rawFields] = md.split(/(?=^## )/m);
   const introHtml = marked.parse(processEditorial(intro));
 
-  // Build a table of contents
-  const tocEntries = [];
-  for (const field of fields) {
-    const h2Match = field.match(/^## (.+)$/m);
-    if (h2Match) {
-      const name = h2Match[1].trim();
-      const id = name.toLowerCase()
-        .replace(/[^a-z0-9\s]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .replace(/^-|-$/g, '');
-      tocEntries.push({ name, id });
-    }
-  }
-
-  // Mobile/top TOC (chips)
-  let tocHtml = '';
-  if (tocEntries.length > 0) {
-    tocHtml += '<nav class="curr-toc" aria-label="Fields">\n';
-    for (const entry of tocEntries) {
-      tocHtml += `  <a href="#${entry.id}" class="curr-toc-link">${esc(entry.name)}</a>\n`;
-    }
-    tocHtml += '</nav>\n';
-  }
-
-  // Desktop sidebar nav
-  let sidebarHtml = '';
-  if (tocEntries.length > 0) {
-    sidebarHtml += '<aside class="curr-sidebar" aria-label="Curriculum sections">\n';
-    sidebarHtml += '  <div class="curr-sidebar-title">Sections</div>\n';
-    sidebarHtml += '  <ul class="curr-sidebar-list">\n';
-    for (const entry of tocEntries) {
-      sidebarHtml += `    <li><a href="#${entry.id}" class="curr-sidebar-link" data-target="${entry.id}">${esc(entry.name)}</a></li>\n`;
-    }
-    sidebarHtml += '  </ul>\n';
-    sidebarHtml += '</aside>\n';
-  }
-
-  // Render each field section with a collapsible header
-  let sectionsHtml = '';
-  for (let i = 0; i < fields.length; i++) {
-    const field = fields[i];
-    const h2Match = field.match(/^## (.+)$/m);
-    const name = h2Match ? h2Match[1].trim() : '';
-    const id = tocEntries[i]?.id || '';
-
-    // Strip the H2 from the field body so we can render our own collapsible header
-    const fieldClean = field.replace(/^## .+$/m, '').replace(/\n---\s*$/m, '').trim();
-    let inner = marked.parse(processEditorial(fieldClean));
-    // Tag the "Key concepts" UL so we can render it in two columns on desktop
-    inner = inner.replace(
+  // Turn each raw "## Name\n...body" chunk into a renderable field.
+  const fields = rawFields.map((chunk) => {
+    const name = (chunk.match(/^## (.+)$/m) || [, ''])[1].trim();
+    const body = chunk.replace(/^## .+$/m, '').replace(/\n---\s*$/m, '').trim();
+    let bodyHtml = marked.parse(processEditorial(body));
+    // Tag the "Key concepts" list so CSS can render it in two columns.
+    bodyHtml = bodyHtml.replace(
       /(<h3[^>]*>\s*Key concepts\s*<\/h3>\s*)<ul>/gi,
       '$1<ul class="curr-key-concepts">'
     );
+    return { name, id: slugify(name), bodyHtml };
+  });
 
-    sectionsHtml += `<details open class="curr-field" id="${id}">\n`;
-    sectionsHtml += `  <summary class="curr-field-summary"><h2 class="curr-field-name">${esc(name)}</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>\n`;
-    sectionsHtml += `  <div class="curr-field-body">\n${inner}\n  </div>\n`;
-    sectionsHtml += '</details>\n';
-  }
+  const navLink = (f) => `<a href="#${f.id}" class="curr-toc-link">${esc(f.name)}</a>`;
+  const tocHtml = fields.length
+    ? `<nav class="curr-toc" aria-label="Fields">\n  ${fields.map(navLink).join('\n  ')}\n</nav>`
+    : '';
+
+  const sidebarItem = (f) =>
+    `<li><a href="#${f.id}" class="curr-sidebar-link" data-target="${f.id}">${esc(f.name)}</a></li>`;
+  const sidebarHtml = fields.length
+    ? `<aside class="curr-sidebar" aria-label="Curriculum sections">
+  <div class="curr-sidebar-title">Sections</div>
+  <ul class="curr-sidebar-list">
+    ${fields.map(sidebarItem).join('\n    ')}
+  </ul>
+</aside>`
+    : '';
+
+  const sectionsHtml = fields.map((f) => `<details open class="curr-field" id="${f.id}">
+  <summary class="curr-field-summary"><h2 class="curr-field-name">${esc(f.name)}</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+  <div class="curr-field-body">
+${f.bodyHtml}
+  </div>
+</details>`).join('\n');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -552,7 +520,6 @@ ${sidebarHtml}
 <div class="curr-main">
 <a href="../" class="detail-back">&larr; Back to grid</a>
 <div class="curr-page-title">${esc(title)}</div>
-<div class="curr-page-subtitle">${esc(subtitle)}</div>
 ${introHtml}
 ${tocHtml}
 ${sectionsHtml}

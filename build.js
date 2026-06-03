@@ -401,7 +401,7 @@ ${grid}
 <div id="detail-view"></div>
 
 <footer class="site-footer">
-  Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
+  Assembled by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -432,7 +432,7 @@ ${content}
 </div>
 
 <footer class="site-footer">
-  Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
+  Assembled by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
 
 <script>
@@ -527,7 +527,7 @@ ${sectionsHtml}
 </div>
 
 <footer class="site-footer">
-  Backed by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
+  Assembled by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
 
 <script>

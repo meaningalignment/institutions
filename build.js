@@ -67,6 +67,17 @@ const HUMAN_ERA_BUCKETS = [
 
 const HUMAN_ERA_BUCKET_IDS = new Set(HUMAN_ERA_BUCKETS.map(b => b.id));
 
+// The Human grid's ordered "age" legend: six periods, oldest → newest. Each
+// li reuses the matching era-<bucket> color class. Mirrored in style.css.
+const ERA_LEGEND = [
+  { bucket: 'ancient', label: 'Ancient' },
+  { bucket: 'medieval', label: 'Medieval' },
+  { bucket: 'early-modern', label: 'Early modern' },
+  { bucket: 'industrial', label: 'Industrial' },
+  { bucket: 'twentieth', label: '20th C.' },
+  { bucket: 'digital', label: 'Digital' }
+];
+
 // AGI and Human grids both render from data/cells/. The AGI grid uses the
 // H1; the Human grid uses `human_label` frontmatter (falls back to H1).
 // Fidelity has its own directory.
@@ -194,19 +205,14 @@ function getHumanEra(fm) {
   return { label, bucket, code: meta.code };
 }
 
-function renderHumanEraLegend(cells) {
-  const used = new Set(
-    Object.values(cells)
-      .map(cell => getHumanEra(cell.frontmatter)?.bucket)
-      .filter(Boolean)
-  );
-  let html = '<div class="human-era-legend" aria-label="Human institution design era">';
-  for (const bucket of HUMAN_ERA_BUCKETS) {
-    if (!used.has(bucket.id)) continue;
-    html += `<span class="human-era-legend-item era-${bucket.id}">`;
-    html += `<span class="human-era-legend-label">${esc(bucket.label)}</span>`;
-    html += '</span>';
-  }
+function renderHumanEraLegend() {
+  // An ordered color scale, oldest → newest. A cell's fill shows how far back
+  // its institution family goes; span buckets take their origin period's shade.
+  let html = '<div class="human-era-legend" aria-label="How old the institution family is">';
+  html += '<span class="era-legend-caption">How old the institution family is</span>';
+  html += '<ol class="era-legend-scale">';
+  for (const p of ERA_LEGEND) html += `<li class="era-${p.bucket}">${esc(p.label)}</li>`;
+  html += '</ol>';
   html += '</div>\n';
   return html;
 }
@@ -384,7 +390,9 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(TABS[tabId].title)} — Institutions</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,16..72,400;0,16..72,500;0,16..72,600;1,16..72,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${cssPath}">
 </head>
 <body>
@@ -422,7 +430,9 @@ function generateProblemSetsPage(allCells) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Problem Sets — Institutions</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,16..72,400;0,16..72,500;0,16..72,600;1,16..72,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -510,7 +520,9 @@ ${f.bodyHtml}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)} — Institutions</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,16..72,400;0,16..72,500;0,16..72,600;1,16..72,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>

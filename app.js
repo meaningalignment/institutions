@@ -332,6 +332,7 @@ function renderHumanEraMeta(fm) {
   const humanEra = getHumanEra(fm);
   if (!humanEra) return '';
   let html = `<div class="human-era-detail era-${humanEra.bucket}">`;
+  html += '<span class="era-designed">Designed</span>';
   html += `<span class="human-era-label">${escapeHtml(humanEra.label)}</span>`;
   html += '</div>';
   return html;
@@ -463,8 +464,8 @@ function renderMethodsDetail(tabId, colId, cell) {
     html += `<div class="detail-placeholder">This page hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;
   }
 
-  html += `<div style="margin-top:40px;padding-top:20px;border-top:1px solid #e6e1d8;font-size:12px;color:#b5b0a8;">`;
-  html += `<a href="${ghLink}" style="color:#8a8378;">Edit this page on GitHub \u2192</a></div>`;
+  html += `<div class="detail-footer">`;
+  html += `<a href="${ghLink}">Edit this page on GitHub \u2192</a></div>`;
   return html;
 }
 
@@ -567,19 +568,5 @@ function handleHash() {
   }
 }
 
-function updateScrollableState() {
-  document.querySelectorAll('.table-wrapper').forEach(w => {
-    w.classList.toggle('is-scrollable', w.scrollWidth > w.clientWidth + 1);
-  });
-}
-
 window.addEventListener('hashchange', handleHash);
-window.addEventListener('DOMContentLoaded', () => {
-  handleHash();
-  updateScrollableState();
-  if ('ResizeObserver' in window) {
-    const ro = new ResizeObserver(updateScrollableState);
-    document.querySelectorAll('.table-wrapper').forEach(w => ro.observe(w));
-  }
-});
-window.addEventListener('resize', updateScrollableState);
+window.addEventListener('DOMContentLoaded', handleHash);

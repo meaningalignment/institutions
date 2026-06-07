@@ -5,6 +5,8 @@ human_era_bucket: early-modern-modern
 status: body_ok
 owner: oliver
 starred: true
+visions:
+  fidelity: "Reputational accountability across borders"
 ---
 
 # Geopolitical supernegotiation
@@ -89,3 +91,16 @@ How states settle on expectations of conduct toward each other without a global 
 3. **Attribution and evidence.** What evidence is enough to accuse a state of violation when the operation is routed through agents, vendors, or proxies?
 4. **Permitted testing.** How can states test defensive systems or demonstrate capability without eroding the norm against operational use?
 5. **Revision venue.** Does the norm evolve through treaties, incident-response groups, military hotlines, expert panels, or repeated public justifications after crises?
+
+### Reputational accountability across borders {vision: fidelity}
+
+**Scenario.** A widely-used translation service, operating across many languages and jurisdictions, was launched on a public commitment to "preserve what a sentence actually means." Over the past two years, translators across four countries have watched the service flatten idiom, paper over context-dependent nuance, and in one widely-shared case, render a funeral elegy into something that read like a LinkedIn post. No single country's courts reach the company, and it has ignored individual governments' letters. A cross-border professional association of literary translators, led by Lena in Lisbon and Yohannes in Addis, wants to use what they have — their own reputation, their readers, their fellow practitioners across borders — to hold the company to what it said it was for.
+
+**Challenge:** Design a cross-border reputational accountability mechanism that lets professional communities spanning borders hold a transnational institution to its stated mandate when no single jurisdiction's courts or panels reach it. Produce the mechanism: how findings are made and shared, what carries them (naming practices, reputational sanction, coordinated national panels), and what sustains the professional community that enforces them.
+
+**Evaluation.** A strong proposal generates credible, shareable findings that bite on a multinational that ignores any one government, without becoming either an unaccountable smear network or a toothless declaration.
+
+**Design choices the team must take a position on.**
+1. **Cross-panel sharing.** What's the international equivalent of a review panel or audit, and can national panels share findings credibly when they concern the same multinational: a federated network, mutual recognition, or a shared evidentiary standard?
+2. **Carriers of accountability.** How do professional communities that span borders — academic fields, journalistic networks, religious communities — function as informal accountability-carriers, and what sustains that role: membership norms, credentialing, shared publications, or reputational stakes?
+3. **Norm-rule divergence.** When norms and formal rules diverge across jurisdictions, which way does coordination have to go — toward the strictest standard, a negotiated floor, or jurisdiction-by-jurisdiction — and how is the Delaware-effect race to the bottom avoided?

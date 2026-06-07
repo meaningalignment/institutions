@@ -55,25 +55,35 @@ const TAB_META = {
 
 const TABS = {
   agi: {
-    title: 'AGI Institutions (Required)',
+    title: 'AGI Institutions (Required)',   // shown as the selected-tab heading + page <title>
+    nav: 'AGI Institutions',                // shown on the tab itself (no "(Required)")
     short: 'AGI',
     subtitle: 'New institutions needed for a world of autonomous AI agents'
   },
   human: {
     title: 'Existing Human Institutions',
+    nav: 'Existing Human Institutions',
     short: 'Human',
     subtitle: 'Current institutional infrastructure (how humans do alignment)'
-  },
-  fidelity: {
-    title: 'Fidelity & Meaning',
-    short: 'Fidelity',
-    subtitle: 'Institutions to align things (orgs, gov\'ts, markets) with rich, accountable mandates'
   }
 };
 
+// Visions: toggleable overlays of "visionary" institutions layered onto the
+// AGI grid. A cell opts in via `visions:` frontmatter (id → grid chip label);
+// problem sets opt in via a `{vision: id}` tag in their ### heading. Adding a
+// vision = a new entry here plus content tagged with its id (no new files).
+const VISIONS = [
+  {
+    id: 'fidelity',
+    label: 'Fidelity & Meaning',
+    color: '#b34a6c',
+    description: 'Institutions that hold organizations, governments, and markets to rich, accountable mandates rather than thin, gameable proxies.'
+  }
+];
+
 function esc(s) { return s.replace(/&/g, '&amp;'); }
 
-const TAB_ORDER = ['agi', 'human', 'fidelity'];
+const TAB_ORDER = ['human', 'agi'];
 
 const HUMAN_ERA_BUCKETS = [
   { id: 'ancient', code: 'An', label: 'Ancient / customary' },
@@ -93,8 +103,7 @@ const HUMAN_ERA_BUCKET_IDS = new Set(HUMAN_ERA_BUCKETS.map(b => b.id));
 
 // AGI and Human grids both render from data/cells/. The AGI grid uses the
 // H1; the Human grid uses `human_label` frontmatter (falls back to H1).
-// Fidelity has its own directory.
-const TAB_BODY_DIR = { agi: 'cells', human: 'cells', fidelity: 'fidelity' };
+const TAB_BODY_DIR = { agi: 'cells', human: 'cells' };
 
 const ROWS = [
   { id: 'dyadic', name: 'Dyadic', desc: '2 parties' },
@@ -184,7 +193,7 @@ function getMethodsForCol(colId, tabId, methods) {
 
 function generateManifest() {
   const manifest = {};
-  for (const dirName of ['cells', 'fidelity']) {
+  for (const dirName of ['cells']) {
     const dir = path.join(__dirname, 'data', dirName);
     if (!fs.existsSync(dir)) { manifest[dirName] = []; continue; }
     manifest[dirName] = fs.readdirSync(dir)
@@ -236,7 +245,7 @@ function renderHumanEraLegend(cells) {
 }
 
 function renderGrid(tabId, cells, methods, dataPath) {
-  // cells: the dict for this tab's body source (data/cells/ for agi+human, data/fidelity/ for fidelity)
+  // cells: the dict for this tab's body source (data/cells/ for both agi + human)
   // Per-cell summary: AGI uses H1; Human uses frontmatter.human_label || H1; Fidelity uses H1.
   const tab = TABS[tabId];
   let html = '';
@@ -265,7 +274,14 @@ function renderGrid(tabId, cells, methods, dataPath) {
         tabId === 'human' ? (cell.frontmatter?.human_label || cell.summary)
         : cell.summary
       );
-      if (cell && summary) {
+      // Visionary institutions declared by the cell (AGI grid only). Each
+      // becomes a toggleable chip; the label comes from `visions:` frontmatter.
+      const visionEntries = (tabId === 'agi' && cell && cell.frontmatter
+        && cell.frontmatter.visions && typeof cell.frontmatter.visions === 'object')
+        ? VISIONS.filter(v => cell.frontmatter.visions[v.id])
+            .map(v => ({ id: v.id, label: cell.frontmatter.visions[v.id] }))
+        : [];
+      if (cell && (summary || visionEntries.length)) {
         const classes = ['clickable'];
         const status = cell.frontmatter?.status;
         if (tabId === 'agi' && status === 'body_ok') classes.push('status-body-ok');
@@ -278,7 +294,12 @@ function renderGrid(tabId, cells, methods, dataPath) {
           html += `<span class="human-cell-label">${esc(summary)}</span>`;
           html += '</div></td>';
         } else {
-          html += `<div class="cell-content">${esc(summary)}</div></td>`;
+          html += '<div class="cell-content">';
+          if (summary) html += `<span class="cell-required-label">${esc(summary)}</span>`;
+          for (const ve of visionEntries) {
+            html += `<span class="vision-chip" data-vision="${ve.id}">${esc(ve.label)}</span>`;
+          }
+          html += '</div></td>';
         }
       } else {
         html += '<td><div class="cell-empty"></div></td>';
@@ -306,6 +327,14 @@ function renderGrid(tabId, cells, methods, dataPath) {
 
 // ── Render problem sets HTML ───────────────────────────────────────
 
+// Parse a trailing `{vision: id}` tag off a problem-set heading.
+// Mirrored in app.js wrapProblemSets — keep both in sync.
+function parseVisionTag(title) {
+  const m = title.match(/\s*\{vision:\s*([a-z0-9_-]+)\s*\}\s*$/i);
+  if (!m) return { title, vision: null };
+  return { title: title.slice(0, m.index).trim(), vision: m[1].toLowerCase() };
+}
+
 function extractProblemSets(tabId, cells) {
   const problems = [];
   for (const [cellKey, cell] of Object.entries(cells)) {
@@ -319,12 +348,14 @@ function extractProblemSets(tabId, cells) {
     let match;
     const h3s = [];
     while ((match = h3Regex.exec(psContent)) !== null) {
-      h3s.push({ title: match[1].trim(), start: match.index, headerEnd: match.index + match[0].length });
+      const parsed = parseVisionTag(match[1].trim());
+      h3s.push({ title: parsed.title, vision: parsed.vision, start: match.index, headerEnd: match.index + match[0].length });
     }
     for (let i = 0; i < h3s.length; i++) {
       const bodyEnd = i + 1 < h3s.length ? h3s[i + 1].start : psContent.length;
       problems.push({
         title: h3s[i].title,
+        vision: h3s[i].vision,
         body: psContent.slice(h3s[i].headerEnd, bodyEnd).trim(),
         cellKey, tabId
       });
@@ -333,44 +364,55 @@ function extractProblemSets(tabId, cells) {
   return problems;
 }
 
-function renderProblemSetsPage(allCells) {
-  // allCells: { merged, fidelity }. The old AGI and Human sections are now
-  // a single "merged" section since both grids share storage in data/cells/.
-  const sections = [
-    { id: 'merged', label: 'Part A: AGI-Era Institutions', prefix: 'A', linkTab: 'agi' },
-    { id: 'fidelity', label: 'Part B: Fidelity &amp; Meaning', prefix: 'B', linkTab: 'fidelity' }
-  ];
+function renderProblemSetsPage(cells) {
+  // All problem sets live in data/cells/. Untagged ones are "required" and
+  // always shown; ones tagged `{vision: id}` are grouped per vision and
+  // hidden unless that vision is active (CSS, driven by the same toggle).
+  const all = extractProblemSets('agi', cells);
+  const required = all.filter(p => !p.vision);
+  const visionGroups = VISIONS
+    .map(v => ({ v, items: all.filter(p => p.vision === v.id) }))
+    .filter(g => g.items.length);
+
+  const entry = (ps, num, visionId) => {
+    const parts = ps.cellKey.split('-');
+    const rowId = parts[0];
+    const colId = parts.slice(1).join('-');
+    const row = ROWS.find(r => r.id === rowId);
+    const col = COLS.find(c => c.id === colId);
+    const cellLabel = row && col ? `${row.name} / ${col.name}` : ps.cellKey;
+    // Carry the vision in the URL (query before hash) so the cell opens with it on.
+    const href = visionId
+      ? `..?visions=${visionId}#detail/agi/${rowId}/${colId}`
+      : `../#detail/agi/${rowId}/${colId}`;
+    const dataAttr = visionId ? ` data-vision="${visionId}"` : '';
+    let h = `<div class="ps-entry"${dataAttr}>\n`;
+    h += '<div class="ps-entry-header">';
+    h += `<span class="ps-entry-number">${num}</span>`;
+    h += `<span class="ps-entry-title">${ps.title}</span>`;
+    h += `<span class="ps-entry-cell"><a href="${href}">${cellLabel}</a></span>`;
+    h += '</div>\n';
+    h += `<div class="ps-entry-body">${wrapDesignChoices(marked.parse(processEditorial(ps.body)))}</div>\n`;
+    h += '</div>\n';
+    return h;
+  };
 
   let html = '';
   html += '<a href="../" class="detail-back">&larr; Back to grid</a>\n';
   html += '<div class="ps-page-title">Problem Sets</div>\n';
   html += '<div class="ps-page-subtitle">For pairs/trios. ~1 hour each. Produce a concrete design sketch, not a literature review.</div>\n';
+  html += renderVisionMenu();
 
-  for (const section of sections) {
-    const problems = extractProblemSets(section.id, allCells[section.id] || {});
-    if (problems.length === 0) continue;
+  if (required.length) {
+    html += `<div class="ps-group-title">Required</div>\n`;
+    required.forEach((ps, i) => { html += entry(ps, `${i + 1}`, null); });
+  }
 
-    html += `<div class="ps-group-title">${section.label}</div>\n`;
-
-    problems.forEach((ps, i) => {
-      const parts = ps.cellKey.split('-');
-      const rowId = parts[0];
-      const colId = parts.slice(1).join('-');
-      const row = ROWS.find(r => r.id === rowId);
-      const col = COLS.find(c => c.id === colId);
-      const cellLabel = row && col ? `${row.name} / ${col.name}` : ps.cellKey;
-      const num = `${section.prefix}${i + 1}`;
-
-      html += '<div class="ps-entry">\n';
-      html += '<div class="ps-entry-header">';
-      html += `<span class="ps-entry-number">${num}</span>`;
-      html += `<span class="ps-entry-title">${ps.title}</span>`;
-      const pageBase = section.linkTab === 'agi' ? '..' : `../${section.linkTab}`;
-      html += `<span class="ps-entry-cell"><a href="${pageBase}/#detail/${section.linkTab}/${rowId}/${colId}">${cellLabel}</a></span>`;
-      html += '</div>\n';
-      html += `<div class="ps-entry-body">${wrapDesignChoices(marked.parse(processEditorial(ps.body)))}</div>\n`;
-      html += '</div>\n';
-    });
+  for (const g of visionGroups) {
+    html += `<div class="ps-vision-group" data-vision="${g.v.id}">\n`;
+    html += `<div class="ps-group-title">${esc(g.v.label)}</div>\n`;
+    g.items.forEach((ps, i) => { html += entry(ps, `${i + 1}`, g.v.id); });
+    html += `</div>\n`;
   }
 
   html += '<div class="ps-notes">\n';
@@ -381,6 +423,35 @@ function renderProblemSetsPage(allCells) {
   html += '</ul>\n</div>\n';
 
   return html;
+}
+
+// ── Visions: selector, theming, client registry ────────────────────
+
+function renderVisionMenu() {
+  if (!VISIONS.length) return '';
+  let items = '';
+  for (const v of VISIONS) {
+    items += `<label class="vision-menu-item"><input type="checkbox" data-vision="${v.id}"><span class="vision-swatch" style="background:${v.color}"></span><span>${esc(v.label)}</span></label>`;
+  }
+  return `<details class="vision-menu"><summary>Visions</summary><div class="vision-menu-list">${items}</div></details>`;
+}
+
+// Per-vision colors + reveal rules. Generated so adding a vision needs no
+// hand-written CSS. Base "hidden by default" rules live in style.css.
+function renderVisionStyles() {
+  if (!VISIONS.length) return '';
+  let css = '';
+  for (const v of VISIONS) {
+    css += `.vision-chip[data-vision="${v.id}"],.ps-entry[data-vision="${v.id}"],.ps-detail-entry[data-vision="${v.id}"],.ps-vision-group[data-vision="${v.id}"]{--vision-color:${v.color};}`;
+    css += `html.show-vision-${v.id} .vision-chip[data-vision="${v.id}"]{display:inline-block;}`;
+    css += `html.show-vision-${v.id} .ps-entry[data-vision="${v.id}"],html.show-vision-${v.id} .ps-detail-entry[data-vision="${v.id}"],html.show-vision-${v.id} .ps-vision-group[data-vision="${v.id}"]{display:block;}`;
+  }
+  return `<style>\n${css}\n</style>`;
+}
+
+function renderVisionsRegistryTag() {
+  const data = JSON.stringify(VISIONS.map(v => ({ id: v.id, label: v.label, color: v.color })));
+  return `<script>window.__VISIONS__=${data};</script>`;
 }
 
 // ── Generate grid page HTML ─────────────────────────────────────────
@@ -397,10 +468,11 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
     let link;
     if (t === 'agi') link = tabId === 'agi' ? '.' : '..';
     else link = tabId === 'agi' ? t + '/' : (tabId === t ? '.' : '../' + t + '/');
-    return `    <a href="${link}" class="tab-link${active}"><span class="tab-full">${esc(tab.title)}</span><span class="tab-short">${esc(tab.short)}</span></a>`;
+    return `    <a href="${link}" class="tab-link${active}"><span class="tab-full">${esc(tab.nav || tab.title)}</span><span class="tab-short">${esc(tab.short)}</span></a>`;
   }).join('\n');
 
   const psLink = tabId === 'agi' ? 'problem-sets/' : '../problem-sets/';
+  const visionMenu = tabId === 'agi' ? renderVisionMenu() : '';
 
   const meta = TAB_META[tabId];
   const pageTitle = `${esc(TABS[tabId].title)} — AGI Institutions`;
@@ -464,13 +536,15 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
 <script type="application/ld+json">${jsonLd}</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${cssPath}">
+${renderVisionStyles()}
 </head>
-<body>
+<body class="tab-${tabId}">
 
 <div class="controls">
   <nav class="tab-bar">
 ${tabLinks}
   </nav>
+  ${visionMenu}
 </div>
 
 <div id="grid-view">
@@ -482,6 +556,7 @@ ${grid}
   Assembled by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
 
+${renderVisionsRegistryTag()}
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="${jsPath}"></script>
 
@@ -491,8 +566,8 @@ ${grid}
 
 // ── Generate problem-sets/index.html ───────────────────────────────
 
-function generateProblemSetsPage(allCells) {
-  const content = renderProblemSetsPage(allCells);
+function generateProblemSetsPage(cells) {
+  const content = renderProblemSetsPage(cells);
 
   const psTitle = 'Problem Sets — AGI Institutions';
   const psDesc = 'Design problems for pairs and small teams exploring AGI institutional design: from agent contracts to global AI governance frameworks. Each problem is ~1 hour and produces a concrete design sketch.';
@@ -514,6 +589,7 @@ function generateProblemSetsPage(allCells) {
 <meta property="og:image" content="${SITE_OG_IMAGE}">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
+${renderVisionStyles()}
 </head>
 <body>
 
@@ -525,12 +601,49 @@ ${content}
   Assembled by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
 
+${renderVisionsRegistryTag()}
 <script>
 (function(){
   var h = location.hostname;
   if (h === 'localhost' || h === '127.0.0.1' || h === '' || /[?&]editorial(=|&|$)/.test(location.search)) {
     document.documentElement.classList.add('show-editorial');
   }
+})();
+// Vision toggle state (this page does not load app.js). Mirrors app.js.
+(function(){
+  function read(){
+    var p = new URLSearchParams(location.search).get('visions');
+    if (p !== null) return p ? p.split(',').filter(Boolean) : [];
+    try { return JSON.parse(localStorage.getItem('visions') || '[]'); } catch(e){ return []; }
+  }
+  function apply(list){
+    var r = document.documentElement;
+    r.className = r.className.replace(/\\bshow-vision-\\S+/g, '').trim();
+    list.forEach(function(id){ r.classList.add('show-vision-' + id); });
+  }
+  function persist(list){
+    try { localStorage.setItem('visions', JSON.stringify(list)); } catch(e){}
+    var params = new URLSearchParams(location.search);
+    if (list.length) params.set('visions', list.join(',')); else params.delete('visions');
+    var qs = params.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  }
+  var active = read();
+  apply(active);
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('input[data-vision]').forEach(function(b){
+      b.checked = active.indexOf(b.getAttribute('data-vision')) !== -1;
+    });
+    document.addEventListener('change', function(e){
+      var t = e.target;
+      if (!t || !t.matches || !t.matches('input[data-vision]')) return;
+      var ids = [];
+      document.querySelectorAll('input[data-vision]').forEach(function(b){
+        if (b.checked) ids.push(b.getAttribute('data-vision'));
+      });
+      active = ids; apply(ids); persist(ids);
+    });
+  });
 })();
 </script>
 
@@ -668,11 +781,8 @@ ${sectionsHtml}
 
 const methods = loadMethods();
 const allCells = {
-  cells: loadCells('cells'),
-  fidelity: loadCells('fidelity')
+  cells: loadCells('cells')
 };
-// Alias for renderProblemSetsPage which expects { merged, fidelity }
-allCells.merged = allCells.cells;
 
 generateManifest();
 
@@ -683,8 +793,8 @@ fs.writeFileSync(
 );
 console.log('Generated index.html (AGI)');
 
-// Human and Fidelity = subfolders
-for (const tabId of ['human', 'fidelity']) {
+// Human = subfolder
+for (const tabId of ['human']) {
   fs.mkdirSync(path.join(__dirname, tabId), { recursive: true });
   fs.writeFileSync(
     path.join(__dirname, tabId, 'index.html'),
@@ -693,11 +803,24 @@ for (const tabId of ['human', 'fidelity']) {
   console.log(`Generated ${tabId}/index.html`);
 }
 
+// Fidelity is now the first "vision" overlaid on the AGI grid, not a tab.
+// Keep a redirect stub so old /fidelity/ deep links still land somewhere.
+fs.mkdirSync(path.join(__dirname, 'fidelity'), { recursive: true });
+fs.writeFileSync(
+  path.join(__dirname, 'fidelity', 'index.html'),
+  `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>Fidelity & Meaning — Institutions</title>
+<meta http-equiv="refresh" content="0; url=../?visions=fidelity">
+<link rel="canonical" href="../?visions=fidelity"></head>
+<body>The Fidelity tab is now a vision on the main grid. <a href="../?visions=fidelity">Continue &rarr;</a></body></html>`
+);
+console.log('Generated fidelity/index.html (redirect stub)');
+
 // Problem sets
 fs.mkdirSync(path.join(__dirname, 'problem-sets'), { recursive: true });
 fs.writeFileSync(
   path.join(__dirname, 'problem-sets', 'index.html'),
-  generateProblemSetsPage(allCells)
+  generateProblemSetsPage(allCells.cells)
 );
 console.log('Generated problem-sets/index.html');
 

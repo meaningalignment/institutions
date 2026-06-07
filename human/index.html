@@ -23,15 +23,18 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.agi-institutions.org/#website","url":"https://www.agi-institutions.org","name":"AGI Institutions","description":"An interactive map of the new institutions needed for a world of autonomous AI agents — from dyadic agent contracts to global AI governance frameworks. Explore coordination mechanisms across scales: dyadic, group, community, national, and global.","publisher":{"@id":"https://www.agi-institutions.org/#organization"}},{"@type":"Organization","@id":"https://www.agi-institutions.org/#organization","name":"Meaning Alignment Institute","url":"https://meaningalignment.org","sameAs":["https://github.com/meaningalignment/institutions"]},{"@type":"WebPage","@id":"https://www.agi-institutions.org/human/#webpage","url":"https://www.agi-institutions.org/human/","name":"Existing Human Institutions — AGI Institutions","description":"How existing human institutions handle coordination across scales — and how autonomous AI agents break them. Maps protocols, preferences, rights, incentives, expertise, norms, and thick commitments from dyadic to global.","isPartOf":{"@id":"https://www.agi-institutions.org/#website"},"about":{"@type":"Thing","name":"AGI institutional design and AI governance"},"keywords":"human institutions, institutional design, AI governance comparison, AGI society, coordination mechanisms, human-AI coordination"}]}</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
+<style>
+.vision-chip[data-vision="fidelity"],.ps-entry[data-vision="fidelity"],.ps-detail-entry[data-vision="fidelity"],.ps-vision-group[data-vision="fidelity"]{--vision-color:#b34a6c;}html.show-vision-fidelity .vision-chip[data-vision="fidelity"]{display:inline-block;}html.show-vision-fidelity .ps-entry[data-vision="fidelity"],html.show-vision-fidelity .ps-detail-entry[data-vision="fidelity"],html.show-vision-fidelity .ps-vision-group[data-vision="fidelity"]{display:block;}
+</style>
 </head>
-<body>
+<body class="tab-human">
 
 <div class="controls">
   <nav class="tab-bar">
-    <a href=".." class="tab-link"><span class="tab-full">AGI Institutions (Required)</span><span class="tab-short">AGI</span></a>
     <a href="." class="tab-link active"><span class="tab-full">Existing Human Institutions</span><span class="tab-short">Human</span></a>
-    <a href="../fidelity/" class="tab-link"><span class="tab-full">Fidelity &amp; Meaning</span><span class="tab-short">Fidelity</span></a>
+    <a href=".." class="tab-link"><span class="tab-full">AGI Institutions</span><span class="tab-short">AGI</span></a>
   </nav>
+  
 </div>
 
 <div id="grid-view">
@@ -55,6 +58,7 @@
   Assembled by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>
 </footer>
 
+<script>window.__VISIONS__=[{"id":"fidelity","label":"Fidelity & Meaning","color":"#b34a6c"}];</script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="../app.js"></script>
 

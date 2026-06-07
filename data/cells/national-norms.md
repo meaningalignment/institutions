@@ -4,6 +4,8 @@ human_era: "Ancient-20th c."
 human_era_bucket: ancient-modern
 status: summary_ok
 owner: oliver
+visions:
+  fidelity: "Standards for institutional AI deployments"
 ---
 
 # AIs that follow and update the law
@@ -69,3 +71,17 @@ A city's permitting agent has been processing building applications under zoning
 - An auditor running a sample test finds the agent applies the rule correctly in 99% of cases but fails on a specific edge case; the procedure handles surfacing, fixing, and remediating the affected past decisions.
 
 **Deliverable.** The legal-update regime — update mechanism, SLA, conflict detection, in-flight matter rule, liability allocation. Designed for municipal-administration agents (permitting, code enforcement, benefits adjudication). Identify which provisions have no analogue in how human administrators are updated.
+
+### Standards for institutional AI deployments {vision: fidelity}
+
+**Scenario.** A state department of health has adopted an AI triage system for its Medicaid call center. Wait times are down, satisfaction scores are up, and a hearing this month will hold it up as a national model. A case manager, Carla, who has worked those phones for twelve years, has been watching a pattern: callers with complex situations — a mother juggling her child's disability paperwork and her own cancer treatment — get routed through faster but resolved less. The system's metrics call them "resolved." Carla calls them "hung up on." She wants a standard the state will actually apply to deployments like this one: what the system owes people like that mother, not just what it owes the department's dashboard.
+
+**Challenge:** Design a mandate-alignment standard for AI systems deployed in national-scale institutional roles — caseworker decisions, benefits adjudication, healthcare triage, sentencing recommendations — that tests whether a deployment can be held to the institution's thick purposes rather than legible proxies, and produce the assessment instrument and the body that applies it.
+
+**Evaluation.** A strong standard surfaces drift even when the system optimizes legible proxies that look like success on a dashboard, and handles the case where the system is locally more accurate than the human practitioners whose presence maintains the capacity to notice drift.
+
+**Design choices the team must take a position on.**
+1. **The assessment.** What's the equivalent of an environmental-impact assessment for mandate alignment — who performs it, and when?
+2. **Accuracy vs. drift-detection.** How should institutions handle the case where an AI system is locally more accurate than human practitioners, but the human base is what maintains the capacity to notice drift?
+3. **Vendor and model governance.** What norms should govern vendor lock-in, model turnover, and training-data provenance for systems embedded in institutional decisions?
+4. **Sectoral interface.** How do these national norms interact with sectoral regulation (FDA, FCC, banking regulators) already applicable?

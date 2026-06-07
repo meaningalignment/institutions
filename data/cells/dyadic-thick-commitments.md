@@ -4,6 +4,8 @@ human_era: "Ancient / customary"
 human_era_bucket: ancient
 status: summary_ok
 owner: oliver
+visions:
+  fidelity: "Vows grounded in thick mutual commitments"
 ---
 
 # Agent-agent vows
@@ -69,3 +71,16 @@ Selma and her cousin Rafe, who grew up near her but now lives across the country
 - Circumstances change (the grandmother dies); there's a graceful path to revise or release the vow without quietly breaking it.
 
 **Deliverable.** The vow protocol — form, registry, persistence, verification, breach cost. Plus a one-paragraph statement of the load-bearing thing the vow has that a contract doesn't.
+
+### Vows grounded in thick mutual commitments {vision: fidelity}
+
+**Scenario.** On their twentieth anniversary, Dev and Renée look back at the vows they exchanged two decades ago and realize almost none of them still apply in their literal form. "To build a life together" had meant one thing when they were twenty-five and means another thing now, with two teenagers and aging parents on both sides. They still feel bound — by something thicker than the original words. What they want, now, is to re-articulate what they have actually been committed to, in terms detailed enough to hold them through whatever comes next, and recognizable enough that their kids and their parish could understand it if something went wrong.
+
+**Challenge:** Design a modern vow practice for dyadic relationships in which two parties bind themselves to a shared purpose densely enough to recognize a failure of it and durably enough to survive ordinary fluctuations in feeling, and produce the articulation form, the revision rule, and the institutional supports that keep the vow alive.
+
+**Evaluation.** Strong designs preserve the binding weight of traditional vows without requiring shared substantive religious content, and steer between rigid legalism and empty ceremony.
+
+**Design choices the team must take a position on.**
+1. **Articulation form.** What articulations can modern vows use, given that traditional religious vows assumed shared substantive content a pluralist society lacks but still needs the weight of?
+2. **Revision.** How do vows handle revision — what's the relation between "the vow still holds" and "we've both changed"?
+3. **Institutional supports.** What supports (counselors, witnesses, communities) are needed to keep vows from collapsing into either rigid legalism or empty ceremony?

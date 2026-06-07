@@ -4,6 +4,8 @@ human_era: "Ancient-20th c."
 human_era_bucket: ancient-modern
 status: body_draft
 owner: oliver
+visions:
+  fidelity: "Deliberative processes as supplement to elections"
 ---
 
 # Agents that represent national interests / large groups
@@ -92,3 +94,17 @@ A vivid case: Ireland on abortion. A Citizens' Assembly of 99 randomly selected 
 3. **Manipulation resistance.** Verified human participation, sampling immune to self-selection, public audit of transcripts, or structural insulation of the body running the elicitation?
 4. **Authority.** Binding on the legislature, advisory with a required response, admissible in court, or purely informational?
 5. **When to invoke.** Run for any major contested issue, only when polling has visibly broken down, or only when a legislative body formally requests one?
+
+### MGE Pilot Design for a Policy Domain {vision: fidelity}
+
+**Scenario.** A country is about to hold a national referendum on overhauling its long-term-care policy — who pays, who provides, what happens when someone can no longer stay at home. Polling will capture yes and no. What it won't capture is what Yelena, a home-health aide, has learned over fifteen years: that the families she works with care about different things than either side of the campaign is talking about. They want to be sure their parent is still known by name; they want a single aide who isn't always changing; they want to know that their own turn, when it comes, won't reduce them to a bed-flip statistic. A pilot moral-graph process could capture what the referendum cannot. The minister's office has a month to decide whether to run it.
+
+**Challenge:** Design a pilot moral-graph-elicitation process that supplements a country's legislative or referendum process for a single policy domain you choose (education, drug scheduling, immigration quotas, land use — whatever best tests the method), specifying selection, elicitation, aggregation, and its interface with existing authority, plus the protocol the minister's office would actually run.
+
+**Evaluation.** A strong pilot survives the three strongest objections a democratic theorist would raise about substituting an elicited value-structure for the vote, with sketched responses.
+
+**Design choices the team must take a position on.**
+1. **Participant selection.** Random sample, stratified, or self-selected with correction?
+2. **Elicitation procedure.** What are you eliciting — pairwise comparisons of outcomes, articulated values and their weights — and how do you handle the fact that participants' values may change through the process?
+3. **Aggregation.** How is the moral graph turned into a policy recommendation, and what role does the graph structure (e.g., coreness) play?
+4. **Interface with existing authority.** When the recommendation goes to the legislature, what is its legal status — advisory, presumptive, or binding absent override?

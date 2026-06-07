@@ -5,6 +5,8 @@ human_era_bucket: ancient-modern
 status: not_started
 owner: joe
 starred: true
+visions:
+  fidelity: "Internal rewards that track mandate"
 ---
 
 # Human-Outcome Contracts & Bounties
@@ -144,3 +146,15 @@ Sketches of how each mechanism could be rebuilt for agents, given the named diff
 - The principal grows attached and self-reports more positively to "thank" the agent; the prediction-aligned payment structure dampens the inflation by also rewarding accurate low predictions.
 
 **Deliverable.** The contract-and-firewall template — firewall architecture, corroborating signals, prediction-aligned payment, renewal rules, adversarial-principal handling. Plus a worked example: a wellness-coaching contract whose firewall would have prevented the failure modes identified, with the architectural separations enumerated.
+
+### Internal rewards that track mandate {vision: fidelity}
+
+**Scenario.** A small teaching hospital has, for fifteen years, paid its attendings a bonus tied to cases-seen and average turnaround. Its mission statement talks about "whole-person care" and training a next generation of doctors who carry it. Dr. Leon, who has been quietly keeping a group of complex patients nobody else has time for, sees his year-end review: his bonus is at the bottom of the department. The hospital's mandate and its incentives have drifted so far apart that the physicians who embody the mandate are the ones being financially punished for it. The new department chair, Lina, has six months to propose a replacement scheme — something that can actually pay Leon for being Leon.
+
+**Challenge:** Design an internal reward scheme — bounties, profit shares, promotions, recognition — that ties compensation inside a group to outcomes thick enough to represent the group's mandate, without collapsing back into Goodhart-prone metrics. Produce the outcome-bundle specification, the allocation mechanism, and the rules that govern long-horizon and intrinsic-motivation tradeoffs.
+
+**Design choices the team must take a position on.**
+1. **Outcome thickness.** How do you specify internal outcome bundles rich enough to resist gaming?
+2. **Allocation mechanism.** What's the role of peer-rated confidence staking vs. manager allocation vs. automated scoring?
+3. **Long-horizon fairness.** How do long-horizon outcomes get rewarded without punishing people whose good decisions haven't paid off yet?
+4. **Motivation crowd-out.** How do you avoid creating internal incentive schemes so elaborate they crowd out intrinsic motivation?

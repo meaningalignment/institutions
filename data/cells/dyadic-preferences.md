@@ -5,6 +5,8 @@ human_era_bucket: ancient
 status: body_draft
 owner: oliver
 starred: true
+visions:
+  fidelity: "Surfacing values, not just positions, in negotiation"
 ---
 
 # Agent negotiation & bargaining
@@ -75,3 +77,16 @@ A vivid case: Priya's mother needed an extra year of mortgage rate-lock when the
 3. **Floor mechanism.** Is there an explicit minimum the weaker side is guaranteed to walk away with (a fair-deal benchmark from a third party, a regulated price band, a "Pareto floor" relative to a no-protocol baseline), and who computes it?
 4. **Failure mode if the gap is large.** When one side is clearly outclassed, does the protocol degrade gracefully (the weaker side still captures the floor), refuse to run (no deal rather than a bad one), or escalate to a third party?
 5. **Why the stronger side opts in.** What makes the protocol incentive-compatible for the more capable party — reputational benefit, regulatory requirement, access to the counterparty's market, or a credible threat of refusal from the weaker side's principal?
+
+### Surfacing values, not just positions, in negotiation {vision: fidelity}
+
+**Scenario.** Edwin and his sister Paulina are negotiating who will take over the family hardware store after their father dies. On the table are ownership percentages, buyouts, who sleeps above the shop. Both of them are bracing for a bad split along preferences. But neither has said out loud what the store was for each of them — for Edwin, a place he could return to when his own business failed; for Paulina, the thing their father built that she watched him love. If they keep negotiating over percentages, they'll settle somewhere, and lose each other. They need a process that surfaces, for each of them, what they actually care about — before the paperwork forecloses it.
+
+**Challenge:** Design a negotiation process that surfaces what each party wants the arrangement to serve — their constitutive values, not just their positions — and produce the elicitation method, the facilitation model, and the form in which surfaced values are recorded so they stay relevant as circumstances change.
+
+**Evaluation.** Strong designs separate values from positions without making the process punishingly slow, and produce a record of surfaced values that sits usefully between a binding contract and a non-binding intention.
+
+**Design choices the team must take a position on.**
+1. **Eliciting values.** How do you elicit values distinct from positions without making the process punishingly slow?
+2. **Facilitation role.** What role should facilitation — human mediator, LLM, structured protocol — play, and when is each appropriate?
+3. **Durability of the record.** How do surfaced values stay relevant as circumstances change, and where should a bilateral value-articulation document sit between a contract and a non-binding intention?

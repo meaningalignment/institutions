@@ -2,8 +2,7 @@
 
 const TABS = {
   agi: { title: 'AGI Institutions (Required)' },
-  human: { title: 'Existing Human Institutions' },
-  fidelity: { title: 'Fidelity & Meaning' }
+  human: { title: 'Existing Human Institutions' }
 };
 
 const ROWS = [
@@ -55,6 +54,58 @@ const HUMAN_ERA_BUCKET_IDS = new Set(HUMAN_ERA_BUCKETS.map(b => b.id));
   if (local || editorialFlag) document.documentElement.classList.add('show-editorial');
   if (!local && !showAllFlag) document.documentElement.classList.add('hide-unready');
 })();
+
+// ── Visions: toggleable overlays (shared state across pages) ────────
+// `?visions=a,b` in the URL wins; otherwise localStorage. Active visions
+// add `show-vision-<id>` on <html>, which CSS uses to reveal chips +
+// vision-tagged problem sets. Mirrored by an inline script on the
+// problem-sets page (which doesn't load app.js).
+function getActiveVisions() {
+  const p = new URLSearchParams(location.search).get('visions');
+  if (p !== null) return p ? p.split(',').filter(Boolean) : [];
+  try { return JSON.parse(localStorage.getItem('visions') || '[]'); } catch { return []; }
+}
+function applyVisionClasses(list) {
+  const r = document.documentElement;
+  Array.from(r.classList).forEach(c => { if (c.indexOf('show-vision-') === 0) r.classList.remove(c); });
+  list.forEach(id => r.classList.add('show-vision-' + id));
+}
+function syncVisionCheckboxes(list) {
+  document.querySelectorAll('input[data-vision]').forEach(b => {
+    b.checked = list.indexOf(b.getAttribute('data-vision')) !== -1;
+  });
+}
+function visionsFromCheckboxes() {
+  const ids = [];
+  document.querySelectorAll('input[data-vision]').forEach(b => {
+    if (b.checked) ids.push(b.getAttribute('data-vision'));
+  });
+  return ids;
+}
+function setActiveVisions(list) {
+  try { localStorage.setItem('visions', JSON.stringify(list)); } catch {}
+  const params = new URLSearchParams(location.search);
+  if (list.length) params.set('visions', list.join(',')); else params.delete('visions');
+  const qs = params.toString();
+  // Preserve the #detail/... hash that drives detail routing.
+  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  applyVisionClasses(list);
+  syncVisionCheckboxes(list);
+}
+// Compact vision toggle bar shown on AGI detail pages (the grid's own
+// selector lives in `.controls`, which is hidden while viewing a detail).
+function renderVisionToggleBar() {
+  const visions = window.__VISIONS__ || [];
+  if (!visions.length) return '';
+  let html = '<div class="vision-toggle-bar"><span class="vision-toggle-label">Visions</span>';
+  for (const v of visions) {
+    html += `<label class="vision-toggle"><input type="checkbox" data-vision="${v.id}"><span class="vision-swatch" style="background:${v.color}"></span>${escapeHtml(v.label)}</label>`;
+  }
+  html += '</div>';
+  return html;
+}
+// Apply early so active chips/sections don't flash hidden then appear.
+applyVisionClasses(getActiveVisions());
 
 // ── Cell parsing ───────────────────────────────────────────────────
 
@@ -219,8 +270,17 @@ function processEditorial(md) {
   });
 }
 
+// Parse a trailing `{vision: id}` tag off a problem-set heading.
+// Mirrored in build.js parseVisionTag — keep both in sync.
+function parseVisionTag(title) {
+  const mm = title.match(/\s*\{vision:\s*([a-z0-9_-]+)\s*\}\s*$/i);
+  if (!mm) return { title, vision: null };
+  return { title: title.slice(0, mm.index).trim(), vision: mm[1].toLowerCase() };
+}
+
 // Wrap each H3 under the "Problem Sets" H2 in a numbered box. Operates on
-// the HTML produced by marked.
+// the HTML produced by marked. A `{vision: id}` tag in the heading marks the
+// entry as belonging to that vision (hidden unless the vision is active).
 function wrapProblemSets(html) {
   const headerMatch = html.match(/<h2[^>]*>\s*Problem Sets\s*<\/h2>/i);
   if (!headerMatch) return html;
@@ -242,8 +302,10 @@ function wrapProblemSets(html) {
   h3s.forEach((h, i) => {
     const bodyEnd = i + 1 < h3s.length ? h3s[i + 1].start : section.length;
     const body = section.slice(h.end, bodyEnd).trim();
-    wrapped += `<div class="ps-detail-entry">`;
-    wrapped += `<div class="ps-detail-header"><span class="ps-detail-number">${i + 1}</span><span class="ps-detail-title">${h.title}</span></div>`;
+    const parsed = parseVisionTag(h.title);
+    const dataAttr = parsed.vision ? ` data-vision="${parsed.vision}"` : '';
+    wrapped += `<div class="ps-detail-entry"${dataAttr}>`;
+    wrapped += `<div class="ps-detail-header"><span class="ps-detail-number">${i + 1}</span><span class="ps-detail-title">${parsed.title}</span></div>`;
     wrapped += `<div class="ps-detail-body">${body}</div>`;
     wrapped += `</div>`;
   });
@@ -417,6 +479,7 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += '</div>';
   html += `<div class="detail-title">${title}</div>`;
   if (tabId === 'human') html += renderHumanEraMeta(cell.frontmatter);
+  if (tabId === 'agi') html += renderVisionToggleBar();
 
   // Two-column layout: main body + methods rail
   html += '<div class="detail-layout">';
@@ -501,7 +564,7 @@ async function showDetail(tabId, rowId, colId, dataPath) {
       return;
     }
 
-    // AGI and Human both load from data/cells/. Fidelity loads from data/fidelity/.
+    // AGI and Human both load from data/cells/.
     const bodyDir = (tabId === 'agi' || tabId === 'human') ? 'cells' : tabId;
     const [cellResp, methodsResp] = await Promise.all([
       fetch(`${dataPath}/${bodyDir}/${rowId}-${colId}.md`),
@@ -519,6 +582,7 @@ async function showDetail(tabId, rowId, colId, dataPath) {
         opts.titleOverride = cell.frontmatter.human_label;
       }
       detailView.innerHTML = renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts);
+      syncVisionCheckboxes(getActiveVisions());
     } else {
       const tab = TABS[tabId] || { title: tabId };
       const row = ROWS.find(r => r.id === rowId) || { name: rowId };
@@ -577,6 +641,13 @@ window.addEventListener('hashchange', handleHash);
 window.addEventListener('DOMContentLoaded', () => {
   handleHash();
   updateScrollableState();
+  syncVisionCheckboxes(getActiveVisions());
+  document.addEventListener('change', (e) => {
+    const t = e.target;
+    if (t && t.matches && t.matches('input[data-vision]')) {
+      setActiveVisions(visionsFromCheckboxes());
+    }
+  });
   if ('ResizeObserver' in window) {
     const ro = new ResizeObserver(updateScrollableState);
     document.querySelectorAll('.table-wrapper').forEach(w => ro.observe(w));

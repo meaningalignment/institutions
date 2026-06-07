@@ -298,6 +298,108 @@ tr.methods-row td.clickable:hover .cell-content { background: #f5f2ed !important
 tr:last-child td { border-bottom: none; }
 td .cell-empty { color: #ccc; font-size: 13px; }
 
+/* ── Visions: toggleable overlays on the AGI grid ─────────────────── */
+
+/* Required institution label sits above any vision chips in a cell. */
+td .cell-required-label { display: block; }
+
+/* Grid vision chips: hidden by default; per-vision color (--vision-color)
+   and the reveal rule (html.show-vision-<id> …) are generated per page. */
+.vision-chip {
+  display: none;
+  margin-top: 5px;
+  padding: 3px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #fff;
+  background: var(--vision-color, #888);
+}
+
+/* Vision-tagged problem sets (detail + aggregate page) and the aggregate
+   page's per-vision group: hidden until that vision is active. */
+.ps-entry[data-vision],
+.ps-detail-entry[data-vision],
+.ps-vision-group[data-vision] { display: none; }
+
+/* Color accent so a vision problem set reads as belonging to its vision. */
+.ps-detail-entry[data-vision] { border-left: 3px solid var(--vision-color, #888); padding-left: 14px; }
+.ps-entry[data-vision] { border-left: 3px solid var(--vision-color, #888); padding-left: 12px; }
+
+/* The Human tab shares the cell body but is not a vision surface: never
+   reveal vision-tagged problem sets there, even if a vision is toggled on
+   elsewhere (state is shared via localStorage). */
+body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
+
+/* Vision selector dropdown in the page controls. */
+.vision-menu { position: relative; font-family: 'DM Sans', sans-serif; }
+.vision-menu > summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8a8378;
+  padding: 8px 14px;
+  border: 1.5px solid #d5cfc5;
+  border-radius: 6px;
+  user-select: none;
+}
+.vision-menu > summary::-webkit-details-marker { display: none; }
+.vision-menu > summary::after { content: ' \25BE'; color: #b5b0a8; }
+.vision-menu[open] > summary { color: #2d2a26; border-color: #2d2a26; }
+.vision-menu-list {
+  position: absolute;
+  z-index: 20;
+  margin-top: 6px;
+  min-width: 210px;
+  background: #fff;
+  border: 1.5px solid #d5cfc5;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+.vision-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px;
+  font-size: 13px;
+  color: #2d2a26;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.vision-menu-item:hover { background: #f5f2ed; }
+
+/* Color dot in selector + toggle bar. */
+.vision-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
+
+/* Vision toggle bar on the detail page. */
+.vision-toggle-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0 0 20px;
+  padding: 8px 0 14px;
+  border-bottom: 1px solid #e6e1d8;
+}
+.vision-toggle-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #9a9285;
+}
+.vision-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #2d2a26;
+  cursor: pointer;
+}
+
 /* Deployed site: on the detail page, hide the body of cells whose status
    isn't `body_ok`. The summary box at the top still shows.
    Override with ?showall. Locally everything is visible. */

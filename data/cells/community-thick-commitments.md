@@ -5,6 +5,8 @@ human_era_bucket: twentieth
 status: body_ok
 owner: oliver
 starred: true
+visions:
+  fidelity: "Covenants binding intentional communities"
 ---
 
 # Mission-driven agent orgs
@@ -75,3 +77,15 @@ A vivid case: WWF began with the familiar conservation repertoire: raise money, 
 3. **Boundary against mission sprawl.** What stops the agents from turning every adjacent harm into a charter issue: affected-constituency tests, causal connection to the mission, board-set exclusion rules, or a requirement to show why existing strategy no longer works?
 4. **Escalation threshold and obligation.** What triggers escalation, what evidence must accompany it, and what is the board required to do on receipt?
 5. **Post-decision memory.** How are accepted, narrowed, and rejected reinterpretations recorded so future agents learn from the decision without treating it as a permanent rule?
+
+### Covenants binding intentional communities {vision: fidelity}
+
+**Scenario.** A Benedictine monastery with a hundred-year-old hospitality mandate — receive every guest as Christ — is down to seven brothers, mostly over seventy. A partnership has been offered with a wellness chain that would keep the property in service and the doors open, rebranded, with staff who know nothing of the Rule. The prior, Brother Callistus, is tempted; the alternative is closure. But two of the brothers worry that what the monastery has actually been committed to — what generations of guests came here for, often without being able to name it — would not survive the deal. They need, before they decide, a way to articulate that thick commitment clearly enough to test any partner against it.
+
+**Challenge:** Design the covenant machinery by which an intentional community — monastic order, cohousing, mission-driven neighborhood, nonprofit federation — maintains, deepens, and revises a shared purpose across generations without ossifying or dissolving into whatever the current membership happens to want. Produce the mandate articulation, the admission/discipline/revision practices that carry it across turnover, and the test any prospective partner or new member is held to.
+
+**Design choices the team must take a position on.**
+1. **Mandate richness.** What mandate articulation is rich enough to guide admission, discipline, and revision — but leaves room for members' own projects?
+2. **Deepening versus drift.** How does the community handle members whose understanding of the mandate has deepened in ways that should be incorporated, versus members whose preferences simply differ from the mandate?
+3. **Practices across turnover.** What practices — rituals, councils, elders — maintain the mandate across generational turnover?
+4. **Federation without compromise.** How does the community federate with others like it, or interact with mainstream institutions, without compromising its form?

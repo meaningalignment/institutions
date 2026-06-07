@@ -5,6 +5,8 @@ human_era_bucket: ancient-medieval
 status: body_draft
 owner: oliver
 starred: true
+visions:
+  fidelity: "Confidence-staked bilateral contracts"
 ---
 
 # Agent-to-agent contracts
@@ -64,3 +66,16 @@ As agents start contracting with each other, the volume and economics of contrac
 3. **Accountability for private adjudicators.** If private boards carry the volume, what stops them from being captured by their largest customers?
 4. **Cost incidence and access.** Who pays, and how do you keep cost from itself filtering small counterparties out?
 5. **Precedent and consistency.** Do auto-rulings bind future near-identical disputes, or does each dispute start fresh? Who curates the precedent set?
+
+### Confidence-staked bilateral contracts {vision: fidelity}
+
+**Scenario.** Raul hires a contractor to renovate his grandmother's kitchen so she can stay in her home another decade. The bid is for materials and hours. The contractor, Dana, is good and has said she'll do right by the project. Six months in, it's over budget, a load-bearing question has been punted, and Raul is no closer to knowing whether his grandmother will actually be able to cook in her own kitchen. Both Raul and Dana would rather be in a deal where Dana stakes something on the outcome he cares about — his grandmother using the kitchen comfortably for ten years — and gets paid more if she delivers, less if she doesn't. Neither of them knows how to write that contract.
+
+**Challenge:** Design a confidence-staked bilateral contract that makes outcome-based payment credible between two parties despite expensive measurement and hard-to-verify supplier confidence, and produce the staking and scoring mechanism, the verification schedule, and the rule for when verification can be done bilaterally versus pooled across contracts.
+
+**Evaluation.** Strong designs make truthful confidence-reporting the supplier's best strategy and keep the verification burden proportionate to the stakes, rather than defaulting back to paying for inputs because outcomes are hard to measure.
+
+**Design choices the team must take a position on.**
+1. **Verification scale.** When is verification cost low enough for bilateral contracting, and when does it require pooling across contracts at community scale?
+2. **Bundled outcomes.** How do you handle bundled outcomes whose value depends on configuration — proximity, timing, sequencing?
+3. **Reputation vs. scoring.** What's the role of reputation versus formal scoring in long-term bilateral relationships, and how should the two interact?

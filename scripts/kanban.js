@@ -62,7 +62,7 @@ const EDITORIAL_RE = /\{>>[\s\S]*?<<\}/g;
 const RELOAD_SCRIPT = `<script>(function(){try{var es=new EventSource('/_reload');es.addEventListener('reload',function(){location.reload();});}catch(e){}})();</script>`;
 
 const OWNERS = ['oliver', 'joe', 'none'];
-const VALID_DIRS = new Set(['cells', 'fidelity']);
+const VALID_DIRS = new Set(['cells']);
 const VALID_STATUSES = new Set(STAGES.map(s => s.id));
 const VALID_OWNERS = new Set(OWNERS);
 const KEY_RE = /^[a-z][a-z0-9-]*$/;
@@ -130,10 +130,7 @@ function buildCards(cells, dirName) {
     const col = COLS.find(c => c.id === colId);
     if (!row || !col) continue;
     const fm = cell.frontmatter || {};
-    let kind;
-    if (dirName === 'fidelity') kind = 'fidelity';
-    else if (String(fm.hide_agi) === 'true') kind = 'human-only';
-    else kind = 'agi';
+    const kind = String(fm.hide_agi) === 'true' ? 'human-only' : 'agi';
     cards.push({
       key, dirName, rowId, colId, kind,
       rowName: row.name, colName: col.name,
@@ -153,19 +150,17 @@ function buildCards(cells, dirName) {
 // Kanban is only ever run locally, so we hardcode the localhost origin.
 function cellDetailUrl(card) {
   const base = 'http://127.0.0.1:5173';
-  if (card.kind === 'fidelity')    return `${base}/fidelity/#detail/fidelity/${card.rowId}/${card.colId}`;
   if (card.kind === 'human-only')  return `${base}/human/#detail/human/${card.rowId}/${card.colId}`;
   return `${base}/#detail/agi/${card.rowId}/${card.colId}`;
 }
 
 function renderCard(card) {
-  const fidelityNote = card.dirName === 'fidelity' ? ' · Fidelity' : '';
   const editorialBadge = card.editorialCount > 0
     ? `<span class="kanban-card-editorial-badge" title="${card.editorialCount} editorial note${card.editorialCount === 1 ? '' : 's'} in body">✎ ${card.editorialCount}</span>`
     : '';
   const starBtn = `<button type="button" class="kanban-star-btn${card.starred ? ' starred' : ''}" data-star-btn="1" title="${card.starred ? 'Unstar' : 'Star — focus on now'}">${card.starred ? '★' : '☆'}</button>`;
   return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-starred="${card.starred ? '1' : '0'}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}" data-kind="${esc(card.kind)}">
-    <div class="kanban-card-breadcrumb">${esc(card.rowName)} / ${esc(card.colName)}${fidelityNote}</div>
+    <div class="kanban-card-breadcrumb">${esc(card.rowName)} / ${esc(card.colName)}</div>
     <div class="kanban-card-title-row">
       ${starBtn}
       <a class="kanban-card-title" href="${esc(cellDetailUrl(card))}" target="_blank" rel="noopener" draggable="false" title="Open cell page (opens in new tab)">${esc(card.title)}</a>
@@ -178,12 +173,8 @@ function renderCard(card) {
 }
 
 function renderKanbanHtml() {
-  const cells    = loadCells('cells');
-  const fidelity = loadCells('fidelity');
-  const cards = [
-    ...buildCards(cells, 'cells'),
-    ...buildCards(fidelity, 'fidelity')
-  ];
+  const cells = loadCells('cells');
+  const cards = buildCards(cells, 'cells');
 
   let cols = '';
   for (const stage of STAGES) {
@@ -204,7 +195,7 @@ ${stageCards.map(renderCard).join('\n')}
     filterButtons += `<button class="kanban-filter-btn" data-filter="${esc(o)}">${esc(o)}</button>`;
   }
   filterButtons += `<button class="kanban-filter-btn kanban-star-filter" data-star-filter="1" title="Show only starred cards">★ Starred <span class="kanban-star-count">${starredCount}</span></button>`;
-  filterButtons += `<button class="kanban-filter-btn kanban-kind-toggle" data-kind-toggle="1" title="Show cards from the Human-only and Fidelity tabs">Show human-only + fidelity</button>`;
+  filterButtons += `<button class="kanban-filter-btn kanban-kind-toggle" data-kind-toggle="1" title="Show cards from the Human-only tab">Show human-only</button>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -326,7 +317,7 @@ const PAGE_SCRIPT = `
     if (starredOnly && card.getAttribute('data-starred') !== '1') return false;
     if (!showExtraKinds) {
       var kind = card.getAttribute('data-kind');
-      if (kind === 'human-only' || kind === 'fidelity') return false;
+      if (kind === 'human-only') return false;
     }
     return true;
   }

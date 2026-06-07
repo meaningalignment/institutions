@@ -1,6 +1,6 @@
 # Institutions
 
-Interactive grid for exploring institutional design across scales (dyadic to global) and mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments), with three tabs: AGI, Human, and Fidelity. The AGI and Human grids share their cell bodies from `data/cells/` — each cell tells one story that covers how humans currently solve the problem and how AGI breaks it. The Human grid shows a different per-cell label (the existing-institution name) supplied via frontmatter. Fidelity stays separate.
+Interactive grid for exploring institutional design across scales (dyadic to global) and mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments), with two tabs — AGI and Human — plus toggleable **visions** layered on the AGI grid. The AGI and Human grids share their cell bodies from `data/cells/` — each cell tells one story that covers how humans currently solve the problem and how AGI breaks it. The Human grid shows a different per-cell label (the existing-institution name) supplied via frontmatter. A **vision** (the first is "Fidelity & Meaning") is an extensible overlay, not a separate tab: a cell opts in via `visions:` frontmatter (which supplies the grid chip label) and contributes `{vision: id}`-tagged problem sets. Visions are off by default and toggled from the AGI grid's vision selector or a detail page; the selection is shared across pages via a `?visions=` URL param + localStorage.
 
 This file documents the schema mechanics (frontmatter, section headings, build behavior). The cell quality bar — the principles we hold cells to and the checklist for evaluating one — lives in [STANDARDS.md](STANDARDS.md). The execution plan for bringing cells into compliance is in [plans/cell-standards-compliance.md](plans/cell-standards-compliance.md).
 
@@ -11,7 +11,7 @@ npm install
 npm run build
 ```
 
-This generates `index.html` (AGI grid), `human/index.html`, `fidelity/index.html`, `problem-sets/index.html`, and `data/manifest.json`. All HTML files are checked into git and deployed as static files via Vercel.
+This generates `index.html` (AGI grid), `human/index.html`, `problem-sets/index.html`, `curriculum/index.html`, a `fidelity/index.html` redirect stub (old Fidelity-tab links → `/?visions=fidelity`), and `data/manifest.json`. All HTML files are checked into git and deployed as static files via Vercel.
 
 ### Dev workflow
 
@@ -29,7 +29,7 @@ The Kanban is a local-only tool — not part of the build, not deployed. It rend
 ## Stack
 
 - Static site, no framework — vanilla JS (`app.js`) + CSS (`style.css`)
-- Build step (`build.js`) reads markdown from `data/cells/`, `data/fidelity/`, and `data/methods/`, renders HTML pages
+- Build step (`build.js`) reads markdown from `data/cells/` and `data/methods/`, renders HTML pages
 - Content is markdown files named `{row}-{col}.md` (e.g. `dyadic-norms.md`)
 - `marked` for markdown rendering, `js-yaml` for frontmatter and methods config
 - Deployed on Vercel (`vercel.json`)
@@ -37,8 +37,8 @@ The Kanban is a local-only tool — not part of the build, not deployed. It rend
 ## Data layout
 
 - `data/cells/{row}-{col}.md` — canonical cell. The H1 is the cell's title and is used as both the AGI-grid summary and the AGI-tab detail-view title. The optional `human_label:` frontmatter field provides the Human-grid summary and the Human-tab detail title (falls back to H1). The body is the detail content for both tabs.
-- `data/fidelity/{row}-{col}.md` — separate content for the Fidelity tab. Same schema as `data/cells/` but rendered standalone.
-- `data/methods/{col}.md` — column-level reference (textbooks, tutorials, key concepts) shared across all three tabs. Frontmatter declares which method tags appear in the grid's methods row and whether they're bolded per tab. Methods content shows as a right-side rail on each detail page.
+- `data/methods/{col}.md` — column-level reference (textbooks, tutorials, key concepts) shared across both tabs. Frontmatter declares which method tags appear in the grid's methods row and whether they're bolded per tab. Methods content shows as a right-side rail on each detail page.
+- **Visions** have no data directory. They are declared by the `VISIONS` const in `build.js` (each entry: `id`, `label`, `color`, `description`). A cell joins a vision through its `visions:` frontmatter and `{vision: id}`-tagged problem sets (see Cell schema). Fidelity content used to live in `data/fidelity/`; it now lives inside the relevant `data/cells/` files as fidelity-tagged problem sets.
 
 ## Cell schema
 
@@ -54,6 +54,8 @@ hide_human: true                       # optional; symmetric flag for the Human 
 status: body_ok                        # not_started | summary_draft | summary_needs_work | summary_ok | body_draft | body_needs_work | body_ok. Drives grid marker and Kanban column.
 owner: oliver                          # oliver | joe | none. Drives Kanban filter.
 related: [group-norms]                 # optional; reserved for future cross-linking.
+visions:                               # optional; opt this cell into one or more visions overlaid on the AGI grid.
+  fidelity: "Lay review panels…"       #   <vision-id>: "<grid chip label>". Vision ids come from the VISIONS const in build.js.
 ---
 
 # {Cell title — the gap statement. Shown as the AGI-tab detail-view title.}
@@ -85,7 +87,9 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 ## Problem Sets
 
-### {Problem title — names the institutional gap, not the topic}
+### {Problem title — names the institutional gap, not the topic} {vision: id}
+
+(The trailing `{vision: id}` is optional — include it only to attach the problem set to a vision overlay; omit it for required briefs.)
 
 **Scenario.** {A high-stakes example of the target coordination mechanism or institution working, failing, or needing to be rebuilt. Fold necessary context and stakes into this paragraph. Use plain language even when the scenario is domain-grounded.}
 
@@ -103,6 +107,8 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 ```
 
 Multiple `###` problem sets under one cell are supported; each becomes its own entry on the problem-sets aggregate page.
+
+**Vision-tagged problem sets.** Append `{vision: <id>}` to a problem set's `###` heading (e.g. `### Lay review panels on the jury-duty model {vision: fidelity}`) to attach it to a vision. Tagged problem sets are hidden by default and revealed only when that vision is toggled on — on the cell detail page and in the problem-sets aggregate (where they're grouped under the vision's label). Untagged problem sets are the cell's required briefs and always show. The tag is parsed in both `build.js` (`parseVisionTag` / `extractProblemSets`) and `app.js` (`parseVisionTag` / `wrapProblemSets`) — keep those two in sync.
 
 ### Why these particular sections
 

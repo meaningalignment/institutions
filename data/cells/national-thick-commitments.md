@@ -4,6 +4,8 @@ human_era: "18th-20th c."
 human_era_bucket: early-modern-modern
 status: summary_draft
 owner: oliver
+visions:
+  fidelity: "Constitutions with substantive value content"
 ---
 
 # Substantive constitutions & AI alignment docs
@@ -77,3 +79,17 @@ A federal agency is deploying an AI system that will make preliminary rulings on
 - The agent's underlying model is updated; the thickened articulation continues to bind in re-tested cases.
 
 **Deliverable.** The articulation regime — form, author authority, curation, maintenance, conflict-with-statute. Designed for a federal agency like VA or HHS. Plus a one-paragraph statement of what makes the thickened articulation more than just a longer policy document.
+
+### Constitutions with substantive value content {vision: fidelity}
+
+**Scenario.** A small democracy in the middle of a constitutional convention has spent three months debating the usual list — executive powers, judicial review, bill of rights. A working group led by a legal scholar, Amara, has proposed a chapter few other constitutions carry: a substantive articulation of what the country's major public institutions are for, thick enough that ordinary people could invoke it if an institution went adrift, and revisable every generation so it doesn't freeze in one era's language. The critics worry it will become an impossible standard. Amara's working group is about to present their draft to the full convention, and needs to show it can bind without petrifying.
+
+**Challenge:** Design a constitutional chapter that articulates substantive institutional values thickly enough that institutions below the constitutional level can be held to them, and produce both the draft text and the mechanism by which it stays revisable without ordinary amendment.
+
+**Evaluation.** A strong design binds without petrifying — specific enough that the values don't equivocate, open enough that it doesn't freeze one generation's worldview, and legible across worldviews in a pluralist population.
+
+**Design choices the team must take a position on.**
+1. **Level of specification.** What level is constitutionally stable, given that too thin lets the values equivocate and too thick freezes the constitution into one generation's worldview?
+2. **Revision without amendment.** How are values revised or deepened without full constitutional amendment — can practices analogous to judicial interpretation of existing rights do this work for new substantive values?
+3. **Protected zones.** How are protected zones specified at constitutional level — the commitments to leave certain matters deliberately unarticulated?
+4. **Pluralist agreement.** How do pluralist populations agree on substantive value articulations at all, pursuing broad legibility across worldviews without shared substantive conceptions?

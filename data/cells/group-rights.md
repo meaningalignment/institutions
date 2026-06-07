@@ -4,6 +4,8 @@ human_era: "Medieval-industrial"
 human_era_bucket: medieval-modern
 status: not_started
 owner: none
+visions:
+  fidelity: "Internal resolution of charter-breach disputes"
 ---
 
 # Autonomous corp bylaws & grievance boards
@@ -70,3 +72,15 @@ A worker cooperative runs a logistics business with eleven human co-owners and f
 - A grievance committee member is themselves the affected driver; conflict of interest is handled cleanly.
 
 **Deliverable.** Amendment text for the co-op's bylaws — standing, procedure, adjudicator, remedies, pattern rule. Plus a one-paragraph statement of which provisions have no analogue in grieving a human manager and why.
+
+### Internal resolution of charter-breach disputes {vision: fidelity}
+
+**Scenario.** A five-year-old worker cooperative wrote into its founding charter that it would never take on clients from the defense sector. Last quarter the business side, under pressure, signed a contract with a logistics contractor whose revenue turns out to be three-quarters military. Two longtime members, Hiro and Olga, believe this is a straightforward breach of the charter; the board believes the contract is technically outside the prohibition. There is no internal mechanism for adjudicating the claim — the dispute is drifting toward member resignations and a public fight. What Hiro and Olga want is a forum inside the co-op that can actually hear their claim, rule on whether the charter was honored, and bind the board to the result.
+
+**Challenge:** Design a fidelity-oriented charter and its adjudication procedure — a substantive layer on top of the group's bylaws that articulates the mandate densely enough for members to bring a breach claim, plus the forum that hears such claims and binds the group to the result. Produce the standing rules, the remedy and escalation menu, and the safeguards against factional capture.
+
+**Design choices the team must take a position on.**
+1. **Standing.** Who has standing to bring a mandate-breach claim inside a group — members, former members, affected non-members?
+2. **Remedy and escalation.** What's the internal remedy when a claim is upheld — policy change, officer removal, rearticulation of the mandate itself — and when does the dispute escalate outside the group?
+3. **Anti-factionalism.** How do you prevent the process from becoming a vehicle for ordinary factional disputes — ripeness-style doctrines requiring concrete harm, thresholds for what counts as a mandate specification rigorous enough to adjudicate against, or some other gate?
+4. **Legal interface.** How does the claim procedure interact with existing employment, partnership, or cooperative law?

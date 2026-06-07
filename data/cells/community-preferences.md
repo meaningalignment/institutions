@@ -4,6 +4,8 @@ human_era: "19th-21st c."
 human_era_bucket: industrial-digital
 status: not_started
 owner: joe
+visions:
+  fidelity: "Outcome-specified procurement markets"
 ---
 
 # Market design for societies of agents
@@ -71,3 +73,15 @@ In Renata's neighborhood, most families now have assistant agents that buy groce
 - The platform tries to slip in a ranking change that disadvantages local providers; the change is visible to neighbors and contestable.
 
 **Deliverable.** The market design — venue, loyalty enforcement, discovery rule, unbundling, recourse. Designed for a neighborhood or municipality scale. Identify which design choices extend existing market design and which are new because the participants are agents.
+
+### CRSA for Community Eldercare {vision: fidelity}
+
+**Scenario.** Westfield is rebidding its eldercare contracts. Under the current arrangement, Dorothy, 84, gets a rotating cast of aides for 45-minute visits; her son David has spent a year trying to get one consistent caregiver assigned, and to get someone on staff to notice that his mother does better on days the neighbor drops in. The quality scores the city tracks are fine; David's mother is not. The new city manager wants to pilot bids that pay for what David is actually asking for — "the same two aides, known to the family, coordinated with the neighbor, confirmed at six months" — instead of hours of service. She has two months and a skeptical council. Eldercare has exactly the features a pool-based combinatorial auction is designed for: outcomes are hard to measure (wellbeing, continuity of relationship, dignity), value comes from configuration (same caregivers over time, proximity to family, coordinated medical/social/housing), and current bilateral contracts reward modular, standardized service.
+
+**Challenge:** Design the first round of a pool-based combinatorial procurement auction for community eldercare — one that pools demand, socializes the cost of verification, and lets buyers specify bundled outcomes rather than discrete hours of service. Produce the bundle examples, verification criteria, randomization scheme, and transfer estimate, and identify the single hardest measurement problem you couldn't solve and what it would take to solve it.
+
+**Design choices the team must take a position on.**
+1. **Bundle specification.** Are the bundles individual-level (one elder's full support configuration) or aggregated (all elders in a neighborhood), and how do you specify a verification criterion for a bundle like "sustained relational continuity with weekly in-person contact" specifically enough to bid on without Goodhart reappearing at a higher level?
+2. **Value discovery.** Nobody yet knows what a bundled solution is worth versus modular delivery — how do you randomize members across arms to learn, while respecting that members in the modular arm may have worse outcomes, and what welfare floor applies?
+3. **Bundling transfer.** What resale-option advantage does a modular home-health agency have over a bundled supplier, what goes into the projected-demand and value-per-problem terms, and where is the estimate most likely to be wrong?
+4. **Incumbents and regulators.** Home-health agencies, Medicare/Medicaid, and state licensing bodies all have existing claims and knowledge — how does the pool launch without being blocked, captured, or starved of members, and how is evaluator capture avoided when the pool pays for evaluation?

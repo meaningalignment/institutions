@@ -5,6 +5,8 @@ human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true
+visions:
+  fidelity: "Transnational markets for complex outcomes"
 ---
 
 # Global markets that keep human interests central
@@ -95,3 +97,17 @@ On top of these structural facts sits a layer of intentional steering — boycot
 3. **Learning and revision.** What procedure lets humans learn from consequences and revise future choices when the agent shields them from the market: periodic review sessions, forced comparison moments, explanation of rejected alternatives, regret reporting, or independent preference audits?
 4. **Platform incentives.** Are vendor access fees, ranking payments, bundling deals, and platform retention targets prohibited, capped, disclosed, firewalled, or permitted only when the buyer agent can prove they did not affect the recommendation?
 5. **Collective pressure.** How do boycotts, complaints, product safety campaigns, and consumer organizing work when purchases are delegated: shared refusal lists, certified ethical constraints, agent-readable consumer rules, class-action triggers, or public registries of conflicted recommendations?
+
+### Transnational markets for complex outcomes {vision: fidelity}
+
+**Scenario.** A coalition of coastal cities in four different countries all face the same looming problem: their drinking-water aquifers are being drawn down faster than they recharge, and every city is paying separately for a patchwork of desalination, piping, and rate interventions. The coalition's coordinator, Marianne, has modeled a bundled solution — a regional arrangement that would knit their water, their coastal-wetland restoration, and their agricultural subsidies into one interlocking set of outcomes. Commodity markets can't buy that. Bilateral trade deals can't buy that. She needs a market that can price a bundle like this, accept bids across borders, and verify the outcome in a way each country's auditor can stand behind.
+
+**Challenge:** Design a transnational market for complex outcomes that pools demand across jurisdictions, specifies interlocking outcome bundles, and runs auctions with socialized verification. Produce the market's mechanism: the bundle specification, the auction and bidding rules, the evaluator model, and the cross-border contracting and adjudication framework.
+
+**Evaluation.** A strong proposal can price and verify configuration-dependent outcomes — regional health, biodiversity corridors, coordinated pandemic response — across radically different political and cultural contexts, without collapsing them into thin fungible units or letting any one jurisdiction's auditor reject the result.
+
+**Design choices the team must take a position on.**
+1. **Outcome measurement.** How do you measure bundled outcomes — "local food security," "community resilience," "a functioning regional pandemic response" — across radically different political and cultural contexts: common metrics, jurisdiction-specific indicators reconciled after the fact, or outcome definitions co-produced by the bidding parties?
+2. **Valid evaluators.** What counts as a valid evaluator, who pays for evaluation, and how is independence maintained across jurisdictions: a shared independent body, mutually recognized national auditors, or rotating cross-border panels?
+3. **Cross-border mechanics.** How does the pool handle currency, contract law, and adjudication of failed bundles: a single governing law, treaty-backed arbitration, or per-jurisdiction enforcement with a shared settlement layer?
+4. **Pool governance.** How does pool governance stay accountable when its members span legal systems with very different norms: weighted membership, supermajority rules, exit rights, or external public oversight?

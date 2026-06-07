@@ -177,6 +177,8 @@ Problem sets turn analysis into design work. They should make the reader want to
 
 There is no separate `## Scenarios` section. Scenarios live inside problem sets, where they serve as high-stakes test objects for the design work.
 
+Some problem sets are tagged to a vision overlay (a `{vision: id}` suffix on the `###` heading — e.g. fidelity); these are hidden until the reader toggles that vision on. The same quality bar applies to a vision-tagged problem set as to a required one. Many were migrated mechanically from the old Fidelity tab and still want a full pass against this checklist.
+
 Choose problem sets after the At a Glance bullets and `Where AGI breaks it` section have stabilized. If the framing changes, re-audit the problem sets; old briefs often keep solving the previous version of the page.
 
 Each problem set needs:

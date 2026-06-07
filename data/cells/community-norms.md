@@ -5,6 +5,8 @@ human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true
+visions:
+  fidelity: "Lay review panels on the jury-duty model"
 ---
 
 # Professional norms for agents
@@ -106,3 +108,17 @@ In finance, formal law matters, but much of the work is done by norms that let p
 3. **Reasoning disclosure.** Is the reasoning trace shown to the counterparty agent, the counterparty principal, a third-party auditor, or retained only for examination? What triggers disclosure?
 4. **Standing of agent counterparties.** Does an agent counterparty have standing in the reasoning, or only the human/legal principal behind it? If both matter, how are conflicts handled?
 5. **Opacity fallback.** When the counterparty agent's relevant constraints are unavailable, is the default block, escalate, proceed with assumptions, or price the opacity into the transaction?
+
+### Lay review panels on the jury-duty model {vision: fidelity}
+
+**Scenario.** The county has rolled out an AI system that screens applications for emergency rent assistance. Processing times are down and the state is pleased. A pastor, Dale, who has been writing letters of support for families in his congregation, notices that over the last four months almost none of the single fathers he has referred have been approved — and when he asks at the county office, nobody he speaks to has looked at an actual case in weeks. He does not need a lawsuit. He needs something that could take this to a small panel of neighbors with read-access to what the system actually did and why, whose job is to ask whether it is still doing what it was built to do.
+
+**Challenge:** Design a lay review panel — citizens called on a jury-duty model to evaluate, with read-access to operational logs and decision traces, whether an institution (a school, hospital, office, or automated decision system) is living up to its own stated mandate rather than merely complying with regulations. Produce the panel's selection rule, its access and facilitation model, the binding force of its findings, and how the reviewed institution keeps operating during and after the review.
+
+**Evaluation.** A strong design lets ordinary residents reach a defensible judgment about mandate-fidelity from real operational evidence, without the panel becoming either a rubber stamp or an unaccountable veto.
+
+**Design choices the team must take a position on.**
+1. **Panelist selection.** Pure random draw, stratified sampling, or volunteer pools — and with or without opt-out?
+2. **Facilitation and access.** What facilitation, expert translation, and read-access to logs and decision traces do panelists need to engage productively with complex operational data?
+3. **Binding force.** Are panel findings advisory, presumptive, or do they trigger audits or court actions?
+4. **Continuity under review.** How does the institution maintain operational continuity during and after the panel's work?

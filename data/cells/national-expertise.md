@@ -4,6 +4,8 @@ human_era: "20th c."
 human_era_bucket: twentieth
 status: not_started
 owner: none
+visions:
+  fidelity: "Mandate literacy in professional training"
 ---
 
 # AI regulatory agencies & regulator-anticipation
@@ -71,3 +73,17 @@ A mid-size airline's safety agent flags a subtle drift in one of its diagnostic 
 - The agency wants to formally codify a position the AI has been giving; there's a path that doesn't require disavowing prior reliance.
 
 **Deliverable.** The regulator-anticipation regime — opinion status, consistency commitment, update transparency, override authority, logging. Designed for a sector-specific regulator (FAA, FDA, BaFin). Identify which provisions have no analogue in informal-letter or no-action-letter regimes.
+
+### Mandate literacy in professional training {vision: fidelity}
+
+**Scenario.** A newly appointed regulator at a federal financial agency, Arjun, sits down for his orientation and realizes something odd. Every part of his formal training is about rules — which statutes, which enforcement tools, which precedents. Nothing in it asks him to engage with what the agency is actually for — whose savings it protects, what "fair dealing" was meant to cover, why the statute he is learning to enforce was passed in the first place. The senior colleagues who carry that understanding are due to retire in the next decade. Arjun begins to understand that if the training pipeline doesn't change, the agency will still enforce rules but will lose its ability to recognize when the rules and the purpose have diverged.
+
+**Challenge:** Design a professional-training regime that builds mandate literacy — the capacity to recognize when an institution's rules have drifted from its purpose — into the pipeline that produces a national-scale institution's practitioners, and specify which programs carry it, how it is taught, and how the state's role relates to profession-set content.
+
+**Evaluation.** A strong design makes mandate literacy something practitioners can be tested and credentialed on rather than a forgettable box-check, and gives the system a way to surface and replace training programs that have themselves drifted.
+
+**Design choices the team must take a position on.**
+1. **Which programs carry it.** Which professional training programs should carry mandate-level instruction, and how — following the partial models of law-school jurisprudence and medical-school ethics rotations, or something broader?
+2. **Lip-service resistance.** How do you prevent mandate-training from being taught as lip service — a box-check that everyone forgets after graduation?
+3. **State vs. profession.** What role should the state play, given templates like federally funded medical residencies whose content is nonetheless set by professional bodies?
+4. **Surfacing drift.** How do you surface and replace training programs that have themselves drifted — journalism schools that train for clicks, business schools that train for shareholder-value maximization at the expense of broader mandates?

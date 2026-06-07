@@ -4,6 +4,8 @@ human_era: "18th-20th c."
 human_era_bucket: early-modern-modern
 status: summary_draft
 owner: oliver
+visions:
+  fidelity: "Constitutional justiciability of institutional purpose"
 ---
 
 # Agents that adjudicate rights
@@ -73,3 +75,17 @@ Ahmad runs a two-truck delivery company. Last month his logistics agent booked a
 - An appellate court reviews the decision; the trial-level reasoning is sufficient for meaningful review.
 
 **Deliverable.** A short procedural code (5–10 rules) for the chosen jurisdiction. Flag at least two rules that have no analogue in human adjudication and explain why human procedure could do without them.
+
+### Drafting Fidelity as Constitutional Doctrine {vision: fidelity}
+
+**Scenario.** Eight years ago, Liana's father signed up for a social platform whose tagline was "stay close to the people you love." It's where the family group chat lives; it's where photos of the grandkids arrive. Over the past two years, the feed has filled up with strangers, the group-chat notifications have grown quieter, and her father now spends most of his evenings on it alone, watching short videos. Internal documents leaked last month show the product team quietly retired its "friendship-formation" metric in favor of session time. Liana, a retired civil-rights lawyer, wants to bring a claim that the platform has walked away from what it publicly committed to. She cannot find a doctrine that lets her.
+
+**Challenge:** Draft either a model constitutional amendment (≤200 words) or an interpretive doctrine that establishes "fidelity" — institutions must act in accordance with their thick mandates rather than substitute thin proxies — as a justiciable principle alongside liberty and equality, with a short interpretive commentary.
+
+**Evaluation.** A strong draft survives the Rawlsian objection by constitutionalizing the form of fidelity rather than any particular thick content, and carries limiting principles potent enough that the doctrine does not swallow all institutional design.
+
+**Design choices the team must take a position on.**
+1. **Scope.** Does the fidelity principle protect individuals' relationship to institutions, institutions' relationship to their mandates, or both?
+2. **Invocability.** Who can bring a fidelity claim against a national institution?
+3. **Limiting principles.** Which combination of limiting doctrines bounds the principle — political-question doctrine (some fidelity questions non-justiciable), subsidiarity (claims resolved at the lowest level), and ripeness (the deviation must be concrete, not speculative)?
+4. **The Rawlsian objection.** How does the amendment survive the charge that constitutionalizing thick values is illiberal in a pluralist society — by constitutionalizing the form of fidelity rather than its content, or another route?

@@ -27,6 +27,30 @@ function wrapDesignChoices(html) {
   });
 }
 
+// ── SEO constants ──────────────────────────────────────────────────
+
+const SITE_ORIGIN = 'https://www.agi-institutions.org';
+const SITE_NAME = 'AGI Institutions';
+const SITE_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`;
+
+const TAB_META = {
+  agi: {
+    description: 'An interactive map of the new institutions needed for a world of autonomous AI agents — from dyadic agent contracts to global AI governance frameworks. Explore coordination mechanisms across scales: dyadic, group, community, national, and global.',
+    canonicalPath: '/',
+    keywords: 'AGI institutions, AGI governance, AI institutional design, autonomous AI agents, AI society, AI coordination, AGI policy, AI governance frameworks, institutional design for AI'
+  },
+  human: {
+    description: 'How existing human institutions handle coordination across scales — and how autonomous AI agents break them. Maps protocols, preferences, rights, incentives, expertise, norms, and thick commitments from dyadic to global.',
+    canonicalPath: '/human/',
+    keywords: 'human institutions, institutional design, AI governance comparison, AGI society, coordination mechanisms, human-AI coordination'
+  },
+  fidelity: {
+    description: 'Institutions to align organizations, governments, and markets with rich, accountable mandates. Fidelity and meaning frameworks for the age of autonomous AI.',
+    canonicalPath: '/fidelity/',
+    keywords: 'fidelity institutions, organizational alignment, AI accountability, meaning alignment, mandate design'
+  }
+};
+
 // ── Constants (shared with app.js) ─────────────────────────────────
 
 const TABS = {
@@ -378,12 +402,66 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
 
   const psLink = tabId === 'agi' ? 'problem-sets/' : '../problem-sets/';
 
+  const meta = TAB_META[tabId];
+  const pageTitle = `${esc(TABS[tabId].title)} — AGI Institutions`;
+  const canonicalUrl = `${SITE_ORIGIN}${meta.canonicalPath}`;
+  const jsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_ORIGIN}/#website`,
+        url: SITE_ORIGIN,
+        name: SITE_NAME,
+        description: TAB_META.agi.description,
+        publisher: { '@id': `${SITE_ORIGIN}/#organization` }
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${SITE_ORIGIN}/#organization`,
+        name: 'Meaning Alignment Institute',
+        url: 'https://meaningalignment.org',
+        sameAs: ['https://github.com/meaningalignment/institutions']
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: pageTitle,
+        description: meta.description,
+        isPartOf: { '@id': `${SITE_ORIGIN}/#website` },
+        about: {
+          '@type': 'Thing',
+          name: 'AGI institutional design and AI governance'
+        },
+        keywords: meta.keywords
+      }
+    ]
+  });
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(TABS[tabId].title)} — Institutions</title>
+<title>${pageTitle}</title>
+<meta name="description" content="${meta.description}">
+<meta name="keywords" content="${meta.keywords}">
+<link rel="canonical" href="${canonicalUrl}">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${SITE_NAME}">
+<meta property="og:title" content="${pageTitle}">
+<meta property="og:description" content="${meta.description}">
+<meta property="og:url" content="${canonicalUrl}">
+<meta property="og:image" content="${SITE_OG_IMAGE}">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${pageTitle}">
+<meta name="twitter:description" content="${meta.description}">
+<meta name="twitter:image" content="${SITE_OG_IMAGE}">
+<!-- JSON-LD structured data -->
+<script type="application/ld+json">${jsonLd}</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${cssPath}">
 </head>
@@ -416,12 +494,24 @@ ${grid}
 function generateProblemSetsPage(allCells) {
   const content = renderProblemSetsPage(allCells);
 
+  const psTitle = 'Problem Sets — AGI Institutions';
+  const psDesc = 'Design problems for pairs and small teams exploring AGI institutional design: from agent contracts to global AI governance frameworks. Each problem is ~1 hour and produces a concrete design sketch.';
+  const psCanonical = `${SITE_ORIGIN}/problem-sets/`;
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Problem Sets — Institutions</title>
+<title>${psTitle}</title>
+<meta name="description" content="${psDesc}">
+<link rel="canonical" href="${psCanonical}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${SITE_NAME}">
+<meta property="og:title" content="${psTitle}">
+<meta property="og:description" content="${psDesc}">
+<meta property="og:url" content="${psCanonical}">
+<meta property="og:image" content="${SITE_OG_IMAGE}">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
@@ -504,12 +594,24 @@ ${f.bodyHtml}
   </div>
 </details>`).join('\n');
 
+  const currTitle = `${esc(title)} — AGI Institutions`;
+  const currDesc = 'A curriculum for institutional designers engaging with AI governance: mechanism design, constitutional design, market design, regulatory frameworks, and more — all contextualized for the age of autonomous AI agents.';
+  const currCanonical = `${SITE_ORIGIN}/curriculum/`;
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(title)} — Institutions</title>
+<title>${currTitle}</title>
+<meta name="description" content="${currDesc}">
+<link rel="canonical" href="${currCanonical}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${SITE_NAME}">
+<meta property="og:title" content="${currTitle}">
+<meta property="og:description" content="${currDesc}">
+<meta property="og:url" content="${currCanonical}">
+<meta property="og:image" content="${SITE_OG_IMAGE}">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>

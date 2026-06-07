@@ -1,0 +1,28 @@
+# AGI Institutions
+
+> An interactive map of the institutional design problems that arise when autonomous AI agents participate in society. Maps coordination mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments) across scales (dyadic, group, community, national, global). Assembled by the [Meaning Alignment Institute](https://meaningalignment.org).
+
+This site explores what new institutions a world of autonomous AI agents will require, and how existing human institutions break down when one party is an AI agent. It is intended for researchers, policymakers, and institutional designers working on AI governance.
+
+## Core Views
+
+- [AGI Institutions Grid](https://www.agi-institutions.org/): The primary grid — new institutions required for a world of autonomous AI agents, across 5 scales and 7 coordination mechanisms.
+- [Existing Human Institutions](https://www.agi-institutions.org/human/): How current human institutions handle coordination — and how AI breaks them.
+- [Fidelity & Meaning](https://www.agi-institutions.org/fidelity/): Institutions to align organizations and markets with accountable mandates.
+
+## Learning Resources
+
+- [Problem Sets](https://www.agi-institutions.org/problem-sets/): Design exercises for pairs/small teams (~1 hour each) exploring AGI institutional design gaps.
+- [Curriculum](https://www.agi-institutions.org/curriculum/): Reading lists and field guides across mechanism design, constitutional design, market design, regulatory design, and related disciplines.
+
+## Key Topics Covered
+
+- AGI governance and institutional design
+- AI coordination mechanisms across dyadic, group, community, national, and global scales
+- How autonomous AI agents break existing human institutions (contracts, norms, rights, markets, regulations)
+- New institutional forms: agent-agent contracts, autonomous corporation bylaws, AI regulatory agencies, geopolitical AI negotiation frameworks, AI commons management
+- Design methods: mechanism design, constitutional design, market design, regulatory design, values articulation
+
+## Source Code
+
+- [GitHub Repository](https://github.com/meaningalignment/institutions): Open source; cell content lives in `data/cells/*.md`.

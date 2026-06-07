@@ -1,0 +1,46 @@
+User-agent: *
+Allow: /
+
+# Allow all AI crawlers for inference/citation (search-time bots)
+# This site is open-access research — we want AI systems to surface it.
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Google AI / Gemini
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Meta
+User-agent: meta-externalagent
+Allow: /
+
+# Common Crawl (used for LLM pre-training datasets)
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://www.agi-institutions.org/sitemap.xml

@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AGI Institutions Curriculum — Institutions</title>
+<title>AGI Institutions Curriculum — AGI Institutions</title>
+<meta name="description" content="A curriculum for institutional designers engaging with AI governance: mechanism design, constitutional design, market design, regulatory frameworks, and more — all contextualized for the age of autonomous AI agents.">
+<link rel="canonical" href="https://www.agi-institutions.org/curriculum/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AGI Institutions">
+<meta property="og:title" content="AGI Institutions Curriculum — AGI Institutions">
+<meta property="og:description" content="A curriculum for institutional designers engaging with AI governance: mechanism design, constitutional design, market design, regulatory frameworks, and more — all contextualized for the age of autonomous AI agents.">
+<meta property="og:url" content="https://www.agi-institutions.org/curriculum/">
+<meta property="og:image" content="https://www.agi-institutions.org/og-image.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
@@ -90,14 +98,15 @@
 <p><em>Core readings: ~6–9 hours.</em></p>
 <h3>Core readings</h3>
 <ul>
-<li>Paul Christiano et al. — <a href="https://arxiv.org/abs/1706.03741">Deep Reinforcement Learning from Human Feedback</a> (2017) — the technique that lets human judgment shape model behavior; the substrate most value-loading in deployed systems runs on.</li>
+<li>Long Ouyang et al. — <a href="https://arxiv.org/abs/2203.02155">Training Language Models to Follow Instructions with Human Feedback</a> (2022) — the InstructGPT paper that brought RLHF to language models; the technique that lets human judgment shape model behavior and the substrate most value-loading in deployed systems runs on.</li>
 <li>Yuntao Bai et al. — <a href="https://arxiv.org/abs/2212.08073">Constitutional AI: Harmlessness from AI Feedback</a> (2022) — training behavior against an explicit written set of principles rather than case-by-case labels; a concrete instance of encoding values as a governing document.</li>
 <li>Iason Gabriel — <a href="https://arxiv.org/abs/2001.09768">Artificial Intelligence, Values, and Alignment</a> (2020) — maps &quot;align to what?&quot; (instructions, intentions, preferences, values) and why the target choice is itself a normative, institutional question.</li>
-<li>Anthropic — <a href="https://www.anthropic.com/news/claudes-constitution">Claude&#39;s Constitution</a> (2025) — read as a worked example of constitutional and character-based training, i.e. what it looks like to specify an agent&#39;s standing dispositions, not as a canonical text.</li>
+<li>Anthropic — <a href="https://www.anthropic.com/news/claude-new-constitution">Claude&#39;s Constitution</a> (2026) — read as a worked example of constitutional and character-based training, i.e. what it looks like to specify an agent&#39;s standing dispositions, not as a canonical text.</li>
 <li>Edelman et al. — <a href="https://arxiv.org/abs/2512.03399">Full-Stack Alignment</a> (2025) — argues alignment must run through the institutions around the model, not only the model, and connects training-time choices to societal-scale ones.</li>
 </ul>
 <h3>Foundational works</h3>
 <ul>
+<li>Paul Christiano et al. — <a href="https://arxiv.org/abs/1706.03741">Deep Reinforcement Learning from Human Feedback</a> (2017) — the original RLHF paper; learning a reward model from human preference comparisons, the substrate InstructGPT later applied to language models.</li>
 <li>Paul Christiano — What Failure Looks Like (2019)</li>
 <li>Andrew Critch &amp; David Krueger — AI Research Considerations for Human Existential Safety (2020)</li>
 <li>Evan Hubinger et al. — Risks from Learned Optimization in Advanced Machine Learning Systems (2019)</li>
@@ -123,15 +132,15 @@
 <details open class="curr-field" id="3-philosophy-of-values">
   <summary class="curr-field-summary"><h2 class="curr-field-name">3. Philosophy of Values</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
-<p>&quot;Values&quot; colloquially means what is important to us. But what are values, exactly? How have institutions encoded and understood them before, and do AI give us new affordances for modeling what matters?</p>
-<p>Within philosophy this sits in ethics and metaethics — the questions of what is good, what we owe each other, and what kind of thing a value even is. For AI, the live question is how a value gets <em>represented</em>: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others. Those are different answers from different corners of the field, and which one an institution adopts shapes what it can encode. Language models are able to encode values in thick ways, allowing us to move away from thinking of human wanting in terms of mere preferences.</p>
+<p>&quot;Values&quot; colloquially refers to what is important to us. But what are values, exactly? How have institutions encoded and understood them before, and do AI give us new affordances for modeling what matters?</p>
+<p>Within philosophy this sits in ethics and metaethics. For AI, the live question is how a value gets <em>represented</em>: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others. Those are different answers from different corners of the field, and which one an institution adopts shapes what it can encode. Language models are able to encode values in thick ways, allowing us to move away from thinking of human wanting in terms of mere preferences.</p>
 <p><em>Core readings: ~8–12 hours.</em></p>
 <h3>Core readings</h3>
 <ul>
 <li>Tan Zhi-Xuan et al. — <a href="https://arxiv.org/abs/2408.16984">Beyond Preferences in AI Alignment</a> (2024) — argues preference-utility is too thin to carry what we mean by values; bridge between AI alignment and the philosophy of values.</li>
 <li>Alasdair MacIntyre — <em>After Virtue</em> (1981), ch. 14–15 — values as virtues internal to social practices; explains why values stripped from their practice lose their grip.</li>
-<li>Charles Taylor — What is Human Agency? (1977) — strong evaluation: some values are not just stronger preferences but frameworks that rank preferences themselves.</li>
-<li>David Velleman — <em>The Possibility of Practical Reason</em> (2000), ch. 1 — values as reasons that can be acted on, not just states to be satisfied.</li>
+<li>Charles Taylor — What is Human Agency? (1977) — values in terms of motivations for choice.</li>
+<li>David Velleman — <em>The Possibility of Practical Reason</em> (2000), ch. 1 — values as reasons that can be acted on.</li>
 <li>T.M. Scanlon — <em>What We Owe to Each Other</em> (1998), ch. 1–2 — values as what we can justify to others; the contractualist frame for agents whose principals and constraints are what&#39;s being reasoned over.</li>
 </ul>
 <h3>Foundational works</h3>
@@ -144,7 +153,7 @@
 <h3>Key concepts</h3>
 <ul class="curr-key-concepts">
 <li>Values as preferences vs. as reasons</li>
-<li>Values as virtues and character</li>
+<li>Values as virtues</li>
 <li>Values as social practices</li>
 <li>Values as public justification</li>
 <li>Strong evaluation</li>
@@ -162,17 +171,24 @@
   <summary class="curr-field-summary"><h2 class="curr-field-name">4. Microeconomics</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>Why do markets deliver some goods well and others badly — and what does AI do to that boundary?</p>
-<p>Microeconomics is the study of choice under constraint, but the parts that bear on institutions are its less textbook branches: contract theory, information economics, and the welfare and capability critiques that ask what markets fail to capture. The frictions these branches study — transaction costs, information asymmetry, what a contract can and can&#39;t specify — are exactly what set the limit on which goods a market can deliver, and they are precisely the frictions AI agents change. The readings take one canonical piece per branch; the two Klingefjord essays are MAI framing pieces that apply these ideas to the goods markets handle worst, not neutral core economics.</p>
+<p>Microeconomics is the study of choice under constraint, but the parts that bear on institutions are its less textbook branches: contract theory, information economics, and the welfare and capability critiques that ask what markets fail to capture. The readings take one canonical piece per branch; the two Klingefjord essays are MAI framing pieces that apply these ideas to the goods markets handle worst, not neutral core economics.</p>
 <p><em>Core readings: ~8–11 hours.</em></p>
 <h3>Core readings</h3>
 <ul>
-<li>Ronald Coase — The Nature of the Firm (1937) — firms exist because using the market is costly; the lens for asking which transactions AI agents pull inside an organization versus push back out to the market.</li>
-<li>Friedrich Hayek — The Use of Knowledge in Society (1945) — prices as a decentralized system for transmitting dispersed knowledge; the benchmark any AI &quot;central planner&quot; claim has to beat.</li>
-<li>George Akerlof — The Market for &quot;Lemons&quot; (1970) — how information asymmetry can collapse a market entirely; central to agents that can manufacture or detect asymmetry at scale.</li>
-<li>Oliver Williamson — Transaction Cost Economics: The Governance of Contractual Relations (1979) — when to govern a relationship by contract, hierarchy, or hybrid; a menu of institutional forms for agent relationships.</li>
-<li>Amartya Sen — Rational Fools (1977) — why revealed preference can&#39;t capture commitment and other-regarding reasons; the case against inferring values straight from behavior.</li>
-<li>Oliver Klingefjord — <a href="https://meaningalignment.substack.com/p/coasean-compression">Coasean Compression</a> (2026) — MAI framing: when a good is hard to specify and verify (connection, belonging), markets sell a cheaper contractible proxy instead of the real thing; how those frictions decide what markets can actually deliver.</li>
-<li>Oliver Klingefjord — <a href="https://meaningalignment.substack.com/p/baumols-sawdust">Baumol&#39;s Sawdust</a> (2026) — MAI framing: why cheap AI substitutes for relational goods thin the social infrastructure that made the real goods possible, so competition deepens the failure instead of correcting it.</li>
+<li><p>Oliver Klingefjord — <a href="https://meaningalignment.substack.com/p/coasean-compression">Coasean Compression</a> (2026) — MAI framing: when a good is hard to specify and verify (connection, belonging), markets sell a cheaper contractible proxy instead of the real thing; how those frictions decide what markets can actually deliver.</p>
+</li>
+<li><p>Oliver Klingefjord — <a href="https://meaningalignment.substack.com/p/baumols-sawdust">Baumol&#39;s Sawdust</a> (2026) — MAI framing: why cheap AI substitutes for relational goods thin the social infrastructure that made the real goods possible, so competition deepens the failure instead of correcting it.</p>
+</li>
+<li><p>Ronald Coase — The Nature of the Firm (1937) — firms exist because using the market is costly; the lens for asking which transactions AI agents pull inside an organization versus push back out to the market.</p>
+</li>
+<li><p>Friedrich Hayek — The Use of Knowledge in Society (1945) — prices as a decentralized system for transmitting dispersed knowledge; the benchmark any AI &quot;central planner&quot; claim has to beat.</p>
+</li>
+<li><p>George Akerlof — The Market for &quot;Lemons&quot; (1970) — how information asymmetry can collapse a market entirely; central to agents that can manufacture or detect asymmetry at scale.</p>
+</li>
+<li><p>Oliver Williamson — Transaction Cost Economics: The Governance of Contractual Relations (1979) — when to govern a relationship by contract, hierarchy, or hybrid; a menu of institutional forms for agent relationships.</p>
+</li>
+<li><p>Amartya Sen — Rational Fools (1977) — why revealed preference can&#39;t capture commitment and other-regarding reasons; the case against inferring values straight from behavior.</p>
+</li>
 </ul>
 <h3>Foundational works</h3>
 <ul>
@@ -330,8 +346,10 @@
 </ul>
 <h3>Foundational works</h3>
 <ul>
-<li>Felix Brandt, Vincent Conitzer, Ulle Endriss, Jérôme Lang &amp; Ariel Procaccia — <em>Handbook of Computational Social Choice</em> (2016), ch. 1–2</li>
-<li>Amartya Sen — <em>Collective Choice and Social Welfare</em> (1970; expanded ed. 2017)</li>
+<li><p>Amartya Sen — <em>Collective Choice and Social Welfare</em> (1970; expanded ed. 2017)</p>
+</li>
+<li><p>Felix Brandt, Vincent Conitzer, Ulle Endriss, Jérôme Lang &amp; Ariel Procaccia — <em>Handbook of Computational Social Choice</em> (2016), ch. 1–2</p>
+</li>
 </ul>
 <h3>Key concepts</h3>
 <ul class="curr-key-concepts">

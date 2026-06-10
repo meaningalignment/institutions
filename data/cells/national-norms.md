@@ -31,46 +31,56 @@ How a nation coordinates millions of actors around shared expectations of conduc
 
 ## How humans solve this today
 
-The administrative state's job is to apply law to cases — and to keep doing so as the law changes. The mechanisms are well developed: legislative bodies pass statutes, agencies publish implementing regulations, regulated entities and the public read the published codes, and courts adjudicate disputes about what the text actually requires. When a statute changes, agencies issue updated guidance, train staff, and (where it matters) accept a transition period during which the old rule applies to in-flight matters. The whole pipeline depends on the people applying the law actually knowing what the current rule is — and on a clear chain of accountability when they don't.
+A nation coordinates millions of actors through a stack of written conduct rules, each layer trading speed against authority:
 
-A vivid case: When Yvonne's city council updated the zoning code last spring, the planning department issued a new version of the permitting handbook within a month, the senior planners briefed the junior ones, and a transition memo specified which applications would be reviewed under the old code. Mistakes still happened, but you could trace them.
+- **Statutes.** Legislatures write broad standards (the Internal Revenue Code's "economic substance," securities law's "fair dealing") — durable and authoritative, but deliberately general and slow to amend.
+- **Regulations.** Agencies translate statutes into specific rules in the Code of Federal Regulations through notice-and-comment rulemaking: more precise than statute, still years per change.
+- **Guidance.** The fast layer — IRS revenue rulings, FDA guidance documents, no-action letters — tells firms how the agency currently reads its own rules, without the force or the delay of formal rulemaking.
+- **Compliance practice.** Firms internalize the rules through compliance departments, outside counsel, and standardized programs like bank KYC; most conduct is governed not by enforcement but by what the compliance function will sign off on.
+
+Two quieter mechanisms hold the stack together. Vague standards deter: a firm that can't predict how a court will apply "economic substance" keeps a margin of safety, and testing an aggressive position costs real money in legal review and opinion letters. And the patch cycle holds: when a scheme that honors the letter while defeating the purpose starts to spread, agencies and courts close it — by listing the transaction, amending the rule, or striking it down under anti-abuse doctrine — before it does system-level damage.
+
+A vivid case: the corporate tax-shelter wave of the late 1990s. Accounting firms marketed letter-compliant structures (BLIPS, Son-of-BOSS) to thousands of clients; the IRS designated them listed transactions, courts disallowed them under the economic-substance doctrine, and KPMG accepted a $456 million deferred-prosecution agreement. The patch cycle won — but only because each shelter took expert-years to design and had to be mass-marketed to be profitable, which made the wave slow enough to spot and counter.
 
 ## Where AGI breaks it
 
-When the agents administering the law are AI systems trained on text — municipal codes, agency handbooks, case law — keeping them current is a different kind of problem:
+1. **Law is slow, and corporations with powerful AI could find and rotate through loopholes faster than regulation can patch them.** The patch cycle assumed exploitation was slower than repair: designing a scheme took scarce expert labor, profiting from it required marketing it widely, and both left a trail in filings the agency could study before the next scheme arrived. AI systems that can generate novel letter-compliant structures on demand remove each of those drags. A loophole no longer needs to last; it only needs to work until it is patched, because the successor is already drafted. Repair still runs on rulemaking time — years per change — while exploitation runs on inference time, and a patch cycle that loses the race stops deterring anything.
 
-1. **Training cutoffs are not updates.** An agent trained on last year's code doesn't *know* the new code exists. Unlike a human who reads an updated handbook, the agent's prior beliefs are baked in.
-2. **Confident application of stale rules.** The agent doesn't say "I'm not sure"; it applies the rule it knows with the same fluency, masking the fact that the rule changed.
-3. **Conflict-detection is missing.** A human planner who reads a new ordinance and then a permit can spot when the two are in tension. An agent applying the rule to a stream of applications may never notice the new statute conflicts with the old one it's invoking.
-4. **Update propagation has no obvious owner.** When the council passes a change, who is responsible for ensuring the permitting agent — possibly hosted by a vendor, possibly retrained on a quarterly cycle — actually applies the new rule? The accountability chain is broken.
+2. **The spirit of the law deters because edge cases are hard to judge, and powerful AI could read the whole code and work out exactly where the line is, leaving only the letter.** Standards like "economic substance" or "fair dealing" govern precisely because their application is uncertain: the firm bears the risk of guessing wrong, so it stays well back from where it guesses the line might be. A system that can read the entire body of statute, regulation, ruling, and litigated outcome, and predict the adjudicator's response to a novel structure with calibrated confidence, converts standards back into rules. Conduct migrates to exactly the predicted line. The deterrent force was never only in the text; it lived in the cost of resolving the text's vagueness, and that cost is what capable models remove.
 
-## Scenarios
-
-A city's permitting agent has been processing building applications under zoning rules that were rewritten last spring. A neighborhood association notices that its historical-district protections — which they spent five years getting on the books — are not being applied to three new approvals. The agent, it turns out, was trained on last year's municipal code and has been applying the old rules with polished confidence. The association's chair, Yvonne, needs more than a bug fix. She needs to know that when the council passes something, the agents that administer it actually know — and that if the agent's reading conflicts with the statute, someone is checking.
+3. **Firms stay back from the legal line because pushing it costs lawyer hours; agents might make those hours cheap, and a backlog of legal but unused tactics opens up.** At any moment there is a standing inventory of conduct that is probably legal but unexploited, because evaluating each tactic would cost legal review nobody has commissioned. The system's stability quietly depends on most of that inventory never being opened. Near-zero-cost legal analysis lets firms work through the backlog systematically — not violating any rule, just exercising every option the rules technically permit, all at once. Enforcement, courts, and rulemaking were all sized for a world in which legal-but-aggressive conduct trickled in; none of them has a procedure for the trickle becoming a flood.
 
 ## Problem Sets
 
-### Propagation and Conflict-Detection for Law-Administering Agents
+### A patch cycle that runs on the exploiters' clock
 
-**Anchor contexts.** A city's permitting agent that must apply current zoning, building, and historical-district codes; a state's benefits-eligibility agent that must apply current statute and administrative rule.
+**Scenario.** A national tax authority notices a new pattern in corporate filings: avoidance structures that appear, spread across a few dozen filers, and are abandoned the quarter they draw scrutiny — replaced by structurally different successors with the same effect. Each structure honors the letter of the code; several were plainly generated by the same class of AI planning tools. The authority's instruments run on old clocks: a listed-transaction designation takes months, a regulatory amendment eighteen months, a statutory fix years. By the time any single structure is closed, the revenue is gone and the tool that designed it has moved on. The general counsel asks for something the agency doesn't have: a way to patch at the speed of the thing patching against them.
 
-**The gap.** We lack a propagation regime by which legislative changes reliably bind the AI agents administering the law within a specified time, plus a conflict-detection regime that surfaces when the agent's behavior diverges from current statute.
+**Challenge:** Design the expedited anti-avoidance regime — the detection instrument, the fast-designation procedure, and its limits — by which a national authority closes AI-generated letter-compliant schemes on a timescale that changes the exploiters' economics, without acquiring arbitrary retroactive power over conduct that was legal when taken.
+
+**Evaluation.** Strong proposals are fast enough that a scheme's expected profit no longer covers its design cost, while leaving firms able to plan against stable law; weak ones either keep the old clock under new names or let the agency redefine legality after the fact.
 
 **Design choices the team must take a position on.**
-1. **Update mechanism.** Periodic retraining, in-context retrieval at decision time, mandatory re-certification on change, or a layered combination?
-2. **Update SLA.** How long after a statute changes must the agent's behavior reflect it — same day, 30 days, tied to severity? Who is accountable for missing the SLA?
-3. **Conflict detection.** Who runs ongoing checks that the agent's outputs are consistent with current statute — the agency, an oversight body, third-party auditors? On what cadence and with what sample design?
-4. **In-flight matter rule.** When the law changes mid-application, does the agent apply the old or new rule? What's the analog to administrative law's transition-handling, and who promulgates it?
-5. **Liability for misapplied old rules.** When the agent has been applying stale rules for a quarter, what's the remedy for affected applicants — reversal, compensation, both? Who pays — the city, the vendor, both?
+1. **Detection.** How does the authority see schemes early — mandatory disclosure of uncertain positions, promoter-style registration duties extended to AI planning tools, statistical surveillance of filings, or whistleblower economics?
+2. **Patch instrument.** Fast designation of specific structures (listed-transaction style), a principles-based general anti-avoidance rule applied case by case, or pre-clearance requirements for novel structures above a threshold?
+3. **Retroactivity.** Does a patch reach conduct between a scheme's first use and its designation — and if not, doesn't that concede every scheme its first profitable run?
+4. **Speed vs. process.** What review and appeal does a fast designation get, and who bears the cost when the agency designates wrongly?
+5. **Equilibrium effects.** If patches are fast, schemes will be designed to be patch-resistant — distributed across entities, individually innocuous. What keeps the regime from simply pushing avoidance into harder-to-see forms?
 
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- The council passes a zoning amendment Tuesday; by some defined deadline the permitting agent applies the new rule, verifiably to an outside auditor.
-- Three permits were issued under the old rule between the amendment and the update; the affected neighborhood association has a clear, fast remedy path.
-- The new rule conflicts with an older state statute the agent is also applying; the conflict is detected by the regime and escalated to humans.
-- The vendor that maintains the agent goes out of business mid-update-cycle; the city has continuity options that don't require re-tendering before the next deadline.
-- An auditor running a sample test finds the agent applies the rule correctly in 99% of cases but fails on a specific edge case; the procedure handles surfacing, fixing, and remediating the affected past decisions.
+### Deterrence when the adjudicator can be simulated
 
-**Deliverable.** The legal-update regime — update mechanism, SLA, conflict detection, in-flight matter rule, liability allocation. Designed for municipal-administration agents (permitting, code enforcement, benefits adjudication). Identify which provisions have no analogue in how human administrators are updated.
+**Scenario.** A bank's compliance agent can predict, with calibrated confidence, how the financial regulator will treat any proposed product or structure — trained on every public rule, ruling, enforcement action, and speech the agency has produced. Across the industry, the same tools push conduct to exactly the predicted line: disclosures are precisely as opaque as the last unchallenged precedent allows, fee structures stop exactly where enforcement history says the agency stops caring. Nothing is illegal, and the supervisors can feel the difference — the margin of conservatism that examination used to rely on is gone, and "fair dealing" now means whatever the simulation says it has historically meant.
+
+**Challenge:** Design how a national regulator preserves the deterrent force of standards when regulated firms can simulate its judgment — through how rules are drafted, how enforcement is structured, or what duties attach to line-walking conduct itself.
+
+**Evaluation.** Strong proposals restore a margin between predicted tolerance and actual conduct without abandoning the rule-of-law requirement that firms be able to know what is forbidden; weak ones rely on the agency being deliberately arbitrary, which fails that requirement, or on firms politely declining to use the simulations.
+
+**Design choices the team must take a position on.**
+1. **Drafting response.** Do agencies write more rules (precise but gameable), more standards (flexible but now simulable), or standards with explicitly reserved discretion that a simulation cannot price?
+2. **Enforcement structure.** Randomized enforcement intensity, graduated penalties that scale with proximity to the line, or enforcement that explicitly weighs purpose-defeat rather than only rule-breach?
+3. **Status of regulator-simulation.** Is simulating the agency a protected compliance activity, a disclosable one, or in some uses an aggravating factor at enforcement?
+4. **Intent revival.** Should letter-compliant but purpose-defeating conduct carry liability when the firm's own tools show it knew exactly where the line was — and what evidence of that knowledge is discoverable?
+5. **Honest-actor cost.** Every mechanism above raises uncertainty for ordinary firms too. How is the added burden kept from falling hardest on small actors without frontier tools?
 
 ### Standards for institutional AI deployments {vision: fidelity}
 

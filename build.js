@@ -81,6 +81,10 @@ const VISIONS = [
   }
 ];
 
+// Statuses at or past `body_ok` — the body is reviewed and the cell counts as
+// published (the expert-review stages come after body_ok in the workflow).
+const READY_STATUSES = new Set(['body_ok', 'expert_selected', 'expert_reviewed']);
+
 function esc(s) { return s.replace(/&/g, '&amp;'); }
 
 const TAB_ORDER = ['human', 'agi'];
@@ -284,7 +288,7 @@ function renderGrid(tabId, cells, methods, dataPath) {
       if (cell && (summary || visionEntries.length)) {
         const classes = ['clickable'];
         const status = cell.frontmatter?.status;
-        if (tabId === 'agi' && status === 'body_ok') classes.push('status-body-ok');
+        if (tabId === 'agi' && READY_STATUSES.has(status)) classes.push('status-body-ok');
         const humanEra = tabId === 'human' ? getHumanEra(cell.frontmatter) : null;
         if (humanEra) classes.push('human-era-tile', `era-${humanEra.bucket}`);
         html += `<td class="${classes.join(' ')}" onclick="showDetail('${tabId}','${row.id}','${col.id}','${dataPath}')">`;

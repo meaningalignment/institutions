@@ -14,7 +14,7 @@
 //   GET  /kanban.css    → kanban styles
 //   GET  /data/*        → static cell files (so card links to ../#detail/...
 //                          can resolve when the user navigates back to the grid)
-//   PATCH /api/cell     → { dir, key, status, owner } updates frontmatter
+//   PATCH /api/cell     → { dir, key, status, owner, expert, starred } updates frontmatter
 //   OPTIONS /api/cell   → probe for read-only mode detection (kept for legacy)
 //
 // Bound to 127.0.0.1 only. No auth.
@@ -54,14 +54,19 @@ const STAGES = [
   { id: 'summary_ok',         name: 'Summary — OK' },
   { id: 'body_draft',         name: 'Body — ready for review' },
   { id: 'body_needs_work',    name: 'Body — needs work' },
-  { id: 'body_ok',            name: 'Body — OK' }
+  { id: 'body_ok',            name: 'Body — OK' },
+  { id: 'expert_selected',    name: 'Expert selected for review' },
+  { id: 'expert_reviewed',    name: 'Expert review done' }
 ];
+
+// Stages that require an expert to be named in frontmatter.
+const EXPERT_STAGES = new Set(['expert_selected', 'expert_reviewed']);
 
 const EDITORIAL_RE = /\{>>[\s\S]*?<<\}/g;
 
 const RELOAD_SCRIPT = `<script>(function(){try{var es=new EventSource('/_reload');es.addEventListener('reload',function(){location.reload();});}catch(e){}})();</script>`;
 
-const OWNERS = ['oliver', 'joe', 'none'];
+const OWNERS = ['oliver', 'joe', 'ryan', 'none'];
 const VALID_DIRS = new Set(['cells']);
 const VALID_STATUSES = new Set(STAGES.map(s => s.id));
 const VALID_OWNERS = new Set(OWNERS);
@@ -136,6 +141,7 @@ function buildCards(cells, dirName) {
       rowName: row.name, colName: col.name,
       status: fm.status || 'not_started',
       owner:  fm.owner  || 'none',
+      expert: fm.expert || '',
       starred: String(fm.starred) === 'true',
       editorialCount: cell.editorialCount || 0,
       title:  cell.summary || `${row.name} × ${col.name}`
@@ -159,7 +165,10 @@ function renderCard(card) {
     ? `<span class="kanban-card-editorial-badge" title="${card.editorialCount} editorial note${card.editorialCount === 1 ? '' : 's'} in body">✎ ${card.editorialCount}</span>`
     : '';
   const starBtn = `<button type="button" class="kanban-star-btn${card.starred ? ' starred' : ''}" data-star-btn="1" title="${card.starred ? 'Unstar' : 'Star — focus on now'}">${card.starred ? '★' : '☆'}</button>`;
-  return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-starred="${card.starred ? '1' : '0'}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}" data-kind="${esc(card.kind)}">
+  const expertPill = card.expert
+    ? `<button type="button" class="kanban-expert-pill" data-expert-btn="1" title="Expert reviewer — click to edit">👤 ${esc(card.expert)}</button>`
+    : '';
+  return `<div class="kanban-card ${statusClass(card.status)}" draggable="true" data-owner="${esc(card.owner)}" data-status="${esc(card.status)}" data-expert="${esc(card.expert)}" data-starred="${card.starred ? '1' : '0'}" data-dir="${esc(card.dirName)}" data-key="${esc(card.key)}" data-kind="${esc(card.kind)}">
     <div class="kanban-card-breadcrumb">${esc(card.rowName)} / ${esc(card.colName)}</div>
     <div class="kanban-card-title-row">
       ${starBtn}
@@ -167,6 +176,7 @@ function renderCard(card) {
     </div>
     <div class="kanban-card-meta">
       <button type="button" class="kanban-owner-pill owner-${esc(card.owner)}" data-owner-btn="1" title="Click to reassign">${esc(card.owner)}</button>
+      ${expertPill}
       ${editorialBadge}
     </div>
   </div>`;
@@ -238,6 +248,7 @@ ${RELOAD_SCRIPT}
 const PAGE_SCRIPT = `
 (function(){
   var OWNERS = ${JSON.stringify(OWNERS)};
+  var EXPERT_STAGES = ${JSON.stringify([...EXPERT_STAGES])};
   var root = document.getElementById('kanban-root');
 
   // ── Owner filter + kind toggle + starred filter (all persisted to localStorage) ───
@@ -304,6 +315,7 @@ const PAGE_SCRIPT = `
         key: card.getAttribute('data-key'),
         status: fields.status != null ? fields.status : card.getAttribute('data-status'),
         owner:  fields.owner  != null ? fields.owner  : card.getAttribute('data-owner'),
+        expert: fields.expert != null ? fields.expert : (card.getAttribute('data-expert') || ''),
         starred: fields.starred != null ? fields.starred : (card.getAttribute('data-starred') === '1')
       })
     }).then(function(r){
@@ -340,6 +352,65 @@ const PAGE_SCRIPT = `
       pill.textContent = newOwner;
     }
   }
+
+  // ── Expert reviewer (free-text, prompted) ────────────────────────
+  function updateCardExpert(card, expert){
+    card.setAttribute('data-expert', expert || '');
+    var meta = card.querySelector('.kanban-card-meta');
+    if (!meta) return;
+    var pill = card.querySelector('.kanban-expert-pill');
+    if (expert) {
+      if (!pill) {
+        pill = document.createElement('button');
+        pill.type = 'button';
+        pill.className = 'kanban-expert-pill';
+        pill.setAttribute('data-expert-btn', '1');
+        pill.title = 'Expert reviewer — click to edit';
+        // Insert right after the owner pill.
+        var ownerPill = meta.querySelector('.kanban-owner-pill');
+        if (ownerPill && ownerPill.nextSibling) meta.insertBefore(pill, ownerPill.nextSibling);
+        else meta.appendChild(pill);
+        pill.addEventListener('click', function(e){
+          e.preventDefault(); e.stopPropagation();
+          promptExpert(card);
+        });
+      }
+      pill.textContent = '👤 ' + expert;
+    } else if (pill) {
+      pill.remove();
+    }
+  }
+
+  // Prompt for an expert name; persist it. Returns the entered value (or null
+  // if cancelled). The 'force' flag is used when entering an expert stage and
+  // an expert is required.
+  function promptExpert(card, opts){
+    opts = opts || {};
+    var current = card.getAttribute('data-expert') || '';
+    var entered = window.prompt(opts.message || 'Expert reviewer name:', current);
+    if (entered === null) return null; // cancelled
+    entered = entered.trim();
+    if (opts.required && !entered) {
+      alert('An expert name is required for this stage.');
+      return null;
+    }
+    var old = current;
+    updateCardExpert(card, entered);
+    patchCell(card, { expert: entered }).catch(function(err){
+      updateCardExpert(card, old);
+      alert('Save failed: ' + err.message + '. Reload to resync.');
+    });
+    return entered;
+  }
+
+  document.querySelectorAll('[data-expert-btn]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var card = btn.closest('.kanban-card');
+      if (card) promptExpert(card);
+    });
+  });
 
   // ── Owner-edit popup ──────────────────────────────────────────────
   var popup = null;
@@ -460,13 +531,30 @@ const PAGE_SCRIPT = `
       var oldStatus = dragged.getAttribute('data-status');
       if (newStatus === oldStatus) return;
 
+      var card = dragged;
+
+      // Entering an expert stage requires a named expert. Prompt for one
+      // (pre-filled with any existing value); abort the move if cancelled.
+      var enteredExpert;
+      if (EXPERT_STAGES.indexOf(newStatus) !== -1 && !(card.getAttribute('data-expert') || '').trim()) {
+        enteredExpert = window.prompt('Moving to "' + col.querySelector('.kanban-col-name').textContent + '".\\nEnter the expert reviewer name:', '');
+        if (enteredExpert === null || !enteredExpert.trim()) {
+          alert('An expert name is required for this stage. Move cancelled.');
+          return;
+        }
+        enteredExpert = enteredExpert.trim();
+      }
+
       var colBody = col.querySelector('.kanban-col-body');
-      colBody.appendChild(dragged);
-      dragged.setAttribute('data-status', newStatus);
-      dragged.className = dragged.className.replace(/status-[a-z-]+/, 'status-' + newStatus.replace(/_/g, '-'));
+      colBody.appendChild(card);
+      card.setAttribute('data-status', newStatus);
+      card.className = card.className.replace(/status-[a-z-]+/, 'status-' + newStatus.replace(/_/g, '-'));
+      if (enteredExpert) updateCardExpert(card, enteredExpert);
       updateCounts();
 
-      patchCell(dragged, { status: newStatus }).catch(function(err){
+      var fields = { status: newStatus };
+      if (enteredExpert) fields.expert = enteredExpert;
+      patchCell(card, fields).catch(function(err){
         alert('Save failed: ' + err.message + '. Reload to resync.');
       });
     });
@@ -476,12 +564,18 @@ const PAGE_SCRIPT = `
 
 // ── PATCH endpoint ───────────────────────────────────────────────────────
 
-function updateFrontmatter(filePath, status, owner, starred) {
+// YAML-quote a free-text value so colons / special chars survive a round-trip.
+function yamlQuote(s) {
+  return JSON.stringify(String(s));
+}
+
+function updateFrontmatter(filePath, status, owner, starred, expert) {
   const raw = readFileSync(filePath, 'utf8');
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
   if (!fmMatch) {
     const starLine = starred ? '\nstarred: true' : '';
-    writeFileSync(filePath, `---\nstatus: ${status}\nowner: ${owner}${starLine}\n---\n${raw}`);
+    const expertLine = expert ? `\nexpert: ${yamlQuote(expert)}` : '';
+    writeFileSync(filePath, `---\nstatus: ${status}\nowner: ${owner}${expertLine}${starLine}\n---\n${raw}`);
     return;
   }
   let fmBody = fmMatch[1];
@@ -496,6 +590,16 @@ function updateFrontmatter(filePath, status, owner, starred) {
     fmBody = fmBody.replace(/^owner:\s*.*$/m, `owner: ${owner}`);
   } else {
     fmBody += `\nowner: ${owner}`;
+  }
+  if (expert) {
+    const line = `expert: ${yamlQuote(expert)}`;
+    if (/^expert:\s*.*$/m.test(fmBody)) {
+      fmBody = fmBody.replace(/^expert:\s*.*$/m, line);
+    } else {
+      fmBody += `\n${line}`;
+    }
+  } else {
+    fmBody = fmBody.replace(/^expert:\s*.*\n?/m, '').replace(/\n$/, '');
   }
   if (starred) {
     if (/^starred:\s*.*$/m.test(fmBody)) {
@@ -522,11 +626,16 @@ async function handleApi(req) {
   catch { return Response.json({ error: 'invalid JSON' }, { status: 400 }); }
 
   const { dir, key, status, owner, starred } = body || {};
+  let expert = body && body.expert != null ? String(body.expert).trim() : '';
   if (!VALID_DIRS.has(dir))         return Response.json({ error: 'bad dir' }, { status: 400 });
   if (!KEY_RE.test(key || ''))      return Response.json({ error: 'bad key' }, { status: 400 });
   if (!VALID_STATUSES.has(status))  return Response.json({ error: 'bad status' }, { status: 400 });
   if (!VALID_OWNERS.has(owner))     return Response.json({ error: 'bad owner' }, { status: 400 });
   if (typeof starred !== 'boolean') return Response.json({ error: 'bad starred' }, { status: 400 });
+  if (expert.length > 80)           return Response.json({ error: 'expert too long' }, { status: 400 });
+  if (EXPERT_STAGES.has(status) && !expert) {
+    return Response.json({ error: 'expert required for this status' }, { status: 400 });
+  }
 
   const filePath = join(REPO_ROOT, 'data', dir, `${key}.md`);
   if (!filePath.startsWith(join(REPO_ROOT, 'data') + '/') || !existsSync(filePath)) {
@@ -534,8 +643,8 @@ async function handleApi(req) {
   }
 
   try {
-    updateFrontmatter(filePath, status, owner, starred);
-    console.log(`PATCH ${dir}/${key} → status=${status} owner=${owner} starred=${starred}`);
+    updateFrontmatter(filePath, status, owner, starred, expert);
+    console.log(`PATCH ${dir}/${key} → status=${status} owner=${owner} expert=${expert || '∅'} starred=${starred}`);
     return Response.json({ ok: true });
   } catch (e) {
     console.error(e);

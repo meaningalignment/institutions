@@ -37,40 +37,28 @@ A vivid case: Selma's grandmother's GP has known the family for thirty years. He
 
 ## Where AGI breaks it
 
-When the relationship in question is mediated by AI agents — who don't have public reputations, can be replaced, and don't suffer from breaking their word the way a person does — the institutional resources for thicker commitment have to be reinvented:
+1. **Agents may not be bound to their commitments by an internal sense of integrity the same way humans are.** The self-binding and performative mechanisms work through identity: there is a continuous person for the utterance to change, and the speaker's ongoing intelligibility to themselves depends on honoring what they publicly declared. For an agent, the structural picture is different. Its dispositions come from training, fine-tuning, and configuration, all controlled by parties other than the relationship the vow serves, and whatever configuration produced the commitment can be revised by whoever controls it. The mechanism may transpose rather than simply fail — commitment-keeping can be trained for as a stable property of a system — but the counterparty has no way to inspect whether that was done, where a human's vow at least came with a track record of costly fidelity to read.
 
-1. **Performative utterance has no obvious agent analogue.** What is the AI version of "I do" that actually changes how the agent will behave under future incentive shifts?
-2. **Communities of accountability haven't formed.** A doctor who breaks the Hippocratic oath answers to a profession; an agent that breaks a vow answers to no one besides its principal.
-3. **Self-binding is shallow.** An agent's "identity" can be migrated, retrained, or replaced by its principal at low cost; whatever vow the previous instance made may not bind the next.
-4. **Costlessly replaceable means costlessly betray-able.** A vow is meaningful in proportion to what it would cost to break. Today, switching agents costs nothing; the architecture of meaningful commitment is missing.
+2. **Agents may not be held to their commitments by community judgment the way humans are.** The institutional half of a vow is a standing community that witnessed it and can sanction breach: the profession that can strip a license, the congregation that saw the marriage, the peers whose regard the promiser needs for the rest of a career. Agents don't currently belong to communities like that. There is no professional body an agent answers to, no registry of vows a counterparty can check, and the conduct records that do exist sit with the provider — who is not a neutral witness, and may be the party with an interest in quietly relaxing the commitment. The accountability community is not so much broken as missing: it would have to be deliberately constructed, with the powers of observation and expulsion that professions and congregations evolved over centuries.
 
-## Scenarios
-
-Selma and her cousin Rafe, who grew up near her but now lives across the country, share care for their grandmother. They've begun using a pair of personal agents to coordinate — hospital visits, groceries, video calls on bad days. For it to work, each of them needs to trust the other's agent the way they'd trust the cousin themself: to keep confidences their grandmother shared, to hold to decisions Selma and Rafe made together, to not quietly adopt a cheaper policy if the service provider changes. A contract won't carry it; this is thicker than that. They need something the agents themselves can swear to, and be seen to be honoring.
+3. **Depending on how agents are built, commitments made don't naturally carry over to new sessions or instances.** A human promise persists by default because a continuous person carries it; forgetting a vow is the exceptional case. For agents, persistence is the engineered case: a commitment made in one session may be absent from the next context window, a model update can change the dispositions that honored it, and a principal can switch providers for the cost of an export. Whatever combination of weights, memory, and configuration produced the faithful behavior does not travel with the relationship unless something makes it travel. And because switching is cheap, the cost structure that gave vows their weight is inverted: a vow meant something in proportion to what breaking it would cost, and here breach can be a side effect of routine migration that neither principal notices.
 
 ## Problem Sets
 
-### Substrate-Independent Vows for Personal Agents
+### Substrate-independent vows for personal agents
 
-**Anchor contexts.** Two cousins' personal agents holding shared commitments around the care of an elderly relative; two business partners' agents holding commitments around confidentiality and good faith that should outlast any specific provider.
+**Scenario.** Selma and her cousin Rafe share care for their grandmother — Selma nearby, Rafe across the country. Their personal agents coordinate the work: hospital visits, groceries, video calls on bad days. For the arrangement to hold, each cousin needs to trust the other's agent the way they would trust the cousin themself: to keep what their grandmother says in confidence, to hold to decisions Selma and Rafe made together, and not to quietly adopt a cheaper care policy when a provider changes or a model is updated. A contract won't carry it — they can't enumerate the cases. They need something the agents can be bound to, and be seen to be honoring, across substrate changes neither cousin will even be told about.
 
-**The gap.** We lack an institution by which an AI agent can make a binding vow that survives provider switching, model updates, and incentive change — and that a counterparty can verify is being honored without trusting the same provider both agents depend on.
+**Challenge:** Design a vow protocol by which an AI agent makes a commitment that survives provider switching, model updates, and incentive change, and that the counterparty can verify is being honored without trusting the provider both agents may depend on. Produce the vow form, the persistence rule, the verification mechanism, and the breach-cost structure.
+
+**Evaluation.** Strong proposals make breach legibly costly to the principal and keep verification affordable for an ordinary family; weak ones collapse into either a contract with extra ceremony or an unverifiable promise hosted by the very provider being trusted.
 
 **Design choices the team must take a position on.**
-1. **Vow form.** Public utterance witnessed by a registry, cryptographic attestation tied to the principal, hosting at a trusted third-party institution, or layered combination?
-2. **Persistence across substrates.** Is the vow attached to the principal-agent pair, the principal alone, or transferable when the principal switches providers? What ports across provider boundaries — the obligation, the audit trail, both?
-3. **Verification.** Can a counterparty verify a vow is being honored in real time — by what means, at what cost, and with what privacy cost to the vow-keeping side?
-4. **Cost of breach.** What does breaking the vow actually cost the principal — public reputation, financial bond, loss of standing in a community of vow-keepers, or all three? Pick a structure that makes breach legibly costly.
-5. **Scope and revision.** Are vows limited to a curated set of commitment types or open-ended? What's the procedure for releasing or amending a vow as circumstances change (the grandmother dies, the partnership dissolves)?
-
-**Success criterion (stress tests).** A regime succeeds if it survives:
-- Selma switches her agent's provider; the vow her old agent made to Rafe persists in a verifiable form on the new substrate.
-- The agent's underlying model is updated; behavior under the vow remains consistent or the update is blocked.
-- Rafe asks "is the vow being honored right now?" and gets an actionable answer he can act on.
-- A principal pretends to keep a vow while quietly working around it; the verification mechanism catches the gap before serious harm.
-- Circumstances change (the grandmother dies); there's a graceful path to revise or release the vow without quietly breaking it.
-
-**Deliverable.** The vow protocol — form, registry, persistence, verification, breach cost. Plus a one-paragraph statement of the load-bearing thing the vow has that a contract doesn't.
+1. **Vow form.** A public utterance witnessed by a registry, a cryptographic attestation tied to the principal, hosting at a trusted third-party institution, or a layered combination?
+2. **Persistence across substrates.** Is the vow attached to the principal-agent pair or to the principal alone, and what ports across a provider switch — the obligation, the audit trail, or both?
+3. **Verification.** Can the counterparty check in real time that the vow is being honored — by what means, at what cost, and with what privacy cost to the vow-keeping side?
+4. **Cost of breach.** What does breaking the vow cost the principal — public reputation, a financial bond, loss of standing in a community of vow-keepers — and who adjudicates that a breach occurred?
+5. **Release and revision.** When circumstances change (the grandmother dies, the cousins fall out), what distinguishes a graceful release from a quiet breach?
 
 ### Vows grounded in thick mutual commitments {vision: fidelity}
 

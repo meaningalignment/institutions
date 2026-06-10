@@ -489,7 +489,11 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += '<div class="detail-main">';
   html += renderSummaryBox(cell.frontmatter);
   const status = (cell.frontmatter && cell.frontmatter.status) || '';
-  const statusClass = status ? ` status-${status.replace(/_/g, '-')}` : '';
+  // Expert-review stages come after body_ok; treat them as a reviewed body so
+  // the deployed site still shows the content.
+  const READY_STATUSES = new Set(['body_ok', 'expert_selected', 'expert_reviewed']);
+  const bodyStatus = READY_STATUSES.has(status) ? 'body_ok' : status;
+  const statusClass = bodyStatus ? ` status-${bodyStatus.replace(/_/g, '-')}` : '';
   if (cell.body && cell.body.trim()) {
     html += `<div class="detail-body${statusClass}">${renderBody(cell.body)}</div>`;
     html += `<div class="detail-placeholder detail-body-hidden-notice">This cell isn\u2019t ready yet.</div>`;

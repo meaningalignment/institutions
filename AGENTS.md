@@ -24,7 +24,7 @@ Both servers inject a tiny `<script>` that listens on `/_reload` (Server-Sent Ev
 
 ### Kanban
 
-The Kanban is a local-only tool — not part of the build, not deployed. It renders seven status columns (`not_started` → `summary_draft` → `summary_needs_work` → `summary_ok` → `body_draft` → `body_needs_work` → `body_ok`) live from the markdown files, lets you drag cards between columns and click owner pills to reassign (`oliver` / `joe` / `none`), and writes the edits back into the YAML frontmatter. Cards with inline editorial notes in their body display a `✎ N` badge. Everything kanban-specific lives in `scripts/kanban.js` and `scripts/kanban.css`; `build.js` knows nothing about it.
+The Kanban is a local-only tool — not part of the build, not deployed. It renders nine status columns (`not_started` → `summary_draft` → `summary_needs_work` → `summary_ok` → `body_draft` → `body_needs_work` → `body_ok` → `expert_selected` → `expert_reviewed`) live from the markdown files, lets you drag cards between columns and click owner pills to reassign (`oliver` / `joe` / `ryan` / `none`), and writes the edits back into the YAML frontmatter. Dragging a card into an expert stage prompts for the reviewer's name, stored in the free-text `expert:` frontmatter field (also editable via the card's expert pill). Cards with inline editorial notes in their body display a `✎ N` badge. Everything kanban-specific lives in `scripts/kanban.js` and `scripts/kanban.css`; `build.js` knows nothing about it.
 
 ## Stack
 
@@ -51,8 +51,9 @@ human_era: "Ancient / customary"       # optional; Human-tab display label for w
 human_era_bucket: ancient              # optional; Human-tab color bucket: ancient | medieval | early-modern | industrial | twentieth | digital | ancient-medieval | ancient-modern | medieval-modern | early-modern-modern | industrial-digital.
 hide_agi: true                         # optional; hide this cell from the AGI grid (renders empty). Use when no AGI story yet.
 hide_human: true                       # optional; symmetric flag for the Human grid.
-status: body_ok                        # not_started | summary_draft | summary_needs_work | summary_ok | body_draft | body_needs_work | body_ok. Drives grid marker and Kanban column.
-owner: oliver                          # oliver | joe | none. Drives Kanban filter.
+status: body_ok                        # not_started | summary_draft | summary_needs_work | summary_ok | body_draft | body_needs_work | body_ok | expert_selected | expert_reviewed. Drives grid marker and Kanban column.
+owner: oliver                          # oliver | joe | ryan | none. Drives Kanban filter.
+expert: Dr. Jane Doe                   # optional free text; the named expert reviewer. Required (and prompted in the Kanban) once status reaches an expert_* stage.
 related: [group-norms]                 # optional; reserved for future cross-linking.
 visions:                               # optional; opt this cell into one or more visions overlaid on the AGI grid.
   fidelity: "Lay review panels…"       #   <vision-id>: "<grid chip label>". Vision ids come from the VISIONS const in build.js.
@@ -125,7 +126,7 @@ Rigorous, not bombastic. Don't claim "load-bearing" without showing why. Don't r
 
 ### Status field
 
-`status:` tracks where each cell sits in the writing pipeline. Seven values, in order:
+`status:` tracks where each cell sits in the writing pipeline. Nine values, in order:
 
 - `not_started` — placeholder; no frontmatter content yet. Faint gray corner marker.
 - `summary_draft` — the `## At a glance` section (Coordination challenge / Examples / How AGI breaks them) is drafted, ready for review.
@@ -134,8 +135,12 @@ Rigorous, not bombastic. Don't claim "load-bearing" without showing why. Don't r
 - `body_draft` — body sections (`## How humans solve this today`, `## Where AGI breaks it`, `## Problem Sets`) are drafted, ready for review.
 - `body_needs_work` — reviewer has flagged the body; specifics live in inline editorial notes (`{>> ... <<}`). Red marker.
 - `body_ok` — body reviewed and stable. Solid green marker.
+- `expert_selected` — body is done and an expert reviewer has been named (`expert:` frontmatter). Blue marker. The Kanban requires an expert name to enter this stage.
+- `expert_reviewed` — the named expert has reviewed the cell. Dark-green marker.
 
-The corresponding CSS classes use hyphens (`status-not-started`, `status-summary-draft`, `status-summary-needs-work`, etc.).
+`body_ok` and the two `expert_*` stages all count as "published" — the deployed site shows their bodies and the AGI grid marks them done.
+
+The corresponding CSS classes use hyphens (`status-not-started`, `status-summary-draft`, `status-summary-needs-work`, `status-expert-selected`, `status-expert-reviewed`, etc.).
 
 ### Inline editorial notes
 
@@ -143,7 +148,11 @@ Reviewers leave feedback inline using `{>> note text <<}` markers anywhere in th
 
 ### Owner field
 
-`owner:` is one of `oliver`, `joe`, or `none` (unassigned). Used by the Kanban page filter and the per-card "Assign to" popup. New cells start as `none`.
+`owner:` is one of `oliver`, `joe`, `ryan`, or `none` (unassigned). Used by the Kanban page filter and the per-card "Assign to" popup. New cells start as `none`.
+
+### Expert field
+
+`expert:` is free text naming the expert reviewer. It is optional in general, but **required once `status` reaches `expert_selected` or `expert_reviewed`** — the Kanban prompts for it when you drag a card into an expert column, and the PATCH endpoint rejects an expert stage with no expert. It renders as a `👤` pill on the card (click to edit) and is cleared from frontmatter when set empty.
 
 ## Skills
 

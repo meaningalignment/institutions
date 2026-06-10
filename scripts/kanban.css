@@ -196,6 +196,8 @@ body {
 .kanban-card.status-body-draft::after         { border-color: transparent #a8c95e transparent transparent; }
 .kanban-card.status-body-needs-work::after    { border-color: transparent #c44d2e transparent transparent; }
 .kanban-card.status-body-ok::after            { border-color: transparent #6aaa64 transparent transparent; }
+.kanban-card.status-expert-selected::after    { border-color: transparent #4a8db5 transparent transparent; }
+.kanban-card.status-expert-reviewed::after    { border-color: transparent #2f6f4f transparent transparent; }
 
 /* Editorial-note count badge: shown when the cell body contains
    {>> ... <<} markers. Sits next to the owner pill. */
@@ -247,11 +249,27 @@ body {
 .kanban-owner-pill:hover { filter: brightness(0.95); }
 .kanban-owner-pill.owner-oliver { background: #d6e6f5; color: #2a4a6b; }
 .kanban-owner-pill.owner-joe    { background: #f5d9c2; color: #6b3e1f; }
+.kanban-owner-pill.owner-ryan   { background: #d9ecd5; color: #2f5d3a; }
 .kanban-owner-pill.owner-none {
   background: #efeae0;
   color: #8a8378;
   font-style: italic;
 }
+
+/* Expert-reviewer pill (free text, prompted) */
+.kanban-expert-pill {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e6eef5;
+  color: #2a4a6b;
+  border: 1px solid #cfdeeb;
+  font-family: inherit;
+  cursor: pointer;
+  line-height: inherit;
+}
+.kanban-expert-pill:hover { filter: brightness(0.96); }
 
 /* Owner-edit popup */
 .kanban-popup {

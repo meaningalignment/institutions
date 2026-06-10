@@ -55,7 +55,7 @@ const TAB_META = {
 
 const TABS = {
   agi: {
-    title: 'AGI Institutions (Required)',   // shown as the selected-tab heading + page <title>
+    title: 'AGI Institutions',   // shown as the selected-tab heading + page <title>
     nav: 'AGI Institutions',                // shown on the tab itself (no "(Required)")
     short: 'AGI',
     subtitle: 'New institutions needed for a world of autonomous AI agents'

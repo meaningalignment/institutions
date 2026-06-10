@@ -1,7 +1,7 @@
 // ── Constants ──────────────────────────────────────────────────────
 
 const TABS = {
-  agi: { title: 'AGI Institutions (Required)' },
+  agi: { title: 'AGI Institutions' },
   human: { title: 'Existing Human Institutions' }
 };
 

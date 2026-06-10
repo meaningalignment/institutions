@@ -4,7 +4,7 @@ An interactive grid for exploring institutional design for AI governance. Maps i
 
 Three perspectives:
 
-- **AGI Institutions (Required)** — new institutions needed for a world of autonomous AI agents
+- **AGI Institutions** — new institutions needed for a world of autonomous AI agents
 - **Existing Human Institutions** — current institutional infrastructure and how humans accomplish alignment
 - **Fidelity & Meaning** — institutions to align organizations with rich, accountable mandates
 

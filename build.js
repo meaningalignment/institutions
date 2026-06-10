@@ -637,11 +637,15 @@ ${renderVisionsRegistryTag()}
     document.addEventListener('change', function(e){
       var t = e.target;
       if (!t || !t.matches || !t.matches('input[data-vision]')) return;
-      var ids = [];
-      document.querySelectorAll('input[data-vision]').forEach(function(b){
-        if (b.checked) ids.push(b.getAttribute('data-vision'));
-      });
+      // Toggle the changed vision in the active list (mirrors app.js:
+      // don't union all checkboxes, a vision can have multiple copies).
+      var id = t.getAttribute('data-vision');
+      var ids = active.filter(function(v){ return v !== id; });
+      if (t.checked) ids.push(id);
       active = ids; apply(ids); persist(ids);
+      document.querySelectorAll('input[data-vision]').forEach(function(b){
+        b.checked = ids.indexOf(b.getAttribute('data-vision')) !== -1;
+      });
     });
   });
 })();

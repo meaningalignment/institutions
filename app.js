@@ -75,12 +75,15 @@ function syncVisionCheckboxes(list) {
     b.checked = list.indexOf(b.getAttribute('data-vision')) !== -1;
   });
 }
-function visionsFromCheckboxes() {
-  const ids = [];
-  document.querySelectorAll('input[data-vision]').forEach(b => {
-    if (b.checked) ids.push(b.getAttribute('data-vision'));
-  });
-  return ids;
+// Toggle one vision in the active list based on the checkbox that changed.
+// Don't union all checkboxes: the same vision can have several checkbox
+// copies in the DOM (grid selector + detail toggle bar), and the not-yet-
+// synced copies would override the one the user just unchecked.
+function visionsAfterToggle(input) {
+  const id = input.getAttribute('data-vision');
+  const list = getActiveVisions().filter(v => v !== id);
+  if (input.checked) list.push(id);
+  return list;
 }
 function setActiveVisions(list) {
   try { localStorage.setItem('visions', JSON.stringify(list)); } catch {}
@@ -645,7 +648,7 @@ window.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('change', (e) => {
     const t = e.target;
     if (t && t.matches && t.matches('input[data-vision]')) {
-      setActiveVisions(visionsFromCheckboxes());
+      setActiveVisions(visionsAfterToggle(t));
     }
   });
   if ('ResizeObserver' in window) {

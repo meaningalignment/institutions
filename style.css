@@ -156,7 +156,7 @@ body {
   border: 1px solid var(--line);
   border-radius: 14px;
   box-shadow: 0 1px 3px rgba(60, 50, 30, 0.05), 0 8px 28px rgba(60, 50, 30, 0.04);
-  padding: 10px 22px 18px;
+  padding: 10px 0 18px;
 }
 table { border-collapse: separate; border-spacing: 0; min-width: 1000px; }
 .axis-label-col { width: 110px; min-width: 110px; }
@@ -1005,24 +1005,6 @@ tr.methods-row th.row-header {
   background: var(--card);
 }
 
-/* Scroll hint on table wrapper — only shown when horizontally scrollable */
-.table-wrapper {
-  position: relative;
-}
-.table-wrapper.is-scrollable::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 28px;
-  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.85));
-  pointer-events: none;
-  display: block;
-  height: 100%;
-  border-radius: 0 14px 14px 0;
-}
-
 @media (max-width: 768px) {
   body {
     padding: 18px 12px 24px;
@@ -1070,7 +1052,7 @@ tr.methods-row th.row-header {
     max-width: 100%;
   }
 
-  .table-wrapper { padding: 4px 10px 10px; border-radius: 12px; }
+  .table-wrapper { padding: 4px 0 10px; border-radius: 12px; }
   table { min-width: 600px; }
   th.col-header { min-width: 80px; padding: 10px 4px 10px; }
   th.col-header .col-name { font-size: 9px; letter-spacing: 0.8px; }
@@ -1478,7 +1460,6 @@ details.curr-field > .curr-field-body { margin-top: 24px; }
 
   .controls,
   .site-footer,
-  .table-wrapper::after,
   .detail-back,
   .detail-footer,
   .rail-footer {

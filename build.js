@@ -534,7 +534,7 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
 <meta name="twitter:image" content="${SITE_OG_IMAGE}">
 <!-- JSON-LD structured data -->
 <script type="application/ld+json">${jsonLd}</script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${cssPath}">
 ${renderVisionStyles()}
 </head>
@@ -587,7 +587,7 @@ function generateProblemSetsPage(cells) {
 <meta property="og:description" content="${psDesc}">
 <meta property="og:url" content="${psCanonical}">
 <meta property="og:image" content="${SITE_OG_IMAGE}">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 ${renderVisionStyles()}
 </head>
@@ -637,11 +637,15 @@ ${renderVisionsRegistryTag()}
     document.addEventListener('change', function(e){
       var t = e.target;
       if (!t || !t.matches || !t.matches('input[data-vision]')) return;
-      var ids = [];
-      document.querySelectorAll('input[data-vision]').forEach(function(b){
-        if (b.checked) ids.push(b.getAttribute('data-vision'));
-      });
+      // Toggle the changed vision in the active list (mirrors app.js:
+      // don't union all checkboxes, a vision can have multiple copies).
+      var id = t.getAttribute('data-vision');
+      var ids = active.filter(function(v){ return v !== id; });
+      if (t.checked) ids.push(id);
       active = ids; apply(ids); persist(ids);
+      document.querySelectorAll('input[data-vision]').forEach(function(b){
+        b.checked = ids.indexOf(b.getAttribute('data-vision')) !== -1;
+      });
     });
   });
 })();
@@ -725,7 +729,7 @@ ${f.bodyHtml}
 <meta property="og:description" content="${currDesc}">
 <meta property="og:url" content="${currCanonical}">
 <meta property="og:image" content="${SITE_OG_IMAGE}">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>

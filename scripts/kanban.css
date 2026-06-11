@@ -312,6 +312,7 @@ body {
 /* Owner filter: hide non-matching cards */
 .kanban-page.filter-oliver .kanban-card:not([data-owner="oliver"]) { display: none; }
 .kanban-page.filter-joe    .kanban-card:not([data-owner="joe"])    { display: none; }
+.kanban-page.filter-ryan   .kanban-card:not([data-owner="ryan"])   { display: none; }
 .kanban-page.filter-none   .kanban-card:not([data-owner="none"])   { display: none; }
 
 /* Starred filter: hide non-starred cards. Composes with owner filter. */

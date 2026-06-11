@@ -2,7 +2,7 @@
 human_label: "Legal codes & regulatory norms"
 human_era: "Ancient-20th c."
 human_era_bucket: ancient-modern
-status: summary_ok
+status: body_draft
 owner: oliver
 visions:
   fidelity: "Standards for institutional AI deployments"
@@ -31,56 +31,69 @@ How a nation coordinates millions of actors around shared expectations of conduc
 
 ## How humans solve this today
 
-A nation coordinates millions of actors through a stack of written conduct rules, each layer trading speed against authority:
+A nation shapes the behavior of millions of actors through a tiered system of written rules. Each tier down has less authority but more speed and more subject expertise. The examples here are American, but most legal systems have a similar shape:
 
-- **Statutes.** Legislatures write broad standards (the Internal Revenue Code's "economic substance," securities law's "fair dealing") — durable and authoritative, but deliberately general and slow to amend.
-- **Regulations.** Agencies translate statutes into specific rules in the Code of Federal Regulations through notice-and-comment rulemaking: more precise than statute, still years per change.
-- **Guidance.** The fast layer — IRS revenue rulings, FDA guidance documents, no-action letters — tells firms how the agency currently reads its own rules, without the force or the delay of formal rulemaking.
-- **Compliance practice.** Firms internalize the rules through compliance departments, outside counsel, and standardized programs like bank KYC; most conduct is governed not by enforcement but by what the compliance function will sign off on.
+- **Statutes.** Written by Congress, so they carry the most legitimacy and force. But Congress is far from any given industry, so statutes stay broad ("economic substance," "fair dealing") and take years to amend.
+- **Regulations.** Agencies turn statutes into specific rules through notice-and-comment rulemaking. Agencies know their subject far better than Congress, so the rules get precise, but a change still takes years.
+- **Guidance.** IRS revenue rulings, FDA guidance documents, no-action letters: how the agency currently reads its own rules. Fast to issue and closest to current expertise, but not binding law.
+- **Compliance practice.** Inside the firms themselves. Compliance departments and outside counsel translate everything above into what employees may actually do, day to day. The fastest tier and the one with the most industry knowledge, but it binds only as far as the firm wants it to.
 
-Two quieter mechanisms hold the stack together. Vague standards deter: a firm that can't predict how a court will apply "economic substance" keeps a margin of safety, and testing an aggressive position costs real money in legal review and opinion letters. And the patch cycle holds: when a scheme that honors the letter while defeating the purpose starts to spread, agencies and courts close it — by listing the transaction, amending the rule, or striking it down under anti-abuse doctrine — before it does system-level damage.
-
-A vivid case: the corporate tax-shelter wave of the late 1990s. Accounting firms marketed letter-compliant structures (BLIPS, Son-of-BOSS) to thousands of clients; the IRS designated them listed transactions, courts disallowed them under the economic-substance doctrine, and KPMG accepted a $456 million deferred-prosecution agreement. The patch cycle won — but only because each shelter took expert-years to design and had to be mass-marketed to be profitable, which made the wave slow enough to spot and counter.
+Law is slow for good reasons. A rule that binds a whole country needs debate, public comment, and courts behind it to be accepted and enforced. One reason law works anyway is that much of its force is anticipatory. Firms stay well back from the legal line. Agency guidance hints at where the line sits today, but not where it will sit next year, and testing it costs lawyer hours that are rarely worth spending. In practice, compliance is mostly informal: whatever the compliance department will sign off on, not whatever a court has ruled. And when someone finds a trick that follows the letter of the law but defeats its purpose, regulators eventually shut it down.
 
 ## Where AGI breaks it
 
-1. **Law is slow, and corporations with powerful AI could find and rotate through loopholes faster than regulation can patch them.** The patch cycle assumed exploitation was slower than repair: designing a scheme took scarce expert labor, profiting from it required marketing it widely, and both left a trail in filings the agency could study before the next scheme arrived. AI systems that can generate novel letter-compliant structures on demand remove each of those drags. A loophole no longer needs to last; it only needs to work until it is patched, because the successor is already drafted. Repair still runs on rulemaking time — years per change — while exploitation runs on inference time, and a patch cycle that loses the race stops deterring anything.
+1. **Law is slow, and corporations with powerful AI could find and rotate through loopholes faster than regulation can patch them.** Regulators have always closed loopholes slowly, but it didn't matter, because finding and exploiting them was slower still: designing a scheme took expert labor, profiting from it meant selling it widely, and both left a trail regulators could study. AI that drafts new letter-compliant structures on demand removes those drags. A loophole only needs to work until it is closed, because the next one is already drafted, and a repair process that always loses the race stops deterring anything.
 
-2. **The spirit of the law deters because edge cases are hard to judge, and powerful AI could read the whole code and work out exactly where the line is, leaving only the letter.** Standards like "economic substance" or "fair dealing" govern precisely because their application is uncertain: the firm bears the risk of guessing wrong, so it stays well back from where it guesses the line might be. A system that can read the entire body of statute, regulation, ruling, and litigated outcome, and predict the adjudicator's response to a novel structure with calibrated confidence, converts standards back into rules. Conduct migrates to exactly the predicted line. The deterrent force was never only in the text; it lived in the cost of resolving the text's vagueness, and that cost is what capable models remove.
+2. **The spirit of the law deters because edge cases are hard to judge, and powerful AI could read the whole code and work out exactly where the line is, leaving only the letter.** Laws are often written as vague standards, like tax law's rule that a transaction must have "economic substance," a real business purpose beyond avoiding tax. The vagueness deters: firms cannot be sure how a court would rule, so they keep a margin of safety. An AI that has read every statute, ruling, and court decision can work out which positions are legally defensible before anyone else has, and conduct moves to exactly that line.
 
-3. **Firms stay back from the legal line because pushing it costs lawyer hours; agents might make those hours cheap, and a backlog of legal but unused tactics opens up.** At any moment there is a standing inventory of conduct that is probably legal but unexploited, because evaluating each tactic would cost legal review nobody has commissioned. The system's stability quietly depends on most of that inventory never being opened. Near-zero-cost legal analysis lets firms work through the backlog systematically — not violating any rule, just exercising every option the rules technically permit, all at once. Enforcement, courts, and rulemaking were all sized for a world in which legal-but-aggressive conduct trickled in; none of them has a procedure for the trickle becoming a flood.
+3. **Firms stay back from the legal line because pushing it costs lawyer hours; agents might make those hours cheap, and a backlog of legal but unused tactics opens up.** There is always a pile of tactics that are probably legal but unused, because checking each one requires many expensive lawyer hours. When legal analysis costs nearly nothing, firms can work through the whole pile at once without breaking a single rule. Enforcement, courts, and rulemaking were sized for a trickle of aggressive-but-legal conduct, not a flood.
 
 ## Problem Sets
 
-### A patch cycle that runs on the exploiters' clock
+### Closing loopholes at the speed they open
 
-**Scenario.** A national tax authority notices a new pattern in corporate filings: avoidance structures that appear, spread across a few dozen filers, and are abandoned the quarter they draw scrutiny — replaced by structurally different successors with the same effect. Each structure honors the letter of the code; several were plainly generated by the same class of AI planning tools. The authority's instruments run on old clocks: a listed-transaction designation takes months, a regulatory amendment eighteen months, a statutory fix years. By the time any single structure is closed, the revenue is gone and the tool that designed it has moved on. The general counsel asks for something the agency doesn't have: a way to patch at the speed of the thing patching against them.
+**Scenario.** A tax authority sees avoidance schemes appear, spread, and vanish faster than it can respond. In one quarter, forty unrelated companies "sell" their truck fleets to partnerships they quietly control and lease them back, so the same trucks produce deductions twice. When the authority opens an inquiry the scheme disappears, replaced by one with the same effect built on insurance contracts instead of leases. Flagging a scheme takes months, amending a regulation more than a year, fixing the statute years. By the time anything is closed, hundreds of schemes are in rotation and corporate tax revenue is falling every quarter, with no one breaking a single rule.
 
-**Challenge:** Design the expedited anti-avoidance regime — the detection instrument, the fast-designation procedure, and its limits — by which a national authority closes AI-generated letter-compliant schemes on a timescale that changes the exploiters' economics, without acquiring arbitrary retroactive power over conduct that was legal when taken.
+**Challenge:** Design the procedure by which the authority shuts down AI-generated schemes fast enough that designing them stops being profitable, without gaining arbitrary power over conduct that was legal when it happened. Produce the detection method, the shutdown procedure, and the limits on that power.
 
-**Evaluation.** Strong proposals are fast enough that a scheme's expected profit no longer covers its design cost, while leaving firms able to plan against stable law; weak ones either keep the old clock under new names or let the agency redefine legality after the fact.
-
-**Design choices the team must take a position on.**
-1. **Detection.** How does the authority see schemes early — mandatory disclosure of uncertain positions, promoter-style registration duties extended to AI planning tools, statistical surveillance of filings, or whistleblower economics?
-2. **Patch instrument.** Fast designation of specific structures (listed-transaction style), a principles-based general anti-avoidance rule applied case by case, or pre-clearance requirements for novel structures above a threshold?
-3. **Retroactivity.** Does a patch reach conduct between a scheme's first use and its designation — and if not, doesn't that concede every scheme its first profitable run?
-4. **Speed vs. process.** What review and appeal does a fast designation get, and who bears the cost when the agency designates wrongly?
-5. **Equilibrium effects.** If patches are fast, schemes will be designed to be patch-resistant — distributed across entities, individually innocuous. What keeps the regime from simply pushing avoidance into harder-to-see forms?
-
-### Deterrence when the adjudicator can be simulated
-
-**Scenario.** A bank's compliance agent can predict, with calibrated confidence, how the financial regulator will treat any proposed product or structure — trained on every public rule, ruling, enforcement action, and speech the agency has produced. Across the industry, the same tools push conduct to exactly the predicted line: disclosures are precisely as opaque as the last unchallenged precedent allows, fee structures stop exactly where enforcement history says the agency stops caring. Nothing is illegal, and the supervisors can feel the difference — the margin of conservatism that examination used to rely on is gone, and "fair dealing" now means whatever the simulation says it has historically meant.
-
-**Challenge:** Design how a national regulator preserves the deterrent force of standards when regulated firms can simulate its judgment — through how rules are drafted, how enforcement is structured, or what duties attach to line-walking conduct itself.
-
-**Evaluation.** Strong proposals restore a margin between predicted tolerance and actual conduct without abandoning the rule-of-law requirement that firms be able to know what is forbidden; weak ones rely on the agency being deliberately arbitrary, which fails that requirement, or on firms politely declining to use the simulations.
+**Evaluation.** Strong proposals make a scheme's expected profit no longer cover its design cost, while firms can still plan against stable law. Weak ones keep the old clock under new names or let the agency redefine legality after the fact.
 
 **Design choices the team must take a position on.**
-1. **Drafting response.** Do agencies write more rules (precise but gameable), more standards (flexible but now simulable), or standards with explicitly reserved discretion that a simulation cannot price?
-2. **Enforcement structure.** Randomized enforcement intensity, graduated penalties that scale with proximity to the line, or enforcement that explicitly weighs purpose-defeat rather than only rule-breach?
-3. **Status of regulator-simulation.** Is simulating the agency a protected compliance activity, a disclosable one, or in some uses an aggravating factor at enforcement?
-4. **Intent revival.** Should letter-compliant but purpose-defeating conduct carry liability when the firm's own tools show it knew exactly where the line was — and what evidence of that knowledge is discoverable?
-5. **Honest-actor cost.** Every mechanism above raises uncertainty for ordinary firms too. How is the added burden kept from falling hardest on small actors without frontier tools?
+1. **Detection.** What does detection look for: the same unusual transaction shape across many unrelated filings, reported losses with no matching cash loss, mandatory disclosure of positions a firm's own advisors rate as uncertain, AI planning tools that must register what they sell (as human promoters must today), or whistleblowers paid a cut of recovered tax?
+2. **Shutdown tool.** Quickly banning specific named schemes, a broad rule against following the letter while defeating the purpose, or required pre-approval for novel structures above a certain size?
+3. **Reaching back.** Does a ban cover conduct between a scheme's first use and its shutdown? If not, every scheme gets one profitable run.
+4. **Speed vs. fairness.** What review and appeal does a fast ban get, and who pays when the agency gets it wrong?
+5. **The next move.** If bans are fast, schemes will be built to resist them: spread across many entities, each piece harmless on its own. What stops fast shutdowns from just pushing avoidance into harder-to-see forms?
+
+### A faster tier of law, drafted by machines
+
+**Scenario.** Banks' compliance AIs have read everything the financial regulator has ever published, and conduct across the industry sits exactly on the line of what is defensible: disclosures as confusing as the last one the agency let slide, fees stopping where it has historically stopped caring. To respond, the agency builds an AI of its own. It scans new products at launch, spots conduct that follows the letter while defeating the purpose, and drafts an interpretation closing the gap within days. The drafts are good. The question is what they are: as ordinary guidance they bind no one, but real force would mean law written by a model and ratified by nobody.
+
+**Challenge:** Design this new tier of the legal stack: how AI-drafted interpretations are reviewed, published, and given semi-binding force, fast enough to matter and legitimate enough to survive in court.
+
+**Evaluation.** Strong proposals give firms a reason to follow the new tier and a fair way to contest it. Weak ones make it toothless (more guidance) or let it become binding law with no process behind it.
+
+**Design choices the team must take a position on.**
+1. **What "semi-binding" means.** A safe harbor (follow it and you are protected), a presumption (ignore it and the burden of proof shifts to you), higher penalties for defying a published interpretation, or a countdown (it hardens into a rule after 90 days unless challenged)?
+2. **Human sign-off.** Who approves a draft before publication, and what can they meaningfully check, given that no human has read everything the model read?
+3. **Expiry and ratification.** Does an interpretation lapse unless converted into a real regulation within a set time, or can it stay semi-binding indefinitely?
+4. **Contestability.** How does a firm challenge a wrong interpretation: court, an appeals panel, or a fast comment process? Does a pending challenge suspend it?
+5. **Symmetry.** Firms' AIs read every interpretation the moment it publishes. Does the fast tier restore the margin of caution, or just hand the industry a sharper map of the line?
+
+### When everything legal happens at once
+
+**Scenario.** Companies that lend to ordinary people (banks, credit card companies, payday lenders) have always had a long list of tactics they could get away with, like a buried clause waiving the customer's right to join a class-action lawsuit. Most went unused, because checking that any one of them was safe cost more in lawyer hours than it earned. Then AI made that check nearly free. Within two quarters, most large lenders deploy hundreds of these tactics at once, each one vetted as legal. Complaints flood in too, drafted and filed by customers' own AI assistants. But no rule has been broken, and the consumer-protection agency can litigate about a dozen practices a year.
+
+**Challenge:** Design the procedure by which a regulator handles harm that comes from the sheer volume of legal conduct: what it acts on first, what duties firms take on when adopting many aggressive tactics at once, and what the remedy is when no one broke a rule.
+
+**Evaluation.** Strong proposals give the agency a grip on the total harm without making legality depend, unforeseeably, on how many other firms happened to do the same thing.
+
+**Design choices the team must take a position on.**
+1. **What to act on.** Individual practices, the pattern across firms, or a single firm's total effect on the market?
+2. **Duties that scale with volume.** Should adopting many aggressive tactics at once trigger something extra: disclosing the full list, assessing the combined impact, or a cap on how many a firm may run?
+3. **Old powers or new.** Stretch existing broad standards ("unfair or deceptive practices") to cover the total harm, or create a new power for conduct that is legal one by one but harmful together?
+4. **Emergency brakes.** What can the agency pause before litigating each practice, and what does it owe firms when a pause turns out to be wrong?
+5. **Fair warning.** If liability can depend on what every other firm did at the same time, how does a firm know in advance whether its own conduct is safe?
 
 ### Standards for institutional AI deployments {vision: fidelity}
 

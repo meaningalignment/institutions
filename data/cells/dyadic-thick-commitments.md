@@ -2,7 +2,7 @@
 human_label: "Vows & covenants"
 human_era: "Ancient / customary"
 human_era_bucket: ancient
-status: summary_ok
+status: body_draft
 owner: oliver
 visions:
   fidelity: "Vows grounded in thick mutual commitments"
@@ -31,7 +31,7 @@ How two parties bind themselves to a commitment or way of life that outlasts cha
 
 ## How humans solve this today
 
-For relationships that are too important to leave to a contract, humans have evolved thicker forms: vows, covenants, oaths, professional commitments. Marriage vows, the Hippocratic oath, fiduciary duty, the seal of confession, attorney-client privilege, and the lifelong tenure that accompanies certain ordinations all share something a contract doesn't: a public, articulated commitment to a relationship that explicitly survives changes in incentive. The mechanisms are part performative (the public utterance changes the speaker), part institutional (a community holds the speaker accountable), and part self-binding (the very intelligibility of the speaker's identity comes to depend on the commitment). Crucially, vows hold under conditions a contract can't anticipate — when the rules change, the situation transforms, the cost of holding the commitment rises sharply. They're the institution we use precisely when we know we can't enumerate the cases.
+For relationships that are too important to leave to a contract, humans have evolved thicker forms: vows, covenants, oaths, professional commitments. Marriage vows, the Hippocratic oath, fiduciary duty, the seal of confession, attorney-client privilege, and the lifelong tenure that accompanies certain ordinations all share something a contract doesn't: a public, articulated commitment to a relationship that explicitly survives changes in incentive. The mechanisms are part performative (the public utterance changes the speaker), part institutional (a community holds the speaker accountable), and part self-binding (the very intelligibility of the speaker's identity comes to depend on the commitment). All three mechanisms also rest on something so cheap it goes unnamed: persistence. A continuous person carries the vow across decades by default; forgetting it is the exceptional case. Crucially, vows hold under conditions a contract can't anticipate — when the rules change, the situation transforms, the cost of holding the commitment rises sharply. They're the institution we use precisely when we know we can't enumerate the cases.
 
 A vivid case: Selma's grandmother's GP has known the family for thirty years. He's not bound by contract to call when something on her chart worries him at midnight; he's bound by something thicker, made years ago, that he'd find it unintelligible to himself to break.
 
@@ -59,6 +59,21 @@ A vivid case: Selma's grandmother's GP has known the family for thirty years. He
 3. **Verification.** Can the counterparty check in real time that the vow is being honored — by what means, at what cost, and with what privacy cost to the vow-keeping side?
 4. **Cost of breach.** What does breaking the vow cost the principal — public reputation, a financial bond, loss of standing in a community of vow-keepers — and who adjudicates that a breach occurred?
 5. **Release and revision.** When circumstances change (the grandmother dies, the cousins fall out), what distinguishes a graceful release from a quiet breach?
+
+### A standing community that witnesses agent vows and sanctions breach
+
+**Scenario.** Marisol, a small-town therapist, uses an assistant agent that took something like a confidentiality vow: nothing a client says leaves the practice. A former client discovers phrasing from her sessions in the provider's marketing copy and accuses the agent of breach. There is nowhere to take the claim. No body recorded the vow, no one independent of the provider can examine what happened, and the only available sanction — switching providers — costs Marisol more than it costs anyone responsible. The professions solved this for humans with licensing boards that witness oaths, hear complaints, and can expel members; for agents, that standing community does not exist and would have to be built from scratch.
+
+**Challenge:** Design the institution that witnesses agent vows, hears breach allegations, and imposes sanctions that bite — produce its membership rule, its evidentiary powers, its sanction ladder, and the reason a provider would ever submit to it.
+
+**Evaluation.** Strong proposals give the body real powers of observation and expulsion without making it captive to the providers it oversees; weak ones produce a voluntary code of conduct with no way to find facts or make expulsion costly.
+
+**Design choices the team must take a position on.**
+1. **Who is the member.** Does the body admit agents, principals, providers, or principal-agent pairs — and who can be expelled when the agent, the principal, and the provider each contributed to the breach?
+2. **Evidentiary powers.** What can the body inspect when a breach is alleged — logs the provider holds, the vow record, the agent's configuration — and what happens when the provider refuses?
+3. **Sanction ladder.** What sits between a warning and expulsion, and what makes expulsion costly enough to deter when re-entry under a new name is cheap?
+4. **Why submit.** What makes providers and principals join at all — counterparties who demand membership, insurers who price it, regulators who reference it — and how does the body survive before any of those exist?
+5. **Capture resistance.** How does a body funded by the industry it oversees keep the power to expel its funders?
 
 ### Vows grounded in thick mutual commitments {vision: fidelity}
 

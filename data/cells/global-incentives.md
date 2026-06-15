@@ -41,7 +41,7 @@ Markets stay aligned with people because humans are the workers and the buyers. 
 
 - Urgency: 3/5 — Not happening yet, but could come fast and be hard to reverse.
 - Tractability: 2/5 — Verifying qualitative outcomes at scale is hard.
-- Neglectedness: 5/5 — Almost no one is working on this, apart from some UBI.
+- Neglectedness: 5/5 — Almost no one is working on this.
 - Maturity: 2/5 — A mechanism on paper, nothing live yet.
 
 ## How humans solve this today

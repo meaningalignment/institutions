@@ -5,8 +5,9 @@ human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true
-visions:
-  fidelity: "Transnational markets for complex outcomes"
+diffusion: "This is the most macro cell on the grid, so adoption runs through policy rather than a single buyer: finance ministries, central banks, and multilateral bodies whose mandates already include keeping markets serving the public. A concrete mechanism — a way to keep production and spending anchored to human welfare as the labor and consumer shares shrink — becomes something a forward-thinking jurisdiction can pilot and the great powers reach for in a downturn, as postwar Europe reached for the Nordic model."
+importance: "If the channels that historically kept markets aligned with human interests (humans as workforce, humans as dominant buyers) both erode, the alignment of the entire economy with human welfare is at stake — the highest-stakes, hardest cell here."
+neglectedness: "Markets will keep clearing efficiently by default; what won't happen by default is the institutional design that keeps them clearing toward human welfare rather than toward proxy objectives once humans are neither the labor nor the demand."
 ---
 
 # Global markets that keep human interests central

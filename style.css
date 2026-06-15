@@ -393,15 +393,19 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 /* Color dot in selector + toggle bar. */
 .vision-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
 
-/* Vision toggle bar on the detail page. */
+/* Vision toggle bar — sits at the top of the Problem Sets section on the
+   detail page, since vision-tagged problem sets are the only content it
+   reveals. */
 .vision-toggle-bar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 14px;
-  margin: 0 0 24px;
-  padding: 8px 0 14px;
-  border-bottom: 1px solid var(--line);
+  margin: 0 0 20px;
+  padding: 10px 14px;
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
 }
 .vision-toggle-label {
   font-size: 11px;
@@ -417,6 +421,211 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
   font-size: 13px;
   color: var(--ink);
   cursor: pointer;
+}
+
+/* ── "What is this?" project popup ─────────────────────────────────── */
+
+.about-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 9px 16px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.05);
+  transition: color 0.15s, border-color 0.15s;
+}
+.about-button:hover { color: var(--ink); border-color: var(--faint); }
+
+.about-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(38, 35, 30, 0.42);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 6vh 20px 40px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.about-overlay[hidden] { display: none; }
+body.about-open { overflow: hidden; }
+
+.about-modal {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 38px 44px 32px;
+  box-shadow: 0 24px 70px rgba(38, 30, 18, 0.28);
+}
+
+.about-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 30px;
+  height: 30px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.about-close:hover { color: var(--ink); background: var(--wash); }
+
+.about-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.about-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+
+.about-section { margin-bottom: 22px; }
+.about-section h3 {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.about-section p {
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: var(--text);
+}
+.about-section p strong { color: var(--ink); font-weight: 600; }
+
+.about-stages { list-style: none; margin: 6px 0 0; padding: 0; }
+.about-stage {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  column-gap: 14px;
+  align-items: start;
+}
+.about-stage-num {
+  grid-row: 1;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.about-stage-body { grid-row: 1; padding-top: 1px; }
+.about-stage-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.about-stage-text {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.about-stage-arrow {
+  grid-column: 1;
+  grid-row: 2;
+  text-align: center;
+  color: var(--faint);
+  font-size: 13px;
+  line-height: 1;
+  margin: 4px 0 6px;
+}
+
+.about-footer {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.about-footer a { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .about-modal { padding: 32px 22px 26px; }
+  .about-title { font-size: 23px; }
+}
+
+/* ── Per-cell investor box (AGI detail) ────────────────────────────── */
+
+.cell-impact {
+  margin: 0 0 32px;
+  padding: 18px 22px;
+  background: #f0f4ee;
+  border: 1px solid #dce6d6;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+}
+.cell-impact-label {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
+}
+.cell-impact-lead-text {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.cell-impact-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #dce6d6;
+}
+.cell-impact-meta-label {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.cell-impact-meta-text {
+  display: block;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+@media (max-width: 768px) {
+  .cell-impact-meta { grid-template-columns: 1fr; gap: 12px; }
 }
 
 /* Deployed site: on the detail page, hide the body of cells whose status
@@ -891,6 +1100,12 @@ details.collapsible-section > .collapsible-body { margin-top: 14px; }
   font-size: 13px;
   font-weight: 700;
   line-height: 1;
+}
+/* Vision-tagged briefs: the number bubble takes the vision's color, matching
+   the grid chip and the entry's left border. --vision-color is set on the
+   entry by the per-vision CSS generated in build.js. */
+.detail-body .ps-detail-entry[data-vision] .ps-detail-number {
+  background: var(--vision-color, var(--ink));
 }
 
 .detail-body .ps-detail-title {

@@ -458,6 +458,69 @@ function renderVisionsRegistryTag() {
   return `<script>window.__VISIONS__=${data};</script>`;
 }
 
+// ── "What is this?" project popup ──────────────────────────────────
+// A button in the controls row that opens a modal explaining what the
+// project is, why it's needed, and the theory of change. Identical on
+// every grid page. The toggle JS is inline so it works without app.js.
+
+const ABOUT_STAGES = [
+  { n: '1', label: 'Research & design', text: 'Pair domain experts across disciplines — a mechanism designer with a legal scholar, an Ostrom scholar with an AI researcher — to produce concrete institutional designs for the problems in this grid.' },
+  { n: '2', label: 'Pairing the right people', text: 'Most of the people who could do this work sit in separate fields and never collaborate on the most pressing problems. We convene them, scope the problem, and give them a venue that takes ideas to publication and critique.' },
+  { n: '3', label: 'Prototypes & pilots', text: 'Build the most promising designs as simulations, demos, or small live deployments — run where failure is cheap and the mechanism can be observed in use.' },
+  { n: '4', label: 'Uptake by institutions, labs & governments', text: 'A small forward-thinking jurisdiction, a frontier lab, or a regulatory body adopts a working example — turning a proposal into a place others can point to.' },
+  { n: '5', label: 'Diffusion', text: 'A working example reshapes what counts as a legitimate institution everywhere else. The standard does not have to be copied — it has to exist, as a place to point.' }
+];
+
+function renderAboutModal(psLink = 'problem-sets/') {
+  let stages = '';
+  ABOUT_STAGES.forEach((s, i) => {
+    stages += '<li class="about-stage">';
+    stages += `<span class="about-stage-num">${s.n}</span>`;
+    stages += '<div class="about-stage-body">';
+    stages += `<span class="about-stage-label">${esc(s.label)}</span>`;
+    stages += `<span class="about-stage-text">${esc(s.text)}</span>`;
+    stages += '</div>';
+    if (i < ABOUT_STAGES.length - 1) stages += '<span class="about-stage-arrow" aria-hidden="true">↓</span>';
+    stages += '</li>';
+  });
+
+  return `<div class="about-overlay" id="about-overlay" hidden onclick="if(event.target===this)closeAbout()">
+  <div class="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-title">
+    <button class="about-close" aria-label="Close" onclick="closeAbout()">×</button>
+    <div class="about-eyebrow">About this grid</div>
+    <h2 class="about-title" id="about-title">New institutions for a world of AI agents</h2>
+
+    <div class="about-section">
+      <h3>What this is</h3>
+      <p>A map of the institutions a world of autonomous AI agents will need — laid out by <strong>scale</strong> (from two parties up to the whole globe) and by <strong>function</strong> (how coordination, preferences, rights, incentives, expertise, norms, and shared commitments get handled). Each cell names a coordination problem, shows how humans currently solve it, and how AI agents break that solution. The marked cells are where the human analogy breaks down and a new design is needed.</p>
+    </div>
+
+    <div class="about-section">
+      <h3>Why it's needed</h3>
+      <p>Human institutions — markets, courts, regulators, professional norms — were built for participants who are slow, embedded in networks of mutual responsibility, have reputations to protect, and can be held accountable. AI agents break those assumptions: they transact at machine speed, copy themselves, carry no reputational stake, and optimize harder than any human. Society needs concrete institutional designs for this world, and the people who could produce them work in separate disciplines and don't collaborate on the most pressing problems. Some of this work will happen by default through market incentives; this grid focuses on the designs that won't happen otherwise.</p>
+    </div>
+
+    <div class="about-section">
+      <h3>Theory of change</h3>
+      <ol class="about-stages">${stages}</ol>
+    </div>
+
+    <div class="about-footer">Assembled by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>. The problems in this grid are mapped, brief by brief, on the <a href="${psLink}">problem sets</a> page.</div>
+  </div>
+</div>
+<script>
+(function(){
+  window.openAbout=function(){var o=document.getElementById('about-overlay');if(o){o.hidden=false;document.body.classList.add('about-open');}};
+  window.closeAbout=function(){var o=document.getElementById('about-overlay');if(o){o.hidden=true;document.body.classList.remove('about-open');}};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAbout();});
+})();
+</script>`;
+}
+
+function renderAboutButton() {
+  return '<button class="about-button" onclick="openAbout()" aria-haspopup="dialog">What is this?</button>';
+}
+
 // ── Generate grid page HTML ─────────────────────────────────────────
 
 function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
@@ -477,6 +540,8 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
 
   const psLink = tabId === 'agi' ? 'problem-sets/' : '../problem-sets/';
   const visionMenu = tabId === 'agi' ? renderVisionMenu() : '';
+  const aboutButton = renderAboutButton();
+  const aboutModal = renderAboutModal(psLink);
 
   const meta = TAB_META[tabId];
   const pageTitle = `${esc(TABS[tabId].title)} — AGI Institutions`;
@@ -549,12 +614,15 @@ ${renderVisionStyles()}
 ${tabLinks}
   </nav>
   ${visionMenu}
+  ${aboutButton}
 </div>
 
 <div id="grid-view">
 ${grid}
 </div>
 <div id="detail-view"></div>
+
+${aboutModal}
 
 <footer class="site-footer">
   Assembled by the <a href="https://meaningalignment.org" target="_blank" rel="noopener">Meaning Alignment Institute</a>

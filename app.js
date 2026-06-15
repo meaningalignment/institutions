@@ -95,17 +95,36 @@ function setActiveVisions(list) {
   applyVisionClasses(list);
   syncVisionCheckboxes(list);
 }
-// Compact vision toggle bar shown on AGI detail pages (the grid's own
-// selector lives in `.controls`, which is hidden while viewing a detail).
-function renderVisionToggleBar() {
-  const visions = window.__VISIONS__ || [];
+// Compact vision toggle bar. On AGI detail pages it sits at the top of the
+// Problem Sets section (the only content a vision changes), and lists only
+// the visions this cell's problem sets actually use. `onlyIds`, when given,
+// restricts which visions to show; an empty result returns ''.
+function renderVisionToggleBar(onlyIds) {
+  let visions = window.__VISIONS__ || [];
+  if (Array.isArray(onlyIds)) visions = visions.filter(v => onlyIds.indexOf(v.id) !== -1);
   if (!visions.length) return '';
-  let html = '<div class="vision-toggle-bar"><span class="vision-toggle-label">Visions</span>';
+  let html = '<div class="vision-toggle-bar"><span class="vision-toggle-label">Include from visions</span>';
   for (const v of visions) {
     html += `<label class="vision-toggle"><input type="checkbox" data-vision="${v.id}"><span class="vision-swatch" style="background:${v.color}"></span>${escapeHtml(v.label)}</label>`;
   }
   html += '</div>';
   return html;
+}
+
+// Collect the `{vision: id}` tags present in a cell body's Problem Sets so the
+// detail page only offers toggles for visions that actually change something.
+function visionTagsInBody(md) {
+  if (!md) return [];
+  const psMatch = md.match(/## Problem Sets\n([\s\S]*?)(?=\n## [^#]|$)/);
+  if (!psMatch) return [];
+  const ids = new Set();
+  const re = /^###\s+(.+)$/gm;
+  let m;
+  while ((m = re.exec(psMatch[1])) !== null) {
+    const parsed = parseVisionTag(m[1].trim());
+    if (parsed.vision) ids.add(parsed.vision);
+  }
+  return Array.from(ids);
 }
 // Apply early so active chips/sections don't flash hidden then appear.
 applyVisionClasses(getActiveVisions());
@@ -330,7 +349,7 @@ function wrapDesignChoices(html) {
 // `<details open>` so the reader can collapse it. Operates on the HTML
 // produced by marked, after problem-set wrapping. The H2 becomes the
 // `<summary>`; everything up to the next H2 (or end) becomes the body.
-function wrapCollapsibleSections(html) {
+function wrapCollapsibleSections(html, problemSetsPrefix) {
   const targets = new Set([
     'How humans solve this today',
     'Where AGI breaks it',
@@ -352,7 +371,10 @@ function wrapCollapsibleSections(html) {
     if (targets.has(h.title)) {
       const body = html.slice(h.end, sectionEnd);
       const slug = h.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      out += `<details open class="collapsible-section collapsible-${slug}"><summary><h2>${h.title}</h2><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="collapsible-body">${body}</div></details>`;
+      // The vision toggle bar belongs to the Problem Sets section — it's the
+      // only content a vision reveals — so prepend it inside that body.
+      const prefix = (h.title === 'Problem Sets' && problemSetsPrefix) ? problemSetsPrefix : '';
+      out += `<details open class="collapsible-section collapsible-${slug}"><summary><h2>${h.title}</h2><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="collapsible-body">${prefix}${body}</div></details>`;
     } else {
       out += html.slice(h.start, sectionEnd);
     }
@@ -362,8 +384,8 @@ function wrapCollapsibleSections(html) {
   return out;
 }
 
-function renderBody(md) {
-  return wrapCollapsibleSections(wrapDesignChoices(wrapProblemSets(renderVividCases(marked.parse(processEditorial(md))))));
+function renderBody(md, problemSetsPrefix) {
+  return wrapCollapsibleSections(wrapDesignChoices(wrapProblemSets(renderVividCases(marked.parse(processEditorial(md))))), problemSetsPrefix);
 }
 
 // ── Summary box at top of detail (problem + example institutions) ──
@@ -462,6 +484,43 @@ function renderSummaryBox(fm) {
   return html;
 }
 
+// Investor-facing per-cell box. `diffusion` (who would use it / speculative
+// path to adoption) is the prominent lead; `importance` and `neglectedness`
+// (how likely it gets solved by default) are secondary, shown smaller below.
+function renderImpactBox(fm) {
+  if (!fm) return '';
+  const diffusion = typeof fm.diffusion === 'string' ? fm.diffusion.trim() : '';
+  const importance = typeof fm.importance === 'string' ? fm.importance.trim() : '';
+  const neglectedness = typeof fm.neglectedness === 'string' ? fm.neglectedness.trim() : '';
+  if (!diffusion && !importance && !neglectedness) return '';
+
+  let html = '<aside class="cell-impact">';
+  if (diffusion) {
+    html += '<div class="cell-impact-lead">';
+    html += '<span class="cell-impact-label">Who would use it &middot; path to diffusion</span>';
+    html += `<div class="cell-impact-lead-text">${escapeRich(diffusion)}</div>`;
+    html += '</div>';
+  }
+  if (importance || neglectedness) {
+    html += '<div class="cell-impact-meta">';
+    if (importance) {
+      html += '<div class="cell-impact-meta-item">';
+      html += '<span class="cell-impact-meta-label">Importance / impact</span>';
+      html += `<span class="cell-impact-meta-text">${escapeRich(importance)}</span>`;
+      html += '</div>';
+    }
+    if (neglectedness) {
+      html += '<div class="cell-impact-meta-item">';
+      html += '<span class="cell-impact-meta-label">Neglectedness</span>';
+      html += `<span class="cell-impact-meta-text">${escapeRich(neglectedness)}</span>`;
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  html += '</aside>';
+  return html;
+}
+
 // ── Detail page ────────────────────────────────────────────────────
 
 function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
@@ -482,12 +541,18 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += '</div>';
   html += `<div class="detail-title">${title}</div>`;
   if (tabId === 'human') html += renderHumanEraMeta(cell.frontmatter);
-  if (tabId === 'agi') html += renderVisionToggleBar();
+
+  // The vision toggle bar lives inside the Problem Sets section (the only
+  // content a vision reveals), and only when this cell has vision-tagged
+  // problem sets. Threaded into renderBody as the section's prefix.
+  const visionBar = tabId === 'agi'
+    ? renderVisionToggleBar(visionTagsInBody(cell.body)) : '';
 
   // Two-column layout: main body + methods rail
   html += '<div class="detail-layout">';
   html += '<div class="detail-main">';
   html += renderSummaryBox(cell.frontmatter);
+  if (tabId === 'agi') html += renderImpactBox(cell.frontmatter);
   const status = (cell.frontmatter && cell.frontmatter.status) || '';
   // Expert-review stages come after body_ok; treat them as a reviewed body so
   // the deployed site still shows the content.
@@ -495,7 +560,7 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   const bodyStatus = READY_STATUSES.has(status) ? 'body_ok' : status;
   const statusClass = bodyStatus ? ` status-${bodyStatus.replace(/_/g, '-')}` : '';
   if (cell.body && cell.body.trim()) {
-    html += `<div class="detail-body${statusClass}">${renderBody(cell.body)}</div>`;
+    html += `<div class="detail-body${statusClass}">${renderBody(cell.body, visionBar)}</div>`;
     html += `<div class="detail-placeholder detail-body-hidden-notice">This cell isn\u2019t ready yet.</div>`;
   } else {
     html += `<div class="detail-placeholder">This cell hasn\u2019t been documented yet. <a href="${ghLink}">Contribute on GitHub \u2192</a></div>`;

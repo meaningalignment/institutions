@@ -5,9 +5,6 @@ human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true
-diffusion: "This is the most macro cell on the grid, so adoption runs through policy rather than a single buyer: finance ministries, central banks, and multilateral bodies whose mandates already include keeping markets serving the public. A concrete mechanism — a way to keep production and spending anchored to human welfare as the labor and consumer shares shrink — becomes something a forward-thinking jurisdiction can pilot and the great powers reach for in a downturn, as postwar Europe reached for the Nordic model."
-importance: "If the channels that historically kept markets aligned with human interests (humans as workforce, humans as dominant buyers) both erode, the alignment of the entire economy with human welfare is at stake — the highest-stakes, hardest cell here."
-neglectedness: "Markets will keep clearing efficiently by default; what won't happen by default is the institutional design that keeps them clearing toward human welfare rather than toward proxy objectives once humans are neither the labor nor the demand."
 ---
 
 # Global markets that keep human interests central
@@ -30,6 +27,22 @@ How global markets stay aligned with human interests.
 - AI labor makes firms less likely to pay, persuade, train, and retain humans, leading to a shrinking labor share.
 - Non-consumer market pull (finance, procurement, capex) grows and pulls production away from human welfare.
 - Buyer-side agents mediate spending through proxy objectives rather than durable human preferences.
+
+## Theory of change
+
+Markets stay aligned with people because humans are the workers and the buyers. As AI erodes both, production drifts toward whatever pays. One candidate is a [market intermediary](https://meaningalignment.substack.com/p/market-intermediaries-a-post-agi): it pools people's demand and pays suppliers for outcomes people actually want. A rough, speculative path:
+
+1. Prove it in a niche where outcomes are cheap to check.
+2. Grow into a standing intermediary in a market with real budgets.
+3. Turn the same machinery on big incumbents, which needs government backing to bite.
+4. From there it can spread market by market, as being held to your mandate becomes profitable.
+
+**Scores**
+
+- Urgency: 3/5 — Not happening yet, but could come fast and be hard to reverse.
+- Tractability: 2/5 — Verifying qualitative outcomes at scale is hard.
+- Neglectedness: 5/5 — Almost no one is working on this, apart from some UBI.
+- Maturity: 2/5 — A mechanism on paper, nothing live yet.
 
 ## How humans solve this today
 

@@ -232,6 +232,82 @@ Before declaring the body done, check:
 
 ---
 
+## 4. What makes a good "Theory of change"
+
+This is the investor-facing box on the AGI tab. It is not for researchers; it answers a funder's question: *if someone built the thing this cell points at, how does it actually reach the world, and is it worth backing now?* It must be the product of deliberate thinking about this specific cell, not a generic "labs will adopt it" gesture.
+
+It lives as a `## Theory of change` markdown section in the cell body (parsed out and rendered as a standalone collapsible box, like `## At a glance`). The section has three parts:
+
+```markdown
+## Theory of change
+
+{intro paragraph — stands alone, with [links](url)}
+
+1. {ladder step}
+2. ...
+
+**Scores**
+
+- Urgency: 3/5 — {note}
+- Tractability: 3/5 — {note}
+- Neglectedness: 2/5 — {note}
+- Maturity: 3/5 — {note}
+```
+
+**The intro must read on its own.** A funder may open this box without having read the body, so the intro names the problem in a line, says early prototypes already exist (name them, with links), and leads into the path. Then the numbered ladder, then the scores.
+
+### 4.0 Voice
+
+The whole section is short and concrete. The failure mode to avoid is *slop*: filler that takes the shape of analysis but carries no claim ("tends to spread less by being copied," "labs are building X, not Y" used as a vague gesture). Cut it.
+
+- **Shortest version that still carries the point.** Every sentence earns its place; when in doubt, cut. Stay high-level: the intro is a few sentences, each step ideally one, each score note a single short line. Prefer the shape of a step ("prove it in a niche where outcomes are cheap to check") over the worked detail ("quit-smoking verified by a nicotine test, run as a co-op of a few hundred"). The detail belongs in the body and the source links, not here.
+- **Concrete over rhetorical.** Name the real project, the real number, the real adopter. Prefer a specific case (a named party, a named pilot) to a general claim about how things "tend to" go.
+- **Honest, not promotional.** The point is to inform a funder, not to win them. If a space has real research energy, say so and let the score reflect it; if existing institutions still hold, lower urgency. Scores track reality, not the pitch you wish you had.
+- **Plain language, hedged where speculative, no em dashes in the steps.**
+
+### 4.1 The diffusion ladder
+
+The intro names a **wedge** and ends on a **diffusion mechanism**; the numbered list is the **ladder** between them.
+
+- **Wedge.** The single concrete thing someone builds first — a named mechanism, not a category. "A market intermediary that pools demand into outcome-based contracts" or "structured LLM-facilitated elicitation like Moral Graph Elicitation," not "a better market" or "a deliberation tool." Where the project (MAI) or a known group already has a prototype, name it (CRSA, MGE, Pol.is/vTaiwan).
+- **Ladder.** Usually three rungs, smallest-first, each a real change in scale and stakes:
+  1. **Research trial** — a controlled, low-stakes test where the mechanism can be observed and outcomes verified cheaply. Ground it: MGE's 500-representative-American trial (89% judged the result fair), a ~200-member intermediary pilot in a niche with verifiable outcomes (quit-smoking checked by a nicotine test).
+  2. **Bounded real-world pilot with a named *kind* of first-adopter** — a forward-looking polity (a Catalan, Scottish, or Taiwanese body; a single city), a market with real budgets and a clear pain point (therapy, group purchasing, deal-flow desks), or a self-regulator already setting the bar (FINRA-style). Name the *type* of adopter and why they have the appetite and standing, even when you can't name the exact one.
+  3. **Scale** — adoption by a larger polity, platform, or market once a flagship has shown the thing works and is robust to the failure mode the cell is about (manipulation, gaming, capture).
+- **Diffusion mechanism.** End with *how* a working example spreads: the Taylor imaginary mechanism (the first working assembly becomes the reference others reach for in a crisis), "the alignment problem becomes a profitability problem and the form spreads market by market," a self-regulator's rule copied across professions. A working example does not have to be copied — it has to *exist*, as a place to point.
+
+### 4.2 Grounding bar
+
+- Name a real first-adopter *kind* and say why they go first (incentive aligned, failure cheap, standing to act).
+- Use real precedent and numbers where they exist — MGE/Pol.is results, vTaiwan, Rolls-Royce Power-by-the-Hour, social impact bonds, Clark–Hadfield independent audits, the Nordic-model crisis-reference dynamic.
+- Tie the ladder to the cell's actual failure mode: the pilot has to demonstrate the thing survives *this cell's* break (agent-scale manipulation for preferences, supplier gaming for outcome markets).
+- Don't overclaim. "Speculative path" is honest framing; a macro cell (global markets) legitimately routes through niche markets before policy, and saying so is stronger than pretending a ministry adopts it on day one.
+
+### 4.3 Scoring (1–5 each, with a one-line note)
+
+Four scores render as dot rows, each with a short justification sentence to the right (`- Label: N/5 — note`). Score deliberately; they are comparative across the grid, not decoration. The note must agree with the dots — a high-dot row whose sentence argues the opposite reads as a mistake.
+
+- **Urgency** — how time-sensitive: how soon the gap starts to bite. A fast-breaking gap is high; a structural shift that is real but gradual, or held off by existing checks, is lower.
+- **Tractability** — how solvable the design problem is now. Higher = more doable today. A cell with a working prototype and a verifiable pilot scores higher than one whose mechanism is still conceptual (e.g. keeping global markets human-aligned, ~2).
+- **Neglectedness** — how unlikely it gets solved by market forces or existing research institutions by default. Higher = more neglected. A space with significant active research energy scores low even if important.
+- **Maturity** — how far along the work already is, from a bare idea (1) to working prototypes and early pilots (5). This is the "how far ahead is this?" read: name what exists.
+
+Keep the scores honest even when low: a hard, low-tractability cell that is urgent and neglected is exactly the kind of thing the project exists to fund, and the scores should say so plainly. Keep the note sentences short.
+
+### 4.4 Theory-of-change checklist
+
+- The intro reads on its own (problem in a line, prototypes-exist with links, lead-in to the path).
+- The intro names a concrete wedge mechanism, not a category.
+- There is a legible ladder (usually research trial → bounded pilot with a named adopter-kind → scale).
+- A real first-adopter kind is named, with a reason they go first.
+- Real precedent / numbers are used where they exist.
+- The ladder demonstrates survival of *this cell's* failure mode.
+- It ends with a diffusion mechanism (how a working example spreads).
+- Plain language, hedged where speculative, no em dashes in the steps.
+- The four scores are set deliberately, defensible relative to other cells, and each note agrees with its dots.
+
+---
+
 ## Final review checklist
 
 Run this once the cell feels close:
@@ -245,3 +321,4 @@ Run this once the cell feels close:
 - The analysis is specific, non-anthropomorphic, and institutionally concrete.
 - The problem sets are usable by a group in roughly one hour.
 - The page teaches a designer what has to be rebuilt.
+- If present, the `## Theory of change` section names a wedge, a ladder, and a diffusion mechanism, and the four scores are set deliberately (see §4).

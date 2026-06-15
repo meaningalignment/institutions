@@ -576,57 +576,210 @@ body.about-open { overflow: hidden; }
   .about-title { font-size: 23px; }
 }
 
-/* ── Per-cell investor box (AGI detail) ────────────────────────────── */
+/* ── Per-cell "Theory of change" box (AGI detail) ──────────────────────
+   Investor-facing. A standalone collapsed box under the summary box. The
+   diffusion prose + ladder is the body; four 1–5 scores and an optional
+   Example work list follow. */
 
-.cell-impact {
+.cell-theory {
   margin: 0 0 32px;
-  padding: 18px 22px;
-  background: #f0f4ee;
-  border: 1px solid #dce6d6;
-  border-left: 3px solid var(--accent);
+  padding: 16px 24px;
+  background: #f7f4ed;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
 }
-.cell-impact-label {
-  display: block;
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-  font-size: 10px;
+.cell-theory[open] { padding-bottom: 20px; }
+.cell-theory > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+}
+.cell-theory > summary::-webkit-details-marker { display: none; }
+.cell-impact-summary-label {
+  font-size: 12px;
   font-weight: 700;
-  color: var(--accent-dark);
-  margin-bottom: 6px;
-}
-.cell-impact-lead-text {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.55;
-  color: var(--ink);
-}
-.cell-impact-meta {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid #dce6d6;
-}
-.cell-impact-meta-label {
-  display: block;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  font-size: 9.5px;
-  font-weight: 700;
   color: var(--muted);
-  margin-bottom: 4px;
 }
-.cell-impact-meta-text {
-  display: block;
+.cell-theory > summary:hover .cell-impact-summary-label { color: var(--ink); }
+.cell-theory > summary > .collapsible-chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--faint);
+  border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-bottom: 3px;
+}
+.cell-theory[open] > summary > .collapsible-chevron {
+  transform: rotate(45deg);
+}
+
+/* Body: the diffusion prose (the main content), then the score rows. */
+.cell-impact-rows { margin-top: 12px; }
+.cell-impact-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+}
+/* Thin dividers separate the scores and example-work from what's above. The
+   intro and the ladder flow together (no divider between them). */
+.impact-scores,
+.impact-example-work {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eae4d8;
+}
+
+/* The diffusion ladder: a numbered list flowing directly under the intro. */
+.cell-impact-steps {
+  margin-top: 12px;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.cell-impact-steps li { margin-bottom: 7px; }
+.cell-impact-steps li:last-child { margin-bottom: 0; }
+.cell-impact-steps li::marker { color: var(--faint); font-weight: 600; }
+
+.impact-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Three columns: label (lines up under the summary box's 130px label column),
+   the dots+score, then a per-cell sentence explaining the score. The sentence
+   wraps under the dots on narrow screens (see the mobile rule below). */
+.impact-score-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 130px auto 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+.impact-score-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+  cursor: help;
+  padding-top: 1px;
+}
+.impact-score-row:hover .impact-score-label { color: var(--ink); }
+.impact-score-note {
   font-size: 13px;
   line-height: 1.5;
   color: var(--text);
 }
-@media (max-width: 768px) {
-  .cell-impact-meta { grid-template-columns: 1fr; gap: 12px; }
+.impact-score-note a { color: var(--accent); }
+
+/* Custom instant-hover popup (replaces native title, which has a ~1s delay).
+   Anchored to the row, shown the moment the row is hovered. */
+.impact-tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  z-index: 40;
+  width: max-content;
+  max-width: 320px;
+  padding: 9px 12px;
+  background: var(--ink);
+  color: #f3efe6;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.1px;
+  text-transform: none;
+  border-radius: 7px;
+  box-shadow: 0 8px 24px rgba(38, 30, 18, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(3px);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  pointer-events: none;
 }
+/* Little arrow pointing down to the row. */
+.impact-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 22px;
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
+.impact-score-row:hover .impact-tip,
+.impact-score-row:focus-within .impact-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.impact-score-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.impact-score-dots-wrap { display: inline-flex; cursor: help; }
+.impact-score-dots { display: inline-flex; gap: 5px; }
+.impact-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid var(--line-strong);
+  box-sizing: border-box;
+}
+.impact-dot.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.impact-score-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  /* Stack: label + dots on row 1, the sentence wraps to a full-width row 2. */
+  .impact-score-row {
+    grid-template-columns: 96px 1fr;
+    gap: 4px 10px;
+  }
+  .impact-score-note { grid-column: 2; }
+}
+
+/* Example work: a compact list of prior/related efforts at the foot of the box.
+   (Top divider comes from the shared .cell-impact-steps/.impact-scores rule.) */
+.impact-example-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.impact-example-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.impact-example-list li { margin-bottom: 4px; }
+.impact-example-list li:last-child { margin-bottom: 0; }
+.impact-example-list li::marker { color: var(--faint); }
+.impact-example-list a { color: var(--accent); }
 
 /* Deployed site: on the detail page, hide the body of cells whose status
    isn't `body_ok`. The summary box at the top still shows.

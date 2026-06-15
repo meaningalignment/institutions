@@ -492,7 +492,7 @@ function renderAboutModal(psLink = 'problem-sets/') {
 
     <div class="about-section">
       <h3>What this is</h3>
-      <p>A map of the institutions a world of autonomous AI agents will need — laid out by <strong>scale</strong> (from two parties up to the whole globe) and by <strong>function</strong> (how coordination, preferences, rights, incentives, expertise, norms, and shared commitments get handled). Each cell names a coordination problem, shows how humans currently solve it, and how AI agents break that solution. The marked cells are where the human analogy breaks down and a new design is needed.</p>
+      <p>A map — and a research program — for the institutions a world of autonomous AI agents will need. It's laid out by <strong>scale</strong> (from two parties up to the whole globe) and by <strong>informational basis</strong> (the kind of information a group coordinates around: protocols, preferences, rights, incentives, expertise, norms, or thick commitments). Each cell names a coordination problem, shows how humans currently solve it, and how AI agents break that solution. The marked cells are where the human analogy breaks down and a new design is needed — and where the research program goes to work.</p>
     </div>
 
     <div class="about-section">
@@ -502,6 +502,7 @@ function renderAboutModal(psLink = 'problem-sets/') {
 
     <div class="about-section">
       <h3>Theory of change</h3>
+      <p>Big institutional change doesn't come from a single master plan. It comes from several streams of work running in parallel, ending at a first formal adoption somewhere on the map, after which the standard slowly reshapes what counts as legitimate everywhere else. The exact path looks different for every cell — each one's "Path to impact" sketches its own ladder of adopters and pilots — but underneath them runs a common pattern:</p>
       <ol class="about-stages">${stages}</ol>
     </div>
 

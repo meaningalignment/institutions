@@ -30,6 +30,22 @@ How a nation aggregates millions of individual preferences into collective decis
 - If no preference-aggregation alternatives keep pace with an increasingly volatile world, the pull toward authoritarianism grows.
 - If we have AI lawmakers and executive branches, they are likely to be able to move quickly and unexpectedly in ways. For this reason, we may need a much clearer and continuous mandate from the people.
 
+## Theory of change
+
+How does a nation read what its people want, fast and credibly enough to steer policy, when AI makes opinion easy to fake? Early prototypes exist: [Moral Graph Elicitation](https://moral-graph.app) and [Habermolt](https://www.habermolt.com/) use AI to surface what people care about and where they agree, far faster than in-person deliberation. A rough, speculative path from there:
+
+1. Start with a research trial on a divisive issue, to see if people accept the result as fair. An early Moral Graph Elicitation run with 500 representative Americans found that 89% judged the outcome fair, even when their own view wasn't picked as the wisest.
+2. Run a real but contained pilot with a smaller, forward-looking polity that has the appetite to try it (somewhere like Catalonia, Scotland, or Taiwan), or on a single issue like homelessness in a city. The hard part is making the output something policymakers can actually act on, not just another survey.
+3. One likely route is a political party that makes these tools part of how it works, especially in places where new parties can still break through. In Japan, Takahiro Anno ran for Governor of Tokyo in 2024 using AI to listen to voters at scale, then built a party, Team Mirai, around tools like Pol.is and Talk to the City. It won 11 seats in the Lower House in early 2026.
+4. If the results are strong, larger polities might follow as their own institutions are put under even more strain.
+
+**Scores**
+
+- Urgency: 3/5 — Pressing, but existing democratic checks still hold for now.
+- Tractability: 3/5 — The tools exist; legitimacy to bind a government is the hard part.
+- Neglectedness: 2/5 — Significant research energy here, e.g. DeepMind's Habermas Machine.
+- Maturity: 3/5 — Prototypes exist (MGE, Habermolt); none yet binds a real decision.
+
 ## How humans solve this today
 
 National preference aggregation is done through a stack of institutions, not a single mechanism. Voters are assumed to form views freely from an independent press and the wider information environment, and those views are then aggregated through several instruments with different tradeoffs:

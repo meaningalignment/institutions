@@ -55,9 +55,6 @@ status: body_ok                        # not_started | summary_draft | summary_n
 owner: oliver                          # oliver | joe | ryan | none. Drives Kanban filter.
 expert: Dr. Jane Doe                   # optional free text; the named expert reviewer. Required (and prompted in the Kanban) once status reaches an expert_* stage.
 related: [group-norms]                 # optional; reserved for future cross-linking.
-diffusion: "Who would use it…"         # optional; investor-facing. The prominent lead of the per-cell impact box (AGI tab only): who first adopts the design and the speculative path to wider diffusion. Single-line quoted string.
-importance: "Why it matters…"          # optional; investor-facing, secondary. Importance / impact of the cell. Single-line quoted string.
-neglectedness: "Won't happen by default because…"  # optional; investor-facing, secondary. How neglected / how likely it gets solved by default. Single-line quoted string.
 visions:                               # optional; opt this cell into one or more visions overlaid on the AGI grid.
   fidelity: "Lay review panels…"       #   <vision-id>: "<grid chip label>". Vision ids come from the VISIONS const in build.js.
 ---
@@ -79,6 +76,20 @@ visions:                               # optional; opt this cell into one or mor
 
 - {3–5 very short bullets on how AGI breaks the human institutions in Examples.}
 - ...
+
+## Theory of change
+
+{Optional, investor-facing, AGI tab only. Standalone intro paragraph that reads on its own without the body: the problem in one line, then that early prototypes exist (name them, with [links](url)), then a lead-in to the path. Markdown links work here.}
+
+1. {Ladder step — research trial / bounded pilot with a named adopter-kind / scale. Plain, hedged, no em dashes.}
+2. ...
+
+**Scores**
+
+- Urgency: 3/5 — {one short sentence}
+- Tractability: 3/5 — {one short sentence}
+- Neglectedness: 2/5 — {one short sentence}
+- Maturity: 3/5 — {one short sentence}
 
 ## How humans solve this today
 
@@ -112,7 +123,7 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 Multiple `###` problem sets under one cell are supported; each becomes its own entry on the problem-sets aggregate page.
 
-**Per-cell impact box (investor framing).** The optional `diffusion`, `importance`, and `neglectedness` frontmatter fields render as a green-accented `.cell-impact` box at the top of the AGI-tab detail page (below the At-a-glance summary box; suppressed on the Human tab). `diffusion` — who would use the design and the speculative path to diffusion — is the prominent lead; `importance` and `neglectedness` sit below in smaller secondary text. Rendered by `renderImpactBox` in `app.js`; values are single-line quoted strings parsed by the inline frontmatter parser.
+**Per-cell "Theory of change" (investor framing).** An optional `## Theory of change` markdown section renders as a standalone collapsible box under the At-a-glance summary box (AGI tab only; suppressed on the Human tab). It's for funders, not researchers, so it's collapsed by default. The section has three parts: an **intro paragraph** (the speculative-path prose, with markdown links), a **numbered ladder** (a markdown ordered list), and a **`**Scores**` block** — four `- Label: N/5 — note` bullets (Urgency, Tractability, Neglectedness, Maturity). Scores render as `●●●○○` dot rows with the note shown to the right and the dimension meaning on hover; Maturity = how far along the work is (5 = working prototypes/pilots). The section is parsed out of the body by `extractTheoryOfChange` in `app.js` (mirroring `extractAtGlance`), so it doesn't render twice; `renderTheoryOfChange` / `impactFields` / `scoreDots` draw the box. The detail page is client-rendered, so this lives only in `app.js` (build.js never renders cell bodies). The quality bar is in [STANDARDS.md](STANDARDS.md) §4 (worked exemplars: `national-preferences`, `global-incentives`).
 
 **"What is this?" project popup.** Every grid page (AGI + Human) has a `What is this?` button in the `.controls` row that opens an About modal explaining what the project is, why it's needed, and the five-stage theory of change (research/design → pairing the right people → prototypes/pilots → uptake → diffusion). Content lives in `renderAboutModal` / `ABOUT_STAGES` in `build.js`; the open/close JS is inline so it works without `app.js`.
 

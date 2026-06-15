@@ -136,9 +136,17 @@ function parseCell(raw) {
   let frontmatter = {};
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
   if (fmMatch) {
-    fmMatch[1].split('\n').forEach(line => {
-      const m = line.match(/^(\w+):\s*(.*)$/);
-      if (!m) return;
+    const unquote = (s) => {
+      const v = s.trim();
+      if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+        return v.slice(1, -1);
+      }
+      return v;
+    };
+    const lines = fmMatch[1].split('\n');
+    for (let li = 0; li < lines.length; li++) {
+      const m = lines[li].match(/^(\w+):\s*(.*)$/);
+      if (!m) continue;
       let val = m[2].trim();
       if (val.startsWith('[') && val.endsWith(']')) {
         const inner = val.slice(1, -1);
@@ -162,11 +170,19 @@ function parseCell(raw) {
         }
         if (buf.trim()) items.push(buf.trim());
         val = items.filter(Boolean);
-      } else if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
-        val = val.slice(1, -1);
+      } else if (val === '') {
+        // A key with no inline value may be followed by a YAML block list
+        // (`  - item` lines). Consume them as an array.
+        const items = [];
+        while (li + 1 < lines.length && /^\s*-\s+/.test(lines[li + 1])) {
+          items.push(unquote(lines[++li].replace(/^\s*-\s+/, '')));
+        }
+        val = items.length ? items.filter(Boolean) : '';
+      } else {
+        val = unquote(val);
       }
       frontmatter[m[1]] = val;
-    });
+    }
     raw = raw.slice(fmMatch[0].length);
   }
 
@@ -187,7 +203,69 @@ function parseCell(raw) {
   if (ag.agiBreaksNotes) frontmatter.agi_breaks_notes = ag.agiBreaksNotes;
   if (ag.notes) frontmatter.at_glance_notes = ag.notes;
 
-  return { summary, body: ag.body, frontmatter };
+  // Pull the `## Theory of change` section into the same frontmatter fields
+  // impactFields reads (diffusion, diffusion_steps, scores + *_note), so the
+  // renderer is unchanged. Strip it from the body too.
+  const toc = extractTheoryOfChange(ag.body);
+  Object.assign(frontmatter, toc.fields);
+
+  return { summary, body: toc.body, frontmatter };
+}
+
+// Map a Theory-of-change score label to its frontmatter key.
+const TOC_SCORE_KEYS = {
+  urgency: 'urgency',
+  tractability: 'tractability',
+  neglectedness: 'default_neglect',
+  maturity: 'maturity'
+};
+
+// Extract the `## Theory of change` section into the frontmatter shape
+// impactFields consumes. Format:
+//   {intro prose}
+//   1. {ladder step}  2. ...
+//   **Scores**
+//   - Urgency: 3/5 — {note}
+// Returns { fields, body } with the section stripped from body.
+function extractTheoryOfChange(body) {
+  const m = body.match(/## Theory of change\n([\s\S]*?)(?=\n## [^#]|$)/i);
+  if (!m) return { fields: {}, body };
+  const section = m[1];
+  const fields = {};
+
+  // Scores block: everything from a `**Scores**` line onward.
+  let prose = section;
+  const scoresMatch = section.match(/\n\s*\*\*Scores\*\*\s*\n([\s\S]*)$/i);
+  if (scoresMatch) {
+    prose = section.slice(0, scoresMatch.index);
+    const lineRe = /^\s*[-*]\s*([A-Za-z ]+?):\s*([1-5])\s*\/\s*5\s*(?:[—–-]\s*(.*))?$/gm;
+    let sm;
+    while ((sm = lineRe.exec(scoresMatch[1])) !== null) {
+      const key = TOC_SCORE_KEYS[sm[1].trim().toLowerCase()];
+      if (!key) continue;
+      fields[key] = parseInt(sm[2], 10);
+      if (sm[3] && sm[3].trim()) fields[key + '_note'] = sm[3].trim();
+    }
+  }
+
+  // Ladder: numbered list items. Intro: prose before the first one.
+  const steps = [];
+  const stepRe = /^\s*\d+\.\s+(.*(?:\n(?!\s*\d+\.\s|\s*\*\*)[^\n]*)*)/gm;
+  let firstStepIdx = -1;
+  let st;
+  while ((st = stepRe.exec(prose)) !== null) {
+    if (firstStepIdx === -1) firstStepIdx = st.index;
+    steps.push(st[1].replace(/\s*\n\s*/g, ' ').trim());
+  }
+  const introText = (firstStepIdx === -1 ? prose : prose.slice(0, firstStepIdx)).trim();
+
+  if (introText) fields.diffusion = introText;
+  if (steps.length) fields.diffusion_steps = steps;
+
+  const stripped = (body.slice(0, m.index) + body.slice(m.index + m[0].length))
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+  return { fields, body: stripped };
 }
 
 // Extract the `## At a glance` section: H3 subsections for `Coordination
@@ -401,10 +479,17 @@ function escapeHtml(s) {
 // <span class="editorial">…</span>. For use in the summary box where the
 // content is plain text (not full markdown).
 function escapeRich(s) {
-  return escapeHtml(s).replace(
-    /\{&gt;&gt;\s*([\s\S]*?)\s*&lt;&lt;\}/g,
-    '<span class="editorial">$1</span>'
-  );
+  return escapeHtml(s)
+    .replace(
+      /\{&gt;&gt;\s*([\s\S]*?)\s*&lt;&lt;\}/g,
+      '<span class="editorial">$1</span>'
+    )
+    // Markdown links [text](https://…). URLs are escaped (& → &amp;) by
+    // escapeHtml above; only http(s) targets are allowed.
+    .replace(
+      /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener">$1</a>'
+    );
 }
 
 function getHumanEra(fm) {
@@ -430,7 +515,9 @@ function renderSummaryBox(fm) {
   const examples = Array.isArray(fm.examples) ? fm.examples : null;
   const agiBreaks = Array.isArray(fm.agi_breaks) ? fm.agi_breaks : null;
   const notes = Array.isArray(fm.at_glance_notes) ? fm.at_glance_notes : null;
-  if (!problem && (!examples || examples.length === 0) && (!agiBreaks || agiBreaks.length === 0) && (!notes || notes.length === 0)) return '';
+  if (!problem && (!examples || examples.length === 0) && (!agiBreaks || agiBreaks.length === 0) && (!notes || notes.length === 0)) {
+    return '';
+  }
 
   const renderList = (items) => {
     let h = '<ul class="cell-summary-list">';
@@ -484,41 +571,105 @@ function renderSummaryBox(fm) {
   return html;
 }
 
-// Investor-facing per-cell box. `diffusion` (who would use it / speculative
-// path to adoption) is the prominent lead; `importance` and `neglectedness`
-// (how likely it gets solved by default) are secondary, shown smaller below.
-function renderImpactBox(fm) {
-  if (!fm) return '';
-  const diffusion = typeof fm.diffusion === 'string' ? fm.diffusion.trim() : '';
-  const importance = typeof fm.importance === 'string' ? fm.importance.trim() : '';
-  const neglectedness = typeof fm.neglectedness === 'string' ? fm.neglectedness.trim() : '';
-  if (!diffusion && !importance && !neglectedness) return '';
+// Investor-facing "Path to impact" content. For funders, not researchers, so
+// it's a collapsed disclosure folded into the foot of the summary box. The
+// `diffusion` prose is the main body; three 1–5 scores follow, all oriented
+// so higher = stronger case to fund.
+//   diffusion      — prose: who would use it / path to adoption (the body)
+//   urgency        — 1–5: how time-sensitive
+//   tractability   — 1–5: how solvable now (5 = most doable)
+//   default_neglect— 1–5: how unlikely to be solved by default (5 = most neglected)
+// Each dimension has: a 1–5 score (frontmatter `key`), a `desc` (the generic
+// meaning, shown as a hover tip), and a per-cell justification sentence
+// (frontmatter `<key>_note`) shown to the right of the dots.
+const IMPACT_SCORES = [
+  { key: 'urgency', label: 'Urgency', desc: 'How time-sensitive is this problem?' },
+  { key: 'tractability', label: 'Tractability', desc: 'How hard is this design problem?' },
+  { key: 'default_neglect', label: 'Neglectedness', desc: 'How likely is this to be solved by market forces or existing research institutions by default?' },
+  { key: 'maturity', label: 'Maturity', desc: 'How far along is this work already, from a bare idea to working prototypes and early pilots?' }
+];
 
-  let html = '<aside class="cell-impact">';
-  if (diffusion) {
-    html += '<div class="cell-impact-lead">';
-    html += '<span class="cell-impact-label">Who would use it &middot; path to diffusion</span>';
-    html += `<div class="cell-impact-lead-text">${escapeRich(diffusion)}</div>`;
-    html += '</div>';
+function impactFields(fm) {
+  if (!fm) return null;
+  const diffusion = typeof fm.diffusion === 'string' ? fm.diffusion.trim() : '';
+  // Optional ordered steps (the diffusion ladder), as a YAML array. Rendered
+  // as a numbered list under the diffusion intro prose.
+  const steps = Array.isArray(fm.diffusion_steps)
+    ? fm.diffusion_steps.map(s => String(s).trim()).filter(Boolean) : [];
+  // Optional list of prior/related work (each item may be a markdown link).
+  const exampleWork = Array.isArray(fm.example_work)
+    ? fm.example_work.map(s => String(s).trim()).filter(Boolean) : [];
+  const scores = {};
+  const notes = {};
+  let hasScore = false;
+  for (const s of IMPACT_SCORES) {
+    const n = parseInt(fm[s.key], 10);
+    if (n >= 1 && n <= 5) {
+      scores[s.key] = n;
+      hasScore = true;
+      const note = fm[s.key + '_note'];
+      if (typeof note === 'string' && note.trim()) notes[s.key] = note.trim();
+    }
   }
-  if (importance || neglectedness) {
-    html += '<div class="cell-impact-meta">';
-    if (importance) {
-      html += '<div class="cell-impact-meta-item">';
-      html += '<span class="cell-impact-meta-label">Importance / impact</span>';
-      html += `<span class="cell-impact-meta-text">${escapeRich(importance)}</span>`;
+  if (!diffusion && !steps.length && !hasScore && !exampleWork.length) return null;
+  return { diffusion, steps, exampleWork, scores, notes, hasScore };
+}
+
+// Five dots, filled to `n` (1–5).
+function scoreDots(n) {
+  let h = '<span class="impact-score-dots" aria-hidden="true">';
+  for (let i = 1; i <= 5; i++) {
+    h += `<span class="impact-dot${i <= n ? ' filled' : ''}"></span>`;
+  }
+  h += '</span>';
+  return h;
+}
+
+function impactBodyHtml(f) {
+  let html = '';
+  if (f.diffusion) {
+    html += `<div class="cell-impact-text">${escapeRich(f.diffusion)}</div>`;
+  }
+  if (f.steps && f.steps.length) {
+    html += '<ol class="cell-impact-steps">';
+    for (const step of f.steps) html += `<li>${escapeRich(step)}</li>`;
+    html += '</ol>';
+  }
+  if (f.hasScore) {
+    html += '<div class="impact-scores">';
+    for (const s of IMPACT_SCORES) {
+      const n = f.scores[s.key];
+      if (!n) continue;
+      const tip = escapeHtml(s.desc);
+      const note = f.notes[s.key] ? escapeRich(f.notes[s.key]) : '';
+      // Custom hover popup (no native-title delay): the row carries the tip,
+      // shown instantly on hover via CSS. aria-label keeps it accessible.
+      html += `<div class="impact-score-row" aria-label="${s.label}: ${tip}">`;
+      html += `<span class="impact-score-label">${s.label}</span>`;
+      html += `<span class="impact-score-value"><span class="impact-score-dots-wrap">${scoreDots(n)}</span><span class="impact-score-num" aria-hidden="true">${n}/5</span></span>`;
+      html += note ? `<span class="impact-score-note">${note}</span>` : '<span class="impact-score-note"></span>';
+      html += `<span class="impact-tip" role="tooltip">${tip}</span>`;
       html += '</div>';
     }
-    if (neglectedness) {
-      html += '<div class="cell-impact-meta-item">';
-      html += '<span class="cell-impact-meta-label">Neglectedness</span>';
-      html += `<span class="cell-impact-meta-text">${escapeRich(neglectedness)}</span>`;
-      html += '</div>';
-    }
     html += '</div>';
   }
-  html += '</aside>';
+  if (f.exampleWork && f.exampleWork.length) {
+    html += '<div class="impact-example-work">';
+    html += '<span class="impact-example-label">Example work</span>';
+    html += '<ul class="impact-example-list">';
+    for (const item of f.exampleWork) html += `<li>${escapeRich(item)}</li>`;
+    html += '</ul>';
+    html += '</div>';
+  }
   return html;
+}
+
+// Standalone collapsible "Theory of change" box, rendered under the summary
+// box on the AGI detail page. Collapsed by default (it's investor-facing).
+function renderTheoryOfChange(fm) {
+  const f = impactFields(fm);
+  if (!f) return '';
+  return `<details class="cell-theory"><summary><span class="cell-impact-summary-label">Theory of change</span><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="cell-impact-rows">${impactBodyHtml(f)}</div></details>`;
 }
 
 // ── Detail page ────────────────────────────────────────────────────
@@ -548,11 +699,16 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   const visionBar = tabId === 'agi'
     ? renderVisionToggleBar(visionTagsInBody(cell.body)) : '';
 
+  // Investor-facing "Theory of change" (AGI only): a standalone collapsed box
+  // rendered under the summary box.
+  const theoryBox = tabId === 'agi'
+    ? renderTheoryOfChange(cell.frontmatter) : '';
+
   // Two-column layout: main body + methods rail
   html += '<div class="detail-layout">';
   html += '<div class="detail-main">';
   html += renderSummaryBox(cell.frontmatter);
-  if (tabId === 'agi') html += renderImpactBox(cell.frontmatter);
+  html += theoryBox;
   const status = (cell.frontmatter && cell.frontmatter.status) || '';
   // Expert-review stages come after body_ok; treat them as a reviewed body so
   // the deployed site still shows the content.

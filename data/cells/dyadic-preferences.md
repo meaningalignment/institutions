@@ -6,8 +6,9 @@ status: body_ok
 owner: oliver
 starred: true
 diffusion: "First adopters are the deal-flow desks of banks and the lower-level US/China policy teams who already want better-than-human negotiation tools that find Pareto improvements under deep mistrust. From there, agent platforms and assistant vendors adopt a consent-and-ratification protocol as table stakes for letting an agent close a deal on a principal's behalf — the way escrow and e-signature standards spread once a few serious counterparties required them."
-importance: "Every agent that transacts for a principal sits on this problem; a negotiation protocol that preserves real consent is load-bearing for nearly every other agent-to-agent market downstream."
-neglectedness: "Frontier labs will ship capable negotiating agents by default, but the consent-preserving ratification layer is exactly what won't get built by default — it is friction on closing deals, so the market under-supplies it absent a standard."
+urgency: 4
+tractability: 4
+default_neglect: 4
 visions:
   fidelity: "Surfacing values, not just positions, in negotiation"
 ---

@@ -5,8 +5,6 @@ human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true
-visions:
-  fidelity: "Transnational markets for complex outcomes"
 ---
 
 # Global markets that keep human interests central
@@ -29,6 +27,22 @@ How global markets stay aligned with human interests.
 - AI labor makes firms less likely to pay, persuade, train, and retain humans, leading to a shrinking labor share.
 - Non-consumer market pull (finance, procurement, capex) grows and pulls production away from human welfare.
 - Buyer-side agents mediate spending through proxy objectives rather than durable human preferences.
+
+## Theory of change
+
+Markets stay aligned with people because humans are the workers and the buyers. As AI erodes both, production drifts toward whatever pays. One candidate is a [market intermediary](https://meaningalignment.substack.com/p/market-intermediaries-a-post-agi): it pools people's demand and pays suppliers for outcomes people actually want. A rough, speculative path:
+
+1. Prove it in a niche where outcomes are cheap to check, like a quit-smoking co-op of a few hundred members whose results a nicotine test can verify.
+2. Grow into a standing intermediary in a market with real budgets and a clear pain point, like a market for social events, run as a co-op or for-profit.
+3. Turn the same machinery on big incumbents, which needs government backing to bite.
+4. From there it can spread market by market, as being held to your mandate becomes profitable rather than charitable.
+
+**Scores**
+
+- Urgency: 3/5 — Not happening yet, but could come fast and be hard to reverse.
+- Tractability: 2/5 — Verifying qualitative outcomes at scale is hard.
+- Neglectedness: 5/5 — Almost no one is working on this, apart from some UBI.
+- Maturity: 2/5 — A mechanism on paper, nothing live yet.
 
 ## How humans solve this today
 

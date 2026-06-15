@@ -77,6 +77,20 @@ visions:                               # optional; opt this cell into one or mor
 - {3–5 very short bullets on how AGI breaks the human institutions in Examples.}
 - ...
 
+## Theory of change
+
+{Optional, investor-facing, AGI tab only. Standalone intro paragraph that reads on its own without the body: the problem in one line, then that early prototypes exist (name them, with [links](url)), then a lead-in to the path. Markdown links work here.}
+
+1. {Ladder step — research trial / bounded pilot with a named adopter-kind / scale. Plain, hedged, no em dashes.}
+2. ...
+
+**Scores**
+
+- Urgency: 3/5 — {one short sentence}
+- Tractability: 3/5 — {one short sentence}
+- Neglectedness: 2/5 — {one short sentence}
+- Maturity: 3/5 — {one short sentence}
+
 ## How humans solve this today
 
 {1–3 paragraphs naming the actual existing institution(s) — not generic theory.
@@ -109,7 +123,13 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 Multiple `###` problem sets under one cell are supported; each becomes its own entry on the problem-sets aggregate page.
 
+**Per-cell "Theory of change" (investor framing).** An optional `## Theory of change` markdown section renders as a standalone collapsible box under the At-a-glance summary box (AGI tab only; suppressed on the Human tab). It's for funders, not researchers, so it's collapsed by default. The section has three parts: an **intro paragraph** (the speculative-path prose, with markdown links), a **numbered ladder** (a markdown ordered list), and a **`**Scores**` block** — four `- Label: N/5 — note` bullets (Urgency, Tractability, Neglectedness, Maturity). Scores render as `●●●○○` dot rows with the note shown to the right and the dimension meaning on hover; Maturity = how far along the work is (5 = working prototypes/pilots). The section is parsed out of the body by `extractTheoryOfChange` in `app.js` (mirroring `extractAtGlance`), so it doesn't render twice; `renderTheoryOfChange` / `impactFields` / `scoreDots` draw the box. The detail page is client-rendered, so this lives only in `app.js` (build.js never renders cell bodies). The quality bar is in [STANDARDS.md](STANDARDS.md) §4 (worked exemplars: `national-preferences`, `global-incentives`).
+
+**"What is this?" project popup.** Every grid page (AGI + Human) has a `What is this?` button in the `.controls` row that opens an About modal explaining what the project is, why it's needed, and the five-stage theory of change (research/design → pairing the right people → prototypes/pilots → uptake → diffusion). Content lives in `renderAboutModal` / `ABOUT_STAGES` in `build.js`; the open/close JS is inline so it works without `app.js`.
+
 **Vision-tagged problem sets.** Append `{vision: <id>}` to a problem set's `###` heading (e.g. `### Lay review panels on the jury-duty model {vision: fidelity}`) to attach it to a vision. Tagged problem sets are hidden by default and revealed only when that vision is toggled on — on the cell detail page and in the problem-sets aggregate (where they're grouped under the vision's label). Untagged problem sets are the cell's required briefs and always show. The tag is parsed in both `build.js` (`parseVisionTag` / `extractProblemSets`) and `app.js` (`parseVisionTag` / `wrapProblemSets`) — keep those two in sync.
+
+On a cell detail page the vision toggle bar sits at the top of the `## Problem Sets` section (the only content a vision changes on that page), and lists only the visions this cell's problem sets actually use — a cell with no vision-tagged briefs shows no bar. `renderVisionToggleBar(onlyIds)` / `visionTagsInBody` in `app.js` compute and place it; the toggle is still threaded through the shared `?visions=` URL param + localStorage state, so flipping it here also updates the grid selector and the problem-sets aggregate.
 
 ### Why these particular sections
 

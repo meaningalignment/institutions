@@ -393,15 +393,19 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 /* Color dot in selector + toggle bar. */
 .vision-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
 
-/* Vision toggle bar on the detail page. */
+/* Vision toggle bar — sits at the top of the Problem Sets section on the
+   detail page, since vision-tagged problem sets are the only content it
+   reveals. */
 .vision-toggle-bar {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 14px;
-  margin: 0 0 24px;
-  padding: 8px 0 14px;
-  border-bottom: 1px solid var(--line);
+  margin: 0 0 20px;
+  padding: 10px 14px;
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
 }
 .vision-toggle-label {
   font-size: 11px;
@@ -418,6 +422,298 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
   color: var(--ink);
   cursor: pointer;
 }
+
+/* ── "What is this?" project popup ─────────────────────────────────── */
+
+.about-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  padding: 9px 16px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.05);
+  transition: color 0.15s, border-color 0.15s;
+}
+.about-button:hover { color: var(--ink); border-color: var(--faint); }
+
+/* The /theory-of-change/ page: sections + the numbered stage ladder.
+   Section headings match the serif, bordered section titles used on cell
+   detail pages (.detail-body h2). */
+.about-section { margin-bottom: 30px; }
+.about-section h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 23px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 44px;
+  margin-bottom: 14px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
+}
+.about-section:first-of-type h3 { margin-top: 0; }
+.about-section p {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.about-section p strong { color: var(--ink); font-weight: 600; }
+
+.about-stages { list-style: none; margin: 6px 0 0; padding: 0; }
+.about-stage {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  column-gap: 14px;
+  align-items: start;
+}
+.about-stage-num {
+  grid-row: 1;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.about-stage-body { grid-row: 1; padding-top: 1px; }
+.about-stage-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.about-stage-text {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.about-stage-arrow {
+  grid-column: 1;
+  grid-row: 2;
+  text-align: center;
+  color: var(--faint);
+  font-size: 13px;
+  line-height: 1;
+  margin: 4px 0 6px;
+}
+
+/* ── Per-cell "Theory of change" box (AGI detail) ──────────────────────
+   Investor-facing. A standalone collapsed box under the summary box. The
+   diffusion prose + ladder is the body; four 1–5 scores and an optional
+   Example work list follow. */
+
+.cell-theory {
+  margin: 0 0 32px;
+  padding: 16px 24px;
+  background: #f7f4ed;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.cell-theory[open] { padding-bottom: 20px; }
+.cell-theory > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+}
+.cell-theory > summary::-webkit-details-marker { display: none; }
+.cell-impact-summary-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+}
+.cell-theory > summary:hover .cell-impact-summary-label { color: var(--ink); }
+.cell-theory > summary > .collapsible-chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--faint);
+  border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-bottom: 3px;
+}
+.cell-theory[open] > summary > .collapsible-chevron {
+  transform: rotate(45deg);
+}
+
+/* Body: the diffusion prose (the main content), then the score rows. Content
+   runs full-width inside the box — no label gutter. */
+.cell-impact-rows { margin-top: 12px; }
+.cell-impact-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+}
+/* Thin dividers separate the scores and example-work from what's above. The
+   intro and the ladder flow together (no divider between them). */
+.impact-scores,
+.impact-example-work {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eae4d8;
+}
+
+/* The diffusion ladder: a numbered list flowing directly under the intro. */
+.cell-impact-steps {
+  margin-top: 12px;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.cell-impact-steps li { margin-bottom: 7px; }
+.cell-impact-steps li:last-child { margin-bottom: 0; }
+.cell-impact-steps li::marker { color: var(--faint); font-weight: 600; }
+
+.impact-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Three columns: the score label, the dots+score, then a per-cell sentence
+   explaining the score. The sentence wraps under the dots on narrow screens
+   (see the mobile rule below). */
+.impact-score-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 130px auto 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+.impact-score-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+  cursor: help;
+  padding-top: 1px;
+}
+.impact-score-row:hover .impact-score-label { color: var(--ink); }
+.impact-score-note {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.impact-score-note a { color: var(--accent); }
+
+/* Custom instant-hover popup (replaces native title, which has a ~1s delay).
+   Anchored to the row, shown the moment the row is hovered. */
+.impact-tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  z-index: 40;
+  width: max-content;
+  max-width: 320px;
+  padding: 9px 12px;
+  background: var(--ink);
+  color: #f3efe6;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.1px;
+  text-transform: none;
+  border-radius: 7px;
+  box-shadow: 0 8px 24px rgba(38, 30, 18, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(3px);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  pointer-events: none;
+}
+/* Little arrow pointing down to the row. */
+.impact-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 22px;
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
+.impact-score-row:hover .impact-tip,
+.impact-score-row:focus-within .impact-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.impact-score-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.impact-score-dots-wrap { display: inline-flex; cursor: help; }
+.impact-score-dots { display: inline-flex; gap: 5px; }
+.impact-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid var(--line-strong);
+  box-sizing: border-box;
+}
+.impact-dot.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.impact-score-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  /* Stack: label + dots on row 1, the sentence wraps to a full-width row 2. */
+  .impact-score-row {
+    grid-template-columns: 96px 1fr;
+    gap: 4px 10px;
+  }
+  .impact-score-note { grid-column: 2; }
+}
+
+/* Example work: a compact list of prior/related efforts at the foot of the box.
+   (Top divider comes from the shared .cell-impact-steps/.impact-scores rule.) */
+.impact-example-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.impact-example-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.impact-example-list li { margin-bottom: 4px; }
+.impact-example-list li:last-child { margin-bottom: 0; }
+.impact-example-list li::marker { color: var(--faint); }
+.impact-example-list a { color: var(--accent); }
 
 /* Deployed site: on the detail page, hide the body of cells whose status
    isn't `body_ok`. The summary box at the top still shows.
@@ -892,6 +1188,12 @@ details.collapsible-section > .collapsible-body { margin-top: 14px; }
   font-weight: 700;
   line-height: 1;
 }
+/* Vision-tagged briefs: the number bubble takes the vision's color, matching
+   the grid chip and the entry's left border. --vision-color is set on the
+   entry by the per-vision CSS generated in build.js. */
+.detail-body .ps-detail-entry[data-vision] .ps-detail-number {
+  background: var(--vision-color, var(--ink));
+}
 
 .detail-body .ps-detail-title {
   font-size: 17px;
@@ -926,6 +1228,21 @@ td.status-body-ok::after {
   border-style: solid;
   border-width: 0 11px 11px 0;
   border-color: transparent #79a873 transparent transparent;
+}
+
+/* Theory-of-change indicator — blue triangle in the top-left corner when the
+   cell has an investor-facing Theory of change section. */
+td.has-theory {
+  position: relative;
+}
+td.has-theory::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-style: solid;
+  border-width: 11px 11px 0 0;
+  border-color: #5b8bb0 transparent transparent transparent;
 }
 
 /* Detail page two-column layout: body left, methods rail right */
@@ -1110,6 +1427,7 @@ tr.methods-row th.row-header {
   }
 
   td.status-body-ok::after { border-width: 0 7px 7px 0; }
+  td.has-theory::before { border-width: 7px 7px 0 0; }
 
   /* Detail page mobile */
   .detail-back { margin-bottom: 20px; }
@@ -1145,6 +1463,16 @@ tr.methods-row th.row-header {
   display: block;
   width: 100%;
   max-width: 740px;
+}
+
+/* Theory-of-change page: same shell as the curriculum, but no sidebar/TOC,
+   so it stays a single centered column at every width. */
+.curr-layout.toc-page { max-width: 720px; }
+@media (min-width: 960px) {
+  .curr-layout.toc-page {
+    display: block;
+    max-width: 720px;
+  }
 }
 
 .curr-main {

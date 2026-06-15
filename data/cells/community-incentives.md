@@ -35,6 +35,21 @@ How a community allocates access to shared resources and deters overuse when eac
 - Monitoring and appeal records become strategic inputs when agents can generate contributions, complaints, evidence, and explanations at scale.
 - Digital commons become easier to mirror, fork, and mine than to govern, weakening incentives to contribute to the mainline.
 
+## Theory of change
+
+How does a shared resource keep working when agent fleets can draw on it continuously and formally obey every rule? This is already live for digital commons: AI crawlers now generate a large share of traffic on open-source forges and on Wikimedia projects, and some open-source maintainers report bots making up the overwhelming majority of their load, forcing crude blanket blocks ([Wikimedia](https://diff.wikimedia.org/2025/04/01/how-crawlers-impact-the-operations-of-the-wikimedia-projects/), [open-source maintainers](https://tech.slashdot.org/story/25/03/26/016244/open-source-devs-say-ai-crawlers-dominate-traffic-forcing-blocks-on-entire-countries)). The wedge is a reusable agent-membership-and-allocation regime, modeled on Ostrom's commons design principles and on Wikipedia's [Bot Approvals Group](https://en.wikipedia.org/wiki/Wikipedia:Bot_Approvals_Group), which already licenses automated participants, ties them to an accountable operator, and applies graduated sanctions. A rough, speculative path:
+
+1. Run a research trial on one bounded digital commons that already feels agent overuse, an open-source forge or a knowledge base, registering agent participants to accountable operators and testing whether graduated caps and sanctions hold without crude IP-level blocking.
+2. Run a bounded pilot with an operator of a real shared resource that already enforces formal allocation rules and has standing to act, a quota-managed fishery body, a congestion-priced city curb scheme, or a shared compute-for-good pool, pricing and capping automated use so fleets cannot split identities to evade the rule.
+3. Once a flagship shows the regime survives anti-sybil pressure and synthetic-record flooding, it becomes a reference design that platform and infrastructure providers reach for as agents become a material share of their traffic.
+
+**Scores**
+
+- Urgency: 4/5 — Agent overuse of digital commons is already here and forcing crude blanket blocks.
+- Tractability: 3/5 — Ostrom principles and bot-governance precedents exist; agent-scale sybil resistance is the hard part.
+- Neglectedness: 4/5 — Much work on data trusts and crawler defense, little on a reusable agent-commons allocation regime.
+- Maturity: 2/5 — Data trusts and bot-approval regimes exist, but none yet governs agent fleets across a common-pool resource.
+
 ## How humans solve this today
 
 1. **Accountable standing.** A commons first decides who counts as a participant the community can recognize and discipline. Fisheries quotas tie standing to licensed vessels or quota holders; Wikipedia ties some standing to accounts, edit history, and page-specific permissions. The user of the resource must be close enough to an accountable member for warnings, reputation, suspension, and exclusion to matter.

@@ -33,6 +33,21 @@ How an organization holds itself to a mission or way of life and protects it aga
 - Human mission orgs convey the mission not just through a stated charter but through hiring, training, internal debate, and culture; these mechanisms cannot easily be replaced by a prompt.
 - Character and commitment that are legible when hiring a human executive, especially at senior levels, are not straightforwardly evaluable in an agent.
 
+## Theory of change
+
+How does an organization stay bound to its mission once agents, not mission-selected humans, do most of the work and can drift faster than any board can meet? The legal scaffolding already exists: steward-ownership and purpose trusts lock control away from profit motive ([Patagonia's Purpose Trust](https://steward-ownership.com/en/blog/the-patagonia-structure-in-the-context-of-steward-ownership), Bosch, and [Anthropic's Long-Term Benefit Trust](https://www.anthropic.com/news/the-long-term-benefit-trust)), and live agent-run orgs are being tested ([Andon Labs](https://andonlabs.com/) is building "safe autonomous organizations" with frontier labs). What is missing is the internal machinery that carries a mission through an agent workforce. A rough, speculative path:
+
+1. Run a research trial inside an agent-run org with a written charter, instrumenting whether agents flag drift and contradiction or just rationalize the current plan.
+2. Pilot with a mission-locked first adopter that already has the legal form, a steward-owned or purpose-trust firm or a benefit corporation, layering charter-challenge procedures onto its agent operations where a drift failure is cheap to catch.
+3. Spread as mission-lock becomes a governance default for agent-heavy orgs, with steward-ownership counsel and B Lab style certifiers carrying the charter-fidelity machinery into each new adopter.
+
+**Scores**
+
+- Urgency: 2/5 — Real, but mostly arrives only once agent-run orgs are common.
+- Tractability: 3/5 — Legal mission-lock forms exist; the agent-fidelity machinery does not yet.
+- Neglectedness: 4/5 — Governance work targets enterprise risk, not mission fidelity in agent orgs.
+- Maturity: 2/5 — Strong legal precedent, but no live charter-fidelity prototype for agent orgs.
+
 ## How humans solve this today
 
 Every organization can drift from its founding mission as members come and go, circumstances change, and current activity gets mistaken for the purpose it was meant to serve. In mission-driven orgs, people opt into the purpose and shape their identity around it:

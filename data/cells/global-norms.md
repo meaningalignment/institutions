@@ -31,6 +31,21 @@ How states settle on expectations of conduct toward each other without a global 
 - Agents could more effectively launder unacceptable concessions into deals through their size and complexity.
 - Powerful AI weapons could make war even more asymmetric than it is today, or decouple military might from the stabilizing force of economic interdependence.
 
+## Theory of change
+
+When agents can map coalitions and draft packages faster than any cabinet can vet them, the binding problem is the chain that promotes an agent-found deal into something a polity can legitimately ratify, not the search. Early prototypes already work on the drafting side: CSIS Futures Lab's [Ukraine-Russia Peace Agreement Simulator](https://www.csis.org/programs/futures-lab/projects/strategic-headwinds-understanding-forces-shaping-ukraines-path-peace), trained on 333 historical peace agreements, drafts terms and scores each element's acceptability to Russia, Ukraine, the US, and the EU, and Meta's [CICERO](https://ai.meta.com/research/cicero/) reached top-decile human play in the negotiation game Diplomacy. The harder gap, a procedure that lets an agent-assembled package enter formal talks without skipping the pre-validation each tier does, has no live prototype yet. A rough, speculative path:
+
+1. Run a research trial that takes an AI-drafted package through a simulated Track II to Track I sequence, checking whether reviewers can catch concessions that would not survive defense in isolation before they reach a mock ratification vote.
+2. Pilot it as a back-channel aid for a forward-looking convener with the appetite and standing to try it, a small-state bloc in a stalled multilateral negotiation or a track-II body like an academic or NGO mediation network, where a failed package costs little and the AI assists human negotiators rather than binding anyone.
+3. If the decomposition-and-review machinery proves it can keep complex bundles legitimate, larger negotiating venues adopt it once a flagged deal shows it survived agent-scale laundering, and it spreads as the tool mediators reach for when a package is too complex to vet by hand.
+
+**Scores**
+
+- Urgency: 2/5 — Real but gradual; agent-speed dealmaking is emerging, and existing ratification chains still hold.
+- Tractability: 2/5 — Drafting tools exist; a promotion-and-review chain that confers legitimacy is still conceptual.
+- Neglectedness: 4/5 — Some defense and think-tank energy on AI drafting, almost none on the ratification gap.
+- Maturity: 2/5 — Drafting prototypes exist (CSIS simulator, CICERO); nothing yet promotes an agent-found package to a real deal.
+
 ## How humans solve this today
 
 - **Diplomatic protocol.** A shared grammar for signaling intent in graduated steps. One example is peace negotiation, which moves through layered tracks so concessions can be floated and walked back without anyone being publicly committed: unofficial back-channels (Track II) test what is imaginable, serving officials in personal capacity (Track 1.5) test what cabinets could survive, and only pre-validated shapes reach formal government-to-government talks (Track I).

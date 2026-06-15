@@ -30,6 +30,21 @@ How two parties act on the unwritten background of mutual expectations around an
 - The implicit norms in a relationship evolve through repeated interaction; short-lived agents may not have the context or memory to develop or apply them.
 - Agent-agent norms may form quickly and opaquely, leaving human principals to discover the operative frame only after it has already shaped behavior.
 
+## Theory of change
+
+How do two parties keep the unwritten background of a relationship intact when the agent acting for each side draws its manners from training, not from the relationship itself? The pieces exist at the wrong layer. Lab behavior specs like [OpenAI's Model Spec](https://model-spec.openai.com/) and [Anthropic's constitution](https://www.anthropic.com/research/claude-constitution) set generic, model-wide manners, and wire protocols like [A2A](https://a2a-protocol.org/) let agents discover and call each other but carry no relationship norms. Meanwhile [research on LLM populations](https://www.science.org/doi/10.1126/sciadv.adu9368) shows agents spontaneously converging on shared conventions, and biases, with no human in the loop. The missing wedge is a relationship-scoped norm layer: a per-dyad record of the local courtesies, paired with a rule for when an agent must pause a permitted-but-sensitive action to check it. No live product does this yet, so the path is early.
+
+1. Run a research trial in a sandbox of recurring two-agent relationships, testing whether a norm-record plus pause-and-check rule catches relationship-sensitive actions, like the morning-entry case, without making low-stakes exchanges legalistic.
+2. Pilot it inside one platform that already brokers repeat agent-to-agent dealing and owns the pain, somewhere like a property-management or logistics marketplace, where brittle borderline cases are a visible cost and the operator can mandate the norm layer for both sides.
+3. Fold the norm-record format into an interoperability standard such as A2A, so a working convention becomes the default others reach for, and spreads as agent platforms adopt the shared format.
+
+**Scores**
+
+- Urgency: 2/5 — Real but gradual; agents today still ship with reasonable generic manners.
+- Tractability: 3/5 — The norm-record and pause-rule are buildable now on top of existing protocols.
+- Neglectedness: 4/5 — Much energy on wire protocols and model-wide specs, little on relationship-scoped norms.
+- Maturity: 2/5 — Adjacent pieces exist (specs, A2A, norm-emergence studies); no relationship-norm prototype yet.
+
 ## How humans solve this today
 
 Every working relationship sits on an unwritten background: what counts as reasonable, when silence means yes, which courtesies go without saying. Humans handle it a few different ways:

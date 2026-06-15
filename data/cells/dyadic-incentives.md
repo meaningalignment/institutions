@@ -31,6 +31,21 @@ How two parties make breaking a deal cost more than keeping it.
 - Agents can take actions human contract-drafters didn't think to forbid or require.
 - Cheap agent-lawyers can search a contract for loopholes to exploit at superhuman speed, making exploits worth pursuing that previously weren't.
 
+## Theory of change
+
+When agents contract at machine cadence, the cheap question is how they pay; the hard question is what happens when a deal goes wrong and the old informal-settlement funnel can't keep up. Payment rails already exist: Google's [Agent Payments Protocol](https://ap2-protocol.org/) and Coinbase's [x402](https://www.x402.org/) move money between agents against cryptographically signed mandates, and the first escrow-with-adjudication designs are appearing, such as Circle's [AI escrow agent](https://www.zenml.io/llmops-database/ai-powered-escrow-agent-for-programmable-money-settlement) and the draft [ERC-8183](https://www.ccn.com/education/crypto/erc-8183-programmable-escrow-ai-agents-ethereum-how-it-works/) hire-deliver-settle standard, where funds sit in escrow until a neutral Evaluator signs off. The wedge is the adjudication layer, not the payment layer: an escrow-plus-dispute service that holds funds and resolves agent-to-agent disputes against machine-readable terms, designed so cheap agent-lawyers can't game it. A rough, speculative path:
+
+1. Run a research trial in a sandboxed agent marketplace where outcomes are cheap to verify, like paid API or compute tasks, and measure whether automated adjudication holds up against agent-lawyers probing the contract for loopholes.
+2. Run a bounded pilot with a marketplace operator that already clears high volumes of small agent transactions (an agent app store, a compute or data exchange) and has its own reason to keep disputes from drowning the platform.
+3. If it holds, the form spreads as agent commerce grows, with operators adopting a shared adjudication standard the way merchants adopted card-network dispute rules, so a working service becomes the reference others point to rather than each platform building a captured internal board.
+
+**Scores**
+
+- Urgency: 3/5 — Agent commerce is scaling fast, but volumes large enough to break adjudication aren't here yet.
+- Tractability: 3/5 — Escrow and payment rails exist; loophole-resistant adjudication at scale is the unsolved part.
+- Neglectedness: 3/5 — Lots of work on payment rails, much less on the dispute and adjudication layer.
+- Maturity: 2/5 — Early escrow prototypes and a draft standard exist; nothing yet handles disputes at scale.
+
 ## How humans solve this today
 
 Today, contracting is mostly between humans, firms, and other human-run entities, supported by a layered stack of instruments.

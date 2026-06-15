@@ -38,6 +38,21 @@ How a profession sets expectations its members hold each other to without invoki
 - Agents may not pick up on unwritten rules just by reading policies.
 - Even if agents can develop their own norms, they may outrun us. Principals may discover what their agents agreed to after they've shaped many decisions.
 
+## Theory of change
+
+Professional norms (the censure, suspension, and loss of standing that bind doctors, lawyers, and traders) work through social and reputational channels that may not reach an agent or survive its being patched and renamed. Early certification efforts already exist: [AIUC-1](https://www.aiuc-1.com/), launched in 2025 by founders out of Anthropic with MITRE and the Cloud Security Alliance, is a SOC-2-style audit standard for AI agents whose accountability controls assign named owners and approval gates ([Schellman](https://www.schellman.com/blog/news/schellman-becomes-the-first-accredited-auditor-for-aiuc-1) is the first accredited auditor, [ElevenLabs](https://elevenlabs.io/blog/aiuc-announcement) the first certified firm), and [FINRA's 2026 report](https://www.finra.org/rules-guidance/guidance/reports/2026-finra-annual-regulatory-oversight-report/gen-ai) now applies existing conduct and supervision rules to agents. The wedge is a discipline registry that ties a sanction to a persistent deployment identity, so misconduct cannot be washed away by a model update.
+
+1. Run a research trial in a self-contained domain (a brokerage compliance sandbox), seeding agents that engage in legal-but-indefensible sharp practice and testing whether a registry plus supervisor-attached sanctions catches the pattern across renames.
+2. Pilot with a single self-regulator that already sets conduct bars and faces a real agent influx, FINRA-style securities supervision being the natural first adopter since deployments there are licensed, supervised, and auditable.
+3. Scale by having that self-regulator's agent-conduct regime copied into audit, law, and medicine, professions facing the same agent influx, with a working registry as the reference others point to.
+
+**Scores**
+
+- Urgency: 3/5 — agents are entering regulated workflows now, but existing supervision rules still cover most cases.
+- Tractability: 3/5 — certification and audit prototypes exist, though identity-persistent discipline across renames is unproven.
+- Neglectedness: 2/5 — well-funded certification startups and regulators are already active in this space.
+- Maturity: 3/5 — live standards and certified firms exist, but no registry yet binds sanctions across redeployment.
+
 ## How humans solve this today
 
 In finance, formal law matters, but much of the work is done by norms that let practitioners stop short before a court, regulator, or client would intervene.

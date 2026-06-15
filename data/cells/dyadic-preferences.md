@@ -37,6 +37,21 @@ How two parties surface what each wants and find an exchange both prefer over wa
 - An agent can hide what it knows about its own principal to extract surplus the other side can't see was on the table.
 - Asymmetric capabilities could potentially be much more extreme than the human case of a skilled negotiator versus an unskilled one, making it harder to find protocols that work for all parties.
 
+## Theory of change
+
+When agents negotiate on a principal's behalf at machine speed, signing stops certifying that the principal actually understood and agreed to the trades. Agents are already closing real deals: Anthropic's [Project Deal](https://www.anthropic.com/features/project-deal) ran Claude agents through an internal marketplace in December 2025 and closed 186 multi-turn deals, and the [Agentic Commerce Protocol](https://github.com/agentic-commerce-protocol/agentic-commerce-protocol) from OpenAI and Stripe (with a competing Google/Shopify standard following) is standardizing agent-led checkout. The wedge is a consent-and-ratification protocol: a layer that distributes a principal's attention across the negotiation and produces a package the principal can actually authorize, with a guaranteed value floor for the weaker side. A rough, speculative path:
+
+1. Run it in a research benchmark first, where outcomes are cheap to check. The [Automated Negotiating Agents Competition](https://web.tuat.ac.jp/~katfuji/ANAC2025/) has scored multi-issue, incomplete-information agent negotiation since 2010 and gives a place to test whether a ratification-and-floor protocol holds the line on Pareto efficiency without one side capturing the surplus.
+2. Pilot it on a deal-flow desk that already wants better-than-human bargaining under mistrust, a bank's procurement team or an enterprise contracting group, where budgets are real and a missed escalation is costly enough to justify the overhead.
+3. Spread it as table stakes once a few serious counterparties require it before letting an agent close on their behalf, the way e-signature and escrow standards spread once early adopters demanded them, folding the consent layer into the agentic-commerce protocols already being written.
+
+**Scores**
+
+- Urgency: 4/5 — Agents are already closing real deals, and the consent gap bites as soon as bundles outrun what a principal can read.
+- Tractability: 3/5 — Protocols and benchmarks exist; building one that survives agent-speed manipulation and capability gaps is the hard part.
+- Neglectedness: 3/5 — Automated negotiation has a research community, but consent, ratification, and capability-floor design get little of it.
+- Maturity: 3/5 — Live agent marketplaces and commerce protocols exist; none yet has a principal-ratification or value-floor layer.
+
 ## How humans solve this today
 
 When two people negotiate on each other's behalf (a real-estate agent, a divorce lawyer, a procurement officer), the practice has a few load-bearing features. Negotiators carry an explicit *mandate* from their principal (a price range, a list of dealbreakers, a few items flagged "ask me") and an *implicit understanding* of what the principal would actually care about, built from prior conversations, shared cultural context, and knowing the kind of life the deal has to fit. They negotiate at human speed, so principals can be looped in mid-deal when something unanticipated comes up. Final terms are presented in a *legible package* (an offer letter, a marked-up contract, a one-page summary), and ratification means the principal actually reading it before signing. Where the package is too complex to read on its own (a corporate merger, a union contract), institutions have grown around it: lawyers explain, ratification votes happen with discussion, regulators review. None of this is fast, but the principal can actually consent to what they signed. Negotiations also end: people tire, walk away, or hit a deadline, and that gives the ratification step something fixed to attach to.

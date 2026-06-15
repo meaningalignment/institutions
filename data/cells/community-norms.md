@@ -5,10 +5,6 @@ human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true
-diffusion: "First adopters are regulated professions where agents are already entering the workflow and a self-regulatory body exists to set the bar: securities and trading (FINRA-style conduct rules), then audit, law, and medicine. A workable norm-enforcement mechanism for agents gets written into a compliance regime by one self-regulator, then copied across professions facing the same agent influx."
-urgency: 3
-tractability: 3
-default_neglect: 3
 visions:
   fidelity: "Lay review panels on the jury-duty model"
 ---

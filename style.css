@@ -431,6 +431,8 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
   font-weight: 500;
   color: var(--muted);
   cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
   padding: 9px 16px;
   background: var(--card);
   border: 1px solid var(--line-strong);
@@ -440,80 +442,26 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 }
 .about-button:hover { color: var(--ink); border-color: var(--faint); }
 
-.about-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: rgba(38, 35, 30, 0.42);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 6vh 20px 40px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-.about-overlay[hidden] { display: none; }
-body.about-open { overflow: hidden; }
-
-.about-modal {
-  position: relative;
-  width: 100%;
-  max-width: 680px;
-  background: var(--paper);
-  border: 1px solid var(--line-strong);
-  border-radius: 14px;
-  padding: 38px 44px 32px;
-  box-shadow: 0 24px 70px rgba(38, 30, 18, 0.28);
-}
-
-.about-close {
-  position: absolute;
-  top: 16px;
-  right: 18px;
-  width: 30px;
-  height: 30px;
-  font-size: 22px;
-  line-height: 1;
-  color: var(--faint);
-  background: none;
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: color 0.15s, background 0.15s;
-}
-.about-close:hover { color: var(--ink); background: var(--wash); }
-
-.about-eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.9px;
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-.about-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 27px;
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 22px;
-}
-
-.about-section { margin-bottom: 22px; }
+/* The /theory-of-change/ page: sections + the numbered stage ladder.
+   Section headings match the serif, bordered section titles used on cell
+   detail pages (.detail-body h2). */
+.about-section { margin-bottom: 30px; }
 .about-section h3 {
-  font-family: 'DM Sans', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--muted);
-  margin-bottom: 7px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 23px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 44px;
+  margin-bottom: 14px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
 }
+.about-section:first-of-type h3 { margin-top: 0; }
 .about-section p {
-  font-size: 14.5px;
-  line-height: 1.62;
+  font-size: 16px;
+  line-height: 1.72;
   color: var(--text);
+  margin-bottom: 14px;
 }
 .about-section p strong { color: var(--ink); font-weight: 600; }
 
@@ -559,21 +507,6 @@ body.about-open { overflow: hidden; }
   font-size: 13px;
   line-height: 1;
   margin: 4px 0 6px;
-}
-
-.about-footer {
-  margin-top: 26px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: var(--muted);
-}
-.about-footer a { color: var(--accent); }
-
-@media (max-width: 768px) {
-  .about-modal { padding: 32px 22px 26px; }
-  .about-title { font-size: 23px; }
 }
 
 /* ── Per-cell "Theory of change" box (AGI detail) ──────────────────────
@@ -622,7 +555,8 @@ body.about-open { overflow: hidden; }
   transform: rotate(45deg);
 }
 
-/* Body: the diffusion prose (the main content), then the score rows. */
+/* Body: the diffusion prose (the main content), then the score rows. Content
+   runs full-width inside the box — no label gutter. */
 .cell-impact-rows { margin-top: 12px; }
 .cell-impact-text {
   font-size: 14px;
@@ -655,9 +589,9 @@ body.about-open { overflow: hidden; }
   flex-direction: column;
   gap: 14px;
 }
-/* Three columns: label (lines up under the summary box's 130px label column),
-   the dots+score, then a per-cell sentence explaining the score. The sentence
-   wraps under the dots on narrow screens (see the mobile rule below). */
+/* Three columns: the score label, the dots+score, then a per-cell sentence
+   explaining the score. The sentence wraps under the dots on narrow screens
+   (see the mobile rule below). */
 .impact-score-row {
   position: relative;
   display: grid;
@@ -1296,6 +1230,21 @@ td.status-body-ok::after {
   border-color: transparent #79a873 transparent transparent;
 }
 
+/* Theory-of-change indicator — blue triangle in the top-left corner when the
+   cell has an investor-facing Theory of change section. */
+td.has-theory {
+  position: relative;
+}
+td.has-theory::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-style: solid;
+  border-width: 11px 11px 0 0;
+  border-color: #5b8bb0 transparent transparent transparent;
+}
+
 /* Detail page two-column layout: body left, methods rail right */
 .detail-layout {
   display: grid;
@@ -1478,6 +1427,7 @@ tr.methods-row th.row-header {
   }
 
   td.status-body-ok::after { border-width: 0 7px 7px 0; }
+  td.has-theory::before { border-width: 7px 7px 0 0; }
 
   /* Detail page mobile */
   .detail-back { margin-bottom: 20px; }
@@ -1513,6 +1463,16 @@ tr.methods-row th.row-header {
   display: block;
   width: 100%;
   max-width: 740px;
+}
+
+/* Theory-of-change page: same shell as the curriculum, but no sidebar/TOC,
+   so it stays a single centered column at every width. */
+.curr-layout.toc-page { max-width: 720px; }
+@media (min-width: 960px) {
+  .curr-layout.toc-page {
+    display: block;
+    max-width: 720px;
+  }
 }
 
 .curr-main {

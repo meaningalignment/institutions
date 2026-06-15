@@ -5,10 +5,6 @@ human_era_bucket: ancient-modern
 status: body_ok
 owner: joe
 starred: true
-diffusion: "Natural first homes are operators of bounded shared resources who already run formal allocation rules and feel agent-driven overuse first: quota-managed fisheries, congestion-priced city zones, compute-for-good pools, and large knowledge commons like Wikipedia. A mechanism proven in one of these becomes a reference design that platform and infrastructure providers adopt as agents become a material share of their traffic."
-urgency: 3
-tractability: 3
-default_neglect: 4
 ---
 
 # AI commons management

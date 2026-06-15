@@ -32,10 +32,10 @@ How global markets stay aligned with human interests.
 
 Markets stay aligned with people because humans are the workers and the buyers. As AI erodes both, production drifts toward whatever pays. One candidate is a [market intermediary](https://meaningalignment.substack.com/p/market-intermediaries-a-post-agi): it pools people's demand and pays suppliers for outcomes people actually want. A rough, speculative path:
 
-1. Prove it in a niche where outcomes are cheap to check.
-2. Grow into a standing intermediary in a market with real budgets.
+1. Prove it in a niche where outcomes are cheap to check, like a quit-smoking co-op of a few hundred members whose results a nicotine test can verify.
+2. Grow into a standing intermediary in a market with real budgets and a clear pain point, like a market for social events, run as a co-op or for-profit.
 3. Turn the same machinery on big incumbents, which needs government backing to bite.
-4. From there it can spread market by market, as being held to your mandate becomes profitable.
+4. From there it can spread market by market, as being held to your mandate becomes profitable rather than charitable.
 
 **Scores**
 

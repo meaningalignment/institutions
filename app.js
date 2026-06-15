@@ -571,6 +571,15 @@ function renderSummaryBox(fm) {
   return html;
 }
 
+// Standalone collapsible "Theory of change" box, rendered under the summary
+// box on the AGI detail page. Collapsed by default (it's investor-facing).
+// Its content runs full-width inside the box (no label gutter).
+function renderTheoryOfChange(fm) {
+  const f = impactFields(fm);
+  if (!f) return '';
+  return `<details class="cell-theory"><summary><span class="cell-impact-summary-label">Theory of change</span><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="cell-impact-rows">${impactBodyHtml(f)}</div></details>`;
+}
+
 // Investor-facing "Path to impact" content. For funders, not researchers, so
 // it's a collapsed disclosure folded into the foot of the summary box. The
 // `diffusion` prose is the main body; three 1–5 scores follow, all oriented
@@ -662,14 +671,6 @@ function impactBodyHtml(f) {
     html += '</div>';
   }
   return html;
-}
-
-// Standalone collapsible "Theory of change" box, rendered under the summary
-// box on the AGI detail page. Collapsed by default (it's investor-facing).
-function renderTheoryOfChange(fm) {
-  const f = impactFields(fm);
-  if (!f) return '';
-  return `<details class="cell-theory"><summary><span class="cell-impact-summary-label">Theory of change</span><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="cell-impact-rows">${impactBodyHtml(f)}</div></details>`;
 }
 
 // ── Detail page ────────────────────────────────────────────────────

@@ -5,10 +5,6 @@ human_era_bucket: ancient
 status: body_ok
 owner: oliver
 starred: true
-diffusion: "First adopters are the deal-flow desks of banks and the lower-level US/China policy teams who already want better-than-human negotiation tools that find Pareto improvements under deep mistrust. From there, agent platforms and assistant vendors adopt a consent-and-ratification protocol as table stakes for letting an agent close a deal on a principal's behalf — the way escrow and e-signature standards spread once a few serious counterparties required them."
-urgency: 4
-tractability: 4
-default_neglect: 4
 visions:
   fidelity: "Surfacing values, not just positions, in negotiation"
 ---

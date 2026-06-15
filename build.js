@@ -32,6 +32,8 @@ function wrapDesignChoices(html) {
 const SITE_ORIGIN = 'https://www.agi-institutions.org';
 const SITE_NAME = 'AGI Institutions';
 const SITE_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`;
+// Emoji favicon (🏛️) rendered as an inline SVG data URI so it needs no asset file or path.
+const FAVICON = `<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">`;
 
 const TAB_META = {
   agi: {
@@ -536,6 +538,7 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${FAVICON}
 <title>${pageTitle}</title>
 <meta name="description" content="${meta.description}">
 <meta name="keywords" content="${meta.keywords}">
@@ -599,6 +602,7 @@ function generateProblemSetsPage(cells) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${FAVICON}
 <title>${psTitle}</title>
 <meta name="description" content="${psDesc}">
 <link rel="canonical" href="${psCanonical}">
@@ -741,6 +745,7 @@ ${f.bodyHtml}
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${FAVICON}
 <title>${currTitle}</title>
 <meta name="description" content="${currDesc}">
 <link rel="canonical" href="${currCanonical}">
@@ -870,6 +875,7 @@ function generateTheoryOfChangePage() {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${FAVICON}
 <title>${tocTitle}</title>
 <meta name="description" content="${tocDesc}">
 <link rel="canonical" href="${tocCanonical}">
@@ -932,6 +938,7 @@ fs.mkdirSync(path.join(__dirname, 'fidelity'), { recursive: true });
 fs.writeFileSync(
   path.join(__dirname, 'fidelity', 'index.html'),
   `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+${FAVICON}
 <title>Fidelity & Meaning — Institutions</title>
 <meta http-equiv="refresh" content="0; url=../?visions=fidelity">
 <link rel="canonical" href="../?visions=fidelity"></head>

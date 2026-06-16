@@ -1,0 +1,213 @@
+# Curriculum entry-axis taxonomy ("Start from a problem" / "Start from an
+# institution" pickers on /curriculum). Loaded by build.js
+# (loadCurriculumMap → generateCurriculumPage); curriculum.md itself is pure
+# prose. Each theme:
+#   id          kebab-case; used in the ?problem=<id> URL param
+#   label       picker tile + selection-chip label
+#   description one line shown under the tile label
+#   cells       live AGI cell ids this theme draws on; drives the institution
+#               picker (a cell inherits the field ranking of its theme(s))
+#   fields      ordered by relevance; each { id, gain }. `id` must be a real
+#               field slug (1-the-big-picture, 2-ai-alignment,
+#               3-philosophy-of-values, 4-microeconomics, 5-political-theory,
+#               6-legal-theory, 7-game-theory-mechanism-design, 8-social-choice).
+#               `gain` is the field's "What you'll gain" block when the theme is
+#               selected — motivating, capability-framed, nails the relevance.
+# List as many or as few fields as are genuinely relevant (often 4–5); append
+# 1-the-big-picture last as orienting reading.
+
+themes:
+  - id: job-displacement
+    label: Work and the shrinking labour share
+    description: AI labour pulls production away from paying, training, and retaining people, and the value created stops flowing back to human welfare.
+    cells: [global-incentives, group-incentives, community-incentives]
+    fields:
+      - id: 4-microeconomics
+        gain: >-
+          You'll be able to read job displacement as a market-structure outcome
+          rather than a moral failing: which work a firm keeps inside versus buys
+          on the market is a transaction-cost question, and you'll have the
+          contract-theory tools to predict where humans still hold a place and
+          where they get priced out.
+      - id: 7-game-theory-mechanism-design
+        gain: >-
+          You'll learn how to design payoffs so self-interested firms and agents
+          keep paying out to people — and, just as important, where mechanism
+          design hits its limits, so you don't stake a policy on a rule a capable
+          agent will simply route around.
+      - id: 8-social-choice
+        gain: >-
+          You'll be able to make "human interests" precise — whose welfare
+          counts, and how to weigh broad gains against concentrated displacement
+          — and you'll know which trade-offs any such weighting is mathematically
+          forced to make, so your proposal survives the impossibility results.
+      - id: 1-the-big-picture
+        gain: >-
+          You'll get the frame that turns job displacement from a wave to ride
+          out into a design problem: how institutions get rebuilt when technology
+          changes the cost of coordination, and how what people value drifts when
+          systems optimise for proxies.
+
+  - id: opinion-manipulation
+    label: Manipulation of public opinion
+    description: Agents can persuade at scale, manufacture apparent majorities, and seed movements faster and more cheaply than the institutions that read public preference can react.
+    cells: [national-preferences, community-preferences]
+    fields:
+      - id: 5-political-theory
+        gain: >-
+          You'll be able to say exactly what breaks when a majority can be
+          manufactured: a mandate read off a manufactured majority is not a
+          mandate. You'll come away with the accounts of what makes authority
+          legitimate and what recourse people have when the channel meant to
+          carry their voice has been captured.
+      - id: 8-social-choice
+        gain: >-
+          You'll stop being fooled by the promise that a system can simply "read
+          off the will of the people." You'll be able to show that cheap
+          aggregation is still aggregation, and that manipulability
+          (Gibbard–Satterthwaite) is structural — so you can tell a
+          legitimacy-preserving mechanism from a faster way to launder a
+          manufactured result.
+      - id: 2-ai-alignment
+        gain: >-
+          You'll understand the artefact on both sides — the systems doing the
+          persuading and the ones meant to detect or resist it are the same kind
+          of thing — so you'll know where reward hacking and specification gaming
+          come from and what oversight can realistically deliver.
+      - id: 3-philosophy-of-values
+        gain: >-
+          You'll be able to draw the line between manipulation and legitimate
+          persuasion sharply enough to design around it: whether a process tracks
+          someone's actual reasons and values, or just a thin behavioural proxy.
+      - id: 1-the-big-picture
+        gain: >-
+          You'll see manipulation at scale as drift made deliberate, and grasp
+          why a faster, cheaper persuasion layer is an institutional problem
+          rather than a content-moderation one.
+
+  - id: oversight-speed
+    label: Loss of human oversight and the speed mismatch
+    description: Agents act and negotiate faster than human review can deliberate, so deals close, decisions compound, and norms form before any principal is in the loop.
+    cells: [group-protocols, dyadic-preferences, community-thick-commitments, national-preferences]
+    fields:
+      - id: 2-ai-alignment
+        gain: >-
+          You'll get the field's core toolkit for the exact problem in front of
+          you: scalable oversight, correctability, and the principal–agent
+          framing for keeping a slower human authority meaningfully in control of
+          a faster system — plus the named failure modes every such scheme
+          inherits, so you build with eyes open.
+      - id: 5-political-theory
+        gain: >-
+          You'll be able to treat the speed mismatch as the delegation problem it
+          is — citizens, agencies, and users all handing decisions to something
+          faster — and specify what a defensible chain of authority under
+          delegation actually requires, drawing on accountability and
+          non-domination.
+      - id: 6-legal-theory
+        gain: >-
+          You'll come away with a concrete checklist (Fuller's procedural
+          desiderata, Hart's secondary rules) for judging whether an automated,
+          fast-moving decision regime still counts as the rule of law or has
+          collapsed into ad hoc speed.
+      - id: 1-the-big-picture
+        gain: >-
+          You'll see the speed mismatch as a coordination-cost shift: when acting
+          becomes near-free and reviewing stays human-paced, institutions have to
+          be rebuilt around the new bottleneck — and you'll have the frame for
+          why.
+
+  - id: accountability-gaps
+    label: Accountability gaps
+    description: When the decision-maker is an agent producing a continuous stream of small decisions, the people, summonses, and remedies that grievance and adjudication procedures were built around no longer have a target.
+    cells: [group-rights, national-rights, dyadic-rights, national-thick-commitments]
+    fields:
+      - id: 6-legal-theory
+        gain: >-
+          You'll be working on law's home turf: agency law and fiduciary duty,
+          due process, adjudication and remedy, and legal personhood. You'll know
+          which doctrines have to move to the centre once the actor being held to
+          account is an agent rather than a person — and where they have no answer
+          yet.
+      - id: 5-political-theory
+        gain: >-
+          You'll be able to name the unnamed: when an office wields real power
+          over members but isn't constituted as an office at all, you'll have the
+          vocabulary of answerability and recourse to insist it be made
+          accountable.
+      - id: 2-ai-alignment
+        gain: >-
+          You'll understand what actually makes an agent's conduct attributable
+          and correctable after the fact — how training-time choices, logging,
+          and certification decide whether "who did this, and can it be fixed?"
+          even has an answer.
+      - id: 1-the-big-picture
+        gain: >-
+          You'll be able to reframe accountability gaps as a problem of
+          institutional design rather than one of litigation — the difference
+          between patching cases and building the office that should have existed.
+
+  - id: state-capacity
+    label: Fading state capacity
+    description: Agents can read the whole legal code, rotate through loopholes faster than regulators can patch them, and out-expert the agencies that were supposed to hold an expertise advantage over the regulated.
+    cells: [national-norms, national-expertise, national-rights]
+    fields:
+      - id: 6-legal-theory
+        gain: >-
+          You'll understand what it costs to keep a legal order working when one
+          side can search the whole rule space at machine speed — the rule of
+          recognition and Fuller's inner morality of law give you the tools to
+          see why a code that reads fine on paper can stop functioning as law.
+      - id: 5-political-theory
+        gain: >-
+          You'll be able to reason about expert authority and legitimacy when
+          frontier expertise is itself automated — the moment a regulator's claim
+          to know better than the regulated, which technocratic authority rested
+          on, quietly inverts.
+      - id: 4-microeconomics
+        gain: >-
+          You'll have the information-economics lens for regulatory capture in its
+          sharpest form: what happens to oversight when the regulated party can
+          model the regulator precisely and the usual information asymmetry runs
+          backwards.
+      - id: 7-game-theory-mechanism-design
+        gain: >-
+          You'll learn to design detail-free, robust rules that hold up against
+          agents actively optimising against them — the difference between a
+          regulation that works only against good-faith actors and one that
+          survives adversarial search.
+      - id: 1-the-big-picture
+        gain: >-
+          You'll see fading state capacity as institutional drift at the scale of
+          the regulator, and grasp why an expertise advantage that once held the
+          line can erode without anyone deciding to give it up.
+
+  - id: commons-proxy
+    label: Commons depletion and proxy gaming
+    description: Agents saturate any gameable proxy at superhuman volume and convert shared slack into extracted capacity, so commons and bounty schemes built for roughly comparable human participants collapse.
+    cells: [community-incentives, group-incentives, global-incentives]
+    fields:
+      - id: 7-game-theory-mechanism-design
+        gain: >-
+          You'll understand why a proxy humans left alone gets saturated the
+          instant an agent optimises against it, and you'll have
+          incentive-compatibility and the revelation principle — plus their
+          limits — to design contribution rules that don't collapse under that
+          pressure.
+      - id: 4-microeconomics
+        gain: >-
+          You'll be able to see how cheap substitutes thin the very
+          infrastructure that made a good possible, using externalities and moral
+          hazard to explain why competition can deepen a commons failure rather
+          than correct it.
+      - id: 8-social-choice
+        gain: >-
+          You'll learn to aggregate contributions by intensity rather than volume
+          — mechanisms like quadratic funding — so the outcome reflects who cares
+          how much instead of who can flood the channel with the most agents.
+      - id: 1-the-big-picture
+        gain: >-
+          You'll come away with Ostrom's third option for any commons design —
+          communities governing shared resources without privatising or
+          nationalising them — and the self-governance and polycentric-order
+          frame that goes beyond "market it" or "regulate it."

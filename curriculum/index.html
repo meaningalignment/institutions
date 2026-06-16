@@ -21,18 +21,19 @@
 <aside class="curr-sidebar" aria-label="Curriculum sections">
   <div class="curr-sidebar-title">Sections</div>
   <ul class="curr-sidebar-list">
-    <li><a href="#1-the-big-picture" class="curr-sidebar-link" data-target="1-the-big-picture">1. The Big Picture</a></li>
-    <li><a href="#2-ai-alignment" class="curr-sidebar-link" data-target="2-ai-alignment">2. AI Alignment</a></li>
-    <li><a href="#3-philosophy-of-values" class="curr-sidebar-link" data-target="3-philosophy-of-values">3. Philosophy of Values</a></li>
-    <li><a href="#4-microeconomics" class="curr-sidebar-link" data-target="4-microeconomics">4. Microeconomics</a></li>
-    <li><a href="#5-political-theory" class="curr-sidebar-link" data-target="5-political-theory">5. Political Theory</a></li>
-    <li><a href="#6-legal-theory" class="curr-sidebar-link" data-target="6-legal-theory">6. Legal Theory</a></li>
-    <li><a href="#7-game-theory-mechanism-design" class="curr-sidebar-link" data-target="7-game-theory-mechanism-design">7. Game Theory &amp; Mechanism Design</a></li>
-    <li><a href="#8-social-choice" class="curr-sidebar-link" data-target="8-social-choice">8. Social Choice</a></li>
+    <li><a href="#1-the-big-picture" class="curr-sidebar-link" data-target="1-the-big-picture"><span class="curr-sidebar-num">1</span><span class="curr-sidebar-label">The Big Picture</span></a></li>
+    <li><a href="#2-ai-alignment" class="curr-sidebar-link" data-target="2-ai-alignment"><span class="curr-sidebar-num">2</span><span class="curr-sidebar-label">AI Alignment</span></a></li>
+    <li><a href="#3-philosophy-of-values" class="curr-sidebar-link" data-target="3-philosophy-of-values"><span class="curr-sidebar-num">3</span><span class="curr-sidebar-label">Philosophy of Values</span></a></li>
+    <li><a href="#4-microeconomics" class="curr-sidebar-link" data-target="4-microeconomics"><span class="curr-sidebar-num">4</span><span class="curr-sidebar-label">Microeconomics</span></a></li>
+    <li><a href="#5-political-theory" class="curr-sidebar-link" data-target="5-political-theory"><span class="curr-sidebar-num">5</span><span class="curr-sidebar-label">Political Theory</span></a></li>
+    <li><a href="#6-legal-theory" class="curr-sidebar-link" data-target="6-legal-theory"><span class="curr-sidebar-num">6</span><span class="curr-sidebar-label">Legal Theory</span></a></li>
+    <li><a href="#7-game-theory-mechanism-design" class="curr-sidebar-link" data-target="7-game-theory-mechanism-design"><span class="curr-sidebar-num">7</span><span class="curr-sidebar-label">Game Theory &amp; Mechanism Design</span></a></li>
+    <li><a href="#8-social-choice" class="curr-sidebar-link" data-target="8-social-choice"><span class="curr-sidebar-num">8</span><span class="curr-sidebar-label">Social Choice</span></a></li>
   </ul>
 </aside>
 <div class="curr-main">
 <a href="../" class="detail-back">&larr; Back to grid</a>
+<div class="curr-selection-chip" id="curr-selection-chip" hidden><span class="curr-selection-chip-kind"></span><span class="curr-selection-chip-label"></span><button type="button" class="curr-selection-chip-x" aria-label="Clear selection">&times;</button></div>
 <div class="curr-page-title">AGI Institutions Curriculum</div>
 <p><strong>Who is it for?</strong></p>
 <p>This curriculum is targeting two groups. The first is researchers already working on these problems who want an 80/20 of the important parts of an adjacent field. The second is people from a technical background interested in AI and society but not yet sure how to contribute, or how much relevant work already exists. If that&#39;s you, this should show why these problems are real and that fields well outside your own have a lot to say about them.</p>
@@ -41,9 +42,89 @@
 <p><strong>How is it structured?</strong></p>
 <p>We&#39;ve selected eight academic fields we think are relevant: AI alignment, philosophy of values, microeconomics, political theory, legal theory, game theory and mechanism design, and social choice. Each field opens with a short overview and includes core readings, foundational works for going deeper, and key concepts to grasp.</p>
 <p><strong>How should I use it?</strong></p>
-<p>The fields are independent; read them in any order. The key concepts are a good way to check whether a field has really landed.</p>
+<p>The fields are independent; read them in any order. The key concepts are a good way to check whether a field has really landed. If you&#39;d rather start from something concrete, use the <strong>Start from a problem</strong> or <strong>Start from an institution</strong> picker below: pick a concern you already care about (or an institution we need to build) and the fields reorder by relevance, each with a short note on what you&#39;ll gain from it for that problem.</p>
 <hr>
 
+<div class="curr-pickers" id="curr-pickers">
+  <button type="button" class="curr-picker-reset" id="curr-picker-reset" hidden>Show all fields</button>
+  <button type="button" class="curr-picker-change" id="curr-picker-change">Change selection <span aria-hidden="true">▸</span></button>
+  <details class="curr-picker" aria-label="Start from a problem">
+    <summary class="curr-picker-summary"><span class="curr-picker-title">Start from a problem you care about</span><span class="curr-picker-chevron" aria-hidden="true"></span></summary>
+    <div class="curr-picker-grid" role="list">
+      <button type="button" class="curr-picker-tile" role="listitem" data-theme="job-displacement">
+        <span class="curr-picker-tile-label">Work and the shrinking labour share</span>
+        <span class="curr-picker-tile-desc">AI labour pulls production away from paying, training, and retaining people, and the value created stops flowing back to human welfare.</span>
+      </button>
+      <button type="button" class="curr-picker-tile" role="listitem" data-theme="opinion-manipulation">
+        <span class="curr-picker-tile-label">Manipulation of public opinion</span>
+        <span class="curr-picker-tile-desc">Agents can persuade at scale, manufacture apparent majorities, and seed movements faster and more cheaply than the institutions that read public preference can react.</span>
+      </button>
+      <button type="button" class="curr-picker-tile" role="listitem" data-theme="oversight-speed">
+        <span class="curr-picker-tile-label">Loss of human oversight and the speed mismatch</span>
+        <span class="curr-picker-tile-desc">Agents act and negotiate faster than human review can deliberate, so deals close, decisions compound, and norms form before any principal is in the loop.</span>
+      </button>
+      <button type="button" class="curr-picker-tile" role="listitem" data-theme="accountability-gaps">
+        <span class="curr-picker-tile-label">Accountability gaps</span>
+        <span class="curr-picker-tile-desc">When the decision-maker is an agent producing a continuous stream of small decisions, the people, summonses, and remedies that grievance and adjudication procedures were built around no longer have a target.</span>
+      </button>
+      <button type="button" class="curr-picker-tile" role="listitem" data-theme="state-capacity">
+        <span class="curr-picker-tile-label">Fading state capacity</span>
+        <span class="curr-picker-tile-desc">Agents can read the whole legal code, rotate through loopholes faster than regulators can patch them, and out-expert the agencies that were supposed to hold an expertise advantage over the regulated.</span>
+      </button>
+      <button type="button" class="curr-picker-tile" role="listitem" data-theme="commons-proxy">
+        <span class="curr-picker-tile-label">Commons depletion and proxy gaming</span>
+        <span class="curr-picker-tile-desc">Agents saturate any gameable proxy at superhuman volume and convert shared slack into extracted capacity, so commons and bounty schemes built for roughly comparable human participants collapse.</span>
+      </button>
+    </div>
+  </details>
+  <details class="curr-picker" aria-label="Start from an institution">
+    <summary class="curr-picker-summary"><span class="curr-picker-title">Start from an institution we need to build</span><span class="curr-picker-chevron" aria-hidden="true"></span></summary>
+    <div class="curr-picker-grid" role="list">
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="dyadic-preferences">
+        <span class="curr-picker-tile-label">Agent negotiation &amp; bargaining</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="dyadic-rights">
+        <span class="curr-picker-tile-label">Agent-agent mediation</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="national-rights">
+        <span class="curr-picker-tile-label">Agents that adjudicate rights</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="national-preferences">
+        <span class="curr-picker-tile-label">Agents that represent national interests / large groups</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="community-incentives">
+        <span class="curr-picker-tile-label">AI commons management</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="national-expertise">
+        <span class="curr-picker-tile-label">AI regulatory agencies &amp; regulator-anticipation</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="national-norms">
+        <span class="curr-picker-tile-label">AIs that follow and update the law</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="group-rights">
+        <span class="curr-picker-tile-label">Autonomous corp bylaws &amp; grievance boards</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="group-protocols">
+        <span class="curr-picker-tile-label">Coordination protocols across the human-agent cadence gap</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="global-incentives">
+        <span class="curr-picker-tile-label">Global markets that keep human interests central</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="group-incentives">
+        <span class="curr-picker-tile-label">Human-Outcome Contracts &amp; Bounties</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="community-preferences">
+        <span class="curr-picker-tile-label">Market design for societies of agents</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="community-thick-commitments">
+        <span class="curr-picker-tile-label">Mission-driven agent orgs</span>
+      </button>
+      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="national-thick-commitments">
+        <span class="curr-picker-tile-label">Substantive constitutions &amp; AI alignment docs</span>
+      </button>
+    </div>
+  </details>
+</div>
 <nav class="curr-toc" aria-label="Fields">
   <a href="#1-the-big-picture" class="curr-toc-link">1. The Big Picture</a>
   <a href="#2-ai-alignment" class="curr-toc-link">2. AI Alignment</a>
@@ -54,8 +135,9 @@
   <a href="#7-game-theory-mechanism-design" class="curr-toc-link">7. Game Theory &amp; Mechanism Design</a>
   <a href="#8-social-choice" class="curr-toc-link">8. Social Choice</a>
 </nav>
-<details open class="curr-field" id="1-the-big-picture">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">1. The Big Picture</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<div class="curr-fields" id="curr-fields">
+<details open class="curr-field" id="1-the-big-picture" data-field="1-the-big-picture">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">1</span><span class="curr-field-title">The Big Picture</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>What are the drivers of societal change? What is the relationship between institutions, culture, and technology?</p>
 <p>This is the orienting section: it treats institutions not as abstractions but as things implemented through organizations, customs, and self-governance — not only through markets and states. The throughline is that institutions are built and rebuilt as technology shifts the costs of coordination, and that values themselves can drift as those costs change. We picked work that connects technological change, institutional form, and the slow movement of what people take for granted, so the rest of the curriculum reads as design under those pressures rather than as separate fields.</p>
@@ -90,8 +172,8 @@
 
   </div>
 </details>
-<details open class="curr-field" id="2-ai-alignment">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">2. AI Alignment</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<details open class="curr-field" id="2-ai-alignment" data-field="2-ai-alignment">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">2</span><span class="curr-field-title">AI Alignment</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>AI will be deeply embedded in our future institutions, so it matters how these systems are trained to follow instructions, represent values, and remain correctable.</p>
 <p>Alignment is the youngest field here, grown out of machine learning and AI safety, concerned with how to make a model do what its principals actually want. The familiar version of the question is about a single model following instructions; the version that matters for institutions is how systems behave as participants in social orders — as negotiators, advisors, administrators, or intermediaries — which connects it to delegation, oversight, and certification. The readings cover the core training methods (RLHF, constitutional and character-based training) and the failure modes, like reward hacking and misgeneralization, that any institution leaning on these systems inherits.</p>
@@ -129,8 +211,8 @@
 
   </div>
 </details>
-<details open class="curr-field" id="3-philosophy-of-values">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">3. Philosophy of Values</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<details open class="curr-field" id="3-philosophy-of-values" data-field="3-philosophy-of-values">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">3</span><span class="curr-field-title">Philosophy of Values</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>&quot;Values&quot; colloquially refers to what is important to us. But what are values, exactly? How have institutions encoded and understood them before, and do AI give us new affordances for modeling what matters?</p>
 <p>Within philosophy this sits in ethics and metaethics. For AI, the live question is how a value gets <em>represented</em>: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others. Those are different answers from different corners of the field, and which one an institution adopts shapes what it can encode. Language models are able to encode values in thick ways, allowing us to move away from thinking of human wanting in terms of mere preferences.</p>
@@ -167,8 +249,8 @@
 
   </div>
 </details>
-<details open class="curr-field" id="4-microeconomics">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">4. Microeconomics</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<details open class="curr-field" id="4-microeconomics" data-field="4-microeconomics">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">4</span><span class="curr-field-title">Microeconomics</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>Why do markets deliver some goods well and others badly — and what does AI do to that boundary?</p>
 <p>Microeconomics is the study of choice under constraint, but the parts that bear on institutions are its less textbook branches: contract theory, information economics, and the welfare and capability critiques that ask what markets fail to capture. The readings take one canonical piece per branch; the two Klingefjord essays are MAI framing pieces that apply these ideas to the goods markets handle worst, not neutral core economics.</p>
@@ -217,8 +299,8 @@
 
   </div>
 </details>
-<details open class="curr-field" id="5-political-theory">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">5. Political Theory</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<details open class="curr-field" id="5-political-theory" data-field="5-political-theory">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">5</span><span class="curr-field-title">Political Theory</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>How is power constituted, constrained, and held accountable? What makes authority legitimate, and what recourse do people have when it fails?</p>
 <p>Political theory asks how power is constituted, justified, and checked — running from theories of justice through democratic theory, constitutionalism, and the study of representation. The strand most relevant to AI is the problem of <em>power under delegation</em>: citizens delegate to representatives, agencies to systems, users to assistants, and courts increasingly defer to technical expertise. AI lengthens and automates every link in that chain, which is why legitimacy, representation, and accountability matter here more than justice in the abstract. The readings pair the classics on fairness and constitutional structure with work on exit and voice, self-governance, and non-domination.</p>
@@ -256,8 +338,8 @@
 
   </div>
 </details>
-<details open class="curr-field" id="6-legal-theory">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">6. Legal Theory</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<details open class="curr-field" id="6-legal-theory" data-field="6-legal-theory">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">6</span><span class="curr-field-title">Legal Theory</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>How are rules made, interpreted, enforced, and contested? Law is our most developed technology for governing behavior through explicit rules. What happens to it when many of the actors are autonomous AI agents?</p>
 <p>Law quietly assumes a set of conditions: rules are costly to interpret, enforcement capacity is limited, ambiguity creates friction, actors have human-scale attention, and process is slow enough to let expectations stabilize. AI agents can break each of these — searching rule spaces, exploiting ambiguity, generating disputes, and automating compliance theater cheaply. The readings build from what law <em>is</em> (Hart, Fuller) toward what its infrastructure costs and how code substitutes for it (Lessig, Hadfield); we added agency and fiduciary concepts because if agents act on behalf of humans, those doctrines move to the center.</p>
@@ -294,8 +376,8 @@
 
   </div>
 </details>
-<details open class="curr-field" id="7-game-theory-mechanism-design">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">7. Game Theory &amp; Mechanism Design</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<details open class="curr-field" id="7-game-theory-mechanism-design" data-field="7-game-theory-mechanism-design">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">7</span><span class="curr-field-title">Game Theory &amp; Mechanism Design</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>What happens when strategic agents interact, and can we design the rules of interaction so that self-interested behavior produces good outcomes? Game theory describes what people do; mechanism design works backwards from what we want them to do. Both become unavoidable once the strategic agents include AI.</p>
 <p>Game theory grew out of economics and mathematics to model strategic interaction; mechanism design is its inverse, working backwards from a desired outcome to the rules that would produce it. The two connect to AI directly: once strategic actors include agents, the question of how to set rules so self-interest produces good outcomes stops being abstract. One caution worth carrying in: mechanism design is powerful exactly where goals, actions, and information can be formalized, and misleading when a simplified objective is mistaken for the institution&#39;s real purpose — so it reads best alongside Ostrom, Sen, and legal theory. We picked Schelling and Roth because they keep the field anchored in real institutions rather than formal models.</p>
@@ -331,8 +413,8 @@
 
   </div>
 </details>
-<details open class="curr-field" id="8-social-choice">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">8. Social Choice</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<details open class="curr-field" id="8-social-choice" data-field="8-social-choice">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">8</span><span class="curr-field-title">Social Choice</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <p>Can we even define &quot;what the group wants&quot; coherently? Social choice studies how individual preferences can — or can&#39;t — be aggregated into collective decisions, and which design choices about voting, deliberation, and elicitation the impossibility results force on us.</p>
 <p>Social choice theory sits at the intersection of economics, political science, and mathematics, asking whether individual preferences can be aggregated into a coherent collective choice at all — and a series of impossibility results says not without trade-offs. This bears on AI because cheaper elicitation, simulation, and deliberation make it tempting to think a system can simply read off the will of the people; the classical results say cheap aggregation is still aggregation, with all its paradoxes intact. The readings pair the foundational impossibility theorems with newer mechanisms like quadratic funding and generative social choice, where AI-mediated collective decisions are now being built.</p>
@@ -371,6 +453,8 @@
   </div>
 </details>
 </div>
+<script type="application/json" id="curr-theme-map">{"themes":{"job-displacement":{"label":"Work and the shrinking labour share","fields":[{"id":"4-microeconomics","bridge":"You'll be able to read job displacement as a market-structure outcome rather than a moral failing: which work a firm keeps inside versus buys on the market is a transaction-cost question, and you'll have the contract-theory tools to predict where humans still hold a place and where they get priced out."},{"id":"7-game-theory-mechanism-design","bridge":"You'll learn how to design payoffs so self-interested firms and agents keep paying out to people — and, just as important, where mechanism design hits its limits, so you don't stake a policy on a rule a capable agent will simply route around."},{"id":"8-social-choice","bridge":"You'll be able to make \"human interests\" precise — whose welfare counts, and how to weigh broad gains against concentrated displacement — and you'll know which trade-offs any such weighting is mathematically forced to make, so your proposal survives the impossibility results."},{"id":"1-the-big-picture","bridge":"You'll get the frame that turns job displacement from a wave to ride out into a design problem: how institutions get rebuilt when technology changes the cost of coordination, and how what people value drifts when systems optimise for proxies."}]},"opinion-manipulation":{"label":"Manipulation of public opinion","fields":[{"id":"5-political-theory","bridge":"You'll be able to say exactly what breaks when a majority can be manufactured: a mandate read off a manufactured majority is not a mandate. You'll come away with the accounts of what makes authority legitimate and what recourse people have when the channel meant to carry their voice has been captured."},{"id":"8-social-choice","bridge":"You'll stop being fooled by the promise that a system can simply \"read off the will of the people.\" You'll be able to show that cheap aggregation is still aggregation, and that manipulability (Gibbard–Satterthwaite) is structural — so you can tell a legitimacy-preserving mechanism from a faster way to launder a manufactured result."},{"id":"2-ai-alignment","bridge":"You'll understand the artefact on both sides — the systems doing the persuading and the ones meant to detect or resist it are the same kind of thing — so you'll know where reward hacking and specification gaming come from and what oversight can realistically deliver."},{"id":"3-philosophy-of-values","bridge":"You'll be able to draw the line between manipulation and legitimate persuasion sharply enough to design around it: whether a process tracks someone's actual reasons and values, or just a thin behavioural proxy."},{"id":"1-the-big-picture","bridge":"You'll see manipulation at scale as drift made deliberate, and grasp why a faster, cheaper persuasion layer is an institutional problem rather than a content-moderation one."}]},"oversight-speed":{"label":"Loss of human oversight and the speed mismatch","fields":[{"id":"2-ai-alignment","bridge":"You'll get the field's core toolkit for the exact problem in front of you: scalable oversight, correctability, and the principal–agent framing for keeping a slower human authority meaningfully in control of a faster system — plus the named failure modes every such scheme inherits, so you build with eyes open."},{"id":"5-political-theory","bridge":"You'll be able to treat the speed mismatch as the delegation problem it is — citizens, agencies, and users all handing decisions to something faster — and specify what a defensible chain of authority under delegation actually requires, drawing on accountability and non-domination."},{"id":"6-legal-theory","bridge":"You'll come away with a concrete checklist (Fuller's procedural desiderata, Hart's secondary rules) for judging whether an automated, fast-moving decision regime still counts as the rule of law or has collapsed into ad hoc speed."},{"id":"1-the-big-picture","bridge":"You'll see the speed mismatch as a coordination-cost shift: when acting becomes near-free and reviewing stays human-paced, institutions have to be rebuilt around the new bottleneck — and you'll have the frame for why."}]},"accountability-gaps":{"label":"Accountability gaps","fields":[{"id":"6-legal-theory","bridge":"You'll be working on law's home turf: agency law and fiduciary duty, due process, adjudication and remedy, and legal personhood. You'll know which doctrines have to move to the centre once the actor being held to account is an agent rather than a person — and where they have no answer yet."},{"id":"5-political-theory","bridge":"You'll be able to name the unnamed: when an office wields real power over members but isn't constituted as an office at all, you'll have the vocabulary of answerability and recourse to insist it be made accountable."},{"id":"2-ai-alignment","bridge":"You'll understand what actually makes an agent's conduct attributable and correctable after the fact — how training-time choices, logging, and certification decide whether \"who did this, and can it be fixed?\" even has an answer."},{"id":"1-the-big-picture","bridge":"You'll be able to reframe accountability gaps as a problem of institutional design rather than one of litigation — the difference between patching cases and building the office that should have existed."}]},"state-capacity":{"label":"Fading state capacity","fields":[{"id":"6-legal-theory","bridge":"You'll understand what it costs to keep a legal order working when one side can search the whole rule space at machine speed — the rule of recognition and Fuller's inner morality of law give you the tools to see why a code that reads fine on paper can stop functioning as law."},{"id":"5-political-theory","bridge":"You'll be able to reason about expert authority and legitimacy when frontier expertise is itself automated — the moment a regulator's claim to know better than the regulated, which technocratic authority rested on, quietly inverts."},{"id":"4-microeconomics","bridge":"You'll have the information-economics lens for regulatory capture in its sharpest form: what happens to oversight when the regulated party can model the regulator precisely and the usual information asymmetry runs backwards."},{"id":"7-game-theory-mechanism-design","bridge":"You'll learn to design detail-free, robust rules that hold up against agents actively optimising against them — the difference between a regulation that works only against good-faith actors and one that survives adversarial search."},{"id":"1-the-big-picture","bridge":"You'll see fading state capacity as institutional drift at the scale of the regulator, and grasp why an expertise advantage that once held the line can erode without anyone deciding to give it up."}]},"commons-proxy":{"label":"Commons depletion and proxy gaming","fields":[{"id":"7-game-theory-mechanism-design","bridge":"You'll understand why a proxy humans left alone gets saturated the instant an agent optimises against it, and you'll have incentive-compatibility and the revelation principle — plus their limits — to design contribution rules that don't collapse under that pressure."},{"id":"4-microeconomics","bridge":"You'll be able to see how cheap substitutes thin the very infrastructure that made a good possible, using externalities and moral hazard to explain why competition can deepen a commons failure rather than correct it."},{"id":"8-social-choice","bridge":"You'll learn to aggregate contributions by intensity rather than volume — mechanisms like quadratic funding — so the outcome reflects who cares how much instead of who can flood the channel with the most agents."},{"id":"1-the-big-picture","bridge":"You'll come away with Ostrom's third option for any commons design — communities governing shared resources without privatising or nationalising them — and the self-governance and polycentric-order frame that goes beyond \"market it\" or \"regulate it.\""}]}},"cells":{"dyadic-preferences":{"label":"Agent negotiation & bargaining","themes":["oversight-speed"]},"dyadic-rights":{"label":"Agent-agent mediation","themes":["accountability-gaps"]},"national-rights":{"label":"Agents that adjudicate rights","themes":["accountability-gaps","state-capacity"]},"national-preferences":{"label":"Agents that represent national interests / large groups","themes":["opinion-manipulation","oversight-speed"]},"community-incentives":{"label":"AI commons management","themes":["job-displacement","commons-proxy"]},"national-expertise":{"label":"AI regulatory agencies & regulator-anticipation","themes":["state-capacity"]},"national-norms":{"label":"AIs that follow and update the law","themes":["state-capacity"]},"group-rights":{"label":"Autonomous corp bylaws & grievance boards","themes":["accountability-gaps"]},"group-protocols":{"label":"Coordination protocols across the human-agent cadence gap","themes":["oversight-speed"]},"global-incentives":{"label":"Global markets that keep human interests central","themes":["job-displacement","commons-proxy"]},"group-incentives":{"label":"Human-Outcome Contracts & Bounties","themes":["job-displacement","commons-proxy"]},"community-preferences":{"label":"Market design for societies of agents","themes":["opinion-manipulation"]},"community-thick-commitments":{"label":"Mission-driven agent orgs","themes":["oversight-speed"]},"national-thick-commitments":{"label":"Substantive constitutions & AI alignment docs","themes":["accountability-gaps"]}}}</script>
+</div>
 </div>
 
 <footer class="site-footer">
@@ -402,6 +486,250 @@
     }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
     document.querySelectorAll('.curr-field').forEach(function (s) { io.observe(s); });
   }
+})();
+
+(function () {
+  // Entry-axis pickers: clicking a problem theme (or an institution) floats
+  // its relevant fields to the top with a per-field "what you'll gain" line, and
+  // collapses the rest under an "Other fields" divider. The sidebar and the
+  // field headings renumber to match the new order. Degrades to
+  // all-fields-visible with JS off (the picker tiles simply do nothing).
+  var blob = document.getElementById('curr-theme-map');
+  var container = document.getElementById('curr-fields');
+  var tiles = Array.from(document.querySelectorAll('.curr-picker-tile'));
+  var resetBtn = document.getElementById('curr-picker-reset');
+  var pickers = document.getElementById('curr-pickers');
+  var changeBtn = document.getElementById('curr-picker-change');
+  var pickerDetails = pickers ? Array.from(pickers.querySelectorAll('details.curr-picker')) : [];
+  if (!blob || !container || !tiles.length) return;
+
+  // Collapse the picker boxes to a faint "Change selection" line while a
+  // selection is active (the top-right chip is the live control); expand them
+  // again to switch.
+  function collapsePickers(on) {
+    if (!pickers) return;
+    pickers.classList.toggle('is-collapsed', !!on);
+    if (on) pickerDetails.forEach(function (d) { d.open = false; });
+  }
+
+  var DATA;
+  try { DATA = JSON.parse(blob.textContent); } catch (e) { return; }
+  var THEMES = DATA.themes || {};
+  var CELLS = DATA.cells || {};
+
+  // Remember the original DOM order so reset is exact.
+  var originalOrder = Array.from(container.querySelectorAll('.curr-field'));
+  var byField = {};
+  originalOrder.forEach(function (el) { byField[el.dataset.field] = el; });
+
+  // Sidebar links keyed by field id, for reorder + renumber.
+  var sidebarList = document.querySelector('.curr-sidebar-list');
+  var sidebarLinks = {};
+  var sidebarItems = {};
+  Array.from(document.querySelectorAll('.curr-sidebar-link')).forEach(function (a) {
+    sidebarLinks[a.dataset.target] = a;
+    sidebarItems[a.dataset.target] = a.parentNode; // the <li>
+  });
+  var sidebarOriginal = sidebarList ? Array.from(sidebarList.children) : [];
+
+  // Renumber field headings + sidebar to reflect current DOM order.
+  function renumber() {
+    var ordered = Array.from(container.querySelectorAll('.curr-field'));
+    var n = 0;
+    ordered.forEach(function (el) {
+      var num = el.classList.contains('is-dimmed') ? '' : String(++n);
+      var fnum = el.querySelector('.curr-field-num');
+      if (fnum) fnum.textContent = num;
+      var fid = el.dataset.field;
+      var snum = sidebarLinks[fid] && sidebarLinks[fid].querySelector('.curr-sidebar-num');
+      if (snum) snum.textContent = num || '·';
+    });
+  }
+
+  function clearInjected() {
+    container.querySelectorAll('.curr-gain').forEach(function (n) { n.remove(); });
+    var divider = container.querySelector('.curr-other-divider');
+    if (divider) divider.remove();
+    originalOrder.forEach(function (el) {
+      el.classList.remove('is-relevant', 'is-dimmed');
+    });
+  }
+
+  // Selection chip (top-right) reflects the active selection and clears it.
+  var chip = document.getElementById('curr-selection-chip');
+  var chipKind = chip && chip.querySelector('.curr-selection-chip-kind');
+  var chipLabel = chip && chip.querySelector('.curr-selection-chip-label');
+  var chipX = chip && chip.querySelector('.curr-selection-chip-x');
+
+  function setChip(kind, label) {
+    if (!chip) return;
+    if (!kind) { chip.hidden = true; return; }
+    if (chipKind) chipKind.textContent = kind === 'institution' ? 'Institution' : 'Problem';
+    if (chipLabel) chipLabel.textContent = label;
+    chip.hidden = false;
+  }
+
+  // URL state: ?problem=<id> or ?institution=<id> (mutually exclusive).
+  function setUrl(kind, id) {
+    if (!window.history || !window.history.replaceState) return;
+    var url = new URL(window.location.href);
+    url.searchParams.delete('problem');
+    url.searchParams.delete('institution');
+    if (kind && id) url.searchParams.set(kind, id);
+    window.history.replaceState(null, '', url.toString());
+  }
+
+  function reset(skipUrl) {
+    clearInjected();
+    // Restore original DOM order (fields + sidebar).
+    originalOrder.forEach(function (el) { container.appendChild(el); });
+    if (sidebarList) sidebarOriginal.forEach(function (li) { sidebarList.appendChild(li); });
+    tiles.forEach(function (t) { t.classList.remove('is-active'); });
+    sidebarOriginal.forEach(function (li) { li.classList.remove('is-dimmed'); });
+    renumber();
+    if (resetBtn) resetBtn.hidden = true;
+    collapsePickers(false);
+    setChip(null);
+    if (!skipUrl) setUrl(null);
+  }
+
+  // Resolve a selection (theme or merged institution) to an ordered list of
+  // {id, bridge} field rankings.
+  function rankingForTheme(themeId) {
+    var t = THEMES[themeId];
+    return t ? { fields: t.fields.slice() } : null;
+  }
+  function rankingForCell(cellId) {
+    var c = CELLS[cellId];
+    if (!c) return null;
+    // Merge the cell's themes: first occurrence of a field wins its bridge and
+    // position.
+    var seen = {};
+    var fields = [];
+    c.themes.forEach(function (tid) {
+      var t = THEMES[tid];
+      if (!t) return;
+      t.fields.forEach(function (f) {
+        if (seen[f.id]) return;
+        seen[f.id] = true;
+        fields.push(f);
+      });
+    });
+    return { fields: fields };
+  }
+
+  function applyRanking(ranking) {
+    if (!ranking || !ranking.fields.length) return;
+    clearInjected();
+
+    var relevantSet = {};
+    ranking.fields.forEach(function (f) { relevantSet[f.id] = true; });
+
+    // Relevant fields, in ranking order, to the top.
+    ranking.fields.forEach(function (f) {
+      var el = byField[f.id];
+      if (!el) return;
+      el.classList.add('is-relevant');
+      el.classList.remove('is-dimmed');
+      if (!el.open) el.open = true;
+      var body = el.querySelector('.curr-field-body');
+      if (body) {
+        // Per-field "What you'll gain" block (same style as the old banner).
+        var gain = document.createElement('div');
+        gain.className = 'curr-gain';
+        var glabel = document.createElement('span');
+        glabel.className = 'curr-gain-label';
+        glabel.textContent = 'What you\u2019ll gain';
+        gain.appendChild(glabel);
+        var gtext = document.createElement('span');
+        gtext.className = 'curr-gain-text';
+        gtext.textContent = f.bridge;
+        gain.appendChild(gtext);
+        body.insertBefore(gain, body.firstChild);
+      }
+      container.appendChild(el);
+      // Mirror order in the sidebar.
+      if (sidebarList && sidebarItems[f.id]) {
+        sidebarItems[f.id].classList.remove('is-dimmed');
+        sidebarList.appendChild(sidebarItems[f.id]);
+      }
+    });
+
+    // "Other fields" divider, then the rest (collapsed + dimmed).
+    var divider = document.createElement('div');
+    divider.className = 'curr-other-divider';
+    divider.innerHTML = '<span>Other fields</span>';
+    container.appendChild(divider);
+
+    originalOrder.forEach(function (el) {
+      if (relevantSet[el.dataset.field]) return;
+      el.classList.add('is-dimmed');
+      el.classList.remove('is-relevant');
+      el.open = false;
+      container.appendChild(el);
+      if (sidebarList && sidebarItems[el.dataset.field]) {
+        sidebarItems[el.dataset.field].classList.add('is-dimmed');
+        sidebarList.appendChild(sidebarItems[el.dataset.field]);
+      }
+    });
+
+    renumber();
+    if (resetBtn) resetBtn.hidden = false;
+  }
+
+  // Central selection entry point used by tile clicks and URL state.
+  // kind: 'problem' | 'institution'. Returns true if it applied.
+  function select(kind, id, skipUrl) {
+    var ranking, label;
+    if (kind === 'problem') {
+      var t = THEMES[id];
+      if (!t) return false;
+      ranking = rankingForTheme(id);
+      label = t.label;
+    } else if (kind === 'institution') {
+      var c = CELLS[id];
+      if (!c) return false;
+      ranking = rankingForCell(id);
+      label = c.label;
+    } else {
+      return false;
+    }
+    if (!ranking || !ranking.fields.length) return false;
+    applyRanking(ranking);
+    var attr = kind === 'problem' ? 'theme' : 'cell';
+    tiles.forEach(function (o) { o.classList.toggle('is-active', o.dataset[attr] === id); });
+    setChip(kind, label);
+    collapsePickers(true);
+    if (!skipUrl) setUrl(kind, id);
+    return true;
+  }
+
+  tiles.forEach(function (t) {
+    t.addEventListener('click', function () {
+      if (t.classList.contains('is-active')) { reset(); return; }
+      select(t.dataset.theme ? 'problem' : 'institution', t.dataset.theme || t.dataset.cell);
+    });
+  });
+  if (resetBtn) resetBtn.addEventListener('click', function () { reset(); });
+  if (chipX) chipX.addEventListener('click', function () { reset(); });
+  // "Change selection" expands the pickers without clearing the current
+  // selection; open the details holding the active tile so the user lands on it.
+  if (changeBtn) changeBtn.addEventListener('click', function () {
+    collapsePickers(false);
+    var active = pickers && pickers.querySelector('.curr-picker-tile.is-active');
+    var host = active && active.closest('details.curr-picker');
+    (host ? [host] : pickerDetails).forEach(function (d) { d.open = true; });
+  });
+
+  // Apply selection from the URL on load (deep-linking). skipUrl=true so we
+  // don't rewrite an identical URL. If the param is stale/unknown, clear it.
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var p = params.get('problem');
+    var inst = params.get('institution');
+    if (p) { if (!select('problem', p, true)) setUrl(null); }
+    else if (inst) { if (!select('institution', inst, true)) setUrl(null); }
+  })();
 })();
 </script>
 

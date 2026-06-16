@@ -1514,7 +1514,8 @@ tr.methods-row th.row-header {
   }
   .curr-sidebar-list li { margin: 0; }
   .curr-sidebar-link {
-    display: block;
+    display: flex;
+    align-items: baseline;
     padding: 6px 12px;
     margin-left: -1px;
     border-left: 2px solid transparent;
@@ -1648,6 +1649,273 @@ details.curr-field > .curr-field-body { margin-top: 24px; }
 }
 
 .curr-field-body > hr { display: none; }
+
+/* ── Entry-axis "Start from a problem" picker ─────────────────────── */
+/* Selection chip: shows the active problem/institution, top-right, with ×. */
+.curr-selection-chip {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(360px, 70vw);
+  padding: 7px 8px 7px 14px;
+  background: var(--card);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+}
+.curr-selection-chip[hidden] { display: none; }
+.curr-selection-chip-kind {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  flex-shrink: 0;
+}
+.curr-selection-chip-label {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.curr-selection-chip-x {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+  background: var(--wash);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.curr-selection-chip-x:hover { color: var(--ink); background: var(--line); }
+
+/* Two foldable entry-axis pickers, stacked under the intro. */
+.curr-pickers {
+  margin: 8px 0 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+details.curr-picker {
+  padding: 0;
+  background: var(--wash);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius, 10px);
+  overflow: hidden;
+}
+
+/* "Change selection" line: hidden by default, shown when a selection has
+   collapsed the pickers. */
+.curr-picker-change {
+  display: none;
+  align-self: flex-start;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  padding: 4px 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.curr-picker-change:hover { color: var(--ink); }
+
+/* Collapsed state: hide the picker boxes + the reset button, reveal the
+   faint "Change selection" affordance. The top-right chip is the live
+   control while collapsed. */
+.curr-pickers.is-collapsed details.curr-picker { display: none; }
+.curr-pickers.is-collapsed .curr-picker-reset { display: none; }
+.curr-pickers.is-collapsed .curr-picker-change { display: inline-block; }
+
+.curr-picker-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+  padding: 16px 20px;
+}
+.curr-picker-summary::-webkit-details-marker { display: none; }
+.curr-picker-summary:hover .curr-picker-title { color: var(--ink); }
+.curr-picker-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid var(--faint);
+  border-bottom: 1.5px solid var(--faint);
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-top: -3px;
+}
+details.curr-picker[open] .curr-picker-chevron { transform: rotate(225deg); margin-top: 3px; }
+details.curr-picker[open] .curr-picker-grid { padding: 0 20px 20px 20px; }
+
+.curr-picker-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.curr-picker-reset {
+  align-self: flex-end;
+  order: -1;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 5px 13px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.curr-picker-reset:hover { color: var(--ink); border-color: var(--faint); }
+.curr-picker-reset[hidden] { display: none; }
+
+.curr-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.curr-picker-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm, 8px);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.curr-picker-tile:hover {
+  border-color: var(--accent);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+.curr-picker-tile.is-active {
+  border-color: var(--accent);
+  background: #eef2ec;
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.curr-picker-tile-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.curr-picker-tile-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Per-field "What you'll gain" block injected at the top of each relevant
+   field when a problem/institution is selected. */
+.curr-gain {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 22px 0;
+  padding: 14px 18px;
+  background: #eef2ec;
+  border: 1px solid #c5d4c0;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm, 8px);
+}
+.curr-gain-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.curr-gain-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* "Other fields" divider + dimmed collapsed fields below it. */
+.curr-other-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 8px 0 24px 0;
+}
+.curr-other-divider::before,
+.curr-other-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-strong);
+}
+.curr-other-divider span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+details.curr-field.is-dimmed { opacity: 0.62; margin-bottom: 20px; }
+details.curr-field.is-dimmed:hover { opacity: 1; }
+details.curr-field.is-relevant { scroll-margin-top: 80px; }
+
+/* Dynamic rank number on each field heading. */
+.curr-field-num {
+  display: inline-block;
+  min-width: 1.1em;
+  margin-right: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.62em;
+  font-weight: 700;
+  color: var(--faint);
+  vertical-align: middle;
+}
+details.curr-field.is-relevant .curr-field-num { color: var(--accent-dark); }
+details.curr-field.is-dimmed .curr-field-num:empty { display: none; }
+
+/* Institution-picker tiles have no description; keep them compact. */
+.curr-picker-tile-inst { flex-direction: row; align-items: center; min-height: 52px; }
+
+/* Sidebar number badge + dimmed (re-ranked "other") items. */
+.curr-sidebar-num {
+  display: inline-block;
+  min-width: 1.4em;
+  margin-right: 8px;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--faint);
+}
+.curr-sidebar-link.is-active .curr-sidebar-num { color: var(--ink); }
+.curr-sidebar-list li.is-dimmed .curr-sidebar-link { opacity: 0.55; }
+.curr-sidebar-list li.is-dimmed .curr-sidebar-num { color: var(--line-strong); }
 
 @media (min-width: 720px) {
   .curr-key-concepts {

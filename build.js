@@ -686,19 +686,55 @@ function slugify(text) {
     .replace(/^-|-$/g, '');
 }
 
-function generateCurriculumPage() {
+// Load the entry-axis taxonomy from data/curriculum-map.yaml. Returns an
+// array of themes: { id, label, description, cells: [cellId],
+// fields: [{ id, bridge }] }. The YAML uses `gain` for the field's
+// "What you'll gain" text; we keep the `bridge` key internally so the rest of
+// the pipeline (JSON blob, client JS) is unchanged. Missing file → no pickers.
+function loadCurriculumMap() {
+  const file = path.join(__dirname, 'data', 'curriculum-map.yaml');
+  if (!fs.existsSync(file)) return [];
+  let doc;
+  try { doc = yaml.load(fs.readFileSync(file, 'utf8')) || {}; }
+  catch (e) {
+    console.warn(`[curriculum] could not parse curriculum-map.yaml: ${e.message}`);
+    return [];
+  }
+  const themes = Array.isArray(doc.themes) ? doc.themes : [];
+  return themes.map((t) => ({
+    id: t.id || slugify(t.label || ''),
+    label: t.label || '',
+    description: t.description || '',
+    cells: Array.isArray(t.cells) ? t.cells : [],
+    fields: (Array.isArray(t.fields) ? t.fields : []).map((f) => ({
+      id: f.id, bridge: (f.gain || '').trim(),
+    })),
+  }));
+}
+
+function generateCurriculumPage(cells) {
+  cells = cells || {};
   let md = fs.readFileSync(path.join(__dirname, 'data', 'curriculum.md'), 'utf8');
 
   // The H1 is the page title; pull it out, then split on H2:
   // everything before the first H2 is the intro; each H2 starts a field.
   const title = (md.match(/^# (.+)$/m) || [, 'Curriculum'])[1].trim();
   md = md.replace(/^# .+$/m, '').trim();
+
+  // Entry-axis taxonomy now lives in its own YAML file; curriculum.md is
+  // pure prose.
+  const themes = loadCurriculumMap();
+
   const [intro, ...rawFields] = md.split(/(?=^## )/m);
   const introHtml = marked.parse(processEditorial(intro));
 
-  // Turn each raw "## Name\n...body" chunk into a renderable field.
+  // Turn each raw "## Name\n...body" chunk into a renderable field. The id
+  // slug keeps the leading number (e.g. "1-the-big-picture") for stable links;
+  // the display name strips it so numbering can be re-derived dynamically when
+  // a picker re-ranks the fields.
   const fields = rawFields.map((chunk) => {
     const name = (chunk.match(/^## (.+)$/m) || [, ''])[1].trim();
+    const displayName = name.replace(/^\d+\.\s*/, '').trim();
     const body = chunk.replace(/^## .+$/m, '').replace(/\n---\s*$/m, '').trim();
     let bodyHtml = marked.parse(processEditorial(body));
     // Tag the "Key concepts" list so CSS can render it in two columns.
@@ -706,16 +742,17 @@ function generateCurriculumPage() {
       /(<h3[^>]*>\s*Key concepts\s*<\/h3>\s*)<ul>/gi,
       '$1<ul class="curr-key-concepts">'
     );
-    return { name, id: slugify(name), bodyHtml };
+    return { name: displayName, id: slugify(name), bodyHtml };
   });
 
-  const navLink = (f) => `<a href="#${f.id}" class="curr-toc-link">${esc(f.name)}</a>`;
+  const navLink = (f, i) => `<a href="#${f.id}" class="curr-toc-link">${i + 1}. ${esc(f.name)}</a>`;
   const tocHtml = fields.length
     ? `<nav class="curr-toc" aria-label="Fields">\n  ${fields.map(navLink).join('\n  ')}\n</nav>`
     : '';
 
-  const sidebarItem = (f) =>
-    `<li><a href="#${f.id}" class="curr-sidebar-link" data-target="${f.id}">${esc(f.name)}</a></li>`;
+  // Sidebar carries a dynamic number badge the client renumbers on re-rank.
+  const sidebarItem = (f, i) =>
+    `<li><a href="#${f.id}" class="curr-sidebar-link" data-target="${f.id}"><span class="curr-sidebar-num">${i + 1}</span><span class="curr-sidebar-label">${esc(f.name)}</span></a></li>`;
   const sidebarHtml = fields.length
     ? `<aside class="curr-sidebar" aria-label="Curriculum sections">
   <div class="curr-sidebar-title">Sections</div>
@@ -725,12 +762,98 @@ function generateCurriculumPage() {
 </aside>`
     : '';
 
-  const sectionsHtml = fields.map((f) => `<details open class="curr-field" id="${f.id}">
-  <summary class="curr-field-summary"><h2 class="curr-field-name">${esc(f.name)}</h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+  const sectionsHtml = fields.map((f, i) => `<details open class="curr-field" id="${f.id}" data-field="${f.id}">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">${i + 1}</span><span class="curr-field-title">${esc(f.name)}</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 ${f.bodyHtml}
   </div>
 </details>`).join('\n');
+
+  // ── Entry-axis "Problem map" picker ──────────────────────────────
+  // Validate every referenced field id resolves to a real field; warn on
+  // misses (and on themes with no fields). Then build the picker tiles and
+  // the JSON map the client reorders fields from.
+  const fieldIds = new Set(fields.map((f) => f.id));
+  for (const t of themes) {
+    if (!t.fields.length) {
+      console.warn(`[curriculum] problem-map theme "${t.id}" has no field references`);
+    }
+    for (const fr of t.fields) {
+      if (!fieldIds.has(fr.id)) {
+        console.warn(`[curriculum] problem-map theme "${t.id}" references unknown field "${fr.id}"`);
+      }
+      if (!fr.bridge || /^TODO/i.test(fr.bridge)) {
+        console.warn(`[curriculum] problem-map theme "${t.id}" field "${fr.id}" has a TODO/empty gain line (scaffold)`);
+      }
+    }
+  }
+
+  // ── Institutions: cell → themes inverse map ──────────────────────
+  // Each theme lists exemplar cells; invert that so the "Start from an
+  // institution" picker can offer a tile per live AGI cell that re-ranks
+  // fields by merging the themes the cell belongs to. Tile label = the cell
+  // H1. Only cells that exist, are not hidden on the AGI grid, and map to at
+  // least one theme appear.
+  const cellThemes = {}; // cellId -> [themeId, ...]
+  for (const t of themes) {
+    for (const cid of (t.cells || [])) {
+      if (!cellThemes[cid]) cellThemes[cid] = [];
+      if (!cellThemes[cid].includes(t.id)) cellThemes[cid].push(t.id);
+    }
+  }
+  const institutions = Object.keys(cellThemes)
+    .map((cid) => {
+      const cell = cells[cid];
+      if (!cell || cell.frontmatter?.hide_agi === true || !cell.summary) {
+        console.warn(`[curriculum] institution "${cid}" referenced by a theme is missing or hidden on the AGI grid`);
+        return null;
+      }
+      return { id: cid, label: cell.summary, themes: cellThemes[cid] };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.label.localeCompare(b.label));
+
+  const themeTilesHtml = themes.map((t) => `      <button type="button" class="curr-picker-tile" role="listitem" data-theme="${esc(t.id)}">
+        <span class="curr-picker-tile-label">${esc(t.label)}</span>
+        <span class="curr-picker-tile-desc">${esc(t.description)}</span>
+      </button>`).join('\n');
+
+  const instTilesHtml = institutions.map((c) => `      <button type="button" class="curr-picker-tile curr-picker-tile-inst" role="listitem" data-cell="${esc(c.id)}">
+        <span class="curr-picker-tile-label">${esc(c.label)}</span>
+      </button>`).join('\n');
+
+  // Two foldable pickers under the intro, both collapsed by default.
+  const pickerHtml = (themes.length || institutions.length) ? `<div class="curr-pickers" id="curr-pickers">
+  <button type="button" class="curr-picker-reset" id="curr-picker-reset" hidden>Show all fields</button>
+  <button type="button" class="curr-picker-change" id="curr-picker-change">Change selection <span aria-hidden="true">▸</span></button>
+  ${themes.length ? `<details class="curr-picker" aria-label="Start from a problem">
+    <summary class="curr-picker-summary"><span class="curr-picker-title">Start from a problem you care about</span><span class="curr-picker-chevron" aria-hidden="true"></span></summary>
+    <div class="curr-picker-grid" role="list">
+${themeTilesHtml}
+    </div>
+  </details>` : ''}
+  ${institutions.length ? `<details class="curr-picker" aria-label="Start from an institution">
+    <summary class="curr-picker-summary"><span class="curr-picker-title">Start from an institution we need to build</span><span class="curr-picker-chevron" aria-hidden="true"></span></summary>
+    <div class="curr-picker-grid" role="list">
+${instTilesHtml}
+    </div>
+  </details>` : ''}
+</div>` : '';
+
+  const themeMap = {};
+  for (const t of themes) {
+    themeMap[t.id] = {
+      label: t.label,
+      fields: t.fields.map((fr) => ({ id: fr.id, bridge: fr.bridge })),
+    };
+  }
+  const cellMap = {};
+  for (const c of institutions) {
+    cellMap[c.id] = { label: c.label, themes: c.themes };
+  }
+  const themeMapJson = (themes.length || institutions.length)
+    ? `<script type="application/json" id="curr-theme-map">${JSON.stringify({ themes: themeMap, cells: cellMap }).replace(/</g, '\\u003c')}</script>`
+    : '';
 
   const currTitle = `${esc(title)} — AGI Institutions`;
   const currDesc = 'A curriculum for institutional designers engaging with AI governance: mechanism design, constitutional design, market design, regulatory frameworks, and more — all contextualized for the age of autonomous AI agents.';
@@ -759,10 +882,15 @@ ${f.bodyHtml}
 ${sidebarHtml}
 <div class="curr-main">
 <a href="../" class="detail-back">&larr; Back to grid</a>
+<div class="curr-selection-chip" id="curr-selection-chip" hidden><span class="curr-selection-chip-kind"></span><span class="curr-selection-chip-label"></span><button type="button" class="curr-selection-chip-x" aria-label="Clear selection">&times;</button></div>
 <div class="curr-page-title">${esc(title)}</div>
 ${introHtml}
+${pickerHtml}
 ${tocHtml}
+<div class="curr-fields" id="curr-fields">
 ${sectionsHtml}
+</div>
+${themeMapJson}
 </div>
 </div>
 
@@ -795,6 +923,250 @@ ${sectionsHtml}
     }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
     document.querySelectorAll('.curr-field').forEach(function (s) { io.observe(s); });
   }
+})();
+
+(function () {
+  // Entry-axis pickers: clicking a problem theme (or an institution) floats
+  // its relevant fields to the top with a per-field "what you'll gain" line, and
+  // collapses the rest under an "Other fields" divider. The sidebar and the
+  // field headings renumber to match the new order. Degrades to
+  // all-fields-visible with JS off (the picker tiles simply do nothing).
+  var blob = document.getElementById('curr-theme-map');
+  var container = document.getElementById('curr-fields');
+  var tiles = Array.from(document.querySelectorAll('.curr-picker-tile'));
+  var resetBtn = document.getElementById('curr-picker-reset');
+  var pickers = document.getElementById('curr-pickers');
+  var changeBtn = document.getElementById('curr-picker-change');
+  var pickerDetails = pickers ? Array.from(pickers.querySelectorAll('details.curr-picker')) : [];
+  if (!blob || !container || !tiles.length) return;
+
+  // Collapse the picker boxes to a faint "Change selection" line while a
+  // selection is active (the top-right chip is the live control); expand them
+  // again to switch.
+  function collapsePickers(on) {
+    if (!pickers) return;
+    pickers.classList.toggle('is-collapsed', !!on);
+    if (on) pickerDetails.forEach(function (d) { d.open = false; });
+  }
+
+  var DATA;
+  try { DATA = JSON.parse(blob.textContent); } catch (e) { return; }
+  var THEMES = DATA.themes || {};
+  var CELLS = DATA.cells || {};
+
+  // Remember the original DOM order so reset is exact.
+  var originalOrder = Array.from(container.querySelectorAll('.curr-field'));
+  var byField = {};
+  originalOrder.forEach(function (el) { byField[el.dataset.field] = el; });
+
+  // Sidebar links keyed by field id, for reorder + renumber.
+  var sidebarList = document.querySelector('.curr-sidebar-list');
+  var sidebarLinks = {};
+  var sidebarItems = {};
+  Array.from(document.querySelectorAll('.curr-sidebar-link')).forEach(function (a) {
+    sidebarLinks[a.dataset.target] = a;
+    sidebarItems[a.dataset.target] = a.parentNode; // the <li>
+  });
+  var sidebarOriginal = sidebarList ? Array.from(sidebarList.children) : [];
+
+  // Renumber field headings + sidebar to reflect current DOM order.
+  function renumber() {
+    var ordered = Array.from(container.querySelectorAll('.curr-field'));
+    var n = 0;
+    ordered.forEach(function (el) {
+      var num = el.classList.contains('is-dimmed') ? '' : String(++n);
+      var fnum = el.querySelector('.curr-field-num');
+      if (fnum) fnum.textContent = num;
+      var fid = el.dataset.field;
+      var snum = sidebarLinks[fid] && sidebarLinks[fid].querySelector('.curr-sidebar-num');
+      if (snum) snum.textContent = num || '·';
+    });
+  }
+
+  function clearInjected() {
+    container.querySelectorAll('.curr-gain').forEach(function (n) { n.remove(); });
+    var divider = container.querySelector('.curr-other-divider');
+    if (divider) divider.remove();
+    originalOrder.forEach(function (el) {
+      el.classList.remove('is-relevant', 'is-dimmed');
+    });
+  }
+
+  // Selection chip (top-right) reflects the active selection and clears it.
+  var chip = document.getElementById('curr-selection-chip');
+  var chipKind = chip && chip.querySelector('.curr-selection-chip-kind');
+  var chipLabel = chip && chip.querySelector('.curr-selection-chip-label');
+  var chipX = chip && chip.querySelector('.curr-selection-chip-x');
+
+  function setChip(kind, label) {
+    if (!chip) return;
+    if (!kind) { chip.hidden = true; return; }
+    if (chipKind) chipKind.textContent = kind === 'institution' ? 'Institution' : 'Problem';
+    if (chipLabel) chipLabel.textContent = label;
+    chip.hidden = false;
+  }
+
+  // URL state: ?problem=<id> or ?institution=<id> (mutually exclusive).
+  function setUrl(kind, id) {
+    if (!window.history || !window.history.replaceState) return;
+    var url = new URL(window.location.href);
+    url.searchParams.delete('problem');
+    url.searchParams.delete('institution');
+    if (kind && id) url.searchParams.set(kind, id);
+    window.history.replaceState(null, '', url.toString());
+  }
+
+  function reset(skipUrl) {
+    clearInjected();
+    // Restore original DOM order (fields + sidebar).
+    originalOrder.forEach(function (el) { container.appendChild(el); });
+    if (sidebarList) sidebarOriginal.forEach(function (li) { sidebarList.appendChild(li); });
+    tiles.forEach(function (t) { t.classList.remove('is-active'); });
+    sidebarOriginal.forEach(function (li) { li.classList.remove('is-dimmed'); });
+    renumber();
+    if (resetBtn) resetBtn.hidden = true;
+    collapsePickers(false);
+    setChip(null);
+    if (!skipUrl) setUrl(null);
+  }
+
+  // Resolve a selection (theme or merged institution) to an ordered list of
+  // {id, bridge} field rankings.
+  function rankingForTheme(themeId) {
+    var t = THEMES[themeId];
+    return t ? { fields: t.fields.slice() } : null;
+  }
+  function rankingForCell(cellId) {
+    var c = CELLS[cellId];
+    if (!c) return null;
+    // Merge the cell's themes: first occurrence of a field wins its bridge and
+    // position.
+    var seen = {};
+    var fields = [];
+    c.themes.forEach(function (tid) {
+      var t = THEMES[tid];
+      if (!t) return;
+      t.fields.forEach(function (f) {
+        if (seen[f.id]) return;
+        seen[f.id] = true;
+        fields.push(f);
+      });
+    });
+    return { fields: fields };
+  }
+
+  function applyRanking(ranking) {
+    if (!ranking || !ranking.fields.length) return;
+    clearInjected();
+
+    var relevantSet = {};
+    ranking.fields.forEach(function (f) { relevantSet[f.id] = true; });
+
+    // Relevant fields, in ranking order, to the top.
+    ranking.fields.forEach(function (f) {
+      var el = byField[f.id];
+      if (!el) return;
+      el.classList.add('is-relevant');
+      el.classList.remove('is-dimmed');
+      if (!el.open) el.open = true;
+      var body = el.querySelector('.curr-field-body');
+      if (body) {
+        // Per-field "What you'll gain" block (same style as the old banner).
+        var gain = document.createElement('div');
+        gain.className = 'curr-gain';
+        var glabel = document.createElement('span');
+        glabel.className = 'curr-gain-label';
+        glabel.textContent = 'What you\\u2019ll gain';
+        gain.appendChild(glabel);
+        var gtext = document.createElement('span');
+        gtext.className = 'curr-gain-text';
+        gtext.textContent = f.bridge;
+        gain.appendChild(gtext);
+        body.insertBefore(gain, body.firstChild);
+      }
+      container.appendChild(el);
+      // Mirror order in the sidebar.
+      if (sidebarList && sidebarItems[f.id]) {
+        sidebarItems[f.id].classList.remove('is-dimmed');
+        sidebarList.appendChild(sidebarItems[f.id]);
+      }
+    });
+
+    // "Other fields" divider, then the rest (collapsed + dimmed).
+    var divider = document.createElement('div');
+    divider.className = 'curr-other-divider';
+    divider.innerHTML = '<span>Other fields</span>';
+    container.appendChild(divider);
+
+    originalOrder.forEach(function (el) {
+      if (relevantSet[el.dataset.field]) return;
+      el.classList.add('is-dimmed');
+      el.classList.remove('is-relevant');
+      el.open = false;
+      container.appendChild(el);
+      if (sidebarList && sidebarItems[el.dataset.field]) {
+        sidebarItems[el.dataset.field].classList.add('is-dimmed');
+        sidebarList.appendChild(sidebarItems[el.dataset.field]);
+      }
+    });
+
+    renumber();
+    if (resetBtn) resetBtn.hidden = false;
+  }
+
+  // Central selection entry point used by tile clicks and URL state.
+  // kind: 'problem' | 'institution'. Returns true if it applied.
+  function select(kind, id, skipUrl) {
+    var ranking, label;
+    if (kind === 'problem') {
+      var t = THEMES[id];
+      if (!t) return false;
+      ranking = rankingForTheme(id);
+      label = t.label;
+    } else if (kind === 'institution') {
+      var c = CELLS[id];
+      if (!c) return false;
+      ranking = rankingForCell(id);
+      label = c.label;
+    } else {
+      return false;
+    }
+    if (!ranking || !ranking.fields.length) return false;
+    applyRanking(ranking);
+    var attr = kind === 'problem' ? 'theme' : 'cell';
+    tiles.forEach(function (o) { o.classList.toggle('is-active', o.dataset[attr] === id); });
+    setChip(kind, label);
+    collapsePickers(true);
+    if (!skipUrl) setUrl(kind, id);
+    return true;
+  }
+
+  tiles.forEach(function (t) {
+    t.addEventListener('click', function () {
+      if (t.classList.contains('is-active')) { reset(); return; }
+      select(t.dataset.theme ? 'problem' : 'institution', t.dataset.theme || t.dataset.cell);
+    });
+  });
+  if (resetBtn) resetBtn.addEventListener('click', function () { reset(); });
+  if (chipX) chipX.addEventListener('click', function () { reset(); });
+  // "Change selection" expands the pickers without clearing the current
+  // selection; open the details holding the active tile so the user lands on it.
+  if (changeBtn) changeBtn.addEventListener('click', function () {
+    collapsePickers(false);
+    var active = pickers && pickers.querySelector('.curr-picker-tile.is-active');
+    var host = active && active.closest('details.curr-picker');
+    (host ? [host] : pickerDetails).forEach(function (d) { d.open = true; });
+  });
+
+  // Apply selection from the URL on load (deep-linking). skipUrl=true so we
+  // don't rewrite an identical URL. If the param is stale/unknown, clear it.
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var p = params.get('problem');
+    var inst = params.get('institution');
+    if (p) { if (!select('problem', p, true)) setUrl(null); }
+    else if (inst) { if (!select('institution', inst, true)) setUrl(null); }
+  })();
 })();
 </script>
 
@@ -951,7 +1323,7 @@ console.log('Generated problem-sets/index.html');
 fs.mkdirSync(path.join(__dirname, 'curriculum'), { recursive: true });
 fs.writeFileSync(
   path.join(__dirname, 'curriculum', 'index.html'),
-  generateCurriculumPage()
+  generateCurriculumPage(allCells.cells)
 );
 console.log('Generated curriculum/index.html');
 

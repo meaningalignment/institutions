@@ -14,7 +14,7 @@ We've selected eight academic fields we think are relevant: AI alignment, philos
 
 **How should I use it?**
 
-The fields are independent; read them in any order. The key concepts are a good way to check whether a field has really landed.
+The fields are independent; read them in any order. The key concepts are a good way to check whether a field has really landed. If you'd rather start from something concrete, use the **Start from a problem** or **Start from an institution** picker below: pick a concern you already care about (or an institution we need to build) and the fields reorder by relevance, each with a short note on what you'll gain from it for that problem.
 
 ---
 
@@ -332,6 +332,3 @@ Social choice theory sits at the intersection of economics, political science, a
 - Sortition and citizens' assemblies
 - Liquid democracy
 - Computational social choice
-
----
-

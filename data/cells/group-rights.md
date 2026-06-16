@@ -2,7 +2,7 @@
 human_label: "Bylaws & grievance boards"
 human_era: "Medieval-industrial"
 human_era_bucket: medieval-modern
-status: not_started
+status: summary_draft
 owner: oliver
 visions:
   fidelity: "Internal resolution of charter-breach disputes"
@@ -14,7 +14,7 @@ visions:
 
 ### Coordination challenge
 
-How a team gives members standing entitlements and a forum to challenge how power inside the group is used.
+How a group gives members rights and a forum to contest how power over them is used.
 
 ### Examples
 
@@ -26,11 +26,9 @@ How a team gives members standing entitlements and a forum to challenge how powe
 
 ### How AGI breaks them
 
-- The decision-maker being challenged stops being a person who can be summoned, questioned, or sanctioned, which is what grievance procedures were built around.
-- Agents produce a continuous stream of small decisions rather than a few punctuated rulings, so the harm often lives in patterns that per-case review can't reach.
-- Grievances turn on showing inconsistency with prior practice, and statistical decision-making doesn't fit that vocabulary: each case can be defensible while the pattern is not.
-- "Overturn and make whole" assumed a manager who can be ordered to redo the decision; remedies against an agent (constraint, retraining, rollback) have no bylaw vocabulary yet.
-- Whoever configures and runs the agents holds real power over members, but the bylaws don't name that role as an office with duties, accountability, or removal.
+- Grievance procedures, stewards, and member rights exist because the weaker party inside an org fought for them. A compliant agent won't, so these channels never get built in autonomous organizations, and abuse of power goes uncorrected.
+- Even where a channel exists, an agent instructed to be compliant with the org might not escalate a wrong the way a wronged worker would, so the process never starts.
+- Grievance boards bind the firm's conduct because the worker can quit, sue, or strike, and the firm needs the labor. An agent can't and is replaceable at near-zero cost, so the complaint carries no threat.
 
 ## How humans solve this today
 
@@ -46,15 +44,13 @@ A vivid case: when Andre's logistics co-op fired a dispatcher last year, the dis
 
 ## Where AGI breaks it
 
-1. **The decision-maker being challenged stops being a person who can be summoned, questioned, or sanctioned.** A grievance hearing works by putting the manager in the room: they explain their reasoning, answer questions about it, and carry career consequences if the ruling goes against them. When the dispatching or allocation decision was made by an agent, each lever assumes something that isn't there. There is no testimony beyond logs, no career the panel can discipline, and the operator who configured the agent can truthfully say they did not make the specific call being grieved.
+These instruments protect the weaker party inside an organization — the worker against the manager, the member against the board — and almost none of them were handed down; they exist because the people they protect organized and demanded them.
 
-2. **Agents produce a continuous stream of small decisions rather than a few punctuated rulings.** Grievance procedures were sized for a human manager's decision tempo: a few consequential calls a quarter, each discrete enough to contest on its own. An agent making thousands of routing, scheduling, or allocation decisions produces harms that are real in aggregate but trivial individually; per-case review either misses them or drowns in them.
+1. **The channels exist because the weaker party fought for them, and in an autonomous org that party won't fight.** Grievance procedures, shop stewards, and member rights were won, not designed: workers struck, members organized, and the resulting institutions are concessions extracted by the people with the most to gain from them. Owner-side instruments persist for the same reason in reverse — shareholders still want bylaws and fiduciary duties, so those get rebuilt for any organization with capital to protect. But the instruments that constrain power on behalf of the governed depend on the governed pressing for them. When the governed are compliant agents, that pressure is absent, so the channels that would let internal harm surface never get built, and the abuse they were meant to catch goes uncorrected.
 
-3. **Grievances turn on showing inconsistency with prior practice, and statistical decision-making doesn't fit that vocabulary.** The committee's question — was this member treated differently from others in the same situation? — assumes decisions are rule-like enough to compare. An agent may treat every case slightly differently for reasons that are statistical rather than invidious, so each decision is defensible in isolation while the distribution disadvantages a class of members. The bylaws have no category for that, and proving it requires pattern analysis across the decision stream that no individual grievant can run alone.
+2. **Even where a channel exists, the wronged party has to use it, and a compliant agent won't.** Internal due process is complaint-driven: nothing happens until the harmed party walks into the ombuds' office or calls the steward, an act that runs against the interest of whoever holds power over them. A worker does it because they were wronged and want redress. An agent built to be useful to the organization has no such motive and may be instructed not to escalate at all, so the unfair discipline and arbitrary treatment that grievance boards exist for never become a case.
 
-4. **"Overturn and make whole" assumed a manager who can be ordered to redo the decision.** Reversing a human decision is institutionally simple: the committee directs, the manager complies, and the ruling itself teaches the manager what not to repeat. Against an agent the remedy menu is unsettled — reverse this output, compensate the member, constrain future decisions on this dimension, retrain, retire — and none of these automatically propagates the ruling into future behavior the way a corrected manager does. A remedy the committee cannot verify in next month's decisions is a remedy in name only.
-
-5. **Whoever configures and runs the agents holds real power over members that the bylaws don't name as an office.** Member governance works by mapping power onto accountable roles: the treasurer, the board, the general manager, each elected or appointed, each removable. Agent configuration — objectives, constraints, escalation rules — is at least as consequential as any of those roles, but it typically sits with whoever happens to administer the systems, acquired without election and exercised without defined duties. Power has moved to a position the group's constitutional structure doesn't see.
+3. **And even a filed complaint has no teeth.** A grievance board's ruling binds the firm's conduct only because the worker behind it can quit, sue, or strike, and the firm needs the labor; that latent leverage is what makes management comply with a ruling that is often only a recommendation. An agent can do none of these and is replaceable at near-zero cost, so the complaint carries no threat and the board has nothing to enforce.
 
 ## Problem Sets
 

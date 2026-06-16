@@ -2,7 +2,7 @@
 human_label: "Regulatory agencies (FDA, BaFin)"
 human_era: "20th c."
 human_era_bucket: twentieth
-status: not_started
+status: summary_draft
 owner: oliver
 visions:
   fidelity: "Mandate literacy in professional training"
@@ -26,10 +26,10 @@ How a nation vests technical authority to gatekeep what enters markets and prote
 
 ### How AGI breaks them
 
-- Agency review assumes the regulated product decomposes into inspectable evidence; AI systems may not, leaving approval standards without an object to certify.
-- Agent-generated filings can arrive faster than review capacity grows, making the agency's attention the scarce resource and the queue itself a strategic instrument.
-- Firms with capable agents can model the regulator precisely enough to walk up to the enforcement line, collapsing the cautious distance that uncertainty used to produce.
-- Agency authority rested on an expertise asymmetry in the public's favor; when frontier technical expertise is itself automated, the regulated may out-expert the regulator.
+- Rulemaking moves at human pace, so rules may be obsolete by the time they ship if agents make the field change many times faster.
+- Review volume stayed manageable because filings were costly to produce; when agents make them nearly free, every channel floods and the agency's attention runs out.
+- Rules are never fully precise, so firms hang back from the literal line, unsure how an ambiguous rule will be read. An agent that has read every rule and past decision in detail closes that gap and operates right at the legal frontier.
+- Firms also stay cautious because the rules might change and adjusting is slow. An AI org predicts the agency's next move and re-optimizes the instant a rule changes, so the restraint that came from anticipation goes away.
 
 ## How humans solve this today
 
@@ -51,8 +51,6 @@ A vivid case: Renee's airline used to face a four-month wait for FAA guidance on
 2. **Agent-generated filings can arrive faster than review capacity grows.** Gatekeeping presumed that producing a serious application was expensive — expensive enough that volume self-limited and the queue stayed reviewable. When applications, comment letters, incident reports, and petitions can be generated at near-zero marginal cost, review attention becomes the scarce resource, and the queue becomes a strategic instrument: a firm can bury a controversial filing among routine ones, or exhaust an opposing party's capacity to respond in a comment period.
 
 3. **Firms with capable agents can model the regulator precisely enough to walk up to the enforcement line.** Conservative compliance was never just obedience; it was the product of uncertainty about how the agency would react, priced in lawyer hours. An agent trained on the agency's rules, guidance, enforcement history, and published decisions can estimate reactions well enough to optimize against them — staying technically inside every rule while draining the buffer that uncertainty used to enforce. The informal-consultation channel inverts too: instead of asking the regulator, firms ask a simulation of the regulator, and the agency loses the early visibility those consultations used to give it.
-
-4. **Agency authority rested on an expertise asymmetry that automation may invert.** Deference to the FDA or BaFin — from courts, legislators, and firms — was earned by the agency knowing the domain better than almost anyone outside it. When frontier technical capability lives in models, and regulated firms operate more capable models than the agency can hire or buy, the agency reviews the applicant's claims with weaker tools than the ones that produced them. The question is not only budgetary; it is whether public-interest expertise can remain an in-house career when the expertise itself is a product the private sector makes.
 
 ## Problem Sets
 

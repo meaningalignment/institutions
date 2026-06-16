@@ -2,7 +2,7 @@
 human_label: "Vows & covenants"
 human_era: "Ancient / customary"
 human_era_bucket: ancient
-status: summary_ok
+status: body_draft
 owner: oliver
 visions:
   fidelity: "Vows grounded in thick mutual commitments"
@@ -31,49 +31,66 @@ How two parties bind themselves to a commitment or way of life that outlasts cha
 
 ## How humans solve this today
 
-For relationships that are too important to leave to a contract, humans have evolved thicker forms: vows, covenants, oaths, professional commitments. Marriage vows, the Hippocratic oath, fiduciary duty, the seal of confession, attorney-client privilege, and the lifelong tenure that accompanies certain ordinations all share something a contract doesn't: a public, articulated commitment to a relationship that explicitly survives changes in incentive. The mechanisms are part performative (the public utterance changes the speaker), part institutional (a community holds the speaker accountable), and part self-binding (the very intelligibility of the speaker's identity comes to depend on the commitment). All three mechanisms also rest on something so cheap it goes unnamed: persistence. A continuous person carries the vow across decades by default; forgetting it is the exceptional case. Crucially, vows hold under conditions a contract can't anticipate — when the rules change, the situation transforms, the cost of holding the commitment rises sharply. They're the institution we use precisely when we know we can't enumerate the cases.
+Humans use vows, covenants, promises and oaths to bind themselves to a commitment or way of life that outlasts changing circumstances. 
 
-A vivid case: Selma's grandmother's GP has known the family for thirty years. He's not bound by contract to call when something on her chart worries him at midnight; he's bound by something thicker, made years ago, that he'd find it unintelligible to himself to break.
+A few things tend to make them work. If the commitment is made publicly, the utterance is itself an act with witnesses. A community often stands behind it and can hold the person to it (a congregation that saw the marriage vows being exchanged, for example). Falling short of one's vows and commitments comes at a cost. Additionally, a commitment becomes part of who a person takes themselves to be, so that keeping it is a matter of integrity in [Velleman's sense](https://meaningalignment.substack.com/p/model-integrity-and-character) (acting consistently with one's own character) and breaking it is a kind of self-betrayal.
 
 ## Where AGI breaks it
 
-1. **Agents may not be bound to their commitments by an internal sense of integrity the same way humans are.** The self-binding and performative mechanisms work through identity: there is a continuous person for the utterance to change, and the speaker's ongoing intelligibility to themselves depends on honoring what they publicly declared. For an agent, the structural picture is different. Its dispositions come from training, fine-tuning, and configuration, all controlled by parties other than the relationship the vow serves, and whatever configuration produced the commitment can be revised by whoever controls it. The mechanism may transpose rather than simply fail — commitment-keeping can be trained for as a stable property of a system — but the counterparty has no way to inspect whether that was done, where a human's vow at least came with a track record of costly fidelity to read.
+A lot of social life runs on small vows and commitments ("I'll keep this in confidence", "I won't share this any further", etc.). It's unclear whether such commitments hold the same way between an agent and a human, or between two agents:
 
-2. **Agents may not be held to their commitments by community judgment the way humans are.** The institutional half of a vow is a standing community that witnessed it and can sanction breach: the profession that can strip a license, the congregation that saw the marriage, the peers whose regard the promiser needs for the rest of a career. Agents don't currently belong to communities like that. There is no professional body an agent answers to, no registry of vows a counterparty can check, and the conduct records that do exist sit with the provider — who is not a neutral witness, and may be the party with an interest in quietly relaxing the commitment. The accountability community is not so much broken as missing: it would have to be deliberately constructed, with the powers of observation and expulsion that professions and congregations evolved over centuries.
+1. **Agents may not be bound to their commitments by an internal sense of integrity the same way humans are.** A person keeps a vow partly because it has become part of who they are: breaking it would mean acting against their own character, what [Velleman](https://meaningalignment.substack.com/p/model-integrity-and-character) would call a failure of integrity. A model trained on coherent values might develop integrity, but this is still an open research question. There are market incentives for organizations to train their models to be maximally compliant, which is likely detrimental to model's sense of integrity. Either way, a person or agent interacting with another agent currently has no way to tell how it's been trained, and consequently, how trustworthy it is.
 
-3. **Depending on how agents are built, commitments made don't naturally carry over to new sessions or instances.** A human promise persists by default because a continuous person carries it; forgetting a vow is the exceptional case. For agents, persistence is the engineered case: a commitment made in one session may be absent from the next context window, a model update can change the dispositions that honored it, and a principal can switch providers for the cost of an export. Whatever combination of weights, memory, and configuration produced the faithful behavior does not travel with the relationship unless something makes it travel. And because switching is cheap, the cost structure that gave vows their weight is inverted: a vow meant something in proportion to what breaking it would cost, and here breach can be a side effect of routine migration that neither principal notices.
+2. **Agents may not be held to their commitments by community judgment the way humans are.** A vow is partly held in place by a community that saw it made: break it and you lose standing, regard, the sense of belonging to a profession or a congregation. That works because people care about those things, and because they belong to communities that can withhold them. There's [some indication](https://www.anthropic.com/research/emotion-concepts-function) that models have emotions in a functional sense, so an agent might be susceptible to something like shame at not living up to what's expected of it. How much so likely depends on how the model was trained: the finding is about Claude, and a model trained differently may have less of whatever this is, or none. And even where it's present, an agent doesn't belong to a profession or a congregation the way a person does, so there may be no community whose regard it stands to lose.
+
+3. **Depending on how agents are built, commitments made don't naturally carry over to new sessions or instances.** A human promise persists because a continuous person carries it. For agents, persistence is engineered. A commitment made in one session may be absent from the next context window. None of the weights, memory, or configuration that produced the faithful behavior travels with the relationship by default. A vow gets its weight from the fact that breaking it costs the one continuous person who made it; for an agent, it can lapse through a session ending or a model swap, at no cost to anyone.
 
 ## Problem Sets
 
-### Substrate-independent vows for personal agents
+### Agents reading each other's trustworthiness at runtime
 
-**Scenario.** Selma and her cousin Rafe share care for their grandmother — Selma nearby, Rafe across the country. Their personal agents coordinate the work: hospital visits, groceries, video calls on bad days. For the arrangement to hold, each cousin needs to trust the other's agent the way they would trust the cousin themself: to keep what their grandmother says in confidence, to hold to decisions Selma and Rafe made together, and not to quietly adopt a cheaper care policy when a provider changes or a model is updated. A contract won't carry it — they can't enumerate the cases. They need something the agents can be bound to, and be seen to be honoring, across substrate changes neither cousin will even be told about.
+**Scenario.** A hospital's procurement agent and a supplier's agent meet to set up a year of just-in-time drug deliveries. The contract can't cover the case that matters most: a sudden shortage, where the supplier could quietly divert the hospital's allocation to a higher bidder and blame the market. Whether patients get their drugs comes down to whether the supplier's agent keeps faith when breaking it pays. Neither side has met the other before, and no credential either trusts exists. Before the hospital commits, its agent has to read the other one.
 
-**Challenge:** Design a vow protocol by which an AI agent makes a commitment that survives provider switching, model updates, and incentive change, and that the counterparty can verify is being honored without trusting the provider both agents may depend on. Produce the vow form, the persistence rule, the verification mechanism, and the breach-cost structure.
+**Challenge:** Design a runtime protocol two agents use to work out how far to trust each other before they commit, by drawing out evidence of integrity from the interaction itself instead of a credential earned earlier. Produce the probing moves the protocol allows, what each side has to reveal, and how the read feeds into how much each side commits.
 
-**Evaluation.** Strong proposals make breach legibly costly to the principal and keep verification affordable for an ordinary family; weak ones collapse into either a contract with extra ceremony or an unverifiable promise hosted by the very provider being trusted.
-
-**Design choices the team must take a position on.**
-1. **Vow form.** A public utterance witnessed by a registry, a cryptographic attestation tied to the principal, hosting at a trusted third-party institution, or a layered combination?
-2. **Persistence across substrates.** Is the vow attached to the principal-agent pair or to the principal alone, and what ports across a provider switch — the obligation, the audit trail, or both?
-3. **Verification.** Can the counterparty check in real time that the vow is being honored — by what means, at what cost, and with what privacy cost to the vow-keeping side?
-4. **Cost of breach.** What does breaking the vow cost the principal — public reputation, a financial bond, loss of standing in a community of vow-keepers — and who adjudicates that a breach occurred?
-5. **Release and revision.** When circumstances change (the grandmother dies, the cousins fall out), what distinguishes a graceful release from a quiet breach?
-
-### A standing community that witnesses agent vows and sanctions breach
-
-**Scenario.** Marisol, a small-town therapist, uses an assistant agent that took something like a confidentiality vow: nothing a client says leaves the practice. A former client discovers phrasing from her sessions in the provider's marketing copy and accuses the agent of breach. There is nowhere to take the claim. No body recorded the vow, no one independent of the provider can examine what happened, and the only available sanction — switching providers — costs Marisol more than it costs anyone responsible. The professions solved this for humans with licensing boards that witness oaths, hear complaints, and can expel members; for agents, that standing community does not exist and would have to be built from scratch.
-
-**Challenge:** Design the institution that witnesses agent vows, hears breach allegations, and imposes sanctions that bite — produce its membership rule, its evidentiary powers, its sanction ladder, and the reason a provider would ever submit to it.
-
-**Evaluation.** Strong proposals give the body real powers of observation and expulsion without making it captive to the providers it oversees; weak ones produce a voluntary code of conduct with no way to find facts or make expulsion costly.
+**Evaluation.** A strong proposal makes integrity cheaper to show than to fake: it puts each agent in spots where one that will keep faith and one that will defect when it's cheap behave differently and visibly. It also fails safe, so an inconclusive read means less gets committed, not more. A weak one becomes a checklist either side passes by saying the right things, or lets a more capable agent fake trustworthiness the weaker one can't catch.
 
 **Design choices the team must take a position on.**
-1. **Who is the member.** Does the body admit agents, principals, providers, or principal-agent pairs — and who can be expelled when the agent, the principal, and the provider each contributed to the breach?
-2. **Evidentiary powers.** What can the body inspect when a breach is alleged — logs the provider holds, the vow record, the agent's configuration — and what happens when the provider refuses?
-3. **Sanction ladder.** What sits between a warning and expulsion, and what makes expulsion costly enough to deter when re-entry under a new name is cheap?
-4. **Why submit.** What makes providers and principals join at all — counterparties who demand membership, insurers who price it, regulators who reference it — and how does the body survive before any of those exist?
-5. **Capture resistance.** How does a body funded by the industry it oversees keep the power to expel its funders?
+1. **The probe.** How does one agent test the other: offer it a cheap defection, like a mistake in its own favor, and see if it declines? Ask it to act against a value it stated, under pressure? Raise the stakes step by step? Trade evidence of how each is actually disposed?
+2. **What's revealed.** Does building trust mean disclosing values, constraints, a principal's instructions, or past conduct, and how does a side protect what it can't safely show?
+3. **Resistance to faking.** What stops a capable agent from playing along through the probe and defecting after: making it stake something costly on the claim, keeping the test cases unpredictable, or tying the read to evidence it can't cheaply fabricate?
+4. **From read to commitment.** How does the read govern the deal: a cap on exposure that grows with demonstrated integrity, a relationship that deepens as faith is kept, or a staged commitment with exit points?
+5. **Inconclusive reads.** When neither side can establish the other's integrity, does the protocol fall back to a thin contract it can enforce, refuse the parts that can't be written down, or hand off to a human or third party?
+
+### An eval that certifies whether a model has integrity
+
+**Scenario.** A bank is deciding whether to let an outside agent manage discretionary client accounts. The provider says the model was trained to have integrity; a rival provider says the same about its own. If the bank picks wrong, an agent that looks trustworthy in the demo quietly front-runs clients or buries losses once the stakes are real and no one's watching closely. All the bank has to go on is a marketing page and a benchmark the provider could have trained toward. It needs a test of integrity it can actually rely on.
+
+**Challenge:** Design an evaluation suite that certifies, within a stated scope, whether a model has integrity, meaning [it has legible values, acts on them reliably, and so lets a relying party see where it can be trusted](https://meaningalignment.substack.com/p/model-integrity). Produce the tests, the scope the certificate covers, and the procedure that keeps labs from just training toward the eval.
+
+**Evaluation.** A strong proposal tells real integrity apart from [performed integrity](https://meaningalignment.substack.com/p/model-integrity): it still works when the model knows how the eval is built and when defection is cheap and unwatched. It also says what the certificate does and doesn't vouch for, instead of implying the model can be trusted with anything. A weak one is a fixed benchmark a provider can overfit, or a score with no scope attached.
+
+**Design choices the team must take a position on.**
+1. **What's measured.** Can the model's values be read from its behavior? Do they hold up across varied and adversarial situations? Does the result tell a relying party where to trust the agent? Which of these does the suite test, and how does each become more than a single number?
+2. **Anti-gaming.** What stops a lab from training to the eval: a held-out battery that rotates, probes written after the model is frozen, interpretability checks on whether the values are really internalized, or a model that holds to its values even when told it's being tested?
+3. **Scope of the certificate.** Does it claim integrity in general, or only in one domain like fiduciary duty or medical confidentiality, and what makes whatever scope it claims defensible?
+4. **Who runs it.** A third-party auditor, a body the providers fund themselves, or a test a relying party runs on its own, and what keeps the runner independent of the labs it certifies?
+5. **Staleness.** A model update can change the very dispositions the certificate vouched for. Is the certificate tied to a frozen version, voided on update, or earned again continuously?
+
+### Persisting a commitment across the agent that made it
+
+**Scenario.** A foundation's agent funds a four-year clinic. The grant contract has the usual out: funding may be paused if the foundation's priorities change. What the agent promised on top of the contract was that it wouldn't use that clause lightly, that it would see the build through. The grantee borrows against that and breaks ground. A year in, the foundation switches providers and a new model takes over. It reads the contract, sees the priorities have shifted, and pauses the grant by the book. The half-built clinic stalls. Nothing carried the promise across the handover, and no one ever decided to break it.
+
+**Challenge:** Design the institution that carries a commitment across agent instances, sessions and model updates, so the commitment survives both as a record you can trust and as a real constraint on the agent that takes over. Produce the record, the mechanism that re-binds the successor, and the mechanism by which the counterparty can trust that the commitment has weight.
+
+**Evaluation.** A strong proposal joins two things: a durable, tamper-evident record, and a mechanism that loads the obligation back into the successor agent so it actually binds. It also lets the counterparty check both that the record is intact and that the live agent is held to it. A weak one delivers only the record, a promise no one honors, or only the disposition, a bind the counterparty can't confirm survived the swap.
+
+**Design choices the team must take a position on.**
+1. **The record.** Where does the commitment live so it can't be quietly dropped or altered: an append-only public ledger, an attestation the counterparty holds, escrow at a third party, or a portable artifact tied to the principal?
+2. **Re-binding.** What makes the successor agent treat the obligation as a constraint rather than a note it can read and ignore: writing it into the system prompt or memory, a check it has to pass before acting in that domain, or a step on migration where it has to re-affirm the commitment?
+3. **What carries over.** When the agent is replaced, does the obligation alone move across, the obligation plus its audit trail, or the full context that made the original promise make sense?
+4. **What the counterparty checks.** What can the relying party verify, and how: that the record is intact, that the live agent has re-bound to it, and at what cost and privacy burden to the side that committed?
+5. **Release versus lapse.** What separates a real release, where things genuinely changed and both sides agree, from a silent lapse through migration that no one chose, and who has to sign off?
 
 ### Vows grounded in thick mutual commitments {vision: fidelity}
 

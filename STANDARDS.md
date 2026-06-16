@@ -130,13 +130,15 @@ Vivid does not mean fully narrated. A compact case can be enough when it gives n
 
 **Expand the At a Glance bullets.** Treat each `How AGI breaks them` bullet as the topic sentence for one paragraph or numbered item in `Where AGI breaks it`. Start each paragraph with the exact or lightly edited bullet text in bold, then continue with the derivation. The body can add institutional detail and caveats, but it should not surprise the reader with a new failure taxonomy.
 
+**A single short intro sentence is allowed when context is genuinely required.** The default is no preamble — go straight into the bolded bullets. But the human institution being broken often isn't breaking *human-to-human*; the failure is that it doesn't port to a human-AI or AI-AI setting in the first place. When the reader needs that framing to read the bullets correctly, one sentence is fine (e.g. `dyadic-incentives`: "As agents start contracting with each other, the volume and economics of contracting shift in ways that strain this stack."). Keep it to one sentence, make it set the analogue or transition, and never let it grow into an analytical paragraph that pre-empts the bullets.
+
 Expansion should usually be compressed derivation, not a mini-essay. If the summary has already named the failure clearly, the paragraph only needs enough mechanism to show why the failure follows and what institutional assumption breaks.
 
 **Lead with the assumption that breaks, not the agent capability.** The strongest derivation paragraphs follow the shape: human institution X assumes Y → agents make Y false → therefore the mechanism stops working. Resist starting with what agents can do; start with what the human institution silently relied on, then say why agents falsify it. This makes the breakdown analytical rather than a list of agent capabilities.
 
 **Do not restate the bullet as a conclusion.** Ending a paragraph by re-asserting the bolded bullet ("therefore the mandate vocabulary is too coarse") is a tell of padding. The derivation should leave the conclusion in place; if the reader needs it restated, the middle of the paragraph isn't doing its job.
 
-**Name the relevant agent properties inside the expansions.** Each paragraph should explain why a human mechanism no longer transmits, binds, represents, restrains, revises, allocates, or resolves in the same way. Mention the relevant structural properties where they matter, but do not begin the section with a separate preamble.
+**Name the relevant agent properties inside the expansions.** Each paragraph should explain why a human mechanism no longer transmits, binds, represents, restrains, revises, allocates, or resolves in the same way. Mention the relevant structural properties where they matter, and do not begin the section with an analytical preamble (a single context-setting sentence is allowed; see above).
 
 **Thread the mechanism labels.** If the human section uses numbered mechanism labels, the breaks section should use the same labels or visibly corresponding ones. The selected problem sets should then pick from that same mechanism list.
 
@@ -158,7 +160,7 @@ Before moving on, check:
 - The tradeoffs across the stack are visible: the reader can see why no single instrument is sufficient.
 - Examples are used sparingly — one per mechanism at most, only where they add vividness.
 - The vivid case demonstrates the listed mechanisms.
-- The AGI section starts directly with the expanded At a Glance bullets.
+- The AGI section starts directly with the expanded At a Glance bullets, or with at most one context-setting sentence where the analogue needs framing.
 - The AGI-breaks body expands the At a Glance bullets in order.
 - Each derivation leads with the human assumption that breaks, not the agent capability.
 - No paragraph ends by restating its bolded bullet as a conclusion.

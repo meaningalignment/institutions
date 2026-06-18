@@ -711,9 +711,9 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   html += renderSummaryBox(cell.frontmatter);
   html += theoryBox;
   const status = (cell.frontmatter && cell.frontmatter.status) || '';
-  // Expert-review stages come after body_ok; treat them as a reviewed body so
-  // the deployed site still shows the content.
-  const READY_STATUSES = new Set(['body_ok', 'expert_selected', 'expert_reviewed']);
+  // `body_draft` and up are published: the expert-review stages come after
+  // body_ok, and body_draft is shown so the deployed site reveals the content.
+  const READY_STATUSES = new Set(['body_draft', 'body_ok', 'expert_selected', 'expert_reviewed']);
   const bodyStatus = READY_STATUSES.has(status) ? 'body_ok' : status;
   const statusClass = bodyStatus ? ` status-${bodyStatus.replace(/_/g, '-')}` : '';
   if (cell.body && cell.body.trim()) {

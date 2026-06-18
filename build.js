@@ -81,9 +81,10 @@ const VISIONS = [
   }
 ];
 
-// Statuses at or past `body_ok` — the body is reviewed and the cell counts as
-// published (the expert-review stages come after body_ok in the workflow).
-const READY_STATUSES = new Set(['body_ok', 'expert_selected', 'expert_reviewed']);
+// Statuses whose body is published on the deployed site. `body_draft` counts as
+// published, as do `body_ok` and the expert-review stages that come after it in
+// the workflow; only the pre-body stages stay hidden.
+const READY_STATUSES = new Set(['body_draft', 'body_ok', 'expert_selected', 'expert_reviewed']);
 
 function esc(s) { return s.replace(/&/g, '&amp;'); }
 

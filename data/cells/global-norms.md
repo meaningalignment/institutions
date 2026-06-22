@@ -2,11 +2,12 @@
 human_label: "Diplomatic protocols & soft-law norms"
 human_era: "17th-20th c."
 human_era_bucket: early-modern-modern
-status: body_ok
+status: expert_selected
 owner: oliver
 starred: true
 visions:
   fidelity: "Reputational accountability across borders"
+expert: "andrew konya"
 ---
 
 # Geopolitical supernegotiation

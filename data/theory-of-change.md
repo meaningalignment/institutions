@@ -24,7 +24,7 @@ Three things have shifted in the last few years that make this work both possibl
 
 ## Theory of change
 
-For every new institution design, we imagine several steps are needed for it to be used in real situations. The exact path differs by cell, but the common pattern is:
+For every new institution design, we imagine several steps are needed for it to be used in real situations. This looks different for each cell, which carries its own theory of change (see [agents that represent national interests](../#detail/agi/national/preferences) for one example), but the common pattern is:
 
 1. **Theory & design.** Define what the institution is for, then design it. This usually means pairing researchers who would otherwise never collaborate, like a mechanism designer with a legal scholar, or an Ostrom scholar with an AI researcher.
 2. **Pilots.** Build the promising designs as simulations, demos, or small live deployments, somewhere failure is cheap and the mechanism can be watched in use.

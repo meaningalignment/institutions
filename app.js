@@ -705,8 +705,8 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   const theoryBox = tabId === 'agi'
     ? renderTheoryOfChange(cell.frontmatter) : '';
 
-  // Two-column layout: main body + methods rail
-  html += '<div class="detail-layout">';
+  // Single-column layout (methods rail hidden on cell detail pages)
+  html += '<div class="detail-layout detail-layout--no-rail">';
   html += '<div class="detail-main">';
   html += renderSummaryBox(cell.frontmatter);
   html += theoryBox;
@@ -724,15 +724,6 @@ function renderDetail(tabId, rowId, colId, cell, dataPath, methodsCell, opts) {
   }
   html += `<div class="detail-footer"><a href="${ghLink}">Edit this page on GitHub \u2192</a></div>`;
   html += '</div>';
-
-  if (methodsCell && methodsCell.body && methodsCell.body.trim()) {
-    const methodsGhLink = `${GITHUB_REPO}/edit/main/data/methods/${colId}.md`;
-    html += '<aside class="detail-rail">';
-    html += `<div class="rail-label">${col.name} \u2014 methods &amp; references</div>`;
-    html += `<div class="rail-body">${marked.parse(processEditorial(methodsCell.body))}</div>`;
-    html += `<div class="rail-footer"><a href="${methodsGhLink}">Edit on GitHub \u2192</a></div>`;
-    html += '</aside>';
-  }
   html += '</div>';
   return html;
 }

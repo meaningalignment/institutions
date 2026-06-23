@@ -162,6 +162,98 @@ table { border-collapse: separate; border-spacing: 0; min-width: 1000px; }
 .axis-label-col { width: 110px; min-width: 110px; }
 .corner-cell { position: relative; }
 
+/* The empty top-left intersection labels both axes at their origin. */
+.corner-cell.axis-label-col {
+  vertical-align: bottom;
+  padding: 0 6px 10px;
+  border-right: 2px solid var(--line-strong);
+  border-bottom: 2px solid var(--line-strong);
+}
+.axis-corner-y, .axis-corner-x {
+  display: block;
+  font-size: 8.5px; font-weight: 700; letter-spacing: 0.6px;
+  text-transform: uppercase; color: var(--muted); line-height: 1.5;
+  white-space: nowrap;
+}
+.axis-corner-y { text-align: right; }
+.axis-corner-x { text-align: left; }
+.axis-corner-y .axis-arrow, .axis-corner-x .axis-arrow {
+  font-weight: 700; color: var(--faint);
+}
+
+/* Quiet "How to read this" affordance above the table. The trigger is a faint
+   word; the explanation of the two axes is hidden until hover / focus / tap. */
+.axis-guide {
+  position: relative;
+  margin: -14px 0 22px;
+}
+.axis-guide-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  letter-spacing: 0.2px;
+  color: var(--faint);
+  cursor: help;
+  list-style: none;
+  user-select: none;
+  transition: color 0.15s;
+}
+.axis-guide-trigger::-webkit-details-marker { display: none; }
+.axis-guide-trigger::after {
+  content: '?';
+  font-size: 9px; font-weight: 700; line-height: 1;
+  width: 14px; height: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid currentColor; border-radius: 50%;
+  opacity: 0.7;
+}
+.axis-guide:hover .axis-guide-trigger,
+.axis-guide-trigger:focus-visible,
+.axis-guide[open] .axis-guide-trigger { color: var(--muted); }
+
+.axis-guide-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: max-content;
+  max-width: min(420px, 92vw);
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(60, 50, 30, 0.12);
+  padding: 12px 14px;
+}
+/* Reveal on hover even without a click, while <details>'s native click toggle
+   still works for touch / keyboard. */
+.axis-guide:not([open]) .axis-guide-pop { display: none; }
+.axis-guide:hover .axis-guide-pop { display: flex; }
+.axis-guide-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.axis-guide-tag {
+  flex: none;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.6px;
+  text-transform: uppercase; color: var(--muted);
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+.axis-guide-text {
+  font-size: 12.5px; color: var(--muted); line-height: 1.4;
+}
+.axis-guide-text b { color: var(--ink); font-weight: 600; }
+
 th.col-header {
   padding: 16px 8px 14px; text-align: center;
   vertical-align: bottom; border-bottom: 2px solid var(--line-strong); min-width: 128px;
@@ -1253,6 +1345,16 @@ td.has-theory::before {
   align-items: start;
   margin-top: 8px;
 }
+.detail-layout--no-rail { grid-template-columns: minmax(0, 1fr); }
+/* No methods rail: center the whole article (header + body) as one 720px column. */
+#detail-view:has(.detail-layout--no-rail) .detail-back,
+#detail-view:has(.detail-layout--no-rail) .detail-breadcrumb,
+#detail-view:has(.detail-layout--no-rail) .detail-title,
+#detail-view:has(.detail-layout--no-rail) .detail-layout {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .detail-main { min-width: 0; max-width: 720px; }
 .detail-rail {
   position: sticky;
@@ -1381,6 +1483,14 @@ tr.methods-row th.row-header {
     min-width: 40px !important;
     padding: 4px 6px 4px 2px;
   }
+  /* Corner axis labels don't fit the 40px origin cell on mobile; tapping the
+     "How to read this" trigger above the table reveals the same information. */
+  .corner-cell.axis-label-col { padding: 4px 2px; }
+  .axis-corner-y, .axis-corner-x { display: none; }
+  .axis-guide { margin: -8px 0 14px; }
+  .axis-guide-pop { max-width: 92vw; padding: 10px 12px; }
+  .axis-guide-tag { font-size: 8px; padding: 1px 5px; }
+  .axis-guide-text { font-size: 11px; }
   th.row-header .row-name {
     font-size: 7.5px;
     letter-spacing: 0.3px;

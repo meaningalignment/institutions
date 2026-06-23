@@ -232,6 +232,24 @@ function getHumanEra(fm) {
   return { label, bucket, code: meta.code };
 }
 
+// A quiet "How to read this" affordance above the table on both grids. It's
+// just a faint trigger word; hovering, focusing, or tapping it reveals a small
+// popover explaining the two axes — rows = scale (how many actors coordinate),
+// columns = informational basis (the kind of information a group coordinates
+// around). Mirrors the language in data/theory-of-change.md. Built on <details>
+// so it also works (as a click toggle) with no JS / on touch.
+function renderAxisGuide() {
+  return '<details class="axis-guide">'
+    + '<summary class="axis-guide-trigger" aria-label="How to read this grid">How to read this</summary>'
+    + '<div class="axis-guide-pop" role="note">'
+    + '<div class="axis-guide-row"><span class="axis-guide-tag">Rows ↓</span>'
+    + '<span class="axis-guide-text"><b>Scale</b> — how many actors are coordinating, dyadic to global</span></div>'
+    + '<div class="axis-guide-row"><span class="axis-guide-tag">Cols →</span>'
+    + '<span class="axis-guide-text"><b>Informational basis</b> — the kind of information the group coordinates around</span></div>'
+    + '</div>'
+    + '</details>\n';
+}
+
 function renderHumanEraLegend(cells) {
   const used = new Set(
     Object.values(cells)
@@ -256,10 +274,14 @@ function renderGrid(tabId, cells, methods, dataPath) {
   let html = '';
   html += `<div class="pane-title">${esc(tab.title)}</div>\n`;
   html += `<div class="pane-subtitle">${esc(tab.subtitle)}</div>\n`;
+  html += renderAxisGuide();
   if (tabId === 'human') html += renderHumanEraLegend(cells);
   html += '<div class="table-wrapper"><table>\n';
 
-  html += '<thead><tr><th class="corner-cell axis-label-col"></th>';
+  html += '<thead><tr><th class="corner-cell axis-label-col">'
+    + '<span class="axis-corner-y">Scale <span class="axis-arrow">↓</span></span>'
+    + '<span class="axis-corner-x"><span class="axis-arrow">→</span> Basis</span>'
+    + '</th>';
   for (const col of COLS) {
     html += `<th class="col-header"><span class="col-name">${col.name}</span><span class="col-desc">${col.desc}</span></th>`;
   }

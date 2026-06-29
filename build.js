@@ -32,6 +32,9 @@ function wrapDesignChoices(html) {
 const SITE_ORIGIN = 'https://www.agi-institutions.org';
 const SITE_NAME = 'AGI Institutions';
 const SITE_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`;
+const FAVICON_TAGS = `<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">`;
 
 const TAB_META = {
   agi: {
@@ -559,6 +562,7 @@ function generateGridPage(tabId, allCells, methods, cssPath, jsPath, dataPath) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${FAVICON_TAGS}
 <title>${pageTitle}</title>
 <meta name="description" content="${meta.description}">
 <meta name="keywords" content="${meta.keywords}">
@@ -622,6 +626,7 @@ function generateProblemSetsPage(cells) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${FAVICON_TAGS}
 <title>${psTitle}</title>
 <meta name="description" content="${psDesc}">
 <link rel="canonical" href="${psCanonical}">
@@ -887,6 +892,7 @@ ${instTilesHtml}
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${FAVICON_TAGS}
 <title>${currTitle}</title>
 <meta name="description" content="${currDesc}">
 <link rel="canonical" href="${currCanonical}">
@@ -1265,6 +1271,7 @@ function generateTheoryOfChangePage() {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+${FAVICON_TAGS}
 <title>${tocTitle}</title>
 <meta name="description" content="${tocDesc}">
 <link rel="canonical" href="${tocCanonical}">

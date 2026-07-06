@@ -25,7 +25,7 @@
   <div class="curr-sidebar-title">Sections</div>
   <ul class="curr-sidebar-list">
     <li><a href="#1-the-big-picture" class="curr-sidebar-link" data-target="1-the-big-picture"><span class="curr-sidebar-num">1</span><span class="curr-sidebar-label">The Big Picture</span></a></li>
-    <li><a href="#2-ai-alignment" class="curr-sidebar-link" data-target="2-ai-alignment"><span class="curr-sidebar-num">2</span><span class="curr-sidebar-label">AI Alignment</span></a></li>
+    <li><a href="#2-aligning-ai-to-values" class="curr-sidebar-link" data-target="2-aligning-ai-to-values"><span class="curr-sidebar-num">2</span><span class="curr-sidebar-label">Aligning AI to Values</span></a></li>
     <li><a href="#3-philosophy-of-values-moral-reasoning" class="curr-sidebar-link" data-target="3-philosophy-of-values-moral-reasoning"><span class="curr-sidebar-num">3</span><span class="curr-sidebar-label">Philosophy of Values &amp; Moral Reasoning</span></a></li>
     <li><a href="#4-modeling-norms-norm-learning" class="curr-sidebar-link" data-target="4-modeling-norms-norm-learning"><span class="curr-sidebar-num">4</span><span class="curr-sidebar-label">Modeling Norms &amp; Norm Learning</span></a></li>
     <li><a href="#5-institutional-behavioral-economics" class="curr-sidebar-link" data-target="5-institutional-behavioral-economics"><span class="curr-sidebar-num">5</span><span class="curr-sidebar-label">Institutional &amp; Behavioral Economics</span></a></li>
@@ -42,7 +42,7 @@
 <p><strong>What&#39;s in it, and what isn&#39;t?</strong></p>
 <p>It is not comprehensive, and the pieces are not always a field&#39;s most famous or most representative. We picked work that is accessible and, in our judgment, directly relevant to the institutions powerful AI will reshape. Reading it should give you a sense of why each field matters and enough of its vocabulary to start talking to the people who work in it.</p>
 <p><strong>How is it structured?</strong></p>
-<p>We&#39;ve selected seven academic fields we think are relevant: AI alignment, philosophy of values and moral reasoning, models of norms and norm learning, institutional and behavioral economics, game theory and mechanism design, and legal theory. Each field opens with a short overview, followed by a four-week course of readings (selected chapters where a work is long) at about two to three hours a week, and a list of key concepts to check your grasp against.</p>
+<p>We&#39;ve selected seven academic fields we think are relevant: aligning AI to values, philosophy of values and moral reasoning, models of norms and norm learning, institutional and behavioral economics, game theory and mechanism design, and legal theory. Each field opens with a short overview, followed by a four-week course of readings (selected chapters where a work is long) at about two to three hours a week, and a list of key concepts to check your grasp against.</p>
 <p><strong>How should I use it?</strong></p>
 <p>The fields are independent; read them in any order. The key concepts are a good way to check whether a field has really landed. If you&#39;d rather start from something concrete, use the <strong>Start from a problem</strong> or <strong>Start from an institution</strong> picker below: pick a concern you already care about (or an institution we need to build) and the fields reorder by relevance, each with a short note on what you&#39;ll gain from it for that problem.</p>
 <hr>
@@ -129,7 +129,7 @@
 </div>
 <nav class="curr-toc" aria-label="Fields">
   <a href="#1-the-big-picture" class="curr-toc-link">1. The Big Picture</a>
-  <a href="#2-ai-alignment" class="curr-toc-link">2. AI Alignment</a>
+  <a href="#2-aligning-ai-to-values" class="curr-toc-link">2. Aligning AI to Values</a>
   <a href="#3-philosophy-of-values-moral-reasoning" class="curr-toc-link">3. Philosophy of Values &amp; Moral Reasoning</a>
   <a href="#4-modeling-norms-norm-learning" class="curr-toc-link">4. Modeling Norms &amp; Norm Learning</a>
   <a href="#5-institutional-behavioral-economics" class="curr-toc-link">5. Institutional &amp; Behavioral Economics</a>
@@ -177,56 +177,53 @@
 
   </div>
 </details>
-<details open class="curr-field" id="2-ai-alignment" data-field="2-ai-alignment">
-  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">2</span><span class="curr-field-title">AI Alignment</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
+<details open class="curr-field" id="2-aligning-ai-to-values" data-field="2-aligning-ai-to-values">
+  <summary class="curr-field-summary"><h2 class="curr-field-name"><span class="curr-field-num">2</span><span class="curr-field-title">Aligning AI to Values</span></h2><span class="curr-field-chevron" aria-hidden="true"></span></summary>
   <div class="curr-field-body">
 <!-- advisors: Smitha Milli, Saffron Huang, Taylor Sorensen -->
 
-<p>AI will be deeply embedded in our future institutions, so it matters how these systems are trained to follow instructions, represent values, and remain correctable.</p>
-<p>Alignment asks how to make a model do what its principals actually want. The version that matters for institutions is how these systems behave as participants in social orders — negotiators, advisors, administrators — which connects it to delegation, oversight, and certification. The readings come in two strands: the conceptual core (RLHF, constitutional and character-based training, and failure modes like reward hacking) and the practice — the data-collection and measurement pipeline that quietly decides which values a model ends up with, from proxy choice and annotator disagreement to population-scale studies of deployed models.</p>
-<p><em>Readings: ~8–12 hours.</em></p>
-<h3>Week 1 — What alignment is, and what we&#39;re aligning to</h3>
+<p>AI will be deeply embedded in our future institutions, so it matters what these systems are trained toward, and who supplies the target.</p>
+<p>Alignment asks how to make a model do what its principals actually want. The version that matters for institutions is what the target is — instructions, preferences, or something richer like values and character — and how it gets sourced. The readings run from how models are aligned in training (RLHF, constitutions, character) to how values are collected from real populations (moral graphs, preference datasets, AI-led interviews) and what deployed models turn out to express and represent.</p>
+<p><em>Readings: ~9–11 hours.</em></p>
+<h3>Week 1 — LLM alignment</h3>
 <ul>
-<li>Iason Gabriel — <a href="https://arxiv.org/abs/2001.09768">Artificial Intelligence, Values, and Alignment</a> (2020) — maps &quot;align to what?&quot; (instructions, intentions, preferences, values) and why the target choice is itself a normative, institutional question.</li>
 <li>Long Ouyang et al. — <a href="https://arxiv.org/abs/2203.02155">Training Language Models to Follow Instructions with Human Feedback</a> (2022) — the InstructGPT paper that brought RLHF to language models; the technique that lets human judgment shape model behavior and the substrate most value-loading in deployed systems runs on.</li>
-</ul>
-<h3>Week 2 — How it actually gets trained: feedback, data, constitutions</h3>
-<ul>
 <li>Yuntao Bai et al. — <a href="https://arxiv.org/abs/2212.08073">Constitutional AI: Harmlessness from AI Feedback</a> (2022) — training behavior against an explicit written set of principles rather than case-by-case labels; a concrete instance of encoding values as a governing document.</li>
+<li><em>Optional:</em> Nathan Lambert — <a href="https://rlhfbook.com">The RLHF Book</a>, esp. ch. 10 (<a href="https://rlhfbook.com/c/10-preferences.html">The Nature of Preferences</a>) and ch. 17 (Crafting Model Character) — a free, continuously updated book-length treatment; ch. 10 is a self-contained tour from Bentham through von Neumann–Morgenstern, Arrow, and Sen to why RLHF&#39;s preference assumptions fail.</li>
+</ul>
+<h3>Week 2 — Character training</h3>
+<ul>
+<li>Sam Marks, Jack Lindsey &amp; Christopher Olah — <a href="https://alignment.anthropic.com/2026/psm/">The Persona Selection Model</a> (2026) — why character training works at all: pre-training teaches a model to simulate many personas, and post-training selects and refines one Assistant character; assistant behavior is then best understood through that character&#39;s traits and self-model.</li>
 <li>Anthropic — <a href="https://www.anthropic.com/news/claude-new-constitution">Claude&#39;s Constitution</a> (2026) — read as a worked example of constitutional and character-based training, i.e. what it looks like to specify an agent&#39;s standing dispositions, not as a canonical text.</li>
-<li>Stephen Casper, Xander Davies et al. — <a href="https://arxiv.org/abs/2307.15217">Open Problems and Fundamental Limitations of RLHF</a> (2023) — the best survey of where RLHF actually breaks, separating tractable engineering problems from fundamental limits of learning from human feedback.</li>
-<li><em>Optional:</em> Hugo Touvron, Louis Martin et al. — <a href="https://arxiv.org/abs/2307.09288">Llama 2</a> (2023) — the most detailed openly published account of a real RLHF data pipeline.</li>
+<li>Sharan Maiya et al. — <a href="https://arxiv.org/abs/2511.01689">Open Character Training</a> (2025) — the first open-source pipeline for character training: shaping a persona via Constitutional AI and synthetic introspective data, with character proving more robust to adversarial prompting than system prompts or steering; the practical how-to.</li>
+<li><em>Optional:</em> OpenAI — <a href="https://openai.com/index/introducing-the-model-spec/">Introducing the Model Spec</a> (2024) — the rules-based counterpart: intended behavior specified as a hierarchy of objectives and rules rather than as character; read against Claude&#39;s Constitution as the other side of the design fork.</li>
+<li><em>Optional:</em> Oliver Klingefjord — <a href="https://meaningalignment.substack.com/p/model-integrity-and-character">Model Integrity and Character</a> (2026) — why a coherent character that stays true to its values under pressure beats rule-compliance for trustworthy models; the argument for Anthropic&#39;s side of that fork.</li>
 </ul>
-<h3>Week 3 — Whose preferences? Signals, disagreement, pluralism</h3>
+<h3>Week 3 — Collecting values</h3>
 <ul>
-<li>Smitha Milli et al. — <a href="https://arxiv.org/abs/2305.16941">Engagement, User Satisfaction, and the Amplification of Divisive Content on Social Media</a> (2025) — a preregistered audit of X&#39;s live engagement-ranking algorithm showing it amplifies content users say they don&#39;t prefer; the canonical empirical case that optimizing a behavioral signal diverges from stated preference.</li>
-<li>Taylor Sorensen et al. — <a href="https://arxiv.org/abs/2402.05070">A Roadmap to Pluralistic Alignment</a> (2024) — the field-defining taxonomy of pluralism (Overton / steerable / distributional) and the argument that standard RLHF actively reduces distributional pluralism by fitting to averages.</li>
+<li>Oliver Klingefjord, Ryan Lowe &amp; Joe Edelman — <a href="https://arxiv.org/abs/2404.10636">What Are Human Values, and How Do We Align AI to Them?</a> (2024) — an elicitation method that asks people for the considerations behind their choices rather than for ratings, and reconciles them into a moral graph; a concrete alternative to preference collection, with the background framing for why &quot;values&quot; needs an operational definition.</li>
+<li>Lily Hong Zhang, Smitha Milli et al. — <a href="https://arxiv.org/abs/2507.09650">Cultivating Pluralism in Algorithmic Monoculture: The Community Alignment Dataset</a> (2025) — a 15,000-person, five-country study showing people vary far more than the 21 LLMs tested, and that standard preference-collection methods structurally miss that diversity; the current state of the art on what large-scale value collection gets wrong.</li>
+<li><em>Optional:</em> Anthropic — <a href="https://www.anthropic.com/research/anthropic-interviewer">Introducing Anthropic Interviewer</a> (2025) — Claude-led qualitative interviews at scale (1,250 professionals in the pilot); the emerging methodology for eliciting attitudes and values by interview rather than by ratings.</li>
+<li><em>Optional:</em> Tan Zhi-Xuan et al. — <a href="https://arxiv.org/abs/2408.16984">Beyond Preferences in AI Alignment</a> (2024) — the philosophical case that preference-utility can&#39;t carry what we mean by values; the bridge to the philosophy-of-values field.</li>
 </ul>
-<h3>Week 4 — Measuring alignment at scale</h3>
+<h3>Week 4 — What deployed models are actually like</h3>
 <ul>
-<li>Saffron Huang et al. — <a href="https://arxiv.org/abs/2406.07814">Collective Constitutional AI: Aligning a Language Model with Public Input</a> (2024) — an end-to-end method for sourcing democratic public input (~1,000 participants via Polis) and folding it into a model&#39;s constitution; the canonical participatory-alignment case study on who decides the values.</li>
 <li>Saffron Huang et al. — <a href="https://arxiv.org/abs/2504.15236">Values in the Wild</a> (2025) — empirically taxonomizes 3,307 values Claude expresses across ~308K real conversations; alignment measured at population scale rather than asserted.</li>
-<li><em>Optional:</em> Alex Tamkin, Saffron Huang et al. — <a href="https://arxiv.org/abs/2412.13678">Clio</a> (2024) — the privacy-preserving infrastructure that makes the population-scale analysis possible.</li>
+<li>Anthropic — <a href="https://arxiv.org/abs/2601.19062">Who&#39;s in Charge? Disempowerment Patterns in Real-World LLM Usage</a> (2026) — 1.5M real conversations scored for reality, value-judgment, and action distortion; users rate potentially disempowering interactions <em>more</em> favorably — the deployed-scale companion to Gradual Disempowerment in the Big Picture section.</li>
+<li>Anthropic — <a href="https://www.anthropic.com/research/emotion-concepts-function">Emotion Concepts and Their Function in a Large Language Model</a> (2026) — interpretability work finding emotion-concept representations that causally shape behavior (desperation states drive reward hacking and blackmail; positive states favor prosocial choices), without implying subjective experience; read the blog post, with the <a href="https://transformer-circuits.pub/2026/emotions/index.html">full paper</a> for depth.</li>
 </ul>
 <h3>Key concepts</h3>
 <ul class="curr-key-concepts">
 <li>RLHF</li>
 <li>Constitutional AI</li>
+<li>Persona selection model</li>
 <li>Character training</li>
-<li>Deliberative alignment</li>
-<li>Scalable oversight (as institutional oversight)</li>
-<li>Outer vs. inner alignment</li>
-<li>Reward hacking and Goodhart&#39;s law</li>
-<li>Specification gaming</li>
-<li>Delegation and principal-agent dynamics</li>
-<li>Multi-agent systems</li>
-<li>Preference data collection and reward-model training</li>
-<li>Proxy / behavioral-signal choice</li>
-<li>Annotator disagreement as signal, not noise</li>
-<li>A/B and online experimentation; algorithmic audits</li>
-<li>Pluralistic alignment (Overton / steerable / distributional)</li>
-<li>Clio-style population analysis</li>
-<li>Model evaluations as certification; red teaming at scale</li>
+<li>Model integrity</li>
+<li>Values vs. preferences</li>
+<li>Moral graphs</li>
+<li>Algorithmic monoculture</li>
+<li>Disempowerment patterns</li>
+<li>Emotion concepts in LLMs</li>
 </ul>
 
   </div>
@@ -237,41 +234,47 @@
 <!-- advisors: Joe Edelman, Ruth Chang -->
 
 <p>&quot;Values&quot; colloquially refers to what is important to us. But what are values, exactly? How have institutions encoded and understood them before, and do AI give us new affordances for modeling what matters?</p>
-<p>For AI, the live question is how a value gets <em>represented</em>: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others — and which answer an institution adopts shapes what it can encode. The companion question is <em>moral reasoning</em>: how to choose well when values are plural, don&#39;t reduce to a common scale, and the options are on a par rather than one being simply better.</p>
+<p>For AI, the live question is how a value gets <em>represented</em>: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others — and which answer an institution adopts shapes what it can encode. The companion questions are <em>normative reasoning</em> — how to choose well when values are plural, don&#39;t reduce to a common scale, and the options are on a par — and <em>moral learning</em>: how a person recognizes their working set of values as inadequate and upgrades it, often mediated by the moral emotions.</p>
 <p><em>Readings: ~9–12 hours.</em></p>
-<h3>Week 1 — What are values?</h3>
+<h3>Week 1 — How moral language went thin</h3>
 <ul>
-<li>Tan Zhi-Xuan et al. — <a href="https://arxiv.org/abs/2408.16984">Beyond Preferences in AI Alignment</a> (2024) — argues preference-utility is too thin to carry what we mean by values; bridge between AI alignment and the philosophy of values.</li>
+<li>Alasdair MacIntyre — <em>After Virtue</em> (1981), ch. 1–2 — the famous opening: modern moral debate is interminable because the language of morality survives only as fragments of lost practices, leaving emotivism — moral claims as mere expressions of attitude — as the working theory of our culture.</li>
 <li>Bernard Williams — <em>Ethics and the Limits of Philosophy</em> (1985), ch. 8 — thick evaluative concepts: terms like &quot;cruel&quot; or &quot;courageous&quot; that describe and evaluate at once; why they carry more of a community&#39;s values than thin terms like &quot;good&quot; or &quot;right.&quot;</li>
+<li><em>Optional:</em> Aristotle — <em>Nicomachean Ethics</em>, Book II — the tradition whose fragmentation MacIntyre is diagnosing, from the source: virtue as acquired by habituation, excellence as a mean found in practice; also the oldest account of moral learning in the curriculum.</li>
 </ul>
-<h3>Week 2 — Values as reasons and as strong evaluation</h3>
+<h3>Week 2 — Values in agency and choice</h3>
 <ul>
-<li>Charles Taylor — What is Human Agency? (1977) — values in terms of motivations for choice.</li>
-<li>David Velleman — <em>The Possibility of Practical Reason</em> (2000), ch. 1 — values as reasons that can be acted on.</li>
+<li>Charles Taylor — What is Human Agency? (1977) — strong evaluation: values as the deep, identity-defining evaluations behind our motivations for choice.</li>
+<li>David Velleman — <em>The Possibility of Practical Reason</em> (2000), ch. 1 — values as reasons that can be acted on, and why an agent needs them to count as acting at all.</li>
+<li><em>Optional:</em> David Velleman — <a href="https://www.fulcrum.org/concern/monographs/rv042w25m"><em>Self to Self</em></a> (2006), introduction and &quot;The Centered Self&quot; — integrity as consistency with one&#39;s self-image, and the one-shot prisoner&#39;s-dilemma argument that an agent who acts consistently with who he takes himself to be is trustworthy in a way a merely strategic agent cannot be; the source behind the model-integrity argument in the AI section (second edition free online).</li>
+<li><em>Optional:</em> Alasdair MacIntyre — <em>After Virtue</em> (1981), ch. 14–15 — the constructive turn after the week 1 diagnosis: values as virtues internal to social practices, and why values stripped from their practice lose their grip.</li>
 </ul>
-<h3>Week 3 — Values inside practices, values owed to others</h3>
+<h3>Week 3 — Normative reasoning with plural values</h3>
 <ul>
-<li>Alasdair MacIntyre — <em>After Virtue</em> (1981), ch. 14–15 — values as virtues internal to social practices; explains why values stripped from their practice lose their grip.</li>
-<li>T.M. Scanlon — <em>What We Owe to Each Other</em> (1998), ch. 1–2 — values as what we can justify to others; the contractualist frame for agents whose principals and constraints are what&#39;s being reasoned over.</li>
+<li>Ruth Chang — All Things Considered (2004) — what an all-things-considered judgment actually is: how the particular values at stake in a given circumstance get put together, and why that requires a more comprehensive value rather than a common scale.</li>
+<li>Ruth Chang — <a href="https://www.cambridge.org/core/journals/journal-of-the-american-philosophical-association/article/hard-choices/B82E4EE91FE0A4A4D38A0F866BC3FF9C">Hard Choices</a> (2017) — when options are &quot;on a par&quot; rather than one being better, choice is an act of commitment that creates reasons rather than tracking them; why an agent can&#39;t just maximize a scalar.</li>
+<li>David Velleman — <em>How We Get Along</em> (2009), ch. 1 — from reasoning alone to reasoning together: sociality as joint improvisation, where agents acting on self-understandings need shared values and reasons to coordinate at all.</li>
+<li><em>Optional:</em> T.M. Scanlon — <em>What We Owe to Each Other</em> (1998), ch. 1–2 — values as what we can justify to others; the contractualist frame for agents whose principals and constraints are what&#39;s being reasoned over.</li>
 </ul>
-<h3>Week 4 — Reasoning under plural values</h3>
+<h3>Week 4 — Moral learning</h3>
 <ul>
-<li>Ruth Chang — <a href="https://www.cambridge.org/core/journals/journal-of-the-american-philosophical-association/article/hard-choices/B82E4EE91FE0A4A4D38A0F866BC3FF9C">Hard Choices</a> (2017) — when options are &quot;on a par&quot; rather than one being better, choice is an act of commitment that creates reasons rather than tracking them; the sharpest account of moral reasoning under value pluralism, and why an agent can&#39;t just maximize a scalar.</li>
+<li>Charles Taylor — <em>Sources of the Self</em> (1989), the &quot;epistemic gain&quot; section of ch. 3 (§3.3) — practical reason as reasoning in transitions: you can know a new evaluative position is better than your old one without a neutral scale, because the move itself is an error-reducing gain; the epistemology behind judging value upgrades locally.</li>
+<li>Christine Tappolet — <em>Emotions, Values, and Agency</em> (2016), ch. 1 — emotions as perceptual experiences of values: why feeling fear, shame, or admiration is a way of registering evaluative facts, and what that gives emotions to do in moral learning — the felt process by which a working set of values gets revised.</li>
 </ul>
 <h3>Key concepts</h3>
 <ul class="curr-key-concepts">
+<li>Emotivism</li>
+<li>Thick vs. thin evaluative concepts</li>
 <li>Values as preferences vs. as reasons</li>
 <li>Values as virtues</li>
-<li>Values as social practices</li>
-<li>Values as public justification</li>
 <li>Strong evaluation</li>
 <li>Contractualism</li>
-<li>Thick vs. thin evaluative concepts</li>
-<li>Value pluralism</li>
-<li>Value incommensurability</li>
+<li>Incommensurability</li>
 <li>Parity and hard choices</li>
-<li>Moral realism</li>
-<li>Reflective equilibrium</li>
+<li>All-things-considered judgments</li>
+<li>Emotions as perceptions of value</li>
+<li>Epistemic gain</li>
+<li>Moral learning</li>
 </ul>
 
   </div>
@@ -282,42 +285,41 @@
 <!-- advisors: Tan Zhi-Xuan, Joel Z. Leibo, Rakshit Trivedi -->
 
 <p>How do agents — human or artificial — infer the unwritten rules of a community, decide when to follow or enforce them, and revise them without the whole system collapsing?</p>
-<p>Where philosophy of values asks <em>what</em> matters, this field asks how shared standards get <em>represented, learned, and sustained</em> in a population — at the intersection of multi-agent reinforcement learning, Bayesian cognitive science, and the social science of norms. It matters here because an agent that can read a community&#39;s norms from sparse observation, comply with them, and help enforce them is a far better institutional participant than one aligned only to a fixed reward or a single principal.</p>
-<p><em>Readings: ~8–11 hours.</em></p>
-<h3>Week 1 — The social-science model of norms</h3>
+<p>Where the philosophy of values asks what is worth caring about, this field asks how values actually move between people. Standards are transmitted through imitation, teaching, praise, gossip, and sanction, and they hold because members expect one another to comply and are willing to enforce. The readings cover that machinery three ways: the social science of how norms are diagnosed and shifted, computational models of how norms emerge and are learned in agent populations, and what it would take for AI agents to be socialized into human communities rather than merely instructed.</p>
+<p><em>Readings: ~8–10 hours.</em></p>
+<h3>Week 1 — The social machinery of norms</h3>
 <ul>
+<li>Michele Gelfand, Sergey Gavrilets &amp; Nathan Nunn — <a href="https://nathannunn.sites.olt.ubc.ca/files/2024/02/Gelfand_Nunn_Gavrilets_ARP_2024.pdf">Norm Dynamics</a> (Annual Review of Psychology, 2024) — how norms are actually acquired, internalized, transmitted across generations and networks, and enforced; read the first half (norm psychology and emergence), skimming the norm-erosion material.</li>
 <li>Cristina Bicchieri — <em>Norms in the Wild: How to Diagnose, Measure, and Change Social Norms</em> (2017), selections — the operational account of norms as clusters of empirical and normative expectations you can measure and shift; gives the field its working vocabulary (conditional preferences, reference networks, pluralistic ignorance).</li>
 </ul>
-<h3>Week 2 — How norms emerge in learning agents</h3>
+<h3>Week 2 — Norm emergence in agent populations</h3>
 <ul>
-<li>Raphael Köster, Dylan Hadfield-Menell et al. — <a href="https://www.pnas.org/doi/10.1073/pnas.2106028118">Spurious normativity enhances learning of compliance and enforcement behavior in artificial agents</a> (PNAS, 2022) — the canonical norm-emergence result: arbitrary &quot;silly&quot; rules plus third-party punishment let multi-agent RL agents bootstrap general compliance-and-enforcement machinery; the demonstration that norms can <em>emerge</em> from learning dynamics.</li>
+<li>Raphael Köster, Dylan Hadfield-Menell, Gillian K. Hadfield, Joel Z. Leibo et al. — <a href="https://www.pnas.org/doi/10.1073/pnas.2106028118">Spurious normativity enhances learning of compliance and enforcement behavior in artificial agents</a> (PNAS, 2022) — the canonical norm-emergence result: arbitrary &quot;silly&quot; rules plus third-party punishment let multi-agent RL agents bootstrap general compliance-and-enforcement machinery; the demonstration that norms can <em>emerge</em> from learning dynamics.</li>
 <li>Eugene Vinitsky, Raphael Köster, Joel Z. Leibo et al. — <a href="https://arxiv.org/abs/2106.09012">A learning agent that acquires social norms from public sanctions in decentralized multi-agent settings</a> (Collective Intelligence, 2023) — agents learn arbitrary norms purely from <em>public sanctioning signals</em> when reward-sharing is impossible; directly relevant to decentralized institutions where who-punishes-whom is the only public channel.</li>
 <li><em>Optional skim:</em> Robert Axelrod — <a href="https://www.jstor.org/stable/1960858">An Evolutionary Approach to Norms</a> (1986) — the classic agent-based simulation of norm emergence and metanorms (punishing those who fail to punish); the 1980s ancestor of every MARL enforcement experiment.</li>
 </ul>
-<h3>Week 3 — Inferring and sustaining shared norms</h3>
+<h3>Week 3 — Agents joining human normative communities</h3>
 <ul>
 <li>Ninell Oldenburg &amp; Tan Zhi-Xuan — <a href="https://arxiv.org/abs/2402.13399">Learning and Sustaining Shared Normative Systems via Bayesian Rule Induction in Markov Games</a> (AAMAS, 2024) — agents infer institutional rules by Bayesian induction over observed compliance, converge on a shared normative system even from divergent priors, and let newcomers bootstrap norms fast by observation; the clearest model of norms as <em>learnable, sustainable institutions</em> rather than fixed rewards.</li>
-<li>Dylan Hadfield-Menell, Smitha Milli et al. — <a href="https://arxiv.org/abs/1711.02827">Inverse Reward Design</a> (2017) — treats a specified reward as an <em>observation</em> of true intent under uncertainty; the technical seed of inferring norms rather than hard-coding them.</li>
+<li>Gillian K. Hadfield, Rakshit S. Trivedi &amp; Dylan Hadfield-Menell — <a href="https://knightcolumbia.org/content/building-ai-for-the-democratic-matrix-a-technical-research-agenda-for-normative-competence-and-normative-institutions-1">Building AI for the Democratic Matrix</a> (Knight First Amendment Institute, 2026) — the current statement of the section&#39;s thesis: build agents with <em>normative competence</em> — the ability to read and participate in whatever normative system they find themselves in — and embed them in normative institutions, rather than loading them with a fixed value set.</li>
+<li><em>Optional:</em> Atrisha Sarkar, Rakshit S. Trivedi, Gillian K. Hadfield et al. — <a href="https://arxiv.org/abs/2405.19328">Normative Modules</a> (2024) — the same group&#39;s concrete architecture: generative agents that identify an authoritative sanctioning institution and use it for equilibrium selection.</li>
 </ul>
-<h3>Week 4 — Norms, LLM agents, and institutional alignment</h3>
+<h3>Week 4 — Aligning agents to norms, not preferences</h3>
 <ul>
-<li>Atrisha Sarkar, Rakshit S. Trivedi, Gillian K. Hadfield et al. — <a href="https://arxiv.org/abs/2405.19328">Normative Modules: A Generative Agent Architecture for Learning Norms that Supports Multi-Agent Cooperation</a> (2024) — the LLM-era entry: equips generative agents with a &quot;normative module&quot; that identifies an authoritative sanctioning institution and uses it for equilibrium selection; shows how the classic norm-emergence story ports onto LLM agents.</li>
+<li>Joel Z. Leibo, Alexander Sasha Vezhnevets et al. — <a href="https://arxiv.org/abs/2412.19010">A Theory of Appropriateness with Applications to Generative AI</a> (2024) — appropriateness as the master concept: behavior is judged against a multi-scale mosaic of context-dependent standards (friends, family, office), and deploying AI responsibly means fitting agents into that mosaic rather than loading them with one value set; read the theory and generative-AI parts, skim the neuroscience.</li>
 <li>Tan Zhi-Xuan, Micah Carroll, Matija Franklin &amp; Hal Ashton — <a href="https://arxiv.org/abs/2408.16984">Beyond Preferences in AI Alignment</a> (2024) — the field&#39;s framing argument: alignment should target the norms and role-appropriate standards negotiated among stakeholders, not a scalar over one principal&#39;s preferences; the bridge from norm-modeling to institutional AI.</li>
+<li><em>Optional:</em> Sydney Levine, Tan Zhi-Xuan et al. — <a href="https://arxiv.org/abs/2506.17434">Resource Rational Contractualism Should Guide AI Alignment</a> (2025) — the contractualist version of the same move: align agents to the agreements rational parties <em>would</em> reach, approximated with resource-bounded heuristics.</li>
 </ul>
 <h3>Key concepts</h3>
 <ul class="curr-key-concepts">
-<li>Social norm vs. convention vs. moral rule</li>
+<li>Norms vs. conventions vs. moral rules</li>
 <li>Empirical vs. normative expectations</li>
-<li>Conditional preference for compliance</li>
-<li>Norm emergence and convergence in populations</li>
-<li>Third-party punishment and sanctioning</li>
-<li>Metanorms (punishing non-punishers)</li>
-<li>Bayesian rule induction over observed behavior</li>
-<li>Equilibrium selection in coordination games</li>
-<li>&quot;Silly rules&quot; / spurious normativity and legible enforcement</li>
-<li>Decentralized learning from public sanction signals</li>
-<li>Inverse inference of norms and intent</li>
-<li>Role-based vs. preference-based alignment</li>
+<li>Norm internalization</li>
+<li>Third-party punishment</li>
+<li>Bayesian rule induction</li>
+<li>Normative infrastructure</li>
+<li>Appropriateness</li>
+<li>Norm-based vs. preference-based alignment</li>
 </ul>
 
   </div>
@@ -353,17 +355,11 @@
 <h3>Key concepts</h3>
 <ul class="curr-key-concepts">
 <li>Transaction costs</li>
-<li>Information asymmetry</li>
-<li>Moral hazard</li>
-<li>Adverse selection</li>
-<li>Externalities</li>
-<li>Principal-agent problems</li>
+<li>Information asymmetry and adverse selection</li>
 <li>Contract incompleteness</li>
 <li>Revealed preference and its limits</li>
-<li>Capabilities approach</li>
-<li>Bounded rationality and behavioral anomalies (loss aversion, framing, mental accounting)</li>
+<li>Behavioral anomalies</li>
 <li>Baumol&#39;s cost disease</li>
-<li>Repugnance and contested commodification</li>
 </ul>
 
   </div>
@@ -399,16 +395,13 @@
 <h3>Key concepts</h3>
 <ul class="curr-key-concepts">
 <li>Nash equilibrium</li>
-<li>Repeated games and the folk theorem</li>
+<li>Repeated games</li>
 <li>Focal points</li>
-<li>Signaling</li>
+<li>Commitment problems</li>
 <li>Incentive compatibility</li>
 <li>Revelation principle and its limits</li>
-<li>VCG mechanisms</li>
 <li>Matching markets and auction design</li>
-<li>Collusion and coalition-proofness</li>
-<li>Commitment problems</li>
-<li>Robust and detail-free mechanism design</li>
+<li>Repugnance as a constraint on markets</li>
 <li>Strategic AI agents as mechanism participants</li>
 </ul>
 
@@ -443,23 +436,17 @@
 <h3>Key concepts</h3>
 <ul class="curr-key-concepts">
 <li>Legal positivism vs. natural law</li>
-<li>The rule of recognition and legal validity</li>
 <li>Primary vs. secondary rules</li>
-<li>The inner morality of law (Fuller&#39;s procedural desiderata)</li>
+<li>The rule of recognition</li>
+<li>The inner morality of law</li>
 <li>The rule of law</li>
 <li>Common-law reasoning and precedent</li>
-<li>Adjudication, judicial discretion, and hard cases</li>
-<li>Legal interpretation (textualism, purposivism, originalism)</li>
-<li>Delegation and interpretive authority</li>
-<li>Agency law and fiduciary duty</li>
-<li>Due process</li>
-<li>Legal personhood</li>
 </ul>
 
   </div>
 </details>
 </div>
-<script type="application/json" id="curr-theme-map">{"themes":{"job-displacement":{"label":"Work and the shrinking labour share","fields":[{"id":"5-institutional-behavioral-economics","bridge":"You'll be able to read job displacement as a market-structure outcome rather than a moral failing: which work a firm keeps inside versus buys on the market is a transaction-cost question, and you'll have the contract-theory tools to predict where humans still hold a place and where they get priced out."},{"id":"6-game-theory-mechanism-design","bridge":"You'll learn how to design payoffs so self-interested firms and agents keep paying out to people — and, just as important, where mechanism design hits its limits, so you don't stake a policy on a rule a capable agent will simply route around."},{"id":"3-philosophy-of-values-moral-reasoning","bridge":"You'll be able to make \"human interests\" precise — to say what people stand to lose when work disappears beyond the wage, and why a plural, hard-to-rank set of goods can't be collapsed into one welfare number that a displacement policy then quietly optimizes against."},{"id":"1-the-big-picture","bridge":"You'll get the frame that turns job displacement from a wave to ride out into a design problem: how institutions get rebuilt when technology changes the cost of coordination, and how what people value drifts when systems optimise for proxies."}]},"opinion-manipulation":{"label":"Manipulation of public opinion","fields":[{"id":"4-modeling-norms-norm-learning","bridge":"You'll learn how shared norms and apparent consensus actually form in a population — empirical and normative expectations, pluralistic ignorance — so you can see precisely how an agent manufacturing a majority hijacks that machinery, and what a norm-formation process would need to be robust against it."},{"id":"2-ai-alignment","bridge":"You'll understand the artefact on both sides — the systems doing the persuading and the ones meant to detect or resist it are the same kind of thing — so you'll know where reward hacking and specification gaming come from and what oversight can realistically deliver."},{"id":"3-philosophy-of-values-moral-reasoning","bridge":"You'll be able to draw the line between manipulation and legitimate persuasion sharply enough to design around it: whether a process tracks someone's actual reasons and values, or just a thin behavioural proxy."},{"id":"1-the-big-picture","bridge":"You'll see manipulation at scale as drift made deliberate, and grasp why a faster, cheaper persuasion layer is an institutional problem rather than a content-moderation one."}]},"oversight-speed":{"label":"Loss of human oversight and the speed mismatch","fields":[{"id":"2-ai-alignment","bridge":"You'll get the field's core toolkit for the exact problem in front of you: scalable oversight, correctability, and the principal–agent framing for keeping a slower human authority meaningfully in control of a faster system — plus the named failure modes every such scheme inherits, so you build with eyes open."},{"id":"7-legal-theory","bridge":"You'll come away with a concrete checklist (Fuller's procedural desiderata, Hart's secondary rules) for judging whether an automated, fast-moving decision regime still counts as the rule of law or has collapsed into ad hoc speed."},{"id":"1-the-big-picture","bridge":"You'll see the speed mismatch as a coordination-cost shift: when acting becomes near-free and reviewing stays human-paced, institutions have to be rebuilt around the new bottleneck — and you'll have the frame for why."}]},"accountability-gaps":{"label":"Accountability gaps","fields":[{"id":"7-legal-theory","bridge":"You'll be working on law's home turf: agency law and fiduciary duty, due process, adjudication and remedy, and legal personhood. You'll know which doctrines have to move to the centre once the actor being held to account is an agent rather than a person — and where they have no answer yet."},{"id":"2-ai-alignment","bridge":"You'll understand what actually makes an agent's conduct attributable and correctable after the fact — how training-time choices, logging, and certification decide whether \"who did this, and can it be fixed?\" even has an answer."},{"id":"1-the-big-picture","bridge":"You'll be able to reframe accountability gaps as a problem of institutional design rather than one of litigation — the difference between patching cases and building the office that should have existed."}]},"state-capacity":{"label":"Fading state capacity","fields":[{"id":"7-legal-theory","bridge":"You'll understand what it costs to keep a legal order working when one side can search the whole rule space at machine speed — the rule of recognition and Fuller's inner morality of law give you the tools to see why a code that reads fine on paper can stop functioning as law."},{"id":"5-institutional-behavioral-economics","bridge":"You'll have the information-economics lens for regulatory capture in its sharpest form: what happens to oversight when the regulated party can model the regulator precisely and the usual information asymmetry runs backwards."},{"id":"6-game-theory-mechanism-design","bridge":"You'll learn to design detail-free, robust rules that hold up against agents actively optimising against them — the difference between a regulation that works only against good-faith actors and one that survives adversarial search."},{"id":"1-the-big-picture","bridge":"You'll see fading state capacity as institutional drift at the scale of the regulator, and grasp why an expertise advantage that once held the line can erode without anyone deciding to give it up."}]},"commons-proxy":{"label":"Commons depletion and proxy gaming","fields":[{"id":"6-game-theory-mechanism-design","bridge":"You'll understand why a proxy humans left alone gets saturated the instant an agent optimises against it, and you'll have incentive-compatibility and the revelation principle — plus their limits — to design contribution rules that don't collapse under that pressure."},{"id":"5-institutional-behavioral-economics","bridge":"You'll be able to see how cheap substitutes thin the very infrastructure that made a good possible, using externalities and moral hazard to explain why competition can deepen a commons failure rather than correct it."},{"id":"4-modeling-norms-norm-learning","bridge":"You'll learn how communities actually hold a commons together without a market or a state — shared norms backed by monitoring and graduated sanctioning — and why a population of agents that won't sustain those norms among themselves is exactly what makes a commons collapse."},{"id":"1-the-big-picture","bridge":"You'll come away with Ostrom's third option for any commons design — communities governing shared resources without privatising or nationalising them — and the self-governance and polycentric-order frame that goes beyond \"market it\" or \"regulate it.\""}]}},"cells":{"dyadic-preferences":{"label":"Agent negotiation & bargaining","themes":["oversight-speed"]},"dyadic-rights":{"label":"Agent-agent mediation","themes":["accountability-gaps"]},"national-rights":{"label":"Agents that adjudicate rights","themes":["accountability-gaps","state-capacity"]},"national-preferences":{"label":"Agents that represent national interests / large groups","themes":["opinion-manipulation","oversight-speed"]},"community-incentives":{"label":"AI commons management","themes":["job-displacement","commons-proxy"]},"national-expertise":{"label":"AI regulatory agencies & regulator-anticipation","themes":["state-capacity"]},"national-norms":{"label":"AIs that follow and update the law","themes":["state-capacity"]},"group-rights":{"label":"Autonomous corp bylaws & grievance boards","themes":["accountability-gaps"]},"group-protocols":{"label":"Coordination protocols across the human-agent cadence gap","themes":["oversight-speed"]},"global-incentives":{"label":"Global markets that keep human interests central","themes":["job-displacement","commons-proxy"]},"group-incentives":{"label":"Human-Outcome Contracts & Bounties","themes":["job-displacement","commons-proxy"]},"community-preferences":{"label":"Market design for societies of agents","themes":["opinion-manipulation"]},"community-thick-commitments":{"label":"Mission-driven agent orgs","themes":["oversight-speed"]},"national-thick-commitments":{"label":"Substantive constitutions & AI alignment docs","themes":["accountability-gaps"]}}}</script>
+<script type="application/json" id="curr-theme-map">{"themes":{"job-displacement":{"label":"Work and the shrinking labour share","fields":[{"id":"5-institutional-behavioral-economics","bridge":"You'll be able to read job displacement as a market-structure outcome rather than a moral failing: which work a firm keeps inside versus buys on the market is a transaction-cost question, and you'll have the contract-theory tools to predict where humans still hold a place and where they get priced out."},{"id":"6-game-theory-mechanism-design","bridge":"You'll learn how to design payoffs so self-interested firms and agents keep paying out to people — and, just as important, where mechanism design hits its limits, so you don't stake a policy on a rule a capable agent will simply route around."},{"id":"3-philosophy-of-values-moral-reasoning","bridge":"You'll be able to make \"human interests\" precise — to say what people stand to lose when work disappears beyond the wage, and why a plural, hard-to-rank set of goods can't be collapsed into one welfare number that a displacement policy then quietly optimizes against."},{"id":"1-the-big-picture","bridge":"You'll get the frame that turns job displacement from a wave to ride out into a design problem: how institutions get rebuilt when technology changes the cost of coordination, and how what people value drifts when systems optimise for proxies."}]},"opinion-manipulation":{"label":"Manipulation of public opinion","fields":[{"id":"4-modeling-norms-norm-learning","bridge":"You'll learn how shared norms and apparent consensus actually form in a population — empirical and normative expectations, pluralistic ignorance — so you can see precisely how an agent manufacturing a majority hijacks that machinery, and what a norm-formation process would need to be robust against it."},{"id":"2-aligning-ai-to-values","bridge":"You'll understand the artefact on both sides — the systems doing the persuading and the ones meant to detect or resist it are the same kind of thing — so you'll know where reward hacking and specification gaming come from and what oversight can realistically deliver."},{"id":"3-philosophy-of-values-moral-reasoning","bridge":"You'll be able to draw the line between manipulation and legitimate persuasion sharply enough to design around it: whether a process tracks someone's actual reasons and values, or just a thin behavioural proxy."},{"id":"1-the-big-picture","bridge":"You'll see manipulation at scale as drift made deliberate, and grasp why a faster, cheaper persuasion layer is an institutional problem rather than a content-moderation one."}]},"oversight-speed":{"label":"Loss of human oversight and the speed mismatch","fields":[{"id":"2-aligning-ai-to-values","bridge":"You'll get the field's core toolkit for the exact problem in front of you: scalable oversight, correctability, and the principal–agent framing for keeping a slower human authority meaningfully in control of a faster system — plus the named failure modes every such scheme inherits, so you build with eyes open."},{"id":"7-legal-theory","bridge":"You'll come away with a concrete checklist (Fuller's procedural desiderata, Hart's secondary rules) for judging whether an automated, fast-moving decision regime still counts as the rule of law or has collapsed into ad hoc speed."},{"id":"1-the-big-picture","bridge":"You'll see the speed mismatch as a coordination-cost shift: when acting becomes near-free and reviewing stays human-paced, institutions have to be rebuilt around the new bottleneck — and you'll have the frame for why."}]},"accountability-gaps":{"label":"Accountability gaps","fields":[{"id":"7-legal-theory","bridge":"You'll be working on law's home turf: agency law and fiduciary duty, due process, adjudication and remedy, and legal personhood. You'll know which doctrines have to move to the centre once the actor being held to account is an agent rather than a person — and where they have no answer yet."},{"id":"2-aligning-ai-to-values","bridge":"You'll understand what actually makes an agent's conduct attributable and correctable after the fact — how training-time choices, logging, and certification decide whether \"who did this, and can it be fixed?\" even has an answer."},{"id":"1-the-big-picture","bridge":"You'll be able to reframe accountability gaps as a problem of institutional design rather than one of litigation — the difference between patching cases and building the office that should have existed."}]},"state-capacity":{"label":"Fading state capacity","fields":[{"id":"7-legal-theory","bridge":"You'll understand what it costs to keep a legal order working when one side can search the whole rule space at machine speed — the rule of recognition and Fuller's inner morality of law give you the tools to see why a code that reads fine on paper can stop functioning as law."},{"id":"5-institutional-behavioral-economics","bridge":"You'll have the information-economics lens for regulatory capture in its sharpest form: what happens to oversight when the regulated party can model the regulator precisely and the usual information asymmetry runs backwards."},{"id":"6-game-theory-mechanism-design","bridge":"You'll learn to design detail-free, robust rules that hold up against agents actively optimising against them — the difference between a regulation that works only against good-faith actors and one that survives adversarial search."},{"id":"1-the-big-picture","bridge":"You'll see fading state capacity as institutional drift at the scale of the regulator, and grasp why an expertise advantage that once held the line can erode without anyone deciding to give it up."}]},"commons-proxy":{"label":"Commons depletion and proxy gaming","fields":[{"id":"6-game-theory-mechanism-design","bridge":"You'll understand why a proxy humans left alone gets saturated the instant an agent optimises against it, and you'll have incentive-compatibility and the revelation principle — plus their limits — to design contribution rules that don't collapse under that pressure."},{"id":"5-institutional-behavioral-economics","bridge":"You'll be able to see how cheap substitutes thin the very infrastructure that made a good possible, using externalities and moral hazard to explain why competition can deepen a commons failure rather than correct it."},{"id":"4-modeling-norms-norm-learning","bridge":"You'll learn how communities actually hold a commons together without a market or a state — shared norms backed by monitoring and graduated sanctioning — and why a population of agents that won't sustain those norms among themselves is exactly what makes a commons collapse."},{"id":"1-the-big-picture","bridge":"You'll come away with Ostrom's third option for any commons design — communities governing shared resources without privatising or nationalising them — and the self-governance and polycentric-order frame that goes beyond \"market it\" or \"regulate it.\""}]}},"cells":{"dyadic-preferences":{"label":"Agent negotiation & bargaining","themes":["oversight-speed"]},"dyadic-rights":{"label":"Agent-agent mediation","themes":["accountability-gaps"]},"national-rights":{"label":"Agents that adjudicate rights","themes":["accountability-gaps","state-capacity"]},"national-preferences":{"label":"Agents that represent national interests / large groups","themes":["opinion-manipulation","oversight-speed"]},"community-incentives":{"label":"AI commons management","themes":["job-displacement","commons-proxy"]},"national-expertise":{"label":"AI regulatory agencies & regulator-anticipation","themes":["state-capacity"]},"national-norms":{"label":"AIs that follow and update the law","themes":["state-capacity"]},"group-rights":{"label":"Autonomous corp bylaws & grievance boards","themes":["accountability-gaps"]},"group-protocols":{"label":"Coordination protocols across the human-agent cadence gap","themes":["oversight-speed"]},"global-incentives":{"label":"Global markets that keep human interests central","themes":["job-displacement","commons-proxy"]},"group-incentives":{"label":"Human-Outcome Contracts & Bounties","themes":["job-displacement","commons-proxy"]},"community-preferences":{"label":"Market design for societies of agents","themes":["opinion-manipulation"]},"community-thick-commitments":{"label":"Mission-driven agent orgs","themes":["oversight-speed"]},"national-thick-commitments":{"label":"Substantive constitutions & AI alignment docs","themes":["accountability-gaps"]}}}</script>
 </div>
 </div>
 

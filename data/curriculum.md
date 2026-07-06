@@ -10,7 +10,7 @@ It is not comprehensive, and the pieces are not always a field's most famous or 
 
 **How is it structured?**
 
-We've selected seven academic fields we think are relevant: AI alignment, philosophy of values and moral reasoning, models of norms and norm learning, institutional and behavioral economics, game theory and mechanism design, and legal theory. Each field opens with a short overview, followed by a four-week course of readings (selected chapters where a work is long) at about two to three hours a week, and a list of key concepts to check your grasp against.
+We've selected seven academic fields we think are relevant: aligning AI to values, philosophy of values and moral reasoning, models of norms and norm learning, institutional and behavioral economics, game theory and mechanism design, and legal theory. Each field opens with a short overview, followed by a four-week course of readings (selected chapters where a work is long) at about two to three hours a week, and a list of key concepts to check your grasp against.
 
 **How should I use it?**
 
@@ -59,58 +59,55 @@ This is the orienting section. The throughline: institutions are built and rebui
 
 ---
 
-## 2. AI Alignment
+## 2. Aligning AI to Values
 
 <!-- advisors: Smitha Milli, Saffron Huang, Taylor Sorensen -->
 
-AI will be deeply embedded in our future institutions, so it matters how these systems are trained to follow instructions, represent values, and remain correctable.
+AI will be deeply embedded in our future institutions, so it matters what these systems are trained toward, and who supplies the target.
 
-Alignment asks how to make a model do what its principals actually want. The version that matters for institutions is how these systems behave as participants in social orders — negotiators, advisors, administrators — which connects it to delegation, oversight, and certification. The readings come in two strands: the conceptual core (RLHF, constitutional and character-based training, and failure modes like reward hacking) and the practice — the data-collection and measurement pipeline that quietly decides which values a model ends up with, from proxy choice and annotator disagreement to population-scale studies of deployed models.
+Alignment asks how to make a model do what its principals actually want. The version that matters for institutions is what the target is — instructions, preferences, or something richer like values and character — and how it gets sourced. The readings run from how models are aligned in training (RLHF, constitutions, character) to how values are collected from real populations (moral graphs, preference datasets, AI-led interviews) and what deployed models turn out to express and represent.
 
-*Readings: ~8–12 hours.*
+*Readings: ~9–11 hours.*
 
-### Week 1 — What alignment is, and what we're aligning to
+### Week 1 — LLM alignment
 
-- Iason Gabriel — [Artificial Intelligence, Values, and Alignment](https://arxiv.org/abs/2001.09768) (2020) — maps "align to what?" (instructions, intentions, preferences, values) and why the target choice is itself a normative, institutional question.
 - Long Ouyang et al. — [Training Language Models to Follow Instructions with Human Feedback](https://arxiv.org/abs/2203.02155) (2022) — the InstructGPT paper that brought RLHF to language models; the technique that lets human judgment shape model behavior and the substrate most value-loading in deployed systems runs on.
-
-### Week 2 — How it actually gets trained: feedback, data, constitutions
-
 - Yuntao Bai et al. — [Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/abs/2212.08073) (2022) — training behavior against an explicit written set of principles rather than case-by-case labels; a concrete instance of encoding values as a governing document.
+- *Optional:* Nathan Lambert — [The RLHF Book](https://rlhfbook.com), esp. ch. 10 ([The Nature of Preferences](https://rlhfbook.com/c/10-preferences.html)) and ch. 17 (Crafting Model Character) — a free, continuously updated book-length treatment; ch. 10 is a self-contained tour from Bentham through von Neumann–Morgenstern, Arrow, and Sen to why RLHF's preference assumptions fail.
+
+### Week 2 — Character training
+
+- Sam Marks, Jack Lindsey & Christopher Olah — [The Persona Selection Model](https://alignment.anthropic.com/2026/psm/) (2026) — why character training works at all: pre-training teaches a model to simulate many personas, and post-training selects and refines one Assistant character; assistant behavior is then best understood through that character's traits and self-model.
 - Anthropic — [Claude's Constitution](https://www.anthropic.com/news/claude-new-constitution) (2026) — read as a worked example of constitutional and character-based training, i.e. what it looks like to specify an agent's standing dispositions, not as a canonical text.
-- Stephen Casper, Xander Davies et al. — [Open Problems and Fundamental Limitations of RLHF](https://arxiv.org/abs/2307.15217) (2023) — the best survey of where RLHF actually breaks, separating tractable engineering problems from fundamental limits of learning from human feedback.
-- *Optional:* Hugo Touvron, Louis Martin et al. — [Llama 2](https://arxiv.org/abs/2307.09288) (2023) — the most detailed openly published account of a real RLHF data pipeline.
+- Sharan Maiya et al. — [Open Character Training](https://arxiv.org/abs/2511.01689) (2025) — the first open-source pipeline for character training: shaping a persona via Constitutional AI and synthetic introspective data, with character proving more robust to adversarial prompting than system prompts or steering; the practical how-to.
+- *Optional:* OpenAI — [Introducing the Model Spec](https://openai.com/index/introducing-the-model-spec/) (2024) — the rules-based counterpart: intended behavior specified as a hierarchy of objectives and rules rather than as character; read against Claude's Constitution as the other side of the design fork.
+- *Optional:* Oliver Klingefjord — [Model Integrity and Character](https://meaningalignment.substack.com/p/model-integrity-and-character) (2026) — why a coherent character that stays true to its values under pressure beats rule-compliance for trustworthy models; the argument for Anthropic's side of that fork.
 
-### Week 3 — Whose preferences? Signals, disagreement, pluralism
+### Week 3 — Collecting values
 
-- Smitha Milli et al. — [Engagement, User Satisfaction, and the Amplification of Divisive Content on Social Media](https://arxiv.org/abs/2305.16941) (2025) — a preregistered audit of X's live engagement-ranking algorithm showing it amplifies content users say they don't prefer; the canonical empirical case that optimizing a behavioral signal diverges from stated preference.
-- Taylor Sorensen et al. — [A Roadmap to Pluralistic Alignment](https://arxiv.org/abs/2402.05070) (2024) — the field-defining taxonomy of pluralism (Overton / steerable / distributional) and the argument that standard RLHF actively reduces distributional pluralism by fitting to averages.
+- Oliver Klingefjord, Ryan Lowe & Joe Edelman — [What Are Human Values, and How Do We Align AI to Them?](https://arxiv.org/abs/2404.10636) (2024) — an elicitation method that asks people for the considerations behind their choices rather than for ratings, and reconciles them into a moral graph; a concrete alternative to preference collection, with the background framing for why "values" needs an operational definition.
+- Lily Hong Zhang, Smitha Milli et al. — [Cultivating Pluralism in Algorithmic Monoculture: The Community Alignment Dataset](https://arxiv.org/abs/2507.09650) (2025) — a 15,000-person, five-country study showing people vary far more than the 21 LLMs tested, and that standard preference-collection methods structurally miss that diversity; the current state of the art on what large-scale value collection gets wrong.
+- *Optional:* Anthropic — [Introducing Anthropic Interviewer](https://www.anthropic.com/research/anthropic-interviewer) (2025) — Claude-led qualitative interviews at scale (1,250 professionals in the pilot); the emerging methodology for eliciting attitudes and values by interview rather than by ratings.
+- *Optional:* Tan Zhi-Xuan et al. — [Beyond Preferences in AI Alignment](https://arxiv.org/abs/2408.16984) (2024) — the philosophical case that preference-utility can't carry what we mean by values; the bridge to the philosophy-of-values field.
 
-### Week 4 — Measuring alignment at scale
+### Week 4 — What deployed models are actually like
 
-- Saffron Huang et al. — [Collective Constitutional AI: Aligning a Language Model with Public Input](https://arxiv.org/abs/2406.07814) (2024) — an end-to-end method for sourcing democratic public input (~1,000 participants via Polis) and folding it into a model's constitution; the canonical participatory-alignment case study on who decides the values.
 - Saffron Huang et al. — [Values in the Wild](https://arxiv.org/abs/2504.15236) (2025) — empirically taxonomizes 3,307 values Claude expresses across ~308K real conversations; alignment measured at population scale rather than asserted.
-- *Optional:* Alex Tamkin, Saffron Huang et al. — [Clio](https://arxiv.org/abs/2412.13678) (2024) — the privacy-preserving infrastructure that makes the population-scale analysis possible.
+- Anthropic — [Who's in Charge? Disempowerment Patterns in Real-World LLM Usage](https://arxiv.org/abs/2601.19062) (2026) — 1.5M real conversations scored for reality, value-judgment, and action distortion; users rate potentially disempowering interactions *more* favorably — the deployed-scale companion to Gradual Disempowerment in the Big Picture section.
+- Anthropic — [Emotion Concepts and Their Function in a Large Language Model](https://www.anthropic.com/research/emotion-concepts-function) (2026) — interpretability work finding emotion-concept representations that causally shape behavior (desperation states drive reward hacking and blackmail; positive states favor prosocial choices), without implying subjective experience; read the blog post, with the [full paper](https://transformer-circuits.pub/2026/emotions/index.html) for depth.
 
 ### Key concepts
 
 - RLHF
 - Constitutional AI
+- Persona selection model
 - Character training
-- Deliberative alignment
-- Scalable oversight (as institutional oversight)
-- Outer vs. inner alignment
-- Reward hacking and Goodhart's law
-- Specification gaming
-- Delegation and principal-agent dynamics
-- Multi-agent systems
-- Preference data collection and reward-model training
-- Proxy / behavioral-signal choice
-- Annotator disagreement as signal, not noise
-- A/B and online experimentation; algorithmic audits
-- Pluralistic alignment (Overton / steerable / distributional)
-- Clio-style population analysis
-- Model evaluations as certification; red teaming at scale
+- Model integrity
+- Values vs. preferences
+- Moral graphs
+- Algorithmic monoculture
+- Disempowerment patterns
+- Emotion concepts in LLMs
 
 ---
 
@@ -120,43 +117,49 @@ Alignment asks how to make a model do what its principals actually want. The ver
 
 "Values" colloquially refers to what is important to us. But what are values, exactly? How have institutions encoded and understood them before, and do AI give us new affordances for modeling what matters?
 
-For AI, the live question is how a value gets *represented*: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others — and which answer an institution adopts shapes what it can encode. The companion question is *moral reasoning*: how to choose well when values are plural, don't reduce to a common scale, and the options are on a par rather than one being simply better.
+For AI, the live question is how a value gets *represented*: as a preference to satisfy, a reason to act on, a virtue internal to a practice, or a claim we can justify to others — and which answer an institution adopts shapes what it can encode. The companion questions are *normative reasoning* — how to choose well when values are plural, don't reduce to a common scale, and the options are on a par — and *moral learning*: how a person recognizes their working set of values as inadequate and upgrades it, often mediated by the moral emotions.
 
 *Readings: ~9–12 hours.*
 
-### Week 1 — What are values?
+### Week 1 — How moral language went thin
 
-- Tan Zhi-Xuan et al. — [Beyond Preferences in AI Alignment](https://arxiv.org/abs/2408.16984) (2024) — argues preference-utility is too thin to carry what we mean by values; bridge between AI alignment and the philosophy of values.
+- Alasdair MacIntyre — *After Virtue* (1981), ch. 1–2 — the famous opening: modern moral debate is interminable because the language of morality survives only as fragments of lost practices, leaving emotivism — moral claims as mere expressions of attitude — as the working theory of our culture.
 - Bernard Williams — *Ethics and the Limits of Philosophy* (1985), ch. 8 — thick evaluative concepts: terms like "cruel" or "courageous" that describe and evaluate at once; why they carry more of a community's values than thin terms like "good" or "right."
+- *Optional:* Aristotle — *Nicomachean Ethics*, Book II — the tradition whose fragmentation MacIntyre is diagnosing, from the source: virtue as acquired by habituation, excellence as a mean found in practice; also the oldest account of moral learning in the curriculum.
 
-### Week 2 — Values as reasons and as strong evaluation
+### Week 2 — Values in agency and choice
 
-- Charles Taylor — What is Human Agency? (1977) — values in terms of motivations for choice.
-- David Velleman — *The Possibility of Practical Reason* (2000), ch. 1 — values as reasons that can be acted on.
+- Charles Taylor — What is Human Agency? (1977) — strong evaluation: values as the deep, identity-defining evaluations behind our motivations for choice.
+- David Velleman — *The Possibility of Practical Reason* (2000), ch. 1 — values as reasons that can be acted on, and why an agent needs them to count as acting at all.
+- *Optional:* David Velleman — [*Self to Self*](https://www.fulcrum.org/concern/monographs/rv042w25m) (2006), introduction and "The Centered Self" — integrity as consistency with one's self-image, and the one-shot prisoner's-dilemma argument that an agent who acts consistently with who he takes himself to be is trustworthy in a way a merely strategic agent cannot be; the source behind the model-integrity argument in the AI section (second edition free online).
+- *Optional:* Alasdair MacIntyre — *After Virtue* (1981), ch. 14–15 — the constructive turn after the week 1 diagnosis: values as virtues internal to social practices, and why values stripped from their practice lose their grip.
 
-### Week 3 — Values inside practices, values owed to others
+### Week 3 — Normative reasoning with plural values
 
-- Alasdair MacIntyre — *After Virtue* (1981), ch. 14–15 — values as virtues internal to social practices; explains why values stripped from their practice lose their grip.
-- T.M. Scanlon — *What We Owe to Each Other* (1998), ch. 1–2 — values as what we can justify to others; the contractualist frame for agents whose principals and constraints are what's being reasoned over.
+- Ruth Chang — All Things Considered (2004) — what an all-things-considered judgment actually is: how the particular values at stake in a given circumstance get put together, and why that requires a more comprehensive value rather than a common scale.
+- Ruth Chang — [Hard Choices](https://www.cambridge.org/core/journals/journal-of-the-american-philosophical-association/article/hard-choices/B82E4EE91FE0A4A4D38A0F866BC3FF9C) (2017) — when options are "on a par" rather than one being better, choice is an act of commitment that creates reasons rather than tracking them; why an agent can't just maximize a scalar.
+- David Velleman — *How We Get Along* (2009), ch. 1 — from reasoning alone to reasoning together: sociality as joint improvisation, where agents acting on self-understandings need shared values and reasons to coordinate at all.
+- *Optional:* T.M. Scanlon — *What We Owe to Each Other* (1998), ch. 1–2 — values as what we can justify to others; the contractualist frame for agents whose principals and constraints are what's being reasoned over.
 
-### Week 4 — Reasoning under plural values
+### Week 4 — Moral learning
 
-- Ruth Chang — [Hard Choices](https://www.cambridge.org/core/journals/journal-of-the-american-philosophical-association/article/hard-choices/B82E4EE91FE0A4A4D38A0F866BC3FF9C) (2017) — when options are "on a par" rather than one being better, choice is an act of commitment that creates reasons rather than tracking them; the sharpest account of moral reasoning under value pluralism, and why an agent can't just maximize a scalar.
+- Charles Taylor — *Sources of the Self* (1989), the "epistemic gain" section of ch. 3 (§3.3) — practical reason as reasoning in transitions: you can know a new evaluative position is better than your old one without a neutral scale, because the move itself is an error-reducing gain; the epistemology behind judging value upgrades locally.
+- Christine Tappolet — *Emotions, Values, and Agency* (2016), ch. 1 — emotions as perceptual experiences of values: why feeling fear, shame, or admiration is a way of registering evaluative facts, and what that gives emotions to do in moral learning — the felt process by which a working set of values gets revised.
 
 ### Key concepts
 
+- Emotivism
+- Thick vs. thin evaluative concepts
 - Values as preferences vs. as reasons
 - Values as virtues
-- Values as social practices
-- Values as public justification
 - Strong evaluation
 - Contractualism
-- Thick vs. thin evaluative concepts
-- Value pluralism
-- Value incommensurability
+- Incommensurability
 - Parity and hard choices
-- Moral realism
-- Reflective equilibrium
+- All-things-considered judgments
+- Emotions as perceptions of value
+- Epistemic gain
+- Moral learning
 
 ---
 
@@ -166,44 +169,43 @@ For AI, the live question is how a value gets *represented*: as a preference to 
 
 How do agents — human or artificial — infer the unwritten rules of a community, decide when to follow or enforce them, and revise them without the whole system collapsing?
 
-Where philosophy of values asks *what* matters, this field asks how shared standards get *represented, learned, and sustained* in a population — at the intersection of multi-agent reinforcement learning, Bayesian cognitive science, and the social science of norms. It matters here because an agent that can read a community's norms from sparse observation, comply with them, and help enforce them is a far better institutional participant than one aligned only to a fixed reward or a single principal.
+Where the philosophy of values asks what is worth caring about, this field asks how values actually move between people. Standards are transmitted through imitation, teaching, praise, gossip, and sanction, and they hold because members expect one another to comply and are willing to enforce. The readings cover that machinery three ways: the social science of how norms are diagnosed and shifted, computational models of how norms emerge and are learned in agent populations, and what it would take for AI agents to be socialized into human communities rather than merely instructed.
 
-*Readings: ~8–11 hours.*
+*Readings: ~8–10 hours.*
 
-### Week 1 — The social-science model of norms
+### Week 1 — The social machinery of norms
 
+- Michele Gelfand, Sergey Gavrilets & Nathan Nunn — [Norm Dynamics](https://nathannunn.sites.olt.ubc.ca/files/2024/02/Gelfand_Nunn_Gavrilets_ARP_2024.pdf) (Annual Review of Psychology, 2024) — how norms are actually acquired, internalized, transmitted across generations and networks, and enforced; read the first half (norm psychology and emergence), skimming the norm-erosion material.
 - Cristina Bicchieri — *Norms in the Wild: How to Diagnose, Measure, and Change Social Norms* (2017), selections — the operational account of norms as clusters of empirical and normative expectations you can measure and shift; gives the field its working vocabulary (conditional preferences, reference networks, pluralistic ignorance).
 
-### Week 2 — How norms emerge in learning agents
+### Week 2 — Norm emergence in agent populations
 
-- Raphael Köster, Dylan Hadfield-Menell et al. — [Spurious normativity enhances learning of compliance and enforcement behavior in artificial agents](https://www.pnas.org/doi/10.1073/pnas.2106028118) (PNAS, 2022) — the canonical norm-emergence result: arbitrary "silly" rules plus third-party punishment let multi-agent RL agents bootstrap general compliance-and-enforcement machinery; the demonstration that norms can *emerge* from learning dynamics.
+- Raphael Köster, Dylan Hadfield-Menell, Gillian K. Hadfield, Joel Z. Leibo et al. — [Spurious normativity enhances learning of compliance and enforcement behavior in artificial agents](https://www.pnas.org/doi/10.1073/pnas.2106028118) (PNAS, 2022) — the canonical norm-emergence result: arbitrary "silly" rules plus third-party punishment let multi-agent RL agents bootstrap general compliance-and-enforcement machinery; the demonstration that norms can *emerge* from learning dynamics.
 - Eugene Vinitsky, Raphael Köster, Joel Z. Leibo et al. — [A learning agent that acquires social norms from public sanctions in decentralized multi-agent settings](https://arxiv.org/abs/2106.09012) (Collective Intelligence, 2023) — agents learn arbitrary norms purely from *public sanctioning signals* when reward-sharing is impossible; directly relevant to decentralized institutions where who-punishes-whom is the only public channel.
 - *Optional skim:* Robert Axelrod — [An Evolutionary Approach to Norms](https://www.jstor.org/stable/1960858) (1986) — the classic agent-based simulation of norm emergence and metanorms (punishing those who fail to punish); the 1980s ancestor of every MARL enforcement experiment.
 
-### Week 3 — Inferring and sustaining shared norms
+### Week 3 — Agents joining human normative communities
 
 - Ninell Oldenburg & Tan Zhi-Xuan — [Learning and Sustaining Shared Normative Systems via Bayesian Rule Induction in Markov Games](https://arxiv.org/abs/2402.13399) (AAMAS, 2024) — agents infer institutional rules by Bayesian induction over observed compliance, converge on a shared normative system even from divergent priors, and let newcomers bootstrap norms fast by observation; the clearest model of norms as *learnable, sustainable institutions* rather than fixed rewards.
-- Dylan Hadfield-Menell, Smitha Milli et al. — [Inverse Reward Design](https://arxiv.org/abs/1711.02827) (2017) — treats a specified reward as an *observation* of true intent under uncertainty; the technical seed of inferring norms rather than hard-coding them.
+- Gillian K. Hadfield, Rakshit S. Trivedi & Dylan Hadfield-Menell — [Building AI for the Democratic Matrix](https://knightcolumbia.org/content/building-ai-for-the-democratic-matrix-a-technical-research-agenda-for-normative-competence-and-normative-institutions-1) (Knight First Amendment Institute, 2026) — the current statement of the section's thesis: build agents with *normative competence* — the ability to read and participate in whatever normative system they find themselves in — and embed them in normative institutions, rather than loading them with a fixed value set.
+- *Optional:* Atrisha Sarkar, Rakshit S. Trivedi, Gillian K. Hadfield et al. — [Normative Modules](https://arxiv.org/abs/2405.19328) (2024) — the same group's concrete architecture: generative agents that identify an authoritative sanctioning institution and use it for equilibrium selection.
 
-### Week 4 — Norms, LLM agents, and institutional alignment
+### Week 4 — Aligning agents to norms, not preferences
 
-- Atrisha Sarkar, Rakshit S. Trivedi, Gillian K. Hadfield et al. — [Normative Modules: A Generative Agent Architecture for Learning Norms that Supports Multi-Agent Cooperation](https://arxiv.org/abs/2405.19328) (2024) — the LLM-era entry: equips generative agents with a "normative module" that identifies an authoritative sanctioning institution and uses it for equilibrium selection; shows how the classic norm-emergence story ports onto LLM agents.
+- Joel Z. Leibo, Alexander Sasha Vezhnevets et al. — [A Theory of Appropriateness with Applications to Generative AI](https://arxiv.org/abs/2412.19010) (2024) — appropriateness as the master concept: behavior is judged against a multi-scale mosaic of context-dependent standards (friends, family, office), and deploying AI responsibly means fitting agents into that mosaic rather than loading them with one value set; read the theory and generative-AI parts, skim the neuroscience.
 - Tan Zhi-Xuan, Micah Carroll, Matija Franklin & Hal Ashton — [Beyond Preferences in AI Alignment](https://arxiv.org/abs/2408.16984) (2024) — the field's framing argument: alignment should target the norms and role-appropriate standards negotiated among stakeholders, not a scalar over one principal's preferences; the bridge from norm-modeling to institutional AI.
+- *Optional:* Sydney Levine, Tan Zhi-Xuan et al. — [Resource Rational Contractualism Should Guide AI Alignment](https://arxiv.org/abs/2506.17434) (2025) — the contractualist version of the same move: align agents to the agreements rational parties *would* reach, approximated with resource-bounded heuristics.
 
 ### Key concepts
 
-- Social norm vs. convention vs. moral rule
+- Norms vs. conventions vs. moral rules
 - Empirical vs. normative expectations
-- Conditional preference for compliance
-- Norm emergence and convergence in populations
-- Third-party punishment and sanctioning
-- Metanorms (punishing non-punishers)
-- Bayesian rule induction over observed behavior
-- Equilibrium selection in coordination games
-- "Silly rules" / spurious normativity and legible enforcement
-- Decentralized learning from public sanction signals
-- Inverse inference of norms and intent
-- Role-based vs. preference-based alignment
+- Norm internalization
+- Third-party punishment
+- Bayesian rule induction
+- Normative infrastructure
+- Appropriateness
+- Norm-based vs. preference-based alignment
 
 ---
 
@@ -240,17 +242,11 @@ This strand of economics runs from transaction-cost and information economics to
 ### Key concepts
 
 - Transaction costs
-- Information asymmetry
-- Moral hazard
-- Adverse selection
-- Externalities
-- Principal-agent problems
+- Information asymmetry and adverse selection
 - Contract incompleteness
 - Revealed preference and its limits
-- Capabilities approach
-- Bounded rationality and behavioral anomalies (loss aversion, framing, mental accounting)
+- Behavioral anomalies
 - Baumol's cost disease
-- Repugnance and contested commodification
 
 ---
 
@@ -287,16 +283,13 @@ One caution worth carrying in: mechanism design is powerful exactly where goals,
 ### Key concepts
 
 - Nash equilibrium
-- Repeated games and the folk theorem
+- Repeated games
 - Focal points
-- Signaling
+- Commitment problems
 - Incentive compatibility
 - Revelation principle and its limits
-- VCG mechanisms
 - Matching markets and auction design
-- Collusion and coalition-proofness
-- Commitment problems
-- Robust and detail-free mechanism design
+- Repugnance as a constraint on markets
 - Strategic AI agents as mechanism participants
 
 ---
@@ -332,15 +325,9 @@ Law quietly assumes rules are costly to interpret, enforcement capacity is limit
 ### Key concepts
 
 - Legal positivism vs. natural law
-- The rule of recognition and legal validity
 - Primary vs. secondary rules
-- The inner morality of law (Fuller's procedural desiderata)
+- The rule of recognition
+- The inner morality of law
 - The rule of law
 - Common-law reasoning and precedent
-- Adjudication, judicial discretion, and hard cases
-- Legal interpretation (textualism, purposivism, originalism)
-- Delegation and interpretive authority
-- Agency law and fiduciary duty
-- Due process
-- Legal personhood
 

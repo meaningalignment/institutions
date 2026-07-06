@@ -8,7 +8,7 @@
 #   cells       live AGI cell ids this theme draws on; drives the institution
 #               picker (a cell inherits the field ranking of its theme(s))
 #   fields      ordered by relevance; each { id, gain }. `id` must be a real
-#               field slug (1-the-big-picture, 2-ai-alignment,
+#               field slug (1-the-big-picture, 2-aligning-ai-to-values,
 #               3-philosophy-of-values-moral-reasoning,
 #               4-modeling-norms-norm-learning,
 #               5-institutional-behavioral-economics,
@@ -62,7 +62,7 @@ themes:
           ignorance — so you can see precisely how an agent manufacturing a
           majority hijacks that machinery, and what a norm-formation process
           would need to be robust against it.
-      - id: 2-ai-alignment
+      - id: 2-aligning-ai-to-values
         gain: >-
           You'll understand the artefact on both sides — the systems doing the
           persuading and the ones meant to detect or resist it are the same kind
@@ -84,7 +84,7 @@ themes:
     description: Agents act and negotiate faster than human review can deliberate, so deals close, decisions compound, and norms form before any principal is in the loop.
     cells: [group-protocols, dyadic-preferences, community-thick-commitments, national-preferences]
     fields:
-      - id: 2-ai-alignment
+      - id: 2-aligning-ai-to-values
         gain: >-
           You'll get the field's core toolkit for the exact problem in front of
           you: scalable oversight, correctability, and the principal–agent
@@ -116,7 +116,7 @@ themes:
           which doctrines have to move to the centre once the actor being held to
           account is an agent rather than a person — and where they have no answer
           yet.
-      - id: 2-ai-alignment
+      - id: 2-aligning-ai-to-values
         gain: >-
           You'll understand what actually makes an agent's conduct attributable
           and correctable after the fact — how training-time choices, logging,

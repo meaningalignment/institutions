@@ -11,7 +11,7 @@
 #               field slug (1-the-big-picture, 2-aligning-ai-to-values,
 #               3-philosophy-of-values-moral-reasoning,
 #               4-modeling-norms-norm-learning,
-#               5-institutional-behavioral-economics,
+#               5-institutional-economics,
 #               6-game-theory-mechanism-design, 7-legal-theory).
 #               `gain` is the field's "What you'll gain" block when the theme is
 #               selected — motivating, capability-framed, nails the relevance.
@@ -24,7 +24,7 @@ themes:
     description: AI labour pulls production away from paying, training, and retaining people, and the value created stops flowing back to human welfare.
     cells: [global-incentives, group-incentives, community-incentives]
     fields:
-      - id: 5-institutional-behavioral-economics
+      - id: 5-institutional-economics
         gain: >-
           You'll be able to read job displacement as a market-structure outcome
           rather than a moral failing: which work a firm keeps inside versus buys
@@ -139,7 +139,7 @@ themes:
           side can search the whole rule space at machine speed — the rule of
           recognition and Fuller's inner morality of law give you the tools to
           see why a code that reads fine on paper can stop functioning as law.
-      - id: 5-institutional-behavioral-economics
+      - id: 5-institutional-economics
         gain: >-
           You'll have the information-economics lens for regulatory capture in its
           sharpest form: what happens to oversight when the regulated party can
@@ -169,7 +169,7 @@ themes:
           incentive-compatibility and the revelation principle — plus their
           limits — to design contribution rules that don't collapse under that
           pressure.
-      - id: 5-institutional-behavioral-economics
+      - id: 5-institutional-economics
         gain: >-
           You'll be able to see how cheap substitutes thin the very
           infrastructure that made a good possible, using externalities and moral

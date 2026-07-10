@@ -61,7 +61,7 @@ const TABS = {
     title: 'AGI Institutions',   // shown as the selected-tab heading + page <title>
     nav: 'AGI Institutions',                // shown on the tab itself (no "(Required)")
     short: 'AGI',
-    subtitle: 'New institutions needed for a world of autonomous AI agents'
+    subtitle: 'New institutions needed for a world with powerful AI'
   },
   human: {
     title: 'Existing Human Institutions',

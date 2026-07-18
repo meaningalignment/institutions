@@ -1,0 +1,2300 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── Design tokens ─────────────────────────────────────────────────── */
+
+:root {
+  --paper: #faf8f4;          /* page background */
+  --card: #ffffff;           /* raised surfaces */
+  --wash: #f4f0e8;           /* subtle tinted fill */
+  --ink: #26231e;            /* headings, strong text */
+  --text: #3b372f;           /* body text */
+  --muted: #857d70;          /* secondary text */
+  --faint: #b3aca0;          /* tertiary text */
+  --line: #e8e2d7;           /* hairline borders */
+  --line-strong: #d8d1c3;    /* emphasized borders */
+  --accent: #4a6741;         /* links, highlights */
+  --accent-dark: #38522f;
+  --radius: 10px;
+  --radius-sm: 7px;
+}
+
+/* Inline editorial notes: hidden by default, revealed on localhost or with
+   ?editorial in the URL (handled in app.js and the problem-sets inline script). */
+.editorial { display: none; }
+.show-editorial .editorial {
+  display: inline;
+  background: #fdf0e6;
+  color: #5a3a25;
+  border-left: 3px solid #c44d2e;
+  padding: 1px 8px 1px 6px;
+  margin: 0 2px;
+  border-radius: 0 3px 3px 0;
+  font-size: 0.9em;
+  font-style: italic;
+}
+.show-editorial .editorial::before {
+  content: '✎ ';
+  opacity: 0.7;
+  font-style: normal;
+}
+
+/* Editorial notes inside ## At a glance. A note attached to a known H3
+   renders inside that H3's row; notes that don't belong to any recognized
+   H3 render in a catch-all "Notes" row. All hidden on deploy; revealed
+   together under .show-editorial. */
+.cell-summary-note { display: none; }
+.cell-summary-notes-row { display: none; }
+.show-editorial .cell-summary-notes-row { display: grid; }
+.show-editorial .cell-summary-note {
+  display: block;
+  margin-top: 6px;
+  background: #fdf0e6;
+  border-left: 3px solid #c44d2e;
+  padding: 4px 10px;
+  border-radius: 0 3px 3px 0;
+  font-style: italic;
+  color: #5a3a25;
+  font-size: 0.95em;
+}
+.show-editorial .cell-summary-note::before {
+  content: '✎ ';
+  opacity: 0.7;
+  font-style: normal;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: var(--paper);
+  padding: 44px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Controls row */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.pane-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  color: var(--ink);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.pane-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.2px;
+  margin-bottom: 28px;
+  text-align: center;
+  max-width: 680px;
+  line-height: 1.55;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.05);
+}
+
+.tab-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 7px 16px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.tab-link:hover { color: var(--ink); background: var(--wash); }
+.tab-link.active { color: #fff; background: var(--ink); font-weight: 600; }
+.tab-link.active:hover { color: #fff; background: var(--ink); }
+.tab-short { display: none; }
+
+.nav-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 9px 16px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.05);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.nav-link:hover { color: var(--ink); border-color: var(--faint); }
+
+
+/* Grid view */
+#grid-view { width: 100%; max-width: 100%; display: flex; flex-direction: column; align-items: center; }
+#detail-view { display: none; width: 100%; max-width: 1080px; }
+
+.table-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(60, 50, 30, 0.05), 0 8px 28px rgba(60, 50, 30, 0.04);
+  padding: 10px 0 18px;
+}
+table { border-collapse: separate; border-spacing: 0; min-width: 1000px; }
+.axis-label-col { width: 110px; min-width: 110px; }
+.corner-cell { position: relative; }
+
+/* The empty top-left intersection labels both axes at their origin. */
+.corner-cell.axis-label-col {
+  vertical-align: bottom;
+  padding: 0 6px 10px;
+  border-right: 2px solid var(--line-strong);
+  border-bottom: 2px solid var(--line-strong);
+}
+.axis-corner-y, .axis-corner-x {
+  display: block;
+  font-size: 8.5px; font-weight: 700; letter-spacing: 0.6px;
+  text-transform: uppercase; color: var(--muted); line-height: 1.5;
+  white-space: nowrap;
+}
+.axis-corner-y { text-align: right; }
+.axis-corner-x { text-align: left; }
+.axis-corner-y .axis-arrow, .axis-corner-x .axis-arrow {
+  font-weight: 700; color: var(--faint);
+}
+
+/* Quiet "How to read this" affordance above the table. The trigger is a faint
+   word; the explanation of the two axes is hidden until hover / focus / tap. */
+.axis-guide {
+  position: relative;
+  margin: -14px 0 22px;
+}
+.axis-guide-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  letter-spacing: 0.2px;
+  color: var(--faint);
+  cursor: help;
+  list-style: none;
+  user-select: none;
+  transition: color 0.15s;
+}
+.axis-guide-trigger::-webkit-details-marker { display: none; }
+.axis-guide-trigger::after {
+  content: '?';
+  font-size: 9px; font-weight: 700; line-height: 1;
+  width: 14px; height: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid currentColor; border-radius: 50%;
+  opacity: 0.7;
+}
+.axis-guide:hover .axis-guide-trigger,
+.axis-guide-trigger:focus-visible,
+.axis-guide[open] .axis-guide-trigger { color: var(--muted); }
+
+.axis-guide-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: max-content;
+  max-width: min(420px, 92vw);
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(60, 50, 30, 0.12);
+  padding: 12px 14px;
+}
+/* Reveal on hover even without a click, while <details>'s native click toggle
+   still works for touch / keyboard. */
+.axis-guide:not([open]) .axis-guide-pop { display: none; }
+.axis-guide:hover .axis-guide-pop { display: flex; }
+.axis-guide-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.axis-guide-tag {
+  flex: none;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.6px;
+  text-transform: uppercase; color: var(--muted);
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+.axis-guide-text {
+  font-size: 12.5px; color: var(--muted); line-height: 1.4;
+}
+.axis-guide-text b { color: var(--ink); font-weight: 600; }
+
+th.col-header {
+  padding: 16px 8px 14px; text-align: center;
+  vertical-align: bottom; border-bottom: 2px solid var(--line-strong); min-width: 128px;
+}
+th.col-header .col-name {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--ink); display: block; margin-bottom: 4px;
+}
+th.col-header .col-desc {
+  font-size: 10px; font-weight: 400; color: var(--muted);
+  letter-spacing: 0.2px; display: block; line-height: 1.35;
+}
+
+th.row-header {
+  padding: 12px 16px 12px 8px; text-align: right; vertical-align: middle;
+  border-right: 2px solid var(--line-strong); width: 110px; min-width: 110px;
+}
+th.row-header .row-name {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--ink); display: block;
+}
+th.row-header .row-desc {
+  font-size: 10px; font-weight: 400; color: var(--muted); display: block; margin-top: 3px;
+}
+
+td {
+  padding: 6px; vertical-align: middle; text-align: center;
+  border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); height: 76px;
+}
+td:last-child { border-right: none; }
+td .cell-content {
+  display: inline-block; padding: 8px 12px; border-radius: var(--radius-sm);
+  font-size: 12px; font-weight: 500; line-height: 1.4; max-width: 150px;
+  color: var(--ink);
+}
+
+/* Human-era palette: used only when data/cells frontmatter supplies
+   human_era + human_era_bucket, so AGI and Fidelity grids remain neutral.
+   Solid, muted tints — span buckets use a blended midpoint hue rather
+   than a gradient so the tiles stay quiet. */
+.era-ancient { --era-bg: #f0e6c8; --era-border: #cdb87e; --era-text: #46391a; --era-chip: #8a7136; }
+.era-medieval { --era-bg: #e0e8c9; --era-border: #a9bc7e; --era-text: #333f20; --era-chip: #68793f; }
+.era-early-modern { --era-bg: #d2e4df; --era-border: #8db4ab; --era-text: #1f3c38; --era-chip: #44766e; }
+.era-industrial { --era-bg: #e3d9ec; --era-border: #ab93c4; --era-text: #35264a; --era-chip: #6f5990; }
+.era-twentieth { --era-bg: #d9def0; --era-border: #95a1d0; --era-text: #252f57; --era-chip: #5260a3; }
+.era-digital { --era-bg: #d3e2f4; --era-border: #8aabd3; --era-text: #1b3450; --era-chip: #41709f; }
+.era-ancient-medieval { --era-bg: #e9e7c8; --era-border: #bcb377; --era-text: #3d391c; --era-chip: #7c7437; }
+.era-ancient-modern { --era-bg: #ecdfca; --era-border: #c4a87c; --era-text: #443420; --era-chip: #8a6c3c; }
+.era-medieval-modern { --era-bg: #e2e3ca; --era-border: #b0b181; --era-text: #393a22; --era-chip: #74763f; }
+.era-early-modern-modern { --era-bg: #d6e1e8; --era-border: #97b2c1; --era-text: #263b46; --era-chip: #527184; }
+.era-industrial-digital { --era-bg: #dcdcef; --era-border: #a0a3d0; --era-text: #2b2d55; --era-chip: #585ea1; }
+
+.human-era-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  max-width: 860px;
+  margin: -8px 0 22px;
+}
+
+.human-era-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border: 1px solid var(--era-border);
+  border-radius: 999px;
+  background: var(--era-bg);
+  color: var(--era-text);
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.human-era-legend-label {
+  font-weight: 600;
+}
+
+td.human-era-tile {
+  background: var(--era-bg);
+}
+
+td.human-era-tile .cell-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  min-height: 60px;
+  box-sizing: border-box;
+  padding: 8px 9px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--era-text);
+  text-align: center;
+  box-shadow: none;
+}
+
+td.human-era-tile .human-era-label {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--era-chip);
+}
+
+td.human-era-tile .human-cell-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+td.clickable { cursor: pointer; }
+td.clickable:hover .cell-content {
+  background: var(--wash);
+  transition: background 0.15s;
+}
+td.clickable.human-era-tile:hover .cell-content {
+  background: transparent;
+}
+td.clickable.human-era-tile:hover {
+  filter: saturate(1.08) brightness(0.985);
+}
+
+tr.methods-row td {
+  border-top: 2px solid var(--line-strong); border-bottom: none;
+  padding: 14px 6px 16px; vertical-align: top; height: auto;
+}
+tr.methods-row th.row-header {
+  vertical-align: top; padding-top: 18px; border-top: 2px solid var(--line-strong);
+}
+tr.methods-row .cell-content {
+  background: none !important; box-shadow: none;
+  padding: 4px 4px; font-size: 10.5px; font-weight: 400;
+  line-height: 1.6; max-width: 150px; text-align: left;
+}
+tr.methods-row .method-tag {
+  display: inline-block; font-size: 10px; font-weight: 400;
+  padding: 2px 7px; border-radius: 4px; margin: 2px 1px;
+  letter-spacing: 0.1px; color: var(--muted);
+}
+tr.methods-row .method-tag.bold { font-size: 10.5px; font-weight: 700; color: var(--ink); }
+tr.methods-row td.clickable { cursor: pointer; }
+tr.methods-row td.clickable:hover .cell-content { background: var(--wash) !important; border-radius: var(--radius-sm); }
+tr:last-child td { border-bottom: none; }
+td .cell-empty { color: #d6d0c5; font-size: 13px; }
+
+/* ── Visions: toggleable overlays on the AGI grid ─────────────────── */
+
+/* Required institution label sits above any vision chips in a cell. */
+td .cell-required-label { display: block; }
+
+/* Grid vision chips: hidden by default; per-vision color (--vision-color)
+   and the reveal rule (html.show-vision-<id> …) are generated per page. */
+.vision-chip {
+  display: none;
+  margin-top: 6px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #fff;
+  background: var(--vision-color, #888);
+}
+
+/* Vision-tagged problem sets (detail + aggregate page) and the aggregate
+   page's per-vision group: hidden until that vision is active. */
+.ps-entry[data-vision],
+.ps-detail-entry[data-vision],
+.ps-vision-group[data-vision] { display: none; }
+
+/* Color accent so a vision problem set reads as belonging to its vision. */
+.ps-detail-entry[data-vision] { border-left: 3px solid var(--vision-color, #888); padding-left: 14px; }
+.ps-entry[data-vision] { border-left: 3px solid var(--vision-color, #888); padding-left: 12px; }
+
+/* The Human tab shares the cell body but is not a vision surface: never
+   reveal vision-tagged problem sets there, even if a vision is toggled on
+   elsewhere (state is shared via localStorage). */
+body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
+
+/* Vision selector dropdown in the page controls. */
+.vision-menu { position: relative; font-family: 'DM Sans', sans-serif; width: max-content; }
+.vision-menu > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 9px 16px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.05);
+  user-select: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+.vision-menu > summary:hover { color: var(--ink); border-color: var(--faint); }
+.vision-menu > summary::-webkit-details-marker { display: none; }
+.vision-menu > summary::after { content: ' \25BE'; color: var(--faint); }
+.vision-menu[open] > summary { color: var(--ink); border-color: var(--ink); }
+.vision-menu-list {
+  position: absolute;
+  z-index: 20;
+  margin-top: 6px;
+  min-width: 220px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 8px;
+  box-shadow: 0 8px 28px rgba(60, 50, 30, 0.12);
+}
+.vision-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: 6px;
+}
+.vision-menu-item:hover { background: var(--wash); }
+
+/* Color dot in selector + toggle bar. */
+.vision-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
+
+/* Vision toggle bar — sits at the top of the Problem Sets section on the
+   detail page, since vision-tagged problem sets are the only content it
+   reveals. */
+.vision-toggle-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0 0 20px;
+  padding: 10px 14px;
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.vision-toggle-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.vision-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* ── "What is this?" project popup ─────────────────────────────────── */
+
+.about-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  padding: 9px 16px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.05);
+  transition: color 0.15s, border-color 0.15s;
+}
+.about-button:hover { color: var(--ink); border-color: var(--faint); }
+
+/* The /theory-of-change/ page: sections + the numbered stage ladder.
+   Section headings match the serif, bordered section titles used on cell
+   detail pages (.detail-body h2). */
+.about-section { margin-bottom: 30px; }
+.about-section h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 23px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 44px;
+  margin-bottom: 14px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
+}
+.about-section:first-of-type h3 { margin-top: 0; }
+.about-section p {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.about-section p strong { color: var(--ink); font-weight: 600; }
+
+.about-stages { list-style: none; margin: 6px 0 0; padding: 0; }
+.about-stage {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  column-gap: 14px;
+  align-items: start;
+}
+.about-stage-num {
+  grid-row: 1;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.about-stage-body { grid-row: 1; padding-top: 1px; }
+.about-stage-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.about-stage-text {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.about-stage-arrow {
+  grid-column: 1;
+  grid-row: 2;
+  text-align: center;
+  color: var(--faint);
+  font-size: 13px;
+  line-height: 1;
+  margin: 4px 0 6px;
+}
+
+/* ── Per-cell "Theory of change" box (AGI detail) ──────────────────────
+   Investor-facing. A standalone collapsed box under the summary box. The
+   diffusion prose + ladder is the body; four 1–5 scores and an optional
+   Example work list follow. */
+
+.cell-theory {
+  margin: 0 0 32px;
+  padding: 16px 24px;
+  background: #f7f4ed;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.cell-theory[open] { padding-bottom: 20px; }
+.cell-theory > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+}
+.cell-theory > summary::-webkit-details-marker { display: none; }
+.cell-impact-summary-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+}
+.cell-theory > summary:hover .cell-impact-summary-label { color: var(--ink); }
+.cell-theory > summary > .collapsible-chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--faint);
+  border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-bottom: 3px;
+}
+.cell-theory[open] > summary > .collapsible-chevron {
+  transform: rotate(45deg);
+}
+
+/* Body: the diffusion prose (the main content), then the score rows. Content
+   runs full-width inside the box — no label gutter. */
+.cell-impact-rows { margin-top: 12px; }
+.cell-impact-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+}
+/* Thin dividers separate the scores and example-work from what's above. The
+   intro and the ladder flow together (no divider between them). */
+.impact-scores,
+.impact-example-work {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eae4d8;
+}
+
+/* The diffusion ladder: a numbered list flowing directly under the intro. */
+.cell-impact-steps {
+  margin-top: 12px;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+}
+.cell-impact-steps li { margin-bottom: 7px; }
+.cell-impact-steps li:last-child { margin-bottom: 0; }
+.cell-impact-steps li::marker { color: var(--faint); font-weight: 600; }
+
+.impact-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Three columns: the score label, the dots+score, then a per-cell sentence
+   explaining the score. The sentence wraps under the dots on narrow screens
+   (see the mobile rule below). */
+.impact-score-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 130px auto 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+.impact-score-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+  cursor: help;
+  padding-top: 1px;
+}
+.impact-score-row:hover .impact-score-label { color: var(--ink); }
+.impact-score-note {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.impact-score-note a { color: var(--accent); }
+
+/* Custom instant-hover popup (replaces native title, which has a ~1s delay).
+   Anchored to the row, shown the moment the row is hovered. */
+.impact-tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  z-index: 40;
+  width: max-content;
+  max-width: 320px;
+  padding: 9px 12px;
+  background: var(--ink);
+  color: #f3efe6;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.1px;
+  text-transform: none;
+  border-radius: 7px;
+  box-shadow: 0 8px 24px rgba(38, 30, 18, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(3px);
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  pointer-events: none;
+}
+/* Little arrow pointing down to the row. */
+.impact-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 22px;
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
+.impact-score-row:hover .impact-tip,
+.impact-score-row:focus-within .impact-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.impact-score-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.impact-score-dots-wrap { display: inline-flex; cursor: help; }
+.impact-score-dots { display: inline-flex; gap: 5px; }
+.impact-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid var(--line-strong);
+  box-sizing: border-box;
+}
+.impact-dot.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.impact-score-num {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  /* Stack: label + dots on row 1, the sentence wraps to a full-width row 2. */
+  .impact-score-row {
+    grid-template-columns: 96px 1fr;
+    gap: 4px 10px;
+  }
+  .impact-score-note { grid-column: 2; }
+}
+
+/* Example work: a compact list of prior/related efforts at the foot of the box.
+   (Top divider comes from the shared .cell-impact-steps/.impact-scores rule.) */
+.impact-example-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.impact-example-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.impact-example-list li { margin-bottom: 4px; }
+.impact-example-list li:last-child { margin-bottom: 0; }
+.impact-example-list li::marker { color: var(--faint); }
+.impact-example-list a { color: var(--accent); }
+
+/* Deployed site: on the detail page, hide the body of cells whose status
+   isn't `body_ok`. The summary box at the top still shows.
+   Override with ?showall. Locally everything is visible. */
+.detail-body-hidden-notice { display: none; }
+.hide-unready .detail-body:not(.status-body-ok) {
+  display: none;
+}
+.hide-unready .detail-body:not(.status-body-ok) + .detail-body-hidden-notice {
+  display: block;
+}
+
+/* Detail page */
+.detail-back {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: color 0.15s;
+}
+.detail-back:hover { color: var(--ink); }
+
+.detail-breadcrumb {
+  font-size: 12.5px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+  margin-bottom: 10px;
+}
+.detail-breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.detail-breadcrumb a:hover { color: var(--ink); }
+
+.detail-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 34px;
+  font-weight: 400;
+  color: var(--ink);
+  max-width: 800px;
+  margin-bottom: 26px;
+  line-height: 1.25;
+}
+
+.human-era-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: -12px 0 26px;
+  padding: 5px 12px;
+  border: 1px solid var(--era-border);
+  border-radius: 999px;
+  background: var(--era-bg);
+  color: var(--era-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.human-era-detail .human-era-label {
+  color: var(--era-text);
+}
+
+.cell-summary {
+  margin: 0 0 32px;
+  padding: 20px 24px 18px;
+  background: #f7f4ed;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.cell-summary-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+
+.cell-summary-row + .cell-summary-row {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eae4d8;
+}
+
+.cell-summary-label {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  padding-top: 2px;
+}
+
+.cell-summary-text {
+  font-size: 15.5px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.cell-summary-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.cell-summary-list li {
+  margin-bottom: 3px;
+}
+.cell-summary-list li::marker { color: var(--faint); }
+
+@media (max-width: 768px) {
+  .cell-summary-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .cell-summary-text { font-size: 14.5px; }
+  .cell-summary-list { font-size: 13.5px; }
+}
+
+.detail-body {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--text);
+}
+
+.detail-body h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 23px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 44px;
+  margin-bottom: 14px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
+}
+
+.detail-body h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 30px;
+  margin-bottom: 9px;
+}
+
+.detail-body p {
+  margin-bottom: 14px;
+}
+
+.detail-body ul, .detail-body ol {
+  margin-bottom: 14px;
+  padding-left: 24px;
+}
+
+.detail-body li {
+  margin-bottom: 5px;
+}
+.detail-body li::marker { color: var(--faint); }
+
+.detail-body strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.detail-body em {
+  font-style: italic;
+}
+
+.detail-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: #b9c8b2;
+  text-underline-offset: 3px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+.detail-body a:hover {
+  color: var(--accent-dark);
+  text-decoration-color: var(--accent-dark);
+}
+
+.detail-body .vivid-case {
+  margin: 26px 0;
+  padding: 18px 22px 19px;
+  background: #f1f4ec;
+  border: 1px solid #d5e0c9;
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1.65;
+  color: #2e3a26;
+}
+
+.detail-body .vivid-case-label {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #5e7a3e;
+  margin-bottom: 7px;
+}
+
+.detail-body .vivid-case p {
+  margin: 0;
+  color: #2e3a26;
+}
+
+.detail-placeholder {
+  font-size: 14px;
+  color: var(--faint);
+  font-style: italic;
+  padding: 28px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  text-align: center;
+  margin-top: 16px;
+}
+
+.detail-placeholder a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+.people-section {
+  margin-top: 32px;
+}
+
+.people-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.person-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  font-size: 13px;
+}
+
+.person-card .person-name {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.person-card .person-role {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.person-card a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.person-card a:hover { text-decoration: underline; }
+
+/* Problem sets page */
+.ps-page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.ps-page-subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.55;
+  font-style: italic;
+}
+
+.ps-group-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 23px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-top: 44px;
+  margin-bottom: 18px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
+}
+
+.ps-entry {
+  margin-bottom: 28px;
+  padding: 22px 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: 0 1px 3px rgba(60, 50, 30, 0.04);
+}
+
+.ps-entry-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.ps-entry-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ps-entry-cell {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 2px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  white-space: nowrap;
+}
+
+.ps-entry-cell a {
+  color: inherit;
+  text-decoration: none;
+}
+.ps-entry-cell a:hover { color: var(--ink); }
+
+.ps-entry-body {
+  font-size: 14.5px;
+  line-height: 1.68;
+  color: var(--text);
+}
+
+.ps-entry-body p { margin-bottom: 11px; }
+.ps-entry-body ul, .ps-entry-body ol { margin-bottom: 11px; padding-left: 20px; }
+.ps-entry-body li { margin-bottom: 4px; }
+.ps-entry-body strong { font-weight: 700; color: var(--ink); }
+
+details.design-choices { margin: 10px 0; }
+details.design-choices > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--ink);
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+}
+details.design-choices > summary::-webkit-details-marker { display: none; }
+details.design-choices > summary > .collapsible-chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--faint);
+  border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-bottom: 3px;
+}
+details.design-choices[open] > summary > .collapsible-chevron {
+  transform: rotate(45deg);
+}
+details.design-choices > ol { margin-top: 8px; }
+
+details.collapsible-section + details.collapsible-section { margin-top: 28px; }
+details.collapsible-section { margin: 0; }
+details.collapsible-section > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+}
+details.collapsible-section > summary::-webkit-details-marker { display: none; }
+details.collapsible-section > summary > .collapsible-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid var(--faint);
+  border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+details.collapsible-section[open] > summary > .collapsible-chevron {
+  transform: rotate(45deg);
+}
+details.collapsible-section > summary > h2 {
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+details.collapsible-section > summary {
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
+}
+details.collapsible-section > .collapsible-body { margin-top: 14px; }
+
+.ps-notes {
+  margin-top: 56px;
+  padding: 22px 26px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line-strong);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: #f7f4ed;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.ps-notes h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.ps-notes li {
+  margin-bottom: 4px;
+}
+
+.ps-entry-number {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--faint);
+  min-width: 28px;
+}
+
+/* Problem set boxes inside a cell's detail page (under ## Problem Sets) */
+.detail-body .ps-detail-entry {
+  margin: 20px 0 24px;
+  padding: 20px 24px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: 0 1px 3px rgba(60, 50, 30, 0.04);
+}
+
+.detail-body .ps-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.detail-body .ps-detail-number {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fdfcfb;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+/* Vision-tagged briefs: the number bubble takes the vision's color, matching
+   the grid chip and the entry's left border. --vision-color is set on the
+   entry by the per-vision CSS generated in build.js. */
+.detail-body .ps-detail-entry[data-vision] .ps-detail-number {
+  background: var(--vision-color, var(--ink));
+}
+
+.detail-body .ps-detail-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.detail-body .ps-detail-body > p:first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .detail-body .ps-detail-entry { padding: 16px 18px 12px; }
+  .detail-body .ps-detail-title { font-size: 15px; }
+  .detail-body .ps-detail-number {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+}
+
+/* AGI readiness indicator — green triangle only when the cell body is OK. */
+td.status-body-ok {
+  position: relative;
+}
+td.status-body-ok::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: solid;
+  border-width: 0 11px 11px 0;
+  border-color: transparent #79a873 transparent transparent;
+}
+
+/* Theory-of-change indicator — blue triangle in the top-left corner when the
+   cell has an investor-facing Theory of change section. */
+td.has-theory {
+  position: relative;
+}
+td.has-theory::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-style: solid;
+  border-width: 11px 11px 0 0;
+  border-color: #5b8bb0 transparent transparent transparent;
+}
+
+/* Detail page two-column layout: body left, methods rail right */
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 56px;
+  align-items: start;
+  margin-top: 8px;
+}
+.detail-layout--no-rail { grid-template-columns: minmax(0, 1fr); }
+/* No methods rail: center the whole article (header + body) as one 720px column. */
+#detail-view:has(.detail-layout--no-rail) .detail-back,
+#detail-view:has(.detail-layout--no-rail) .detail-breadcrumb,
+#detail-view:has(.detail-layout--no-rail) .detail-title,
+#detail-view:has(.detail-layout--no-rail) .detail-layout {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.detail-main { min-width: 0; max-width: 720px; }
+.detail-rail {
+  position: sticky;
+  top: 24px;
+  padding: 22px 24px;
+  background: #f5f1e8;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+}
+.rail-label {
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.rail-body h2, .rail-body h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--ink);
+  margin: 16px 0 6px;
+}
+.rail-body h2:first-child, .rail-body h3:first-child { margin-top: 0; }
+.rail-body p { margin: 0 0 8px; }
+.rail-body ul, .rail-body ol { margin: 0 0 8px; padding-left: 18px; }
+.rail-body li { margin-bottom: 5px; }
+.rail-body li::marker { color: var(--faint); }
+.rail-body a { color: var(--accent); text-decoration: underline; text-decoration-color: #b9c8b2; text-underline-offset: 2px; }
+.rail-body a:hover { color: var(--accent-dark); text-decoration-color: var(--accent-dark); }
+
+.detail-footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--faint);
+}
+.detail-footer a { color: var(--muted); }
+
+.rail-footer {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #e3dccd;
+  font-size: 12px;
+  color: var(--faint);
+}
+.rail-footer a { color: var(--muted); }
+
+/* ── Mobile breakpoints ─────────────────────────────────────────── */
+
+/* Sticky row headers for horizontal scroll */
+th.row-header {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--card);
+}
+tr.methods-row th.row-header {
+  background: var(--card);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 18px 12px 24px;
+  }
+
+  .controls {
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 24px;
+  }
+
+  .tab-bar {
+    flex-wrap: nowrap;
+    justify-content: stretch;
+  }
+
+  .tab-link {
+    flex: 1;
+    font-size: 12px;
+    padding: 8px 12px;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .tab-full { display: none; }
+  .tab-short { display: inline; }
+
+  .nav-link {
+    font-size: 12px;
+    padding: 8px 12px;
+    text-align: center;
+  }
+
+  .vision-menu { width: auto; }
+  .vision-menu > summary { display: block; text-align: center; }
+
+  .pane-title {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  .pane-subtitle {
+    font-size: 12px;
+    margin-bottom: 16px;
+    max-width: 100%;
+  }
+
+  .table-wrapper { padding: 4px 0 10px; border-radius: 12px; }
+  table { min-width: 600px; }
+  th.col-header { min-width: 80px; padding: 10px 4px 10px; }
+  th.col-header .col-name { font-size: 9px; letter-spacing: 0.8px; }
+  th.col-header .col-desc { font-size: 8px; }
+
+  .axis-label-col,
+  th.row-header {
+    width: 40px !important;
+    min-width: 40px !important;
+    padding: 4px 6px 4px 2px;
+  }
+  /* Corner axis labels don't fit the 40px origin cell on mobile; tapping the
+     "How to read this" trigger above the table reveals the same information. */
+  .corner-cell.axis-label-col { padding: 4px 2px; }
+  .axis-corner-y, .axis-corner-x { display: none; }
+  .axis-guide { margin: -8px 0 14px; }
+  .axis-guide-pop { max-width: 92vw; padding: 10px 12px; }
+  .axis-guide-tag { font-size: 8px; padding: 1px 5px; }
+  .axis-guide-text { font-size: 11px; }
+  th.row-header .row-name {
+    font-size: 7.5px;
+    letter-spacing: 0.3px;
+  }
+  th.row-header .row-desc {
+    display: none;
+  }
+
+  td { height: 52px; padding: 3px; }
+  td .cell-content {
+    font-size: 9.5px;
+    padding: 3px 4px;
+    max-width: 95px;
+    line-height: 1.3;
+  }
+  .human-era-legend {
+    gap: 4px;
+    margin: -2px 0 14px;
+  }
+  .human-era-legend-item {
+    padding: 3px 8px;
+    font-size: 8.5px;
+  }
+  td.human-era-tile .cell-content {
+    gap: 2px;
+    min-height: 44px;
+    padding: 3px;
+  }
+  td.human-era-tile .human-era-label {
+    font-size: 6.5px;
+  }
+  td.human-era-tile .human-cell-label {
+    font-size: 8.5px;
+    line-height: 1.15;
+  }
+
+  tr.methods-row .cell-content {
+    max-width: 95px;
+    font-size: 8.5px;
+  }
+  tr.methods-row .method-tag {
+    font-size: 8.5px;
+    padding: 1px 3px;
+  }
+
+  td.status-body-ok::after { border-width: 0 7px 7px 0; }
+  td.has-theory::before { border-width: 7px 7px 0 0; }
+
+  /* Detail page mobile */
+  .detail-back { margin-bottom: 20px; }
+  .detail-title { font-size: 25px; }
+  .detail-body { font-size: 15px; }
+  .detail-body h2 { font-size: 19px; margin-top: 36px; }
+  .cell-summary { padding: 16px 18px 14px; }
+
+  /* Stack rail below body on mobile */
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .detail-rail {
+    position: static;
+    padding: 18px 20px;
+  }
+
+  /* Problem sets mobile */
+  .ps-page-title { font-size: 26px; }
+  .ps-entry { padding: 16px 18px; }
+  .ps-entry-header { flex-wrap: wrap; gap: 6px; }
+  .ps-entry-title { font-size: 14.5px; }
+
+  /* Curriculum is a reading page, so it needs more horizontal breathing
+     room than the grid — body padding stays slim so the wide table fits. */
+  #curriculum-view { padding: 0 8px; }
+}
+
+/* ── Curriculum page ──────────────────────────────────────────────── */
+
+.curr-layout {
+  display: block;
+  width: 100%;
+  max-width: 740px;
+}
+
+/* Theory-of-change page: same shell as the curriculum, but no sidebar/TOC,
+   so it stays a single centered column at every width. */
+.curr-layout.toc-page { max-width: 720px; }
+@media (min-width: 960px) {
+  .curr-layout.toc-page {
+    display: block;
+    max-width: 720px;
+  }
+}
+
+.curr-main {
+  min-width: 0;
+}
+
+.curr-sidebar { display: none; }
+
+@media (min-width: 960px) {
+  .curr-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 740px);
+    gap: 56px;
+    max-width: 1060px;
+    align-items: start;
+  }
+  .curr-sidebar {
+    display: block;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    padding-right: 8px;
+    font-size: 13px;
+  }
+  .curr-sidebar-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .curr-sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-left: 1px solid var(--line);
+  }
+  .curr-sidebar-list li { margin: 0; }
+  .curr-sidebar-link {
+    display: flex;
+    align-items: baseline;
+    padding: 6px 12px;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    color: var(--muted);
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .curr-sidebar-link:hover {
+    color: var(--ink);
+    background: var(--wash);
+  }
+  .curr-sidebar-link.is-active {
+    color: var(--ink);
+    border-left-color: var(--ink);
+    font-weight: 500;
+  }
+  /* Top chip TOC redundant on desktop */
+  .curr-layout .curr-toc { display: none; }
+}
+
+details.curr-field { margin: 0 0 56px 0; }
+details.curr-field:first-of-type { margin-top: 40px; }
+details.curr-field:last-child { margin-bottom: 0; }
+details.curr-field > summary.curr-field-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+details.curr-field > summary.curr-field-summary::-webkit-details-marker { display: none; }
+details.curr-field > summary.curr-field-summary > .curr-field-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid var(--faint);
+  border-bottom: 1.5px solid var(--faint);
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+details.curr-field[open] > summary.curr-field-summary > .curr-field-chevron {
+  transform: rotate(45deg);
+}
+details.curr-field > summary.curr-field-summary > h2.curr-field-name {
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+}
+details.curr-field > .curr-field-body { margin-top: 24px; }
+
+.curr-page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 44px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 36px;
+}
+
+.curr-page-subtitle {
+  font-size: 17px;
+  color: var(--muted);
+  margin-bottom: 40px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.curr-main > p {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+.curr-main > p strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.curr-main > hr {
+  border: none;
+  height: auto;
+  width: 100%;
+  text-align: center;
+  margin: 52px 0;
+  color: var(--faint);
+}
+.curr-main > hr::before {
+  content: '＊ ＊ ＊';
+  letter-spacing: 0.5em;
+  font-size: 14px;
+}
+
+.curr-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 40px 0 56px 0;
+}
+
+.curr-toc-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  padding: 6px 14px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.curr-toc-link:hover {
+  color: var(--ink);
+  border-color: var(--faint);
+  background: var(--wash);
+}
+
+.curr-field-body > hr { display: none; }
+
+/* ── Entry-axis "Start from a problem" picker ─────────────────────── */
+/* Selection chip: shows the active problem/institution, top-right, with ×. */
+.curr-selection-chip {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(360px, 70vw);
+  padding: 7px 8px 7px 14px;
+  background: var(--card);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+}
+.curr-selection-chip[hidden] { display: none; }
+.curr-selection-chip-kind {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  flex-shrink: 0;
+}
+.curr-selection-chip-label {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.curr-selection-chip-x {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+  background: var(--wash);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.curr-selection-chip-x:hover { color: var(--ink); background: var(--line); }
+
+/* Two foldable entry-axis pickers, stacked under the intro. */
+.curr-pickers {
+  margin: 8px 0 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+details.curr-picker {
+  padding: 0;
+  background: var(--wash);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius, 10px);
+  overflow: hidden;
+}
+
+/* "Change selection" line: hidden by default, shown when a selection has
+   collapsed the pickers. */
+.curr-picker-change {
+  display: none;
+  align-self: flex-start;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  padding: 4px 0;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.curr-picker-change:hover { color: var(--ink); }
+
+/* Collapsed state: hide the picker boxes + the reset button, reveal the
+   faint "Change selection" affordance. The top-right chip is the live
+   control while collapsed. */
+.curr-pickers.is-collapsed details.curr-picker { display: none; }
+.curr-pickers.is-collapsed .curr-picker-reset { display: none; }
+.curr-pickers.is-collapsed .curr-picker-change { display: inline-block; }
+
+.curr-picker-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  user-select: none;
+  outline: none;
+  padding: 16px 20px;
+}
+.curr-picker-summary::-webkit-details-marker { display: none; }
+.curr-picker-summary:hover .curr-picker-title { color: var(--ink); }
+.curr-picker-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1.5px solid var(--faint);
+  border-bottom: 1.5px solid var(--faint);
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-top: -3px;
+}
+details.curr-picker[open] .curr-picker-chevron { transform: rotate(225deg); margin-top: 3px; }
+details.curr-picker[open] .curr-picker-grid { padding: 0 20px 20px 20px; }
+
+.curr-picker-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.curr-picker-reset {
+  align-self: flex-end;
+  order: -1;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 5px 13px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.curr-picker-reset:hover { color: var(--ink); border-color: var(--faint); }
+.curr-picker-reset[hidden] { display: none; }
+
+.curr-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.curr-picker-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm, 8px);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.curr-picker-tile:hover {
+  border-color: var(--accent);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+.curr-picker-tile.is-active {
+  border-color: var(--accent);
+  background: #eef2ec;
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.curr-picker-tile-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.curr-picker-tile-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Per-field "What you'll gain" block injected at the top of each relevant
+   field when a problem/institution is selected. */
+.curr-gain {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 22px 0;
+  padding: 14px 18px;
+  background: #eef2ec;
+  border: 1px solid #c5d4c0;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm, 8px);
+}
+.curr-gain-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.curr-gain-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* "Other fields" divider + dimmed collapsed fields below it. */
+.curr-other-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 8px 0 24px 0;
+}
+.curr-other-divider::before,
+.curr-other-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-strong);
+}
+.curr-other-divider span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+details.curr-field.is-dimmed { opacity: 0.62; margin-bottom: 20px; }
+details.curr-field.is-dimmed:hover { opacity: 1; }
+details.curr-field.is-relevant { scroll-margin-top: 80px; }
+
+/* Dynamic rank number on each field heading. */
+.curr-field-num {
+  display: inline-block;
+  min-width: 1.1em;
+  margin-right: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.62em;
+  font-weight: 700;
+  color: var(--faint);
+  vertical-align: middle;
+}
+details.curr-field.is-relevant .curr-field-num { color: var(--accent-dark); }
+details.curr-field.is-dimmed .curr-field-num:empty { display: none; }
+
+/* Institution-picker tiles have no description; keep them compact. */
+.curr-picker-tile-inst { flex-direction: row; align-items: center; min-height: 52px; }
+
+/* Sidebar number badge + dimmed (re-ranked "other") items. */
+.curr-sidebar-num {
+  display: inline-block;
+  min-width: 1.4em;
+  margin-right: 8px;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--faint);
+}
+.curr-sidebar-link.is-active .curr-sidebar-num { color: var(--ink); }
+.curr-sidebar-list li.is-dimmed .curr-sidebar-link { opacity: 0.55; }
+.curr-sidebar-list li.is-dimmed .curr-sidebar-num { color: var(--line-strong); }
+
+@media (min-width: 720px) {
+  .curr-key-concepts {
+    column-count: 2;
+    column-gap: 32px;
+  }
+  .curr-key-concepts li {
+    break-inside: avoid;
+  }
+}
+
+.curr-main > h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+  margin: 8px 0 14px 0;
+}
+
+.curr-field h3,
+.curr-main > h3 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 32px;
+  margin-bottom: 14px;
+}
+
+.curr-field ul,
+.curr-main > ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.curr-field ul li,
+.curr-main > ul li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  padding: 6px 0 6px 18px;
+  position: relative;
+}
+
+.curr-field ul li::before,
+.curr-main > ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.curr-field ul li a,
+.curr-main > ul li a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid #c5d4c0;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.curr-field ul li a:hover,
+.curr-main > ul li a:hover {
+  color: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+.curr-field ul li em,
+.curr-main > ul li em { font-style: italic; }
+
+.curr-field p {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--text);
+  margin: 0 0 18px 0;
+}
+
+@media (max-width: 600px) {
+  .curr-page-title { font-size: 32px; }
+  .curr-page-subtitle { font-size: 16px; margin-bottom: 28px; }
+  .curr-toc { gap: 6px; margin: 28px 0 40px 0; }
+  .curr-toc-link { font-size: 13px; padding: 5px 10px; }
+  details.curr-field { margin-bottom: 40px; }
+  details.curr-field > summary.curr-field-summary > h2.curr-field-name { font-size: 24px; }
+}
+
+/* Site footer */
+.site-footer {
+  margin-top: 56px;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--faint);
+}
+
+.site-footer a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+/* ── Print / PDF export ───────────────────────────────────────────── */
+
+@media print {
+  /* Default page: portrait letter — used for detail pages and problem-sets. */
+  @page {
+    size: letter portrait;
+    margin: 0.55in;
+  }
+
+  /* Wide landscape page — used for the grid via `page: wide`. */
+  @page wide {
+    size: 1280px 920px;
+    margin: 24px;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    padding: 0;
+    display: block;
+    background: #fff;
+  }
+
+  .controls,
+  .site-footer,
+  .detail-back,
+  .detail-footer,
+  .rail-footer {
+    display: none !important;
+  }
+
+  /* Editorial markers never print, even on localhost where they're visible on screen. */
+  .editorial,
+  .cell-summary-note,
+  .cell-summary-notes-row {
+    display: none !important;
+  }
+
+  /* ── Grid print (grid pages when not viewing detail) ─────────────── */
+
+  body:has(#grid-view):not(.viewing-detail) {
+    page: wide;
+  }
+
+  body:not(.viewing-detail) #detail-view {
+    display: none !important;
+  }
+
+  body:not(.viewing-detail) #grid-view {
+    display: block;
+    width: 100%;
+  }
+
+  body:not(.viewing-detail) .table-wrapper {
+    overflow: visible !important;
+    position: static;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    background: transparent;
+  }
+
+  body:not(.viewing-detail) table {
+    min-width: 0;
+    margin: 0 auto;
+    page-break-inside: avoid;
+  }
+
+  body:not(.viewing-detail) th.row-header,
+  body:not(.viewing-detail) tr.methods-row th.row-header {
+    position: static !important;
+    background: transparent !important;
+  }
+
+  body:not(.viewing-detail) .pane-title { margin-top: 0; }
+
+  /* ── Detail print ────────────────────────────────────────────────── */
+
+  body.viewing-detail #grid-view {
+    display: none !important;
+  }
+
+  body.viewing-detail #detail-view {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.viewing-detail .detail-breadcrumb {
+    font-size: 9pt;
+    margin-bottom: 4px;
+  }
+
+  body.viewing-detail .detail-title {
+    font-size: 22pt;
+    margin-bottom: 14px;
+    line-height: 1.2;
+    page-break-after: avoid;
+  }
+
+  body.viewing-detail .detail-body {
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  body.viewing-detail .detail-body h2 {
+    font-size: 15pt;
+    margin-top: 18pt;
+    page-break-after: avoid;
+  }
+
+  body.viewing-detail .detail-body h3 {
+    font-size: 12pt;
+    page-break-after: avoid;
+  }
+
+  /* Stack body + rail vertically for portrait print. */
+  body.viewing-detail .detail-layout {
+    display: block !important;
+  }
+
+  body.viewing-detail .detail-main { width: 100%; max-width: 100%; }
+
+  body.viewing-detail .detail-rail {
+    position: static !important;
+    margin-top: 24px;
+    page-break-inside: avoid;
+    background: #f5f1e8 !important;
+  }
+
+  /* Keep callouts and problem-set boxes intact across pages where possible. */
+  body.viewing-detail .cell-summary,
+  body.viewing-detail .detail-body .vivid-case,
+  body.viewing-detail .detail-body .ps-detail-entry {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  body.viewing-detail .cell-summary { background: #f7f4ed !important; }
+  body.viewing-detail .detail-body .vivid-case { background: #f1f4ec !important; }
+  body.viewing-detail .detail-body .ps-detail-entry { background: #fff !important; box-shadow: none; }
+  body.viewing-detail .detail-body .ps-detail-number {
+    background: #26231e !important;
+    color: #fdfcfb !important;
+  }
+
+  /* ── Problem-sets aggregate page ─────────────────────────────────── */
+
+  .ps-entry {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    background: #fff !important;
+    box-shadow: none;
+  }
+  .ps-group-title { page-break-after: avoid; }
+  .ps-notes { background: #f7f4ed !important; }
+}

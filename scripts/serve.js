@@ -5,7 +5,7 @@
 //
 // Then open http://127.0.0.1:5173/
 //
-// Watches data/, app.js, style.css, build.js; reruns build.js on change and
+// Watches data/, app.js, style.css, build.cjs; reruns build.cjs on change and
 // pushes a reload event over SSE so every open tab refreshes itself. HTML
 // responses are intercepted to inject the SSE listener.
 //
@@ -31,7 +31,7 @@ function broadcastReload() {
   }
 }
 
-// ── Build runner (re-spawns build.js as a child) ─────────────────────
+// ── Build runner (re-spawns build.cjs as a child) ─────────────────────
 
 let buildInFlight = false;
 let buildPending = false;
@@ -51,7 +51,7 @@ function runBuild() {
   buildInFlight = true;
   buildPending = false;
   const t = Date.now();
-  const proc = Bun.spawnSync(['bun', 'build.js'], {
+  const proc = Bun.spawnSync(['bun', 'build.cjs'], {
     cwd: REPO_ROOT, stdout: 'pipe', stderr: 'pipe'
   });
   buildInFlight = false;
@@ -69,7 +69,7 @@ runBuild();
 
 // ── Watchers ─────────────────────────────────────────────────────────
 
-const WATCH_TARGETS = ['data', 'app.js', 'style.css', 'build.js'];
+const WATCH_TARGETS = ['data', 'app.js', 'style.css', 'build.cjs'];
 for (const rel of WATCH_TARGETS) {
   const p = join(REPO_ROOT, rel);
   if (!existsSync(p)) continue;
@@ -78,7 +78,7 @@ for (const rel of WATCH_TARGETS) {
     watch(p, opts, (_event, filename) => {
       if (filename && filename.startsWith('.')) return;
       // Inside data/, only .md edits should trigger a rebuild — otherwise
-      // build.js writing data/manifest.json kicks off an infinite loop.
+      // build.cjs writing data/manifest.json kicks off an infinite loop.
       if (rel === 'data' && filename && !filename.endsWith('.md')) return;
       scheduleBuild();
     });
@@ -143,4 +143,4 @@ const server = Bun.serve({
 });
 
 console.log(`Dev server on http://127.0.0.1:${server.port}/`);
-console.log('Watching data/, app.js, style.css, build.js — rebuilds + reloads on change.');
+console.log('Watching data/, app.js, style.css, build.cjs — rebuilds + reloads on change.');

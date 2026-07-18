@@ -1,0 +1,17 @@
+/*
+ * Migration overrides layered on top of the legacy stylesheet.
+ * Rules here bridge the React Router markup to the ported CSS. As pages are
+ * converted to Tailwind, corresponding rules here (and in legacy.css) shrink.
+ */
+
+/* Grid cells are now real <Link> anchors. display:contents makes the anchor
+ * generate no box, so the legacy `td.clickable > .cell-content` layout/hover
+ * rules apply unchanged while the cell still emits a crawlable href. */
+.cell-link {
+  display: contents;
+  color: inherit;
+  text-decoration: none;
+}
+.cell-link .cell-content {
+  color: var(--ink);
+}

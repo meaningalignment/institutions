@@ -9,11 +9,7 @@
     "build": "react-router build",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "kanban": "bun scripts/kanban.js",
-    "legacy:build": "bun build.cjs",
-    "legacy:serve": "bun scripts/serve.js",
-    "legacy:dev": "bun scripts/dev.js",
-    "pdf": "bun build.cjs && bun scripts/pdf.cjs"
+    "kanban": "bun scripts/kanban.js"
   },
   "keywords": [],
   "author": "",

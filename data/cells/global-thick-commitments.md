@@ -1,7 +1,4 @@
 ---
-human_label: "Religious orders & global faith traditions"
-human_era: "Ancient-medieval"
-human_era_bucket: ancient-medieval
 hide_agi: true
 status: not_started
 owner: none

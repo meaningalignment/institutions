@@ -1,7 +1,4 @@
 ---
-human_label: "Diplomatic protocols & soft-law norms"
-human_era: "17th-20th c."
-human_era_bucket: early-modern-modern
 status: expert_selected
 owner: oliver
 starred: true

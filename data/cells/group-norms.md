@@ -1,7 +1,4 @@
 ---
-human_label: "Team culture & unwritten rules"
-human_era: "Ancient / customary"
-human_era_bucket: ancient
 hide_agi: true
 status: not_started
 owner: none

@@ -1,7 +1,4 @@
 ---
-human_label: "Vows & covenants"
-human_era: "Ancient / customary"
-human_era_bucket: ancient
 status: body_draft
 owner: oliver
 visions:

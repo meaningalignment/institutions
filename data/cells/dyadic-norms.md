@@ -1,7 +1,4 @@
 ---
-human_label: "Social conventions"
-human_era: "Ancient / customary"
-human_era_bucket: ancient
 status: body_ok
 owner: joe
 starred: true

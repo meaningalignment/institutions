@@ -1,0 +1,423 @@
+{
+  "timeline": [
+    {
+      "id": "ancient",
+      "date": "c. 500 BCE",
+      "label": "Ancient civic order",
+      "description": "Custom, city law, courts, assemblies, contracts, and religious commitments"
+    },
+    {
+      "id": "medieval",
+      "date": "c. 1200",
+      "label": "Medieval corporate order",
+      "description": "Guilds, universities, canon law, merchant networks, and layered authority"
+    },
+    {
+      "id": "early-modern",
+      "date": "c. 1650",
+      "label": "Early modern state system",
+      "description": "Territorial states, public finance, diplomacy, charters, and scientific societies"
+    },
+    {
+      "id": "pre-constitutional",
+      "date": "c. 1775",
+      "label": "Before representative democracy",
+      "description": "The institutional landscape immediately before constitutional representative democracy"
+    },
+    {
+      "id": "constitutional",
+      "date": "c. 1850",
+      "label": "Constitutional democracies",
+      "description": "Written constitutions, representative government, civil rights claims, and independent courts"
+    },
+    {
+      "id": "industrial",
+      "date": "c. 1900",
+      "label": "Industrial mass society",
+      "description": "Mass parties, professional bureaucracies, labor institutions, insurance, and technical standards"
+    },
+    {
+      "id": "postwar",
+      "date": "c. 1975",
+      "label": "Postwar order",
+      "description": "Global institutions, social safety nets, civil and human rights, and modern regulation"
+    },
+    {
+      "id": "internet",
+      "date": "c. 2000",
+      "label": "Internet age",
+      "description": "Network protocols, online platforms, digital markets, and global knowledge networks"
+    },
+    {
+      "id": "present",
+      "date": "Present",
+      "label": "21st-century platforms",
+      "description": "Platform governance, climate coordination, digital rights, and AI oversight"
+    }
+  ],
+  "methodNote": "Dates mark when a recognizable institutional form entered this map, not a claim that it had a single inventor or appeared everywhere at once.",
+  "cells": {
+    "dyadic-protocols": {
+      "title": "Protocols between parties",
+      "institutions": [
+        { "id": "oaths-seals", "name": "Oaths, seals & witnessed agreements", "since": "c. 3000 BCE", "era": "ancient" },
+        { "id": "notarial-deeds", "name": "Notarial deeds & merchant forms", "since": "c. 1200", "era": "medieval" },
+        { "id": "digital-signatures", "name": "Digital signatures & shared data formats", "since": "1977–1990s", "era": "internet" }
+      ]
+    },
+    "dyadic-preferences": {
+      "title": "Negotiation between parties",
+      "institutions": [
+        { "id": "bargaining", "name": "Bargaining & market haggling", "since": "Ancient", "era": "ancient" },
+        { "id": "brokerage", "name": "Merchant brokers & negotiated mandates", "since": "c. 1200", "era": "medieval" },
+        { "id": "online-auctions", "name": "Online auctions & matching platforms", "since": "1995", "era": "internet" }
+      ]
+    },
+    "dyadic-rights": {
+      "title": "Rights and adjudication between parties",
+      "institutions": [
+        { "id": "mediation", "name": "Mediation & third-party arbitration", "since": "c. 1800 BCE", "era": "ancient" },
+        { "id": "merchant-courts", "name": "Merchant courts", "since": "11th–13th c.", "era": "medieval" },
+        { "id": "small-claims", "name": "Small-claims courts & consumer redress", "since": "19th–20th c.", "era": "industrial" },
+        { "id": "online-disputes", "name": "Online dispute resolution", "since": "1999", "era": "internet" }
+      ]
+    },
+    "dyadic-incentives": {
+      "title": "Incentives between parties",
+      "institutions": [
+        { "id": "written-contracts", "name": "Written contracts & deposits", "since": "c. 2000 BCE", "era": "ancient" },
+        { "id": "bills-escrow", "name": "Bills of exchange & escrow", "since": "12th–13th c.", "era": "medieval" },
+        { "id": "insurance", "name": "Commercial insurance contracts", "since": "1601", "era": "early-modern" },
+        { "id": "platform-escrow", "name": "Platform escrow & reputation-backed exchange", "since": "1990s", "era": "internet" },
+        { "id": "smart-contracts", "name": "Smart contracts", "since": "2015", "era": "present" }
+      ]
+    },
+    "dyadic-expertise": {
+      "title": "Expertise between people",
+      "institutions": [
+        { "id": "apprenticeship", "name": "Apprenticeship & mentorship", "since": "Ancient", "era": "ancient" },
+        { "id": "guild-mastery", "name": "Guild mastery & journeyman progression", "since": "12th c.", "era": "medieval" },
+        { "id": "professional-certification", "name": "Professional certification", "since": "19th c.", "era": "industrial" },
+        { "id": "remote-mentoring", "name": "Remote mentoring & expert marketplaces", "since": "1990s", "era": "internet" }
+      ]
+    },
+    "dyadic-norms": {
+      "title": "Interpersonal norms",
+      "institutions": [
+        { "id": "reciprocity", "name": "Reciprocity, hospitality & face-saving", "since": "Ancient", "era": "ancient" },
+        { "id": "merchant-honor", "name": "Merchant honor & fair-dealing customs", "since": "Medieval", "era": "medieval" },
+        { "id": "netiquette", "name": "Netiquette", "since": "1980s–1990s", "era": "internet" },
+        { "id": "platform-conduct", "name": "Platform conduct norms", "since": "2010s", "era": "present" }
+      ]
+    },
+    "dyadic-thick-commitments": {
+      "title": "Commitments between people",
+      "institutions": [
+        { "id": "vows-covenants", "name": "Vows, kinship compacts & covenants", "since": "Ancient", "era": "ancient" },
+        { "id": "marriage-sacraments", "name": "Marriage sacraments & sworn fealty", "since": "Medieval", "era": "medieval" },
+        { "id": "civil-marriage", "name": "Civil marriage & secular partnership law", "since": "1790s–19th c.", "era": "constitutional" }
+      ]
+    },
+
+    "group-protocols": {
+      "title": "Group protocols and workflows",
+      "institutions": [
+        { "id": "council-procedure", "name": "Council procedure & military drill", "since": "Ancient", "era": "ancient" },
+        { "id": "guild-rules", "name": "Guild rules & chapter procedure", "since": "12th c.", "era": "medieval" },
+        { "id": "parliamentary-procedure", "name": "Codified parliamentary procedure", "since": "1876", "era": "industrial" },
+        { "id": "project-management", "name": "Project management & quality systems", "since": "1950s", "era": "postwar" },
+        { "id": "agile", "name": "Agile & distributed workflows", "since": "2001", "era": "present" }
+      ]
+    },
+    "group-preferences": {
+      "title": "Group preference aggregation",
+      "institutions": [
+        { "id": "council-votes", "name": "Council votes & consensus assemblies", "since": "Ancient", "era": "ancient" },
+        { "id": "chapter-ballots", "name": "Chapter and guild ballots", "since": "Medieval", "era": "medieval" },
+        { "id": "committee-voting", "name": "Committee voting under formal rules", "since": "18th–19th c.", "era": "constitutional" },
+        { "id": "prediction-markets", "name": "Prediction markets", "since": "1988", "era": "internet" }
+      ]
+    },
+    "group-rights": {
+      "title": "Rights inside groups",
+      "institutions": [
+        { "id": "guild-bylaws", "name": "Guild bylaws & member hearings", "since": "12th c.", "era": "medieval" },
+        { "id": "corporate-charters", "name": "Corporate and association charters", "since": "16th–17th c.", "era": "early-modern" },
+        { "id": "labor-grievances", "name": "Labor grievance procedures", "since": "late 19th c.", "era": "industrial" },
+        { "id": "workplace-rights", "name": "Workplace anti-discrimination processes", "since": "1960s–1970s", "era": "postwar" },
+        { "id": "moderation-appeals", "name": "Platform moderation appeals", "since": "2010s", "era": "present" }
+      ]
+    },
+    "group-incentives": {
+      "title": "Group incentive systems",
+      "institutions": [
+        { "id": "bounties-shares", "name": "Bounties & shared spoils", "since": "Ancient", "era": "ancient" },
+        { "id": "mutual-aid", "name": "Guild mutual-aid funds", "since": "Medieval", "era": "medieval" },
+        { "id": "profit-sharing", "name": "Profit-sharing & cooperative dividends", "since": "19th c.", "era": "industrial" },
+        { "id": "bug-bounties", "name": "Bug bounties & open-source reputation", "since": "1990s", "era": "internet" },
+        { "id": "value-based", "name": "Value-based care & outcome contracts", "since": "2010s", "era": "present" }
+      ]
+    },
+    "group-expertise": {
+      "title": "Group expertise and review",
+      "institutions": [
+        { "id": "elder-councils", "name": "Elder and craft councils", "since": "Ancient", "era": "ancient" },
+        { "id": "guild-juries", "name": "Guild juries & master review", "since": "Medieval", "era": "medieval" },
+        { "id": "peer-review", "name": "Scholarly peer review", "since": "1665", "era": "pre-constitutional" },
+        { "id": "quality-circles", "name": "Quality circles", "since": "1950s", "era": "postwar" },
+        { "id": "code-review", "name": "Open-source code review", "since": "1990s", "era": "internet" }
+      ]
+    },
+    "group-norms": {
+      "title": "Group norms and culture",
+      "institutions": [
+        { "id": "honor-custom", "name": "Honor codes & team custom", "since": "Ancient", "era": "ancient" },
+        { "id": "guild-custom", "name": "Guild and chapter customs", "since": "Medieval", "era": "medieval" },
+        { "id": "shopfloor-norms", "name": "Shop-floor and professional norms", "since": "19th c.", "era": "industrial" },
+        { "id": "organizational-culture", "name": "Organizational culture practice", "since": "1950s–1980s", "era": "postwar" },
+        { "id": "contributor-norms", "name": "Open-source contributor norms", "since": "1990s", "era": "internet" }
+      ]
+    },
+    "group-thick-commitments": {
+      "title": "Shared commitments inside groups",
+      "institutions": [
+        { "id": "religious-rules", "name": "Religious rules & sworn brotherhoods", "since": "Ancient–medieval", "era": "ancient" },
+        { "id": "fraternal-charters", "name": "Fraternal and mutual-society charters", "since": "17th–18th c.", "era": "pre-constitutional" },
+        { "id": "intentional-communities", "name": "Intentional-community covenants", "since": "19th c.", "era": "industrial" },
+        { "id": "mission-statements", "name": "Organizational mission statements", "since": "mid-20th c.", "era": "postwar" },
+        { "id": "open-source-manifestos", "name": "Open-source manifestos", "since": "1980s–1990s", "era": "internet" }
+      ]
+    },
+
+    "community-protocols": {
+      "title": "Community standards and protocols",
+      "institutions": [
+        { "id": "city-standards", "name": "City weights, measures & market rules", "since": "Ancient", "era": "ancient" },
+        { "id": "guild-standards", "name": "Guild product standards", "since": "12th c.", "era": "medieval" },
+        { "id": "industrial-standards", "name": "Engineering standards bodies", "since": "1898", "era": "industrial" },
+        { "id": "ieee", "name": "IEEE technical standards", "since": "1963", "era": "postwar" },
+        { "id": "w3c", "name": "W3C web standards", "since": "1994", "era": "internet" }
+      ]
+    },
+    "community-preferences": {
+      "title": "Community preference aggregation",
+      "institutions": [
+        { "id": "town-assemblies", "name": "Town assemblies & civic councils", "since": "Ancient", "era": "ancient" },
+        { "id": "urban-communes", "name": "Urban communes & town councils", "since": "11th–13th c.", "era": "medieval" },
+        { "id": "municipal-elections", "name": "Elected municipal councils", "since": "19th c.", "era": "constitutional" },
+        { "id": "participatory-budgeting", "name": "Participatory budgeting", "since": "1989", "era": "internet" },
+        { "id": "civic-tech", "name": "Civic-tech participation platforms", "since": "2010s", "era": "present" }
+      ]
+    },
+    "community-rights": {
+      "title": "Community rights and adjudication",
+      "institutions": [
+        { "id": "city-courts", "name": "City courts & municipal codes", "since": "Ancient", "era": "ancient" },
+        { "id": "borough-charters", "name": "Borough charters", "since": "11th–13th c.", "era": "medieval" },
+        { "id": "local-government-law", "name": "Elected local government law", "since": "19th c.", "era": "constitutional" },
+        { "id": "public-health-zoning", "name": "Public-health and zoning law", "since": "late 19th c.", "era": "industrial" },
+        { "id": "fair-housing", "name": "Fair-housing enforcement", "since": "1968", "era": "postwar" }
+      ]
+    },
+    "community-incentives": {
+      "title": "Community incentives and commons",
+      "institutions": [
+        { "id": "commons-rules", "name": "Commons rules & seasonal quotas", "since": "Ancient", "era": "ancient" },
+        { "id": "market-dues", "name": "Market dues, tolls & guild access", "since": "Medieval", "era": "medieval" },
+        { "id": "utility-franchises", "name": "Municipal utility franchises", "since": "19th c.", "era": "industrial" },
+        { "id": "commons-licensing", "name": "Creative Commons and open-data licensing", "since": "2001", "era": "present" },
+        { "id": "congestion-pricing", "name": "Congestion and access pricing", "since": "2000s", "era": "present" }
+      ]
+    },
+    "community-expertise": {
+      "title": "Community expertise institutions",
+      "institutions": [
+        { "id": "universities", "name": "Universities", "since": "1088–13th c.", "era": "medieval" },
+        { "id": "scientific-academies", "name": "Scientific academies", "since": "1660", "era": "pre-constitutional" },
+        { "id": "professional-licensing", "name": "Professional licensing boards", "since": "19th c.", "era": "industrial" },
+        { "id": "research-hospitals", "name": "Research universities & teaching hospitals", "since": "mid-20th c.", "era": "postwar" },
+        { "id": "open-learning", "name": "Open knowledge & online learning networks", "since": "1990s", "era": "internet" }
+      ]
+    },
+    "community-norms": {
+      "title": "Community and professional norms",
+      "institutions": [
+        { "id": "civic-religious-codes", "name": "Civic and religious conduct codes", "since": "Ancient", "era": "ancient" },
+        { "id": "guild-codes", "name": "Guild ethics codes", "since": "Medieval", "era": "medieval" },
+        { "id": "professional-ethics", "name": "Modern professional ethics codes", "since": "1847", "era": "constitutional" },
+        { "id": "research-ethics", "name": "Research ethics and informed consent", "since": "1947–1964", "era": "postwar" },
+        { "id": "community-codes", "name": "Online community codes of conduct", "since": "1990s", "era": "internet" }
+      ]
+    },
+    "community-thick-commitments": {
+      "title": "Community missions and commitments",
+      "institutions": [
+        { "id": "civic-religions", "name": "Civic religions & temple communities", "since": "Ancient", "era": "ancient" },
+        { "id": "parishes-orders", "name": "Parishes, monasteries & charitable orders", "since": "Medieval", "era": "medieval" },
+        { "id": "voluntary-associations", "name": "Voluntary associations", "since": "18th–19th c.", "era": "constitutional" },
+        { "id": "mission-nonprofits", "name": "Mission-driven nonprofits", "since": "mid-20th c.", "era": "postwar" },
+        { "id": "online-communities", "name": "Purpose-led online communities", "since": "1990s", "era": "internet" }
+      ]
+    },
+
+    "national-protocols": {
+      "title": "National protocols and standards",
+      "institutions": [
+        { "id": "census-coinage", "name": "Censuses, coinage & road systems", "since": "Ancient", "era": "ancient" },
+        { "id": "royal-chancery", "name": "Royal chanceries & standardized writs", "since": "Medieval", "era": "medieval" },
+        { "id": "postal-systems", "name": "State postal systems", "since": "16th–17th c.", "era": "early-modern" },
+        { "id": "civil-service", "name": "Professional civil service", "since": "1854", "era": "industrial" },
+        { "id": "national-standards", "name": "National standards agencies", "since": "1901–1917", "era": "industrial" },
+        { "id": "digital-government", "name": "Digital-government interoperability", "since": "1990s", "era": "internet" }
+      ]
+    },
+    "national-preferences": {
+      "title": "National preference aggregation",
+      "institutions": [
+        { "id": "popular-assemblies", "name": "Popular assemblies", "since": "c. 500 BCE", "era": "ancient" },
+        { "id": "estates-parliaments", "name": "Estates, diets & early parliaments", "since": "12th–14th c.", "era": "medieval" },
+        { "id": "petitions-limited-elections", "name": "Petitions & limited parliamentary elections", "since": "17th–18th c.", "era": "pre-constitutional" },
+        { "id": "representative-elections", "name": "Constitutional representative elections", "since": "1787–1790s", "era": "constitutional" },
+        { "id": "mass-suffrage", "name": "Mass suffrage & political parties", "since": "late 19th–20th c.", "era": "industrial" },
+        { "id": "citizens-assemblies", "name": "Modern citizens' assemblies", "since": "1989", "era": "internet" }
+      ]
+    },
+    "national-rights": {
+      "title": "National rights and courts",
+      "institutions": [
+        { "id": "legal-codes", "name": "Codified law & public courts", "since": "Ancient", "era": "ancient" },
+        { "id": "magna-carta", "name": "Charters limiting rulers", "since": "1215", "era": "medieval" },
+        { "id": "parliamentary-rights", "name": "Common-law and parliamentary rights", "since": "17th c.", "era": "early-modern" },
+        { "id": "constitutional-rights", "name": "Written constitutions & independent judiciaries", "since": "1787–1791", "era": "constitutional" },
+        { "id": "civil-human-rights", "name": "Civil-rights and human-rights enforcement", "since": "1948–1960s", "era": "postwar" },
+        { "id": "data-rights", "name": "Data protection & digital due process", "since": "1995–2010s", "era": "internet" }
+      ]
+    },
+    "national-incentives": {
+      "title": "National fiscal and incentive systems",
+      "institutions": [
+        { "id": "taxation-coinage", "name": "Taxation, tribute & coinage", "since": "Ancient", "era": "ancient" },
+        { "id": "customs-duties", "name": "Customs duties & feudal levies", "since": "Medieval", "era": "medieval" },
+        { "id": "public-debt", "name": "Central banks & funded public debt", "since": "1694", "era": "pre-constitutional" },
+        { "id": "patents-tariffs", "name": "Patent systems & national tariffs", "since": "18th–19th c.", "era": "constitutional" },
+        { "id": "social-insurance", "name": "Progressive taxation & social insurance", "since": "1880s", "era": "industrial" },
+        { "id": "welfare-state", "name": "Welfare states & automatic stabilizers", "since": "1940s–1960s", "era": "postwar" },
+        { "id": "auctions-carbon", "name": "Spectrum auctions & emissions trading", "since": "1990s", "era": "internet" }
+      ]
+    },
+    "national-expertise": {
+      "title": "National expertise and administration",
+      "institutions": [
+        { "id": "scribal-bureaucracy", "name": "Scribal bureaucracy", "since": "Ancient", "era": "ancient" },
+        { "id": "royal-councils", "name": "Royal councils & university-trained officials", "since": "Medieval", "era": "medieval" },
+        { "id": "scientific-advisors", "name": "Statistical offices & scientific advisers", "since": "17th–18th c.", "era": "pre-constitutional" },
+        { "id": "regulatory-commissions", "name": "Independent regulatory commissions", "since": "1880s–1910s", "era": "industrial" },
+        { "id": "modern-agencies", "name": "Modern health, monetary & environmental agencies", "since": "1940s–1970s", "era": "postwar" },
+        { "id": "ai-safety-institutes", "name": "National AI safety institutes", "since": "2023", "era": "present" }
+      ]
+    },
+    "national-norms": {
+      "title": "National legal and regulatory norms",
+      "institutions": [
+        { "id": "public-law", "name": "Public legal codes", "since": "Ancient", "era": "ancient" },
+        { "id": "common-canon-law", "name": "Common law & canon-law influence", "since": "Medieval", "era": "medieval" },
+        { "id": "state-ordinances", "name": "State ordinances & administrative police", "since": "16th–17th c.", "era": "early-modern" },
+        { "id": "rule-of-law", "name": "Constitutional rule-of-law norms", "since": "late 18th–19th c.", "era": "constitutional" },
+        { "id": "administrative-rulemaking", "name": "Administrative rulemaking", "since": "late 19th–20th c.", "era": "industrial" },
+        { "id": "anti-discrimination", "name": "Anti-discrimination and rights-based regulation", "since": "1948–1970s", "era": "postwar" },
+        { "id": "cyber-ai-norms", "name": "Cybersecurity and AI-governance norms", "since": "2000s–2020s", "era": "present" }
+      ]
+    },
+    "national-thick-commitments": {
+      "title": "National founding commitments",
+      "institutions": [
+        { "id": "founding-myths", "name": "Sacred kingship & founding myths", "since": "Ancient", "era": "ancient" },
+        { "id": "coronation-oaths", "name": "Coronation oaths & realm compacts", "since": "Medieval", "era": "medieval" },
+        { "id": "social-contract", "name": "Social-contract and national-confession texts", "since": "17th–18th c.", "era": "pre-constitutional" },
+        { "id": "constitutional-preambles", "name": "Constitutional preambles & bills of rights", "since": "1787–1791", "era": "constitutional" },
+        { "id": "nation-building", "name": "Public education & civic nation-building", "since": "19th c.", "era": "industrial" },
+        { "id": "postwar-social-contract", "name": "Postwar social compacts", "since": "1940s–1960s", "era": "postwar" }
+      ]
+    },
+
+    "global-protocols": {
+      "title": "Global protocols and standards",
+      "institutions": [
+        { "id": "trade-standards", "name": "Long-distance trade measures & treaty forms", "since": "Ancient", "era": "ancient" },
+        { "id": "lex-mercatoria", "name": "Lex mercatoria", "since": "11th–13th c.", "era": "medieval" },
+        { "id": "diplomatic-protocol", "name": "Resident-diplomat protocol", "since": "15th–17th c.", "era": "early-modern" },
+        { "id": "telegraph-postal", "name": "International telegraph and postal unions", "since": "1865–1874", "era": "industrial" },
+        { "id": "un-iso", "name": "UN system & ISO standards", "since": "1945–1947", "era": "postwar" },
+        { "id": "internet-stack", "name": "TCP/IP, DNS, HTTP & web standards", "since": "1983–1994", "era": "internet" },
+        { "id": "ai-standards", "name": "International AI standards", "since": "2020s", "era": "present" }
+      ]
+    },
+    "global-preferences": {
+      "title": "Global preference aggregation",
+      "institutions": [
+        { "id": "ecumenical-councils", "name": "Transregional religious councils", "since": "4th–13th c.", "era": "medieval" },
+        { "id": "diplomatic-congresses", "name": "Diplomatic congresses", "since": "17th–18th c.", "era": "pre-constitutional" },
+        { "id": "international-conferences", "name": "International public conferences", "since": "19th c.", "era": "industrial" },
+        { "id": "un-general-assembly", "name": "UN General Assembly", "since": "1945", "era": "postwar" },
+        { "id": "social-recommenders", "name": "Global social-media recommender systems", "since": "2000s", "era": "present" }
+      ]
+    },
+    "global-rights": {
+      "title": "International rights and adjudication",
+      "institutions": [
+        { "id": "envoy-treaty-rights", "name": "Treaty law & protections for envoys", "since": "Ancient", "era": "ancient" },
+        { "id": "canon-transregional", "name": "Canon-law and merchant jurisdictions", "since": "Medieval", "era": "medieval" },
+        { "id": "law-of-nations", "name": "Law of nations", "since": "1625", "era": "early-modern" },
+        { "id": "humanitarian-law", "name": "Geneva and Hague humanitarian law", "since": "1864–1907", "era": "industrial" },
+        { "id": "universal-rights", "name": "UN Charter, UDHR & regional rights courts", "since": "1945–1959", "era": "postwar" },
+        { "id": "international-criminal-court", "name": "International Criminal Court", "since": "2002", "era": "present" }
+      ]
+    },
+    "global-incentives": {
+      "title": "Global economic incentives",
+      "institutions": [
+        { "id": "trade-routes", "name": "Long-distance trade routes & customs", "since": "Ancient", "era": "ancient" },
+        { "id": "merchant-fairs", "name": "Merchant fairs & transregional credit", "since": "Medieval", "era": "medieval" },
+        { "id": "chartered-companies", "name": "Chartered companies & colonial trade systems", "since": "16th–17th c.", "era": "early-modern" },
+        { "id": "free-trade-gold", "name": "Free-trade treaties & gold-standard coordination", "since": "19th c.", "era": "industrial" },
+        { "id": "bretton-woods", "name": "Bretton Woods institutions & GATT", "since": "1944–1947", "era": "postwar" },
+        { "id": "digital-markets", "name": "Digital markets & global supply-chain platforms", "since": "1990s", "era": "internet" },
+        { "id": "climate-finance", "name": "Global climate finance & carbon markets", "since": "2000s", "era": "present" }
+      ]
+    },
+    "global-expertise": {
+      "title": "Global expertise institutions",
+      "institutions": [
+        { "id": "scholarly-networks", "name": "Transregional scholarly and religious networks", "since": "Ancient–medieval", "era": "ancient" },
+        { "id": "republic-letters", "name": "Republic of Letters & scientific academies", "since": "17th c.", "era": "pre-constitutional" },
+        { "id": "scientific-congresses", "name": "International scientific congresses", "since": "19th c.", "era": "industrial" },
+        { "id": "who-ipcc", "name": "WHO, expert treaty bodies & IPCC", "since": "1948–1988", "era": "postwar" },
+        { "id": "open-science", "name": "Wikipedia, open science & global expert networks", "since": "1990s–2000s", "era": "internet" }
+      ]
+    },
+    "global-norms": {
+      "title": "Global diplomatic and legal norms",
+      "institutions": [
+        { "id": "diplomatic-custom", "name": "Diplomatic immunity & treaty custom", "since": "Ancient", "era": "ancient" },
+        { "id": "just-war", "name": "Canon-law and just-war norms", "since": "Medieval", "era": "medieval" },
+        { "id": "sovereignty-balance", "name": "Sovereignty, balance-of-power & diplomatic protocol", "since": "1648", "era": "early-modern" },
+        { "id": "hague-geneva", "name": "Hague and Geneva conventions", "since": "1864–1907", "era": "industrial" },
+        { "id": "un-human-rights", "name": "UN Charter, human-rights norms & soft law", "since": "1945–1970s", "era": "postwar" },
+        { "id": "internet-governance", "name": "Multistakeholder internet-governance norms", "since": "1990s", "era": "internet" },
+        { "id": "responsible-ai", "name": "Responsible-AI norms", "since": "2010s", "era": "present" }
+      ]
+    },
+    "global-thick-commitments": {
+      "title": "Global shared commitments",
+      "institutions": [
+        { "id": "world-religions", "name": "World religions & pilgrimage networks", "since": "Ancient", "era": "ancient" },
+        { "id": "religious-orders", "name": "Transnational religious orders", "since": "Medieval", "era": "medieval" },
+        { "id": "abolitionism", "name": "Transnational abolitionist movements", "since": "18th–19th c.", "era": "constitutional" },
+        { "id": "red-cross-internationalism", "name": "Red Cross & organized internationalism", "since": "1863–1919", "era": "industrial" },
+        { "id": "europe-unity-unesco", "name": "European integration & UNESCO", "since": "1945–1957", "era": "postwar" },
+        { "id": "knowledge-commons", "name": "Open-source and global knowledge commons", "since": "1980s–2000s", "era": "internet" },
+        { "id": "climate-civil-society", "name": "Global climate and civil-society networks", "since": "2000s", "era": "present" }
+      ]
+    }
+  }
+}

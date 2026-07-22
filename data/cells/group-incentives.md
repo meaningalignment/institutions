@@ -1,7 +1,4 @@
 ---
-human_label: "Value-based care, bounties & risk-sharing pools"
-human_era: "Ancient-21st c."
-human_era_bucket: ancient-modern
 status: not_started
 owner: joe
 starred: true

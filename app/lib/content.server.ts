@@ -6,7 +6,7 @@
 
 import yaml from "js-yaml";
 import { extractAtGlance, extractTheoryOfChange } from "./markdown";
-import type { Cell, Frontmatter, MethodTag } from "./constants";
+import { COLS, ROWS, type Cell, type Frontmatter, type HumanInstitutionsData, type MethodTag } from "./constants";
 import content from "virtual:site-content";
 
 // cells / methods are keyed by filename stem; root is keyed by full filename.
@@ -79,6 +79,64 @@ export function loadMethods(): Record<string, MethodTag[]> {
     }
   }
   return methods;
+}
+
+// Dedicated, dated source for the Existing Human Institutions grid. Each cell
+// contains multiple institution records that enter at a named timeline stop.
+export function loadHumanInstitutions(): HumanInstitutionsData {
+  const src = rootByName["human-institutions.json"];
+  if (!src) throw new Error("content file not found: data/human-institutions.json");
+
+  let data: HumanInstitutionsData;
+  try {
+    data = JSON.parse(src) as HumanInstitutionsData;
+  } catch (error: any) {
+    throw new Error(`could not parse human-institutions.json: ${error.message}`);
+  }
+
+  if (!Array.isArray(data.timeline) || !data.timeline.length || !data.cells) {
+    throw new Error("human-institutions.json must define a non-empty timeline and cells object");
+  }
+
+  const errors: string[] = [];
+  const eraIds = new Set<string>();
+  for (const point of data.timeline) {
+    if (!point.id || !point.date || !point.label || !point.description) {
+      errors.push("timeline points require id, date, label, and description");
+    }
+    if (eraIds.has(point.id)) errors.push(`duplicate timeline id ${point.id}`);
+    eraIds.add(point.id);
+  }
+
+  const expectedCellKeys = new Set(ROWS.flatMap((row) => COLS.map((col) => `${row.id}-${col.id}`)));
+  for (const expectedKey of expectedCellKeys) {
+    if (!data.cells[expectedKey]) errors.push(`missing cell ${expectedKey}`);
+  }
+  for (const actualKey of Object.keys(data.cells)) {
+    if (!expectedCellKeys.has(actualKey)) errors.push(`unknown cell ${actualKey}`);
+  }
+
+  for (const [cellKey, cell] of Object.entries(data.cells)) {
+    if (!cell.title || !Array.isArray(cell.institutions)) errors.push(`${cellKey}: missing title or institutions`);
+    const recordIds = new Set<string>();
+    let previousEraIndex = -1;
+    for (const institution of cell.institutions || []) {
+      if (!institution.id || !institution.name || !institution.since) {
+        errors.push(`${cellKey}: institution records require id, name, and since`);
+      }
+      const eraIndex = data.timeline.findIndex((point) => point.id === institution.era);
+      if (eraIndex < 0) errors.push(`${cellKey}/${institution.id}: unknown era ${institution.era}`);
+      if (eraIndex >= 0 && eraIndex < previousEraIndex) {
+        errors.push(`${cellKey}/${institution.id}: institutions must follow timeline order`);
+      }
+      previousEraIndex = Math.max(previousEraIndex, eraIndex);
+      if (recordIds.has(institution.id)) errors.push(`${cellKey}: duplicate institution id ${institution.id}`);
+      recordIds.add(institution.id);
+    }
+  }
+  if (errors.length) throw new Error(`invalid human-institutions.json:\n${errors.join("\n")}`);
+
+  return data;
 }
 
 // A method column's full page (parsed like a cell: H1 + body).

@@ -1,7 +1,4 @@
 ---
-human_label: "Universities, licensing boards & professional associations"
-human_era: "Medieval-20th c."
-human_era_bucket: medieval-modern
 hide_agi: true
 status: not_started
 owner: none

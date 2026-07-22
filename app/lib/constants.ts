@@ -47,7 +47,7 @@ export const TABS: Record<string, { title: string; nav: string; short: string; s
     title: "AGI Institutions",
     nav: "AGI Institutions",
     short: "AGI",
-    subtitle: "New institutions needed for a world of autonomous AI agents",
+    subtitle: "New institutions needed for a world with powerful AI",
   },
   human: {
     title: "Existing Human Institutions",

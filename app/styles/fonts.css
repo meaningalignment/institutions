@@ -1,0 +1,109 @@
+/* ——— Licensed webfonts (shared with Pax Machina) ———
+   Monotype Baskerville (MyFonts build 3867246) — display, headings, labels
+   Sharp Serif Text (Sharp Type) — body / reading text
+   ABC Favorit (Dinamo) — sans: metadata, fine print (Light 300 + Bold 700 only) */
+
+/* Monotype Baskerville — declared as "Baskerville" so every platform
+   gets the licensed cut (it shadows the macOS system font). */
+@font-face {
+  font-family: "Baskerville";
+  src: url("/fonts/baskerville/MonotypeBaskerville-Roman.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Baskerville";
+  src: url("/fonts/baskerville/MonotypeBaskerville-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Baskerville";
+  src: url("/fonts/baskerville/MonotypeBaskerville-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Baskerville";
+  src: url("/fonts/baskerville/MonotypeBaskerville-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Baskerville";
+  src: url("/fonts/baskerville/MonotypeBaskerville-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Baskerville";
+  src: url("/fonts/baskerville/MonotypeBaskerville-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Sharp Serif Text */
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ABC Favorit */
+@font-face {
+  font-family: "Favorit";
+  src: url("/fonts/favorit/ABCFavorit-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Favorit";
+  src: url("/fonts/favorit/ABCFavorit-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

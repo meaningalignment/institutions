@@ -10,6 +10,10 @@
 
 @import "tailwindcss";
 
+/* Licensed webfonts (Baskerville / Sharp Serif Text / Favorit) — unlayered
+   on purpose: @font-face declarations aren't affected by cascade layers. */
+@import "./styles/fonts.css";
+
 /*
  * Legacy stylesheet bridge (shrinks as pages are converted to Tailwind).
  * overrides.css is imported after so it wins within the legacy layer.

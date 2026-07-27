@@ -16,6 +16,8 @@ The site is a **React Router v8 framework-mode app (SSR)** in `app/`. Pages are 
 
 The Markdown/YAML/JSON under `data/` is **bundled into the build** by the `siteContent()` Vite plugin (`vite.config.ts`), exposed as the `virtual:site-content` module and read through `app/lib/content.server.ts`. Content therefore ships inside the server bundle and is never read from disk at runtime (required for Vercel serverless; `import.meta.glob` raw is avoided because rolldown's SSR pass mishandles it).
 
+Grid loaders must use `loadGridCells()`, which returns only the H1 summary and grid-visible metadata; never return `loadCells()` from a grid route, because that serializes every Markdown body into the client data response. `content.server.ts` memoizes parsed cells, method tags, curriculum metadata, and human-institution JSON for the lifetime of a server instance. Routes that render Markdown to HTML (detail, methods, problem sets, curriculum, and theory of change) likewise cache their finished serializable result, so repeat requests do not reparse or rerender build-bundled content. Static content routes export the native `Cache-Control` policy from `app/lib/cache.server.ts`; do not apply it to DB-backed Community/Admin routes.
+
 Routes (`app/routes.ts`): `/` (AGI grid), `/human` (Human grid), `/cell/:row/:col` + `/human/:row/:col` (cell detail — real, crawlable URLs), `/methods/:col`, `/problem-sets`, `/curriculum`, `/theory-of-change`, `/researchers` + `/researchers/:handle` (Community, DB-backed — currently unlinked from the grids), `/admin` (internal, unlinked, unguarded), `/fidelity` → redirect to `/?visions=fidelity`.
 
 ### Curriculum page

@@ -1,9 +1,16 @@
 import type { Route } from "./+types/home";
-import { loadCells, loadMethods } from "../lib/content.server";
+import { loadGridCells, loadMethods } from "../lib/content.server";
 import { Grid } from "../components/Grid";
 import { Controls, SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { SITE_NAME, SITE_ORIGIN, SITE_OG_IMAGE, TAB_META, TABS } from "../lib/constants";
+import { staticContentHeaders } from "../lib/cache.server";
+
+export const headers = staticContentHeaders;
+
+let homeLoaderCache:
+  | { cells: ReturnType<typeof loadGridCells>; methods: ReturnType<typeof loadMethods> }
+  | undefined;
 
 export function meta(_: Route.MetaArgs) {
   const m = TAB_META.agi;
@@ -25,7 +32,10 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export function loader(_: Route.LoaderArgs) {
-  return { cells: loadCells(), methods: loadMethods() };
+  if (!homeLoaderCache) {
+    homeLoaderCache = { cells: loadGridCells(), methods: loadMethods() };
+  }
+  return homeLoaderCache;
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {

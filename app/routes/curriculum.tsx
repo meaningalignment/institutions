@@ -4,6 +4,9 @@ import { buildCurriculum } from "../lib/curriculum.server";
 import { initCurriculum } from "../lib/curriculum-init";
 import { SiteFooter } from "../components/Controls";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
+import { staticContentHeaders } from "../lib/cache.server";
+
+export const headers = staticContentHeaders;
 
 export function loader(_: Route.LoaderArgs) {
   return buildCurriculum();

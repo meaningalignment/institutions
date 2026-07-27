@@ -6,7 +6,15 @@
 
 import yaml from "js-yaml";
 import { extractAtGlance, extractTheoryOfChange } from "./markdown";
-import { COLS, ROWS, type Cell, type Frontmatter, type HumanInstitutionsData, type MethodTag } from "./constants";
+import {
+  COLS,
+  ROWS,
+  type Cell,
+  type Frontmatter,
+  type GridCell,
+  type HumanInstitutionsData,
+  type MethodTag,
+} from "./constants";
 import content from "virtual:site-content";
 
 // cells / methods are keyed by filename stem; root is keyed by full filename.
@@ -18,10 +26,7 @@ function baseName(p: string): string {
   return p.slice(p.lastIndexOf("/") + 1);
 }
 
-// Parse a cell markdown file: YAML frontmatter + H1 title, then fold the
-// `## At a glance` and `## Theory of change` sections into frontmatter fields
-// (and strip them from the body) so the summary/impact renderers can read them.
-export function parseCell(raw: string): Cell {
+function splitFrontmatter(raw: string): { frontmatter: Frontmatter; content: string } {
   let frontmatter: Frontmatter = {};
   const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?/);
   if (fmMatch) {
@@ -32,12 +37,25 @@ export function parseCell(raw: string): Cell {
     }
     raw = raw.slice(fmMatch[0].length);
   }
+  return { frontmatter, content: raw };
+}
 
+function headingAndBody(raw: string): { summary: string; body: string } {
   const h1Match = raw.match(/^#\s+(.+)$/m);
   const summary = h1Match ? h1Match[1].trim() : "";
-  const bodyAfterH1 = h1Match
+  const body = h1Match
     ? raw.slice(raw.indexOf("\n", raw.indexOf(h1Match[0])) + 1).trim()
     : raw;
+  return { summary, body };
+}
+
+// Parse a cell markdown file: YAML frontmatter + H1 title, then fold the
+// `## At a glance` and `## Theory of change` sections into frontmatter fields
+// (and strip them from the body) so the summary/impact renderers can read them.
+export function parseCell(raw: string): Cell {
+  const split = splitFrontmatter(raw);
+  const frontmatter = split.frontmatter;
+  const { summary, body: bodyAfterH1 } = headingAndBody(split.content);
 
   const ag = extractAtGlance(bodyAfterH1);
   if (ag.problem) frontmatter.problem = ag.problem;
@@ -53,21 +71,81 @@ export function parseCell(raw: string): Cell {
   return { summary, body: toc.body, frontmatter };
 }
 
+function parseGridCell(raw: string): GridCell {
+  const split = splitFrontmatter(raw);
+  const { summary, body } = headingAndBody(split.content);
+  const fm = split.frontmatter;
+  const theorySection = body.match(/## Theory of change\n([\s\S]*?)(?=\n## [^#]|$)/i);
+  const visions =
+    fm.visions && typeof fm.visions === "object" && !Array.isArray(fm.visions)
+      ? Object.fromEntries(
+          Object.entries(fm.visions).filter(
+            (entry): entry is [string, string] => typeof entry[1] === "string"
+          )
+        )
+      : undefined;
+
+  return {
+    summary,
+    hiddenOnAgi: fm.hide_agi === true,
+    hiddenOnHuman: fm.hide_human === true,
+    ...(typeof fm.status === "string" ? { status: fm.status } : {}),
+    ...(visions && Object.keys(visions).length ? { visions } : {}),
+    hasTheory: !!theorySection?.[1].trim(),
+  };
+}
+
+const cellCache = new Map<string, Cell>();
+const gridCellCache = new Map<string, GridCell>();
+const methodCellCache = new Map<string, Cell>();
+let cellsCache: Record<string, Cell> | undefined;
+let gridCellsCache: Record<string, GridCell> | undefined;
+let methodsCache: Record<string, MethodTag[]> | undefined;
+let humanInstitutionsCache: HumanInstitutionsData | undefined;
+
 // Read a single cell by "{row}-{col}" key. Returns null if missing.
 export function loadCell(key: string): Cell | null {
   const raw = cellsByKey[key];
-  return raw ? parseCell(raw) : null;
+  if (!raw) return null;
+  const cached = cellCache.get(key);
+  if (cached) return cached;
+  const cell = parseCell(raw);
+  cellCache.set(key, cell);
+  return cell;
 }
 
 // Load every cell keyed by "{row}-{col}".
 export function loadCells(): Record<string, Cell> {
+  if (cellsCache) return cellsCache;
   const cells: Record<string, Cell> = {};
-  for (const [key, raw] of Object.entries(cellsByKey)) cells[key] = parseCell(raw);
-  return cells;
+  for (const key of Object.keys(cellsByKey)) {
+    const cell = loadCell(key);
+    if (cell) cells[key] = cell;
+  }
+  cellsCache = cells;
+  return cellsCache;
+}
+
+// Load only the data used by the grids. This deliberately avoids parsing
+// At-a-glance bodies and never exposes the Markdown body to route loaders.
+export function loadGridCells(): Record<string, GridCell> {
+  if (gridCellsCache) return gridCellsCache;
+  const cells: Record<string, GridCell> = {};
+  for (const [key, raw] of Object.entries(cellsByKey)) {
+    let cell = gridCellCache.get(key);
+    if (!cell) {
+      cell = parseGridCell(raw);
+      gridCellCache.set(key, cell);
+    }
+    cells[key] = cell;
+  }
+  gridCellsCache = cells;
+  return gridCellsCache;
 }
 
 // Column-level method tags (bottom row of the grid), keyed by column id.
 export function loadMethods(): Record<string, MethodTag[]> {
+  if (methodsCache) return methodsCache;
   const methods: Record<string, MethodTag[]> = {};
   for (const [colId, raw] of Object.entries(methodsByCol)) {
     const fmMatch = raw.match(/^---\n([\s\S]*?)\n---/);
@@ -78,12 +156,14 @@ export function loadMethods(): Record<string, MethodTag[]> {
       methods[colId] = [];
     }
   }
-  return methods;
+  methodsCache = methods;
+  return methodsCache;
 }
 
 // Dedicated, dated source for the Existing Human Institutions grid. Each cell
 // contains multiple institution records that enter at a named timeline stop.
 export function loadHumanInstitutions(): HumanInstitutionsData {
+  if (humanInstitutionsCache) return humanInstitutionsCache;
   const src = rootByName["human-institutions.json"];
   if (!src) throw new Error("content file not found: data/human-institutions.json");
 
@@ -136,13 +216,19 @@ export function loadHumanInstitutions(): HumanInstitutionsData {
   }
   if (errors.length) throw new Error(`invalid human-institutions.json:\n${errors.join("\n")}`);
 
-  return data;
+  humanInstitutionsCache = data;
+  return humanInstitutionsCache;
 }
 
 // A method column's full page (parsed like a cell: H1 + body).
 export function loadMethodCell(colId: string): Cell | null {
   const raw = methodsByCol[colId];
-  return raw ? parseCell(raw) : null;
+  if (!raw) return null;
+  const cached = methodCellCache.get(colId);
+  if (cached) return cached;
+  const cell = parseCell(raw);
+  methodCellCache.set(colId, cell);
+  return cell;
 }
 
 // ── Curriculum ─────────────────────────────────────────────────────
@@ -165,18 +251,25 @@ export interface CurriculumTheme {
 }
 
 // Load the entry-axis taxonomy from data/curriculum-map.yaml. Missing → [].
+let curriculumMapCache: CurriculumTheme[] | undefined;
+
 export function loadCurriculumMap(): CurriculumTheme[] {
+  if (curriculumMapCache) return curriculumMapCache;
   const src = rootByName["curriculum-map.yaml"];
-  if (!src) return [];
+  if (!src) {
+    curriculumMapCache = [];
+    return curriculumMapCache;
+  }
   let doc: any;
   try {
     doc = yaml.load(src) || {};
   } catch (e: any) {
     console.warn(`[curriculum] could not parse curriculum-map.yaml: ${e.message}`);
-    return [];
+    curriculumMapCache = [];
+    return curriculumMapCache;
   }
   const themes = Array.isArray(doc.themes) ? doc.themes : [];
-  return themes.map((t: any) => ({
+  const parsed = themes.map((t: any) => ({
     id: t.id || slugify(t.label || ""),
     label: t.label || "",
     description: t.description || "",
@@ -186,6 +279,8 @@ export function loadCurriculumMap(): CurriculumTheme[] {
       bridge: (f.gain || "").trim(),
     })),
   }));
+  curriculumMapCache = parsed;
+  return parsed;
 }
 
 // Raw markdown files that whole-page routes parse themselves (curriculum.md,

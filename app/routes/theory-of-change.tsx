@@ -5,6 +5,9 @@ import { renderMarkdown } from "../lib/render.server";
 import { esc, escapeHtml } from "../lib/markdown";
 import { SiteFooter } from "../components/Controls";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
+import { staticContentHeaders } from "../lib/cache.server";
+
+export const headers = staticContentHeaders;
 
 // Port of build.cjs generateTheoryOfChangePage: prose H2 sections become
 // .about-section blocks; the "Theory of change" section's ordered list becomes
@@ -54,8 +57,13 @@ function buildSections(md: string): { title: string; sectionsHtml: string } {
   return { title, sectionsHtml };
 }
 
+let theoryOfChangeCache: ReturnType<typeof buildSections> | undefined;
+
 export function loader(_: Route.LoaderArgs) {
-  return buildSections(readDataFile("theory-of-change.md"));
+  if (!theoryOfChangeCache) {
+    theoryOfChangeCache = buildSections(readDataFile("theory-of-change.md"));
+  }
+  return theoryOfChangeCache;
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

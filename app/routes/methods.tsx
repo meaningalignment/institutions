@@ -5,12 +5,31 @@ import { renderBody } from "../lib/render.server";
 import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { GITHUB_REPO, SITE_NAME, TABS, colName } from "../lib/constants";
+import { staticContentHeaders } from "../lib/cache.server";
+
+export const headers = staticContentHeaders;
+
+interface MethodDetailData {
+  col: string;
+  colLabel: string;
+  breadcrumb: string;
+  title: string;
+  hasBody: boolean;
+  bodyHtml: string;
+  ghLink: string;
+  ghNew: string;
+}
+
+const methodDetailCache = new Map<string, MethodDetailData>();
 
 export function loader({ params }: Route.LoaderArgs) {
   const col = params.col;
+  const cached = methodDetailCache.get(col);
+  if (cached) return cached;
+
   const cell = loadMethodCell(col);
   const ghLink = `${GITHUB_REPO}/edit/main/data/methods/${col}.md`;
-  return {
+  const detail = {
     col,
     colLabel: colName(col),
     breadcrumb: `${TABS.agi.title} › Methods › ${colName(col)}`,
@@ -20,6 +39,8 @@ export function loader({ params }: Route.LoaderArgs) {
     ghLink,
     ghNew: `${GITHUB_REPO}/new/main/data/methods?filename=${col}.md`,
   };
+  methodDetailCache.set(col, detail);
+  return detail;
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {

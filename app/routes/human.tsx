@@ -1,9 +1,20 @@
 import type { Route } from "./+types/human";
-import { loadCells, loadHumanInstitutions, loadMethods } from "../lib/content.server";
+import { loadGridCells, loadHumanInstitutions, loadMethods } from "../lib/content.server";
 import { Grid } from "../components/Grid";
 import { Controls, SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { SITE_NAME, SITE_ORIGIN, SITE_OG_IMAGE, TAB_META, TABS } from "../lib/constants";
+import { staticContentHeaders } from "../lib/cache.server";
+
+export const headers = staticContentHeaders;
+
+let humanLoaderCache:
+  | {
+      cells: ReturnType<typeof loadGridCells>;
+      methods: ReturnType<typeof loadMethods>;
+      humanInstitutions: ReturnType<typeof loadHumanInstitutions>;
+    }
+  | undefined;
 
 export function meta(_: Route.MetaArgs) {
   const m = TAB_META.human;
@@ -25,7 +36,14 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export function loader(_: Route.LoaderArgs) {
-  return { cells: loadCells(), methods: loadMethods(), humanInstitutions: loadHumanInstitutions() };
+  if (!humanLoaderCache) {
+    humanLoaderCache = {
+      cells: loadGridCells(),
+      methods: loadMethods(),
+      humanInstitutions: loadHumanInstitutions(),
+    };
+  }
+  return humanLoaderCache;
 }
 
 export default function Human({ loaderData }: Route.ComponentProps) {

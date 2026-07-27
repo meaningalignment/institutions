@@ -11,6 +11,17 @@ export interface Cell {
   frontmatter: Frontmatter;
 }
 
+// Minimal cell shape sent to grid routes. Full Markdown bodies and expanded
+// At-a-glance / theory fields stay on the server for detail-page rendering.
+export interface GridCell {
+  summary: string;
+  hiddenOnAgi: boolean;
+  hiddenOnHuman: boolean;
+  status?: string;
+  visions?: Record<string, string>;
+  hasTheory: boolean;
+}
+
 export interface MethodTag {
   name: string;
   bold?: boolean | string[];

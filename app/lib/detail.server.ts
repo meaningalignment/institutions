@@ -29,8 +29,14 @@ export interface CellDetailData {
   statusClass: string;
 }
 
+const detailCache = new Map<string, CellDetailData>();
+
 export function buildCellDetail(tabId: TabId, rowId: string, colId: string): CellDetailData {
   const key = `${rowId}-${colId}`;
+  const cacheKey = `${tabId}:${key}`;
+  const cached = detailCache.get(cacheKey);
+  if (cached) return cached;
+
   const cell = loadCell(key);
   const tab = TABS[tabId];
   const breadcrumb = `${tab.title} › ${rowName(rowId)} › ${colName(colId)}`;
@@ -38,7 +44,7 @@ export function buildCellDetail(tabId: TabId, rowId: string, colId: string): Cel
   const ghLink = `${GITHUB_REPO}/edit/main/data/cells/${key}.md`;
 
   if (!cell) {
-    return {
+    const detail = {
       found: false,
       hasBody: false,
       tabId,
@@ -54,6 +60,8 @@ export function buildCellDetail(tabId: TabId, rowId: string, colId: string): Cel
       bodyHtml: "",
       statusClass: "",
     };
+    detailCache.set(cacheKey, detail);
+    return detail;
   }
 
   const fm = cell.frontmatter;
@@ -71,7 +79,7 @@ export function buildCellDetail(tabId: TabId, rowId: string, colId: string): Cel
   const hasBody = !!(cell.body && cell.body.trim());
   const bodyHtml = hasBody ? renderBody(cell.body, visionBar) : "";
 
-  return {
+  const detail = {
     found: true,
     hasBody,
     tabId,
@@ -87,4 +95,6 @@ export function buildCellDetail(tabId: TabId, rowId: string, colId: string): Cel
     bodyHtml,
     statusClass,
   };
+  detailCache.set(cacheKey, detail);
+  return detail;
 }

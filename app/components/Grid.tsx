@@ -7,18 +7,17 @@ import {
   TABS,
   READY_STATUSES,
   getMethodsForCol,
-  type Cell,
+  type GridCell,
   type HumanInstitution,
   type HumanInstitutionCell,
   type HumanInstitutionsData,
   type MethodTag,
   type TabId,
 } from "../lib/constants";
-import { impactFields } from "../lib/markdown";
 
 interface GridProps {
   tabId: TabId;
-  cells: Record<string, Cell>;
+  cells: Record<string, GridCell>;
   methods: Record<string, MethodTag[]>;
   humanInstitutions?: HumanInstitutionsData;
 }
@@ -169,8 +168,8 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
                     : [];
                   const hideOnTab =
                     cell &&
-                    ((tabId === "agi" && cell.frontmatter?.hide_agi === true) ||
-                      (tabId === "human" && cell.frontmatter?.hide_human === true));
+                    ((tabId === "agi" && cell.hiddenOnAgi) ||
+                      (tabId === "human" && cell.hiddenOnHuman));
                   const summary =
                     cell && !hideOnTab
                       ? tabId === "agi"
@@ -178,10 +177,10 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
                         : humanCell?.title || ""
                       : "";
                   const visionEntries =
-                    tabId === "agi" && cell?.frontmatter?.visions && typeof cell.frontmatter.visions === "object"
-                      ? VISIONS.filter((v) => cell.frontmatter.visions[v.id]).map((v) => ({
+                    tabId === "agi" && cell?.visions
+                      ? VISIONS.filter((v) => cell.visions?.[v.id]).map((v) => ({
                           id: v.id,
-                          label: cell.frontmatter.visions[v.id] as string,
+                          label: cell.visions?.[v.id] as string,
                         }))
                       : [];
 
@@ -207,9 +206,9 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
                   }
 
                   const classes = ["clickable"];
-                  const status = cell.frontmatter?.status;
-                  if (tabId === "agi" && READY_STATUSES.has(status)) classes.push("status-body-ok");
-                  if (tabId === "agi" && impactFields(cell.frontmatter)) classes.push("has-theory");
+                  const status = cell.status;
+                  if (tabId === "agi" && status && READY_STATUSES.has(status)) classes.push("status-body-ok");
+                  if (tabId === "agi" && cell.hasTheory) classes.push("has-theory");
                   if (tabId === "human") classes.push("human-institution-tile");
 
                   return (

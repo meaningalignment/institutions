@@ -7,11 +7,19 @@ export function Controls({ tabId }: { tabId: TabId }) {
   return (
     <div className="controls">
       <nav className="tab-bar">
-        <Link to="/human" className={`tab-link${tabId === "human" ? " active" : ""}`}>
+        <Link
+          to="/human"
+          prefetch={tabId === "agi" ? "viewport" : "none"}
+          className={`tab-link${tabId === "human" ? " active" : ""}`}
+        >
           <span className="tab-full">{TABS.human.nav}</span>
           <span className="tab-short">{TABS.human.short}</span>
         </Link>
-        <Link to="/" className={`tab-link${tabId === "agi" ? " active" : ""}`}>
+        <Link
+          to="/"
+          prefetch={tabId === "human" ? "viewport" : "none"}
+          className={`tab-link${tabId === "agi" ? " active" : ""}`}
+        >
           <span className="tab-full">{TABS.agi.nav}</span>
           <span className="tab-short">{TABS.agi.short}</span>
         </Link>

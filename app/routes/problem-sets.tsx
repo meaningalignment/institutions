@@ -4,6 +4,7 @@ import { loadCells } from "../lib/content.server";
 import { renderProblemSetBody } from "../lib/render.server";
 import { extractProblemSets } from "../lib/markdown";
 import { VisionMenu, SiteFooter } from "../components/Controls";
+import { staticContentHeaders } from "../lib/cache.server";
 import {
   VISIONS,
   SITE_NAME,
@@ -13,6 +14,8 @@ import {
   splitCellKey,
 } from "../lib/constants";
 
+export const headers = staticContentHeaders;
+
 interface Entry {
   num: number;
   title: string;
@@ -21,7 +24,15 @@ interface Entry {
   bodyHtml: string;
 }
 
+interface ProblemSetsData {
+  required: Entry[];
+  visionGroups: { id: string; label: string; items: Entry[] }[];
+}
+
+let problemSetsCache: ProblemSetsData | undefined;
+
 export function loader(_: Route.LoaderArgs) {
+  if (problemSetsCache) return problemSetsCache;
   const cells = loadCells();
   const all = extractProblemSets("agi", cells);
 
@@ -39,7 +50,8 @@ export function loader(_: Route.LoaderArgs) {
     items: all.filter((p) => p.vision === v.id).map(makeEntry),
   })).filter((g) => g.items.length);
 
-  return { required, visionGroups };
+  problemSetsCache = { required, visionGroups };
+  return problemSetsCache;
 }
 
 export function meta(_: Route.MetaArgs) {

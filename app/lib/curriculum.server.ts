@@ -11,7 +11,10 @@ export interface CurriculumData {
   innerHtml: string;
 }
 
+let curriculumCache: CurriculumData | undefined;
+
 export function buildCurriculum(): CurriculumData {
+  if (curriculumCache) return curriculumCache;
   const cells = loadCells();
   let md = readDataFile("curriculum.md");
 
@@ -166,5 +169,6 @@ ${sectionsHtml}
 ${themeMapJson}
 </div>`;
 
-  return { title, innerHtml };
+  curriculumCache = { title, innerHtml };
+  return curriculumCache;
 }

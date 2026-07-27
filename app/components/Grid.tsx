@@ -162,10 +162,10 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
     <>
       <div className="pane-title">{tab.title}</div>
       <div className="pane-subtitle">{tab.subtitle}</div>
+      <AxisGuide />
       {tabId === "human" && humanInstitutions && (
         <HumanTimeline data={humanInstitutions} timelineIndex={timelineIndex} onChange={setTimelineIndex} />
       )}
-      <AxisGuide />
       <div className="table-wrapper">
         <table>
           <thead>

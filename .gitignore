@@ -1,3 +1,10 @@
 node_modules/
 .claude
 pdfs/
+
+# secrets
+.env
+
+# React Router / Vite build output
+/.react-router/
+/build/

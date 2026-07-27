@@ -1,0 +1,18 @@
+/*
+ * Cascade-layer order matters. The legacy stylesheet opens with a global
+ * `* { margin:0; padding:0 }` reset; if imported unlayered it would beat
+ * Tailwind's layered utilities (unlayered always wins over layered). So the
+ * legacy bridge is imported into a `legacy` layer ordered BELOW Tailwind's
+ * `components`/`utilities` — legacy still styles the ported pages, but Tailwind
+ * utilities on new components (e.g. the community cards) win as expected.
+ */
+@layer theme, base, legacy, components, utilities;
+
+@import "tailwindcss";
+
+/*
+ * Legacy stylesheet bridge (shrinks as pages are converted to Tailwind).
+ * overrides.css is imported after so it wins within the legacy layer.
+ */
+@import "./styles/legacy.css" layer(legacy);
+@import "./styles/overrides.css" layer(legacy);

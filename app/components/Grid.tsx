@@ -23,30 +23,6 @@ interface GridProps {
   humanInstitutions?: HumanInstitutionsData;
 }
 
-function AxisGuide() {
-  return (
-    <details className="axis-guide">
-      <summary className="axis-guide-trigger" aria-label="How to read this grid">
-        How to read this
-      </summary>
-      <div className="axis-guide-pop" role="note">
-        <div className="axis-guide-row">
-          <span className="axis-guide-tag">Rows ↓</span>
-          <span className="axis-guide-text">
-            <b>Scale</b> — how many actors are coordinating, dyadic to global
-          </span>
-        </div>
-        <div className="axis-guide-row">
-          <span className="axis-guide-tag">Cols →</span>
-          <span className="axis-guide-text">
-            <b>Informational basis</b> — the kind of information the group coordinates around
-          </span>
-        </div>
-      </div>
-    </details>
-  );
-}
-
 function institutionEraIndex(data: HumanInstitutionsData, institution: HumanInstitution): number {
   return data.timeline.findIndex((point) => point.id === institution.era);
 }
@@ -111,21 +87,14 @@ function HumanTimeline({
       <div className="human-timeline-readout" aria-live="polite">
         <div>
           <span className="human-timeline-eyebrow" id="human-timeline-title">
-            Institutions recognizable by
+            Choose a point in institutional history
           </span>
           <div className="human-timeline-period">
             <strong>{point.date}</strong>
             <span>{point.label}</span>
           </div>
         </div>
-        <span className="human-timeline-count">
-          <span>{visibleInstitutionCount} institutions across {visibleCellCount} cells</span>
-          <span className={`human-timeline-arrivals${isBaseline ? " is-baseline" : ""}`}>
-            {isBaseline ? "Baseline view" : `${enteringCount} added in this era`}
-          </span>
-        </span>
       </div>
-      <p className="human-timeline-description">{point.description}</p>
       <input
         className="human-timeline-range"
         type="range"
@@ -145,7 +114,6 @@ function HumanTimeline({
           </span>
         ))}
       </div>
-      <p className="human-timeline-note">{data.methodNote}</p>
     </section>
   );
 }
@@ -162,7 +130,6 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
     <>
       <div className="pane-title">{tab.title}</div>
       <div className="pane-subtitle">{tab.subtitle}</div>
-      <AxisGuide />
       {tabId === "human" && humanInstitutions && (
         <HumanTimeline data={humanInstitutions} timelineIndex={timelineIndex} onChange={setTimelineIndex} />
       )}

@@ -1,7 +1,4 @@
 ---
-human_label: "Contracts & escrow"
-human_era: "Ancient-medieval"
-human_era_bucket: ancient-medieval
 status: body_ok
 owner: oliver
 starred: true

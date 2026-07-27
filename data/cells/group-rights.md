@@ -1,7 +1,4 @@
 ---
-human_label: "Bylaws & grievance boards"
-human_era: "Medieval-industrial"
-human_era_bucket: medieval-modern
 status: summary_draft
 owner: oliver
 visions:

@@ -1,5 +1,5 @@
 import type { Route } from "./+types/human";
-import { loadCells, loadMethods } from "../lib/content.server";
+import { loadCells, loadHumanInstitutions, loadMethods } from "../lib/content.server";
 import { Grid } from "../components/Grid";
 import { Controls, SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
@@ -25,7 +25,7 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export function loader(_: Route.LoaderArgs) {
-  return { cells: loadCells(), methods: loadMethods() };
+  return { cells: loadCells(), methods: loadMethods(), humanInstitutions: loadHumanInstitutions() };
 }
 
 export default function Human({ loaderData }: Route.ComponentProps) {
@@ -34,7 +34,12 @@ export default function Human({ loaderData }: Route.ComponentProps) {
     <>
       <Controls tabId="human" />
       <div id="grid-view">
-        <Grid tabId="human" cells={loaderData.cells} methods={loaderData.methods} />
+        <Grid
+          tabId="human"
+          cells={loaderData.cells}
+          methods={loaderData.methods}
+          humanInstitutions={loaderData.humanInstitutions}
+        />
       </div>
       <SiteFooter />
     </>

@@ -28,7 +28,7 @@ function siteContent(): Plugin {
     const out: Record<string, string> = {};
     if (!fs.existsSync(dataDir)) return out;
     for (const f of fs.readdirSync(dataDir)) {
-      if (f.endsWith(".md") || f.endsWith(".yaml") || f.endsWith(".yml")) {
+      if (f.endsWith(".md") || f.endsWith(".yaml") || f.endsWith(".yml") || f.endsWith(".json")) {
         out[f] = fs.readFileSync(path.join(dataDir, f), "utf8");
       }
     }

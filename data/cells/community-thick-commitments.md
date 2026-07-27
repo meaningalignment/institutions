@@ -1,7 +1,4 @@
 ---
-human_label: "Mission-driven orgs"
-human_era: "20th c."
-human_era_bucket: twentieth
 status: body_ok
 owner: oliver
 starred: true

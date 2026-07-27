@@ -1,3 +1,4 @@
+import { Fragment, useState, type CSSProperties } from "react";
 import { Link } from "react-router";
 import {
   ROWS,
@@ -5,10 +6,11 @@ import {
   VISIONS,
   TABS,
   READY_STATUSES,
-  HUMAN_ERA_BUCKETS,
-  getHumanEra,
   getMethodsForCol,
   type Cell,
+  type HumanInstitution,
+  type HumanInstitutionCell,
+  type HumanInstitutionsData,
   type MethodTag,
   type TabId,
 } from "../lib/constants";
@@ -18,6 +20,7 @@ interface GridProps {
   tabId: TabId;
   cells: Record<string, Cell>;
   methods: Record<string, MethodTag[]>;
+  humanInstitutions?: HumanInstitutionsData;
 }
 
 function AxisGuide() {
@@ -44,24 +47,113 @@ function AxisGuide() {
   );
 }
 
-function HumanEraLegend({ cells }: { cells: Record<string, Cell> }) {
-  const used = new Set(
-    Object.values(cells)
-      .map((cell) => getHumanEra(cell.frontmatter)?.bucket)
-      .filter(Boolean)
-  );
-  return (
-    <div className="human-era-legend" aria-label="Human institution design era">
-      {HUMAN_ERA_BUCKETS.filter((b) => used.has(b.id)).map((bucket) => (
-        <span key={bucket.id} className={`human-era-legend-item era-${bucket.id}`}>
-          <span className="human-era-legend-label">{bucket.label}</span>
-        </span>
-      ))}
-    </div>
+function institutionEraIndex(data: HumanInstitutionsData, institution: HumanInstitution): number {
+  return data.timeline.findIndex((point) => point.id === institution.era);
+}
+
+function visibleHumanInstitutions(
+  data: HumanInstitutionsData,
+  cell: HumanInstitutionCell | undefined,
+  timelineIndex: number
+): HumanInstitution[] {
+  return (cell?.institutions || []).filter(
+    (institution) => institutionEraIndex(data, institution) <= timelineIndex
   );
 }
 
-export function Grid({ tabId, cells, methods }: GridProps) {
+function HumanInstitutionText({
+  records,
+  data,
+}: {
+  records: HumanInstitution[];
+  data: HumanInstitutionsData;
+}) {
+  return (
+    <>
+      {records.map((institution, index) => {
+        const eraLabel = data.timeline.find((point) => point.id === institution.era)?.label;
+        return (
+          <Fragment key={institution.id}>
+            {index > 0 && "; "}
+            <span className="human-institution-entry" title={`${institution.since} — ${eraLabel}`}>
+              {institution.name}
+            </span>
+          </Fragment>
+        );
+      })}
+    </>
+  );
+}
+
+function HumanTimeline({
+  data,
+  timelineIndex,
+  onChange,
+}: {
+  data: HumanInstitutionsData;
+  timelineIndex: number;
+  onChange: (index: number) => void;
+}) {
+  const point = data.timeline[timelineIndex];
+  const allInstitutions = Object.values(data.cells).flatMap((cell) => cell.institutions);
+  const visibleInstitutionCount = allInstitutions.filter(
+    (institution) => institutionEraIndex(data, institution) <= timelineIndex
+  ).length;
+  const visibleCellCount = Object.values(data.cells).filter(
+    (cell) => visibleHumanInstitutions(data, cell, timelineIndex).length > 0
+  ).length;
+  const enteringCount = allInstitutions.filter((institution) => institution.era === point.id).length;
+  const isBaseline = timelineIndex === 0;
+  const progress = (timelineIndex / (data.timeline.length - 1)) * 100;
+
+  return (
+    <section className="human-timeline" aria-labelledby="human-timeline-title">
+      <div className="human-timeline-readout" aria-live="polite">
+        <div>
+          <span className="human-timeline-eyebrow" id="human-timeline-title">
+            Institutions recognizable by
+          </span>
+          <div className="human-timeline-period">
+            <strong>{point.date}</strong>
+            <span>{point.label}</span>
+          </div>
+        </div>
+        <span className="human-timeline-count">
+          <span>{visibleInstitutionCount} institutions across {visibleCellCount} cells</span>
+          <span className={`human-timeline-arrivals${isBaseline ? " is-baseline" : ""}`}>
+            {isBaseline ? "Baseline view" : `${enteringCount} added in this era`}
+          </span>
+        </span>
+      </div>
+      <p className="human-timeline-description">{point.description}</p>
+      <input
+        className="human-timeline-range"
+        type="range"
+        min="0"
+        max={data.timeline.length - 1}
+        step="1"
+        value={timelineIndex}
+        onInput={(event) => onChange(Number(event.currentTarget.value))}
+        aria-label="Point in institutional history"
+        aria-valuetext={`${point.date}, ${visibleInstitutionCount} institutions across ${visibleCellCount} cells, ${isBaseline ? "baseline view" : `${enteringCount} added in this era`}`}
+        style={{ "--timeline-progress": `${progress}%` } as CSSProperties}
+      />
+      <div className="human-timeline-stops" aria-hidden="true">
+        {data.timeline.map((timelinePoint, index) => (
+          <span key={timelinePoint.id} className={index === timelineIndex ? "is-current" : ""}>
+            {timelinePoint.date}
+          </span>
+        ))}
+      </div>
+      <p className="human-timeline-note">{data.methodNote}</p>
+    </section>
+  );
+}
+
+export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
+  const [timelineIndex, setTimelineIndex] = useState(
+    humanInstitutions ? humanInstitutions.timeline.length - 1 : 0
+  );
   const tab = TABS[tabId];
   const cellHref = (row: string, col: string) =>
     tabId === "human" ? `/human/${row}/${col}` : `/cell/${row}/${col}`;
@@ -71,7 +163,9 @@ export function Grid({ tabId, cells, methods }: GridProps) {
       <div className="pane-title">{tab.title}</div>
       <div className="pane-subtitle">{tab.subtitle}</div>
       <AxisGuide />
-      {tabId === "human" && <HumanEraLegend cells={cells} />}
+      {tabId === "human" && humanInstitutions && (
+        <HumanTimeline data={humanInstitutions} timelineIndex={timelineIndex} onChange={setTimelineIndex} />
+      )}
       <div className="table-wrapper">
         <table>
           <thead>
@@ -102,15 +196,19 @@ export function Grid({ tabId, cells, methods }: GridProps) {
                 {COLS.map((col) => {
                   const key = `${row.id}-${col.id}`;
                   const cell = cells[key];
+                  const humanCell = humanInstitutions?.cells[key];
+                  const humanRecords = humanInstitutions
+                    ? visibleHumanInstitutions(humanInstitutions, humanCell, timelineIndex)
+                    : [];
                   const hideOnTab =
                     cell &&
                     ((tabId === "agi" && cell.frontmatter?.hide_agi === true) ||
                       (tabId === "human" && cell.frontmatter?.hide_human === true));
                   const summary =
                     cell && !hideOnTab
-                      ? tabId === "human"
-                        ? cell.frontmatter?.human_label || cell.summary
-                        : cell.summary
+                      ? tabId === "agi"
+                        ? cell.summary
+                        : humanCell?.title || ""
                       : "";
                   const visionEntries =
                     tabId === "agi" && cell?.frontmatter?.visions && typeof cell.frontmatter.visions === "object"
@@ -120,10 +218,23 @@ export function Grid({ tabId, cells, methods }: GridProps) {
                         }))
                       : [];
 
-                  if (!cell || (!summary && !visionEntries.length)) {
+                  const outsideTimeline = tabId === "human" && !hideOnTab && humanRecords.length === 0;
+
+                  if (!cell || (tabId === "agi" && !summary && !visionEntries.length) || (tabId === "human" && !humanCell)) {
                     return (
                       <td key={col.id}>
                         <div className="cell-empty" />
+                      </td>
+                    );
+                  }
+
+                  if (outsideTimeline) {
+                    return (
+                      <td key={col.id} className="human-timeline-outside">
+                        <span className="human-timeline-placeholder" aria-hidden="true" />
+                        <span className="sr-only">
+                          No institutions in this cell are in view at {humanInstitutions?.timeline[timelineIndex].date}
+                        </span>
                       </td>
                     );
                   }
@@ -132,16 +243,38 @@ export function Grid({ tabId, cells, methods }: GridProps) {
                   const status = cell.frontmatter?.status;
                   if (tabId === "agi" && READY_STATUSES.has(status)) classes.push("status-body-ok");
                   if (tabId === "agi" && impactFields(cell.frontmatter)) classes.push("has-theory");
-                  const humanEra = tabId === "human" ? getHumanEra(cell.frontmatter) : null;
-                  if (humanEra) classes.push("human-era-tile", `era-${humanEra.bucket}`);
+                  if (tabId === "human") classes.push("human-institution-tile");
 
                   return (
                     <td key={col.id} className={classes.join(" ")}>
                       <Link className="cell-link" to={cellHref(row.id, col.id)}>
-                        {humanEra ? (
-                          <div className="cell-content">
-                            <span className="human-era-label">{humanEra.label}</span>
-                            <span className="human-cell-label">{summary}</span>
+                        {tabId === "human" && humanInstitutions ? (
+                          <div className="cell-content human-institution-list">
+                            {(() => {
+                              const currentEraId = timelineIndex === 0
+                                ? null
+                                : humanInstitutions.timeline[timelineIndex].id;
+                              const inherited = humanRecords.filter((record) => record.era !== currentEraId);
+                              const arrivals = currentEraId
+                                ? humanRecords.filter((record) => record.era === currentEraId)
+                                : [];
+                              return (
+                                <>
+                                  {inherited.length > 0 && (
+                                    <span className="human-institution-inherited">
+                                      <HumanInstitutionText records={inherited} data={humanInstitutions} />
+                                    </span>
+                                  )}
+                                  {arrivals.length > 0 && (
+                                    <span className="human-institution-new-line">
+                                      <span className="human-institution-new-label" aria-hidden="true">New!</span>
+                                      <span className="sr-only">Added in this era: </span>
+                                      <HumanInstitutionText records={arrivals} data={humanInstitutions} />
+                                    </span>
+                                  )}
+                                </>
+                              );
+                            })()}
                           </div>
                         ) : (
                           <div className="cell-content">

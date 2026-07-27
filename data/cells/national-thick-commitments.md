@@ -1,7 +1,4 @@
 ---
-human_label: "Substantive constitutions & founding value documents"
-human_era: "18th-20th c."
-human_era_bucket: early-modern-modern
 status: body_draft
 owner: oliver
 visions:
@@ -126,4 +123,3 @@ Documents about how AI should behave, like Claude's constitution, are heirs to t
 2. **Revision without amendment.** How are values revised or deepened without full constitutional amendment — can practices analogous to judicial interpretation of existing rights do this work for new substantive values?
 3. **Protected zones.** How are protected zones specified at constitutional level — the commitments to leave certain matters deliberately unarticulated?
 4. **Pluralist agreement.** How do pluralist populations agree on substantive value articulations at all, pursuing broad legibility across worldviews without shared substantive conceptions?
-

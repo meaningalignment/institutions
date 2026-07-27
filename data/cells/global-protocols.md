@@ -1,7 +1,4 @@
 ---
-human_label: "ISO standards & internet protocols (TCP/IP, HTTP)"
-human_era: "20th c."
-human_era_bucket: twentieth
 hide_agi: true
 status: not_started
 owner: none

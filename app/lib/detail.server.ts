@@ -2,12 +2,11 @@
 // summary box / theory box / body HTML, and returns serializable strings for
 // the route loader. Mirrors app.js renderDetail's data prep.
 
-import { loadCell } from "./content.server";
+import { loadCell, loadHumanInstitutions } from "./content.server";
 import { renderBody } from "./render.server";
 import {
   renderSummaryBox,
   renderTheoryOfChange,
-  renderHumanEraMeta,
   renderVisionToggleBar,
   visionTagsInBody,
 } from "./markdown";
@@ -58,10 +57,11 @@ export function buildCellDetail(tabId: TabId, rowId: string, colId: string): Cel
   }
 
   const fm = cell.frontmatter;
-  const title = tabId === "human" ? fm?.human_label || cell.summary : cell.summary;
+  const humanCell = tabId === "human" ? loadHumanInstitutions().cells[key] : null;
+  const title = tabId === "human" ? humanCell?.title || cell.summary : cell.summary;
   const summaryBoxHtml = renderSummaryBox(fm);
   const theoryBoxHtml = tabId === "agi" ? renderTheoryOfChange(fm) : "";
-  const humanEraHtml = tabId === "human" ? renderHumanEraMeta(fm) : "";
+  const humanEraHtml = "";
   const visionBar = tabId === "agi" ? renderVisionToggleBar(visionTagsInBody(cell.body)) : "";
 
   const status = (fm && fm.status) || "";

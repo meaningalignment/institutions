@@ -63,7 +63,7 @@
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   color: var(--text);
   background: var(--paper);
   padding: 44px 32px 32px;
@@ -83,7 +83,7 @@ body {
 }
 
 .pane-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 32px;
   font-weight: 400;
   letter-spacing: 0.2px;
@@ -113,7 +113,7 @@ body {
 }
 
 .tab-link {
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
@@ -129,7 +129,7 @@ body {
 .tab-short { display: none; }
 
 .nav-link {
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
@@ -290,95 +290,214 @@ td .cell-content {
   color: var(--ink);
 }
 
-/* Human-era palette: used only when data/cells frontmatter supplies
-   human_era + human_era_bucket, so AGI and Fidelity grids remain neutral.
-   Solid, muted tints — span buckets use a blended midpoint hue rather
-   than a gradient so the tiles stay quiet. */
-.era-ancient { --era-bg: #f0e6c8; --era-border: #cdb87e; --era-text: #46391a; --era-chip: #8a7136; }
-.era-medieval { --era-bg: #e0e8c9; --era-border: #a9bc7e; --era-text: #333f20; --era-chip: #68793f; }
-.era-early-modern { --era-bg: #d2e4df; --era-border: #8db4ab; --era-text: #1f3c38; --era-chip: #44766e; }
-.era-industrial { --era-bg: #e3d9ec; --era-border: #ab93c4; --era-text: #35264a; --era-chip: #6f5990; }
-.era-twentieth { --era-bg: #d9def0; --era-border: #95a1d0; --era-text: #252f57; --era-chip: #5260a3; }
-.era-digital { --era-bg: #d3e2f4; --era-border: #8aabd3; --era-text: #1b3450; --era-chip: #41709f; }
-.era-ancient-medieval { --era-bg: #e9e7c8; --era-border: #bcb377; --era-text: #3d391c; --era-chip: #7c7437; }
-.era-ancient-modern { --era-bg: #ecdfca; --era-border: #c4a87c; --era-text: #443420; --era-chip: #8a6c3c; }
-.era-medieval-modern { --era-bg: #e2e3ca; --era-border: #b0b181; --era-text: #393a22; --era-chip: #74763f; }
-.era-early-modern-modern { --era-bg: #d6e1e8; --era-border: #97b2c1; --era-text: #263b46; --era-chip: #527184; }
-.era-industrial-digital { --era-bg: #dcdcef; --era-border: #a0a3d0; --era-text: #2b2d55; --era-chip: #585ea1; }
-
-.human-era-legend {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 7px;
-  max-width: 860px;
-  margin: -8px 0 22px;
+/* Human timeline: a cumulative historical filter, shown only on the Human tab. */
+.human-timeline {
+  width: min(680px, calc(100vw - 40px));
+  margin: 14px 0 18px;
+  padding: 20px 22px 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(60, 50, 30, 0.04);
 }
-
-.human-era-legend-item {
+.human-timeline-readout {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.human-timeline-eyebrow {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.human-timeline-period {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+.human-timeline-period strong {
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+.human-timeline-period span,
+.human-timeline-count,
+.human-timeline-description,
+.human-timeline-note {
+  color: var(--muted);
+  font-size: 11px;
+}
+.human-timeline-count {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding-bottom: 4px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.human-timeline-arrivals {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 11px;
-  border: 1px solid var(--era-border);
+  color: var(--ink);
+  font-size: 10px;
+}
+.human-timeline-arrivals::before {
+  content: '';
+  width: 10px;
+  height: 6px;
+  border-bottom: 2px solid var(--ink);
+  border-radius: 2px 2px 0 0;
+  background: var(--wash);
+}
+.human-timeline-arrivals.is-baseline::before {
+  display: none;
+}
+.human-timeline-description {
+  margin: 2px 0 16px;
+  line-height: 1.4;
+}
+.human-timeline-range {
+  width: 100%;
+  height: 18px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.human-timeline-range::-webkit-slider-runnable-track {
+  height: 3px;
   border-radius: 999px;
-  background: var(--era-bg);
-  color: var(--era-text);
-  font-size: 10.5px;
+  background: linear-gradient(
+    to right,
+    var(--ink) 0 var(--timeline-progress),
+    var(--line-strong) var(--timeline-progress) 100%
+  );
+}
+.human-timeline-range::-moz-range-track {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--line-strong);
+}
+.human-timeline-range::-moz-range-progress {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--ink);
+}
+.human-timeline-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  margin-top: -6.5px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+.human-timeline-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--card);
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+.human-timeline-range:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+.human-timeline-stops {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1px;
+  color: var(--faint);
+  font-size: 9px;
+}
+.human-timeline-stops span.is-current {
+  color: var(--ink);
+  font-weight: 700;
+}
+.human-timeline-note {
+  margin-top: 10px;
+  font-size: 9.5px;
   line-height: 1.4;
 }
 
-.human-era-legend-label {
-  font-weight: 600;
-}
-
-td.human-era-tile {
-  background: var(--era-bg);
-}
-
-td.human-era-tile .cell-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
+td.human-institution-tile .cell-content {
   width: 100%;
-  min-height: 60px;
-  box-sizing: border-box;
-  padding: 8px 9px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--era-text);
+  max-width: 168px;
+  font-weight: 500;
+}
+.human-institution-list {
+  display: block !important;
+  padding: 8px 7px !important;
   text-align: center;
-  box-shadow: none;
+  line-height: 1.55 !important;
 }
-
-td.human-era-tile .human-era-label {
-  font-size: 8.5px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  line-height: 1.15;
-  text-transform: uppercase;
-  color: var(--era-chip);
-}
-
-td.human-era-tile .human-cell-label {
-  display: block;
-  font-size: 11.5px;
+.human-institution-entry {
+  display: inline;
+  color: var(--ink);
+  font-size: 10.5px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.55;
+}
+.human-institution-inherited {
+  display: inline;
+}
+.human-institution-inherited .human-institution-entry {
+  font-weight: 500;
+}
+.human-institution-new-line {
+  display: block;
+  margin-top: 5px;
+  text-align: center;
+}
+.human-institution-new-line .human-institution-entry {
+  font-weight: 700;
+}
+.human-institution-new-label {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 1px 4px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--card);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1.35;
+  text-transform: uppercase;
+  vertical-align: 1px;
+}
+td.clickable.human-institution-tile:hover .cell-content {
+  background: transparent;
+}
+td.clickable.human-institution-tile:hover .human-institution-entry:not(.is-arrival) {
+  background: var(--wash);
+}
+td.human-timeline-outside {
+  background: var(--paper);
+}
+.human-timeline-placeholder {
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background: var(--line-strong);
 }
 
 td.clickable { cursor: pointer; }
 td.clickable:hover .cell-content {
   background: var(--wash);
   transition: background 0.15s;
-}
-td.clickable.human-era-tile:hover .cell-content {
-  background: transparent;
-}
-td.clickable.human-era-tile:hover {
-  filter: saturate(1.08) brightness(0.985);
 }
 
 tr.methods-row td {
@@ -439,7 +558,7 @@ td .cell-required-label { display: block; }
 body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 
 /* Vision selector dropdown in the page controls. */
-.vision-menu { position: relative; font-family: 'DM Sans', sans-serif; width: max-content; }
+.vision-menu { position: relative; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; width: max-content; }
 .vision-menu > summary {
   list-style: none;
   cursor: pointer;
@@ -518,7 +637,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 /* ── "What is this?" project popup ─────────────────────────────────── */
 
 .about-button {
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
@@ -539,7 +658,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
    detail pages (.detail-body h2). */
 .about-section { margin-bottom: 30px; }
 .about-section h3 {
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 23px;
   font-weight: 400;
   color: var(--ink);
@@ -818,6 +937,23 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
   display: block;
 }
 
+/* Tailwind's preflight strips list markers; content lists get them back. */
+.cell-summary-list,
+.detail-body ul,
+.ps-entry-body ul,
+.rail-body ul,
+.impact-example-list,
+.ps-notes ul {
+  list-style: disc;
+}
+.detail-body ol,
+.ps-entry-body ol,
+.rail-body ol,
+.cell-impact-steps,
+.about-section ol {
+  list-style: decimal;
+}
+
 /* Detail page */
 .detail-back {
   display: inline-block;
@@ -843,31 +979,13 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 .detail-breadcrumb a:hover { color: var(--ink); }
 
 .detail-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 34px;
   font-weight: 400;
   color: var(--ink);
   max-width: 800px;
   margin-bottom: 26px;
   line-height: 1.25;
-}
-
-.human-era-detail {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin: -12px 0 26px;
-  padding: 5px 12px;
-  border: 1px solid var(--era-border);
-  border-radius: 999px;
-  background: var(--era-bg);
-  color: var(--era-text);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.human-era-detail .human-era-label {
-  color: var(--era-text);
 }
 
 .cell-summary {
@@ -895,7 +1013,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 }
 
 .cell-summary-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.7px;
   font-size: 10px;
@@ -939,7 +1057,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 }
 
 .detail-body h2 {
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 23px;
   font-weight: 400;
   color: var(--ink);
@@ -1006,7 +1124,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 
 .detail-body .vivid-case-label {
   display: block;
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.8px;
@@ -1076,7 +1194,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 
 /* Problem sets page */
 .ps-page-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 36px;
   font-weight: 400;
   color: var(--ink);
@@ -1092,7 +1210,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 }
 
 .ps-group-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 23px;
   font-weight: 400;
   color: var(--ink);
@@ -1241,7 +1359,7 @@ details.collapsible-section > .collapsible-body { margin-top: 14px; }
 }
 
 .ps-entry-number {
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: 700;
   color: var(--faint);
@@ -1275,7 +1393,7 @@ details.collapsible-section > .collapsible-body { margin-top: 14px; }
   border-radius: 50%;
   background: var(--ink);
   color: #fdfcfb;
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: 700;
   line-height: 1;
@@ -1368,7 +1486,7 @@ td.has-theory::before {
   color: var(--text);
 }
 .rail-label {
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.7px;
   font-size: 11px;
@@ -1377,7 +1495,7 @@ td.has-theory::before {
   margin-bottom: 12px;
 }
 .rail-body h2, .rail-body h3 {
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 12.5px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1506,25 +1624,62 @@ tr.methods-row th.row-header {
     max-width: 95px;
     line-height: 1.3;
   }
-  .human-era-legend {
-    gap: 4px;
-    margin: -2px 0 14px;
+  .human-timeline {
+    width: calc(100vw - 24px);
+    margin: 10px 0 14px;
+    padding: 14px 14px 12px;
   }
-  .human-era-legend-item {
-    padding: 3px 8px;
+  .human-timeline-readout {
+    align-items: start;
+    gap: 8px;
+  }
+  .human-timeline-period {
+    display: block;
+  }
+  .human-timeline-period strong {
+    display: block;
+    font-size: 20px;
+  }
+  .human-timeline-period span,
+  .human-timeline-count,
+  .human-timeline-description {
+    font-size: 9.5px;
+  }
+  .human-timeline-description {
+    max-width: 72%;
+    margin-top: 2px;
+  }
+  .human-timeline-count {
+    gap: 3px;
+    padding-top: 17px;
+  }
+  .human-timeline-arrivals {
     font-size: 8.5px;
   }
-  td.human-era-tile .cell-content {
-    gap: 2px;
-    min-height: 44px;
-    padding: 3px;
+  .human-timeline-stops {
+    font-size: 7px;
   }
-  td.human-era-tile .human-era-label {
-    font-size: 6.5px;
+  .human-timeline-stops span:nth-child(even):not(.is-current) {
+    display: none;
   }
-  td.human-era-tile .human-cell-label {
-    font-size: 8.5px;
-    line-height: 1.15;
+  td.human-institution-tile .cell-content {
+    max-width: 105px;
+  }
+  .human-institution-list {
+    padding: 4px 3px !important;
+    line-height: 1.35 !important;
+  }
+  .human-institution-entry {
+    font-size: 8px;
+    line-height: 1.35;
+  }
+  .human-institution-new-line {
+    margin-top: 3px;
+  }
+  .human-institution-new-label {
+    margin-right: 2px;
+    padding: 0 3px;
+    font-size: 5.5px;
   }
 
   tr.methods-row .cell-content {
@@ -1680,7 +1835,7 @@ details.curr-field > summary.curr-field-summary > h2.curr-field-name {
   margin: 0;
   padding-bottom: 0;
   border-bottom: none;
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 28px;
   font-weight: 400;
   color: var(--ink);
@@ -1689,7 +1844,7 @@ details.curr-field > summary.curr-field-summary > h2.curr-field-name {
 details.curr-field > .curr-field-body { margin-top: 24px; }
 
 .curr-page-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 44px;
   font-weight: 400;
   color: var(--ink);
@@ -2002,7 +2157,7 @@ details.curr-field.is-relevant { scroll-margin-top: 80px; }
   display: inline-block;
   min-width: 1.1em;
   margin-right: 12px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   font-size: 0.62em;
   font-weight: 700;
   color: var(--faint);
@@ -2038,7 +2193,7 @@ details.curr-field.is-dimmed .curr-field-num:empty { display: none; }
 }
 
 .curr-main > h2 {
-  font-family: 'DM Serif Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 28px;
   font-weight: 400;
   color: var(--ink);

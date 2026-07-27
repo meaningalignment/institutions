@@ -1,7 +1,4 @@
 ---
-human_label: "Legal codes & regulatory norms"
-human_era: "Ancient-20th c."
-human_era_bucket: ancient-modern
 status: body_draft
 owner: oliver
 visions:

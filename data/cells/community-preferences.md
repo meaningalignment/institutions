@@ -1,7 +1,4 @@
 ---
-human_label: "Cooperatives, participatory budgets & local markets"
-human_era: "19th-21st c."
-human_era_bucket: industrial-digital
 status: not_started
 owner: joe
 visions:

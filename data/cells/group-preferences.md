@@ -1,7 +1,4 @@
 ---
-human_label: "Committee voting & prediction markets"
-human_era: "Medieval-20th c."
-human_era_bucket: medieval-modern
 hide_agi: true
 status: not_started
 owner: none

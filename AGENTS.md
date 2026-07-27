@@ -1,6 +1,6 @@
 # Institutions
 
-Interactive grid for exploring institutional design across scales (dyadic to global) and mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments), with two tabs — AGI and Human — plus toggleable **visions** layered on the AGI grid. The AGI and Human grids share their cell bodies from `data/cells/` — each cell tells one story that covers how humans currently solve the problem and how AGI breaks it. The Human grid shows a different per-cell label (the existing-institution name) supplied via frontmatter. A **vision** (the first is "Fidelity & Meaning") is an extensible overlay, not a separate tab: a cell opts in via `visions:` frontmatter (which supplies the grid chip label) and contributes `{vision: id}`-tagged problem sets. Visions are off by default and toggled from the AGI grid's vision selector or a detail page; the selection is shared across pages via a `?visions=` URL param + localStorage.
+Interactive grid for exploring institutional design across scales (dyadic to global) and mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments), with two tabs — AGI and Human — plus toggleable **visions** layered on the AGI grid. The grids share detail bodies from `data/cells/`, but their grid-level data is separate: AGI labels come from each cell H1, while the Human grid's dated institution records and timeline live in `data/human-institutions.json`. A **vision** (the first is "Fidelity & Meaning") is an extensible overlay, not a separate tab: a cell opts in via `visions:` frontmatter (which supplies the grid chip label) and contributes `{vision: id}`-tagged problem sets. Visions are off by default and toggled from the AGI grid's vision selector or a detail page; the selection is shared across pages via a `?visions=` URL param + localStorage.
 
 This file documents the schema mechanics (frontmatter, section headings, how content renders). The cell quality bar — the principles we hold cells to and the checklist for evaluating one — lives in [STANDARDS.md](STANDARDS.md). The execution plan for bringing cells into compliance is in [plans/cell-standards-compliance.md](plans/cell-standards-compliance.md).
 
@@ -14,7 +14,7 @@ npm run build      # → build/ : client bundle + SSR server bundle
 
 The site is a **React Router v8 framework-mode app (SSR)** in `app/`. Pages are server-rendered at request time — nothing is committed as static HTML. Deployed on Vercel with zero-config React Router detection (`vercel.json` → `{ "framework": "react-router" }`).
 
-The markdown/YAML under `data/` is **bundled into the build** by the `siteContent()` Vite plugin (`vite.config.ts`), exposed as the `virtual:site-content` module and read through `app/lib/content.server.ts`. Content therefore ships inside the server bundle and is never read from disk at runtime (required for Vercel serverless; `import.meta.glob` raw is avoided because rolldown's SSR pass mishandles it).
+The Markdown/YAML/JSON under `data/` is **bundled into the build** by the `siteContent()` Vite plugin (`vite.config.ts`), exposed as the `virtual:site-content` module and read through `app/lib/content.server.ts`. Content therefore ships inside the server bundle and is never read from disk at runtime (required for Vercel serverless; `import.meta.glob` raw is avoided because rolldown's SSR pass mishandles it).
 
 Routes (`app/routes.ts`): `/` (AGI grid), `/human` (Human grid), `/cell/:row/:col` + `/human/:row/:col` (cell detail — real, crawlable URLs), `/methods/:col`, `/problem-sets`, `/curriculum`, `/theory-of-change`, `/researchers` + `/researchers/:handle` (Community, DB-backed — currently unlinked from the grids), `/admin` (internal, unlinked, unguarded), `/fidelity` → redirect to `/?visions=fidelity`.
 
@@ -60,14 +60,15 @@ The Kanban is a local-only tool — not part of the app or the deploy. It render
 ## Stack
 
 - **React Router v8** (framework mode, SSR) + **React 19** + **TypeScript**, built with **Vite** + **Tailwind CSS v4**. All app code lives in `app/`.
-- Content is markdown/YAML under `data/`, bundled into the build via `virtual:site-content`. Cells are `{row}-{col}.md` (e.g. `dyadic-norms.md`).
+- Content is Markdown/YAML/JSON under `data/`, bundled into the build via `virtual:site-content`. Cells are `{row}-{col}.md` (e.g. `dyadic-norms.md`).
 - `marked` renders markdown and `js-yaml` parses frontmatter — both **server-side**, in route loaders / `app/lib/*.server.ts`. Cell bodies are rendered to HTML on the server and injected.
 - The **ecosystem** Neon Postgres (researchers) is queried via `@neondatabase/serverless` (`app/lib/db.server.ts`, `POSTGRES_URL` env) for the Community page and `/admin`.
 - Deployed on Vercel (`vercel.json` → `framework: react-router`).
 
 ## Data layout
 
-- `data/cells/{row}-{col}.md` — canonical cell. The H1 is the cell's title and is used as both the AGI-grid summary and the AGI-tab detail-view title. The optional `human_label:` frontmatter field provides the Human-grid summary and the Human-tab detail title (falls back to H1). The body is the detail content for both tabs.
+- `data/cells/{row}-{col}.md` — canonical detail body. The H1 is the AGI-grid summary and AGI detail title; the body supplies the detail content for both tabs.
+- `data/human-institutions.json` — canonical Human-grid timeline, Human detail titles, and dated institution records. A cell can accumulate multiple institutions over time; selecting a stop shows every record up to that era and highlights records whose `era` is the selected stop.
 - `data/methods/{col}.md` — column-level reference (textbooks, tutorials, key concepts) shared across both tabs. Frontmatter declares which method tags appear in the grid's methods row and whether they're bolded per tab. Methods content shows as a right-side rail on each detail page.
 - **Visions** have no data directory. They are declared by the `VISIONS` const in `app/lib/constants.ts` (each entry: `id`, `label`, `color`, `description`). A cell joins a vision through its `visions:` frontmatter and `{vision: id}`-tagged problem sets (see Cell schema). Fidelity content used to live in `data/fidelity/`; it now lives inside the relevant `data/cells/` files as fidelity-tagged problem sets.
 - The **ecosystem** researcher DB (Neon Postgres) is external to this repo — see the Stack section. It joins to cells on `cell_key = {row}-{col}`.
@@ -85,9 +86,6 @@ Every file in `data/cells/` follows this structure. The app doesn't enforce it, 
 
 ```markdown
 ---
-human_label: Social conventions        # optional; Human-grid summary + Human-tab detail title. Falls back to H1.
-human_era: "Ancient / customary"       # optional; Human-tab display label for when the human institution-family was designed or became recognizable.
-human_era_bucket: ancient              # optional; Human-tab color bucket: ancient | medieval | early-modern | industrial | twentieth | digital | ancient-medieval | ancient-modern | medieval-modern | early-modern-modern | industrial-digital.
 hide_agi: true                         # optional; hide this cell from the AGI grid (renders empty). Use when no AGI story yet.
 hide_human: true                       # optional; symmetric flag for the Human grid.
 status: body_ok                        # not_started | summary_draft | summary_needs_work | summary_ok | body_draft | body_needs_work | body_ok | expert_selected | expert_reviewed. Drives grid marker and Kanban column.
@@ -160,6 +158,38 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 ```
 
+## Human institutions timeline schema
+
+`data/human-institutions.json` is independent of cell frontmatter. Its `timeline` array defines ordered slider stops; every institution record refers to one stop by `era` while `since` carries the more specific visible date. `id` is stable within its cell.
+
+```json
+{
+  "timeline": [
+    {
+      "id": "postwar",
+      "date": "c. 1975",
+      "label": "Postwar order",
+      "description": "Global institutions, social safety nets, civil and human rights, and modern regulation"
+    }
+  ],
+  "cells": {
+    "national-rights": {
+      "title": "National rights and courts",
+      "institutions": [
+        {
+          "id": "civil-human-rights",
+          "name": "Civil-rights and human-rights enforcement",
+          "since": "1948–1960s",
+          "era": "postwar"
+        }
+      ]
+    }
+  }
+}
+```
+
+The loader rejects unknown era ids, missing fields, and duplicate institution ids. The dataset should contain all 35 row × column keys even if an early timeline stop leaves some cells empty.
+
 Multiple `###` problem sets under one cell are supported; each becomes its own entry on the problem-sets aggregate page.
 
 **Per-cell "Theory of change" (investor framing).** An optional `## Theory of change` markdown section renders as a standalone collapsible box under the At-a-glance summary box (AGI tab only; suppressed on the Human tab). It's for funders, not researchers, so it's collapsed by default. The section has three parts: an **intro paragraph** (the speculative-path prose, with markdown links), a **numbered ladder** (a markdown ordered list), and a **`**Scores**` block** — four `- Label: N/5 — note` bullets (Urgency, Tractability, Neglectedness, Maturity). Scores render as `●●●○○` dot rows with the note shown to the right and the dimension meaning on hover; Maturity = how far along the work is (5 = working prototypes/pilots). The section is parsed out of the body by `extractTheoryOfChange` in `app/lib/markdown.ts` (mirroring `extractAtGlance`), so it doesn't render twice; `renderTheoryOfChange` / `impactFields` / `scoreDots` draw the box, composed for the route in `app/lib/detail.server.ts`. The quality bar is in [STANDARDS.md](STANDARDS.md) §4 (worked exemplars: `national-preferences`, `global-incentives`).
@@ -173,7 +203,7 @@ On a cell detail page the vision toggle bar sits at the top of the `## Problem S
 ### Why these particular sections
 
 - **At a glance** is the cell's elevator pitch — three H3 subsections (`Coordination challenge`, `Examples`, `How AGI breaks them`). Pulled out of the body at render time and shown as the styled summary box at the top of the detail page; the section itself is stripped from the inline body so it doesn't render twice. Keeps everything in markdown so inline `{>> ... <<}` editorial notes work here too.
-- **Human era metadata** is display-only metadata for the Human tab. `human_era` is the visible label; `human_era_bucket` chooses the periodic-table color bucket. Use a span bucket such as `ancient-modern` or `early-modern-modern` when a single design century would be misleading.
+- **Human-grid history** lives only in `data/human-institutions.json`. Add a new record rather than rewriting an accumulated label when a later institution enters a cell. Choose the timeline `era` that controls when it appears and supply a more specific `since` date for display.
 - **How humans solve this today** anchors readers in something familiar before the AGI-specific design problem hits. Always concrete (named institutions, named mechanisms), never generic ("humans cooperate by…").
 - **Where AGI breaks it** is the load-bearing section: it states the specific ways the existing mechanism fails when one party is autonomous. It should be paragraph versions of the At a Glance `How AGI breaks them` bullets, in the same order, with no intro paragraph and no scenario prose. Resist anthropomorphism — agents are different institutional actors, not defective humans; don't write that they "fail to feel," "lack shame," or "miss the felt sense of." When a mechanism could apply to agents but with different objects (e.g. contractualist reasoning over agent counterparties whose training/principals/constraints are what's being modeled, not their reactions), name that explicitly rather than declaring the mechanism broken.
 - **Problem Sets** turn selected mechanisms into design work. Each problem set contains its own `**Scenario.**`, `**Challenge:**`, optional `**Evaluation.**`, and `**Design choices the team must take a position on.**` Scenarios are high-stakes test objects, not a detached section. Challenge is the design task in one or two sentences; Evaluation (when present) names what separates strong from weak proposals. Strong problem sets can target formation, transmission, application, enforcement, appeal, revision, ratification, accountability, allocation, or evidence.

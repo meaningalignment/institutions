@@ -1,7 +1,4 @@
 ---
-human_label: "Regulatory agencies (FDA, BaFin)"
-human_era: "20th c."
-human_era_bucket: twentieth
 status: summary_draft
 owner: oliver
 visions:

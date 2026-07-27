@@ -24,12 +24,6 @@ export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico", sizes: "any" },
   { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap",
-  },
 ];
 
 // Runs before hydration: sets editorial/hide-unready viewer flags and applies

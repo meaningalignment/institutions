@@ -53,7 +53,7 @@ export const TABS: Record<string, { title: string; nav: string; short: string; s
     title: "Existing Human Institutions",
     nav: "Existing Human Institutions",
     short: "Human",
-    subtitle: "Current institutional infrastructure (how humans do alignment)",
+    subtitle: "How human coordination infrastructure accumulated over time",
   },
 };
 
@@ -113,36 +113,29 @@ export const COLS: AxisItem[] = [
   { id: "thick-commitments", name: "Thick Commitments", desc: "articulated shared understanding" },
 ];
 
-export interface HumanEraBucket {
+export interface HumanTimelinePoint {
   id: string;
-  code: string;
+  date: string;
   label: string;
+  description: string;
 }
 
-export const HUMAN_ERA_BUCKETS: HumanEraBucket[] = [
-  { id: "ancient", code: "An", label: "Ancient / customary" },
-  { id: "ancient-medieval", code: "A-M", label: "Ancient-medieval" },
-  { id: "ancient-modern", code: "A+", label: "Ancient-modern" },
-  { id: "medieval-modern", code: "M+", label: "Medieval-modern" },
-  { id: "early-modern-modern", code: "E+", label: "Early modern-modern" },
-  { id: "twentieth", code: "20", label: "20th century" },
-  { id: "industrial-digital", code: "I+", label: "Industrial-digital" },
-  { id: "digital", code: "21", label: "Digital era" },
-  { id: "medieval", code: "Md", label: "Medieval" },
-  { id: "early-modern", code: "Em", label: "Early modern" },
-  { id: "industrial", code: "In", label: "Industrial" },
-];
+export interface HumanInstitution {
+  id: string;
+  name: string;
+  since: string;
+  era: string;
+}
 
-export const HUMAN_ERA_BUCKET_IDS = new Set(HUMAN_ERA_BUCKETS.map((b) => b.id));
+export interface HumanInstitutionCell {
+  title: string;
+  institutions: HumanInstitution[];
+}
 
-export function getHumanEra(
-  fm: Frontmatter | undefined | null
-): { label: string; bucket: string; code: string } | null {
-  const label = typeof fm?.human_era === "string" ? fm.human_era.trim() : "";
-  const bucket = typeof fm?.human_era_bucket === "string" ? fm.human_era_bucket.trim() : "";
-  if (!label || !HUMAN_ERA_BUCKET_IDS.has(bucket)) return null;
-  const meta = HUMAN_ERA_BUCKETS.find((b) => b.id === bucket)!;
-  return { label, bucket, code: meta.code };
+export interface HumanInstitutionsData {
+  timeline: HumanTimelinePoint[];
+  methodNote: string;
+  cells: Record<string, HumanInstitutionCell>;
 }
 
 // Method tags for a column, filtered by tab and normalized to { name, bold }.

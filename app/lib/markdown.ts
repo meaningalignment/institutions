@@ -4,9 +4,6 @@
 
 import {
   VISIONS,
-  HUMAN_ERA_BUCKET_IDS,
-  HUMAN_ERA_BUCKETS,
-  getHumanEra,
   type Cell,
   type Frontmatter,
 } from "./constants";
@@ -328,16 +325,7 @@ export function extractProblemSets(tabId: string, cells: Record<string, Cell>): 
   return problems;
 }
 
-// ── Summary box + human-era + theory-of-change HTML builders ───────
-
-export function renderHumanEraMeta(fm: Frontmatter): string {
-  const humanEra = getHumanEra(fm);
-  if (!humanEra) return "";
-  let html = `<div class="human-era-detail era-${humanEra.bucket}">`;
-  html += `<span class="human-era-label">${escapeHtml(humanEra.label)}</span>`;
-  html += "</div>";
-  return html;
-}
+// ── Summary box + theory-of-change HTML builders ──────────────────
 
 export function renderSummaryBox(fm: Frontmatter | undefined | null): string {
   if (!fm) return "";
@@ -541,5 +529,3 @@ export function visionStylesCss(): string {
   }
   return css;
 }
-
-export { HUMAN_ERA_BUCKETS, HUMAN_ERA_BUCKET_IDS };

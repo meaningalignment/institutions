@@ -4,9 +4,14 @@ import { getCommunity, type Researcher } from "../lib/researchers.server";
 import { ResearcherCard } from "../components/ResearcherCard";
 import { SiteFooter } from "../components/Controls";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
+import { getAuthorizedAdminSession } from "../lib/auth.server";
 
-export async function loader(_: Route.LoaderArgs) {
-  return await getCommunity();
+export async function loader({ request }: Route.LoaderArgs) {
+  const [community, session] = await Promise.all([
+    getCommunity(),
+    getAuthorizedAdminSession(request),
+  ]);
+  return { ...community, session };
 }
 
 export function meta(_: Route.MetaArgs) {
@@ -55,9 +60,16 @@ export default function Researchers({ loaderData: d }: Route.ComponentProps) {
   return (
     <>
       <div className="w-full max-w-[1000px]">
-        <Link to="/" className="detail-back">
-          ← Back to grid
-        </Link>
+        <div className="flex items-start justify-between gap-4">
+          <Link to="/" className="detail-back">
+            ← Back to grid
+          </Link>
+          {d.session ? (
+            <Link to="/admin" className="detail-back">
+              Admin →
+            </Link>
+          ) : null}
+        </div>
         <h1
           className="mb-2 text-[color:var(--ink)]"
           style={{ fontFamily: "'DM Serif Display', serif", fontSize: 32 }}

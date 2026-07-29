@@ -1,4 +1,4 @@
-import { Form, NavLink, Outlet, useLoaderData } from "react-router";
+import { Form, Link, NavLink, Outlet, useLoaderData } from "react-router";
 import type { Route } from "./+types/admin";
 import { SITE_NAME } from "../lib/constants";
 import { requireAdminSession } from "../lib/auth.server";
@@ -30,6 +30,9 @@ export default function AdminLayout() {
         </h1>
         <div className="flex items-center gap-2 pt-1 text-xs text-[color:var(--muted)]">
           <span className="hidden sm:inline">{session.name}</span>
+          <Link to="/researchers" className="text-[color:var(--accent)] hover:underline">
+            Researchers
+          </Link>
           <Form action="/logout" method="post">
             <button type="submit" className="text-[color:var(--accent)] hover:underline">
               Sign out

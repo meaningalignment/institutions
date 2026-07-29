@@ -294,6 +294,38 @@ td .cell-content {
   color: var(--ink);
 }
 
+/* The Human grid opens in a simple one-label-per-cell view; this toggle
+   (shown where the timeline box will sit) reveals history mode. */
+.human-history-toggle {
+  margin: 14px 0 18px;
+  padding: 9px 18px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.05);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.human-history-toggle::after { content: ' \25B8'; color: var(--faint); }
+.human-history-toggle:hover { color: var(--ink); border-color: var(--faint); }
+
+/* Cell contents (and the timeline box) fade in when the Human grid flips
+   between the simple and history views; each cell staggers via an inline
+   animation-delay, so `backwards` keeps delayed cells invisible until
+   their turn. */
+.human-cell-fade { animation: human-cell-fade 0.45s ease backwards; }
+@keyframes human-cell-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .human-cell-fade { animation: none; }
+}
+
 /* Human timeline: a cumulative historical filter, shown only on the Human tab. */
 .human-timeline {
   width: min(680px, calc(100vw - 40px));
@@ -310,6 +342,21 @@ td .cell-content {
   justify-content: space-between;
   gap: 24px;
 }
+.human-timeline-close {
+  align-self: start;
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.human-timeline-close:hover { color: var(--ink); border-color: var(--faint); }
 .human-timeline-eyebrow {
   display: block;
   margin-bottom: 3px;
@@ -1650,10 +1697,20 @@ tr.methods-row th.row-header {
     max-width: 95px;
     line-height: 1.3;
   }
+  .human-history-toggle {
+    margin: 10px 0 14px;
+    font-size: 11px;
+    padding: 8px 15px;
+  }
+
   .human-timeline {
     width: calc(100vw - 24px);
     margin: 10px 0 14px;
     padding: 14px 14px 12px;
+  }
+  .human-timeline-close {
+    font-size: 10px;
+    padding: 3px 10px;
   }
   .human-timeline-readout {
     align-items: start;

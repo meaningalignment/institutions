@@ -140,6 +140,7 @@ export interface HumanInstitution {
 
 export interface HumanInstitutionCell {
   title: string;
+  label: string;
   institutions: HumanInstitution[];
 }
 

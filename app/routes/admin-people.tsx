@@ -15,6 +15,7 @@ import {
   input,
   panel,
 } from "../components/admin/AdminControls";
+import { requireAdminSession } from "../lib/auth.server";
 
 const CLOSENESS_LEVELS: { value: Closeness; label: string }[] = [
   { value: "core-team", label: "⭐ Core team" },
@@ -36,7 +37,8 @@ const CLOSENESS_VALUES = new Set<Closeness>(
   CLOSENESS_LEVELS.map((level) => level.value)
 );
 
-export async function loader() {
+export async function loader({ request }: Route.LoaderArgs) {
+  await requireAdminSession(request);
   const [people, involvements] = await Promise.all([getPeople(), getInvolvements()]);
   return { people, involvements };
 }
@@ -47,6 +49,7 @@ function positiveInteger(value: FormDataEntryValue | null) {
 }
 
 export async function action({ request }: Route.ActionArgs): Promise<ActionResult> {
+  await requireAdminSession(request);
   const fd = await request.formData();
   const intent = String(fd.get("intent") || "");
   const researcherId = positiveInteger(fd.get("researcherId"));

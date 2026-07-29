@@ -51,6 +51,12 @@ type Pages = {
       "handle": string;
     };
   };
+  "/login": {
+    params: {};
+  };
+  "/logout": {
+    params: {};
+  };
   "/admin": {
     params: {};
   };
@@ -68,7 +74,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/problem-sets" | "/curriculum" | "/theory-of-change" | "/researchers" | "/researchers/:handle" | "/admin" | "/admin/papers" | "/admin/people" | "/fidelity";
+    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/problem-sets" | "/curriculum" | "/theory-of-change" | "/researchers" | "/researchers/:handle" | "/login" | "/logout" | "/admin" | "/admin/papers" | "/admin/people" | "/fidelity";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -110,6 +116,14 @@ type RouteFiles = {
     id: "routes/researcher-profile";
     page: "/researchers/:handle";
   };
+  "routes/login.tsx": {
+    id: "routes/login";
+    page: "/login";
+  };
+  "routes/logout.tsx": {
+    id: "routes/logout";
+    page: "/logout";
+  };
   "routes/admin.tsx": {
     id: "routes/admin";
     page: "/admin" | "/admin/papers" | "/admin/people";
@@ -144,6 +158,8 @@ type RouteModules = {
   "routes/theory-of-change": typeof import("./app/routes/theory-of-change.tsx");
   "routes/researchers": typeof import("./app/routes/researchers.tsx");
   "routes/researcher-profile": typeof import("./app/routes/researcher-profile.tsx");
+  "routes/login": typeof import("./app/routes/login.tsx");
+  "routes/logout": typeof import("./app/routes/logout.tsx");
   "routes/admin": typeof import("./app/routes/admin.tsx");
   "routes/admin-scouts": typeof import("./app/routes/admin-scouts.tsx");
   "routes/admin-papers": typeof import("./app/routes/admin-papers.tsx");

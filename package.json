@@ -9,6 +9,7 @@
     "build": "react-router build",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
+    "db:migrate:admin-auth": "node scripts/migrate-admin-auth.mjs",
     "kanban": "bun scripts/kanban.js"
   },
   "keywords": [],

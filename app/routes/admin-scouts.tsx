@@ -17,8 +17,10 @@ import {
   ResearcherCombobox,
   SaveState,
 } from "../components/admin/AdminControls";
+import { requireAdminSession } from "../lib/auth.server";
 
-export async function loader() {
+export async function loader({ request }: Route.LoaderArgs) {
+  await requireAdminSession(request);
   const [researchers, scouts] = await Promise.all([getResearchersList(), getScouts()]);
   return { researchers, scouts };
 }
@@ -29,6 +31,7 @@ function positiveInteger(value: FormDataEntryValue | null) {
 }
 
 export async function action({ request }: Route.ActionArgs): Promise<ActionResult> {
+  await requireAdminSession(request);
   const fd = await request.formData();
   const intent = String(fd.get("intent") || "");
   const researcherId = positiveInteger(fd.get("researcherId"));

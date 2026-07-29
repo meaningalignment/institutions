@@ -74,10 +74,14 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Controls row */
+/* Controls row. Full-width and relatively positioned so the corner vision
+   menu can pin to the top right while the tab bar stays centered. */
 .controls {
+  position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   margin-bottom: 36px;
 }
@@ -290,6 +294,38 @@ td .cell-content {
   color: var(--ink);
 }
 
+/* The Human grid opens in a simple one-label-per-cell view; this toggle
+   (shown where the timeline box will sit) reveals history mode. */
+.human-history-toggle {
+  margin: 14px 0 18px;
+  padding: 9px 18px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.05);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.human-history-toggle::after { content: ' \25B8'; color: var(--faint); }
+.human-history-toggle:hover { color: var(--ink); border-color: var(--faint); }
+
+/* Cell contents (and the timeline box) fade in when the Human grid flips
+   between the simple and history views; each cell staggers via an inline
+   animation-delay, so `backwards` keeps delayed cells invisible until
+   their turn. */
+.human-cell-fade { animation: human-cell-fade 0.45s ease backwards; }
+@keyframes human-cell-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .human-cell-fade { animation: none; }
+}
+
 /* Human timeline: a cumulative historical filter, shown only on the Human tab. */
 .human-timeline {
   width: min(680px, calc(100vw - 40px));
@@ -306,6 +342,21 @@ td .cell-content {
   justify-content: space-between;
   gap: 24px;
 }
+.human-timeline-close {
+  align-self: start;
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.human-timeline-close:hover { color: var(--ink); border-color: var(--faint); }
 .human-timeline-eyebrow {
   display: block;
   margin-bottom: 3px;
@@ -600,6 +651,22 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
   border-radius: 6px;
 }
 .vision-menu-item:hover { background: var(--wash); }
+
+/* Corner variant — the grid controls pin the vision selector to the top
+   right as a small secondary toggle, vertically centered on the tab-bar
+   line; its dropdown opens leftward so it stays on screen. */
+.vision-menu-corner {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+}
+.vision-menu-corner > summary {
+  font-size: 12px;
+  padding: 6px 12px;
+}
+.vision-menu-corner .vision-menu-list { right: 0; }
 
 /* Color dot in selector + toggle bar. */
 .vision-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
@@ -1547,20 +1614,18 @@ tr.methods-row th.row-header {
     padding: 18px 12px 24px;
   }
 
+  /* Single line: "What is this?" pinned left, the tab toggle centered,
+     and the Visions pill pinned right. */
   .controls {
     gap: 8px;
-    flex-direction: column;
-    align-items: stretch;
     margin-bottom: 24px;
   }
 
   .tab-bar {
     flex-wrap: nowrap;
-    justify-content: stretch;
   }
 
   .tab-link {
-    flex: 1;
     font-size: 12px;
     padding: 8px 12px;
     white-space: nowrap;
@@ -1569,14 +1634,22 @@ tr.methods-row th.row-header {
   .tab-full { display: none; }
   .tab-short { display: inline; }
 
+  .controls .about-button {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    padding: 6px 9px;
+  }
+
   .nav-link {
     font-size: 12px;
     padding: 8px 12px;
     text-align: center;
   }
 
-  .vision-menu { width: auto; }
-  .vision-menu > summary { display: block; text-align: center; }
+  .vision-menu-corner > summary { font-size: 11px; padding: 6px 9px; }
 
   .pane-title {
     font-size: 22px;
@@ -1624,10 +1697,20 @@ tr.methods-row th.row-header {
     max-width: 95px;
     line-height: 1.3;
   }
+  .human-history-toggle {
+    margin: 10px 0 14px;
+    font-size: 11px;
+    padding: 8px 15px;
+  }
+
   .human-timeline {
     width: calc(100vw - 24px);
     margin: 10px 0 14px;
     padding: 14px 14px 12px;
+  }
+  .human-timeline-close {
+    font-size: 10px;
+    padding: 3px 10px;
   }
   .human-timeline-readout {
     align-items: start;

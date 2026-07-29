@@ -162,7 +162,7 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 ## Human institutions timeline schema
 
-`data/human-institutions.json` is independent of cell frontmatter. Its `timeline` array defines ordered slider stops; every institution record refers to one stop by `era` while `since` carries the more specific visible date. `id` is stable within its cell.
+`data/human-institutions.json` is independent of cell frontmatter. Its `timeline` array defines ordered slider stops; every institution record refers to one stop by `era` while `since` carries the more specific visible date. `id` is stable within its cell. Each cell also carries a short `label` — the Human grid opens in a **simple view** that shows only that label per cell; a "See institutions throughout history" toggle (state in `app/components/Grid.tsx`) reveals **history mode**: the timeline slider plus the full dated records, with a staggered fade on the cell contents when the mode flips.
 
 ```json
 {
@@ -177,6 +177,7 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
   "cells": {
     "national-rights": {
       "title": "National rights and courts",
+      "label": "Constitutions, courts & judiciary",
       "institutions": [
         {
           "id": "civil-human-rights",
@@ -190,7 +191,7 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 }
 ```
 
-The loader rejects unknown era ids, missing fields, and duplicate institution ids. The dataset should contain all 35 row × column keys even if an early timeline stop leaves some cells empty.
+The loader rejects unknown era ids, missing fields (including a missing cell `label`), and duplicate institution ids. The dataset should contain all 35 row × column keys even if an early timeline stop leaves some cells empty.
 
 Multiple `###` problem sets under one cell are supported; each becomes its own entry on the problem-sets aggregate page.
 

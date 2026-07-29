@@ -197,7 +197,9 @@ export function loadHumanInstitutions(): HumanInstitutionsData {
   }
 
   for (const [cellKey, cell] of Object.entries(data.cells)) {
-    if (!cell.title || !Array.isArray(cell.institutions)) errors.push(`${cellKey}: missing title or institutions`);
+    if (!cell.title || !cell.label || !Array.isArray(cell.institutions)) {
+      errors.push(`${cellKey}: missing title, label, or institutions`);
+    }
     const recordIds = new Set<string>();
     let previousEraIndex = -1;
     for (const institution of cell.institutions || []) {

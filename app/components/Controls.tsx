@@ -24,20 +24,21 @@ export function Controls({ tabId }: { tabId: TabId }) {
           <span className="tab-short">{TABS.agi.short}</span>
         </Link>
       </nav>
-      {tabId === "agi" && <VisionMenu />}
       <Link className="about-button" to="/theory-of-change">
         What is this?
       </Link>
+      {tabId === "agi" && <VisionMenu corner />}
     </div>
   );
 }
 
 // The "Visions" dropdown of checkboxes. Wired by the global change listener in
-// root.tsx. Shared by the grid controls and the problem-sets page.
-export function VisionMenu() {
+// root.tsx. Shared by the grid controls (as a small pill pinned to the top
+// right via `corner`) and the problem-sets page (inline).
+export function VisionMenu({ corner = false }: { corner?: boolean }) {
   if (!VISIONS.length) return null;
   return (
-    <details className="vision-menu">
+    <details className={`vision-menu${corner ? " vision-menu-corner" : ""}`}>
       <summary>Visions</summary>
       <div className="vision-menu-list">
         {VISIONS.map((v) => (

@@ -154,6 +154,11 @@ body {
 #detail-view { display: none; width: 100%; max-width: 1080px; }
 
 .table-wrapper {
+  /* Positioned so absolutely positioned descendants (e.g. the history
+     view's .sr-only spans) resolve to the wrapper and stay inside its
+     scroll clip; unpositioned, they'd resolve to the page root and
+     silently extend the document's horizontal scroll range. */
+  position: relative;
   overflow-x: auto;
   max-width: 100%;
   background: var(--card);

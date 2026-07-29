@@ -75,7 +75,7 @@ export default function Researchers({ loaderData: d }: Route.ComponentProps) {
         />
         <Section
           title="Community members"
-          blurb="Researchers active in the group — on the Signal channel, or at a Zoom meeting or workshop."
+          blurb="Researchers active in the group — on Signal or Slack, or at a Zoom meeting or workshop."
           people={d.community}
         />
         <Section

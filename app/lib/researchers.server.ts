@@ -3,7 +3,7 @@
 //
 // Grouping mirrors ecosystem/src/researcher-grouping.ts:
 //   advisors  → present in the `advisors` table (shown with what they advise on)
-//   community → any signal/zoom/workshop involvement (researcher_involvements)
+//   community → any Signal/Slack/Zoom/workshop involvement (researcher_involvements)
 //   friends   → committed/warm researchers not already grouped above
 // (ecosystem's code currently uses `committed` only; per the product ask we
 // include `warm` too — see plans/…: "Friends group: warm+committed?".)

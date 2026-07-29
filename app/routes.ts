@@ -11,6 +11,10 @@ export default [
   route("theory-of-change", "routes/theory-of-change.tsx"),
   route("researchers", "routes/researchers.tsx"), // Community page (DB)
   route("researchers/:handle", "routes/researcher-profile.tsx"), // Researcher profile (DB)
-  route("admin", "routes/admin.tsx"), // Internal admin (unlinked, unguarded — see note)
+  route("admin", "routes/admin.tsx", [
+    index("routes/admin-scouts.tsx"),
+    route("papers", "routes/admin-papers.tsx"),
+    route("people", "routes/admin-people.tsx"),
+  ]), // Internal admin (unlinked, unguarded — see note)
   route("fidelity", "routes/fidelity.tsx"), // → /?visions=fidelity
 ] satisfies RouteConfig;

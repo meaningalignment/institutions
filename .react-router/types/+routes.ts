@@ -54,6 +54,12 @@ type Pages = {
   "/admin": {
     params: {};
   };
+  "/admin/papers": {
+    params: {};
+  };
+  "/admin/people": {
+    params: {};
+  };
   "/fidelity": {
     params: {};
   };
@@ -62,7 +68,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/problem-sets" | "/curriculum" | "/theory-of-change" | "/researchers" | "/researchers/:handle" | "/admin" | "/fidelity";
+    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/problem-sets" | "/curriculum" | "/theory-of-change" | "/researchers" | "/researchers/:handle" | "/admin" | "/admin/papers" | "/admin/people" | "/fidelity";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -106,7 +112,19 @@ type RouteFiles = {
   };
   "routes/admin.tsx": {
     id: "routes/admin";
+    page: "/admin" | "/admin/papers" | "/admin/people";
+  };
+  "routes/admin-scouts.tsx": {
+    id: "routes/admin-scouts";
     page: "/admin";
+  };
+  "routes/admin-papers.tsx": {
+    id: "routes/admin-papers";
+    page: "/admin/papers";
+  };
+  "routes/admin-people.tsx": {
+    id: "routes/admin-people";
+    page: "/admin/people";
   };
   "routes/fidelity.tsx": {
     id: "routes/fidelity";
@@ -127,5 +145,8 @@ type RouteModules = {
   "routes/researchers": typeof import("./app/routes/researchers.tsx");
   "routes/researcher-profile": typeof import("./app/routes/researcher-profile.tsx");
   "routes/admin": typeof import("./app/routes/admin.tsx");
+  "routes/admin-scouts": typeof import("./app/routes/admin-scouts.tsx");
+  "routes/admin-papers": typeof import("./app/routes/admin-papers.tsx");
+  "routes/admin-people": typeof import("./app/routes/admin-people.tsx");
   "routes/fidelity": typeof import("./app/routes/fidelity.tsx");
 };

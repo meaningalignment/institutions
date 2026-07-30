@@ -290,6 +290,7 @@ function personMarkdown(
 export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
   const [search, setSearch] = useState("");
   const [closenessFilter, setClosenessFilter] = useState<Set<Closeness>>(new Set());
+  const [scoutFilter, setScoutFilter] = useState<"any" | "scout" | "non-scout">("any");
   const [signalFilter, setSignalFilter] = useState<"any" | "on" | "off">("any");
   const [slackFilter, setSlackFilter] = useState<"any" | "on" | "off">("any");
   const [eventFilter, setEventFilter] = useState<"any" | "involved" | "not-involved">("any");
@@ -314,6 +315,10 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
         !needle || `${person.name} ${person.handle}`.toLocaleLowerCase().includes(needle);
       const matchesCloseness =
         closenessFilter.size === 0 || closenessFilter.has(person.closeness);
+      const matchesScout =
+        scoutFilter === "any" ||
+        (scoutFilter === "scout" && person.isScout) ||
+        (scoutFilter === "non-scout" && !person.isScout);
       const onSignal = signal ? person.involvementIds.includes(signal.id) : false;
       const matchesSignal =
         signalFilter === "any" ||
@@ -331,13 +336,21 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
         eventFilter === "any" ||
         (eventFilter === "involved" && hasOtherInvolvement) ||
         (eventFilter === "not-involved" && !hasOtherInvolvement);
-      return matchesSearch && matchesCloseness && matchesSignal && matchesSlack && matchesEvents;
+      return (
+        matchesSearch &&
+        matchesCloseness &&
+        matchesScout &&
+        matchesSignal &&
+        matchesSlack &&
+        matchesEvents
+      );
     });
   }, [
     closenessFilter,
     d.people,
     eventFilter,
     otherInvolvementIds,
+    scoutFilter,
     search,
     signal,
     signalFilter,
@@ -346,6 +359,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
   ]);
   const hasFacetFilters =
     closenessFilter.size > 0 ||
+    scoutFilter !== "any" ||
     signalFilter !== "any" ||
     slackFilter !== "any" ||
     eventFilter !== "any";
@@ -358,6 +372,8 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
           .join(" or ")
       );
     }
+    if (scoutFilter === "scout") parts.push("Scouts");
+    else if (scoutFilter === "non-scout") parts.push("Non-scouts");
     if (signalFilter === "on") parts.push("On Signal");
     else if (signalFilter === "off") parts.push("Not on Signal");
     if (slackFilter === "on") parts.push("On Slack");
@@ -365,7 +381,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
     if (eventFilter === "involved") parts.push("Involved");
     else if (eventFilter === "not-involved") parts.push("Not involved");
     return parts.length ? `Showing ${parts.join(" · ")}` : "Showing all people";
-  }, [closenessFilter, eventFilter, signalFilter, slackFilter]);
+  }, [closenessFilter, eventFilter, scoutFilter, signalFilter, slackFilter]);
 
   useEffect(() => {
     if (!filtersOpen) return;
@@ -385,7 +401,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
 
   useEffect(() => {
     setCopyStatus("idle");
-  }, [closenessFilter, eventFilter, search, signalFilter, slackFilter]);
+  }, [closenessFilter, eventFilter, scoutFilter, search, signalFilter, slackFilter]);
 
   function toggleCloseness(value: Closeness) {
     setClosenessFilter((current) => {
@@ -398,6 +414,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
 
   function clearFacetFilters() {
     setClosenessFilter(new Set());
+    setScoutFilter("any");
     setSignalFilter("any");
     setSlackFilter("any");
     setEventFilter("any");
@@ -510,6 +527,23 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
                 </FacetButton>
                 <FacetButton active={signalFilter === "off"} onClick={() => setSignalFilter("off")}>
                   Not on Signal
+                </FacetButton>
+              </FacetRow>
+              <FacetRow label="Scout status">
+                <FacetButton active={scoutFilter === "any"} onClick={() => setScoutFilter("any")}>
+                  Any
+                </FacetButton>
+                <FacetButton
+                  active={scoutFilter === "scout"}
+                  onClick={() => setScoutFilter("scout")}
+                >
+                  Scouts
+                </FacetButton>
+                <FacetButton
+                  active={scoutFilter === "non-scout"}
+                  onClick={() => setScoutFilter("non-scout")}
+                >
+                  Non-scouts
                 </FacetButton>
               </FacetRow>
               <FacetRow label="Slack">

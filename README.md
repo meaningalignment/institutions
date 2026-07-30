@@ -53,11 +53,12 @@ npm run build
 ```
 
 The app uses React Router SSR. Copy `.env.example` to `.env` and provide the database
-connection plus Mailgun/session settings before testing the authenticated `/admin` routes.
+connection plus Mailgun/session settings before testing the authenticated
+`/researchers/admin` routes.
 
 ## Admin sign-in
 
-The public site remains open. `/admin` is protected by passwordless email codes sent
+The public site remains open. `/researchers/admin` is protected by passwordless email codes sent
 through Mailgun to addresses already present in `researchers.email`. Codes expire after
 10 minutes and successful verification creates an HttpOnly session cookie.
 

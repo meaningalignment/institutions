@@ -10,13 +10,14 @@ export default [
   route("curriculum", "routes/curriculum.tsx"),
   route("theory-of-change", "routes/theory-of-change.tsx"),
   route("researchers", "routes/researchers.tsx"), // Community page (DB)
+  route("researchers/admin", "routes/admin.tsx", [
+    index("routes/admin-scouts.tsx"),
+    route("people", "routes/admin-people.tsx"),
+    route("papers", "routes/admin-papers.tsx"),
+  ]), // Internal community admin (email-code authenticated)
   route("researchers/:handle", "routes/researcher-profile.tsx"), // Researcher profile (DB)
   route("login", "routes/login.tsx"),
   route("logout", "routes/logout.tsx"),
-  route("admin", "routes/admin.tsx", [
-    index("routes/admin-scouts.tsx"),
-    route("papers", "routes/admin-papers.tsx"),
-    route("people", "routes/admin-people.tsx"),
-  ]), // Internal admin (unlinked, email-code authenticated)
+  route("admin/*", "routes/admin-redirect.tsx"), // Legacy admin URLs
   route("fidelity", "routes/fidelity.tsx"), // → /?visions=fidelity
 ] satisfies RouteConfig;

@@ -1,6 +1,6 @@
-// Read + write helpers for the /admin dashboard (scouts, involvements, papers).
-// Server-only. NOTE: these mutate the ecosystem DB and are currently unguarded —
-// gate /admin (e.g. an ADMIN_TOKEN check) before exposing it on the live site.
+// Read + write helpers for the community admin dashboard (scouts, involvements, papers).
+// Server-only. Every route loader and action using these helpers must require an
+// authorized admin session before reading from or mutating the ecosystem DB.
 
 import { getSql } from "./db.server";
 
@@ -20,6 +20,7 @@ export type Closeness =
 export interface AdminPerson extends AdminResearcher {
   closeness: Closeness;
   involvementIds: number[];
+  isScout: boolean;
 }
 
 export interface AdminScout {
@@ -66,6 +67,9 @@ export async function getPeople(): Promise<AdminPerson[]> {
       r.name,
       r.handle,
       COALESCE(r.commitment, 'unknown') AS closeness,
+      EXISTS (
+        SELECT 1 FROM advisors a WHERE a.researcher_id = r.id
+      ) AS is_scout,
       COALESCE(
         array_agg(ri.involvement_id ORDER BY ri.involvement_id)
           FILTER (WHERE ri.involvement_id IS NOT NULL),
@@ -82,6 +86,7 @@ export async function getPeople(): Promise<AdminPerson[]> {
     handle: r.handle ?? "",
     closeness: r.closeness,
     involvementIds: r.involvement_ids ?? [],
+    isScout: r.is_scout,
   }));
 }
 

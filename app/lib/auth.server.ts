@@ -20,6 +20,7 @@ interface LoginResearcher {
   id: number;
   name: string;
   email: string;
+  handle?: string | null;
 }
 
 function sessionSecret() {
@@ -129,7 +130,7 @@ export async function getAuthorizedAdminSession(request: Request) {
   if (!session) return null;
   const sql = getSql();
   const rows = (await sql`
-    SELECT id, name, email
+    SELECT id, name, email, handle
     FROM researchers
     WHERE id = ${session.researcherId}
       AND email IS NOT NULL
@@ -142,6 +143,7 @@ export async function getAuthorizedAdminSession(request: Request) {
     ...session,
     name: researcher.name,
     email: researcher.email,
+    handle: researcher.handle ?? "",
   };
 }
 

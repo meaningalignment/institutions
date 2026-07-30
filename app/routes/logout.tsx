@@ -9,5 +9,5 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export async function loader() {
-  throw redirect("/admin");
+  throw redirect("/researchers/admin");
 }

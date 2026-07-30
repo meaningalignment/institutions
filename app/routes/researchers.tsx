@@ -3,6 +3,7 @@ import type { Route } from "./+types/researchers";
 import { getCommunity, type Researcher } from "../lib/researchers.server";
 import { ResearcherCard } from "../components/ResearcherCard";
 import { SiteFooter } from "../components/Controls";
+import { CommunityHeader } from "../components/CommunityHeader";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { getAuthorizedAdminSession } from "../lib/auth.server";
 
@@ -60,25 +61,7 @@ export default function Researchers({ loaderData: d }: Route.ComponentProps) {
   return (
     <>
       <div className="w-full max-w-[1000px]">
-        <div className="flex items-start justify-between gap-4">
-          <Link to="/" className="detail-back">
-            ← Back to grid
-          </Link>
-          {d.session ? (
-            <Link to="/admin" className="detail-back">
-              Admin →
-            </Link>
-          ) : null}
-        </div>
-        <h1
-          className="mb-2 text-[color:var(--ink)]"
-          style={{ fontFamily: "'DM Serif Display', serif", fontSize: 32 }}
-        >
-          Community
-        </h1>
-        <p className="mb-10 text-[color:var(--muted)]">
-          The people building institutions for a world of autonomous AI agents.
-        </p>
+        <CommunityHeader editing={false} session={d.session} />
 
         <Section
           title="Scouts & Advisors"

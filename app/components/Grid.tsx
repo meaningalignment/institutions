@@ -129,12 +129,20 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
   // The Human grid defaults to a simple one-label-per-cell view; the timeline
   // slider and full dated records are revealed by the history toggle.
   const [historyMode, setHistoryMode] = useState(false);
+  // The fade only plays on history-mode flips, not on initial mount / tab switch.
+  const [hasToggledHistory, setHasToggledHistory] = useState(false);
+  const fadeClass = hasToggledHistory ? " human-cell-fade" : "";
   const tab = TABS[tabId];
   const cellHref = (row: string, col: string) =>
     tabId === "human" ? `/human/${row}/${col}` : `/cell/${row}/${col}`;
   const openHistory = () => {
     if (humanInstitutions) setTimelineIndex(humanInstitutions.timeline.length - 1);
     setHistoryMode(true);
+    setHasToggledHistory(true);
+  };
+  const closeHistory = () => {
+    setHistoryMode(false);
+    setHasToggledHistory(true);
   };
 
   return (
@@ -148,10 +156,10 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
             data={humanInstitutions}
             timelineIndex={timelineIndex}
             onChange={setTimelineIndex}
-            onClose={() => setHistoryMode(false)}
+            onClose={closeHistory}
           />
         ) : (
-          <button type="button" className="human-history-toggle human-cell-fade" onClick={openHistory}>
+          <button type="button" className={`human-history-toggle${fadeClass}`} onClick={openHistory}>
             See institutions throughout history
           </button>
         ))}
@@ -237,19 +245,21 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
 
                   // Distinct keys remount the cell content when the mode
                   // flips, replaying the fade; the delay sweeps diagonally.
+                  // The fade class is withheld until the first toggle so
+                  // tab switches and initial load render without animation.
                   const fadeStyle = { animationDelay: `${(rowIndex + colIndex) * 40}ms` };
 
                   return (
                     <td key={col.id} className={classes.join(" ")}>
                       <Link className="cell-link" to={cellHref(row.id, col.id)}>
                         {tabId === "human" && humanInstitutions && !historyMode ? (
-                          <div key="simple" className="cell-content human-cell-fade" style={fadeStyle}>
+                          <div key="simple" className={`cell-content${fadeClass}`} style={fadeStyle}>
                             <span className="cell-required-label">{humanCell?.label}</span>
                           </div>
                         ) : tabId === "human" && humanInstitutions ? (
                           <div
                             key="history"
-                            className="cell-content human-institution-list human-cell-fade"
+                            className={`cell-content human-institution-list${fadeClass}`}
                             style={fadeStyle}
                           >
                             {(() => {

@@ -3,7 +3,7 @@ import type { Route } from "./+types/curriculum";
 import { buildCurriculum } from "../lib/curriculum.server";
 import { initCurriculum } from "../lib/curriculum-init";
 import { SiteFooter } from "../components/Controls";
-import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
+import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
 
 export const headers = staticContentHeaders;
@@ -20,6 +20,9 @@ export function meta({ loaderData }: Route.MetaArgs) {
     { title },
     { name: "description", content: desc },
     { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/curriculum/` },
+    { property: "og:title", content: title },
+    { property: "og:description", content: desc },
+    ...OG_IMAGE_META,
   ];
 }
 

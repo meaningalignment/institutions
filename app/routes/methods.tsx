@@ -4,7 +4,7 @@ import { loadMethodCell } from "../lib/content.server";
 import { renderBody } from "../lib/render.server";
 import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
-import { GITHUB_REPO, SITE_NAME, TABS, colName } from "../lib/constants";
+import { GITHUB_REPO, OG_IMAGE_META, SITE_NAME, TABS, colName } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
 
 export const headers = staticContentHeaders;
@@ -44,7 +44,8 @@ export function loader({ params }: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  return [{ title: loaderData ? `${loaderData.title} — ${SITE_NAME}` : SITE_NAME }];
+  const title = loaderData ? `${loaderData.title} — ${SITE_NAME}` : SITE_NAME;
+  return [{ title }, { property: "og:title", content: title }, ...OG_IMAGE_META];
 }
 
 export default function MethodsRoute({ loaderData: d }: Route.ComponentProps) {

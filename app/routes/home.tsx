@@ -3,7 +3,7 @@ import { loadGridCells, loadMethods } from "../lib/content.server";
 import { Grid } from "../components/Grid";
 import { Controls, SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
-import { SITE_NAME, SITE_ORIGIN, SITE_OG_IMAGE, TAB_META, TABS } from "../lib/constants";
+import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN, TAB_META, TABS } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
 
 export const headers = staticContentHeaders;
@@ -26,8 +26,7 @@ export function meta(_: Route.MetaArgs) {
     { property: "og:title", content: title },
     { property: "og:description", content: m.description },
     { property: "og:url", content: canonical },
-    { property: "og:image", content: SITE_OG_IMAGE },
-    { name: "twitter:card", content: "summary_large_image" },
+    ...OG_IMAGE_META,
   ];
 }
 

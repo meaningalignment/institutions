@@ -4,7 +4,7 @@ import { readDataFile } from "../lib/content.server";
 import { renderMarkdown } from "../lib/render.server";
 import { esc, escapeHtml } from "../lib/markdown";
 import { SiteFooter } from "../components/Controls";
-import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
+import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
 
 export const headers = staticContentHeaders;
@@ -74,6 +74,9 @@ export function meta({ loaderData }: Route.MetaArgs) {
     { title },
     { name: "description", content: desc },
     { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/theory-of-change/` },
+    { property: "og:title", content: title },
+    { property: "og:description", content: desc },
+    ...OG_IMAGE_META,
   ];
 }
 

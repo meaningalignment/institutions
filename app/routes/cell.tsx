@@ -3,7 +3,7 @@ import { buildCellDetail } from "../lib/detail.server";
 import { CellDetail } from "../components/CellDetail";
 import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
-import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
+import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
 
 export const headers = staticContentHeaders;
@@ -21,6 +21,8 @@ export function meta({ loaderData }: Route.MetaArgs) {
       rel: "canonical",
       href: `${SITE_ORIGIN}/cell/${loaderData?.rowId}/${loaderData?.colId}`,
     },
+    { property: "og:title", content: title },
+    ...OG_IMAGE_META,
   ];
 }
 

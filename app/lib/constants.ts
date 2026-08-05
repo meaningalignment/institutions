@@ -36,6 +36,20 @@ export const SITE_ORIGIN = "https://www.agi-institutions.org";
 export const SITE_NAME = "AGI Institutions";
 export const SITE_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`;
 
+// Shared OG-image meta entries. Spread into a route's meta() so links shared
+// to Twitter/Slack/iMessage render the grid card (public/og-image.png).
+export const OG_IMAGE_META = [
+  { property: "og:image", content: SITE_OG_IMAGE },
+  { property: "og:image:width", content: "2400" },
+  { property: "og:image:height", content: "1260" },
+  {
+    property: "og:image:alt",
+    content:
+      "The AGI Institutions grid: new institutions across scales (dyadic to global) and mechanisms (protocols to thick commitments)",
+  },
+  { name: "twitter:card", content: "summary_large_image" },
+];
+
 export const TAB_META: Record<string, { description: string; canonicalPath: string; keywords: string }> = {
   agi: {
     description:

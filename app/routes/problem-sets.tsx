@@ -7,6 +7,7 @@ import { VisionMenu, SiteFooter } from "../components/Controls";
 import { staticContentHeaders } from "../lib/cache.server";
 import {
   VISIONS,
+  OG_IMAGE_META,
   SITE_NAME,
   SITE_ORIGIN,
   rowName,
@@ -64,6 +65,7 @@ export function meta(_: Route.MetaArgs) {
     { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/problem-sets/` },
     { property: "og:title", content: title },
     { property: "og:description", content: desc },
+    ...OG_IMAGE_META,
   ];
 }
 

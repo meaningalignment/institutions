@@ -122,7 +122,7 @@
       "institutions": [
         { "id": "vows-covenants", "name": "Vows, kinship compacts & covenants", "since": "Ancient", "era": "ancient" },
         { "id": "marriage-sacraments", "name": "Marriage sacraments & sworn fealty", "since": "Medieval", "era": "medieval" },
-        { "id": "civil-marriage", "name": "Civil marriage & secular partnership law", "since": "1790s–19th c.", "era": "constitutional" }
+        { "id": "married-womens-property", "name": "Property rights for married women", "since": "1839–1882", "era": "constitutional" }
       ]
     },
 
@@ -447,7 +447,7 @@
       "institutions": [
         { "id": "world-religions", "name": "World religions & pilgrimage networks", "since": "Ancient", "era": "ancient" },
         { "id": "religious-orders", "name": "Transnational religious orders", "since": "Medieval", "era": "medieval" },
-        { "id": "abolitionism", "name": "Transnational abolitionist movements", "since": "18th–19th c.", "era": "constitutional" },
+        { "id": "anti-slave-trade-treaties", "name": "Anti-slave-trade treaties & international courts", "since": "1807–1860s", "era": "constitutional" },
         { "id": "red-cross-internationalism", "name": "Red Cross & organized internationalism", "since": "1863–1919", "era": "industrial" },
         { "id": "europe-unity-unesco", "name": "European integration & UNESCO", "since": "1945–1957", "era": "postwar" },
         { "id": "knowledge-commons", "name": "Open-source and global knowledge commons", "since": "1980s–2000s", "era": "internet" },

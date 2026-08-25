@@ -104,7 +104,7 @@ function CommunityTree() {
   const matches = useMatches();
   const sectionActive = location.pathname.startsWith("/researchers");
   const profile = matches
-    .map((match) => match.data)
+    .map((match) => match.loaderData)
     .find(
       (value): value is {
         name: string;

@@ -34,11 +34,8 @@ export function CommunityHeader({
 
   return (
     <>
-      <div className="community-utility-row">
-        <Link to="/" className="community-grid-link">
-          AGI institutions grid
-        </Link>
-        {editing && session ? (
+      {editing && session ? (
+        <div className="community-utility-row">
           <div className="flex items-center gap-2 pt-1 text-xs text-[color:var(--muted)]">
             {profileHandle ? (
               <Link
@@ -56,8 +53,8 @@ export function CommunityHeader({
               </button>
             </Form>
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
 
       <div className="community-title-row">
         <h1>Research community</h1>

@@ -20,9 +20,6 @@ function bareHandle(handle: string): string {
 
 export function ResearcherCard({ researcher: r }: { researcher: Researcher }) {
   const profileHref = `/researchers/${bareHandle(r.handle)}`;
-  const fallbackDescription = r.methods.length
-    ? `${r.methods.slice(0, 2).join(" and ")}.`
-    : null;
 
   return (
     // Stretched-link card: the name <Link> covers the whole card via its
@@ -62,12 +59,6 @@ export function ResearcherCard({ researcher: r }: { researcher: Researcher }) {
             {r.advisesAbout}
           </Highlight>
         </div>
-      )}
-
-      {(r.bio || fallbackDescription) && (
-        <p className={`researcher-card-bio${r.bio ? "" : " is-fallback"}`}>
-          {r.bio ?? fallbackDescription}
-        </p>
       )}
 
       <div className="researcher-card-links">

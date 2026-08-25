@@ -129,14 +129,6 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
   // slider and full dated records are revealed by the history toggle.
   const [historyMode, setHistoryMode] = useState(false);
   const tab = TABS[tabId];
-  const peerGrid =
-    tabId === "human"
-      ? { href: "/", label: "AGI institutions", ariaLabel: "View AGI institutions grid" }
-      : {
-          href: "/human",
-          label: "Existing institutions",
-          ariaLabel: "View existing institutions grid",
-        };
   const cellHref = (row: string, col: string) =>
     tabId === "human" ? `/human/${row}/${col}` : `/cell/${row}/${col}`;
   const openHistory = () => {
@@ -152,14 +144,24 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
       <header className="grid-page-header">
         <div className="grid-page-heading">
           <div className="pane-title">{tab.title}</div>
-          <div className="grid-page-meta">
-            <div className="pane-subtitle">{tab.subtitle}</div>
-            <Link className="grid-peer-link" to={peerGrid.href} aria-label={peerGrid.ariaLabel}>
-              <span>View {peerGrid.label}</span>
-              <span aria-hidden="true">→</span>
-            </Link>
-          </div>
+          <div className="pane-subtitle">{tab.subtitle}</div>
         </div>
+        <nav className="grid-view-switch" aria-label="Institution grid">
+          <Link
+            to="/human"
+            className={tabId === "human" ? "active" : undefined}
+            aria-current={tabId === "human" ? "page" : undefined}
+          >
+            Existing institutions
+          </Link>
+          <Link
+            to="/"
+            className={tabId === "agi" ? "active" : undefined}
+            aria-current={tabId === "agi" ? "page" : undefined}
+          >
+            AGI institutions
+          </Link>
+        </nav>
       </header>
       {tabId === "human" &&
         humanInstitutions &&

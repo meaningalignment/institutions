@@ -4,7 +4,7 @@
 
 A map (and a research program) for the institutions a world of autonomous AI agents will need. It's laid out by **scale** (how many actors are coordinating) and by **informational basis** (the kind of information a group coordinates around).
 
-Each cell names a coordination problem, shows how humans currently solve it, how AI agents break that solution, and a speculative path to implementation. Two corner flags mark how far a cell has come: a **green flag** (top right) means the cell is written up and has problem sets for researchers to get started with, along with learning material; a **blue flag** (top left) means the cell carries an investor-facing theory of change — a speculative path to implementation, with a rough read on its urgency, tractability, neglectedness, and maturity.
+Each cell names a coordination problem, shows how humans currently solve it, how AI agents break that solution, and a speculative path to implementation. Two corner flags mark how far a cell has come: a **top-right flag** means the cell is written up and has problem sets for researchers to get started with, along with learning material; a **top-left flag** means the cell carries an investor-facing theory of change — a speculative path to implementation, with a rough read on its urgency, tractability, neglectedness, and maturity.
 
 ## Why it's needed
 

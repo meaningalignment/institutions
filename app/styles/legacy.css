@@ -313,19 +313,6 @@ td .cell-content {
 .human-history-toggle::after { content: ' \25B8'; color: var(--faint); }
 .human-history-toggle:hover { color: var(--ink); border-color: var(--faint); }
 
-/* Cell contents (and the timeline box) fade in when the Human grid flips
-   between the simple and history views; each cell staggers via an inline
-   animation-delay, so `backwards` keeps delayed cells invisible until
-   their turn. */
-.human-cell-fade { animation: human-cell-fade 0.45s ease backwards; }
-@keyframes human-cell-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .human-cell-fade { animation: none; }
-}
-
 /* Human timeline: a cumulative historical filter, shown only on the Human tab. */
 .human-timeline {
   width: min(680px, calc(100vw - 40px));

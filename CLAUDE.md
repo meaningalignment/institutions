@@ -166,7 +166,7 @@ End with a vivid micro-scenario, introduced by "A vivid case:".}
 
 ## Human institutions timeline schema
 
-`data/human-institutions.json` is independent of cell frontmatter. Its `timeline` array defines ordered slider stops; every institution record refers to one stop by `era` while `since` carries the more specific visible date. `id` is stable within its cell. Each cell also carries a short `label` — the Human grid opens in a **simple view** that shows only that label per cell; a "See institutions throughout history" toggle (state in `app/components/Grid.tsx`) reveals **history mode**: the timeline slider plus the full dated records, with a staggered fade on the cell contents when the mode flips.
+`data/human-institutions.json` is independent of cell frontmatter. Its `timeline` array defines ordered slider stops; every institution record refers to one stop by `era` while `since` carries the more specific visible date. `id` is stable within its cell. Each cell also carries a short `label` — the Human grid opens in a **simple view** that shows only that label per cell; a "See institutions throughout history" toggle (state in `app/components/Grid.tsx`) reveals **history mode**: the timeline slider plus the full dated records.
 
 ```json
 {

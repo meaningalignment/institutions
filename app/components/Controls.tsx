@@ -1,33 +1,13 @@
-import { Link } from "react-router";
-import { TABS, VISIONS, type TabId } from "../lib/constants";
+import { VISIONS, type TabId } from "../lib/constants";
 
 // Top controls row: tab bar (Human / AGI), vision menu (AGI only), about link.
 // The vision checkboxes are wired by the global change listener in root.tsx.
 export function Controls({ tabId }: { tabId: TabId }) {
+  if (tabId === "human") return null;
   return (
-    <div className="controls">
-      <nav className="tab-bar">
-        <Link
-          to="/human"
-          prefetch={tabId === "agi" ? "viewport" : "none"}
-          className={`tab-link${tabId === "human" ? " active" : ""}`}
-        >
-          <span className="tab-full">{TABS.human.nav}</span>
-          <span className="tab-short">{TABS.human.short}</span>
-        </Link>
-        <Link
-          to="/"
-          prefetch={tabId === "human" ? "viewport" : "none"}
-          className={`tab-link${tabId === "agi" ? " active" : ""}`}
-        >
-          <span className="tab-full">{TABS.agi.nav}</span>
-          <span className="tab-short">{TABS.agi.short}</span>
-        </Link>
-      </nav>
-      <Link className="about-button" to="/theory-of-change">
-        What is this?
-      </Link>
-      {tabId === "agi" && <VisionMenu corner />}
+    <div className="controls wiki-grid-tools">
+      <span className="wiki-grid-tools-label">Overlays</span>
+      <VisionMenu />
     </div>
   );
 }

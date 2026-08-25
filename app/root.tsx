@@ -9,6 +9,7 @@ import {
   useLocation,
 } from "react-router";
 import { Analytics } from "@vercel/analytics/react";
+import { SiteShell } from "./components/SiteShell";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -37,11 +38,16 @@ const EARLY_FLAGS_SCRIPT = `(function(){
   if(p!==null){list=p?p.split(',').filter(Boolean):[];}
   else{try{list=JSON.parse(localStorage.getItem('visions')||'[]');}catch(e){}}
   list.forEach(function(id){r.classList.add('show-vision-'+id);});
+  try{if(localStorage.getItem('wiki-sidebar')==='closed')r.classList.add('wiki-nav-closed');}catch(e){}
+  try{
+    var theme=localStorage.getItem('wiki-theme');
+    if(theme==='dark'||(!theme&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)) r.classList.add('theme-dark');
+  }catch(e){}
 })();`;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -81,7 +87,11 @@ export default function App() {
     return () => document.removeEventListener("change", onChange);
   }, []);
 
-  return <Outlet />;
+  return (
+    <SiteShell>
+      <Outlet />
+    </SiteShell>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

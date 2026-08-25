@@ -1,7 +1,7 @@
 import type { Route } from "./+types/home";
-import { loadGridCells, loadMethods } from "../lib/content.server";
+import { loadGridCells } from "../lib/content.server";
 import { Grid } from "../components/Grid";
-import { Controls, SiteFooter } from "../components/Controls";
+import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN, TAB_META, TABS } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
@@ -9,7 +9,7 @@ import { staticContentHeaders } from "../lib/cache.server";
 export const headers = staticContentHeaders;
 
 let homeLoaderCache:
-  | { cells: ReturnType<typeof loadGridCells>; methods: ReturnType<typeof loadMethods> }
+  | { cells: ReturnType<typeof loadGridCells> }
   | undefined;
 
 export function meta(_: Route.MetaArgs) {
@@ -32,7 +32,7 @@ export function meta(_: Route.MetaArgs) {
 
 export function loader(_: Route.LoaderArgs) {
   if (!homeLoaderCache) {
-    homeLoaderCache = { cells: loadGridCells(), methods: loadMethods() };
+    homeLoaderCache = { cells: loadGridCells() };
   }
   return homeLoaderCache;
 }
@@ -41,9 +41,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   useBodyClass("tab-agi");
   return (
     <>
-      <Controls tabId="agi" />
       <div id="grid-view">
-        <Grid tabId="agi" cells={loaderData.cells} methods={loaderData.methods} />
+        <Grid tabId="agi" cells={loaderData.cells} />
       </div>
       <SiteFooter />
     </>

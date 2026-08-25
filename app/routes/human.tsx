@@ -1,7 +1,7 @@
 import type { Route } from "./+types/human";
-import { loadGridCells, loadHumanInstitutions, loadMethods } from "../lib/content.server";
+import { loadGridCells, loadHumanInstitutions } from "../lib/content.server";
 import { Grid } from "../components/Grid";
-import { Controls, SiteFooter } from "../components/Controls";
+import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN, TAB_META, TABS } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
@@ -11,7 +11,6 @@ export const headers = staticContentHeaders;
 let humanLoaderCache:
   | {
       cells: ReturnType<typeof loadGridCells>;
-      methods: ReturnType<typeof loadMethods>;
       humanInstitutions: ReturnType<typeof loadHumanInstitutions>;
     }
   | undefined;
@@ -38,7 +37,6 @@ export function loader(_: Route.LoaderArgs) {
   if (!humanLoaderCache) {
     humanLoaderCache = {
       cells: loadGridCells(),
-      methods: loadMethods(),
       humanInstitutions: loadHumanInstitutions(),
     };
   }
@@ -49,12 +47,10 @@ export default function Human({ loaderData }: Route.ComponentProps) {
   useBodyClass("tab-human");
   return (
     <>
-      <Controls tabId="human" />
       <div id="grid-view">
         <Grid
           tabId="human"
           cells={loaderData.cells}
-          methods={loaderData.methods}
           humanInstitutions={loaderData.humanInstitutions}
         />
       </div>

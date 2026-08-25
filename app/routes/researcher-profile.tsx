@@ -39,13 +39,22 @@ function TopicList({ label, items }: { label: string; items: string[] }) {
 
 export default function ResearcherProfile({ loaderData: r }: Route.ComponentProps) {
   const bare = r.handle.replace(/^@/, "");
+  const communitySection = r.advisesAbout
+    ? { id: "scouts-advisors", label: "Scouts & advisors" }
+    : r.involvements.length
+      ? { id: "community-members", label: "Community members" }
+      : { id: "friends", label: "Friends" };
 
   return (
     <>
       <div className="researcher-profile">
-        <Link to="/researchers" className="researcher-profile-back">
-          Research community
-        </Link>
+        <nav className="researcher-profile-breadcrumb" aria-label="Breadcrumb">
+          <Link to="/researchers">Research community</Link>
+          <span aria-hidden="true">›</span>
+          <Link to={`/researchers#${communitySection.id}`}>{communitySection.label}</Link>
+          <span aria-hidden="true">›</span>
+          <span aria-current="page">{r.name}</span>
+        </nav>
 
         <div className="researcher-profile-header">
           {r.photoUrl ? (

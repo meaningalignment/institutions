@@ -423,17 +423,24 @@ body:has(#grid-view) .wiki-content {
   width: 100%;
   max-width: 760px;
 }
-.researcher-profile-back {
-  display: inline-block;
+.researcher-profile-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px;
   margin-bottom: 30px;
   color: var(--muted);
   font-size: 13px;
   font-weight: 550;
+}
+.researcher-profile-breadcrumb a {
+  color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--line-strong);
 }
-.researcher-profile-back::after { content: "  ›"; }
-.researcher-profile-back:hover { color: var(--ink); text-decoration-color: var(--ink); }
+.researcher-profile-breadcrumb a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+.researcher-profile-breadcrumb > span[aria-hidden] { color: var(--faint); }
+.researcher-profile-breadcrumb > span[aria-current] { color: var(--text); font-weight: 500; }
 .researcher-profile-header { display: flex; align-items: center; gap: 18px; margin-bottom: 26px; }
 .researcher-profile-photo {
   display: flex;

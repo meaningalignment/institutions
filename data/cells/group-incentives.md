@@ -76,7 +76,7 @@ Sketches of how each mechanism could be rebuilt for agents, given the named diff
 
 4. **Long-horizon outcome bonds** rebuilt with an attentional firewall. The agent that delivers the intervention is structurally separated from the channel that solicits the principal's report: different model family, different operating organization, no shared context window, no shared session history, no API by which one can read what the other has done. The reporting channel additionally uses corroborating signals — a clinician, a friend, a structured instrument — that the intervention agent can't curate. The contract pays only when the firewalled report and the intervention agent's own ex-ante prediction align, so the agent is penalized both for low-confidence predictions that turn out right (it should have known) and for high-confidence ones that turn out wrong.
 
-## Problem Sets
+## Design Challenges
 
 ### Outcome Bundles a Small Group Can Post in a CRSA-Style Auction
 

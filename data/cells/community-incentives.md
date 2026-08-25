@@ -50,7 +50,7 @@ How a community allocates access to shared resources and deters overuse when eac
 
 5. **Digital commons may be easier to mirror, fork, and mine than to govern, weakening contribution incentives.** Physical commons (a harbor, pasture, road, or canal) cannot be copied. Since an agent can mirror the knowledge base, harvest the asset library, or maintain a private fork while continuing to consume public updates, the governance regime loses leverage.
 
-## Problem Sets
+## Design Challenges
 
 ### Membership and Sanctions for Agent Commoners
 

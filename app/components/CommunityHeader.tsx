@@ -34,9 +34,9 @@ export function CommunityHeader({
 
   return (
     <>
-      <div className="flex items-start justify-between gap-4">
-        <Link to="/" className="detail-back">
-          ← Back to grid
+      <div className="community-utility-row">
+        <Link to="/" className="community-grid-link">
+          AGI institutions grid
         </Link>
         {editing && session ? (
           <div className="flex items-center gap-2 pt-1 text-xs text-[color:var(--muted)]">
@@ -59,13 +59,8 @@ export function CommunityHeader({
         ) : null}
       </div>
 
-      <div className="mb-2 flex items-center gap-2">
-        <h1
-          className="text-[color:var(--ink)]"
-          style={{ fontFamily: "'DM Serif Display', serif", fontSize: 32 }}
-        >
-          Community
-        </h1>
+      <div className="community-title-row">
+        <h1>Research community</h1>
         {editing || session ? (
           <Link
             to={editing ? "/researchers" : "/researchers/admin"}
@@ -83,7 +78,7 @@ export function CommunityHeader({
           </Link>
         ) : null}
       </div>
-      <p className={editing ? "mb-6 text-[color:var(--muted)]" : "mb-10 text-[color:var(--muted)]"}>
+      <p className={`community-page-intro${editing ? " is-editing" : ""}`}>
         The people building institutions for a world of autonomous AI agents.
       </p>
     </>

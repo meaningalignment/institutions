@@ -22,7 +22,7 @@ How a community certifies who is qualified to practice and gatekeeps entry to a 
 - ABA accreditation
 - Professional engineering licenses
 
-## Problem Sets
+## Design Challenges
 
 ### Sabbatical programs for senior practitioners {vision: fidelity}
 

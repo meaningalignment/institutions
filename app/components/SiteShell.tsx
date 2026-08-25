@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router";
-import { COLS, GITHUB_REPO, ROWS } from "../lib/constants";
+import { Link, NavLink, useLocation, useMatches } from "react-router";
+import { COLS, GITHUB_REPO, ROWS, SITE_NAME } from "../lib/constants";
 
 const INTERNAL_ROUTE_PREFIXES = ["/researchers/admin", "/admin", "/login", "/logout"];
 
@@ -93,6 +93,93 @@ function AtlasRow({
   );
 }
 
+const COMMUNITY_SECTIONS = [
+  { id: "scouts-advisors", label: "Scouts & advisors" },
+  { id: "community-members", label: "Community members" },
+  { id: "friends", label: "Friends" },
+] as const;
+
+function CommunityTree() {
+  const location = useLocation();
+  const matches = useMatches();
+  const sectionActive = location.pathname.startsWith("/researchers");
+  const profile = matches
+    .map((match) => match.data)
+    .find(
+      (value): value is {
+        name: string;
+        handle: string;
+        advisesAbout?: string | null;
+        involvements: { kind: string; name: string }[];
+      } =>
+        /^\/researchers\/[^/]+$/.test(location.pathname) &&
+        typeof value === "object" &&
+        value !== null &&
+        "name" in value &&
+        "handle" in value &&
+        "involvements" in value
+    );
+  const profileGroup = profile
+    ? profile.advisesAbout
+      ? "scouts-advisors"
+      : profile.involvements.length
+        ? "community-members"
+        : "friends"
+    : null;
+  const [treeOpen, setTreeOpen] = useState(sectionActive);
+
+  useEffect(() => {
+    if (sectionActive) setTreeOpen(true);
+  }, [sectionActive]);
+
+  return (
+    <section className={`wiki-tree wiki-community-tree${sectionActive ? " is-active" : ""}`}>
+      <div className="wiki-tree-head">
+        <NavLink to="/researchers">Research community</NavLink>
+        <button
+          type="button"
+          className="wiki-tree-toggle"
+          aria-label={`${treeOpen ? "Collapse" : "Expand"} Research community`}
+          aria-expanded={treeOpen}
+          onClick={() => setTreeOpen((value) => !value)}
+        >
+          <span className="wiki-tree-caret" aria-hidden="true" />
+        </button>
+      </div>
+      {treeOpen && (
+        <div className="wiki-tree-links wiki-community-links">
+          {COMMUNITY_SECTIONS.map((section) => {
+            const containsProfile = profileGroup === section.id;
+            return (
+              <div key={section.id} className="wiki-community-branch">
+                <Link
+                  to={`/researchers#${section.id}`}
+                  className={
+                    sectionActive && location.hash === `#${section.id}`
+                      ? "active"
+                      : containsProfile
+                        ? "is-ancestor"
+                        : undefined
+                  }
+                >
+                  {section.label}
+                </Link>
+                {containsProfile && profile && (
+                  <div className="wiki-community-person">
+                    <Link to={location.pathname} className="active" aria-current="page">
+                      {profile.name}
+                    </Link>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
+
 function MenuIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 18 18">
@@ -148,7 +235,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <aside className="wiki-sidebar" aria-label="Site navigation">
         <div className="wiki-sidebar-head">
           <Link to="/" className="wiki-wordmark">
-            AGI Institutions
+            {SITE_NAME}
           </Link>
           <button
             type="button"
@@ -170,11 +257,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <NavLink className="wiki-nav-primary" to="/curriculum">
             Curriculum
           </NavLink>
-          <NavLink className="wiki-nav-primary" to="/researchers">
-            Research community
-          </NavLink>
+          <CommunityTree />
         </nav>
         <div className="wiki-sidebar-actions">
+          <a href="https://paxmachina.ai" target="_blank" rel="noopener noreferrer">
+            <span>Pax Machina</span>
+            <span aria-hidden="true">↗</span>
+          </a>
           <a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer">
             <span>Contribute on GitHub</span>
             <span aria-hidden="true">↗</span>

@@ -33,7 +33,7 @@ export type TabId = "agi" | "human";
 // ── SEO ────────────────────────────────────────────────────────────
 
 export const SITE_ORIGIN = "https://www.agi-institutions.org";
-export const SITE_NAME = "AGI Institutions";
+export const SITE_NAME = "Institutions for Powerful AI";
 export const SITE_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`;
 
 // Shared OG-image meta entries. Spread into a route's meta() so links shared

@@ -22,7 +22,7 @@ How a city codifies entitlements and runs a forum where residents can claim them
 - Tenant tribunals
 - Police review boards
 
-## Problem Sets
+## Design Challenges
 
 ### Standing and Standard of Review in Fidelity Courts {vision: fidelity}
 

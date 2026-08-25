@@ -58,7 +58,7 @@ A vivid case: WWF began with the familiar conservation repertoire: raise money, 
 
 5. **Character and commitment are not straightforwardly evaluable in an agent.** With a human, character is read from past actions and references: how the candidate behaved under pressure, what they stood for at cost, who vouches for them and on what evidence. It may be less clear whether an AI system has anything akin to character and integrity at all, let alone how to evaluate it from the outside.
 
-## Problem Sets
+## Design Challenges
 
 ### Agents Asking Questions about the Charter
 

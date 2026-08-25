@@ -6,7 +6,8 @@ export default [
   route("cell/:row/:col", "routes/cell.tsx"), // AGI cell detail
   route("human/:row/:col", "routes/human-cell.tsx"), // Human cell detail
   route("methods/:col", "routes/methods.tsx"), // Method column detail
-  route("problem-sets", "routes/problem-sets.tsx"),
+  route("design-challenges", "routes/problem-sets.tsx"),
+  route("problem-sets", "routes/problem-sets-redirect.tsx"), // Legacy URL
   route("curriculum", "routes/curriculum.tsx"),
   route("theory-of-change", "routes/theory-of-change.tsx"),
   route("researchers", "routes/researchers.tsx"), // Community page (DB)

@@ -68,13 +68,15 @@ export function wrapDesignChoices(html: string): string {
   const re =
     /<p><strong>Design choices the team must take a position on\.?<\/strong><\/p>\s*<ol>([\s\S]*?)<\/ol>/g;
   return html.replace(re, (_, items: string) => {
-    return `<details class="design-choices"><summary><span>Design Choices</span><span class="collapsible-chevron" aria-hidden="true"></span></summary><ol>${items}</ol></details>`;
+    return `<details class="design-choices"><summary><span>Design choices</span><span class="collapsible-chevron" aria-hidden="true"></span></summary><ol>${items}</ol></details>`;
   });
 }
 
-// Wrap each H3 under the "Problem Sets" H2 in a numbered box.
+// Wrap each H3 under the Design Challenges H2 in a numbered entry.
 export function wrapProblemSets(html: string): string {
-  const headerMatch = html.match(/<h2[^>]*>\s*Problem Sets\s*<\/h2>/i);
+  const headerMatch = html.match(
+    /<h2[^>]*>\s*(?:Design Challenges|Problem Sets)\s*<\/h2>/i
+  );
   if (!headerMatch) return html;
   const startIdx = headerMatch.index! + headerMatch[0].length;
   const rest = html.slice(startIdx);
@@ -110,6 +112,7 @@ export function wrapCollapsibleSections(html: string, problemSetsPrefix?: string
   const targets = new Set([
     "How humans solve this today",
     "Where AGI breaks it",
+    "Design Challenges",
     "Problem Sets",
   ]);
   const h2Re = /<h2[^>]*>([\s\S]*?)<\/h2>/g;
@@ -127,9 +130,14 @@ export function wrapCollapsibleSections(html: string, problemSetsPrefix?: string
     out += html.slice(cursor, h.start);
     if (targets.has(h.title)) {
       const body = html.slice(h.end, sectionEnd);
-      const slug = h.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-      const prefix = h.title === "Problem Sets" && problemSetsPrefix ? problemSetsPrefix : "";
-      out += `<details open class="collapsible-section collapsible-${slug}"><summary><h2>${h.title}</h2><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="collapsible-body">${prefix}${body}</div></details>`;
+      const isChallenges = h.title === "Design Challenges" || h.title === "Problem Sets";
+      const displayTitle = isChallenges ? "Design challenges" : h.title;
+      const slug = displayTitle.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      const prefix = isChallenges && problemSetsPrefix ? problemSetsPrefix : "";
+      const hasBody = body.replace(/<[^>]+>/g, "").trim().length > 0;
+      if (!isChallenges || hasBody || prefix) {
+        out += `<details open class="collapsible-section collapsible-${slug}"><summary><h2>${displayTitle}</h2><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="collapsible-body">${prefix}${body}</div></details>`;
+      }
     } else {
       out += html.slice(h.start, sectionEnd);
     }
@@ -270,10 +278,10 @@ export function extractAtGlance(body: string): AtGlance {
   };
 }
 
-// Collect `{vision: id}` tags present in a cell body's Problem Sets.
+// Collect `{vision: id}` tags present in a cell body's Design Challenges.
 export function visionTagsInBody(md: string | undefined): string[] {
   if (!md) return [];
-  const psMatch = md.match(/## Problem Sets\n([\s\S]*?)(?=\n## [^#]|$)/);
+  const psMatch = md.match(/## (?:Design Challenges|Problem Sets)\n([\s\S]*?)(?=\n## [^#]|$)/);
   if (!psMatch) return [];
   const ids = new Set<string>();
   const re = /^###\s+(.+)$/gm;
@@ -285,7 +293,7 @@ export function visionTagsInBody(md: string | undefined): string[] {
   return Array.from(ids);
 }
 
-// ── Problem-sets aggregation (raw markdown bodies) ─────────────────
+// ── Design-challenge aggregation (raw markdown bodies) ─────────────
 
 export interface ProblemSet {
   title: string;
@@ -299,7 +307,9 @@ export function extractProblemSets(tabId: string, cells: Record<string, Cell>): 
   const problems: ProblemSet[] = [];
   for (const [cellKey, cell] of Object.entries(cells)) {
     if (!cell.body) continue;
-    const psMatch = cell.body.match(/## Problem Sets\n([\s\S]*?)(?=\n## [^#]|$)/);
+    const psMatch = cell.body.match(
+      /## (?:Design Challenges|Problem Sets)\n([\s\S]*?)(?=\n## [^#]|$)/
+    );
     if (!psMatch) continue;
     const psContent = psMatch[1].trim();
     if (!psContent) continue;
@@ -503,7 +513,7 @@ export function renderTheoryOfChange(fm: Frontmatter | undefined | null): string
   return `<details class="cell-theory"><summary><span class="cell-impact-summary-label">Theory of change</span><span class="collapsible-chevron" aria-hidden="true"></span></summary><div class="cell-impact-rows">${impactBodyHtml(f)}</div></details>`;
 }
 
-// Compact vision toggle bar shown at the top of the Problem Sets section.
+// Compact vision toggle bar shown at the top of the Design Challenges section.
 // `onlyIds`, when given, restricts which visions to show.
 export function renderVisionToggleBar(onlyIds?: string[]): string {
   let visions = VISIONS;

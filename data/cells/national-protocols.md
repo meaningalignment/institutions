@@ -22,7 +22,7 @@ How a country fixes shared technical and measurement standards everyone in the e
 - ANSI
 - Underwriters Laboratories
 
-## Problem Sets
+## Design Challenges
 
 ### Shared standards for mandate articulation {vision: fidelity}
 

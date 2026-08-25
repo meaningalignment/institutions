@@ -30,7 +30,7 @@ export function renderBody(src: string, problemSetsPrefix?: string): string {
   );
 }
 
-// A single problem-set body (for the aggregate problem-sets page).
+// A single design-challenge body (for the aggregate page).
 export function renderProblemSetBody(src: string): string {
   return wrapDesignChoices(md(processEditorial(src)));
 }

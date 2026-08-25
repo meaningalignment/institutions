@@ -56,13 +56,13 @@ export function loader(_: Route.LoaderArgs) {
 }
 
 export function meta(_: Route.MetaArgs) {
-  const title = `Problem Sets — ${SITE_NAME}`;
+  const title = `Design challenges — ${SITE_NAME}`;
   const desc =
     "Design problems for pairs and small teams exploring AGI institutional design: from agent contracts to global AI governance frameworks. Each problem is ~1 hour and produces a concrete design sketch.";
   return [
     { title },
     { name: "description", content: desc },
-    { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/problem-sets/` },
+    { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/design-challenges/` },
     { property: "og:title", content: title },
     { property: "og:description", content: desc },
     ...OG_IMAGE_META,
@@ -91,7 +91,7 @@ export default function ProblemSets({ loaderData: d }: Route.ComponentProps) {
         <Link to="/" className="detail-back">
           ← Back to grid
         </Link>
-        <div className="ps-page-title">Problem Sets</div>
+        <div className="ps-page-title">Design challenges</div>
         <div className="ps-page-subtitle">
           For pairs/trios. ~1 hour each. Produce a concrete design sketch, not a literature review.
         </div>

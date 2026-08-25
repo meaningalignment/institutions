@@ -22,7 +22,7 @@ How a state shapes private behavior at population scale by structuring payoffs.
 - Pigouvian taxes
 - R&D tax credits
 
-## Problem Sets
+## Design Challenges
 
 ### State procurement via socialized pools {vision: fidelity}
 

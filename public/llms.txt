@@ -1,4 +1,4 @@
-# AGI Institutions
+# Institutions for Powerful AI
 
 > An interactive map of the institutional design problems that arise when autonomous AI agents participate in society. Maps coordination mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments) across scales (dyadic, group, community, national, global). Assembled by the [Meaning Alignment Institute](https://meaningalignment.org).
 
@@ -12,7 +12,7 @@ This site explores what new institutions a world of autonomous AI agents will re
 
 ## Learning Resources
 
-- [Problem Sets](https://www.agi-institutions.org/problem-sets/): Design exercises for pairs/small teams (~1 hour each) exploring AGI institutional design gaps.
+- [Design Challenges](https://www.agi-institutions.org/design-challenges/): Design exercises for pairs/small teams (~1 hour each) exploring AGI institutional design gaps.
 - [Curriculum](https://www.agi-institutions.org/curriculum/): Reading lists and field guides across mechanism design, constitutional design, market design, regulatory design, and related disciplines.
 
 ## Key Topics Covered

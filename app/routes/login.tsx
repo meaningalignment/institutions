@@ -93,7 +93,7 @@ export default function Login() {
       <div className="w-full max-w-sm rounded-2xl border border-[color:var(--line)] bg-white p-7 shadow-sm">
         <h1
           className="mb-1 text-[color:var(--ink)]"
-          style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28 }}
+          style={{ fontSize: 28 }}
         >
           Admin sign in
         </h1>

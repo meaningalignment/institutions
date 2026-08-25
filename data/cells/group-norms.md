@@ -22,7 +22,7 @@ How a small group of repeat collaborators arrives at a shared sense of what to d
 - Studio house rules
 - Onboarding-by-osmosis
 
-## Problem Sets
+## Design Challenges
 
 ### Informal practices that keep purpose alive {vision: fidelity}
 

@@ -22,7 +22,7 @@ How two parties establish a shared way of exchanging information so they can tra
 - Shared file formats (PDF/CSV)
 - Phone-call etiquette
 
-## Problem Sets
+## Design Challenges
 
 ### Mandate-making practices between parties {vision: fidelity}
 

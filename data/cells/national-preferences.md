@@ -61,7 +61,7 @@ A vivid case: Ireland on abortion. A Citizens' Assembly of 99 randomly selected 
 3. **If no preference-aggregation alternatives keep pace with an increasingly volatile world, the pull toward authoritarianism grows.** Multi-year electoral cycles and months-long assemblies were tolerable when policy moved at a comparable pace. As agent-era policy speeds up — automated regulation, fast-moving security and economic decisions made partly by AI systems — the slow aggregators fall behind the decisions they're supposed to legitimate. Decisions migrate to whoever can act without waiting for them: executive action, emergency powers, agency rulemaking that never goes to vote.
 4. **If we have AI lawmakers and executive branches, they are likely to be able to move quickly and unexpectedly in ways. For this reason, we may need a much clearer and continuous mandate from the people.** AI lawmakers and executive systems can take actions at machine speed, across thousands of policy surfaces at once, in ways that are often illegible and unpredictable even to the officials nominally in charge. The mandate that needs to govern them therefore has to be both higher-resolution (specifying values and priorities at the granularity the systems actually act on, not the granularity of a party platform) and continuous, updateable as the public sees what the systems are doing, rather than ratified once every several years.
 
-## Problem Sets
+## Design Challenges
 
 ### Aggregation fast enough to legitimate policy
 

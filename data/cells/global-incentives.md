@@ -63,7 +63,7 @@ On top of these structural facts sits a layer of intentional steering — boycot
 
 **Implicit alignment in human-to-human service provision becomes harder to rely on when the transaction is routed through agents.** Human-facing markets often smuggled in extra care through professional judgment, local reputation, embarrassment, sympathy, and the ability to notice that a buyer's literal request would not actually help them. Agent-mediated transactions can strip out that layer. A buyer agent may optimize a stale proxy; a seller agent may optimize conversion or retention; neither side necessarily carries the informal human obligation to ask whether the transaction still serves the person.
 
-## Problem Sets
+## Design Challenges
 
 ### Replacing Job-Market Functions When Firms No Longer Need Workers
 

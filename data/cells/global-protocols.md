@@ -22,7 +22,7 @@ How the world settles on shared technical standards no government or firm contro
 - Unicode
 - GSM cellular standards
 
-## Problem Sets
+## Design Challenges
 
 ### Translating institutional mandates across jurisdictions {vision: fidelity}
 

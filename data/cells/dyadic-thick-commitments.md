@@ -42,7 +42,7 @@ A lot of social life runs on small vows and commitments ("I'll keep this in conf
 
 3. **Depending on how agents are built, commitments made don't naturally carry over to new sessions or instances.** A human promise persists because a continuous person carries it. For agents, persistence is engineered. A commitment made in one session may be absent from the next context window. None of the weights, memory, or configuration that produced the faithful behavior travels with the relationship by default. A vow gets its weight from the fact that breaking it costs the one continuous person who made it; for an agent, it can lapse through a session ending or a model swap, at no cost to anyone.
 
-## Problem Sets
+## Design Challenges
 
 ### Agents reading each other's trustworthiness at runtime
 

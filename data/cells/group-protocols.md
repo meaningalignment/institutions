@@ -76,7 +76,7 @@ Sketches of how each mechanism could be rebuilt for mixed teams. Each is a start
 
 4. **Postmortems rebuilt with developer participation and preserved state.** When an agent is on the team, deployment requires retention of operating state (prompt, tools, recent context, model version, deployment parameters) for a defined window past any incident. The postmortem protocol extends beyond the deployment instance to the development pipeline: the agent's developer (or its represented organization) participates in the review and surfaces what the agent had access to. The team's incident review now spans two organizations, with defined responsibilities at each layer.
 
-## Problem Sets
+## Design Challenges
 
 ### Continuous-Cadence Status Broadcasts That Replace Stand-Up
 

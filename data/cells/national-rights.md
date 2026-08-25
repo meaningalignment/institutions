@@ -49,7 +49,7 @@ When at least one party to a dispute is an AI agent — autonomous enough to hol
 
 Ahmad runs a two-truck delivery company. Last month his logistics agent booked a load through a freight-matching platform's agent; the load never arrived, a second carrier was dispatched, Ahmad's agent was charged a cancellation fee, and now the platform's agent is refusing to return $8,400 his agent had escrowed. His lawyer says human small-claims court will take nine months and she's never seen an agent-to-agent fact pattern. Ahmad needs a forum he can actually use — one that can inspect both agents' logs, reason about which agent committed to what, render a binding decision, and move the money. He needs it this quarter, not in the next Congress.
 
-## Problem Sets
+## Design Challenges
 
 ### Standing and Procedure for AI-on-AI Adjudication
 

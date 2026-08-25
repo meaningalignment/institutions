@@ -4,21 +4,29 @@ import { getResearcher } from "../lib/researchers.server";
 import { Highlight } from "../components/ResearcherCard";
 import { SiteFooter } from "../components/Controls";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
+import { getAuthorizedAdminSession } from "../lib/auth.server";
+import { ComingSoon } from "../components/ComingSoon";
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({ params, request }: Route.LoaderArgs) {
+  const session = await getAuthorizedAdminSession(request);
+  if (!session) return { preview: false as const };
   const researcher = await getResearcher(params.handle);
   if (!researcher) throw data("Researcher not found", { status: 404 });
-  return researcher;
+  return { preview: true as const, researcher };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const name = loaderData?.name ?? "Researcher";
+  const researcher = loaderData?.preview ? loaderData.researcher : null;
+  const name = researcher?.name ?? "Research community";
   return [
     { title: `${name} — ${SITE_NAME}` },
+    ...(!loaderData?.preview ? [{ name: "robots", content: "noindex" }] : []),
     {
       tagName: "link",
       rel: "canonical",
-      href: `${SITE_ORIGIN}/researchers/${(loaderData?.handle ?? "").replace(/^@/, "")}`,
+      href: researcher
+        ? `${SITE_ORIGIN}/researchers/${researcher.handle.replace(/^@/, "")}`
+        : `${SITE_ORIGIN}/researchers/`,
     },
   ];
 }
@@ -37,7 +45,11 @@ function TopicList({ label, items }: { label: string; items: string[] }) {
   );
 }
 
-export default function ResearcherProfile({ loaderData: r }: Route.ComponentProps) {
+export default function ResearcherProfile({ loaderData }: Route.ComponentProps) {
+  if (!loaderData.preview) {
+    return <ComingSoon section="Research community" source="researchers" />;
+  }
+  const r = loaderData.researcher;
   const bare = r.handle.replace(/^@/, "");
   const communitySection = r.advisesAbout
     ? { id: "scouts-advisors", label: "Scouts & advisors" }

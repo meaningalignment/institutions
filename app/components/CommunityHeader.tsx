@@ -57,8 +57,8 @@ export function CommunityHeader({
       ) : null}
 
       <div className="community-title-row">
-        <h1>Research community</h1>
-        {editing || session ? (
+        <h1>{editing ? "Community admin" : "Research community"}</h1>
+        {!editing && session ? (
           <Link
             to={editing ? "/researchers" : "/researchers/admin"}
             role="button"
@@ -67,7 +67,7 @@ export function CommunityHeader({
             title={editing ? "Stop editing community" : "Edit community"}
             className={`inline-flex h-7 w-7 items-center justify-center rounded-full border transition-colors ${
               editing
-                ? "border-[color:var(--accent)] bg-[var(--accent)] text-white"
+                ? "border-[color:var(--accent)] bg-[var(--accent)] text-[color:var(--paper)]"
                 : "border-[color:var(--line-strong)] text-[color:var(--muted)] hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
             }`}
           >
@@ -76,7 +76,9 @@ export function CommunityHeader({
         ) : null}
       </div>
       <p className={`community-page-intro${editing ? " is-editing" : ""}`}>
-        The people building institutions for a world of autonomous AI agents.
+        {editing
+          ? "Manage people, scouts, involvement, and selected work."
+          : "The people building institutions for a world of autonomous AI agents."}
       </p>
     </>
   );

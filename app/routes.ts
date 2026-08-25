@@ -10,6 +10,7 @@ export default [
   route("problem-sets", "routes/problem-sets-redirect.tsx"), // Legacy URL
   route("curriculum", "routes/curriculum.tsx"),
   route("theory-of-change", "routes/theory-of-change.tsx"),
+  route("project-updates", "routes/project-updates.tsx"),
   route("researchers", "routes/researchers.tsx"), // Community page (DB)
   route("researchers/admin", "routes/admin.tsx", [
     index("routes/admin-scouts.tsx"),

@@ -13,14 +13,14 @@ import type { AdminResearcher } from "../../lib/admin.server";
 export type ActionResult = { ok: boolean; error?: string };
 
 export const panel =
-  "mb-6 rounded-xl border border-[color:var(--line)] bg-[var(--card)] p-5";
+  "admin-section mb-8 border-t border-[color:var(--line-strong)] pt-4";
 export const heading = "text-lg font-semibold text-[color:var(--ink)]";
 export const input =
-  "rounded-md border border-[color:var(--line-strong)] bg-white px-2.5 py-1.5 text-sm text-[color:var(--ink)] outline-none focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/15";
+  "rounded-none border border-[color:var(--line-strong)] bg-[var(--card)] px-2.5 py-1.5 text-sm text-[color:var(--ink)] outline-none focus:border-[color:var(--ink)] focus:ring-1 focus:ring-[color:var(--ink)]";
 export const btn =
-  "rounded-md bg-[var(--accent)] px-3 py-1.5 text-sm font-medium text-white hover:bg-[var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-50";
+  "rounded-none border border-[color:var(--ink)] bg-[var(--ink)] px-3 py-1.5 text-sm font-medium text-[color:var(--paper)] hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-50";
 export const btnGhost =
-  "rounded-md border border-[color:var(--line-strong)] px-2.5 py-1 text-xs text-[color:var(--muted)] hover:bg-[var(--wash)] disabled:opacity-50";
+  "rounded-none border border-[color:var(--line-strong)] px-2.5 py-1 text-xs text-[color:var(--muted)] hover:bg-[var(--wash)] disabled:opacity-50";
 
 export function SaveState({
   state,
@@ -32,7 +32,7 @@ export function SaveState({
   dirty: boolean;
 }) {
   const error = data && !data.ok ? data.error : null;
-  if (error) return <span className="text-xs text-red-700">{error}</span>;
+  if (error) return <span className="admin-error text-xs">{error}</span>;
   if (state !== "idle") return <span className="text-xs text-[color:var(--muted)]">Saving…</span>;
   if (dirty) return <span className="text-xs text-[color:var(--muted)]">Unsaved</span>;
   return <span className="text-xs text-[color:var(--faint)]">Saved</span>;
@@ -149,7 +149,7 @@ export function ResearcherCombobox({
           <ul
             id={listboxId}
             role="listbox"
-            className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-md border border-[color:var(--line-strong)] bg-white p-1 shadow-lg"
+            className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-none border border-[color:var(--line-strong)] bg-[var(--card)] p-1 shadow-lg"
           >
             {matches.length ? (
               matches.map((option, index) => (
@@ -161,7 +161,7 @@ export function ResearcherCombobox({
                 >
                   <button
                     type="button"
-                    className={`w-full rounded px-2.5 py-2 text-left text-sm ${
+                    className={`w-full rounded-none px-2.5 py-2 text-left text-sm ${
                       index === activeIndex
                         ? "bg-[var(--wash)] text-[color:var(--ink)]"
                         : "text-[color:var(--text)] hover:bg-[var(--wash)]"
@@ -190,7 +190,7 @@ export function ResearcherCombobox({
         Add
       </button>
       {fetcher.data && !fetcher.data.ok && (
-        <span className="w-full text-xs text-red-700">{fetcher.data.error}</span>
+        <span className="admin-error w-full text-xs">{fetcher.data.error}</span>
       )}
     </fetcher.Form>
   );

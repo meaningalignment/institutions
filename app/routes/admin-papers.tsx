@@ -86,7 +86,7 @@ function PaperResearcherChip({
       <input type="hidden" name="researcherId" value={researcher.id} />
       <button
         type="submit"
-        className="rounded-full border border-[color:var(--line)] bg-[var(--wash)] px-2.5 py-1 text-xs text-[color:var(--text)] hover:border-[color:var(--line-strong)]"
+        className="rounded-none border border-[color:var(--line)] bg-[var(--wash)] px-2.5 py-1 text-xs text-[color:var(--text)] hover:border-[color:var(--line-strong)]"
         aria-label={`Remove ${researcher.name} from this paper`}
         disabled={fetcher.state !== "idle"}
       >
@@ -237,15 +237,99 @@ function AddPaperForm() {
         Add paper
       </button>
       {fetcher.data && !fetcher.data.ok && (
-        <span className="text-xs text-red-700 sm:col-span-3">{fetcher.data.error}</span>
+        <span className="admin-error text-xs sm:col-span-3">{fetcher.data.error}</span>
       )}
     </fetcher.Form>
   );
 }
 
+function ResearcherCoverage({
+  researchers,
+  papers,
+}: {
+  researchers: AdminResearcher[];
+  papers: Route.ComponentProps["loaderData"]["papers"];
+}) {
+  const [query, setQuery] = useState("");
+  const worksByResearcher = new Map<number, typeof papers>();
+  for (const paper of papers) {
+    for (const researcher of paper.researchers) {
+      const works = worksByResearcher.get(researcher.id) ?? [];
+      works.push(paper);
+      worksByResearcher.set(researcher.id, works);
+    }
+  }
+  const normalizedQuery = query.trim().toLowerCase();
+  const visible = researchers.filter((researcher) => {
+    if (!normalizedQuery) return true;
+    return `${researcher.name} ${researcher.handle}`.toLowerCase().includes(normalizedQuery);
+  });
+  const covered = researchers.filter((researcher) => worksByResearcher.has(researcher.id)).length;
+
+  return (
+    <section className={`${panel} mb-5`}>
+      <div className="mb-1 flex flex-wrap items-baseline justify-between gap-3">
+        <h2 className={heading}>Researcher coverage</h2>
+        <span className="text-xs text-[color:var(--faint)]">
+          {covered} of {researchers.length} have selected work
+        </span>
+      </div>
+      <p className="mb-3 text-sm text-[color:var(--muted)]">
+        Work through the uncovered researchers, open their Scholar profile, then add the most
+        institutionally relevant work in the paper editor below.
+      </p>
+      <input
+        className={`${input} mb-3 max-w-sm`}
+        type="search"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder="Find a researcher…"
+        aria-label="Find a researcher"
+      />
+      <ul className="max-h-[440px] overflow-y-auto border-t border-[color:var(--line)]">
+        {visible.map((researcher) => {
+          const works = worksByResearcher.get(researcher.id) ?? [];
+          return (
+            <li
+              key={researcher.id}
+              className="grid gap-1 border-b border-[color:var(--line)] py-3 sm:grid-cols-[minmax(180px,0.8fr)_minmax(0,1.6fr)_auto] sm:items-start sm:gap-4"
+            >
+              <div>
+                <div className="text-sm font-medium text-[color:var(--ink)]">{researcher.name}</div>
+                {researcher.handle && (
+                  <div className="text-xs text-[color:var(--faint)]">{researcher.handle}</div>
+                )}
+              </div>
+              <div className="text-xs leading-5 text-[color:var(--muted)]">
+                {works.length
+                  ? works.map((paper) => paper.title).join(" · ")
+                  : "No selected work yet"}
+              </div>
+              {researcher.scholarUrl ? (
+                <a
+                  className="text-xs text-[color:var(--accent)] hover:underline"
+                  href={researcher.scholarUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Scholar ↗
+                </a>
+              ) : (
+                <span className="text-xs text-[color:var(--faint)]">No Scholar link</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
 export default function AdminPapers({ loaderData: d }: Route.ComponentProps) {
   return (
-    <section className={panel}>
+    <>
+      <ResearcherCoverage researchers={d.researchers} papers={d.papers} />
+      <section className={panel}>
       <div className="mb-1 flex items-baseline justify-between gap-3">
         <h2 className={heading}>Papers</h2>
         <span className="text-xs text-[color:var(--faint)]">{d.papers.length} current</span>
@@ -263,6 +347,7 @@ export default function AdminPapers({ loaderData: d }: Route.ComponentProps) {
         <p className="mb-4 text-sm text-[color:var(--muted)]">No papers yet.</p>
       )}
       <AddPaperForm />
-    </section>
+      </section>
+    </>
   );
 }

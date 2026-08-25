@@ -61,12 +61,10 @@ function HumanTimeline({
   data,
   timelineIndex,
   onChange,
-  onClose,
 }: {
   data: HumanInstitutionsData;
   timelineIndex: number;
   onChange: (index: number) => void;
-  onClose: () => void;
 }) {
   const point = data.timeline[timelineIndex];
   const allInstitutions = Object.values(data.cells).flatMap((cell) => cell.institutions);
@@ -83,18 +81,10 @@ function HumanTimeline({
   return (
     <section className="human-timeline" aria-labelledby="human-timeline-title">
       <div className="human-timeline-readout" aria-live="polite">
-        <div>
-          <span className="human-timeline-eyebrow" id="human-timeline-title">
-            Choose a point in institutional history
-          </span>
-          <div className="human-timeline-period">
-            <strong>{point.date}</strong>
-            <span>{point.label}</span>
-          </div>
+        <div className="human-timeline-period" id="human-timeline-title">
+          <strong>{point.date}</strong>
+          <span>{point.label}</span>
         </div>
-        <button type="button" className="human-timeline-close" onClick={onClose}>
-          Hide history
-        </button>
       </div>
       <input
         className="human-timeline-range"
@@ -144,41 +134,50 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
       <header className="grid-page-header">
         <div className="grid-page-heading">
           <div className="pane-title">{tab.title}</div>
-          <div className="pane-subtitle">{tab.subtitle}</div>
+          <div className="pane-subtitle">
+            {tabId === "human" && historyMode
+              ? "How human coordination infrastructure accumulated over time"
+              : tab.subtitle}
+          </div>
         </div>
-        <nav className="grid-view-switch" aria-label="Institution grid">
-          <Link
-            to="/human"
-            className={tabId === "human" ? "active" : undefined}
-            aria-current={tabId === "human" ? "page" : undefined}
-          >
-            Existing institutions
-          </Link>
-          <Link
-            to="/"
-            className={tabId === "agi" ? "active" : undefined}
-            aria-current={tabId === "agi" ? "page" : undefined}
-          >
-            AGI institutions
-          </Link>
-        </nav>
+        <div className="grid-view-controls">
+          <nav className="grid-view-switch" aria-label="Institution grid">
+            <Link
+              to="/human"
+              className={tabId === "human" ? "active" : undefined}
+              aria-current={tabId === "human" ? "page" : undefined}
+            >
+              Existing institutions
+            </Link>
+            <Link
+              to="/"
+              className={tabId === "agi" ? "active" : undefined}
+              aria-current={tabId === "agi" ? "page" : undefined}
+            >
+              AGI institutions
+            </Link>
+          </nav>
+          {tabId === "human" && humanInstitutions && (
+            <button
+              type="button"
+              className="human-history-toggle"
+              onClick={historyMode ? closeHistory : openHistory}
+              aria-pressed={historyMode}
+            >
+              {historyMode ? "Hide history" : "Explore history"}
+            </button>
+          )}
+        </div>
       </header>
       {tabId === "human" &&
         humanInstitutions &&
-        (historyMode ? (
+        historyMode && (
           <HumanTimeline
             data={humanInstitutions}
             timelineIndex={timelineIndex}
             onChange={setTimelineIndex}
-            onClose={closeHistory}
           />
-        ) : (
-          <div className="human-history-control">
-            <button type="button" className="human-history-toggle" onClick={openHistory}>
-              See institutions throughout history
-            </button>
-          </div>
-        ))}
+        )}
       <div className="table-wrapper">
         <table>
           <thead>

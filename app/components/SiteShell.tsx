@@ -99,26 +99,41 @@ const COMMUNITY_SECTIONS = [
   { id: "friends", label: "Friends" },
 ] as const;
 
+type SidebarProfile = {
+  name: string;
+  handle: string;
+  advisesAbout?: string | null;
+  involvements: { kind: string; name: string }[];
+};
+
+function sidebarProfile(loaderData: unknown): SidebarProfile | null {
+  if (typeof loaderData !== "object" || loaderData === null) return null;
+  const candidate =
+    "researcher" in loaderData &&
+    typeof loaderData.researcher === "object" &&
+    loaderData.researcher !== null
+      ? loaderData.researcher
+      : loaderData;
+  if (
+    !("name" in candidate) ||
+    !("handle" in candidate) ||
+    !("involvements" in candidate) ||
+    typeof candidate.name !== "string" ||
+    typeof candidate.handle !== "string" ||
+    !Array.isArray(candidate.involvements)
+  ) {
+    return null;
+  }
+  return candidate as SidebarProfile;
+}
+
 function CommunityTree() {
   const location = useLocation();
   const matches = useMatches();
   const sectionActive = location.pathname.startsWith("/researchers");
-  const profile = matches
-    .map((match) => match.loaderData)
-    .find(
-      (value): value is {
-        name: string;
-        handle: string;
-        advisesAbout?: string | null;
-        involvements: { kind: string; name: string }[];
-      } =>
-        /^\/researchers\/[^/]+$/.test(location.pathname) &&
-        typeof value === "object" &&
-        value !== null &&
-        "name" in value &&
-        "handle" in value &&
-        "involvements" in value
-    );
+  const profile = /^\/researchers\/[^/]+$/.test(location.pathname)
+    ? matches.map((match) => sidebarProfile(match.loaderData)).find(Boolean) ?? null
+    : null;
   const profileGroup = profile
     ? profile.advisesAbout
       ? "scouts-advisors"
@@ -188,7 +203,13 @@ function MenuIcon() {
   );
 }
 
-export function SiteShell({ children }: { children: React.ReactNode }) {
+export function SiteShell({
+  children,
+  adminPreview,
+}: {
+  children: React.ReactNode;
+  adminPreview: boolean;
+}) {
   const location = useLocation();
   const [darkMode, setDarkMode] = useState(false);
   const isInternal = INTERNAL_ROUTE_PREFIXES.some((prefix) =>
@@ -196,7 +217,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   );
 
   useEffect(() => {
-    const closed = window.localStorage.getItem("wiki-sidebar") === "closed";
+    const closed = window.localStorage.getItem("wiki-sidebar") !== "open";
     document.documentElement.classList.toggle("wiki-nav-closed", closed);
     setDarkMode(document.documentElement.classList.contains("theme-dark"));
   }, []);
@@ -229,12 +250,11 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         aria-label="Open navigation"
       >
         <MenuIcon />
-        <span>Contents</span>
       </button>
 
       <aside className="wiki-sidebar" aria-label="Site navigation">
         <div className="wiki-sidebar-head">
-          <Link to="/" className="wiki-wordmark">
+          <Link to="/theory-of-change" className="wiki-wordmark">
             {SITE_NAME}
           </Link>
           <button
@@ -257,9 +277,18 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <NavLink className="wiki-nav-primary" to="/curriculum">
             Curriculum
           </NavLink>
-          <CommunityTree />
+          {adminPreview ? (
+            <CommunityTree />
+          ) : (
+            <NavLink className="wiki-nav-primary" to="/researchers">
+              Research community
+            </NavLink>
+          )}
         </nav>
         <div className="wiki-sidebar-actions">
+          <Link to={adminPreview ? "/researchers/admin" : "/login"}>
+            <span>{adminPreview ? "Admin" : "Admin sign in"}</span>
+          </Link>
           <a href="https://paxmachina.ai" target="_blank" rel="noopener noreferrer">
             <span>Pax Machina</span>
             <span aria-hidden="true">↗</span>

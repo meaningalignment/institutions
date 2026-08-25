@@ -4,12 +4,13 @@ import { buildCurriculum } from "../lib/curriculum.server";
 import { initCurriculum } from "../lib/curriculum-init";
 import { SiteFooter } from "../components/Controls";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
-import { staticContentHeaders } from "../lib/cache.server";
+import { getAuthorizedAdminSession } from "../lib/auth.server";
+import { ComingSoon } from "../components/ComingSoon";
 
-export const headers = staticContentHeaders;
-
-export function loader(_: Route.LoaderArgs) {
-  return buildCurriculum();
+export async function loader({ request }: Route.LoaderArgs) {
+  const session = await getAuthorizedAdminSession(request);
+  if (!session) return { preview: false as const, title: "Curriculum" };
+  return { preview: true as const, ...buildCurriculum() };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
@@ -18,6 +19,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
     "A curriculum for institutional designers engaging with AI governance: mechanism design, constitutional design, market design, regulatory frameworks, and more — all contextualized for the age of autonomous AI agents.";
   return [
     { title },
+    ...(!loaderData?.preview ? [{ name: "robots", content: "noindex" }] : []),
     { name: "description", content: desc },
     { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/curriculum/` },
     { property: "og:title", content: title },
@@ -27,7 +29,10 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function Curriculum({ loaderData: d }: Route.ComponentProps) {
-  useEffect(() => initCurriculum(), []);
+  useEffect(() => {
+    if (d.preview) initCurriculum();
+  }, [d.preview]);
+  if (!d.preview) return <ComingSoon section="Curriculum" source="curriculum" />;
   return (
     <>
       <div

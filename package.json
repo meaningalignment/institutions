@@ -10,6 +10,7 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "db:migrate:admin-auth": "node scripts/migrate-admin-auth.mjs",
+    "db:migrate:project-updates": "node scripts/migrate-project-updates.mjs",
     "db:migrate:researcher-bios": "node scripts/migrate-researcher-bios.mjs",
     "db:import:pax-bios": "node scripts/import-pax-bios.mjs",
     "kanban": "bun scripts/kanban.js"

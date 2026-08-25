@@ -7,9 +7,11 @@ import {
   Scripts,
   ScrollRestoration,
   useLocation,
+  useLoaderData,
 } from "react-router";
 import { Analytics } from "@vercel/analytics/react";
 import { SiteShell } from "./components/SiteShell";
+import { getAdminSession } from "./lib/auth.server";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -28,6 +30,10 @@ export const links: Route.LinksFunction = () => [
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 ];
 
+export function loader({ request }: Route.LoaderArgs) {
+  return { adminPreview: Boolean(getAdminSession(request)) };
+}
+
 // Runs before hydration: sets editorial/hide-unready viewer flags and applies
 // active vision classes from ?visions= / localStorage so nothing flashes.
 const EARLY_FLAGS_SCRIPT = `(function(){
@@ -38,7 +44,7 @@ const EARLY_FLAGS_SCRIPT = `(function(){
   if(p!==null){list=p?p.split(',').filter(Boolean):[];}
   else{try{list=JSON.parse(localStorage.getItem('visions')||'[]');}catch(e){}}
   list.forEach(function(id){r.classList.add('show-vision-'+id);});
-  try{if(localStorage.getItem('wiki-sidebar')==='closed')r.classList.add('wiki-nav-closed');}catch(e){}
+  try{if(localStorage.getItem('wiki-sidebar')!=='open')r.classList.add('wiki-nav-closed');}catch(e){r.classList.add('wiki-nav-closed');}
   try{
     var theme=localStorage.getItem('wiki-theme');
     if(theme==='dark'||(!theme&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)) r.classList.add('theme-dark');
@@ -68,6 +74,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const location = useLocation();
+  const { adminPreview } = useLoaderData<typeof loader>();
 
   // Re-sync vision classes + checkboxes after each client navigation, and wire
   // the checkbox change handler once.
@@ -88,7 +95,7 @@ export default function App() {
   }, []);
 
   return (
-    <SiteShell>
+    <SiteShell adminPreview={adminPreview}>
       <Outlet />
     </SiteShell>
   );

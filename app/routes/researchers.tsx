@@ -6,13 +6,12 @@ import { SiteFooter } from "../components/Controls";
 import { CommunityHeader } from "../components/CommunityHeader";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { getAuthorizedAdminSession } from "../lib/auth.server";
+import { ComingSoon } from "../components/ComingSoon";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const [community, session] = await Promise.all([
-    getCommunity(),
-    getAuthorizedAdminSession(request),
-  ]);
-  return { ...community, session };
+  const session = await getAuthorizedAdminSession(request);
+  if (!session) return { preview: false as const };
+  return { preview: true as const, ...(await getCommunity()), session };
 }
 
 export function meta(_: Route.MetaArgs) {
@@ -21,6 +20,7 @@ export function meta(_: Route.MetaArgs) {
     "The researchers building institutions for a world of autonomous AI agents: scouts and advisors, community members, and friends.";
   return [
     { title },
+    ...(!_.loaderData?.preview ? [{ name: "robots", content: "noindex" }] : []),
     { name: "description", content: desc },
     { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/researchers/` },
   ];
@@ -55,6 +55,9 @@ function Section({
 }
 
 export default function Researchers({ loaderData: d }: Route.ComponentProps) {
+  if (!d.preview) {
+    return <ComingSoon section="Research community" source="researchers" />;
+  }
   return (
     <>
       <div className="community-page">

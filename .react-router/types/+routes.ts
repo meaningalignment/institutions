@@ -46,6 +46,9 @@ type Pages = {
   "/theory-of-change": {
     params: {};
   };
+  "/project-updates": {
+    params: {};
+  };
   "/researchers": {
     params: {};
   };
@@ -82,7 +85,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/design-challenges" | "/problem-sets" | "/curriculum" | "/theory-of-change" | "/researchers" | "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/:handle" | "/login" | "/logout" | "/admin/*" | "/fidelity";
+    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/design-challenges" | "/problem-sets" | "/curriculum" | "/theory-of-change" | "/project-updates" | "/researchers" | "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/:handle" | "/login" | "/logout" | "/admin/*" | "/fidelity";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -119,6 +122,10 @@ type RouteFiles = {
   "routes/theory-of-change.tsx": {
     id: "routes/theory-of-change";
     page: "/theory-of-change";
+  };
+  "routes/project-updates.tsx": {
+    id: "routes/project-updates";
+    page: "/project-updates";
   };
   "routes/researchers.tsx": {
     id: "routes/researchers";
@@ -173,6 +180,7 @@ type RouteModules = {
   "routes/problem-sets-redirect": typeof import("./app/routes/problem-sets-redirect.tsx");
   "routes/curriculum": typeof import("./app/routes/curriculum.tsx");
   "routes/theory-of-change": typeof import("./app/routes/theory-of-change.tsx");
+  "routes/project-updates": typeof import("./app/routes/project-updates.tsx");
   "routes/researchers": typeof import("./app/routes/researchers.tsx");
   "routes/admin": typeof import("./app/routes/admin.tsx");
   "routes/admin-scouts": typeof import("./app/routes/admin-scouts.tsx");

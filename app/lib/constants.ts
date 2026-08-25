@@ -78,7 +78,7 @@ export const TABS: Record<string, { title: string; nav: string; short: string; s
     title: "Existing Human Institutions",
     nav: "Existing Human Institutions",
     short: "Human",
-    subtitle: "How human coordination infrastructure accumulated over time",
+    subtitle: "How humans coordinate in society",
   },
 };
 

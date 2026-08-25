@@ -1,4 +1,4 @@
-import { Form, redirect, useActionData, useNavigation, useSearchParams } from "react-router";
+import { Form, Link, redirect, useActionData, useNavigation, useSearchParams } from "react-router";
 import type { Route } from "./+types/login";
 import {
   createAdminSessionCookie,
@@ -76,9 +76,6 @@ export async function action({ request }: Route.ActionArgs): Promise<LoginAction
   return { step: "email", error: "Unknown sign-in action." };
 }
 
-const fieldClass =
-  "w-full rounded-lg border border-[color:var(--line-strong)] bg-white px-3 py-2.5 text-base text-[color:var(--ink)] outline-none focus:border-[color:var(--accent)] focus:ring-2 focus:ring-blue-100";
-
 export default function Login() {
   const data = useActionData<typeof action>();
   const navigation = useNavigation();
@@ -89,30 +86,24 @@ export default function Login() {
   const submitting = navigation.state === "submitting";
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[var(--wash)] px-5 py-10">
-      <div className="w-full max-w-sm rounded-2xl border border-[color:var(--line)] bg-white p-7 shadow-sm">
-        <h1
-          className="mb-1 text-[color:var(--ink)]"
-          style={{ fontSize: 28 }}
-        >
-          Admin sign in
-        </h1>
+    <main className="login-page">
+      <div className="login-main">
+        <Link className="login-back" to="/">← AGI institutions</Link>
+        <h1>Admin sign in</h1>
         {step === "code" ? (
           <>
-            <p className="mb-5 text-sm leading-6 text-[color:var(--muted)]">
-              If <strong className="font-medium text-[color:var(--text)]">{email}</strong>{" "}
+            <p className="login-intro">
+              If <strong>{email}</strong>{" "}
               belongs to a researcher, a six-digit code is on its way.
             </p>
-            <Form method="post" className="space-y-3">
+            <Form method="post" className="login-form">
               <input type="hidden" name="intent" value="verify-code" />
               <input type="hidden" name="email" value={email} />
               <input type="hidden" name="redirectTo" value={redirectTo} />
-              <label className="block">
-                <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">
-                  Sign-in code
-                </span>
+              <label>
+                <span>Sign-in code</span>
                 <input
-                  className={fieldClass + " text-center font-mono tracking-[0.3em]"}
+                  className="login-input login-code-input"
                   name="code"
                   type="text"
                   inputMode="numeric"
@@ -124,49 +115,46 @@ export default function Login() {
                 />
               </label>
               {data && "error" in data && data.error && (
-                <p className="text-sm text-red-700">{data.error}</p>
+                <p className="login-error">{data.error}</p>
               )}
               <button
-                className="w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[var(--accent-dark)] disabled:opacity-50"
+                className="login-submit"
                 type="submit"
                 disabled={submitting}
               >
                 {submitting ? "Checking…" : "Sign in"}
               </button>
             </Form>
-            <div className="mt-4 flex items-center justify-between text-xs">
+            <div className="login-secondary">
               <Form method="post">
                 <input type="hidden" name="intent" value="request-code" />
                 <input type="hidden" name="email" value={email} />
                 <input type="hidden" name="redirectTo" value={redirectTo} />
                 <button
                   type="submit"
-                  className="text-[color:var(--accent)] hover:underline"
                   disabled={submitting}
                 >
                   Send another code
                 </button>
               </Form>
-              <a className="text-[color:var(--muted)] hover:underline" href={`/login?redirectTo=${encodeURIComponent(redirectTo)}`}>
+              <a href={`/login?redirectTo=${encodeURIComponent(redirectTo)}`}>
                 Use another email
               </a>
             </div>
           </>
         ) : (
           <>
-            <p className="mb-5 text-sm leading-6 text-[color:var(--muted)]">
+            <p className="login-intro">
               Enter the email attached to your researcher profile. We’ll send a
               short-lived sign-in code.
             </p>
-            <Form method="post" className="space-y-3">
+            <Form method="post" className="login-form">
               <input type="hidden" name="intent" value="request-code" />
               <input type="hidden" name="redirectTo" value={redirectTo} />
-              <label className="block">
-                <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">
-                  Email
-                </span>
+              <label>
+                <span>Email</span>
                 <input
-                  className={fieldClass}
+                  className="login-input"
                   name="email"
                   type="email"
                   autoComplete="email"
@@ -175,10 +163,10 @@ export default function Login() {
                 />
               </label>
               {data && "error" in data && data.error && (
-                <p className="text-sm text-red-700">{data.error}</p>
+                <p className="login-error">{data.error}</p>
               )}
               <button
-                className="w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[var(--accent-dark)] disabled:opacity-50"
+                className="login-submit"
                 type="submit"
                 disabled={submitting}
               >

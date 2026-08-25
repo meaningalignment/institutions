@@ -132,7 +132,7 @@ function PersonRow({
             ))}
           </select>
           {closenessFetcher.data && !closenessFetcher.data.ok && (
-            <span className="block text-xs text-red-700">{closenessFetcher.data.error}</span>
+            <span className="admin-error block text-xs">{closenessFetcher.data.error}</span>
           )}
         </closenessFetcher.Form>
 
@@ -150,7 +150,7 @@ function PersonRow({
 
         <button
           type="button"
-          className="flex min-w-0 items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm text-[color:var(--muted)] hover:bg-[var(--wash)]"
+          className="flex min-w-0 items-center gap-2 px-2 py-1.5 text-left text-sm text-[color:var(--muted)] hover:bg-[var(--wash)]"
           aria-expanded={expanded}
           aria-label={`Edit involvements for ${person.name}`}
           onClick={() => setExpanded((value) => !value)}
@@ -163,7 +163,7 @@ function PersonRow({
       </div>
 
       {expanded && (
-        <div className="mt-3 rounded-lg bg-[var(--wash)] p-3">
+        <div className="mt-3 border-l-2 border-[color:var(--line-strong)] bg-[var(--wash)] p-3">
           <div className="grid gap-x-4 gap-y-2 sm:grid-cols-2">
             {otherInvolvements.map((involvement) => (
               <MembershipToggle
@@ -208,7 +208,7 @@ function MembershipToggle({
       <input type="hidden" name="researcherId" value={researcherId} />
       <input type="hidden" name="involvementId" value={involvement.id} />
       <label
-        className={`flex items-start gap-2 rounded-md px-2 py-1.5 text-[color:var(--text)] hover:bg-white ${
+        className={`flex items-start gap-2 px-2 py-1.5 text-[color:var(--text)] hover:bg-[var(--card)] ${
           label ? "text-sm" : "text-xs"
         } ${fetcher.state !== "idle" ? "opacity-60" : ""}`}
       >
@@ -238,7 +238,7 @@ function MembershipToggle({
         )}
       </label>
       {fetcher.data && !fetcher.data.ok && (
-        <span className="block px-2 text-xs text-red-700">{fetcher.data.error}</span>
+        <span className="admin-error block px-2 text-xs">{fetcher.data.error}</span>
       )}
     </fetcher.Form>
   );
@@ -488,13 +488,13 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
             <div
               role="dialog"
               aria-label="People filters"
-              className="absolute left-0 z-30 mt-2 w-[min(680px,calc(100vw-3rem))] rounded-xl border border-[color:var(--line-strong)] bg-white p-4 shadow-xl"
+              className="absolute left-0 z-30 mt-2 w-[min(680px,calc(100vw-3rem))] rounded-none border border-[color:var(--line-strong)] bg-[var(--card)] p-4 shadow-xl"
             >
               <div className="mb-2 flex items-center justify-between gap-3">
                 <div className="text-sm font-semibold text-[color:var(--ink)]">Filter people</div>
                 <button
                   type="button"
-                  className="rounded px-2 py-1 text-sm text-[color:var(--muted)] hover:bg-[var(--wash)]"
+                  className="px-2 py-1 text-sm text-[color:var(--muted)] hover:bg-[var(--wash)]"
                   aria-label="Close filters"
                   onClick={() => setFiltersOpen(false)}
                 >
@@ -585,7 +585,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
                 </button>
                 <button
                   type="button"
-                  className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-xs font-medium text-white hover:bg-[var(--accent-dark)]"
+                  className="rounded-none border border-[color:var(--ink)] bg-[var(--ink)] px-3 py-1.5 text-xs font-medium text-[color:var(--paper)] hover:opacity-85"
                   onClick={() => setFiltersOpen(false)}
                 >
                   Done
@@ -645,10 +645,10 @@ function FacetButton({
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className={`rounded-full border px-2.5 py-1 text-xs ${
+      className={`rounded-none border px-2.5 py-1 text-xs ${
         active
-          ? "border-[color:var(--accent)] bg-white text-[color:var(--accent)]"
-          : "border-transparent text-[color:var(--muted)] hover:border-[color:var(--line-strong)] hover:bg-white"
+          ? "border-[color:var(--ink)] bg-[var(--card)] text-[color:var(--ink)]"
+          : "border-transparent text-[color:var(--muted)] hover:border-[color:var(--line-strong)] hover:bg-[var(--card)]"
       }`}
     >
       {children}

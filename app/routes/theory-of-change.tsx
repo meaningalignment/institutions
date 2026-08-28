@@ -3,7 +3,6 @@ import type { Route } from "./+types/theory-of-change";
 import { readDataFile } from "../lib/content.server";
 import { renderMarkdown } from "../lib/render.server";
 import { esc, escapeHtml } from "../lib/markdown";
-import { SiteFooter } from "../components/Controls";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
 
@@ -92,7 +91,6 @@ export default function TheoryOfChange({ loaderData: d }: Route.ComponentProps) 
           <div dangerouslySetInnerHTML={{ __html: d.sectionsHtml }} />
         </div>
       </div>
-      <SiteFooter />
     </>
   );
 }

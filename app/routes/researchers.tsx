@@ -2,7 +2,6 @@ import { isRouteErrorResponse } from "react-router";
 import type { Route } from "./+types/researchers";
 import { getCommunity, type Researcher } from "../lib/researchers.server";
 import { ResearcherCard } from "../components/ResearcherCard";
-import { SiteFooter } from "../components/Controls";
 import { CommunityHeader } from "../components/CommunityHeader";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { getAuthorizedAdminSession } from "../lib/auth.server";
@@ -82,7 +81,6 @@ export default function Researchers({ loaderData: d }: Route.ComponentProps) {
           people={d.friends}
         />
       </div>
-      <SiteFooter />
     </>
   );
 }

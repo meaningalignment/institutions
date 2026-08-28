@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import type { Route } from "./+types/methods";
 import { loadMethodCell } from "../lib/content.server";
 import { renderBody } from "../lib/render.server";
-import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { GITHUB_REPO, OG_IMAGE_META, SITE_NAME, TABS, colName } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
@@ -79,7 +78,6 @@ export default function MethodsRoute({ loaderData: d }: Route.ComponentProps) {
           </a>
         </div>
       </div>
-      <SiteFooter />
     </>
   );
 }

@@ -1062,7 +1062,6 @@ td.has-theory::before { border-color: #77736d transparent transparent transparen
 .curr-main a:hover { color: var(--ink); text-decoration-color: var(--ink); }
 .impact-dot.filled { background: var(--accent); border-color: var(--accent); }
 .about-stage-num { background: var(--muted); border-color: var(--muted); }
-.site-footer { width: 100%; color: #999; }
 
 /* Detail sections use one rule—the summary's—not a short heading rule plus a
    second full-width divider. Empty challenge shells disappear entirely. */

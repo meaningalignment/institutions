@@ -1,6 +1,6 @@
 # Institutions for Powerful AI
 
-> An interactive map of the institutional design problems that arise when autonomous AI agents participate in society. Maps coordination mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments) across scales (dyadic, group, community, national, global). Assembled by the [Meaning Alignment Institute](https://meaningalignment.org).
+> An interactive map of the institutional design problems that arise when autonomous AI agents participate in society. Maps coordination mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments) across scales (dyadic, group, community, national, global).
 
 This site explores what new institutions a world of autonomous AI agents will require, and how existing human institutions break down when one party is an AI agent. It is intended for researchers, policymakers, and institutional designers working on AI governance.
 

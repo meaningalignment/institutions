@@ -32,14 +32,3 @@ export function VisionMenu({ corner = false }: { corner?: boolean }) {
     </details>
   );
 }
-
-export function SiteFooter() {
-  return (
-    <footer className="site-footer">
-      Assembled by the{" "}
-      <a href="https://meaningalignment.org" target="_blank" rel="noopener">
-        Meaning Alignment Institute
-      </a>
-    </footer>
-  );
-}

@@ -2343,26 +2343,6 @@ details.curr-field.is-dimmed .curr-field-num:empty { display: none; }
   details.curr-field > summary.curr-field-summary > h2.curr-field-name { font-size: 24px; }
 }
 
-/* Site footer */
-.site-footer {
-  margin-top: 56px;
-  padding: 24px 0;
-  text-align: center;
-  font-size: 13px;
-  color: var(--faint);
-}
-
-.site-footer a {
-  color: var(--muted);
-  text-decoration: underline;
-  text-decoration-color: var(--line-strong);
-  text-underline-offset: 3px;
-}
-
-.site-footer a:hover {
-  color: var(--ink);
-}
-
 /* ── Print / PDF export ───────────────────────────────────────────── */
 
 @media print {
@@ -2390,7 +2370,6 @@ details.curr-field.is-dimmed .curr-field-num:empty { display: none; }
   }
 
   .controls,
-  .site-footer,
   .detail-back,
   .detail-footer,
   .rail-footer {

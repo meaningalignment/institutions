@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import type { Route } from "./+types/curriculum";
 import { buildCurriculum } from "../lib/curriculum.server";
 import { initCurriculum } from "../lib/curriculum-init";
-import { SiteFooter } from "../components/Controls";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { getAuthorizedAdminSession } from "../lib/auth.server";
 import { ComingSoon } from "../components/ComingSoon";
@@ -40,7 +39,6 @@ export default function Curriculum({ loaderData: d }: Route.ComponentProps) {
         className="curr-layout"
         dangerouslySetInnerHTML={{ __html: d.innerHtml }}
       />
-      <SiteFooter />
     </>
   );
 }

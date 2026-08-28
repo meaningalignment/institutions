@@ -3,7 +3,7 @@ import type { Route } from "./+types/problem-sets";
 import { loadCells } from "../lib/content.server";
 import { renderProblemSetBody } from "../lib/render.server";
 import { extractProblemSets } from "../lib/markdown";
-import { VisionMenu, SiteFooter } from "../components/Controls";
+import { VisionMenu } from "../components/Controls";
 import { staticContentHeaders } from "../lib/cache.server";
 import {
   VISIONS,
@@ -133,7 +133,6 @@ export default function ProblemSets({ loaderData: d }: Route.ComponentProps) {
           </ul>
         </div>
       </div>
-      <SiteFooter />
     </>
   );
 }

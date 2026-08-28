@@ -1,7 +1,6 @@
 import type { Route } from "./+types/home";
 import { loadGridCells } from "../lib/content.server";
 import { Grid } from "../components/Grid";
-import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN, TAB_META, TABS } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
@@ -44,7 +43,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <div id="grid-view">
         <Grid tabId="agi" cells={loaderData.cells} />
       </div>
-      <SiteFooter />
     </>
   );
 }

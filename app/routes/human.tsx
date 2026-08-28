@@ -1,7 +1,6 @@
 import type { Route } from "./+types/human";
 import { loadGridCells, loadHumanInstitutions } from "../lib/content.server";
 import { Grid } from "../components/Grid";
-import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN, TAB_META, TABS } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
@@ -54,7 +53,6 @@ export default function Human({ loaderData }: Route.ComponentProps) {
           humanInstitutions={loaderData.humanInstitutions}
         />
       </div>
-      <SiteFooter />
     </>
   );
 }

@@ -2,7 +2,6 @@ import { Link, data } from "react-router";
 import type { Route } from "./+types/researcher-profile";
 import { getResearcher } from "../lib/researchers.server";
 import { Highlight } from "../components/ResearcherCard";
-import { SiteFooter } from "../components/Controls";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { getAuthorizedAdminSession } from "../lib/auth.server";
 import { ComingSoon } from "../components/ComingSoon";
@@ -154,7 +153,6 @@ export default function ResearcherProfile({ loaderData }: Route.ComponentProps) 
           </section>
         )}
       </div>
-      <SiteFooter />
     </>
   );
 }

@@ -535,7 +535,8 @@ export function visionStylesCss(): string {
   for (const v of VISIONS) {
     css += `.vision-chip[data-vision="${v.id}"],.ps-entry[data-vision="${v.id}"],.ps-detail-entry[data-vision="${v.id}"],.ps-vision-group[data-vision="${v.id}"]{--vision-color:${v.color};}`;
     css += `html.show-vision-${v.id} .vision-chip[data-vision="${v.id}"]{display:inline-block;}`;
-    css += `html.show-vision-${v.id} .ps-entry[data-vision="${v.id}"],html.show-vision-${v.id} .ps-detail-entry[data-vision="${v.id}"],html.show-vision-${v.id} .ps-vision-group[data-vision="${v.id}"]{display:block;}`;
+    css += `html.show-vision-${v.id} .ps-entry[data-vision="${v.id}"],html.show-vision-${v.id} .ps-vision-group[data-vision="${v.id}"]{display:block;}`;
+    css += `html.show-vision-${v.id} .ps-detail-entry[data-vision="${v.id}"]{display:grid;}`;
   }
   return css;
 }

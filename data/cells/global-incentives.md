@@ -43,7 +43,7 @@ Markets stay aligned with people because humans are the workers and the buyers. 
 
 ## How humans solve this today
 
-Global markets have stayed roughly aligned with human interests historically because **humans were necessary as the workforce, and humans were the dominant buyers.**
+Global markets have stayed roughly aligned with human interests historically because humans were necessary as the workforce, and humans were the dominant buyers.
 
 1. **Humans as the workforce.** Roughly 60% of GDP has flowed to labor across most large economies for decades (BLS, IMF, OECD tracking). Markets serve humans because humans must be paid to do the work, and job markets also make firms compete for human cooperation: recruiting, training, retaining, bargaining with, and often appealing to workers whose skills and consent mattered with values and missions.
 

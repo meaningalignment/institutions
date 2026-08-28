@@ -163,8 +163,10 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
               className="human-history-toggle"
               onClick={historyMode ? closeHistory : openHistory}
               aria-pressed={historyMode}
+              aria-expanded={historyMode}
             >
-              {historyMode ? "Hide history" : "Explore history"}
+              <span>{historyMode ? "Hide history" : "Explore history"}</span>
+              <span className="human-history-chevron" aria-hidden="true" />
             </button>
           )}
         </div>

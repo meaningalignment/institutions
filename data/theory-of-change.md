@@ -1,6 +1,6 @@
 # AGI Institutions Wiki
 
-AGI institutions is a research program for the institutions we need in a world of powerful AI. It is co-led by researchers working on these questions from various labs and universities.
+AGI institutions is a research program about the institutions we need for a world of powerful AI. It is co-led by researchers working on these questions from various labs and universities.
 
 ## Why it's needed
 

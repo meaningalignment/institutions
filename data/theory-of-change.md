@@ -1,10 +1,6 @@
-# New institutions for a world of AI agents
+# AGI Institutions Wiki
 
-## What this is
-
-A map (and a research program) for the institutions a world of autonomous AI agents will need. It's laid out by **scale** (how many actors are coordinating) and by **informational basis** (the kind of information a group coordinates around).
-
-Each cell names a coordination problem, shows how humans currently solve it, how AI agents break that solution, and a speculative path to implementation. Two corner flags mark how far a cell has come: a **green flag** (top right) means the cell is written up and has problem sets for researchers to get started with, along with learning material; a **blue flag** (top left) means the cell carries an investor-facing theory of change — a speculative path to implementation, with a rough read on its urgency, tractability, neglectedness, and maturity.
+AGI institutions is a research program for the institutions we need in a world of powerful AI. It is co-led by researchers working on these questions from various labs and universities.
 
 ## Why it's needed
 
@@ -16,11 +12,11 @@ Society needs concrete institutional designs for this world. The researchers who
 
 Three things have shifted in the last few years that make this work both possible and urgent.
 
-**The intellectual ground has moved.** For a long time, AI alignment meant pointing a single powerful system at the right objective. Under the pressure of actually-deployed models and emerging multi-agent dynamics, the question has changed: how do you align not one system but an ecosystem of AI agents and humans, by building systems that can give and take reasons rather than by specifying a utility function. That is a question about institutions, and a small research community has started to form around it.
+**The field of alignment has shifted.** For a long time, AI alignment meant pointing a single powerful system at the right objective. Under the pressure of actually-deployed models and emerging multi-agent dynamics, the question has changed: how do you align not one system but an ecosystem of AI agents and humans, by building systems that can give and take reasons rather than by specifying a utility function. That is a question about institutions, and a small research community has started to form around it.
 
 **The political fight is starting.** Alignment is no longer the private business of a few labs and a few ethicists. Disputes between labs and governments, the EU AI Act, and a string of national declarations are turning it into a constitutional question, with answers that vary by jurisdiction.
 
-**An economic shock may be coming.** There are some signs AI might displace white-collar work (at least entry level jobs), and if that spreads, it could bring real political unrest. People will be angry and demand that something be done about AI, and it will matter which designs are ready when that moment comes.
+**Big societal shocks may be coming.** There are some signs AI might displace white-collar work (at least entry level jobs), and if that spreads, it could bring real political unrest. People will be angry and demand that something be done about AI, and it will matter which designs are ready when that moment comes.
 
 ## Theory of change
 

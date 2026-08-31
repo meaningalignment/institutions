@@ -43,7 +43,7 @@ Markets stay aligned with people because humans are the workers and the buyers. 
 
 ## How humans solve this today
 
-Global markets have stayed roughly aligned with human interests historically because **humans were necessary as the workforce, and humans were the dominant buyers.**
+Global markets have stayed roughly aligned with human interests historically because humans were necessary as the workforce, and humans were the dominant buyers.
 
 1. **Humans as the workforce.** Roughly 60% of GDP has flowed to labor across most large economies for decades (BLS, IMF, OECD tracking). Markets serve humans because humans must be paid to do the work, and job markets also make firms compete for human cooperation: recruiting, training, retaining, bargaining with, and often appealing to workers whose skills and consent mattered with values and missions.
 
@@ -63,7 +63,7 @@ On top of these structural facts sits a layer of intentional steering — boycot
 
 **Implicit alignment in human-to-human service provision becomes harder to rely on when the transaction is routed through agents.** Human-facing markets often smuggled in extra care through professional judgment, local reputation, embarrassment, sympathy, and the ability to notice that a buyer's literal request would not actually help them. Agent-mediated transactions can strip out that layer. A buyer agent may optimize a stale proxy; a seller agent may optimize conversion or retention; neither side necessarily carries the informal human obligation to ask whether the transaction still serves the person.
 
-## Problem Sets
+## Design Challenges
 
 ### Replacing Job-Market Functions When Firms No Longer Need Workers
 

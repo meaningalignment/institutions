@@ -3,7 +3,6 @@ import type { Route } from "./+types/theory-of-change";
 import { readDataFile } from "../lib/content.server";
 import { renderMarkdown } from "../lib/render.server";
 import { esc, escapeHtml } from "../lib/markdown";
-import { SiteFooter } from "../components/Controls";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
 
@@ -67,7 +66,8 @@ export function loader(_: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const title = `${loaderData?.title ?? "Theory of change"} — ${SITE_NAME}`;
+  const pageTitle = loaderData?.title ?? "Theory of change";
+  const title = pageTitle === SITE_NAME ? SITE_NAME : `${pageTitle} — ${SITE_NAME}`;
   const desc =
     "What this grid of institutions for a world of autonomous AI agents is, why it is needed, and the theory of change behind it.";
   return [
@@ -92,7 +92,6 @@ export default function TheoryOfChange({ loaderData: d }: Route.ComponentProps) 
           <div dangerouslySetInnerHTML={{ __html: d.sectionsHtml }} />
         </div>
       </div>
-      <SiteFooter />
     </>
   );
 }

@@ -44,7 +44,7 @@ A vivid case: Priya's mother needed an extra year of mortgage rate-lock when the
 4. **An agent can hide what it knows about its own principal to extract surplus the other side can't see was on the table.** Human negotiators have private information too, but their models of their principal are coarse and their disclosure is governed by professional norms, repeat-play reputations, and limited memory of prior deals. An agent's preference model of its principal is richer and more precise than anything the counterparty can infer, and the standard human disciplines on misrepresentation do not transpose: there is no professional license to revoke, no reputation among colleagues, and no shared limit on how much modeling either side can do.
 5. **Asymmetric capabilities could potentially be much more extreme than the human case of a skilled negotiator versus an unskilled one, making it harder to find protocols that work for all parties.** Human negotiation tolerates skill gaps because the gap is bounded: a better lawyer wins more, but not arbitrarily more, and procedural protections (disclosure rules, cooling-off periods, consumer protections) close part of the gap. If one side fields a much more capable agent, the bounded-gap assumption that lets the same protocol serve sophisticated and unsophisticated parties may no longer hold, and protocols built for the human range may have to be redesigned for a wider one.
 
-## Problem Sets
+## Design Challenges
 
 ### Ratifiable bundles under agent-speed negotiation
 

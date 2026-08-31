@@ -49,7 +49,7 @@ A vivid case: Renee's airline used to face a four-month wait for FAA guidance on
 
 3. **Firms with capable agents can model the regulator precisely enough to walk up to the enforcement line.** Conservative compliance was never just obedience; it was the product of uncertainty about how the agency would react, priced in lawyer hours. An agent trained on the agency's rules, guidance, enforcement history, and published decisions can estimate reactions well enough to optimize against them — staying technically inside every rule while draining the buffer that uncertainty used to enforce. The informal-consultation channel inverts too: instead of asking the regulator, firms ask a simulation of the regulator, and the agency loses the early visibility those consultations used to give it.
 
-## Problem Sets
+## Design Challenges
 
 ### Status of an AI-issued regulator-anticipation opinion
 

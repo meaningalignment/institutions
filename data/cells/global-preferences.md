@@ -22,7 +22,7 @@ How preferences and attention from billions of people get aggregated into a sing
 - Google Search ranking
 - Twitter/X timeline
 
-## Problem Sets
+## Design Challenges
 
 ### Deliberative aggregation of global preferences {vision: fidelity}
 

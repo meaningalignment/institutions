@@ -46,7 +46,7 @@ Documents about how AI should behave, like Claude's constitution, are heirs to t
 3. **An AI constitution should say much more about positive conduct than a national one ever did.** Constitutions are written mostly as "shall nots." Positive duties exist (the right to counsel, sometimes a right to education) but they are rare, because a state's powers are limited and because telling citizens how to *act* — not just what the state may not do to them — would be somewhat tyrannical. This doesn't apply to AI: telling it how to behave is the point of the document, not an overreach. So an alignment document has to state positive commitments ("be honest," "help the user think for themselves") in enough detail to actually guide conduct. This is the part with the least precedent to borrow from.
 4. **The document has to change far faster than a constitution, which is exactly when legitimacy is hardest to keep.** A constitution is built to last centuries, and the slowness is part of what makes it bind: amendment is rare and hard, so the text accumulates authority. An alignment document governs technology that turns over in months — new capabilities, new failure modes, new deployment domains — so it must be revised on a cadence no constitution ever faced. But a document that can be rewritten quickly by the party it governs has trouble holding the authority a slow founding process confers. The two pressures pull against each other.
 
-## Problem Sets
+## Design Challenges
 
 ### Giving a lab's constitution a legitimate source
 

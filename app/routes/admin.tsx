@@ -1,4 +1,5 @@
-import { NavLink, Outlet, useLoaderData } from "react-router";
+import { Link, NavLink, Outlet, useLoaderData } from "react-router";
+import { useEffect, useState } from "react";
 import type { Route } from "./+types/admin";
 import { CommunityHeader } from "../components/CommunityHeader";
 import { SITE_NAME } from "../lib/constants";
@@ -20,33 +21,46 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function AdminLayout() {
   const { session } = useLoaderData<typeof loader>();
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    setDarkMode(document.documentElement.classList.contains("theme-dark"));
+  }, []);
+
+  const toggleTheme = () => {
+    const nextDark = !document.documentElement.classList.contains("theme-dark");
+    document.documentElement.classList.toggle("theme-dark", nextDark);
+    window.localStorage.setItem("wiki-theme", nextDark ? "dark" : "light");
+    setDarkMode(nextDark);
+  };
+
   return (
-    <div className="w-full max-w-[1000px]">
-      <CommunityHeader editing session={session} />
+    <main className="admin-page">
+      <div className="admin-shell">
+        <CommunityHeader editing session={session} />
 
-      <nav
-        className="mb-5 flex gap-1 border-b border-[color:var(--line)]"
-        aria-label="Admin sections"
-      >
-        {tabs.map((tab) => (
-          <NavLink
-            key={tab.to}
-            to={tab.to}
-            end={tab.end}
-            className={({ isActive }) =>
-              `relative -mb-px rounded-t-md border border-transparent px-4 py-2.5 text-sm font-medium ${
-                isActive
-                  ? "border-[color:var(--line)] border-b-[var(--card)] bg-[var(--card)] text-[color:var(--ink)]"
-                  : "text-[color:var(--muted)] hover:text-[color:var(--ink)]"
-              }`
-            }
-          >
-            {tab.label}
-          </NavLink>
-        ))}
-      </nav>
+        <nav className="admin-tabs" aria-label="Admin sections">
+          {tabs.map((tab) => (
+            <NavLink
+              key={tab.to}
+              to={tab.to}
+              end={tab.end}
+              className={({ isActive }) => (isActive ? "active" : undefined)}
+            >
+              {tab.label}
+            </NavLink>
+          ))}
+          <span className="admin-preview-links">
+            <Link to="/curriculum">View curriculum</Link>
+            <Link to="/researchers">View community</Link>
+            <button type="button" onClick={toggleTheme}>
+              {darkMode ? "Light mode" : "Dark mode"}
+            </button>
+          </span>
+        </nav>
 
-      <Outlet />
-    </div>
+        <Outlet />
+      </div>
+    </main>
   );
 }

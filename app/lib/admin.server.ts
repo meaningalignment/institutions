@@ -8,6 +8,7 @@ export interface AdminResearcher {
   id: number;
   name: string;
   handle: string;
+  scholarUrl?: string | null;
 }
 
 export type Closeness =
@@ -52,11 +53,16 @@ export interface AdminPaper {
 export async function getResearchersList(): Promise<AdminResearcher[]> {
   const sql = getSql();
   const rows = (await sql`
-    SELECT id, name, handle
+    SELECT id, name, handle, scholar_url
     FROM researchers
     ORDER BY lower(COALESCE(name, '')), name
   `) as any[];
-  return rows.map((r) => ({ id: r.id, name: r.name ?? "", handle: r.handle ?? "" }));
+  return rows.map((r) => ({
+    id: r.id,
+    name: r.name ?? "",
+    handle: r.handle ?? "",
+    scholarUrl: r.scholar_url ?? null,
+  }));
 }
 
 export async function getPeople(): Promise<AdminPerson[]> {

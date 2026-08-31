@@ -22,7 +22,7 @@ How a group sustains a shared way of life across changing circumstances and chan
 - Kibbutzim
 - Catholic Worker houses
 
-## Problem Sets
+## Design Challenges
 
 ### Substantive organizational charters {vision: fidelity}
 

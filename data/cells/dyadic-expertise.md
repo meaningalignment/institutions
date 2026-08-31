@@ -22,7 +22,7 @@ How one party transmits judgment and tacit skill to another over time.
 - Therapeutic supervision
 - Surgical residency
 
-## Problem Sets
+## Design Challenges
 
 ### Apprenticeships that transmit institutional purpose {vision: fidelity}
 

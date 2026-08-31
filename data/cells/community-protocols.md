@@ -22,7 +22,7 @@ How an industry or community settles on shared technical standards no single fir
 - Unicode Consortium
 - Bluetooth SIG
 
-## Problem Sets
+## Design Challenges
 
 ### Institutional transparency regimes {vision: fidelity}
 

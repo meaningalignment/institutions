@@ -49,7 +49,7 @@ These instruments protect the weaker party inside an organization — the worker
 
 3. **And even a filed complaint has no teeth.** A grievance board's ruling binds the firm's conduct only because the worker behind it can quit, sue, or strike, and the firm needs the labor; that latent leverage is what makes management comply with a ruling that is often only a recommendation. An agent can do none of these and is replaceable at near-zero cost, so the complaint carries no threat and the board has nothing to enforce.
 
-## Problem Sets
+## Design Challenges
 
 ### Grievance procedure against an agent's decisions
 

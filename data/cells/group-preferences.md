@@ -22,7 +22,7 @@ How a small group with mixed views picks one course of action from many.
 - Internal prediction markets
 - Consensus circles
 
-## Problem Sets
+## Design Challenges
 
 ### Deliberative value elicitation for group decisions {vision: fidelity}
 

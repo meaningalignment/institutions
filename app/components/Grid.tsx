@@ -1,24 +1,21 @@
 import { Fragment, useState, type CSSProperties } from "react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import {
   ROWS,
   COLS,
   VISIONS,
   TABS,
   READY_STATUSES,
-  getMethodsForCol,
   type GridCell,
   type HumanInstitution,
   type HumanInstitutionCell,
   type HumanInstitutionsData,
-  type MethodTag,
   type TabId,
 } from "../lib/constants";
 
 interface GridProps {
   tabId: TabId;
   cells: Record<string, GridCell>;
-  methods: Record<string, MethodTag[]>;
   humanInstitutions?: HumanInstitutionsData;
 }
 
@@ -64,12 +61,10 @@ function HumanTimeline({
   data,
   timelineIndex,
   onChange,
-  onClose,
 }: {
   data: HumanInstitutionsData;
   timelineIndex: number;
   onChange: (index: number) => void;
-  onClose: () => void;
 }) {
   const point = data.timeline[timelineIndex];
   const allInstitutions = Object.values(data.cells).flatMap((cell) => cell.institutions);
@@ -84,20 +79,12 @@ function HumanTimeline({
   const progress = (timelineIndex / (data.timeline.length - 1)) * 100;
 
   return (
-    <section className="human-timeline human-cell-fade" aria-labelledby="human-timeline-title">
+    <section className="human-timeline" aria-labelledby="human-timeline-title">
       <div className="human-timeline-readout" aria-live="polite">
-        <div>
-          <span className="human-timeline-eyebrow" id="human-timeline-title">
-            Choose a point in institutional history
-          </span>
-          <div className="human-timeline-period">
-            <strong>{point.date}</strong>
-            <span>{point.label}</span>
-          </div>
+        <div className="human-timeline-period" id="human-timeline-title">
+          <strong>{point.date}</strong>
+          <span>{point.label}</span>
         </div>
-        <button type="button" className="human-timeline-close" onClick={onClose}>
-          Hide history
-        </button>
       </div>
       <input
         className="human-timeline-range"
@@ -122,47 +109,77 @@ function HumanTimeline({
   );
 }
 
-export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
+export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
+  const [searchParams] = useSearchParams();
+  const focusedRow = searchParams.get("row");
   const [timelineIndex, setTimelineIndex] = useState(
     humanInstitutions ? humanInstitutions.timeline.length - 1 : 0
   );
   // The Human grid defaults to a simple one-label-per-cell view; the timeline
   // slider and full dated records are revealed by the history toggle.
   const [historyMode, setHistoryMode] = useState(false);
-  // The fade only plays on history-mode flips, not on initial mount / tab switch.
-  const [hasToggledHistory, setHasToggledHistory] = useState(false);
-  const fadeClass = hasToggledHistory ? " human-cell-fade" : "";
   const tab = TABS[tabId];
   const cellHref = (row: string, col: string) =>
     tabId === "human" ? `/human/${row}/${col}` : `/cell/${row}/${col}`;
   const openHistory = () => {
     if (humanInstitutions) setTimelineIndex(humanInstitutions.timeline.length - 1);
     setHistoryMode(true);
-    setHasToggledHistory(true);
   };
   const closeHistory = () => {
     setHistoryMode(false);
-    setHasToggledHistory(true);
   };
 
   return (
     <>
-      <div className="pane-title">{tab.title}</div>
-      <div className="pane-subtitle">{tab.subtitle}</div>
+      <header className="grid-page-header">
+        <div className="grid-page-heading">
+          <div className="pane-title">{tab.title}</div>
+          <div className="pane-subtitle">
+            {tabId === "human" && historyMode
+              ? "How human coordination infrastructure accumulated over time"
+              : tab.subtitle}
+          </div>
+        </div>
+        <div className="grid-view-controls">
+          <nav className="grid-view-switch" aria-label="Institution grid">
+            <Link
+              to="/human"
+              className={tabId === "human" ? "active" : undefined}
+              aria-current={tabId === "human" ? "page" : undefined}
+            >
+              Existing institutions
+            </Link>
+            <Link
+              to="/"
+              className={tabId === "agi" ? "active" : undefined}
+              aria-current={tabId === "agi" ? "page" : undefined}
+            >
+              AGI institutions
+            </Link>
+          </nav>
+          {tabId === "human" && humanInstitutions && (
+            <button
+              type="button"
+              className="human-history-toggle"
+              onClick={historyMode ? closeHistory : openHistory}
+              aria-pressed={historyMode}
+              aria-expanded={historyMode}
+            >
+              <span>{historyMode ? "Hide history" : "Explore history"}</span>
+              <span className="human-history-chevron" aria-hidden="true" />
+            </button>
+          )}
+        </div>
+      </header>
       {tabId === "human" &&
         humanInstitutions &&
-        (historyMode ? (
+        historyMode && (
           <HumanTimeline
             data={humanInstitutions}
             timelineIndex={timelineIndex}
             onChange={setTimelineIndex}
-            onClose={closeHistory}
           />
-        ) : (
-          <button type="button" className={`human-history-toggle${fadeClass}`} onClick={openHistory}>
-            See institutions throughout history
-          </button>
-        ))}
+        )}
       <div className="table-wrapper">
         <table>
           <thead>
@@ -184,13 +201,17 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
             </tr>
           </thead>
           <tbody>
-            {ROWS.map((row, rowIndex) => (
-              <tr key={row.id}>
+            {ROWS.map((row) => (
+              <tr
+                key={row.id}
+                id={`row-${row.id}`}
+                className={focusedRow === row.id ? "grid-row-focused" : undefined}
+              >
                 <th className="row-header">
                   <span className="row-name">{row.name}</span>
                   <span className="row-desc">{row.desc}</span>
                 </th>
-                {COLS.map((col, colIndex) => {
+                {COLS.map((col) => {
                   const key = `${row.id}-${col.id}`;
                   const cell = cells[key];
                   const humanCell = humanInstitutions?.cells[key];
@@ -243,24 +264,17 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
                   if (tabId === "agi" && cell.hasTheory) classes.push("has-theory");
                   if (tabId === "human" && historyMode) classes.push("human-institution-tile");
 
-                  // Distinct keys remount the cell content when the mode
-                  // flips, replaying the fade; the delay sweeps diagonally.
-                  // The fade class is withheld until the first toggle so
-                  // tab switches and initial load render without animation.
-                  const fadeStyle = { animationDelay: `${(rowIndex + colIndex) * 40}ms` };
-
                   return (
                     <td key={col.id} className={classes.join(" ")}>
                       <Link className="cell-link" to={cellHref(row.id, col.id)}>
                         {tabId === "human" && humanInstitutions && !historyMode ? (
-                          <div key="simple" className={`cell-content${fadeClass}`} style={fadeStyle}>
+                          <div key="simple" className="cell-content">
                             <span className="cell-required-label">{humanCell?.label}</span>
                           </div>
                         ) : tabId === "human" && humanInstitutions ? (
                           <div
                             key="history"
-                            className={`cell-content human-institution-list${fadeClass}`}
-                            style={fadeStyle}
+                            className="cell-content human-institution-list"
                           >
                             {(() => {
                               const currentEraId = timelineIndex === 0
@@ -304,31 +318,16 @@ export function Grid({ tabId, cells, methods, humanInstitutions }: GridProps) {
                 })}
               </tr>
             ))}
-            <tr className="methods-row">
-              <th className="row-header">
-                <span className="row-name">Methods</span>
-                <span className="row-desc">design practices</span>
-              </th>
-              {COLS.map((col) => {
-                const tags = getMethodsForCol(col.id, tabId, methods);
-                return (
-                  <td key={col.id} className="clickable">
-                    <Link className="cell-link" to={`/methods/${col.id}`}>
-                      <div className="cell-content">
-                        {tags.map((tag, i) => (
-                          <span key={i} className={tag.bold ? "method-tag bold" : "method-tag"}>
-                            {tag.name}
-                          </span>
-                        ))}
-                      </div>
-                    </Link>
-                  </td>
-                );
-              })}
-            </tr>
           </tbody>
         </table>
       </div>
+      <footer className="grid-page-footer">
+        <Link to="/theory-of-change">What is this?</Link>
+        <span aria-hidden="true">·</span>
+        <Link to="/researchers" prefetch="intent">
+          Who is working on this?
+        </Link>
+      </footer>
     </>
   );
 }

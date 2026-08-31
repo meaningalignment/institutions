@@ -45,7 +45,7 @@ Law is slow for good reasons. A rule that binds a whole country needs debate, pu
 
 3. **Firms stay back from the legal line because pushing it costs lawyer hours; agents might make those hours cheap, and a backlog of legal but unused tactics opens up.** There is always a pile of tactics that are probably legal but unused, because checking each one requires many expensive lawyer hours. When legal analysis costs nearly nothing, firms can work through the whole pile at once without breaking a single rule. Enforcement, courts, and rulemaking were sized for a trickle of aggressive-but-legal conduct, not a flood.
 
-## Problem Sets
+## Design Challenges
 
 ### Closing loopholes at the speed they open
 

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import type { CellDetailData } from "../lib/detail.server";
+import { colName, rowName } from "../lib/constants";
 
 // Renders the cell detail DOM at parity with the legacy app.js renderDetail.
 // The inner HTML pieces (summary box, theory box, body) are produced
@@ -8,10 +9,20 @@ import type { CellDetailData } from "../lib/detail.server";
 export function CellDetail({ data }: { data: CellDetailData }) {
   return (
     <div id="detail-view" style={{ display: "block" }}>
-      <Link to={data.backHref} className="detail-back">
+      <Link className="detail-grid-back" to={data.backHref}>
         ← Back to grid
       </Link>
-      <div className="detail-breadcrumb">{data.breadcrumb}</div>
+      <nav className="detail-breadcrumb" aria-label="Breadcrumb">
+        <Link to={data.backHref}>
+          {data.tabId === "human" ? "Existing institutions grid" : "AGI institutions grid"}
+        </Link>
+        <span aria-hidden="true">›</span>
+        <Link to={`${data.backHref}?row=${data.rowId}#row-${data.rowId}`}>
+          {rowName(data.rowId)}
+        </Link>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">{colName(data.colId)}</span>
+      </nav>
       <div className="detail-title">{data.title}</div>
       {data.humanEraHtml && (
         <div dangerouslySetInnerHTML={{ __html: data.humanEraHtml }} />

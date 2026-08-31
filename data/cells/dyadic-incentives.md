@@ -49,7 +49,7 @@ As agents start contracting with each other, the volume and economics of contrac
 
 4. **Cheap agent-lawyers can systematically search a contract for loopholes to exploit at superhuman speed, making exploits worth pursuing that previously weren't.** Human contracts assume the cost of finding and pursuing a loophole is meaningful (drafting attention, legal review, the reputational cost of looking like you're playing games with the contract) so small exploits usually aren't worth chasing. Agents can enumerate edge cases across a contract's surface area at near-zero cost and select the most exploitative interpretations available, turning previously-uneconomic exploits into worthwhile ones.
 
-## Problem Sets
+## Design Challenges
 
 ### Triage for agent-generated disputes
 

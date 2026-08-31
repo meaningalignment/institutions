@@ -16,3 +16,4 @@
  */
 @import "./styles/legacy.css" layer(legacy);
 @import "./styles/overrides.css" layer(legacy);
+@import "./styles/wiki.css" layer(legacy);

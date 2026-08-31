@@ -46,7 +46,7 @@ How states settle on expectations of conduct toward each other without a global 
 
 4. **Powerful AI weapons could make war even more asymmetric than it is today, or decouple military might from the stabilizing force of economic interdependence.** Nuclear taboo and just-war norms developed around weapons whose use was politically legible and whose destructive thresholds could be publicly named. AI-enabled cyber operations, autonomous targeting, drone swarms, model-assisted battlefield planning, and infrastructure attacks may blur those thresholds. If military advantage can be gained through deniable, fast, or highly asymmetric agentic systems, the reputational and economic costs that helped sustain restraint may become irrelevant.
 
-## Problem Sets
+## Design Challenges
 
 ### Coalition search at agent speed
 

@@ -8,6 +8,7 @@ import {
   removeScout,
   updateScout,
 } from "../lib/admin.server";
+import { invalidateCommunityCache } from "../lib/researchers.server";
 import {
   type ActionResult,
   btnGhost,
@@ -43,6 +44,7 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
       await updateScout(researcherId, String(fd.get("scoutsFor") || ""));
     } else if (intent === "remove-scout") await removeScout(researcherId);
     else return { ok: false, error: "Unknown action." };
+    invalidateCommunityCache();
     return { ok: true };
   } catch (error) {
     return {

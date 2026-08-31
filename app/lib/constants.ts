@@ -33,8 +33,9 @@ export type TabId = "agi" | "human";
 // ── SEO ────────────────────────────────────────────────────────────
 
 export const SITE_ORIGIN = "https://www.agi-institutions.org";
-export const SITE_NAME = "AGI Institutions";
-export const SITE_OG_IMAGE = `${SITE_ORIGIN}/og-image.png`;
+export const SITE_NAME = "AGI Institutions Wiki";
+// Bump ?v= when the card is re-captured so link scrapers refetch it.
+export const SITE_OG_IMAGE = `${SITE_ORIGIN}/og-image.png?v=2`;
 
 // Shared OG-image meta entries. Spread into a route's meta() so links shared
 // to Twitter/Slack/iMessage render the grid card (public/og-image.png).
@@ -78,7 +79,7 @@ export const TABS: Record<string, { title: string; nav: string; short: string; s
     title: "Existing Human Institutions",
     nav: "Existing Human Institutions",
     short: "Human",
-    subtitle: "How human coordination infrastructure accumulated over time",
+    subtitle: "How humans coordinate in society",
   },
 };
 

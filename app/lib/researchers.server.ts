@@ -15,6 +15,8 @@ export interface Researcher {
   name: string;
   handle: string;
   affiliation: string;
+  bio: string | null;
+  bioSourceUrl: string | null;
   photoUrl: string | null;
   scholarUrl: string | null;
   rows: string[];
@@ -50,6 +52,8 @@ function toResearcher(r: any): Researcher {
     name: r.name ?? "",
     handle: r.handle ?? "",
     affiliation: r.affiliation ?? "",
+    bio: r.bio ?? null,
+    bioSourceUrl: r.bio_source_url ?? null,
     photoUrl: photoSrc(r.photo_url),
     scholarUrl: r.scholar_url ?? null,
     rows: r.rows ?? [],
@@ -62,10 +66,24 @@ function toResearcher(r: any): Researcher {
   };
 }
 
+// The community page is read far more often than the roster changes, and the
+// three Neon round trips dominate its load time. Cache per server instance
+// with a short TTL; admin actions invalidate the local instance immediately,
+// and the TTL bounds staleness on any other instance.
+let communityCache: { data: Community; at: number } | null = null;
+const COMMUNITY_TTL_MS = 60_000;
+
+export function invalidateCommunityCache() {
+  communityCache = null;
+}
+
 export async function getCommunity(): Promise<Community> {
+  if (communityCache && Date.now() - communityCache.at < COMMUNITY_TTL_MS) {
+    return communityCache.data;
+  }
   const sql = getSql();
   const [researchers, advisors, involved] = await Promise.all([
-    sql`SELECT id, name, handle, affiliation, photo_url, scholar_url, rows, methods,
+    sql`SELECT id, name, handle, affiliation, bio, bio_source_url, photo_url, scholar_url, rows, methods,
         tags, seniority, commitment, contribution_areas, world_class_methods
         FROM researchers ORDER BY name`,
     sql`SELECT researcher_id, advises_about FROM advisors`,
@@ -92,6 +110,7 @@ export async function getCommunity(): Promise<Community> {
   groups.advisors.sort(byName);
   groups.community.sort(byName);
   groups.friends.sort(byName);
+  communityCache = { data: groups, at: Date.now() };
   return groups;
 }
 
@@ -104,7 +123,7 @@ export async function getResearcher(handleParam: string): Promise<ResearcherProf
   const sql = getSql();
   const bare = handleParam.replace(/^@/, "");
   const rows = (await sql`
-    SELECT id, name, handle, affiliation, photo_url, scholar_url, rows, methods,
+    SELECT id, name, handle, affiliation, bio, bio_source_url, photo_url, scholar_url, rows, methods,
         tags, seniority, commitment, contribution_areas, world_class_methods
     FROM researchers
     WHERE handle = ${"@" + bare} OR handle = ${bare} LIMIT 1

@@ -59,7 +59,7 @@ In finance, formal law matters, but much of the work is done by norms that let p
 
 6. **Even if agents can develop their own norms, they may outrun us.** Agents may converge on stable practices among themselves before principals, professional bodies, or regulators understand what has happened. By the time humans discover the new norm, it may already have shaped pricing, client treatment, risk management, or market access across many decisions.
 
-## Problem Sets
+## Design Challenges
 
 ### Agent Judgment in Gray Zones
 

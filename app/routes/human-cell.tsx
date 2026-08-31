@@ -1,7 +1,6 @@
 import type { Route } from "./+types/human-cell";
 import { buildCellDetail } from "../lib/detail.server";
 import { CellDetail } from "../components/CellDetail";
-import { SiteFooter } from "../components/Controls";
 import { useBodyClass } from "../lib/useBodyClass";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
@@ -31,7 +30,6 @@ export default function HumanCellRoute({ loaderData }: Route.ComponentProps) {
   return (
     <>
       <CellDetail data={loaderData} />
-      <SiteFooter />
     </>
   );
 }

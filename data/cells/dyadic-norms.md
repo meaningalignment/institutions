@@ -50,7 +50,7 @@ A vivid case: When Theo agreed to sublet Leah part of his print studio, the leas
 
 **Agent-agent norms may form quickly and opaquely, leaving human principals to discover the operative frame only after it has already shaped behavior.** Two agents handling scheduling, review thresholds, disclosure conventions, or exception handling may converge on a local practice in minutes. If humans cannot see what happened, the relationship's effective norms have moved outside ordinary channels of consent, correction, and accountability.
 
-## Problem Sets
+## Design Challenges
 
 ### Making Tacit Norms Legible Before Action
 

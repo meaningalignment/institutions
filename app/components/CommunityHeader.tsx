@@ -34,11 +34,8 @@ export function CommunityHeader({
 
   return (
     <>
-      <div className="flex items-start justify-between gap-4">
-        <Link to="/" className="detail-back">
-          ← Back to grid
-        </Link>
-        {editing && session ? (
+      {editing && session ? (
+        <div className="community-utility-row">
           <div className="flex items-center gap-2 pt-1 text-xs text-[color:var(--muted)]">
             {profileHandle ? (
               <Link
@@ -56,17 +53,12 @@ export function CommunityHeader({
               </button>
             </Form>
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
 
-      <div className="mb-2 flex items-center gap-2">
-        <h1
-          className="text-[color:var(--ink)]"
-          style={{ fontFamily: "'DM Serif Display', serif", fontSize: 32 }}
-        >
-          Community
-        </h1>
-        {editing || session ? (
+      <div className="community-title-row">
+        <h1>{editing ? "Community admin" : "Research Community"}</h1>
+        {!editing && session ? (
           <Link
             to={editing ? "/researchers" : "/researchers/admin"}
             role="button"
@@ -75,7 +67,7 @@ export function CommunityHeader({
             title={editing ? "Stop editing community" : "Edit community"}
             className={`inline-flex h-7 w-7 items-center justify-center rounded-full border transition-colors ${
               editing
-                ? "border-[color:var(--accent)] bg-[var(--accent)] text-white"
+                ? "border-[color:var(--accent)] bg-[var(--accent)] text-[color:var(--paper)]"
                 : "border-[color:var(--line-strong)] text-[color:var(--muted)] hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
             }`}
           >
@@ -83,8 +75,10 @@ export function CommunityHeader({
           </Link>
         ) : null}
       </div>
-      <p className={editing ? "mb-6 text-[color:var(--muted)]" : "mb-10 text-[color:var(--muted)]"}>
-        The people building institutions for a world of autonomous AI agents.
+      <p className={`community-page-intro${editing ? " is-editing" : ""}`}>
+        {editing
+          ? "Manage people, scouts, involvement, and selected work."
+          : "The people building institutions for a world of autonomous AI agents."}
       </p>
     </>
   );

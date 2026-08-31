@@ -57,7 +57,7 @@ export function CommunityHeader({
       ) : null}
 
       <div className="community-title-row">
-        <h1>{editing ? "Community admin" : "Research community"}</h1>
+        <h1>{editing ? "Community admin" : "Research Community"}</h1>
         {!editing && session ? (
           <Link
             to={editing ? "/researchers" : "/researchers/admin"}

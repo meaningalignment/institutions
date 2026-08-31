@@ -1,26 +1,28 @@
 /* A quiet research-wiki frame. Content and the two grids do the work. */
 :root {
-  --paper: #fdfcf8;
-  --card: #fffefa;
-  --wash: #f4f2eb;
-  --ink: #262521;
-  --text: #484640;
-  --muted: #736f66;
-  --faint: #a39e92;
-  --line: #e4e0d5;
-  --line-strong: #cfc8b9;
+  /* Light palette tuned toward paxmachina.ai: neutral gray, barely warm
+     (their paper is #f2f1f0, ink #111, muted #555550). */
+  --paper: #f2f1f0;
+  --card: #fbfbfa;
+  --wash: #eae9e7;
+  --ink: #161615;
+  --text: #454542;
+  --muted: #555550;
+  --faint: #9c9b96;
+  --line: #dfdedb;
+  --line-strong: #c8c6c2;
   --accent: #526477;
   --accent-dark: #3e4d5d;
-  --sidebar: #f6f4ee;
-  --sidebar-border: #ded9cd;
-  --sidebar-hover: #ece9e1;
-  --sidebar-active: #e5e1d7;
-  --sidebar-active-hover: #dcd7ca;
-  --sidebar-text: #393731;
-  --sidebar-muted: #666158;
-  --surface-soft: #f7f5ef;
-  --grid-hover: #f4f2ec;
-  --grid-focus: #efede6;
+  --sidebar: #ebeae8;
+  --sidebar-border: #d9d8d5;
+  --sidebar-hover: #e1e0dd;
+  --sidebar-active: #dad9d5;
+  --sidebar-active-hover: #d2d1cd;
+  --sidebar-text: #3a3936;
+  --sidebar-muted: #605f5b;
+  --surface-soft: #ececea;
+  --grid-hover: #eae9e7;
+  --grid-focus: #e5e4e2;
   --wiki-sidebar-width: 276px;
   --grid-max-width: 1180px;
   --ui-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;

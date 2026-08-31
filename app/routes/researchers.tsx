@@ -14,7 +14,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export function meta(_: Route.MetaArgs) {
-  const title = `Community — ${SITE_NAME}`;
+  const title = `Research Community — ${SITE_NAME}`;
   const desc =
     "The researchers building institutions for a world of autonomous AI agents: scouts and advisors, community members, and friends.";
   return [

@@ -36,6 +36,7 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap",
   },
   { rel: "icon", href: "/favicon.ico", sizes: "any" },
+  { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
   { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 ];

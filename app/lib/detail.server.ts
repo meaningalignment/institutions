@@ -66,7 +66,8 @@ export function buildCellDetail(tabId: TabId, rowId: string, colId: string): Cel
 
   const fm = cell.frontmatter;
   const humanCell = tabId === "human" ? loadHumanInstitutions().cells[key] : null;
-  const title = tabId === "human" ? humanCell?.title || cell.summary : cell.summary;
+  const title =
+    tabId === "human" ? humanCell?.label || humanCell?.title || cell.summary : cell.summary;
   const summaryBoxHtml = renderSummaryBox(fm);
   const theoryBoxHtml = tabId === "agi" ? renderTheoryOfChange(fm) : "";
   const humanEraHtml = "";

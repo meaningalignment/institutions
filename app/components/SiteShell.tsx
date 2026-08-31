@@ -288,8 +288,8 @@ export function SiteShell({
         </div>
 
         <nav className="wiki-nav">
-          <AtlasTree kind="human" titles={cellTitles.human} />
           <AtlasTree kind="agi" titles={cellTitles.agi} />
+          <AtlasTree kind="human" titles={cellTitles.human} />
           <div className="wiki-nav-separator" aria-hidden="true" />
           <NavLink className="wiki-nav-primary" to="/theory-of-change">
             What is this?

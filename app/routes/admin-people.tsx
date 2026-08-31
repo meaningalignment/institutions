@@ -9,6 +9,7 @@ import {
   type AdminPerson,
   type Closeness,
 } from "../lib/admin.server";
+import { invalidateCommunityCache } from "../lib/researchers.server";
 import {
   type ActionResult,
   heading,
@@ -69,6 +70,7 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
     } else {
       return { ok: false, error: "Unknown action." };
     }
+    invalidateCommunityCache();
     return { ok: true };
   } catch (error) {
     return {

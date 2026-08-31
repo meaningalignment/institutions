@@ -59,6 +59,9 @@ export default function ResearcherProfile({ loaderData }: Route.ComponentProps) 
   return (
     <>
       <div className="researcher-profile">
+        <Link className="researcher-profile-back" to="/researchers">
+          ← Back to community
+        </Link>
         <nav className="researcher-profile-breadcrumb" aria-label="Breadcrumb">
           <Link to="/researchers">Research community</Link>
           <span aria-hidden="true">›</span>

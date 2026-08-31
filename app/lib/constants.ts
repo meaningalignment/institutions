@@ -33,7 +33,7 @@ export type TabId = "agi" | "human";
 // ── SEO ────────────────────────────────────────────────────────────
 
 export const SITE_ORIGIN = "https://www.agi-institutions.org";
-export const SITE_NAME = "Institutions for Powerful AI";
+export const SITE_NAME = "AGI Institutions Wiki";
 // Bump ?v= when the card is re-captured so link scrapers refetch it.
 export const SITE_OG_IMAGE = `${SITE_ORIGIN}/og-image.png?v=2`;
 

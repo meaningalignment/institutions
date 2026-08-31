@@ -66,7 +66,8 @@ export function loader(_: Route.LoaderArgs) {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const title = `${loaderData?.title ?? "Theory of change"} — ${SITE_NAME}`;
+  const pageTitle = loaderData?.title ?? "Theory of change";
+  const title = pageTitle === SITE_NAME ? SITE_NAME : `${pageTitle} — ${SITE_NAME}`;
   const desc =
     "What this grid of institutions for a world of autonomous AI agents is, why it is needed, and the theory of change behind it.";
   return [

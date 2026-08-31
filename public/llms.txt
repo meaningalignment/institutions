@@ -1,4 +1,4 @@
-# Institutions for Powerful AI
+# AGI Institutions Wiki
 
 > An interactive map of the institutional design problems that arise when autonomous AI agents participate in society. Maps coordination mechanisms (protocols, preferences, rights, incentives, expertise, norms, thick commitments) across scales (dyadic, group, community, national, global).
 

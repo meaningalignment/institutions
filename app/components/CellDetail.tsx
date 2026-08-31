@@ -9,6 +9,9 @@ import { colName, rowName } from "../lib/constants";
 export function CellDetail({ data }: { data: CellDetailData }) {
   return (
     <div id="detail-view" style={{ display: "block" }}>
+      <Link className="detail-grid-back" to={data.backHref}>
+        ← Back to grid
+      </Link>
       <nav className="detail-breadcrumb" aria-label="Breadcrumb">
         <Link to={data.backHref}>
           {data.tabId === "human" ? "Existing institutions grid" : "AGI institutions grid"}

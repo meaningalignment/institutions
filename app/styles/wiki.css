@@ -24,6 +24,7 @@
   --wiki-sidebar-width: 276px;
   --grid-max-width: 1180px;
   --ui-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --title-font: "Lora", "Iowan Old Style", Georgia, "Times New Roman", serif;
   --wiki-radius: 5px;
 }
 
@@ -283,14 +284,17 @@ a { text-underline-offset: 2px; }
   transform: translateX(12px);
 }
 
-/* Page frame */
+/* Page frame. An open sidebar pushes the content right (centering it in the
+   remaining space) rather than overlaying it; below 900px it overlays with a
+   scrim instead. */
 .wiki-content {
   display: flex;
   min-height: 100vh;
-  margin-left: 0;
+  margin-left: var(--wiki-sidebar-width);
   padding: 72px clamp(28px, 4vw, 68px) 28px;
   flex-direction: column;
   align-items: center;
+  transition: margin-left 150ms ease;
 }
 body:has(#grid-view) .wiki-content {
   padding-right: clamp(28px, 4vw, 72px);
@@ -324,6 +328,7 @@ body:has(#grid-view) .wiki-content {
 }
 .wiki-nav-scrim { display: none; }
 .wiki-nav-closed .wiki-sidebar { transform: translateX(-100%); }
+.wiki-nav-closed .wiki-content { margin-left: 0; }
 .wiki-nav-closed .wiki-nav-reopen { display: inline-flex; }
 
 /* Internal editorial tools share the wiki's flat visual system. */
@@ -468,10 +473,11 @@ body:has(#grid-view) .wiki-content {
 .login-main h1 {
   margin: 0;
   color: var(--ink);
+  font-family: var(--title-font);
   font-size: 38px;
-  font-weight: 650;
-  letter-spacing: -.035em;
-  line-height: 1.1;
+  font-weight: 550;
+  letter-spacing: -.014em;
+  line-height: 1.14;
 }
 .login-intro {
   margin: 12px 0 28px;
@@ -690,10 +696,9 @@ body:has(#grid-view) .wiki-content {
 }
 .researcher-profile-breadcrumb a {
   color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--line-strong);
+  text-decoration: none;
 }
-.researcher-profile-breadcrumb a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+.researcher-profile-breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
 .researcher-profile-breadcrumb > span[aria-hidden] { color: var(--faint); }
 .researcher-profile-breadcrumb > span[aria-current] { color: var(--text); font-weight: 500; }
 .researcher-profile-header { display: flex; align-items: center; gap: 18px; margin-bottom: 26px; }
@@ -859,7 +864,27 @@ body:has(#grid-view) .wiki-content {
 }
 .vision-menu-list { border-radius: 0; box-shadow: 0 5px 18px rgba(0,0,0,.12); }
 .vision-swatch { background: var(--accent) !important; }
+.grid-page-footer {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: center;
+  margin-top: 36px;
+  font-size: 13px;
+  color: var(--faint);
+}
+.grid-page-footer a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+.grid-page-footer a:hover { color: var(--ink); }
 .table-wrapper {
+  /* The sticky row headers are positioned descendants; without a positioned
+     scroll container their overflow escapes to the document and lets the whole
+     page pan horizontally on small screens. */
+  position: relative;
   width: 100%;
   max-width: var(--grid-max-width);
   padding: 0;
@@ -876,10 +901,9 @@ table {
 }
 th.col-header {
   min-width: 110px;
-  border-right: 1px solid var(--line);
+  border-right: 0;
   border-bottom: 1px solid var(--line);
 }
-th.col-header:last-child { border-right: 0; }
 th.col-header .col-name {
   display: flex;
   min-height: 2.5em;
@@ -985,16 +1009,23 @@ td.has-theory::before { border-color: #77736d transparent transparent transparen
 
 /* Articles: conventional wiki hierarchy with an explicit route back to a grid. */
 #detail-view { max-width: 1040px; }
-.detail-grid-back {
+.detail-grid-back,
+.researcher-profile-back {
   display: block;
   max-width: 760px;
-  margin: 0 auto 28px;
-  color: var(--muted);
+  margin: 0 auto 12px;
+  color: var(--ink);
   font-size: 13px;
   font-weight: 550;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
 }
-.detail-grid-back:hover { color: var(--accent-dark); text-decoration: underline; }
+.detail-grid-back:hover,
+.researcher-profile-back:hover {
+  text-decoration-color: var(--ink);
+}
+.researcher-profile-back { margin: 0 0 12px; }
 .detail-breadcrumb {
   display: flex;
   align-items: baseline;
@@ -1006,11 +1037,10 @@ td.has-theory::before { border-color: #77736d transparent transparent transparen
   letter-spacing: 0;
 }
 .detail-breadcrumb a {
-  color: #444;
-  text-decoration: underline;
-  text-decoration-color: #bbb;
+  color: var(--muted);
+  text-decoration: none;
 }
-.detail-breadcrumb a:hover { color: #000; text-decoration-color: #000; }
+.detail-breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
 .detail-breadcrumb > span[aria-hidden="true"] { color: #aaa; }
 .detail-title {
   max-width: 760px;
@@ -1327,8 +1357,8 @@ html.theme-dark {
 }
 .theme-dark .detail-body .vivid-case-label { color: var(--muted); }
 .theme-dark .detail-body .vivid-case p { color: var(--text); }
-.theme-dark .detail-breadcrumb a { color: #ccc; text-decoration-color: #666; }
-.theme-dark .detail-breadcrumb a:hover { color: #fff; text-decoration-color: #fff; }
+.theme-dark .detail-breadcrumb a { color: var(--muted); }
+.theme-dark .detail-breadcrumb a:hover { color: #fff; }
 .theme-dark .human-timeline-range:focus-visible::-webkit-slider-thumb {
   box-shadow: 0 0 0 3px #111, 0 0 0 4px #eee;
 }
@@ -1337,7 +1367,8 @@ html.theme-dark {
 }
 
 /* ── Wiki type system ────────────────────────────────────────────────
-   One restrained sans-serif voice, with hierarchy from scale and space. */
+   Serif titles over a restrained sans-serif voice, with hierarchy from
+   scale and space. */
 .wiki-content,
 .wiki-content button,
 .wiki-content input,
@@ -1352,11 +1383,11 @@ html.theme-dark {
 .wiki-content .ps-page-title,
 .wiki-content .detail-title,
 .wiki-content .pane-title {
-  font-family: var(--ui-font) !important;
-  font-size: clamp(36px, 4vw, 46px) !important;
-  font-weight: 650 !important;
-  line-height: 1.08 !important;
-  letter-spacing: -0.038em;
+  font-family: var(--title-font) !important;
+  font-size: clamp(34px, 3.8vw, 44px) !important;
+  font-weight: 550 !important;
+  line-height: 1.14 !important;
+  letter-spacing: -0.014em;
 }
 
 /* Major document sections */
@@ -1366,11 +1397,11 @@ html.theme-dark {
 .wiki-content details.curr-field > summary.curr-field-summary > h2.curr-field-name,
 .wiki-content .curr-main > h2,
 .wiki-content section h2 {
-  font-family: var(--ui-font) !important;
+  font-family: var(--title-font) !important;
   font-size: 23px !important;
-  font-weight: 600 !important;
-  line-height: 1.25 !important;
-  letter-spacing: -0.016em;
+  font-weight: 550 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.006em;
   text-transform: none;
 }
 

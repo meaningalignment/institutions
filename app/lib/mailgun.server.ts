@@ -16,7 +16,7 @@ function getMailgunConfig(): MailgunConfig {
   const apiBaseUrl =
     region === "eu" ? "https://api.eu.mailgun.net" : "https://api.mailgun.net";
   const from =
-    process.env.MAILGUN_FROM?.trim() || `Institutions for Powerful AI <login@${domain}>`;
+    process.env.MAILGUN_FROM?.trim() || `AGI Institutions Wiki <login@${domain}>`;
   return { apiKey, apiBaseUrl, domain, from };
 }
 
@@ -46,14 +46,14 @@ export async function sendLoginCodeEmail({
   const form = new FormData();
   form.set("from", config.from);
   form.set("to", to);
-  form.set("subject", "Your Institutions for Powerful AI sign-in code");
+  form.set("subject", "Your AGI Institutions Wiki sign-in code");
   form.set(
     "text",
-    `Hello ${name},\n\nYour Institutions for Powerful AI sign-in code is ${code}.\n\nIt expires in 10 minutes. If you did not request this code, you can ignore this email.`
+    `Hello ${name},\n\nYour AGI Institutions Wiki sign-in code is ${code}.\n\nIt expires in 10 minutes. If you did not request this code, you can ignore this email.`
   );
   form.set(
     "html",
-    `<p>Hello ${escapeHtml(name)},</p><p>Your Institutions for Powerful AI sign-in code is:</p><p style="font-size:28px;font-weight:700;letter-spacing:0.18em">${code}</p><p>It expires in 10 minutes. If you did not request this code, you can ignore this email.</p>`
+    `<p>Hello ${escapeHtml(name)},</p><p>Your AGI Institutions Wiki sign-in code is:</p><p style="font-size:28px;font-weight:700;letter-spacing:0.18em">${code}</p><p>It expires in 10 minutes. If you did not request this code, you can ignore this email.</p>`
   );
 
   const response = await fetch(

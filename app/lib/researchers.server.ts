@@ -66,7 +66,21 @@ function toResearcher(r: any): Researcher {
   };
 }
 
+// The community page is read far more often than the roster changes, and the
+// three Neon round trips dominate its load time. Cache per server instance
+// with a short TTL; admin actions invalidate the local instance immediately,
+// and the TTL bounds staleness on any other instance.
+let communityCache: { data: Community; at: number } | null = null;
+const COMMUNITY_TTL_MS = 60_000;
+
+export function invalidateCommunityCache() {
+  communityCache = null;
+}
+
 export async function getCommunity(): Promise<Community> {
+  if (communityCache && Date.now() - communityCache.at < COMMUNITY_TTL_MS) {
+    return communityCache.data;
+  }
   const sql = getSql();
   const [researchers, advisors, involved] = await Promise.all([
     sql`SELECT id, name, handle, affiliation, bio, bio_source_url, photo_url, scholar_url, rows, methods,
@@ -96,6 +110,7 @@ export async function getCommunity(): Promise<Community> {
   groups.advisors.sort(byName);
   groups.community.sort(byName);
   groups.friends.sort(byName);
+  communityCache = { data: groups, at: Date.now() };
   return groups;
 }
 

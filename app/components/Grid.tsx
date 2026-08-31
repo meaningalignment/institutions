@@ -321,6 +321,13 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
           </tbody>
         </table>
       </div>
+      <footer className="grid-page-footer">
+        <Link to="/theory-of-change">What is this?</Link>
+        <span aria-hidden="true">·</span>
+        <Link to="/researchers" prefetch="intent">
+          Who is working on this?
+        </Link>
+      </footer>
     </>
   );
 }

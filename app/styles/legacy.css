@@ -2370,6 +2370,7 @@ details.curr-field.is-dimmed .curr-field-num:empty { display: none; }
   }
 
   .controls,
+  .grid-page-footer,
   .detail-back,
   .detail-footer,
   .rail-footer {

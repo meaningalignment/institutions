@@ -4,7 +4,14 @@ import { COLS, GITHUB_REPO, ROWS, SITE_NAME } from "../lib/constants";
 
 const INTERNAL_ROUTE_PREFIXES = ["/researchers/admin", "/admin", "/login", "/logout"];
 
-function AtlasTree({ kind }: { kind: "human" | "agi" }) {
+// "{row}-{col}" → cell title, per tab. AGI titles are each cell's H1; Human
+// titles come from human-institutions.json. Supplied by the root loader.
+export type CellTitles = {
+  agi: Record<string, string>;
+  human: Record<string, string>;
+};
+
+function AtlasTree({ kind, titles }: { kind: "human" | "agi"; titles: Record<string, string> }) {
   const location = useLocation();
   const rootHref = kind === "human" ? "/human" : "/";
   const label = kind === "human" ? "Existing institutions" : "AGI institutions";
@@ -41,7 +48,13 @@ function AtlasTree({ kind }: { kind: "human" | "agi" }) {
       {treeOpen && (
         <div className="wiki-tree-rows">
           {ROWS.map((row) => (
-            <AtlasRow key={row.id} kind={kind} row={row} detailPrefix={detailPrefix} />
+            <AtlasRow
+              key={row.id}
+              kind={kind}
+              row={row}
+              detailPrefix={detailPrefix}
+              titles={titles}
+            />
           ))}
         </div>
       )}
@@ -53,10 +66,12 @@ function AtlasRow({
   kind,
   row,
   detailPrefix,
+  titles,
 }: {
   kind: "human" | "agi";
   row: (typeof ROWS)[number];
   detailPrefix: string;
+  titles: Record<string, string>;
 }) {
   const location = useLocation();
   const rowActive = location.pathname.startsWith(`${detailPrefix}${row.id}/`);
@@ -78,13 +93,17 @@ function AtlasRow({
       </summary>
       <div className="wiki-tree-links">
         {COLS.map((col) => {
+          const title = titles[`${row.id}-${col.id}`];
+          // The AGI tree lists only cells that exist on the AGI grid; the
+          // Human tree always has all columns (labels ship for every cell).
+          if (!title && kind === "agi") return null;
           const href =
             kind === "human"
               ? `/human/${row.id}/${col.id}`
               : `/cell/${row.id}/${col.id}`;
           return (
             <NavLink key={col.id} to={href}>
-              {col.name}
+              {title ?? col.name}
             </NavLink>
           );
         })}
@@ -150,7 +169,9 @@ function CommunityTree() {
   return (
     <section className={`wiki-tree wiki-community-tree${sectionActive ? " is-active" : ""}`}>
       <div className="wiki-tree-head">
-        <NavLink to="/researchers">Research community</NavLink>
+        <NavLink to="/researchers" prefetch="intent">
+          Research community
+        </NavLink>
         <button
           type="button"
           className="wiki-tree-toggle"
@@ -206,9 +227,11 @@ function MenuIcon() {
 export function SiteShell({
   children,
   adminPreview,
+  cellTitles,
 }: {
   children: React.ReactNode;
   adminPreview: boolean;
+  cellTitles: CellTitles;
 }) {
   const location = useLocation();
   const [darkMode, setDarkMode] = useState(false);
@@ -217,8 +240,6 @@ export function SiteShell({
   );
 
   useEffect(() => {
-    const closed = window.localStorage.getItem("wiki-sidebar") !== "open";
-    document.documentElement.classList.toggle("wiki-nav-closed", closed);
     setDarkMode(document.documentElement.classList.contains("theme-dark"));
   }, []);
 
@@ -231,7 +252,6 @@ export function SiteShell({
   const setSidebar = (nextOpen: boolean) => {
     document.documentElement.classList.toggle("wiki-nav-closed", !nextOpen);
     document.documentElement.classList.toggle("wiki-nav-mobile-open", nextOpen);
-    window.localStorage.setItem("wiki-sidebar", nextOpen ? "open" : "closed");
   };
 
   const toggleTheme = () => {
@@ -268,8 +288,8 @@ export function SiteShell({
         </div>
 
         <nav className="wiki-nav">
-          <AtlasTree kind="human" />
-          <AtlasTree kind="agi" />
+          <AtlasTree kind="human" titles={cellTitles.human} />
+          <AtlasTree kind="agi" titles={cellTitles.agi} />
           <div className="wiki-nav-separator" aria-hidden="true" />
           <NavLink className="wiki-nav-primary" to="/theory-of-change">
             What is this?
@@ -280,7 +300,7 @@ export function SiteShell({
           {adminPreview ? (
             <CommunityTree />
           ) : (
-            <NavLink className="wiki-nav-primary" to="/researchers">
+            <NavLink className="wiki-nav-primary" to="/researchers" prefetch="intent">
               Research community
             </NavLink>
           )}

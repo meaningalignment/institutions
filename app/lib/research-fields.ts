@@ -193,20 +193,23 @@ export const RESEARCH_FIELDS: ResearchField[] = [
       "normative decision theory",
       "contractualism",
       "cultural evolution",
-      "computational linguistics",
-      "formal linguistics",
-      "philosophy of language",
-      "pragmatics",
-      "generics",
-      "language and society",
       "active inference",
     ],
   },
   {
+    // Also holds philosophy of language and linguistics. Those tags used to sit
+    // in moral-cognition-norms (inherited from the old cognitive-science
+    // field), which put philosophers of language in a moral-psychology field.
     id: "philosophy-of-ai",
     label: "Philosophy of AI",
     tags: [
       "philosophy",
+      "philosophy of language",
+      "pragmatics",
+      "generics",
+      "formal linguistics",
+      "computational linguistics",
+      "language and society",
       "philosophy of ai",
       "philosophy of mind",
       "philosophy of science",

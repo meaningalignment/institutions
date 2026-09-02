@@ -684,6 +684,19 @@ body:has(#grid-view) .wiki-content {
   padding: 0;
   border: 0;
 }
+/* Spacing below the heading used to come only from .community-section-intro,
+   so a section without one ("More work in the field") had its cards flush
+   against the heading. The heading block owns the gap; a following intro
+   gives it back, since the intro supplies its own.
+   Deliberately less than the 53px of the intro case: there the distance is
+   filled by a line of text, so it reads tight, whereas the same gap left
+   empty reads as a hole. */
+.community-section-heading {
+  margin-bottom: 34px;
+}
+.community-section-heading:has(+ .community-section-intro) {
+  margin-bottom: 0;
+}
 .community-section-heading > span {
   color: var(--faint);
   font-size: 12px;
@@ -890,14 +903,19 @@ body:has(#grid-view) .wiki-content {
    its own space -- a section without one (e.g. "More work in the field") had
    its cards flush against the heading. */
 .wiki-content .researcher-profile-works h2 {
-  margin: 0 0 20px;
+  margin: 0 0 26px;
   padding-bottom: 0;
   border-bottom: 0;
 }
-/* Sits between heading and cards, so it absorbs part of that gap. */
+/* An intro paragraph sits between the heading and the cards and contributes
+   its own 16px, so the heading gives back most of its margin to keep the
+   heading-to-cards distance the same in both cases. */
 .wiki-content .researcher-profile-works h2:has(+ .researcher-profile-work-intro) {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
+/* The bare gap is deliberately smaller than the intro case's: there the
+   distance is filled by a line of text, so it reads tight; left empty the
+   same measurement reads as a hole. */
 .researcher-profile-works ul { padding-left: 20px; color: var(--text); font-size: 15px; line-height: 1.65; }
 .researcher-profile-works li { margin-bottom: 7px; }
 .researcher-profile-works a { color: var(--ink); text-decoration-color: var(--line-strong); }

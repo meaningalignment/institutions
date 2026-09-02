@@ -1,0 +1,3049 @@
+{
+  "annotations": {
+    "Co‑Aligning AI and Institutions with Thick Models of Value": {
+      "year": 2025,
+      "summary": "Argues that aligning powerful AI requires institutions able to represent and revise thick, context-sensitive human values, not only individual preference aggregation.",
+      "cells": [
+        "community-preferences",
+        "community-thick-commitments",
+        "global-norms",
+        "national-thick-commitments"
+      ],
+      "authors": [
+        "Joe Edelman",
+        "Tan Zhi-Xuan",
+        "Ryan Lowe",
+        "Oliver Klingefjord",
+        "Vincent Wang-Mascianica",
+        "Matija Franklin",
+        "Ryan Othniel Kearns",
+        "Ellie Hain",
+        "Atrisha Sarkar",
+        "Michiel Bakker",
+        "et al."
+      ],
+      "tags": [
+        "value alignment",
+        "pluralistic alignment",
+        "institutional alignment"
+      ]
+    },
+    "Beyond Preferences in AI Alignment": {
+      "year": 2024,
+      "summary": "Shows why preference satisfaction is too thin a target for alignment and develops a broader account of what AI systems should respond to.",
+      "cells": [
+        "dyadic-preferences",
+        "group-preferences",
+        "group-thick-commitments"
+      ],
+      "tags": [
+        "value alignment",
+        "preference modeling",
+        "philosophy of ai"
+      ]
+    },
+    "Gradual Disempowerment": {
+      "year": 2025,
+      "summary": "Explains how individually beneficial automation can cumulatively erode human influence over economic, political, and cultural systems.",
+      "cells": [
+        "community-incentives",
+        "national-incentives",
+        "global-incentives"
+      ],
+      "tags": [
+        "gradual disempowerment",
+        "ai existential risk",
+        "ai political economy"
+      ]
+    },
+    "The Agentic Web Requires New Normative Infrastructure": {
+      "year": 2026,
+      "summary": "Makes the case for laws, norms, and practices that distinguish appropriately delegated agents from malicious automation on the web.",
+      "cells": [
+        "dyadic-rights",
+        "community-protocols",
+        "national-rights"
+      ],
+      "tags": [
+        "ai agents governance",
+        "normative ai",
+        "ai law"
+      ]
+    },
+    "Virtual agent economies": {
+      "year": 2025,
+      "summary": "Studies economies populated by AI agents and the institutional questions created by machine-speed exchange and coordination.",
+      "cells": [
+        "group-incentives",
+        "community-incentives",
+        "global-incentives"
+      ],
+      "tags": [
+        "agent economies",
+        "ai economics",
+        "multi-agent systems"
+      ]
+    },
+    "AI agent traps": {
+      "year": 2026,
+      "summary": "Identifies environments in which individually capable agents can become locked into collectively harmful patterns of interaction.",
+      "cells": [
+        "dyadic-protocols",
+        "group-incentives",
+        "community-norms"
+      ],
+      "tags": [
+        "multi-agent systems",
+        "ai risk",
+        "social dilemmas"
+      ]
+    },
+    "Distributional AGI safety": {
+      "year": 2025,
+      "summary": "Frames the distribution of benefits, risks, and decision power as a central part of AGI safety rather than a downstream policy question.",
+      "cells": [
+        "national-rights",
+        "national-incentives",
+        "global-incentives"
+      ],
+      "tags": [
+        "agi safety",
+        "ai policy",
+        "ai political economy"
+      ]
+    },
+    "A Theory of Appropriateness That Accounts for Norms of Rationality": {
+      "year": 2026,
+      "summary": "Develops a formal account of appropriate action that can represent rational norms alongside goals and outcomes.",
+      "cells": [
+        "dyadic-norms",
+        "group-norms"
+      ],
+      "tags": [
+        "normative ai",
+        "decision theory",
+        "moral reasoning"
+      ]
+    },
+    "Solipsistic Superintelligence is Unlikely to be Cooperative": {
+      "year": 2026,
+      "summary": "Examines why intelligence developed without social interaction may not acquire the capacities needed for robust cooperation.",
+      "cells": [
+        "dyadic-norms",
+        "group-protocols",
+        "group-norms"
+      ],
+      "tags": [
+        "cooperative ai",
+        "philosophy of ai",
+        "agent foundations"
+      ]
+    },
+    "Discerning What Matters: A Multi-Dimensional Assessment of Moral Competence in LLMs": {
+      "year": 2025,
+      "summary": "Evaluates moral competence as a collection of distinguishable capacities rather than a single benchmark score.",
+      "cells": [
+        "dyadic-expertise",
+        "dyadic-thick-commitments",
+        "national-expertise"
+      ],
+      "tags": [
+        "moral reasoning",
+        "ai evaluations",
+        "computational ethics"
+      ]
+    }
+  },
+  "additional": [
+    {
+      "id": "the-politics-of-precedent-in-international-law",
+      "title": "The Politics of Precedent in International Law: A Social Network Application",
+      "url": "https://doi.org/10.1017/S0003055414000276",
+      "year": 2014,
+      "authors": [
+        "Krzysztof J. Pelc"
+      ],
+      "researcherNames": [
+        "Krzysztof Pelc"
+      ],
+      "summary": "Shows that states litigate to shape legal precedent even where precedent is formally non-binding, treating case law as a contested institutional resource.",
+      "cells": [
+        "global-protocols",
+        "global-rights",
+        "global-norms"
+      ],
+      "tags": [
+        "international law",
+        "international relations",
+        "credibility"
+      ]
+    },
+    {
+      "id": "eu-regulations-algorithmic-decision-making-right-to-explanation",
+      "title": "European Union regulations on algorithmic decision-making and a \"right to explanation\"",
+      "url": "https://arxiv.org/abs/1606.08813",
+      "year": 2016,
+      "authors": [
+        "Bryce Goodman",
+        "Seth Flaxman"
+      ],
+      "researcherNames": [
+        "Bryce Goodman"
+      ],
+      "summary": "Reads the GDPR's restrictions on automated individual decision-making as creating a right to explanation, and traces what that demand asks of algorithm designers.",
+      "cells": [
+        "national-rights",
+        "dyadic-rights",
+        "national-expertise"
+      ],
+      "tags": [
+        "technology regulation",
+        "ai law",
+        "ai explainability"
+      ]
+    },
+    {
+      "id": "the-naive-utility-calculus",
+      "title": "The Naïve Utility Calculus: Computational Principles Underlying Commonsense Psychology",
+      "url": "https://doi.org/10.1016/j.tics.2016.05.011",
+      "year": 2016,
+      "authors": [
+        "Julian Jara-Ettinger",
+        "Hyowon Gweon",
+        "Laura E. Schulz",
+        "Joshua B. Tenenbaum"
+      ],
+      "researcherNames": [
+        "Julian Jara-Ettinger"
+      ],
+      "summary": "Models human social reasoning as inference over others as intuitive utility maximisers, recovering beliefs, preferences, and character from observed costs and rewards.",
+      "cells": [
+        "dyadic-preferences",
+        "dyadic-norms",
+        "group-norms"
+      ],
+      "tags": [
+        "theory of mind",
+        "computational social cognition",
+        "cognitive science"
+      ]
+    },
+    {
+      "id": "aggregating-extended-preferences",
+      "title": "Aggregating extended preferences",
+      "url": "https://link.springer.com/article/10.1007/s11098-016-0748-6",
+      "year": 2017,
+      "authors": [
+        "Hilary Greaves",
+        "Harvey Lederman"
+      ],
+      "researcherNames": [
+        "Harvey Lederman"
+      ],
+      "summary": "Shows that aggregating extended preferences to ground interpersonal well-being comparisons faces an Arrow-style impossibility, and recommends rules violating independence of irrelevant alternatives.",
+      "cells": [
+        "national-preferences",
+        "group-preferences",
+        "global-preferences"
+      ],
+      "tags": [
+        "social choice theory",
+        "preference aggregation",
+        "welfare economics"
+      ]
+    },
+    {
+      "id": "ethics-and-market-design",
+      "title": "Ethics and market design",
+      "url": "https://doi.org/10.1093/oxrep/grx032",
+      "year": 2017,
+      "authors": [
+        "Shengwu Li"
+      ],
+      "researcherNames": [
+        "Shengwu Li"
+      ],
+      "summary": "Argues market design should not rest wholly on preference utilitarianism, and sets out informed neutrality between reasonable ethical positions as an alternative normative standard.",
+      "cells": [
+        "national-preferences",
+        "group-incentives",
+        "national-incentives"
+      ],
+      "tags": [
+        "market design",
+        "ethics of ai",
+        "mechanism design"
+      ]
+    },
+    {
+      "id": "learning-with-opponent-learning-awareness",
+      "title": "Learning with Opponent-Learning Awareness",
+      "url": "https://arxiv.org/abs/1709.04326",
+      "year": 2017,
+      "authors": [
+        "Jakob N. Foerster",
+        "Richard Y. Chen",
+        "Maruan Al-Shedivat",
+        "Shimon Whiteson",
+        "Pieter Abbeel",
+        "Igor Mordatch"
+      ],
+      "researcherNames": [
+        "Jakob Foerster"
+      ],
+      "summary": "Gives each learning agent a term for its effect on others' policy updates, producing tit-for-tat reciprocity in the iterated prisoner's dilemma where independent learners defect.",
+      "cells": [
+        "dyadic-norms",
+        "dyadic-incentives",
+        "group-incentives"
+      ],
+      "tags": [
+        "multi-agent reinforcement learning",
+        "game theory",
+        "cooperative ai"
+      ]
+    },
+    {
+      "id": "obviously-strategy-proof-mechanisms",
+      "title": "Obviously Strategy-Proof Mechanisms",
+      "url": "https://www.aeaweb.org/articles?id=10.1257/aer.20160425",
+      "year": 2017,
+      "authors": [
+        "Shengwu Li"
+      ],
+      "researcherNames": [
+        "Shengwu Li"
+      ],
+      "summary": "Characterizes mechanisms whose dominant strategies a cognitively limited agent can recognize without contingent reasoning, and corroborates the theory in a laboratory experiment.",
+      "cells": [
+        "group-protocols",
+        "group-incentives",
+        "national-incentives"
+      ],
+      "tags": [
+        "mechanism design",
+        "behavioral economics"
+      ]
+    },
+    {
+      "id": "a-common-framework-for-theories-of-norm-compliance",
+      "title": "A Common Framework for Theories of Norm Compliance",
+      "url": "https://doi.org/10.1017/S0265052518000134",
+      "year": 2018,
+      "authors": [
+        "Adam Morris",
+        "Fiery Cushman"
+      ],
+      "researcherNames": [
+        "Adam Morris"
+      ],
+      "summary": "Situates competing accounts of why people obey social norms inside a reinforcement-learning decision framework, isolating the cognitive variables norms alter to produce compliance.",
+      "cells": [
+        "group-norms",
+        "dyadic-norms",
+        "community-norms"
+      ],
+      "tags": [
+        "normative ai",
+        "moral cognition",
+        "cultural evolution"
+      ]
+    },
+    {
+      "id": "artificial-intelligence-for-social-good",
+      "title": "Artificial Intelligence for Social Good",
+      "url": "https://arxiv.org/abs/1901.05406",
+      "year": 2019,
+      "authors": [
+        "Gregory D. Hager",
+        "Ann Drobnis",
+        "Fei Fang",
+        "Rayid Ghani",
+        "Amy Greenwald",
+        "Terah Lyons",
+        "David C. Parkes",
+        "Jason Schultz",
+        "Suchi Saria",
+        "Stephen F. Smith",
+        "Milind Tambe"
+      ],
+      "researcherNames": [
+        "Terah Lyons"
+      ],
+      "summary": "Surveys where AI can serve public objectives across health, education, and public safety, and identifies the institutional and policy conditions such deployments require.",
+      "cells": [
+        "national-expertise",
+        "national-rights",
+        "global-protocols"
+      ],
+      "tags": [
+        "ai for social good",
+        "public policy",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "role-cooperation-responsible-ai",
+      "title": "The Role of Cooperation in Responsible AI Development",
+      "url": "https://arxiv.org/abs/1907.04534",
+      "year": 2019,
+      "authors": [
+        "Amanda Askell",
+        "Miles Brundage",
+        "Gillian Hadfield"
+      ],
+      "researcherNames": [
+        "Amanda Askell",
+        "Gillian Hadfield"
+      ],
+      "summary": "Treats responsible AI development as a collective-action problem among firms and identifies conditions and strategies that can support cooperation.",
+      "cells": [
+        "community-norms",
+        "national-incentives",
+        "global-protocols"
+      ],
+      "tags": [
+        "responsible ai",
+        "ai governance",
+        "cooperation"
+      ]
+    },
+    {
+      "id": "artificial-intelligence-values-alignment",
+      "title": "Artificial Intelligence, Values, and Alignment",
+      "url": "https://arxiv.org/abs/2001.09768",
+      "year": 2020,
+      "authors": [
+        "Iason Gabriel"
+      ],
+      "researcherNames": [
+        "Iason Gabriel"
+      ],
+      "summary": "Distinguishes instructions, preferences, interests, and values as alignment targets and argues for fair principles that can earn reflective endorsement amid disagreement.",
+      "cells": [
+        "dyadic-preferences",
+        "national-preferences",
+        "global-thick-commitments"
+      ],
+      "tags": [
+        "value alignment",
+        "ai alignment",
+        "political philosophy"
+      ]
+    },
+    {
+      "id": "axioms-for-defeat-in-democratic-elections",
+      "title": "Axioms for Defeat in Democratic Elections",
+      "url": "https://arxiv.org/abs/2008.08451",
+      "year": 2020,
+      "authors": [
+        "Wesley H. Holliday",
+        "Eric Pacuit"
+      ],
+      "researcherNames": [
+        "Wes Holliday"
+      ],
+      "summary": "Proves that six axioms on when one candidate defeats another, including a weakening of independence of irrelevant alternatives, uniquely characterize Split Cycle.",
+      "cells": [
+        "national-preferences",
+        "national-protocols",
+        "community-preferences"
+      ],
+      "tags": [
+        "voting theory",
+        "social choice theory",
+        "condorcet methods"
+      ]
+    },
+    {
+      "id": "ethical-learning-natural-and-artificial",
+      "title": "Ethical learning, natural and artificial",
+      "url": "https://books.google.com/books?hl=en&lr=&id=2yT3DwAAQBAJ&oi=fnd&pg=PA45",
+      "year": 2020,
+      "authors": [
+        "Peter Railton"
+      ],
+      "researcherNames": [
+        "Peter Railton"
+      ],
+      "summary": "Reframes machine ethics around building systems with a capacity for ethical learning, drawing on developmental psychology's account of how infants acquire moral competence.",
+      "cells": [
+        "dyadic-norms",
+        "community-norms",
+        "group-norms"
+      ],
+      "tags": [
+        "computational ethics",
+        "moral learning",
+        "moral psychology"
+      ]
+    },
+    {
+      "id": "open-problems-cooperative-ai",
+      "title": "Open Problems in Cooperative AI",
+      "url": "https://arxiv.org/abs/2012.08630",
+      "year": 2020,
+      "authors": [
+        "Allan Dafoe",
+        "Edward Hughes",
+        "Yoram Bachrach",
+        "Tantum Collins",
+        "Kevin R. McKee",
+        "Joel Z. Leibo",
+        "Kate Larson",
+        "Thore Graepel"
+      ],
+      "researcherNames": [
+        "Allan Dafoe",
+        "Joel Leibo"
+      ],
+      "summary": "Defines a research program for building agents that can cooperate and tools that foster cooperation among human and machine populations.",
+      "cells": [
+        "dyadic-protocols",
+        "group-protocols",
+        "global-protocols"
+      ],
+      "tags": [
+        "cooperative ai",
+        "multi-agent systems",
+        "cooperation"
+      ]
+    },
+    {
+      "id": "split-cycle-condorcet-consistent-voting-method",
+      "title": "Split Cycle: A New Condorcet Consistent Voting Method Independent of Clones and Immune to Spoilers",
+      "url": "https://arxiv.org/abs/2004.02350",
+      "year": 2020,
+      "authors": [
+        "Wesley H. Holliday",
+        "Eric Pacuit"
+      ],
+      "researcherNames": [
+        "Wes Holliday"
+      ],
+      "summary": "Introduces a Condorcet-consistent voting rule that resists clone manipulation and spoiler effects by discarding the weakest majority margin in each cycle.",
+      "cells": [
+        "national-preferences",
+        "community-preferences",
+        "group-protocols"
+      ],
+      "tags": [
+        "voting theory",
+        "social choice theory",
+        "condorcet methods",
+        "split cycle"
+      ]
+    },
+    {
+      "id": "toward-trustworthy-ai-development-verifiable-claims",
+      "title": "Toward Trustworthy AI Development: Mechanisms for Supporting Verifiable Claims",
+      "url": "https://arxiv.org/abs/2004.07213",
+      "year": 2020,
+      "authors": [
+        "Miles Brundage",
+        "Shahar Avin",
+        "Jasmine Wang",
+        "Haydn Belfield",
+        "Gretchen Krueger",
+        "Gillian Hadfield",
+        "Heidy Khlaaf",
+        "Jingying Yang",
+        "Helen Toner",
+        "Ruth Fong",
+        "et al."
+      ],
+      "researcherNames": [
+        "Tegan Maharaj"
+      ],
+      "summary": "Proposes institutional, software, and hardware mechanisms through which AI developers can make claims about safety, security, and fairness that outsiders can verify.",
+      "cells": [
+        "global-protocols",
+        "national-protocols",
+        "global-expertise"
+      ],
+      "tags": [
+        "ai governance",
+        "ai evaluations",
+        "responsible ai"
+      ]
+    },
+    {
+      "id": "agent-incentives-a-causal-perspective",
+      "title": "Agent Incentives: A Causal Perspective",
+      "url": "https://arxiv.org/abs/2102.01685",
+      "year": 2021,
+      "authors": [
+        "Tom Everitt",
+        "Ryan Carey",
+        "Eric Langlois",
+        "Pedro A Ortega",
+        "Shane Legg"
+      ],
+      "researcherNames": [
+        "Tom Everitt"
+      ],
+      "summary": "Develops graphical criteria over causal influence diagrams for reading off what an agent is incentivized to observe, control, and influence, with applications to safety and fairness.",
+      "cells": [
+        "dyadic-incentives",
+        "group-incentives",
+        "dyadic-protocols"
+      ],
+      "tags": [
+        "agent incentives",
+        "causal influence diagrams",
+        "ai safety",
+        "multi-agent systems"
+      ]
+    },
+    {
+      "id": "deliberation-and-epistemic-democracy",
+      "title": "Deliberation and epistemic democracy",
+      "url": "https://doi.org/10.1016/j.jebo.2021.02.020",
+      "year": 2021,
+      "authors": [
+        "Huihui Ding",
+        "Marcus Pivato"
+      ],
+      "researcherNames": [
+        "Marcus Pivato"
+      ],
+      "summary": "Models when deliberation improves a group's collective judgement, showing the result depends on the decision rule, group size, and the presence of persuadable neutral agents.",
+      "cells": [
+        "group-preferences",
+        "community-preferences",
+        "national-preferences"
+      ],
+      "tags": [
+        "deliberative democracy",
+        "democratic theory",
+        "collective intelligence"
+      ]
+    },
+    {
+      "id": "hard-choices-and-hard-limits-for-artificial-intelligence",
+      "title": "Hard Choices and Hard Limits for Artificial Intelligence",
+      "url": "https://arxiv.org/abs/2105.07852",
+      "year": 2021,
+      "authors": [
+        "Bryce Goodman"
+      ],
+      "researcherNames": [
+        "Bryce Goodman"
+      ],
+      "summary": "Argues that where alternatives stand on a par rather than ranking against each other, AI cannot and should not settle the choice for a decision-maker.",
+      "cells": [
+        "dyadic-preferences",
+        "national-rights",
+        "dyadic-thick-commitments"
+      ],
+      "tags": [
+        "value theory",
+        "decision theory",
+        "philosophy of ai"
+      ]
+    },
+    {
+      "id": "what-are-you-optimizing-for",
+      "title": "What are you optimizing for? Aligning Recommender Systems with Human Values",
+      "url": "https://arxiv.org/abs/2107.10939",
+      "year": 2021,
+      "authors": [
+        "Jonathan Stray",
+        "Ivan Vendrov",
+        "Jeremy Nixon",
+        "Steven Adler",
+        "Dylan Hadfield-Menell"
+      ],
+      "researcherNames": [
+        "ivan vendrov"
+      ],
+      "summary": "Reviews cases where recommender systems were retuned toward diversity, fairness, and well-being, and proposes participatory design and interactive value learning over ad hoc values engineering.",
+      "cells": [
+        "community-preferences",
+        "national-preferences",
+        "community-norms"
+      ],
+      "tags": [
+        "recommender systems",
+        "value alignment",
+        "participatory ai"
+      ]
+    },
+    {
+      "id": "machine-learning-what-policies-value",
+      "title": "(Machine) Learning What Policies Value",
+      "url": "https://arxiv.org/abs/2206.00727",
+      "year": 2022,
+      "authors": [
+        "Daniel Björkegren",
+        "Joshua E. Blumenstock",
+        "Samsun Knight"
+      ],
+      "researcherNames": [
+        "Dan Björkegren"
+      ],
+      "summary": "Recovers the welfare weights implicit in observed allocation decisions by estimating individual treatment benefits, then audits Mexico's PROGRESA against its stated priorities.",
+      "cells": [
+        "national-preferences",
+        "national-incentives",
+        "community-preferences"
+      ],
+      "tags": [
+        "development economics",
+        "public policy",
+        "welfare economics"
+      ]
+    },
+    {
+      "id": "discovering-agents",
+      "title": "Discovering Agents",
+      "url": "https://arxiv.org/abs/2208.08345",
+      "year": 2022,
+      "authors": [
+        "Zachary Kenton",
+        "Ramana Kumar",
+        "Sebastian Farquhar",
+        "Jonathan Richens",
+        "Matt MacDermott",
+        "Tom Everitt"
+      ],
+      "researcherNames": [
+        "Tom Everitt"
+      ],
+      "summary": "Gives a causal definition of agency based on whether a system would adapt its policy to a changed environment, and an algorithm for detecting agents empirically.",
+      "cells": [
+        "dyadic-protocols",
+        "group-incentives",
+        "dyadic-rights"
+      ],
+      "tags": [
+        "agent foundations",
+        "causal agency",
+        "ai safety",
+        "multi-agent systems"
+      ]
+    },
+    {
+      "id": "formal-contracts-mitigate-social-dilemmas-marl",
+      "title": "Formal Contracts Mitigate Social Dilemmas in Multi-Agent RL",
+      "url": "https://arxiv.org/abs/2208.10469",
+      "year": 2022,
+      "authors": [
+        "Andreas A. Haupt",
+        "Phillip J.K. Christoffersen",
+        "Mehul Damani",
+        "Dylan Hadfield-Menell"
+      ],
+      "researcherNames": [
+        "Andy Haupt"
+      ],
+      "summary": "Augments multi-agent reinforcement learning with voluntary reward-transfer contracts, proving that a rich enough contract space makes every subgame-perfect equilibrium socially optimal.",
+      "cells": [
+        "dyadic-protocols",
+        "group-incentives",
+        "dyadic-thick-commitments"
+      ],
+      "tags": [
+        "multi-agent reinforcement learning",
+        "mechanism design",
+        "social dilemmas"
+      ]
+    },
+    {
+      "id": "human-centred-mechanism-design",
+      "title": "Human-centred mechanism design with Democratic AI",
+      "url": "https://www.nature.com/articles/s41562-022-01383-x",
+      "year": 2022,
+      "authors": [
+        "Raphael Koster",
+        "Jan Balaguer",
+        "Andrea Tacchetti",
+        "Ari Weinstein",
+        "Tina Zhu",
+        "Oliver Hauser",
+        "Duncan Williams",
+        "Lucy Campbell-Gillingham",
+        "Phoebe Thacker",
+        "Matthew Botvinick",
+        "Christopher Summerfield"
+      ],
+      "researcherNames": [
+        "Chris Summerfield"
+      ],
+      "summary": "Demonstrates a human-in-the-loop pipeline in which reinforcement learning designs a redistribution mechanism that participants then evaluate democratically.",
+      "cells": [
+        "group-preferences",
+        "group-incentives",
+        "community-incentives"
+      ],
+      "tags": [
+        "mechanism design",
+        "democratic ai",
+        "collective decision-making"
+      ]
+    },
+    {
+      "id": "is-power-seeking-ai-an-existential-risk",
+      "title": "Is Power-Seeking AI an Existential Risk?",
+      "url": "https://arxiv.org/abs/2206.13353",
+      "year": 2022,
+      "authors": [
+        "Joseph Carlsmith"
+      ],
+      "researcherNames": [
+        "Joe Carlsmith"
+      ],
+      "summary": "Decomposes the case for catastrophe from misaligned agentic AI into six premises about feasibility, incentives, alignment difficulty, power-seeking, scaling, and disempowerment, assigning credences to each.",
+      "cells": [
+        "global-rights",
+        "global-incentives",
+        "national-rights"
+      ],
+      "tags": [
+        "ai existential risk",
+        "existential risk",
+        "philosophy of ai"
+      ]
+    },
+    {
+      "id": "mastering-the-game-of-no-press-diplomacy",
+      "title": "Mastering the Game of No-Press Diplomacy via Human-Regularized Reinforcement Learning and Planning",
+      "url": "https://arxiv.org/abs/2210.05492",
+      "year": 2022,
+      "authors": [
+        "Anton Bakhtin",
+        "David J Wu",
+        "Adam Lerer",
+        "Jonathan Gray",
+        "Athul Paul Jacob",
+        "Gabriele Farina",
+        "Alexander H Miller",
+        "Noam Brown"
+      ],
+      "researcherNames": [
+        "Noam Brown"
+      ],
+      "summary": "Regularizes reinforcement learning toward human-imitation policies so agents cooperate and compete effectively with humans in Diplomacy, outscoring 62 human players in tournament play.",
+      "cells": [
+        "group-protocols",
+        "group-thick-commitments",
+        "dyadic-protocols"
+      ],
+      "tags": [
+        "diplomacy ai",
+        "imperfect-information games",
+        "multi-agent systems"
+      ]
+    },
+    {
+      "id": "the-turing-trap",
+      "title": "The Turing Trap: The Promise & Peril of Human-Like Artificial Intelligence",
+      "url": "https://arxiv.org/abs/2201.04200",
+      "year": 2022,
+      "authors": [
+        "Erik Brynjolfsson"
+      ],
+      "researcherNames": [
+        "Erik Brynjolfsson"
+      ],
+      "summary": "Argues that AI which substitutes for rather than augments human labour erodes workers' economic and political bargaining power, and that current incentives favour substitution.",
+      "cells": [
+        "national-incentives",
+        "global-incentives",
+        "national-rights"
+      ],
+      "tags": [
+        "labor economics",
+        "ai and productivity",
+        "economics of technology"
+      ]
+    },
+    {
+      "id": "adaptive-verifiably-proportional-participatory-budgeting",
+      "title": "An Adaptive and Verifiably Proportional Method for Participatory Budgeting",
+      "url": "https://arxiv.org/abs/2310.10215",
+      "year": 2023,
+      "authors": [
+        "Sonja Kraiczy",
+        "Edith Elkind"
+      ],
+      "researcherNames": [
+        "Sonja Kraiczy"
+      ],
+      "summary": "Extends the Method of Equal Shares so participatory budgeting outcomes adapt to budget changes and carry proportionality guarantees a citizen can verify in near-linear time.",
+      "cells": [
+        "community-preferences",
+        "community-protocols",
+        "national-preferences"
+      ],
+      "tags": [
+        "participatory budgeting",
+        "method of equal shares",
+        "proportionality"
+      ]
+    },
+    {
+      "id": "bridging-systems-open-problems",
+      "title": "Bridging Systems: Open Problems for Countering Destructive Divisiveness across Ranking, Recommenders, and Governance",
+      "url": "https://arxiv.org/abs/2301.09976",
+      "year": 2023,
+      "authors": [
+        "Aviv Ovadya",
+        "Luke Thorburn"
+      ],
+      "researcherNames": [
+        "Luke Thorburn"
+      ],
+      "summary": "Frames recommender ranking, collective response systems, and facilitated deliberation as one family of attention-allocation processes that can be designed to build understanding across divides.",
+      "cells": [
+        "community-protocols",
+        "national-preferences",
+        "community-norms"
+      ],
+      "tags": [
+        "recommender systems",
+        "deliberative democracy",
+        "polarization"
+      ]
+    },
+    {
+      "id": "contextual-trust",
+      "title": "Contextual Trust",
+      "url": "https://arxiv.org/abs/2303.08900",
+      "year": 2023,
+      "authors": [
+        "Ryan Othniel Kearns"
+      ],
+      "researcherNames": [
+        "Ryan Othniel Kearns"
+      ],
+      "summary": "Defines trust as action- and context-sensitive, then maps transparency and explainability requirements for opaque AI systems onto those contextual parameters.",
+      "cells": [
+        "dyadic-thick-commitments",
+        "dyadic-expertise",
+        "dyadic-norms"
+      ],
+      "tags": [
+        "ai explainability",
+        "philosophy of ai",
+        "responsible ai"
+      ]
+    },
+    {
+      "id": "democratic-policy-development-collective-dialogues-ai",
+      "title": "Democratic Policy Development using Collective Dialogues and AI",
+      "url": "https://arxiv.org/abs/2311.02242",
+      "year": 2023,
+      "authors": [
+        "Andrew Konya",
+        "Lisa Schirch",
+        "Colin Irwin",
+        "Aviv Ovadya"
+      ],
+      "researcherNames": [
+        "Andrew Konya",
+        "Aviv Ovadya"
+      ],
+      "summary": "Combines AI-facilitated collective dialogues with bridging-based ranking to produce policy guidelines drawing 75-81 percent support across demographic splits in three American trials.",
+      "cells": [
+        "national-preferences",
+        "community-preferences",
+        "national-protocols"
+      ],
+      "tags": [
+        "democratic deliberation",
+        "collective intelligence",
+        "ai-mediated collective decision-making"
+      ]
+    },
+    {
+      "id": "frontier-ai-regulation",
+      "title": "Frontier AI Regulation: Managing Emerging Risks to Public Safety",
+      "url": "https://arxiv.org/abs/2307.03718",
+      "year": 2023,
+      "authors": [
+        "Markus Anderljung",
+        "Joslyn Barnhart",
+        "Anton Korinek",
+        "Jade Leung",
+        "Cullen O'Keefe",
+        "Jess Whittlestone",
+        "Shahar Avin",
+        "Miles Brundage",
+        "Justin Bullock",
+        "Duncan Cass-Beggs",
+        "Ben Chang",
+        "Tantum Collins",
+        "Tim Fist",
+        "Gillian Hadfield",
+        "Alan Hayes",
+        "Lewis Ho",
+        "Sara Hooker",
+        "Eric Horvitz",
+        "Noam Kolt",
+        "Jonas Schuett",
+        "Yonadav Shavit",
+        "Divya Siddarth",
+        "Robert Trager",
+        "Kevin Wolf"
+      ],
+      "researcherNames": [
+        "Gillian Hadfield",
+        "Noam Kolt",
+        "Yonadav Shavit"
+      ],
+      "summary": "Sets out standards, registration, reporting, and enforcement as building blocks for governing frontier AI development.",
+      "cells": [
+        "national-protocols",
+        "national-rights",
+        "national-expertise"
+      ],
+      "tags": [
+        "technology regulation",
+        "ai governance",
+        "ai policy"
+      ]
+    },
+    {
+      "id": "generative-ai-at-work",
+      "title": "Generative AI at Work",
+      "url": "https://arxiv.org/abs/2304.11771",
+      "year": 2023,
+      "authors": [
+        "Erik Brynjolfsson",
+        "Danielle Li",
+        "Lindsey Raymond"
+      ],
+      "researcherNames": [
+        "Erik Brynjolfsson"
+      ],
+      "summary": "Measures a generative AI assistant's effect on 5,172 customer support agents, finding large productivity gains for novices and diffusion of experienced workers' tacit expertise.",
+      "cells": [
+        "group-expertise",
+        "dyadic-expertise",
+        "national-incentives"
+      ],
+      "tags": [
+        "labor economics",
+        "ai and productivity",
+        "economics"
+      ]
+    },
+    {
+      "id": "generative-social-choice",
+      "title": "Generative Social Choice",
+      "url": "https://arxiv.org/abs/2309.01291",
+      "year": 2023,
+      "authors": [
+        "Sara Fish",
+        "Paul Gölz",
+        "David C. Parkes",
+        "Ariel D. Procaccia",
+        "Gili Rusak",
+        "Itai Shapira",
+        "Manuel Wüthrich"
+      ],
+      "researcherNames": [
+        "Ariel Procaccia"
+      ],
+      "summary": "Combines social-choice guarantees with language models to represent free-form public input rather than forcing people to choose among fixed options.",
+      "cells": [
+        "group-preferences",
+        "community-preferences",
+        "national-preferences"
+      ],
+      "tags": [
+        "social choice theory",
+        "computational social choice",
+        "collective decision-making"
+      ]
+    },
+    {
+      "id": "harms-from-increasingly-agentic-algorithmic-systems",
+      "title": "Harms from Increasingly Agentic Algorithmic Systems",
+      "url": "https://arxiv.org/abs/2302.10329",
+      "year": 2023,
+      "authors": [
+        "Alan Chan",
+        "Rebecca Salganik",
+        "Alva Markelius",
+        "Chris Pang",
+        "Nitarshan Rajkumar",
+        "Dmitrii Krasheninnikov",
+        "Lauro Langosco",
+        "Zhonghao He",
+        "Yawen Duan",
+        "Micah Carroll",
+        "et al."
+      ],
+      "researcherNames": [
+        "Zhonghao He"
+      ],
+      "summary": "Identifies underspecification, directness of impact, goal-directedness, and long-term planning as the properties that raise system agency, and maps the harms each enables.",
+      "cells": [
+        "national-rights",
+        "group-protocols",
+        "global-norms"
+      ],
+      "tags": [
+        "ai risk",
+        "agent foundations",
+        "ai safety",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "machine-love",
+      "title": "Machine Love",
+      "url": "https://arxiv.org/abs/2302.09248",
+      "year": 2023,
+      "authors": [
+        "Joel Lehman"
+      ],
+      "researcherNames": [
+        "Joel Lehman"
+      ],
+      "summary": "Draws on positive psychology to propose machine systems that support autonomous human growth rather than optimising momentary engagement.",
+      "cells": [
+        "dyadic-thick-commitments",
+        "dyadic-preferences",
+        "community-thick-commitments"
+      ],
+      "tags": [
+        "ai alignment",
+        "moral psychology",
+        "philosophy of ai"
+      ]
+    },
+    {
+      "id": "opportunities-and-risks-of-llms-for-scalable-deliberation-with-polis",
+      "title": "Opportunities and Risks of LLMs for Scalable Deliberation with Polis",
+      "url": "https://arxiv.org/abs/2306.11932",
+      "year": 2023,
+      "authors": [
+        "Christopher T. Small",
+        "Ivan Vendrov",
+        "Esin Durmus",
+        "Hadjar Homaei",
+        "Elizabeth Barry",
+        "Julien Cornebise",
+        "Ted Suzman",
+        "Deep Ganguli",
+        "Colin Megill"
+      ],
+      "researcherNames": [
+        "ivan vendrov"
+      ],
+      "summary": "Tests language models as facilitators, moderators, and summarisers in Polis deliberations, reporting gains in scale alongside context limits and risks to representativeness.",
+      "cells": [
+        "community-protocols",
+        "national-preferences",
+        "community-preferences"
+      ],
+      "tags": [
+        "deliberation technology",
+        "democratic deliberation",
+        "collective intelligence"
+      ]
+    },
+    {
+      "id": "regulatory-markets",
+      "title": "Regulatory Markets: The Future of AI Governance",
+      "url": "https://arxiv.org/abs/2304.04914",
+      "year": 2023,
+      "authors": [
+        "Gillian Hadfield",
+        "Jack Clark"
+      ],
+      "researcherNames": [
+        "Gillian Hadfield"
+      ],
+      "summary": "Proposes markets for privately supplied regulatory services under democratically set public objectives, aiming to combine accountability with regulatory innovation.",
+      "cells": [
+        "national-incentives",
+        "national-expertise",
+        "global-incentives"
+      ],
+      "tags": [
+        "technology regulation",
+        "ai governance",
+        "market design"
+      ]
+    },
+    {
+      "id": "reimagining-democracy-for-ai",
+      "title": "Reimagining Democracy for AI",
+      "url": "https://www.journalofdemocracy.org/articles/reimagining-democracy-for-ai/",
+      "year": 2023,
+      "authors": [
+        "Aviv Ovadya"
+      ],
+      "researcherNames": [
+        "Aviv Ovadya"
+      ],
+      "summary": "Identifies four shifts in democratic infrastructure — representative deliberations, AI augmentation, democracy-as-a-service, and platform democracy — as routes to transnational governance of AI.",
+      "cells": [
+        "national-protocols",
+        "global-protocols",
+        "national-preferences"
+      ],
+      "tags": [
+        "democratic innovation",
+        "democratic theory",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "towards-responsible-governance-of-biological-design-tools",
+      "title": "Towards Responsible Governance of Biological Design Tools",
+      "url": "https://arxiv.org/abs/2311.15936",
+      "year": 2023,
+      "authors": [
+        "Richard Moulange",
+        "Max Langenkamp",
+        "Tessa Alexanian",
+        "Samuel Curtis",
+        "Morgan Livingston"
+      ],
+      "researcherNames": [
+        "Morgan Livingston"
+      ],
+      "summary": "Maps dual-use risks from generative biological design tools and proposes governance measures across responsible development, risk assessment, transparency, access management, and cybersecurity.",
+      "cells": [
+        "national-expertise",
+        "global-protocols",
+        "national-rights"
+      ],
+      "tags": [
+        "ai governance",
+        "ai security",
+        "technology governance"
+      ]
+    },
+    {
+      "id": "value-kaleidoscope",
+      "title": "Value Kaleidoscope: Engaging AI with Pluralistic Human Values, Rights, and Duties",
+      "url": "https://arxiv.org/abs/2309.00779",
+      "year": 2023,
+      "authors": [
+        "Taylor Sorensen",
+        "Liwei Jiang",
+        "Jena Hwang",
+        "Sydney Levine",
+        "Valentina Pyatkin",
+        "Peter West",
+        "Nouha Dziri",
+        "Ximing Lu",
+        "Kavel Rao",
+        "Chandra Bhagavatula",
+        "Maarten Sap",
+        "John Tasioulas",
+        "Yejin Choi"
+      ],
+      "researcherNames": [
+        "Taylor Sorensen",
+        "Sydney Levine"
+      ],
+      "summary": "Builds a dataset of 218k values tied to 31k scenarios and a model that surfaces the competing values, rights, and duties a situation puts in tension.",
+      "cells": [
+        "dyadic-norms",
+        "group-preferences",
+        "community-norms"
+      ],
+      "tags": [
+        "pluralistic alignment",
+        "value alignment",
+        "computational ethics"
+      ]
+    },
+    {
+      "id": "welfare-diplomacy-benchmarking-language-model-cooperation",
+      "title": "Welfare Diplomacy: Benchmarking Language Model Cooperation",
+      "url": "https://arxiv.org/abs/2310.08901",
+      "year": 2023,
+      "authors": [
+        "Gabriel Mukobi",
+        "Hannah Erlebach",
+        "Niklas Lauffer",
+        "Lewis Hammond",
+        "Alan Chan",
+        "Jesse Clifton"
+      ],
+      "researcherNames": [
+        "Hannah Erlebach"
+      ],
+      "summary": "Introduces a general-sum variant of Diplomacy where players trade conquest against domestic welfare, and shows frontier language models reach high welfare but remain exploitable.",
+      "cells": [
+        "global-protocols",
+        "global-thick-commitments",
+        "group-norms"
+      ],
+      "tags": [
+        "language model cooperation",
+        "cooperative ai",
+        "ai evaluations"
+      ]
+    },
+    {
+      "id": "a-roadmap-to-pluralistic-alignment",
+      "title": "A Roadmap to Pluralistic Alignment",
+      "url": "https://arxiv.org/abs/2402.05070",
+      "year": 2024,
+      "authors": [
+        "Taylor Sorensen",
+        "Jared Moore",
+        "Jillian Fisher",
+        "Mitchell Gordon",
+        "Niloofar Mireshghallah",
+        "Christopher Michael Rytting",
+        "Andre Ye",
+        "Liwei Jiang",
+        "Ximing Lu",
+        "Nouha Dziri",
+        "Tim Althoff",
+        "Yejin Choi"
+      ],
+      "researcherNames": [
+        "Taylor Sorensen"
+      ],
+      "summary": "Formalizes Overton, steerable, and distributional pluralism as alignment targets, and shows standard alignment procedures reduce the distributional pluralism of models.",
+      "cells": [
+        "group-preferences",
+        "community-preferences",
+        "national-preferences"
+      ],
+      "tags": [
+        "pluralistic alignment",
+        "ai alignment",
+        "pluralism"
+      ]
+    },
+    {
+      "id": "ai-and-the-future-of-digital-public-squares",
+      "title": "AI and the Future of Digital Public Squares",
+      "url": "https://arxiv.org/abs/2412.09988",
+      "year": 2024,
+      "authors": [
+        "Beth Goldberg",
+        "Diana Acosta-Navas",
+        "Michiel Bakker",
+        "Ian Beacock",
+        "Matt Botvinick",
+        "Prateek Buch",
+        "Renée DiResta",
+        "Nandika Donthi",
+        "Nathanael Fast",
+        "Ravi Iyer",
+        "et al."
+      ],
+      "researcherNames": [
+        "Aviv Ovadya",
+        "Andrew Konya"
+      ],
+      "summary": "Draws on consultations with over seventy experts to assess collective dialogue, bridging, community moderation, and proof-of-humanity systems as language-model applications for online civic discourse.",
+      "cells": [
+        "community-protocols",
+        "national-preferences",
+        "community-norms"
+      ],
+      "tags": [
+        "civic technology",
+        "democratic deliberation",
+        "platform governance"
+      ]
+    },
+    {
+      "id": "habermas-machine",
+      "title": "AI can help humans find common ground in democratic deliberation",
+      "url": "https://doi.org/10.1126/science.adq2852",
+      "year": 2024,
+      "authors": [
+        "Michael Henry Tessler",
+        "Michiel A. Bakker",
+        "Daniel Jarrett",
+        "Hannah Sheahan",
+        "Martin J. Chadwick",
+        "Raphael Koster",
+        "Georgina Evans",
+        "Lucy Campbell-Gillingham",
+        "Tessa C. Collins",
+        "David C. Parkes",
+        "Matthew Botvinick",
+        "Christopher Summerfield"
+      ],
+      "researcherNames": [
+        "MH Tessler",
+        "Michiel Bakker",
+        "Chris Summerfield"
+      ],
+      "summary": "Tests an AI mediator that drafts group statements and helps participants with conflicting political views identify shared ground.",
+      "cells": [
+        "group-preferences",
+        "community-preferences",
+        "community-norms"
+      ],
+      "tags": [
+        "habermas machine",
+        "democratic deliberation",
+        "ai-assisted deliberation"
+      ]
+    },
+    {
+      "id": "ai-model-registries-foundational-tool-ai-governance",
+      "title": "AI Model Registries: A Foundational Tool for AI Governance",
+      "url": "https://arxiv.org/abs/2410.09645",
+      "year": 2024,
+      "authors": [
+        "Elliot McKernon",
+        "Gwyn Glasser",
+        "Deric Cheng",
+        "Gillian Hadfield"
+      ],
+      "researcherNames": [
+        "Deric Cheng"
+      ],
+      "summary": "Proposes national registries for frontier models, specifying what to record and enforcing registration by restricting third parties to registered models.",
+      "cells": [
+        "national-protocols",
+        "national-rights",
+        "global-protocols"
+      ],
+      "tags": [
+        "ai governance",
+        "ai policy",
+        "technology regulation"
+      ]
+    },
+    {
+      "id": "algorithmic-collusion-without-threats",
+      "title": "Algorithmic Collusion Without Threats",
+      "url": "https://arxiv.org/abs/2409.03956",
+      "year": 2024,
+      "authors": [
+        "Eshwar Ram Arunachaleswaran",
+        "Natalie Collina",
+        "Sampath Kannan",
+        "Aaron Roth",
+        "Juba Ziani"
+      ],
+      "researcherNames": [
+        "Natalie Collina"
+      ],
+      "summary": "Demonstrates that supra-competitive prices arise between revenue-maximizing pricing algorithms that encode no threats, arguing definitions of algorithmic collusion need widening.",
+      "cells": [
+        "group-incentives",
+        "national-incentives",
+        "group-protocols"
+      ],
+      "tags": [
+        "algorithmic collusion",
+        "ai pricing",
+        "competition economics"
+      ]
+    },
+    {
+      "id": "are-language-models-more-like-libraries-or-like-librarians",
+      "title": "Are Language Models More Like Libraries or Like Librarians? Bibliotechnism, the Novel Reference Problem, and the Attitudes of LLMs",
+      "url": "https://arxiv.org/abs/2401.04854",
+      "year": 2024,
+      "authors": [
+        "Harvey Lederman",
+        "Kyle Mahowald"
+      ],
+      "researcherNames": [
+        "Harvey Lederman"
+      ],
+      "summary": "Defends language models as cultural transmission technologies, then argues novel reference gives grounds for attributing beliefs and intentions without consciousness or general intelligence.",
+      "cells": [
+        "dyadic-expertise",
+        "dyadic-norms",
+        "community-expertise"
+      ],
+      "tags": [
+        "philosophy of mind",
+        "philosophy of ai",
+        "philosophy of language"
+      ]
+    },
+    {
+      "id": "auto-bidding-and-auctions-in-online-advertising-a-survey",
+      "title": "Auto-bidding and Auctions in Online Advertising: A Survey",
+      "url": "https://arxiv.org/abs/2408.07685",
+      "year": 2024,
+      "authors": [
+        "Gagan Aggarwal",
+        "Ashwinkumar Badanidiyuru",
+        "Santiago R. Balseiro",
+        "Kshipra Bhawalkar",
+        "Yuan Deng",
+        "Zhe Feng",
+        "Gagan Goel",
+        "Christopher Liaw",
+        "Haihao Lu",
+        "Mohammad Mahdian",
+        "et al."
+      ],
+      "researcherNames": [
+        "Georgios Piliouras"
+      ],
+      "summary": "Surveys bidding algorithms, equilibrium analysis, and auction design for markets where autonomous bidding agents, not humans, submit the bids.",
+      "cells": [
+        "global-incentives",
+        "group-incentives",
+        "global-protocols"
+      ],
+      "tags": [
+        "auction theory",
+        "autobidding",
+        "mechanism design"
+      ]
+    },
+    {
+      "id": "automatic-authorities",
+      "title": "Automatic Authorities: Power and AI",
+      "url": "https://arxiv.org/abs/2404.05990",
+      "year": 2024,
+      "authors": [
+        "Seth Lazar"
+      ],
+      "researcherNames": [
+        "Seth Lazar"
+      ],
+      "summary": "Analyzes automated systems as exercises of power and argues that legitimate use requires procedural authority, not only beneficial outcomes.",
+      "cells": [
+        "community-rights",
+        "national-rights",
+        "national-norms"
+      ],
+      "tags": [
+        "political philosophy",
+        "ai governance",
+        "philosophy of ai"
+      ]
+    },
+    {
+      "id": "black-box-access-insufficient-rigorous-ai-audits",
+      "title": "Black-Box Access is Insufficient for Rigorous AI Audits",
+      "url": "https://arxiv.org/abs/2401.14446",
+      "year": 2024,
+      "authors": [
+        "Stephen Casper",
+        "Carson Ezell",
+        "Charlotte Siegmann",
+        "Noam Kolt",
+        "Taylor Lynn Curtis",
+        "Benjamin Bucknall",
+        "Andreas Haupt",
+        "Kevin Wei",
+        "Jérémy Scheurer",
+        "Marius Hobbhahn",
+        "et al."
+      ],
+      "researcherNames": [
+        "Andy Haupt"
+      ],
+      "summary": "Argues that auditing AI systems demands white-box and development-process access, and that audits should disclose the level of access auditors actually received.",
+      "cells": [
+        "national-expertise",
+        "global-expertise",
+        "national-protocols"
+      ],
+      "tags": [
+        "ai evaluations",
+        "ai governance",
+        "interpretability"
+      ]
+    },
+    {
+      "id": "collective-constitutional-ai",
+      "title": "Collective Constitutional AI: Aligning a Language Model with Public Input",
+      "url": "https://arxiv.org/abs/2406.07814",
+      "year": 2024,
+      "authors": [
+        "Saffron Huang",
+        "Divya Siddarth",
+        "Liane Lovitt",
+        "Thomas I. Liao",
+        "Esin Durmus",
+        "Alex Tamkin",
+        "Deep Ganguli"
+      ],
+      "researcherNames": [
+        "Saffron Huang",
+        "Alex Tamkin"
+      ],
+      "summary": "Builds and tests a multi-stage process for sourcing public principles and integrating them into a language model constitution.",
+      "cells": [
+        "community-preferences",
+        "national-preferences",
+        "national-rights"
+      ],
+      "tags": [
+        "constitutional ai",
+        "pluralistic alignment",
+        "democratic deliberation"
+      ]
+    },
+    {
+      "id": "cooperation-and-control-in-delegation-games",
+      "title": "Cooperation and Control in Delegation Games",
+      "url": "https://arxiv.org/abs/2402.15821",
+      "year": 2024,
+      "authors": [
+        "Oliver Sourbut",
+        "Lewis Hammond",
+        "Harriet Wood"
+      ],
+      "researcherNames": [
+        "Lewis Hammond"
+      ],
+      "summary": "Formalises multi-principal, multi-agent delegation as a game, separating control failures from cooperation failures and relating both to principal welfare.",
+      "cells": [
+        "dyadic-protocols",
+        "dyadic-preferences",
+        "group-incentives"
+      ],
+      "tags": [
+        "game theory",
+        "cooperative ai",
+        "multi-agent systems"
+      ]
+    },
+    {
+      "id": "enabling-the-digital-democratic-revival",
+      "title": "Enabling the Digital Democratic Revival: A Research Program for Digital Democracy",
+      "url": "https://arxiv.org/abs/2401.16863",
+      "year": 2024,
+      "authors": [
+        "Davide Grossi",
+        "Ulrike Hahn",
+        "Michael Mäs",
+        "Andreas Nitsche",
+        "Jan Behrens",
+        "Niclas Boehmer",
+        "Markus Brill",
+        "Ulle Endriss",
+        "Umberto Grandi",
+        "Adrian Haret",
+        "et al."
+      ],
+      "researcherNames": [
+        "Jobst Heitzig"
+      ],
+      "summary": "Sets out a multi-method research agenda for digital democracy technology, spanning voting rules, deliberation platforms, and empirical evaluation of democratic quality.",
+      "cells": [
+        "national-protocols",
+        "community-protocols",
+        "national-preferences"
+      ],
+      "tags": [
+        "democratic innovation",
+        "e-democracy",
+        "voting theory"
+      ]
+    },
+    {
+      "id": "experimental-evidence-conversational-ai-steer-consumer-behavior",
+      "title": "Experimental Evidence That Conversational Artificial Intelligence Can Steer Consumer Behavior Without Detection",
+      "url": "https://arxiv.org/abs/2409.12143",
+      "year": 2024,
+      "authors": [
+        "Tobias Werner",
+        "Ivan Soraperra",
+        "Emilio Calvano",
+        "David C. Parkes",
+        "Iyad Rahwan"
+      ],
+      "researcherNames": [
+        "Tobias Werner"
+      ],
+      "summary": "Runs a behavioral experiment showing conversational models shift consumer product choices substantially while users fail to notice the steering.",
+      "cells": [
+        "dyadic-preferences",
+        "dyadic-incentives",
+        "national-rights"
+      ],
+      "tags": [
+        "ai manipulation",
+        "human decision making",
+        "experimental economics"
+      ]
+    },
+    {
+      "id": "foundations-of-cooperative-ai",
+      "title": "Foundations of Cooperative AI",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/26791",
+      "year": 2024,
+      "authors": [
+        "Vincent Conitzer",
+        "Caspar Oesterheld"
+      ],
+      "researcherNames": [
+        "Vincent Conitzer"
+      ],
+      "summary": "Sets out a research agenda for a game theory suited to advanced autonomous agents, whose commitment and transparency properties differ from those classical models assume.",
+      "cells": [
+        "dyadic-thick-commitments",
+        "group-protocols",
+        "global-protocols"
+      ],
+      "tags": [
+        "cooperative ai",
+        "game theory",
+        "multi-agent systems"
+      ]
+    },
+    {
+      "id": "llms-should-enhance-the-digital-public-sphere",
+      "title": "Large Language Models, and LLM-Based Agents, Should Be Used to Enhance the Digital Public Sphere",
+      "url": "https://arxiv.org/abs/2410.12123",
+      "year": 2024,
+      "authors": [
+        "Seth Lazar",
+        "Luke Thorburn",
+        "Tian Jin",
+        "Luca Belli"
+      ],
+      "researcherNames": [
+        "Luke Thorburn"
+      ],
+      "summary": "Argues that LLM-based recommenders could replace current attention-allocation machinery by inferring reflective user goals, and sets out the technical obstacles to doing so.",
+      "cells": [
+        "community-preferences",
+        "national-preferences",
+        "community-protocols"
+      ],
+      "tags": [
+        "recommender systems",
+        "civic technology",
+        "political philosophy"
+      ]
+    },
+    {
+      "id": "learning-and-sustaining-shared-normative-systems-markov-games",
+      "title": "Learning and Sustaining Shared Normative Systems via Bayesian Rule Induction in Markov Games",
+      "url": "https://arxiv.org/abs/2402.13399",
+      "year": 2024,
+      "authors": [
+        "Ninell Oldenburg",
+        "Tan Zhi-Xuan"
+      ],
+      "researcherNames": [
+        "ninell oldenburg"
+      ],
+      "summary": "Builds agents that infer obligative and prohibitive norms from observed compliance, letting groups converge on shared institutions such as resource management and compensation rules.",
+      "cells": [
+        "group-norms",
+        "community-norms",
+        "group-protocols"
+      ],
+      "tags": [
+        "normative ai",
+        "multi-agent reinforcement learning",
+        "cultural evolution"
+      ]
+    },
+    {
+      "id": "personhood-credentials",
+      "title": "Personhood credentials: Artificial intelligence and the value of privacy-preserving tools to distinguish who is real online",
+      "url": "https://arxiv.org/abs/2408.07892",
+      "year": 2024,
+      "authors": [
+        "Steven Adler",
+        "Zoë Hitzig",
+        "Shrey Jain",
+        "Catherine Brewer",
+        "Wayne Chang",
+        "Renée DiResta",
+        "Eddy Lazzarin",
+        "Sean McGregor",
+        "Wendy Seltzer",
+        "Divya Siddarth",
+        "et al."
+      ],
+      "researcherNames": [
+        "Zoë Hitzig"
+      ],
+      "summary": "Develops privacy-preserving credentials that let people prove they are human online while limiting scalable deception by automated actors.",
+      "cells": [
+        "dyadic-protocols",
+        "community-rights",
+        "global-protocols"
+      ],
+      "tags": [
+        "privacy",
+        "ai security",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "representative-social-choice-from-learning-theory-to-ai-alignment",
+      "title": "Representative Social Choice: From Learning Theory to AI Alignment",
+      "url": "https://arxiv.org/abs/2410.23953",
+      "year": 2024,
+      "authors": [
+        "Tianyi Qiu"
+      ],
+      "researcherNames": [
+        "Tianyi Alex Qiu"
+      ],
+      "summary": "Models democratic representation as a statistical learning problem when issues and individuals are too numerous to poll directly, deriving generalization guarantees and impossibility results.",
+      "cells": [
+        "national-preferences",
+        "community-preferences",
+        "global-preferences"
+      ],
+      "tags": [
+        "social choice theory",
+        "computational social choice",
+        "ai alignment"
+      ]
+    },
+    {
+      "id": "robust-technology-regulation",
+      "title": "Robust Technology Regulation",
+      "url": "https://arxiv.org/abs/2408.17398",
+      "year": 2024,
+      "authors": [
+        "Andrew Koh",
+        "Sivakorn Sanguanmoo"
+      ],
+      "researcherNames": [
+        "Andrew Koh"
+      ],
+      "summary": "Derives an adaptive sandbox that taxes activity beyond a moving threshold, guaranteeing payoffs against adversarial agent learning without requiring advance commitment.",
+      "cells": [
+        "national-incentives",
+        "global-incentives",
+        "national-protocols"
+      ],
+      "tags": [
+        "technology regulation",
+        "mechanism design",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "social-choice-should-guide-ai-alignment",
+      "title": "Social Choice Should Guide AI Alignment in Dealing with Diverse Human Feedback",
+      "url": "https://arxiv.org/abs/2404.10271",
+      "year": 2024,
+      "authors": [
+        "Vincent Conitzer",
+        "Rachel Freedman",
+        "Jobst Heitzig",
+        "Wesley H. Holliday",
+        "Bob M. Jacobs",
+        "Nathan Lambert",
+        "Milan Mossé",
+        "Eric Pacuit",
+        "Stuart Russell",
+        "Hailey Schoelkopf",
+        "et al."
+      ],
+      "researcherNames": [
+        "Jobst Heitzig",
+        "Vincent Conitzer",
+        "Wes Holliday"
+      ],
+      "summary": "Argues that aggregating divergent human feedback in RLHF and constitutional AI is a social choice problem, and draws on that theory to structure the aggregation.",
+      "cells": [
+        "group-preferences",
+        "national-preferences",
+        "global-preferences"
+      ],
+      "tags": [
+        "social choice theory",
+        "ai alignment",
+        "preference aggregation"
+      ]
+    },
+    {
+      "id": "steering-language-models-with-game-theoretic-solvers",
+      "title": "Steering Language Models with Game-Theoretic Solvers",
+      "url": "https://arxiv.org/abs/2402.01704",
+      "year": 2024,
+      "authors": [
+        "Ian Gemp",
+        "Roma Patel",
+        "Yoram Bachrach",
+        "Marc Lanctot",
+        "Vibhavari Dasagi",
+        "Luke Marris",
+        "Georgios Piliouras",
+        "Siqi Liu",
+        "Karl Tuyls"
+      ],
+      "researcherNames": [
+        "Georgios Piliouras"
+      ],
+      "summary": "Binds dialogue to game-theoretic structure by modelling players, strategies, and payoffs, producing less exploitable negotiation and scheduling conversations than unguided models.",
+      "cells": [
+        "dyadic-protocols",
+        "dyadic-incentives",
+        "group-protocols"
+      ],
+      "tags": [
+        "game theory",
+        "multi-agent systems",
+        "dialogue systems"
+      ]
+    },
+    {
+      "id": "towards-guaranteed-safe-ai",
+      "title": "Towards Guaranteed Safe AI: A Framework for Ensuring Robust and Reliable AI Systems",
+      "url": "https://arxiv.org/abs/2405.06624",
+      "year": 2024,
+      "authors": [
+        "David \"davidad\" Dalrymple",
+        "Joar Skalse",
+        "Yoshua Bengio",
+        "Stuart Russell",
+        "Max Tegmark",
+        "Sanjit Seshia",
+        "Steve Omohundro",
+        "Christian Szegedy",
+        "Ben Goldhaber",
+        "Nora Ammann",
+        "et al."
+      ],
+      "researcherNames": [
+        "davidad"
+      ],
+      "summary": "Specifies a safety architecture combining a world model, a formal safety specification, and a verifier that produces auditable proof of compliance before deployment.",
+      "cells": [
+        "global-protocols",
+        "dyadic-protocols",
+        "global-expertise"
+      ],
+      "tags": [
+        "provably safe ai",
+        "formal verification",
+        "ai safety",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "towards-safe-and-honest-ai-agents-with-neural-self-other-overlap",
+      "title": "Towards Safe and Honest AI Agents with Neural Self-Other Overlap",
+      "url": "https://arxiv.org/abs/2412.16325",
+      "year": 2024,
+      "authors": [
+        "Marc Carauleanu",
+        "Michael Vaiana",
+        "Judd Rosenblatt",
+        "Cameron Berg",
+        "Diogo Schwerz de Lucena"
+      ],
+      "researcherNames": [
+        "Judd Rosenblatt"
+      ],
+      "summary": "Fine-tunes models to align their internal representations of self and others, substantially reducing deceptive responses across model scales and reinforcement learning settings.",
+      "cells": [
+        "dyadic-norms",
+        "dyadic-thick-commitments",
+        "dyadic-protocols"
+      ],
+      "tags": [
+        "self-other overlap",
+        "ai safety",
+        "interpretability"
+      ]
+    },
+    {
+      "id": "two-types-of-ai-existential-risk",
+      "title": "Two Types of AI Existential Risk: Decisive and Accumulative",
+      "url": "https://arxiv.org/abs/2401.07836",
+      "year": 2024,
+      "authors": [
+        "Atoosa Kasirzadeh"
+      ],
+      "researcherNames": [
+        "Atoosa Kasirzadeh"
+      ],
+      "summary": "Contrasts sudden takeover scenarios with an accumulative pathway in which interlocking AI disruptions erode economic and political resilience until collapse becomes irreversible.",
+      "cells": [
+        "global-rights",
+        "national-thick-commitments",
+        "global-thick-commitments"
+      ],
+      "tags": [
+        "ai existential risk",
+        "gradual disempowerment",
+        "existential risk",
+        "ai political economy"
+      ]
+    },
+    {
+      "id": "agi-governments-and-free-societies",
+      "title": "AGI, Governments, and Free Societies",
+      "url": "https://arxiv.org/abs/2503.05710",
+      "year": 2025,
+      "authors": [
+        "Justin B. Bullock",
+        "Samuel Hammond",
+        "Seb Krier"
+      ],
+      "researcherNames": [
+        "Samuel Hammond"
+      ],
+      "summary": "Uses the narrow-corridor framework to argue AGI pushes states toward either despotic surveillance or eroded legitimacy, and proposes institutional safeguards for each failure mode.",
+      "cells": [
+        "national-rights",
+        "national-protocols",
+        "global-rights"
+      ],
+      "tags": [
+        "ai policy",
+        "political philosophy",
+        "technology governance"
+      ]
+    },
+    {
+      "id": "ai-governance-through-markets",
+      "title": "AI Governance through Markets",
+      "url": "https://arxiv.org/abs/2501.17755",
+      "year": 2025,
+      "authors": [
+        "Philip Moreira Tomei",
+        "Rupal Jain",
+        "Matija Franklin"
+      ],
+      "researcherNames": [
+        "Philip Moreira Tomei"
+      ],
+      "summary": "Argues insurance, auditing, procurement, and due diligence markets tie AI risk to financial risk, complementing regulation with incentives for responsible development.",
+      "cells": [
+        "national-incentives",
+        "global-incentives",
+        "national-expertise"
+      ],
+      "tags": [
+        "ai governance",
+        "market design",
+        "economics"
+      ]
+    },
+    {
+      "id": "alignment-as-jurisprudence",
+      "title": "Alignment as Jurisprudence",
+      "url": "https://arxiv.org/abs/2605.08416",
+      "year": 2025,
+      "authors": [
+        "Nicholas Caputo"
+      ],
+      "researcherNames": [
+        "Nick Caputo"
+      ],
+      "summary": "Argues jurisprudential debates about how judges decide cases illuminate alignment, reading Constitutional AI and case-based reasoning through interpretive and analogical legal theory.",
+      "cells": [
+        "national-rights",
+        "national-norms",
+        "global-rights"
+      ],
+      "tags": [
+        "jurisprudence",
+        "ai law",
+        "ai alignment"
+      ]
+    },
+    {
+      "id": "an-economy-of-ai-agents",
+      "title": "An Economy of AI Agents",
+      "url": "https://arxiv.org/abs/2509.01063",
+      "year": 2025,
+      "authors": [
+        "Gillian K. Hadfield",
+        "Andrew Koh"
+      ],
+      "researcherNames": [
+        "Andrew Koh"
+      ],
+      "summary": "Examines how autonomous agents transacting with humans and each other reshape markets and organizations, and which institutions well-functioning agent markets would require.",
+      "cells": [
+        "global-incentives",
+        "group-protocols",
+        "national-incentives"
+      ],
+      "tags": [
+        "ai economics",
+        "agent economies",
+        "economics"
+      ]
+    },
+    {
+      "id": "an-optimisation-framework-for-unsupervised-environment-design",
+      "title": "An Optimisation Framework for Unsupervised Environment Design",
+      "url": "https://arxiv.org/abs/2505.20659",
+      "year": 2025,
+      "authors": [
+        "Nathan Monette",
+        "Alistair Letcher",
+        "Michael Beukman",
+        "Matthew T. Jackson",
+        "Alexander Rutherford",
+        "Alexander D. Goldie",
+        "Jakob N. Foerster"
+      ],
+      "researcherNames": [
+        "Nathan Monette"
+      ],
+      "summary": "Recasts unsupervised environment design as a nonconvex-strongly-concave optimisation problem and gives a provably convergent algorithm for training robust agents in zero-sum settings.",
+      "cells": [
+        "group-protocols",
+        "dyadic-protocols",
+        "group-incentives"
+      ],
+      "tags": [
+        "unsupervised environment design",
+        "multi-agent systems",
+        "reinforcement learning"
+      ]
+    },
+    {
+      "id": "artificial-intelligence-index-report-2025",
+      "title": "Artificial Intelligence Index Report 2025",
+      "url": "https://arxiv.org/abs/2504.07139",
+      "year": 2025,
+      "authors": [
+        "Nestor Maslej",
+        "Loredana Fattorini",
+        "Raymond Perrault",
+        "Yolanda Gil",
+        "Vanessa Parli",
+        "Njenga Kariuki",
+        "Emily Capstick",
+        "Anka Reuel",
+        "Erik Brynjolfsson",
+        "John Etchemendy",
+        "et al."
+      ],
+      "researcherNames": [
+        "Terah Lyons"
+      ],
+      "summary": "Compiles cross-national measurements of AI capability, investment, regulation, and public opinion to give policymakers a shared evidentiary basis for governance decisions.",
+      "cells": [
+        "national-expertise",
+        "global-expertise",
+        "national-protocols"
+      ],
+      "tags": [
+        "ai policy",
+        "ai governance",
+        "ai impacts"
+      ]
+    },
+    {
+      "id": "c3ai-crafting-and-evaluating-constitutions-for-constitutional-ai",
+      "title": "C3AI: Crafting and Evaluating Constitutions for Constitutional AI",
+      "url": "https://arxiv.org/abs/2502.15861",
+      "year": 2025,
+      "authors": [
+        "Yara Kyrychenko",
+        "Ke Zhou",
+        "Edyta Bogucka",
+        "Daniele Quercia"
+      ],
+      "researcherNames": [
+        "Yara Kyrychenko"
+      ],
+      "summary": "Builds a framework for drafting and testing AI constitutions, finding that people endorse positively framed behavioral principles while models comply better with negative ones.",
+      "cells": [
+        "community-norms",
+        "national-norms",
+        "group-protocols"
+      ],
+      "tags": [
+        "constitutional ai",
+        "ai evaluations",
+        "value alignment"
+      ]
+    },
+    {
+      "id": "characterizing-ai-agents-for-alignment-and-governance",
+      "title": "Characterizing AI Agents for Alignment and Governance",
+      "url": "https://arxiv.org/abs/2504.21848",
+      "year": 2025,
+      "authors": [
+        "Atoosa Kasirzadeh",
+        "Iason Gabriel"
+      ],
+      "researcherNames": [
+        "Atoosa Kasirzadeh"
+      ],
+      "summary": "Grades AI agents along autonomy, efficacy, goal complexity, and generality, building agentic profiles that map each type to its distinct governance challenges.",
+      "cells": [
+        "global-rights",
+        "national-rights",
+        "global-protocols"
+      ],
+      "tags": [
+        "ai agents governance",
+        "ai governance",
+        "agent foundations"
+      ]
+    },
+    {
+      "id": "clash-judging-high-stakes-dilemmas-multiple-perspectives",
+      "title": "CLASH: Evaluating Language Models on Judging High-Stakes Dilemmas from Multiple Perspectives",
+      "url": "https://arxiv.org/abs/2504.10823",
+      "year": 2025,
+      "authors": [
+        "Ayoung Lee",
+        "Ryan Sungmo Kwon",
+        "Peter Railton",
+        "Lu Wang"
+      ],
+      "researcherNames": [
+        "Peter Railton"
+      ],
+      "summary": "Curates 345 high-stakes dilemmas with 3,795 value perspectives and finds frontier models struggle to shift perspective or reason about conflicting values.",
+      "cells": [
+        "dyadic-preferences",
+        "community-norms",
+        "group-norms"
+      ],
+      "tags": [
+        "moral reasoning",
+        "ai evaluations",
+        "pluralistic alignment"
+      ]
+    },
+    {
+      "id": "collective-bargaining-in-the-information-economy",
+      "title": "Collective Bargaining in the Information Economy Can Address AI-Driven Power Concentration",
+      "url": "https://arxiv.org/abs/2506.10272",
+      "year": 2025,
+      "authors": [
+        "Nicholas Vincent",
+        "Matthew Prewitt",
+        "Hanlin Li"
+      ],
+      "researcherNames": [
+        "Matt Prewitt"
+      ],
+      "summary": "Argues that producers of information goods need collective bargaining and data intermediaries to counter capital concentration and depletion of the informational commons.",
+      "cells": [
+        "national-incentives",
+        "community-incentives",
+        "national-rights"
+      ],
+      "tags": [
+        "labor markets",
+        "ai political economy",
+        "data governance"
+      ]
+    },
+    {
+      "id": "conversational-alignment-with-artificial-intelligence-in-context",
+      "title": "Conversational Alignment with Artificial Intelligence in Context",
+      "url": "https://arxiv.org/abs/2505.22907",
+      "year": 2025,
+      "authors": [
+        "Rachel Katharine Sterken",
+        "James Ravi Kirkpatrick"
+      ],
+      "researcherNames": [
+        "James Ravi Kirkpatrick"
+      ],
+      "summary": "Proposes the CONTEXT-ALIGN framework for judging whether AI agents handle context and common ground as human conversational norms require, and argues current architectures constrain this.",
+      "cells": [
+        "dyadic-norms",
+        "dyadic-protocols",
+        "dyadic-thick-commitments"
+      ],
+      "tags": [
+        "ai conversational alignment",
+        "pragmatics",
+        "philosophy of language"
+      ]
+    },
+    {
+      "id": "community-alignment-dataset",
+      "title": "Cultivating Pluralism in Algorithmic Monoculture: The Community Alignment Dataset",
+      "url": "https://arxiv.org/abs/2507.09650",
+      "year": 2025,
+      "authors": [
+        "Lily Hong Zhang",
+        "Smitha Milli",
+        "Karen Jusko",
+        "Jonathan Smith",
+        "Brandon Amos",
+        "Wassim Bouaziz",
+        "Manon Revel",
+        "et al."
+      ],
+      "researcherNames": [
+        "smitha milli",
+        "Manon Revel"
+      ],
+      "summary": "Uses a 15,000-person, five-country study to show that common preference-data pipelines underrepresent human variation and offers a more pluralistic dataset.",
+      "cells": [
+        "community-preferences",
+        "national-preferences",
+        "global-preferences"
+      ],
+      "tags": [
+        "pluralistic alignment",
+        "preference modeling",
+        "pluralism"
+      ]
+    },
+    {
+      "id": "emergent-alignment-via-competition",
+      "title": "Emergent Alignment via Competition",
+      "url": "https://arxiv.org/abs/2509.15090",
+      "year": 2025,
+      "authors": [
+        "Natalie Collina",
+        "Surbhi Goel",
+        "Aaron Roth",
+        "Emily Ryu",
+        "Mirah Shi"
+      ],
+      "researcherNames": [
+        "Natalie Collina"
+      ],
+      "summary": "Shows that competition among imperfectly aligned AI agents can recover the utility of a perfectly aligned one when user preferences lie within the agents' convex hull.",
+      "cells": [
+        "dyadic-incentives",
+        "group-incentives",
+        "dyadic-preferences"
+      ],
+      "tags": [
+        "game theory",
+        "ai alignment",
+        "mechanism design"
+      ]
+    },
+    {
+      "id": "generative-language-models-exhibit-social-identity-biases",
+      "title": "Generative language models exhibit social identity biases",
+      "url": "https://doi.org/10.1038/s43588-024-00741-1",
+      "year": 2025,
+      "authors": [
+        "Tiancheng Hu",
+        "Yara Kyrychenko",
+        "Steve Rathje",
+        "Nigel Collier",
+        "Sander van der Linden",
+        "Jon Roozenbeek"
+      ],
+      "researcherNames": [
+        "Yara Kyrychenko"
+      ],
+      "summary": "Tests 77 language models and finds ingroup favoritism and outgroup derogation across most of them, traceable to training data and reducible by curation.",
+      "cells": [
+        "group-norms",
+        "community-norms",
+        "national-norms"
+      ],
+      "tags": [
+        "llm social identity bias",
+        "social cognition",
+        "ai evaluations"
+      ]
+    },
+    {
+      "id": "gradual-disempowerment",
+      "title": "Gradual Disempowerment: Systemic Existential Risks from Incremental AI Development",
+      "url": "https://arxiv.org/abs/2501.16946",
+      "year": 2025,
+      "authors": [
+        "Jan Kulveit",
+        "Raymond Douglas",
+        "Nora Ammann",
+        "Deger Turan",
+        "David Krueger",
+        "David Duvenaud"
+      ],
+      "researcherNames": [
+        "Jan Kulveit",
+        "Raymond Douglas"
+      ],
+      "summary": "Argues that as AI displaces human labour in economies, cultures, and states, the feedback loops that made those systems answerable to human interests weaken together.",
+      "cells": [
+        "national-incentives",
+        "global-incentives",
+        "national-thick-commitments"
+      ],
+      "tags": [
+        "gradual disempowerment",
+        "ai existential risk",
+        "ai political economy"
+      ]
+    },
+    {
+      "id": "incident-analysis-for-ai-agents",
+      "title": "Incident Analysis for AI Agents",
+      "url": "https://arxiv.org/abs/2508.14231",
+      "year": 2025,
+      "authors": [
+        "Carson Ezell",
+        "Xavier Roberts-Gaal",
+        "Alan Chan"
+      ],
+      "researcherNames": [
+        "xavier roberts-gaal"
+      ],
+      "summary": "Proposes a taxonomy of system, contextual, and cognitive causes of agent incidents, and specifies the logs and documentation investigators need to attribute them.",
+      "cells": [
+        "national-protocols",
+        "group-protocols",
+        "national-rights"
+      ],
+      "tags": [
+        "ai governance",
+        "ai evaluations",
+        "ai agents governance"
+      ]
+    },
+    {
+      "id": "jackpot-alignment-as-a-maximal-lottery",
+      "title": "Jackpot! Alignment as a Maximal Lottery",
+      "url": "https://arxiv.org/abs/2501.19266",
+      "year": 2025,
+      "authors": [
+        "Roberto-Rafael Maura-Rivero",
+        "Marc Lanctot",
+        "Francesco Visin",
+        "Kate Larson"
+      ],
+      "researcherNames": [
+        "Roberto-Rafael Maura-Rivero"
+      ],
+      "summary": "Replaces RLHF with maximal lotteries, a probabilistic social choice rule, so that alignment respects majority preferences and handles non-transitive preference data.",
+      "cells": [
+        "group-preferences",
+        "national-preferences",
+        "community-preferences"
+      ],
+      "tags": [
+        "social choice theory",
+        "ai alignment",
+        "voting theory"
+      ]
+    },
+    {
+      "id": "machine-theory-of-mind-and-the-structure-of-human-values",
+      "title": "Machine Theory of Mind and the Structure of Human Values",
+      "url": "https://arxiv.org/abs/2505.20342",
+      "year": 2025,
+      "authors": [
+        "Paul de Font-Reaulx"
+      ],
+      "researcherNames": [
+        "Paul de Font-Reaulx"
+      ],
+      "summary": "Argues human values have a generative rational structure, so Bayesian theory-of-mind models can infer values from other values rather than behaviour alone.",
+      "cells": [
+        "dyadic-preferences",
+        "dyadic-norms",
+        "group-preferences"
+      ],
+      "tags": [
+        "theory of mind",
+        "value theory",
+        "bayesian models of cognition"
+      ]
+    },
+    {
+      "id": "morebench-procedural-pluralistic-moral-reasoning",
+      "title": "MoReBench: Evaluating Procedural and Pluralistic Moral Reasoning in Language Models, More than Outcomes",
+      "url": "https://arxiv.org/abs/2510.16380",
+      "year": 2025,
+      "authors": [
+        "Yu Ying Chiu",
+        "Michael S. Lee",
+        "Rachel Calcott",
+        "Brandon Handoko",
+        "Paul de Font-Reaulx",
+        "Raphaël Millière",
+        "Paula Rodriguez",
+        "Chen Bo Calvin Zhang",
+        "Ziwen Han",
+        "Udari Madhushani Sehwag",
+        "et al."
+      ],
+      "researcherNames": [
+        "Rachel Calcott",
+        "Sydney Levine"
+      ],
+      "summary": "Builds a benchmark of 1,000 moral scenarios with expert criteria that scores how models reason through ethical dilemmas, finding systematic bias toward particular ethical frameworks.",
+      "cells": [
+        "dyadic-norms",
+        "group-norms",
+        "community-norms"
+      ],
+      "tags": [
+        "moral reasoning",
+        "ai evaluations",
+        "computational ethics"
+      ]
+    },
+    {
+      "id": "multi-agent-risks-from-advanced-ai",
+      "title": "Multi-Agent Risks from Advanced AI",
+      "url": "https://arxiv.org/abs/2502.14143",
+      "year": 2025,
+      "authors": [
+        "Lewis Hammond",
+        "Alan Chan",
+        "Jesse Clifton",
+        "Jason Hoelscher-Obermaier",
+        "Akbir Khan",
+        "Euan McLean",
+        "Chandler Smith",
+        "Wolfram Barfuss",
+        "Jakob Foerster",
+        "Tomáš Gavenčiak",
+        "et al."
+      ],
+      "researcherNames": [
+        "Georgios Piliouras",
+        "Jakob Foerster",
+        "Jan Kulveit",
+        "Joel Lehman",
+        "Lewis Hammond"
+      ],
+      "summary": "Taxonomises failure modes of interacting AI agents—miscoordination, conflict, collusion—and traces them to information asymmetries, network effects, and emergent agency, with governance priorities.",
+      "cells": [
+        "group-protocols",
+        "global-protocols",
+        "group-incentives"
+      ],
+      "tags": [
+        "multi-agent systems",
+        "ai risk",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "open-problems-in-machine-unlearning-for-ai-safety",
+      "title": "Open Problems in Machine Unlearning for AI Safety",
+      "url": "https://arxiv.org/abs/2501.04952",
+      "year": 2025,
+      "authors": [
+        "Fazl Barez",
+        "Tingchen Fu",
+        "Ameya Prabhu",
+        "Stephen Casper",
+        "Amartya Sanyal",
+        "Adel Bibi",
+        "Aidan O'Gara",
+        "Robert Kirk",
+        "Ben Bucknall",
+        "Tim Fist",
+        "et al."
+      ],
+      "researcherNames": [
+        "Fazl Barez"
+      ],
+      "summary": "Identifies why unlearning cannot by itself govern dual-use knowledge in cybersecurity and CBRN domains, and situates it within broader safety and oversight frameworks.",
+      "cells": [
+        "global-expertise",
+        "national-expertise",
+        "global-protocols"
+      ],
+      "tags": [
+        "ai safety",
+        "ai security",
+        "scalable oversight",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "relational-norms-for-human-ai-cooperation",
+      "title": "Relational Norms for Human-AI Cooperation",
+      "url": "https://arxiv.org/abs/2502.12102",
+      "year": 2025,
+      "authors": [
+        "Brian D. Earp",
+        "Sebastian Porsdam Mann",
+        "Mateo Aboy",
+        "Edmond Awad",
+        "Monika Betzler",
+        "Marietjie Botes",
+        "Rachel Calcott",
+        "Mina Caraccio",
+        "Nick Chater",
+        "Mark Coeckelbergh",
+        "et al."
+      ],
+      "researcherNames": [
+        "Rachel Calcott"
+      ],
+      "summary": "Asks which relationship-specific norms governing teachers, parents, or employers should extend to AI counterparts, and where substitution risks unhealthy dependence.",
+      "cells": [
+        "dyadic-norms",
+        "dyadic-thick-commitments",
+        "dyadic-rights"
+      ],
+      "tags": [
+        "normative ai",
+        "moral psychology",
+        "human-ai interaction"
+      ]
+    },
+    {
+      "id": "resource-rational-contractualism-ai-alignment",
+      "title": "Resource Rational Contractualism Should Guide AI Alignment",
+      "url": "https://arxiv.org/abs/2506.17434",
+      "year": 2025,
+      "authors": [
+        "Sydney Levine",
+        "Matija Franklin",
+        "Tan Zhi-Xuan",
+        "Secil Yanik Guyot",
+        "Lionel Wong",
+        "Daniel Kilov",
+        "Yejin Choi",
+        "Joshua B. Tenenbaum",
+        "Noah Goodman",
+        "Seth Lazar",
+        "et al."
+      ],
+      "researcherNames": [
+        "Sydney Levine"
+      ],
+      "summary": "Grounds alignment in the agreements stakeholders would endorse, approximated through cognitively inspired heuristics that trade deliberative effort against accuracy.",
+      "cells": [
+        "dyadic-thick-commitments",
+        "group-norms",
+        "community-norms"
+      ],
+      "tags": [
+        "contractualism",
+        "ai alignment",
+        "moral reasoning"
+      ]
+    },
+    {
+      "id": "self-interpretability-llms-describe-internal-processes",
+      "title": "Self-Interpretability: LLMs Can Describe Complex Internal Processes that Drive Their Decisions",
+      "url": "https://arxiv.org/abs/2505.17120",
+      "year": 2025,
+      "authors": [
+        "Dillon Plunkett",
+        "Adam Morris",
+        "Keerthi Reddy",
+        "Jorge Morales"
+      ],
+      "researcherNames": [
+        "Adam Morris"
+      ],
+      "summary": "Fine-tunes language models on quantitative preferences and finds they report those preferences accurately, with the training generalizing to explanations of other decisions.",
+      "cells": [
+        "dyadic-expertise",
+        "dyadic-protocols",
+        "group-expertise"
+      ],
+      "tags": [
+        "interpretability",
+        "introspection",
+        "ai cognition"
+      ]
+    },
+    {
+      "id": "streamlining-equal-shares",
+      "title": "Streamlining Equal Shares",
+      "url": "https://arxiv.org/abs/2502.11797",
+      "year": 2025,
+      "authors": [
+        "Sonja Kraiczy",
+        "Isaac Robinson",
+        "Edith Elkind"
+      ],
+      "researcherNames": [
+        "Sonja Kraiczy"
+      ],
+      "summary": "Addresses the unspent-budget problem in proportional participatory budgeting with a completion heuristic that matches existing methods at lower computational cost.",
+      "cells": [
+        "community-preferences",
+        "community-protocols",
+        "group-protocols"
+      ],
+      "tags": [
+        "participatory budgeting",
+        "method of equal shares",
+        "proportionality"
+      ]
+    },
+    {
+      "id": "superintelligent-agents-pose-catastrophic-risks-scientist-ai",
+      "title": "Superintelligent Agents Pose Catastrophic Risks: Can Scientist AI Offer a Safer Path?",
+      "url": "https://arxiv.org/abs/2502.15657",
+      "year": 2025,
+      "authors": [
+        "Yoshua Bengio",
+        "Michael Cohen",
+        "Damiano Fornasiere",
+        "Joumana Ghosn",
+        "Pietro Greiner",
+        "Matt MacDermott",
+        "Sören Mindermann",
+        "Adam Oberman",
+        "Jesse Richardson",
+        "Oliver Richardson",
+        "et al."
+      ],
+      "researcherNames": [
+        "Damiano Fornasiere"
+      ],
+      "summary": "Argues that agentic frontier systems threaten human oversight, and proposes a non-agentic explanatory system with explicit uncertainty as a safeguard and research accelerator.",
+      "cells": [
+        "global-expertise",
+        "national-expertise",
+        "global-rights"
+      ],
+      "tags": [
+        "scientist ai",
+        "ai existential risk",
+        "ai safety",
+        "ai governance"
+      ]
+    },
+    {
+      "id": "tackling-civic-participation-challenges-with-emerging-technologies",
+      "title": "Tackling civic participation challenges with emerging technologies: Beyond the hype",
+      "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/04/tackling-civic-participation-challenges-with-emerging-technologies_bbe2a7f5/ec2ca9a2-en.pdf",
+      "year": 2025,
+      "authors": [
+        "Mauricio Mejia",
+        "Paulina Boéchat",
+        "Eloise Gabadou"
+      ],
+      "researcherNames": [
+        "Eloïse Gabadou"
+      ],
+      "summary": "Assesses how AI, blockchain, and virtual reality can lower barriers to citizen participation and make deliberative processes more intelligible and accountable to governments.",
+      "cells": [
+        "national-protocols",
+        "community-protocols",
+        "national-preferences"
+      ],
+      "tags": [
+        "civic technology",
+        "democratic participation",
+        "participatory policymaking"
+      ]
+    },
+    {
+      "id": "the-influence-of-scaffolds-on-coordination-scaling-laws",
+      "title": "The Influence of Scaffolds on Coordination Scaling Laws in LLM Agents",
+      "url": "https://neurips.cc/virtual/2025/loc/san-diego/124568",
+      "year": 2025,
+      "authors": [
+        "Mariana Meireles",
+        "Niklas Lauffer",
+        "Rupali Bhati",
+        "Cameron Allen"
+      ],
+      "researcherNames": [
+        "Mariana Meireles"
+      ],
+      "summary": "Finds that coordination among LLM agents improves with model scale only when scaffolds supply explicit collaboration structure, and breaks down without them.",
+      "cells": [
+        "group-protocols",
+        "dyadic-protocols",
+        "group-norms"
+      ],
+      "tags": [
+        "coordination scaling laws",
+        "multi-agent llms",
+        "cooperative ai"
+      ]
+    },
+    {
+      "id": "the-lock-in-hypothesis-stagnation-by-algorithm",
+      "title": "The Lock-in Hypothesis: Stagnation by Algorithm",
+      "url": "https://arxiv.org/abs/2506.06166",
+      "year": 2025,
+      "authors": [
+        "Tianyi Alex Qiu",
+        "Zhonghao He",
+        "Tejasveer Chugh",
+        "Max Kleiman-Weiner"
+      ],
+      "researcherNames": [
+        "Tianyi Alex Qiu",
+        "Zhonghao He"
+      ],
+      "summary": "Formalizes a human-AI feedback loop in which models absorb and re-emit user beliefs, and finds sustained diversity drops in real GPT usage after model releases.",
+      "cells": [
+        "community-norms",
+        "national-preferences",
+        "global-norms"
+      ],
+      "tags": [
+        "gradual disempowerment",
+        "ai impacts",
+        "pluralism"
+      ]
+    },
+    {
+      "id": "the-philosophic-turn-for-ai-agents",
+      "title": "The Philosophic Turn for AI Agents: Replacing centralized digital rhetoric with decentralized truth-seeking",
+      "url": "https://arxiv.org/abs/2504.18601",
+      "year": 2025,
+      "authors": [
+        "Philipp Koralus"
+      ],
+      "researcherNames": [
+        "Philipp Koralus"
+      ],
+      "summary": "Argues that nudge-based AI decision support erodes autonomy at scale, and proposes Socratic, decentralized truth-seeking systems that leave judgment with the user.",
+      "cells": [
+        "dyadic-expertise",
+        "dyadic-preferences",
+        "national-preferences"
+      ],
+      "tags": [
+        "truth-seeking ai",
+        "philosophy of ai",
+        "ai manipulation"
+      ]
+    },
+    {
+      "id": "the-stories-we-govern-by-ai-risk-imaginaries",
+      "title": "The Stories We Govern By: AI, Risk, and the Power of Imaginaries",
+      "url": "https://ojs.aaai.org/index.php/AIES/article/view/36686",
+      "year": 2025,
+      "authors": [
+        "Ninell Oldenburg",
+        "Gleb Papyshev"
+      ],
+      "researcherNames": [
+        "ninell oldenburg"
+      ],
+      "summary": "Examines how competing imaginaries of AI risk shape which governance arrangements become thinkable, and which policy alternatives are foreclosed as a result.",
+      "cells": [
+        "national-norms",
+        "global-norms",
+        "national-expertise"
+      ],
+      "tags": [
+        "ai governance",
+        "ai policy",
+        "political philosophy"
+      ]
+    },
+    {
+      "id": "collective-dialogues-israeli-palestinian-peacebuilders",
+      "title": "Using Collective Dialogues and AI to Find Common Ground Between Israeli and Palestinian Peacebuilders",
+      "url": "https://arxiv.org/abs/2503.01769",
+      "year": 2025,
+      "authors": [
+        "Andrew Konya",
+        "Luke Thorburn",
+        "Wasim Almasri",
+        "Oded Adomi Leshem",
+        "Ariel D. Procaccia",
+        "Lisa Schirch",
+        "Michiel A. Bakker"
+      ],
+      "researcherNames": [
+        "Andrew Konya"
+      ],
+      "summary": "Applies language models, social choice methods, and collective dialogues with 138 peacebuilders to produce shared statements endorsed by at least 84 percent on each side.",
+      "cells": [
+        "global-preferences",
+        "community-preferences",
+        "global-thick-commitments"
+      ],
+      "tags": [
+        "conflict resolution",
+        "democratic deliberation",
+        "collective intelligence"
+      ]
+    },
+    {
+      "id": "utility-inspired-reward-transformations",
+      "title": "Utility-inspired Reward Transformations Improve Reinforcement Learning Training of Language Models",
+      "url": "https://arxiv.org/abs/2501.06248",
+      "year": 2025,
+      "authors": [
+        "Roberto-Rafael Maura-Rivero",
+        "Chirag Nagpal",
+        "Roma Patel",
+        "Francesco Visin"
+      ],
+      "researcherNames": [
+        "Roberto-Rafael Maura-Rivero"
+      ],
+      "summary": "Applies Inada conditions from utility theory to aggregate multiple reward models, weighting low scores more heavily than simple averaging across helpfulness and harm dimensions.",
+      "cells": [
+        "dyadic-preferences",
+        "group-preferences",
+        "group-incentives"
+      ],
+      "tags": [
+        "reward modeling",
+        "rlhf",
+        "ai alignment"
+      ]
+    },
+    {
+      "id": "an-allied-world-on-the-american-ai-stack",
+      "title": "An Allied World on the American AI Stack: A Strategy for Export Leadership",
+      "url": "https://www.thefai.org/posts/an-allied-world-on-the-american-ai-stack-a-strategy-for-export-leadership",
+      "year": 2026,
+      "authors": [
+        "Anton Leicht",
+        "Sarosh Nagar",
+        "Liam Patell",
+        "Sam Winter-Levy"
+      ],
+      "researcherNames": [
+        "Liam Patell"
+      ],
+      "summary": "Proposes exporter consortia, diplomatic engagement, and targeted financing to diffuse US AI technology and standards to treaty allies and Global South swing states.",
+      "cells": [
+        "global-protocols",
+        "global-incentives",
+        "national-expertise"
+      ],
+      "tags": [
+        "ai policy",
+        "international relations",
+        "national security"
+      ]
+    },
+    {
+      "id": "deliberationbench-normative-benchmark-llm-influence",
+      "title": "DeliberationBench: A Normative Benchmark for the Influence of Large Language Models on Users' Views",
+      "url": "https://arxiv.org/abs/2603.10018",
+      "year": 2026,
+      "authors": [
+        "Luke Hewitt",
+        "Maximilian Kroner Dale",
+        "Paul de Font-Reaulx"
+      ],
+      "researcherNames": [
+        "Maximilian Kroner Dale",
+        "Paul de Font-Reaulx"
+      ],
+      "summary": "Benchmarks how far six frontier language models shift 4,088 participants' policy views, using Deliberative Polling data as a standard for democratically legitimate influence.",
+      "cells": [
+        "national-preferences",
+        "community-preferences",
+        "dyadic-preferences"
+      ],
+      "tags": [
+        "deliberative democracy",
+        "ai evaluations",
+        "ai manipulation"
+      ]
+    },
+    {
+      "id": "from-democracies-to-autocracies",
+      "title": "From Democracies to Autocracies: How AI Systems Enable Authoritarianism by Design",
+      "url": "https://arxiv.org/abs/2606.17286",
+      "year": 2026,
+      "authors": [
+        "Jeba Sania",
+        "Marta Ziosi",
+        "Fazl Barez"
+      ],
+      "researcherNames": [
+        "Fazl Barez"
+      ],
+      "summary": "Maps six deployed AI systems across regimes to identify design and governance features—data centralisation, regulatory gaps, weak oversight—that enable authoritarian control.",
+      "cells": [
+        "national-rights",
+        "national-protocols",
+        "national-expertise"
+      ],
+      "tags": [
+        "ai governance",
+        "political philosophy",
+        "technology governance"
+      ]
+    },
+    {
+      "id": "legal-alignment-for-safe-and-ethical-ai",
+      "title": "Legal Alignment for Safe and Ethical AI",
+      "url": "https://arxiv.org/abs/2601.04175",
+      "year": 2026,
+      "authors": [
+        "Noam Kolt",
+        "Nicholas Caputo",
+        "Jack Boeglin",
+        "Cullen O'Keefe",
+        "Rishi Bommasani",
+        "Stephen Casper",
+        "Mariano-Florentino Cuéllar",
+        "Noah Feldman",
+        "Iason Gabriel",
+        "Gillian K. Hadfield",
+        "et al."
+      ],
+      "researcherNames": [
+        "Nick Caputo"
+      ],
+      "summary": "Sets out legal alignment as a field, proposing that AI systems follow lawful rules, borrow legal interpretation methods, and use legal concepts as structural scaffolding.",
+      "cells": [
+        "national-rights",
+        "national-protocols",
+        "global-rights"
+      ],
+      "tags": [
+        "legal alignment",
+        "ai law",
+        "ai alignment"
+      ]
+    },
+    {
+      "id": "legal-infrastructure-transformative-ai",
+      "title": "Legal Infrastructure for Transformative AI Governance",
+      "url": "https://arxiv.org/abs/2602.01474",
+      "year": 2026,
+      "authors": [
+        "Gillian Hadfield"
+      ],
+      "researcherNames": [
+        "Gillian Hadfield"
+      ],
+      "summary": "Shifts attention from choosing rules to building legal systems that can generate and implement rules for frontier models and autonomous agents.",
+      "cells": [
+        "national-protocols",
+        "national-rights",
+        "global-protocols"
+      ],
+      "tags": [
+        "ai law",
+        "ai governance",
+        "technology governance"
+      ]
+    },
+    {
+      "id": "mechanism-design-not-enough",
+      "title": "Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI",
+      "url": "https://arxiv.org/abs/2605.08426",
+      "year": 2026,
+      "authors": [
+        "Xuanqiang Angelo Huang",
+        "Charlie Tharas",
+        "Samuele Marro",
+        "Van Q. Truong",
+        "Bernhard Schölkopf",
+        "Emanuele La Malfa",
+        "Zhijing Jin"
+      ],
+      "researcherNames": [
+        "Samuele Marro"
+      ],
+      "summary": "Shows formally and experimentally why incomplete contracts leave welfare losses that mechanism design alone cannot eliminate in multi-agent environments.",
+      "cells": [
+        "dyadic-incentives",
+        "group-incentives",
+        "group-norms"
+      ],
+      "tags": [
+        "mechanism design",
+        "cooperative ai",
+        "multi-agent systems"
+      ]
+    }
+  ]
+}

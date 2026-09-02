@@ -103,6 +103,66 @@ let gridCellsCache: Record<string, GridCell> | undefined;
 let methodsCache: Record<string, MethodTag[]> | undefined;
 let humanInstitutionsCache: HumanInstitutionsData | undefined;
 
+export interface ResearchWorkAnnotation {
+  year: number;
+  summary: string;
+  cells: string[];
+  // Field tags describing what the work is ABOUT. Works used to inherit their
+  // authors' fields, so a paper was filed under whatever its authors happened
+  // to work on generally rather than its own subject. These use the same
+  // vocabulary as researcher tags -- see research-fields.ts.
+  tags: string[];
+  // Optional full author list, in the paper's own order. Canonical works
+  // otherwise derive authors from their DB researcher links, which cannot
+  // represent authors who are not in the roster or preserve author order.
+  authors?: string[];
+}
+
+export interface CuratedResearchWork extends ResearchWorkAnnotation {
+  id: string;
+  title: string;
+  url: string;
+  authors: string[];
+  researcherNames: string[];
+}
+
+export interface ResearchWorksCatalog {
+  annotations: Record<string, ResearchWorkAnnotation>;
+  additional: CuratedResearchWork[];
+}
+
+let researchWorksCache: ResearchWorksCatalog | undefined;
+
+export function loadResearchWorksCatalog(): ResearchWorksCatalog {
+  if (researchWorksCache) return researchWorksCache;
+  const src = rootByName["research-works.json"];
+  if (!src) return { annotations: {}, additional: [] };
+  const catalog = JSON.parse(src) as ResearchWorksCatalog;
+  const validCells = new Set(ROWS.flatMap((row) => COLS.map((col) => `${row.id}-${col.id}`)));
+  const errors: string[] = [];
+  for (const [title, annotation] of Object.entries(catalog.annotations ?? {})) {
+    if (!title || !annotation.summary || !Number.isInteger(annotation.year)) {
+      errors.push(`annotation ${title || "(untitled)"}: year and summary are required`);
+    }
+    for (const cell of annotation.cells ?? []) {
+      if (!validCells.has(cell)) errors.push(`annotation ${title}: unknown cell ${cell}`);
+    }
+    if (!annotation.tags?.length) errors.push(`annotation ${title}: at least one field tag is required`);
+  }
+  for (const work of catalog.additional ?? []) {
+    if (!work.id || !work.title || !work.url || !work.summary || !Number.isInteger(work.year)) {
+      errors.push(`additional work ${work.id || "(missing id)"}: required metadata is missing`);
+    }
+    for (const cell of work.cells ?? []) {
+      if (!validCells.has(cell)) errors.push(`${work.id}: unknown cell ${cell}`);
+    }
+    if (!work.tags?.length) errors.push(`${work.id}: at least one field tag is required`);
+  }
+  if (errors.length) throw new Error(`invalid research-works.json:\n${errors.join("\n")}`);
+  researchWorksCache = catalog;
+  return catalog;
+}
+
 // Read a single cell by "{row}-{col}" key. Returns null if missing.
 export function loadCell(key: string): Cell | null {
   const raw = cellsByKey[key];

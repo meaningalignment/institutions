@@ -9,6 +9,9 @@
 // include `warm` too — see plans/…: "Friends group: warm+committed?".)
 
 import { getSql } from "./db.server";
+import { loadResearchWorksCatalog } from "./content.server";
+import { researcherNameSlug } from "./researcher-links";
+import { researchFieldsFor } from "./research-fields";
 
 export interface Researcher {
   id: number;
@@ -35,6 +38,22 @@ export interface Community {
   friends: Researcher[];
 }
 
+export interface ResearchWork {
+  id: string;
+  title: string;
+  url: string | null;
+  year: number | null;
+  summary: string | null;
+  tier: "canonical" | "more";
+  authors: string[];
+  researchers: Pick<Researcher, "id" | "name" | "handle">[];
+  cells: string[];
+  // A work carries no fields of its own; it inherits the union of its linked
+  // researchers' fields so one field selector can filter people and papers.
+  // Fields the work itself belongs to, derived from its own subject tags.
+  fieldIds: string[];
+}
+
 const FRIEND_COMMITMENTS = new Set(["committed"]);
 
 // Researcher photos are stored as site-relative paths (e.g. /photos/x.jpg).
@@ -47,18 +66,19 @@ function photoSrc(p: string | null | undefined): string | null {
 }
 
 function toResearcher(r: any): Researcher {
+  const tags = r.tags ?? [];
   return {
     id: r.id,
     name: r.name ?? "",
     handle: r.handle ?? "",
     affiliation: r.affiliation ?? "",
-    bio: r.bio ?? null,
+    bio: typeof r.bio === "string" && r.bio.trim() ? r.bio : null,
     bioSourceUrl: r.bio_source_url ?? null,
     photoUrl: photoSrc(r.photo_url),
     scholarUrl: r.scholar_url ?? null,
     rows: r.rows ?? [],
     methods: r.methods ?? [],
-    tags: r.tags ?? [],
+    tags,
     seniority: r.seniority ?? null,
     commitment: r.commitment ?? null,
     contributionAreas: r.contribution_areas ?? [],
@@ -106,7 +126,15 @@ export async function getCommunity(): Promise<Community> {
       groups.friends.push(r);
     }
   }
-  const byName = (a: Researcher, b: Researcher) => a.name.localeCompare(b.name);
+  // People with a known affiliation sort above those without, then
+  // alphabetically within each block -- an unattributed card reads as less
+  // complete, so it should not lead the list.
+  const byName = (a: Researcher, b: Researcher) => {
+    const aHas = a.affiliation.trim() !== "";
+    const bHas = b.affiliation.trim() !== "";
+    if (aHas !== bHas) return aHas ? -1 : 1;
+    return a.name.localeCompare(b.name);
+  };
   groups.advisors.sort(byName);
   groups.community.sort(byName);
   groups.friends.sort(byName);
@@ -114,20 +142,127 @@ export async function getCommunity(): Promise<Community> {
   return groups;
 }
 
+// Author strings in the works catalog vary from the roster in case, accents
+// and hyphenation ("Tan Zhi-Xuan" vs "Tan Zhi Xuan"), so match on a folded
+// form rather than requiring the exact string.
+function nameKey(name: string): string {
+  return name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "");
+}
+
+// Papers read most-recent-first. `year` comes from the JSON annotations, not
+// the DB, so this cannot be an ORDER BY — it has to run after the join.
+// Works with no known year sort last, then alphabetically within a year.
+function byYearDesc(
+  a: { year: number | null; title: string },
+  b: { year: number | null; title: string },
+): number {
+  if (a.year !== b.year) {
+    if (a.year === null) return 1;
+    if (b.year === null) return -1;
+    return b.year - a.year;
+  }
+  return a.title.localeCompare(b.title);
+}
+
+// A work's fields come from its own subject tags, not from its authors'.
+// Author-derived fields filed a paper under whatever its authors worked on
+// generally, so a deliberation paper by a game theorist landed in game theory.
+function fieldIdsForTags(tags: string[]): string[] {
+  return researchFieldsFor({ name: "", tags }).map((field) => field.id);
+}
+
+export async function getResearchWorks(researchers: Researcher[]): Promise<ResearchWork[]> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT cw.id, cw.title, cw.url,
+      COALESCE(
+        json_agg(json_build_object('id', r.id, 'name', r.name, 'handle', r.handle)
+          ORDER BY lower(COALESCE(r.name, '')), r.name)
+          FILTER (WHERE r.id IS NOT NULL),
+        '[]'
+      ) AS researchers
+    FROM canonical_works cw
+    LEFT JOIN researcher_canonical_works rcw ON rcw.canonical_work_id = cw.id
+    LEFT JOIN researchers r ON r.id = rcw.researcher_id
+    GROUP BY cw.id, cw.title, cw.url
+    ORDER BY lower(cw.title), cw.title
+  `) as any[];
+  const catalog = loadResearchWorksCatalog();
+  const researcherByName = new Map(researchers.map((researcher) => [nameKey(researcher.name), researcher]));
+  const researcherById = new Map(researchers.map((researcher) => [researcher.id, researcher]));
+  const canonical: ResearchWork[] = rows.map((row) => {
+    const annotation = catalog.annotations[row.title];
+    const linked = (row.researchers ?? []).map((researcher: any) => ({
+      id: researcher.id,
+      name: researcher.name ?? "",
+      handle: researcher.handle ?? "",
+    }));
+    return {
+      id: `canonical-${row.id}`,
+      title: row.title,
+      url: row.url ?? null,
+      year: annotation?.year ?? null,
+      summary: annotation?.summary ?? null,
+      tier: "canonical" as const,
+      // Prefer the annotation's full author list (correct order, includes
+      // authors who are not in the roster); fall back to the DB links.
+      authors: annotation?.authors ?? linked.map((researcher: { name: string }) => researcher.name),
+      researchers: linked,
+      cells: annotation?.cells ?? [],
+      fieldIds: fieldIdsForTags(annotation?.tags ?? []),
+    };
+  });
+  const additional: ResearchWork[] = catalog.additional.map((work) => {
+    // researcherNames is a hand-curated list, but an author who is in the
+    // directory under exactly that name belongs on the paper too — otherwise
+    // the work never shows up on their profile.
+    const linked = [...new Set([
+      ...work.researcherNames.map(nameKey),
+      ...work.authors.filter((name) => name !== "et al.").map(nameKey),
+    ])]
+      .map((key) => researcherByName.get(key))
+      .filter((researcher): researcher is Researcher => !!researcher);
+    return {
+      id: `more-${work.id}`,
+      title: work.title,
+      url: work.url,
+      year: work.year,
+      summary: work.summary,
+      tier: "more" as const,
+      authors: work.authors,
+      researchers: linked.map(({ id, name, handle }) => ({ id, name, handle })),
+      cells: work.cells,
+      fieldIds: fieldIdsForTags(work.tags),
+    };
+  });
+  return [...canonical, ...additional].sort(byYearDesc);
+}
+
 export interface ResearcherProfile extends Researcher {
   involvements: { kind: string; name: string }[];
-  canonicalWorks: { title: string; url: string | null }[];
+  canonicalWorks: { title: string; url: string | null; year: number | null; summary: string | null }[];
+  moreWorks: { title: string; url: string; year: number; summary: string }[];
 }
 
 export async function getResearcher(handleParam: string): Promise<ResearcherProfile | null> {
   const sql = getSql();
   const bare = handleParam.replace(/^@/, "");
-  const rows = (await sql`
+  let rows = (await sql`
     SELECT id, name, handle, affiliation, bio, bio_source_url, photo_url, scholar_url, rows, methods,
         tags, seniority, commitment, contribution_areas, world_class_methods
     FROM researchers
     WHERE handle = ${"@" + bare} OR handle = ${bare} LIMIT 1
   `) as any[];
+  if (!rows.length) {
+    const peopleWithoutHandles = (await sql`
+      SELECT id, name, handle, affiliation, bio, bio_source_url, photo_url, scholar_url, rows, methods,
+          tags, seniority, commitment, contribution_areas, world_class_methods
+      FROM researchers
+      WHERE handle IS NULL OR btrim(handle) = ${""}
+    `) as any[];
+    const match = peopleWithoutHandles.find((person) => researcherNameSlug(person.name ?? "") === bare.toLowerCase());
+    rows = match ? [match] : [];
+  }
   if (!rows.length) return null;
   const base = toResearcher(rows[0]);
 
@@ -147,10 +282,24 @@ export async function getResearcher(handleParam: string): Promise<ResearcherProf
     `,
   ]);
 
+  const catalog = loadResearchWorksCatalog();
   return {
     ...base,
     advisesAbout: (advisor as any[])[0]?.advises_about ?? null,
     involvements: (involvements as any[]).map((i) => ({ kind: i.kind, name: i.name })),
-    canonicalWorks: (works as any[]).map((w) => ({ title: w.title, url: w.url ?? null })),
+    canonicalWorks: (works as any[])
+      .map((w) => ({
+        title: w.title,
+        url: w.url ?? null,
+        year: catalog.annotations[w.title]?.year ?? null,
+        summary: catalog.annotations[w.title]?.summary ?? null,
+      }))
+      .sort(byYearDesc),
+    // Match the atlas: a work counts as theirs if they are curated onto it or
+    // credited as an author under exactly this name.
+    moreWorks: catalog.additional
+      .filter((work) => [...work.researcherNames, ...work.authors].some((name) => nameKey(name) === nameKey(base.name)))
+      .map(({ title, url, year, summary }) => ({ title, url, year, summary }))
+      .sort(byYearDesc),
   };
 }

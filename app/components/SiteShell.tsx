@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useMatches } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import { COLS, GITHUB_REPO, ROWS, SITE_NAME } from "../lib/constants";
 
 const INTERNAL_ROUTE_PREFIXES = ["/researchers/admin", "/admin", "/login", "/logout"];
@@ -112,110 +112,6 @@ function AtlasRow({
   );
 }
 
-const COMMUNITY_SECTIONS = [
-  { id: "scouts-advisors", label: "Scouts & advisors" },
-  { id: "community-members", label: "Community members" },
-  { id: "friends", label: "Friends" },
-] as const;
-
-type SidebarProfile = {
-  name: string;
-  handle: string;
-  advisesAbout?: string | null;
-  involvements: { kind: string; name: string }[];
-};
-
-function sidebarProfile(loaderData: unknown): SidebarProfile | null {
-  if (typeof loaderData !== "object" || loaderData === null) return null;
-  const candidate =
-    "researcher" in loaderData &&
-    typeof loaderData.researcher === "object" &&
-    loaderData.researcher !== null
-      ? loaderData.researcher
-      : loaderData;
-  if (
-    !("name" in candidate) ||
-    !("handle" in candidate) ||
-    !("involvements" in candidate) ||
-    typeof candidate.name !== "string" ||
-    typeof candidate.handle !== "string" ||
-    !Array.isArray(candidate.involvements)
-  ) {
-    return null;
-  }
-  return candidate as SidebarProfile;
-}
-
-function CommunityTree() {
-  const location = useLocation();
-  const matches = useMatches();
-  const sectionActive = location.pathname.startsWith("/researchers");
-  const profile = /^\/researchers\/[^/]+$/.test(location.pathname)
-    ? matches.map((match) => sidebarProfile(match.loaderData)).find(Boolean) ?? null
-    : null;
-  const profileGroup = profile
-    ? profile.advisesAbout
-      ? "scouts-advisors"
-      : profile.involvements.length
-        ? "community-members"
-        : "friends"
-    : null;
-  const [treeOpen, setTreeOpen] = useState(sectionActive);
-
-  useEffect(() => {
-    if (sectionActive) setTreeOpen(true);
-  }, [sectionActive]);
-
-  return (
-    <section className={`wiki-tree wiki-community-tree${sectionActive ? " is-active" : ""}`}>
-      <div className="wiki-tree-head">
-        <NavLink to="/researchers" prefetch="intent">
-          Research community
-        </NavLink>
-        <button
-          type="button"
-          className="wiki-tree-toggle"
-          aria-label={`${treeOpen ? "Collapse" : "Expand"} Research community`}
-          aria-expanded={treeOpen}
-          onClick={() => setTreeOpen((value) => !value)}
-        >
-          <span className="wiki-tree-caret" aria-hidden="true" />
-        </button>
-      </div>
-      {treeOpen && (
-        <div className="wiki-tree-links wiki-community-links">
-          {COMMUNITY_SECTIONS.map((section) => {
-            const containsProfile = profileGroup === section.id;
-            return (
-              <div key={section.id} className="wiki-community-branch">
-                <Link
-                  to={`/researchers#${section.id}`}
-                  className={
-                    sectionActive && location.hash === `#${section.id}`
-                      ? "active"
-                      : containsProfile
-                        ? "is-ancestor"
-                        : undefined
-                  }
-                >
-                  {section.label}
-                </Link>
-                {containsProfile && profile && (
-                  <div className="wiki-community-person">
-                    <Link to={location.pathname} className="active" aria-current="page">
-                      {profile.name}
-                    </Link>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </section>
-  );
-}
-
 function MenuIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 18 18">
@@ -297,13 +193,6 @@ export function SiteShell({
           <NavLink className="wiki-nav-primary" to="/curriculum">
             Curriculum
           </NavLink>
-          {adminPreview ? (
-            <CommunityTree />
-          ) : (
-            <NavLink className="wiki-nav-primary" to="/researchers" prefetch="intent">
-              Research community
-            </NavLink>
-          )}
         </nav>
         <div className="wiki-sidebar-actions">
           <Link to={adminPreview ? "/researchers/admin" : "/login"}>

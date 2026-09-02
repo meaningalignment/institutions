@@ -3,41 +3,43 @@ import type { Route } from "./+types/researcher-profile";
 import { getResearcher } from "../lib/researchers.server";
 import { Highlight } from "../components/ResearcherCard";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
-import { getAuthorizedAdminSession } from "../lib/auth.server";
-import { ComingSoon } from "../components/ComingSoon";
+import { researcherProfilePath } from "../lib/researcher-links";
 
-export async function loader({ params, request }: Route.LoaderArgs) {
-  const session = await getAuthorizedAdminSession(request);
-  if (!session) return { preview: false as const };
+export async function loader({ params }: Route.LoaderArgs) {
   const researcher = await getResearcher(params.handle);
   if (!researcher) throw data("Researcher not found", { status: 404 });
-  return { preview: true as const, researcher };
+  return { researcher };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const researcher = loaderData?.preview ? loaderData.researcher : null;
+  const researcher = loaderData?.researcher;
   const name = researcher?.name ?? "Research community";
   return [
     { title: `${name} — ${SITE_NAME}` },
-    ...(!loaderData?.preview ? [{ name: "robots", content: "noindex" }] : []),
     {
       tagName: "link",
       rel: "canonical",
       href: researcher
-        ? `${SITE_ORIGIN}/researchers/${researcher.handle.replace(/^@/, "")}`
+        ? `${SITE_ORIGIN}${researcherProfilePath(researcher)}`
         : `${SITE_ORIGIN}/researchers/`,
     },
   ];
 }
 
-function TopicList({ label, items }: { label: string; items: string[] }) {
-  if (!items.length) return null;
+// The profile shows the person's own roster tags rather than the coarse
+// research fields: the tags are what they actually said they work on, and a
+// field label ("AI governance & policy") loses that precision. They are not
+// links -- a specific tag pointing at a much broader field filter promises
+// something the click does not deliver. Fields still drive the directory
+// filter; this is display only.
+function TagList({ tags }: { tags: string[] }) {
+  if (!tags.length) return null;
   return (
     <div className="researcher-profile-field">
-      <div className="researcher-profile-label">{label}</div>
+      <div className="researcher-profile-label">Works on</div>
       <div className="researcher-profile-tags">
-        {items.map((m) => (
-          <span key={m}>{m}</span>
+        {tags.map((tag) => (
+          <span key={tag}>{tag}</span>
         ))}
       </div>
     </div>
@@ -45,16 +47,15 @@ function TopicList({ label, items }: { label: string; items: string[] }) {
 }
 
 export default function ResearcherProfile({ loaderData }: Route.ComponentProps) {
-  if (!loaderData.preview) {
-    return <ComingSoon section="Research community" source="researchers" />;
-  }
   const r = loaderData.researcher;
+  const tags = r.tags ?? [];
   const bare = r.handle.replace(/^@/, "");
   const communitySection = r.advisesAbout
     ? { id: "scouts-advisors", label: "Scouts & advisors" }
     : r.involvements.length
       ? { id: "community-members", label: "Community members" }
-      : { id: "friends", label: "Friends" };
+      // Friends is hidden on /researchers for now, so there is no anchor to link to.
+      : { id: null, label: "Friends" };
 
   return (
     <>
@@ -65,7 +66,9 @@ export default function ResearcherProfile({ loaderData }: Route.ComponentProps) 
         <nav className="researcher-profile-breadcrumb" aria-label="Breadcrumb">
           <Link to="/researchers">Research community</Link>
           <span aria-hidden="true">›</span>
-          <Link to={`/researchers#${communitySection.id}`}>{communitySection.label}</Link>
+          {communitySection.id
+            ? <Link to={`/researchers#${communitySection.id}`}>{communitySection.label}</Link>
+            : <span>{communitySection.label}</span>}
           <span aria-hidden="true">›</span>
           <span aria-current="page">{r.name}</span>
         </nav>
@@ -109,36 +112,32 @@ export default function ResearcherProfile({ loaderData }: Route.ComponentProps) 
         {r.bio && (
           <div className="researcher-profile-bio-block">
             <p className="researcher-profile-bio">{r.bio}</p>
-            {r.bioSourceUrl && (
-              <a
-                className="researcher-profile-bio-source"
-                href={r.bioSourceUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Bio from Pax Machina
-              </a>
-            )}
           </div>
         )}
 
         {r.advisesAbout && (
-          <p className="researcher-profile-scouts">
-            <Highlight>
-              <span className="text-[color:var(--muted)]">Scouts for </span>
-              {r.advisesAbout}
-            </Highlight>
-          </p>
+          <div className="researcher-profile-field">
+            <div className="researcher-profile-label">Scouts for</div>
+            <p className="researcher-profile-scouts">
+              <Highlight>{r.advisesAbout}</Highlight>
+            </p>
+          </div>
         )}
 
-        <TopicList label="Areas of work" items={r.tags} />
+        <TagList tags={tags} />
 
         {r.canonicalWorks.length > 0 && (
           <section className="researcher-profile-works">
-            <h2>Selected work</h2>
-            <ul>
+            <h2>Selected papers</h2>
+            <p className="researcher-profile-work-intro">
+              Chosen by the community&rsquo;s{" "}
+              <Link to="/researchers#scouts-advisors">scouts</Link>{" "}
+              as part of the project&rsquo;s shared core.
+            </p>
+            <div className="researcher-profile-work-list">
               {r.canonicalWorks.map((w, i) => (
-                <li key={i}>
+                <article key={i}>
+                  {w.year ? <span>{w.year}</span> : null}
                   {w.url ? (
                     <a
                       href={w.url}
@@ -150,9 +149,25 @@ export default function ResearcherProfile({ loaderData }: Route.ComponentProps) 
                   ) : (
                     w.title
                   )}
-                </li>
+                  {w.summary ? <p>{w.summary}</p> : null}
+                </article>
               ))}
-            </ul>
+            </div>
+          </section>
+        )}
+
+        {r.moreWorks.length > 0 && (
+          <section className="researcher-profile-works">
+            <h2>{r.canonicalWorks.length > 0 ? "More work in the field" : "Work in the field"}</h2>
+            <div className="researcher-profile-work-list">
+              {r.moreWorks.map((work) => (
+                <article key={work.url}>
+                  <span>{work.year}</span>
+                  <a href={work.url} target="_blank" rel="noreferrer">{work.title}</a>
+                  <p>{work.summary}</p>
+                </article>
+              ))}
+            </div>
           </section>
         )}
       </div>

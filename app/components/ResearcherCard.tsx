@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import type { Researcher } from "../lib/researchers.server";
+import { researcherProfilePath } from "../lib/researcher-links";
 
 export function Highlight({ children }: { children: React.ReactNode }) {
   return <span className="researcher-highlight">{children}</span>;
@@ -18,8 +19,8 @@ function bareHandle(handle: string): string {
   return handle.replace(/^@/, "");
 }
 
-export function ResearcherCard({ researcher: r }: { researcher: Researcher }) {
-  const profileHref = `/researchers/${bareHandle(r.handle)}`;
+export function ResearcherCard({ researcher: r, paperCount = 0 }: { researcher: Researcher; paperCount?: number }) {
+  const profileHref = researcherProfilePath(r);
 
   return (
     // Stretched-link card: the name <Link> covers the whole card via its
@@ -58,6 +59,14 @@ export function ResearcherCard({ researcher: r }: { researcher: Researcher }) {
             <span>Scouts for </span>
             {r.advisesAbout}
           </Highlight>
+        </div>
+      )}
+
+      {paperCount > 0 && (
+        // "relevant" is load-bearing: this counts the papers in the atlas, not
+        // the person's whole publication record, which is usually far larger.
+        <div className="researcher-card-paper-count">
+          {paperCount} relevant {paperCount === 1 ? "paper" : "papers"}
         </div>
       )}
 

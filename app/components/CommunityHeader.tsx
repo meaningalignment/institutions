@@ -78,7 +78,7 @@ export function CommunityHeader({
       <p className={`community-page-intro${editing ? " is-editing" : ""}`}>
         {editing
           ? "Manage people, scouts, involvement, and selected work."
-          : "The people building institutions for a world of autonomous AI agents."}
+          : "Researchers collaborating on AGI institutions."}
       </p>
     </>
   );

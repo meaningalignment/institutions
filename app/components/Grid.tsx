@@ -6,6 +6,7 @@ import {
   VISIONS,
   TABS,
   READY_STATUSES,
+  SHOW_COMMUNITY_LINKS,
   type GridCell,
   type HumanInstitution,
   type HumanInstitutionCell,
@@ -323,10 +324,14 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
       </div>
       <footer className="grid-page-footer">
         <Link to="/theory-of-change">What is this?</Link>
-        <span aria-hidden="true">·</span>
-        <Link to="/researchers" prefetch="intent">
-          Who is working on this?
-        </Link>
+        {SHOW_COMMUNITY_LINKS && (
+          <>
+            <span aria-hidden="true">·</span>
+            <Link to="/researchers" prefetch="intent">
+              Who is working on this?
+            </Link>
+          </>
+        )}
       </footer>
     </>
   );

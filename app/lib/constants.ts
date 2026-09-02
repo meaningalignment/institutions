@@ -115,6 +115,15 @@ export const READY_STATUSES = new Set([
 
 export const GITHUB_REPO = "https://github.com/meaningalignment/institutions";
 
+// Feature flags. Isomorphic constants rather than env vars: the flags gate what
+// renders, so the server and client must agree or hydration mismatches.
+//
+// SHOW_COMMUNITY_LINKS gates only the *entry points* to the research community
+// (the sidebar entry and the grid footer link). /researchers and the profile
+// pages stay reachable and crawlable either way -- flip this on to surface them
+// in navigation.
+export const SHOW_COMMUNITY_LINKS = false;
+
 export interface AxisItem {
   id: string;
   name: string;

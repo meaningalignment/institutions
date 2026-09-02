@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
-import { COLS, GITHUB_REPO, ROWS, SITE_NAME } from "../lib/constants";
+import { COLS, GITHUB_REPO, ROWS, SHOW_COMMUNITY_LINKS, SITE_NAME } from "../lib/constants";
 
 const INTERNAL_ROUTE_PREFIXES = ["/researchers/admin", "/admin", "/login", "/logout"];
 
@@ -193,6 +193,11 @@ export function SiteShell({
           <NavLink className="wiki-nav-primary" to="/curriculum">
             Curriculum
           </NavLink>
+          {SHOW_COMMUNITY_LINKS && (
+            <NavLink className="wiki-nav-primary" to="/researchers">
+              Research community
+            </NavLink>
+          )}
         </nav>
         <div className="wiki-sidebar-actions">
           <Link to={adminPreview ? "/researchers/admin" : "/login"}>

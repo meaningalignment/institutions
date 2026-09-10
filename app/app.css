@@ -9,6 +9,7 @@
 @layer theme, base, legacy, components, utilities;
 
 @import "tailwindcss";
+@import "./styles/fonts.css";
 
 /*
  * Legacy stylesheet bridge (shrinks as pages are converted to Tailwind).

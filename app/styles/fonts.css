@@ -1,0 +1,111 @@
+/* ——— Licensed webfont, shared with paxmachina.ai ———
+   Sharp Serif Text (Sharp Type) — page and section titles (--title-font).
+   Body and UI text stay on the system sans stack. */
+
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sharp Serif Text";
+  src: url("/fonts/sharp-serif/SharpSerifText-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ——— Metric-compatible local fallbacks (from pax-machina) ———
+   Used until the licensed face arrives; size-adjust matches average glyph
+   width and the overrides preserve the line box so the swap does not shift
+   layout. */
+@font-face {
+  font-family: "Sharp Serif Text Fallback";
+  src: local("Georgia");
+  font-weight: 400;
+  font-style: normal;
+  size-adjust: 92.42%;
+  ascent-override: 115.78%;
+  descent-override: 35.71%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Sharp Serif Text Fallback";
+  src: local("Georgia Italic");
+  font-weight: 400;
+  font-style: italic;
+  size-adjust: 89.23%;
+  ascent-override: 119.91%;
+  descent-override: 36.98%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Sharp Serif Text Fallback";
+  src: local("Georgia");
+  font-weight: 500;
+  font-style: normal;
+  size-adjust: 93.72%;
+  ascent-override: 114.16%;
+  descent-override: 35.21%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Sharp Serif Text Fallback";
+  src: local("Georgia Italic");
+  font-weight: 500;
+  font-style: italic;
+  size-adjust: 91.13%;
+  ascent-override: 117.42%;
+  descent-override: 36.21%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Sharp Serif Text Fallback";
+  src: local("Georgia Bold");
+  font-weight: 700;
+  font-style: normal;
+  size-adjust: 82.97%;
+  ascent-override: 128.96%;
+  descent-override: 39.77%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Sharp Serif Text Fallback";
+  src: local("Georgia Bold Italic");
+  font-weight: 700;
+  font-style: italic;
+  size-adjust: 81.11%;
+  ascent-override: 131.92%;
+  descent-override: 40.69%;
+  line-gap-override: 0%;
+}

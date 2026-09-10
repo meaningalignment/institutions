@@ -63,7 +63,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   color: var(--text);
   background: var(--paper);
   padding: 44px 32px 32px;
@@ -87,7 +87,7 @@ body {
 }
 
 .pane-title {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 32px;
   font-weight: 400;
   letter-spacing: 0.2px;
@@ -117,7 +117,7 @@ body {
 }
 
 .tab-link {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
@@ -133,7 +133,7 @@ body {
 .tab-short { display: none; }
 
 .nav-link {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
@@ -360,7 +360,7 @@ td .cell-content {
 }
 .human-timeline-period strong {
   color: var(--ink);
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 24px;
   font-weight: 400;
 }
@@ -596,7 +596,7 @@ td .cell-required-label { display: block; }
 body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 
 /* Vision selector dropdown in the page controls. */
-.vision-menu { position: relative; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; width: max-content; }
+.vision-menu { position: relative; font-family: var(--ui-font); width: max-content; }
 .vision-menu > summary {
   list-style: none;
   cursor: pointer;
@@ -691,7 +691,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 /* ── "What is this?" project popup ─────────────────────────────────── */
 
 .about-button {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
@@ -712,7 +712,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
    detail pages (.detail-body h2). */
 .about-section { margin-bottom: 30px; }
 .about-section h3 {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 23px;
   font-weight: 400;
   color: var(--ink);
@@ -1033,7 +1033,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 .detail-breadcrumb a:hover { color: var(--ink); }
 
 .detail-title {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 34px;
   font-weight: 400;
   color: var(--ink);
@@ -1067,7 +1067,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 }
 
 .cell-summary-label {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   text-transform: uppercase;
   letter-spacing: 0.7px;
   font-size: 10px;
@@ -1111,7 +1111,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 }
 
 .detail-body h2 {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 23px;
   font-weight: 400;
   color: var(--ink);
@@ -1178,7 +1178,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 
 .detail-body .vivid-case-label {
   display: block;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.8px;
@@ -1248,7 +1248,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 
 /* Problem sets page */
 .ps-page-title {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 36px;
   font-weight: 400;
   color: var(--ink);
@@ -1264,7 +1264,7 @@ body.tab-human .ps-detail-entry[data-vision] { display: none !important; }
 }
 
 .ps-group-title {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 23px;
   font-weight: 400;
   color: var(--ink);
@@ -1413,7 +1413,7 @@ details.collapsible-section > .collapsible-body { margin-top: 14px; }
 }
 
 .ps-entry-number {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   font-size: 13px;
   font-weight: 700;
   color: var(--faint);
@@ -1447,7 +1447,7 @@ details.collapsible-section > .collapsible-body { margin-top: 14px; }
   border-radius: 50%;
   background: var(--ink);
   color: #fdfcfb;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   font-size: 13px;
   font-weight: 700;
   line-height: 1;
@@ -1540,7 +1540,7 @@ td.has-theory::before {
   color: var(--text);
 }
 .rail-label {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   text-transform: uppercase;
   letter-spacing: 0.7px;
   font-size: 11px;
@@ -1549,7 +1549,7 @@ td.has-theory::before {
   margin-bottom: 12px;
 }
 .rail-body h2, .rail-body h3 {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   font-size: 12.5px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1905,7 +1905,7 @@ details.curr-field > summary.curr-field-summary > h2.curr-field-name {
   margin: 0;
   padding-bottom: 0;
   border-bottom: none;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 28px;
   font-weight: 400;
   color: var(--ink);
@@ -1914,7 +1914,7 @@ details.curr-field > summary.curr-field-summary > h2.curr-field-name {
 details.curr-field > .curr-field-body { margin-top: 24px; }
 
 .curr-page-title {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 44px;
   font-weight: 400;
   color: var(--ink);
@@ -2227,7 +2227,7 @@ details.curr-field.is-relevant { scroll-margin-top: 80px; }
   display: inline-block;
   min-width: 1.1em;
   margin-right: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--ui-font);
   font-size: 0.62em;
   font-weight: 700;
   color: var(--faint);
@@ -2263,7 +2263,7 @@ details.curr-field.is-dimmed .curr-field-num:empty { display: none; }
 }
 
 .curr-main > h2 {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--title-font);
   font-size: 28px;
   font-weight: 400;
   color: var(--ink);

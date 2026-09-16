@@ -118,6 +118,12 @@ For single-mechanism cells, do not force a numbered list. A single layered parag
 
 **Ask what pressures the mechanism created.** A human institution often does more than its most visible output. Job markets do not only distribute income; they can force employers to compete for cooperation, invest in human capital, and answer to worker values. Consumer markets do not only move goods; they can make production answer to household demand. Break analysis should name these secondary pressures when they are part of what made the institution work.
 
+**Run a selection-environment pass.** For every cell, ask: **What behaviors does this system select for?** Identify which behavior receives resources, access, persistence, replication, legitimacy, or protection, and which behavior becomes costly or nonviable. Include pressures created by the institution's surrounding deployment environment, not only the mechanism's declared rule. Check whether truthfulness, uncertainty, cooperation, restraint, repair, appeal, and exit survive when they conflict with speed, scale, growth, strategic advantage, or institutional survival.
+
+This is a cross-cutting lens, not a new grid column and not a synonym for the existing Incentives column. Incentives examines designed payoff and allocation mechanisms directly. The selection-environment pass also examines permissions, ownership, measurement, enforcement, funding, replacement, diffusion, externalized costs, and feedback across the full institutional arrangement.
+
+Do not turn the pass into a single “cooperation” or alignment score. State the relevant pressure and mechanism, identify who can change it, and keep agency and responsibility visible. An environment can favor a behavior without fully determining it.
+
 **Choose the right domain anchor.** Use a specific domain when it makes mechanisms visible. Stay cross-domain when the institution genuinely works across domains.
 
 **Use named examples sparingly.** One named example per mechanism is plenty, only where it adds vividness. Do not double-anchor with multiple examples per clause, and do not repeat the same example across mechanism labels and the vivid case. The vivid case carries the weight; the mechanism labels do not need their own example apparatus.
@@ -158,6 +164,7 @@ Before moving on, check:
 - The mechanism list is neither forced nor flattened.
 - For layered stacks, the form is bullets with bolded labels (what it does + what it trades), unless prose is genuinely warranted.
 - The tradeoffs across the stack are visible: the reader can see why no single instrument is sufficient.
+- The selection-environment pass identifies what becomes viable, durable or replaceable and does not hide surrounding pressures behind the mechanism's stated purpose.
 - Examples are used sparingly — one per mechanism at most, only where they add vividness.
 - The vivid case demonstrates the listed mechanisms.
 - The AGI section starts directly with the expanded At a Glance bullets, or with at most one context-setting sentence where the analogue needs framing.
@@ -323,4 +330,5 @@ Run this once the cell feels close:
 - The analysis is specific, non-anthropomorphic, and institutionally concrete.
 - The problem sets are usable by a group in roughly one hour.
 - The page teaches a designer what has to be rebuilt.
+- The review answers **“What behaviors does this system select for?”** at the relevant institutional scale, including displaced costs, feedback and conditions for contest, repair or exit.
 - If present, the `## Theory of change` section names a wedge, a ladder, and a diffusion mechanism, and the four scores are set deliberately (see §4).

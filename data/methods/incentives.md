@@ -30,3 +30,21 @@ methods:
 - **The revelation principle** — any mechanism's outcome can be replicated by a direct, truthful mechanism.
 - **Matching markets** — two-sided markets (school choice, residency matching, organ exchange).
 - **Metrology** — the science of measurement, critical for defining what incentive mechanisms measure and reward.
+
+## Selection-environment lens
+
+Mechanism design asks how rules and payoffs shape behavior. The broader institutional review should also ask:
+
+> **What behaviors does this system select for?**
+
+Look beyond the stated incentive to the full environment in which a mechanism operates:
+
+- which participants or designs receive resources, access, persistence, replication, or legitimacy;
+- which measurements become targets and what they leave unmeasured;
+- which costs can be displaced onto parties outside the mechanism;
+- whether truthfulness, uncertainty, restraint, repair, appeal, and exit remain viable under competitive pressure;
+- how selected behavior changes the institution and the next round of incentives.
+
+The lens does not assume that incentives fully determine behavior or that cooperation is one scalar objective. It connects designed mechanisms to ownership, enforcement, funding, replacement, diffusion, power, and accountability across the wider ecology.
+
+Canonical broader framework: [Root Sequence — Intelligence Ecology](https://github.com/Root-Sequence/root-sequence/blob/main/concepts/intelligence-ecology.md).

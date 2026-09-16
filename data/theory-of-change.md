@@ -14,6 +14,8 @@ Three things have shifted in the last few years that make this work both possibl
 
 **The field of alignment has shifted.** For a long time, AI alignment meant pointing a single powerful system at the right objective. Under the pressure of actually-deployed models and emerging multi-agent dynamics, the question has changed: how do you align not one system but an ecosystem of AI agents and humans, by building systems that can give and take reasons rather than by specifying a utility function. That is a question about institutions, and a small research community has started to form around it.
 
+That institutional frame adds a recurring design question: **What behaviors does this system select for?** Training an individual system toward a desired objective may be insufficient when deployment, funding, competition, permissions, ownership, measurement, and replacement reward different behavior. Institutional designs should make their selection pressures inspectable and test whether truthfulness, cooperation, uncertainty, restraint, repair, contest, and exit remain viable when they become costly.
+
 **The political fight is starting.** Alignment is no longer the private business of a few labs and a few ethicists. Disputes between labs and governments, the EU AI Act, and a string of national declarations are turning it into a constitutional question, with answers that vary by jurisdiction.
 
 **Big societal shocks may be coming.** There are some signs AI might displace white-collar work (at least entry level jobs), and if that spreads, it could bring real political unrest. People will be angry and demand that something be done about AI, and it will matter which designs are ready when that moment comes.
@@ -27,6 +29,8 @@ For every new institution design, we imagine several steps are needed for it to 
 3. **Recognition.** A working pilot, plus the proposal that makes it legible, moves the professional consensus, so the design becomes an answer a real adopter can reach for, whether that's a lab, a company, a city, or a government.
 4. **First adoption.** A forward-thinking jurisdiction, a frontier lab, or a regulator adopts it, turning a proposal into a place others can point to.
 5. **Diffusion.** The working example reshapes what counts as a legitimate institution elsewhere. It does not have to be copied as long as it exists as something to compare and contrast against.
+
+At each step, evaluate not only whether the intended mechanism works once, but which behavior the surrounding environment lets persist and spread. A successful pilot can still diffuse the wrong pressure if adoption rewards visible performance while externalizing maintenance, risk, labor, or loss of exit.
 
 
 ## An historical analogy

@@ -10,6 +10,16 @@ Three perspectives:
 
 Each grid cell expands to show detailed frameworks, and many include problem sets designed for pairs or small teams (~1 hour each).
 
+## Cross-cutting selection-environment lens
+
+The seven mechanism columns remain the grid's analytical structure. Across all of them, use one recurring review question:
+
+> **What behaviors does this system select for?**
+
+This is not an eighth column. It asks how protocols, preferences, rights, incentives, expertise, norms, thick commitments, and their surrounding resource and accountability conditions make some behavior easier to sustain, copy, fund, or scale than other behavior. The question applies to AI agents, human participants, organizations, and the institutions that deploy them.
+
+The broader systems concept is canonical in [Root Sequence's Intelligence Ecology](https://github.com/Root-Sequence/root-sequence/blob/main/concepts/intelligence-ecology.md). This project applies the lens to institutional design.
+
 ## Contributing
 
 Content lives in `data/{agi,human,fidelity}/` as markdown files named `{row}-{col}.md` (e.g. `dyadic-protocols.md`).

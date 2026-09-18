@@ -12,13 +12,11 @@ function Section({
   title,
   blurb,
   people,
-  paperCounts,
 }: {
   id: string;
   title: string;
   blurb: string;
   people: Researcher[];
-  paperCounts: Map<number, number>;
 }) {
   if (!people.length) return null;
   return (
@@ -29,24 +27,13 @@ function Section({
       </div>
       <p className="community-section-intro">{blurb}</p>
       <div className="researcher-grid">
-        {people.map((researcher) => <ResearcherCard key={researcher.id} researcher={researcher} paperCount={paperCounts.get(researcher.id) ?? 0} />)}
+        {people.map((researcher) => <ResearcherCard key={researcher.id} researcher={researcher} />)}
       </div>
     </section>
   );
 }
 
-function PeopleView({ community, works, selectedField }: { community: Community; works: ResearchWork[]; selectedField: string }) {
-  const paperCounts = useMemo(() => {
-    const workIdsByResearcher = new Map<number, Set<string>>();
-    for (const work of works) {
-      for (const researcher of work.researchers) {
-        const ids = workIdsByResearcher.get(researcher.id) ?? new Set<string>();
-        ids.add(work.id);
-        workIdsByResearcher.set(researcher.id, ids);
-      }
-    }
-    return new Map([...workIdsByResearcher].map(([id, workIds]) => [id, workIds.size]));
-  }, [works]);
+function PeopleView({ community, selectedField }: { community: Community; selectedField: string }) {
   const activeField = RESEARCH_FIELDS.find((field) => field.id === selectedField);
   const filterPeople = (people: Researcher[]) => people.filter((person) => {
     return !activeField || isInResearchField(person, activeField);
@@ -61,7 +48,7 @@ function PeopleView({ community, works, selectedField }: { community: Community;
 
   return (
     <div className="research-people-view">
-      {groups.map((group) => <Section key={group.id} {...group} paperCounts={paperCounts} />)}
+      {groups.map((group) => <Section key={group.id} {...group} />)}
       {!resultCount ? <p className="community-unavailable">No researchers match those filters.</p> : null}
     </div>
   );
@@ -185,7 +172,7 @@ export function ResearchAtlas({ community, works }: { community: Community; work
         </label>
       </div>
       {view === "people"
-        ? <PeopleView community={community} works={works} selectedField={selectedField} />
+        ? <PeopleView community={community} selectedField={selectedField} />
         : <PapersView works={works} selectedField={selectedField} />}
     </>
   );

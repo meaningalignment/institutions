@@ -19,7 +19,7 @@ function bareHandle(handle: string): string {
   return handle.replace(/^@/, "");
 }
 
-export function ResearcherCard({ researcher: r, paperCount = 0 }: { researcher: Researcher; paperCount?: number }) {
+export function ResearcherCard({ researcher: r }: { researcher: Researcher }) {
   const profileHref = researcherProfilePath(r);
 
   return (
@@ -59,14 +59,6 @@ export function ResearcherCard({ researcher: r, paperCount = 0 }: { researcher: 
             <span>Scouts for </span>
             {r.advisesAbout}
           </Highlight>
-        </div>
-      )}
-
-      {paperCount > 0 && (
-        // "relevant" is load-bearing: this counts the papers in the atlas, not
-        // the person's whole publication record, which is usually far larger.
-        <div className="researcher-card-paper-count">
-          {paperCount} relevant {paperCount === 1 ? "paper" : "papers"}
         </div>
       )}
 

@@ -776,22 +776,9 @@ body:has(#grid-view) .wiki-content {
   gap: 13px;
   font-size: 12px;
 }
-/* Its own line directly above the links row, so "relevant papers" reads as a
-   statement about the atlas rather than another link. It carries the
-   margin-top:auto that pins this footer block to the bottom of the card. */
-.researcher-card-paper-count {
-  position: relative;
-  z-index: 1;
-  margin-top: auto;
-  padding-bottom: 5px;
-  color: var(--faint);
-  font-size: 12px;
-}
-/* Whichever of the two footer blocks comes first carries the margin-top:auto
-   that pins the footer to the bottom of the card, so cards with and without
-   papers still line their links rows up across a row of the grid. */
+/* margin-top:auto pins the links row to the bottom of the card so links line
+   up across a row of the grid. */
 .researcher-card-links { margin-top: auto; }
-.researcher-card-paper-count + .researcher-card-links { margin-top: 0; }
 /* Matches .researcher-profile-links: underlined by default so the handle and
    Scholar link read as links rather than as more muted metadata. */
 .researcher-card-links a {

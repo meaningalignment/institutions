@@ -9,6 +9,7 @@ export default [
   route("design-challenges", "routes/problem-sets.tsx"),
   route("problem-sets", "routes/problem-sets-redirect.tsx"), // Legacy URL
   route("curriculum", "routes/curriculum.tsx"),
+  route("resources", "routes/resources.tsx"), // Canonical reading per field
   route("theory-of-change", "routes/theory-of-change.tsx"),
   route("project-updates", "routes/project-updates.tsx"),
   route("researchers", "routes/researchers.tsx"), // Community page (DB)

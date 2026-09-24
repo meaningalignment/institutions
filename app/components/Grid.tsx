@@ -13,11 +13,29 @@ import {
   type HumanInstitutionsData,
   type TabId,
 } from "../lib/constants";
+import { RESEARCH_FIELDS } from "../lib/research-fields";
 
 interface GridProps {
   tabId: TabId;
   cells: Record<string, GridCell>;
   humanInstitutions?: HumanInstitutionsData;
+  // AGI grid only: cell key → the research fields it draws on most. Drives
+  // the ?field= highlight and the final research-fields row.
+  cellFields?: Record<string, string[]>;
+}
+
+const FIELDS_PER_COLUMN = 3;
+
+// A column's fields: those its cells draw on, most cells first.
+function columnFields(cellFields: Record<string, string[]>, colId: string) {
+  const counts = new Map<string, number>();
+  for (const row of ROWS) {
+    for (const id of cellFields[`${row.id}-${colId}`] ?? []) counts.set(id, (counts.get(id) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, FIELDS_PER_COLUMN)
+    .flatMap(([id]) => RESEARCH_FIELDS.filter((f) => f.id === id));
 }
 
 function institutionEraIndex(data: HumanInstitutionsData, institution: HumanInstitution): number {
@@ -110,9 +128,16 @@ function HumanTimeline({
   );
 }
 
-export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
+export function Grid({ tabId, cells, humanInstitutions, cellFields = {} }: GridProps) {
   const [searchParams] = useSearchParams();
   const focusedRow = searchParams.get("row");
+  const showFields = tabId === "agi" && Object.keys(cellFields).length > 0;
+  const highlightField = showFields
+    ? RESEARCH_FIELDS.find((f) => f.id === searchParams.get("field"))
+    : undefined;
+  // With a field highlighted, cells that draw on it stand out and the rest recede.
+  const fieldClass = (key: string) =>
+    highlightField ? (cellFields[key]?.includes(highlightField.id) ? "field-match" : "field-dim") : undefined;
   const [timelineIndex, setTimelineIndex] = useState(
     humanInstitutions ? humanInstitutions.timeline.length - 1 : 0
   );
@@ -181,6 +206,13 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
             onChange={setTimelineIndex}
           />
         )}
+      {highlightField && (
+        <p className="grid-field-note">
+          Highlighting institutions that draw on{" "}
+          <Link to={`/resources?field=${highlightField.id}`}>{highlightField.label}</Link>.{" "}
+          <Link to="/" preventScrollReset>Show all</Link>
+        </p>
+      )}
       <div className="table-wrapper">
         <table>
           <thead>
@@ -242,7 +274,7 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
 
                   if (!cell || (tabId === "agi" && !summary && !visionEntries.length) || (tabId === "human" && !humanCell)) {
                     return (
-                      <td key={col.id}>
+                      <td key={col.id} className={highlightField ? "field-dim" : undefined}>
                         <div className="cell-empty" />
                       </td>
                     );
@@ -264,6 +296,9 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
                   if (tabId === "agi" && status && READY_STATUSES.has(status)) classes.push("status-body-ok");
                   if (tabId === "agi" && cell.hasTheory) classes.push("has-theory");
                   if (tabId === "human" && historyMode) classes.push("human-institution-tile");
+                  // Only titled cells can match; a vision-only cell has nothing to outline.
+                  const match = summary ? fieldClass(key) : highlightField ? "field-dim" : undefined;
+                  if (match) classes.push(match);
 
                   return (
                     <td key={col.id} className={classes.join(" ")}>
@@ -319,6 +354,29 @@ export function Grid({ tabId, cells, humanInstitutions }: GridProps) {
                 })}
               </tr>
             ))}
+            {showFields && (
+              <tr className="methods-row fields-row">
+                <th className="row-header">
+                  <span className="row-name">Research fields</span>
+                  <span className="row-desc">Where to read up</span>
+                </th>
+                {COLS.map((col) => (
+                  <td key={col.id}>
+                    <div className="cell-content">
+                      {columnFields(cellFields, col.id).map((field) => (
+                        <Link
+                          key={field.id}
+                          to={`/resources?field=${field.id}`}
+                          className={`field-tag${highlightField?.id === field.id ? " is-active" : ""}`}
+                        >
+                          {field.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

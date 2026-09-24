@@ -115,8 +115,8 @@ function PapersView({ works, selectedField }: { works: ResearchWork[]; selectedF
   const visible = useMemo(() => (
     activeField ? works.filter((work) => work.fieldIds.includes(activeField.id)) : works
   ), [activeField, works]);
-  const canonical = visible.filter((work) => work.tier === "canonical");
-  const more = visible.filter((work) => work.tier === "more");
+  const canonical = visible.filter((work) => work.section === "selected");
+  const more = visible.filter((work) => work.section === "field");
 
   return (
     <div className="research-papers-view">

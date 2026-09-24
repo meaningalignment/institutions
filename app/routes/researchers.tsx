@@ -9,8 +9,7 @@ import { ResearchAtlas } from "../components/ResearchAtlas";
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getAuthorizedAdminSession(request);
   const community = await getCommunity();
-  const people = [...community.advisors, ...community.community, ...community.friends];
-  const works = await getResearchWorks(people);
+  const works = await getResearchWorks();
   return { community, works, session };
 }
 

@@ -6,7 +6,13 @@ import { colName, rowName } from "../lib/constants";
 // The inner HTML pieces (summary box, theory box, body) are produced
 // server-side and injected. Lives inside #detail-view (shown via inline style,
 // since the legacy default is display:none).
-export function CellDetail({ data }: { data: CellDetailData }) {
+export function CellDetail({
+  data,
+  resourceFields = [],
+}: {
+  data: CellDetailData;
+  resourceFields?: { id: string; label: string }[];
+}) {
   return (
     <div id="detail-view" style={{ display: "block" }}>
       <Link className="detail-grid-back" to={data.backHref}>
@@ -52,6 +58,16 @@ export function CellDetail({ data }: { data: CellDetailData }) {
                 {data.found ? "Contribute on GitHub" : "Create it on GitHub"} →
               </a>
             </div>
+          )}
+          {resourceFields.length > 0 && (
+            <nav className="detail-resources" aria-label="Further reading">
+              <span className="detail-resources-label">Further reading</span>
+              {resourceFields.map((f) => (
+                <Link key={f.id} to={`/resources?field=${f.id}`}>
+                  {f.label}
+                </Link>
+              ))}
+            </nav>
           )}
           <div className="detail-footer">
             <a href={data.ghLink}>Edit this page on GitHub →</a>

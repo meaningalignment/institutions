@@ -4,6 +4,7 @@ import { Grid } from "../components/Grid";
 import { useBodyClass } from "../lib/useBodyClass";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN, TAB_META, TABS } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
+import { getCellFieldMap, type CellFieldMap } from "../lib/researchers.server";
 
 export const headers = staticContentHeaders;
 
@@ -29,11 +30,14 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-export function loader(_: Route.LoaderArgs) {
+export async function loader(_: Route.LoaderArgs) {
   if (!homeLoaderCache) {
     homeLoaderCache = { cells: loadGridCells() };
   }
-  return homeLoaderCache;
+  // The research-fields row and ?field= highlight are extras; if the DB is
+  // unavailable the grid renders without them.
+  const cellFields = await getCellFieldMap().catch(() => ({}) as CellFieldMap);
+  return { ...homeLoaderCache, cellFields };
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
@@ -41,7 +45,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <>
       <div id="grid-view">
-        <Grid tabId="agi" cells={loaderData.cells} />
+        <Grid tabId="agi" cells={loaderData.cells} cellFields={loaderData.cellFields} />
       </div>
     </>
   );

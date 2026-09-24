@@ -253,3 +253,4 @@ export async function createPaper(title: string, url: string | null) {
     VALUES (${cleanTitle}, ${(url ?? "").trim() || null})
   `;
 }
+

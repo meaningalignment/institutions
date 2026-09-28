@@ -6,9 +6,11 @@ import "dotenv/config";
 import { neon } from "@neondatabase/serverless";
 
 const sql = neon(process.env.POSTGRES_URL);
+// Dropped rather than replaced: CREATE OR REPLACE can't reorder or insert columns.
+await sql`DROP VIEW IF EXISTS resources_listing`;
 await sql`
-  CREATE OR REPLACE VIEW resources_listing AS
-  SELECT f.field, w.section, w.year, w.title,
+  CREATE VIEW resources_listing AS
+  SELECT f.field, w.section, (w.field_ranks ->> f.field)::int AS rank, w.year, w.title,
     array_to_string(w.authors, ', ') AS authors, w.venue, w.kind, w.url, w.id
   FROM canonical_works w
   CROSS JOIN LATERAL unnest(
@@ -16,6 +18,6 @@ await sql`
   ) AS f(field)
   ORDER BY f.field NULLS LAST,
     array_position(ARRAY['selected', 'field', 'background']::"ResourceSection"[], w.section) NULLS LAST,
-    w.year DESC NULLS LAST, w.title`;
+    (w.field_ranks ->> f.field)::int NULLS LAST, w.year DESC NULLS LAST, w.title`;
 const [{ rows }] = await sql`SELECT count(*)::int AS rows FROM resources_listing`;
 console.log(`resources_listing: ${rows} rows`);

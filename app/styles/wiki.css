@@ -621,7 +621,24 @@ body:has(#grid-view) .wiki-content {
 @media (min-width: 1000px) {
   .research-directory-toolbar.is-single { margin-top: -89px; }
 }
+/* Our own chevron: the native one ignores padding and sits low and tight to the
+   right edge. */
+.research-field-select { position: relative; }
+.research-field-select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
 .research-field-select select {
+  appearance: none;
+  -webkit-appearance: none;
   min-width: 260px;
   min-height: 33px;
   max-width: 100%;
@@ -1162,7 +1179,8 @@ td.has-theory::before { border-color: #77736d transparent transparent transparen
 /* Articles: conventional wiki hierarchy with an explicit route back to a grid. */
 #detail-view { max-width: 1040px; }
 .detail-grid-back,
-.researcher-profile-back {
+.researcher-profile-back,
+.grid-field-back {
   display: block;
   max-width: 760px;
   margin: 0 auto 12px;
@@ -1174,10 +1192,13 @@ td.has-theory::before { border-color: #77736d transparent transparent transparen
   text-underline-offset: 3px;
 }
 .detail-grid-back:hover,
-.researcher-profile-back:hover {
+.researcher-profile-back:hover,
+.grid-field-back:hover {
   text-decoration-color: var(--ink);
 }
-.researcher-profile-back { margin: 0 0 12px; }
+.researcher-profile-back,
+.grid-field-back { margin: 0 0 12px; }
+.grid-field-back { max-width: none; align-self: flex-start; }
 .detail-breadcrumb {
   display: flex;
   align-items: baseline;
@@ -1682,6 +1703,15 @@ html.theme-dark {
   font-size: 17px;
   line-height: 1.6;
 }
+.bib-lede a,
+.bib-lede a:visited {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.bib-lede a:hover { color: var(--ink); text-decoration-color: var(--ink); }
 /* Who keeps the list, where it matters, how to reach them. */
 .bib-facts {
   display: grid;
@@ -1702,12 +1732,25 @@ html.theme-dark {
   text-underline-offset: 3px;
 }
 .bib-facts a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+/* Labels link to their explanation on the overview; they stay quiet until hovered. */
+.bib-facts dt a,
+.bib-facts dt a:visited { color: var(--faint); text-decoration-color: transparent; }
+.bib-facts dt a:hover { color: var(--ink); text-decoration-color: var(--line-strong); }
 @media (max-width: 600px) {
   .bib-facts { grid-template-columns: 1fr; gap: 0; }
   .bib-facts dd + dt { margin-top: 8px; }
 }
 /* The rail replaces the select on wide screens; below it, the select shows. */
 .bib-mobile-select { display: block; margin-bottom: 28px; }
+/* On phones the select shares the top row with the menu button (absolute at
+   top 16px / left 18px, 34px square), instead of taking a row of its own. */
+@media (max-width: 900px) {
+  .bib-mobile-select { position: absolute; top: 16px; left: 62px; right: 18px; margin: 0; }
+  .bib-mobile-select select { width: 100%; min-width: 0; height: 34px; font-size: 13px; }
+}
+@media (max-width: 600px) {
+  .bib-mobile-select { right: 20px; }
+}
 @media (min-width: 960px) {
   .bib-mobile-select { display: none; }
   .bib-rail { top: 40px; }
@@ -1785,6 +1828,121 @@ a.bib-person:hover { color: var(--ink); text-decoration: underline; text-decorat
   line-height: 1.5;
 }
 
+/* Field page: what the field offers AGI institutions, under the lede. */
+.bib-facts-note { display: block; color: var(--faint); font-size: 13px; }
+/* Links in a note (the cells a field is relevant for) stay in the note's grey. */
+.bib-facts .bib-facts-note a,
+.bib-facts .bib-facts-note a:visited { color: inherit; text-decoration-color: transparent; }
+.bib-nowrap { white-space: nowrap; }
+.bib-facts .bib-facts-note a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+.bib-footnote {
+  max-width: 740px;
+  margin: 8px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--faint);
+  font-size: 13.5px;
+}
+.bib-footnote a,
+.bib-footnote a:visited { color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.bib-footnote a:hover { color: var(--ink); }
+
+/* Rail: Overview sits above the field list; "All works" trails it. */
+.bib-rail-top { margin-bottom: 22px; }
+.curr-sidebar-link.bib-rail-all { margin-top: 8px; color: var(--faint); }
+.curr-sidebar-link.bib-rail-all.is-active { color: var(--ink); }
+
+/* Overview prose. Headings match the collapsible section titles below. */
+.bib-prose { max-width: 740px; margin-bottom: 52px; }
+.wiki-content .bib-prose h2 {
+  margin: 0 0 14px;
+  font-family: var(--title-font) !important;
+  font-size: 21px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.006em;
+  color: var(--ink);
+  scroll-margin-top: 28px;
+}
+/* Paragraphs the field-page labels link to. */
+.bib-prose p[id] { scroll-margin-top: 28px; }
+.bib-prose p {
+  max-width: 640px;
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.bib-prose p a,
+.bib-prose p a:visited,
+.bib-emails a,
+.bib-emails a:visited {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.bib-prose p a:hover,
+.bib-emails a:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+/* The ten fields, two to a row where there's room. */
+.bib-directory {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 36px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 720px) { .bib-directory { grid-template-columns: 1fr 1fr; } }
+.bib-directory li { padding: 16px 0 18px; border-top: 1px solid var(--line); }
+.bib-directory-link,
+.bib-directory-link:visited { display: block; color: inherit; text-decoration: none; }
+.bib-directory-name {
+  display: block;
+  color: var(--ink);
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.bib-directory-name::after { content: " →"; color: var(--faint); font-weight: 400; transition: color 0.15s; }
+.bib-directory-link:hover .bib-directory-name { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.bib-directory-link:hover .bib-directory-name::after { color: var(--ink); }
+.bib-directory-blurb {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.bib-directory-meta { margin-top: 8px; color: var(--faint); font-size: 13px; }
+.wiki-content .bib-prose p.bib-directory-all { margin-top: 10px; color: var(--muted); font-size: 14px; }
+
+/* The three parts of a list, and the field addresses. */
+.bib-parts { margin: 18px 0 0; max-width: 640px; }
+.bib-parts > div { padding: 12px 0 12px 16px; border-left: 2px solid var(--line); }
+.bib-parts > div + div { margin-top: 10px; }
+.bib-parts dt { color: var(--ink); font-family: var(--title-font); font-size: 17px; font-weight: 500; line-height: 1.3; }
+.bib-parts dd { margin: 4px 0 0; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+.bib-emails {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 6px 22px;
+  margin: 18px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.bib-emails > div { display: contents; }
+.bib-emails dt a,
+.bib-emails dt a:visited { color: var(--muted); text-decoration: none; }
+.bib-emails dt a:hover { color: var(--ink); }
+.bib-emails dd { margin: 0; color: var(--text); overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .bib-emails { grid-template-columns: 1fr; gap: 0; }
+  .bib-emails > div + div dt { margin-top: 10px; }
+}
+
 /* Cell detail → /resources?field=… for fields whose papers bear on this cell. */
 .detail-resources {
   display: flex;
@@ -1807,7 +1965,7 @@ a.bib-person:hover { color: var(--ink); text-decoration: underline; text-decorat
 .detail-resources a:hover { text-decoration-color: var(--ink); }
 
 /* ── AGI grid: research fields ──────────────────────────────────────
-   ?field= highlights the institutions that draw on a field; the final row
+   ?field= dims the institutions that don't draw on a field; the final row
    lists each column's top fields, linking to /resources. */
 .grid-field-note {
   margin: 0 0 14px;
@@ -1818,7 +1976,6 @@ a.bib-person:hover { color: var(--ink); text-decoration: underline; text-decorat
 .grid-field-note a:hover { text-decoration-color: var(--ink); }
 td.field-dim .cell-content,
 td.field-dim .cell-empty { opacity: 0.28; transition: opacity 0.15s; }
-td.field-match .cell-content { box-shadow: inset 0 0 0 1.5px var(--ink); }
 /* Reuses the legacy methods-row layout, but its header matches the other rows. */
 tr.fields-row th.row-header { background: var(--paper); border-right: 1px solid var(--line); }
 .theme-dark tr.fields-row th.row-header { border-right-color: var(--line); }

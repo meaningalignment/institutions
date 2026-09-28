@@ -145,8 +145,11 @@ export function Grid({ tabId, cells, humanInstitutions, cellFields = {} }: GridP
   // slider and full dated records are revealed by the history toggle.
   const [historyMode, setHistoryMode] = useState(false);
   const tab = TABS[tabId];
+  // Cells carry the highlighted field along, so their "Back to grid" returns here.
   const cellHref = (row: string, col: string) =>
-    tabId === "human" ? `/human/${row}/${col}` : `/cell/${row}/${col}`;
+    tabId === "human"
+      ? `/human/${row}/${col}`
+      : `/cell/${row}/${col}${highlightField ? `?field=${highlightField.id}` : ""}`;
   const openHistory = () => {
     if (humanInstitutions) setTimelineIndex(humanInstitutions.timeline.length - 1);
     setHistoryMode(true);
@@ -157,6 +160,11 @@ export function Grid({ tabId, cells, humanInstitutions, cellFields = {} }: GridP
 
   return (
     <>
+      {highlightField && (
+        <Link className="grid-field-back" to={`/resources?field=${highlightField.id}`}>
+          ← Back to {highlightField.label}
+        </Link>
+      )}
       <header className="grid-page-header">
         <div className="grid-page-heading">
           <div className="pane-title">{tab.title}</div>
@@ -208,8 +216,7 @@ export function Grid({ tabId, cells, humanInstitutions, cellFields = {} }: GridP
         )}
       {highlightField && (
         <p className="grid-field-note">
-          Highlighting institutions that draw on{" "}
-          <Link to={`/resources?field=${highlightField.id}`}>{highlightField.label}</Link>.{" "}
+          Highlighting cells that draw on {highlightField.label}.{" "}
           <Link to="/" preventScrollReset>Show all</Link>
         </p>
       )}

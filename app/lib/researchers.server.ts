@@ -54,6 +54,8 @@ export interface ResearchWork {
   summary: string | null;
   section: ResourceSection;
   fieldIds: string[];
+  // Curator's importance order within a field ({ law: 1 }); lower comes first.
+  fieldRanks: Record<string, number>;
   researchers: Pick<Researcher, "id" | "name" | "handle">[];
 }
 
@@ -150,7 +152,7 @@ export async function getCommunity(): Promise<Community> {
 export async function getResearchWorks(): Promise<ResearchWork[]> {
   const sql = getSql();
   const rows = (await sql`
-    SELECT w.id, w.title, w.url, w.authors, w.year, w.venue, w.kind, w.summary, w.section, w.fields,
+    SELECT w.id, w.title, w.url, w.authors, w.year, w.venue, w.kind, w.summary, w.section, w.fields, w.field_ranks,
       COALESCE(
         json_agg(json_build_object('id', r.id, 'name', r.name, 'handle', r.handle) ORDER BY r.name)
           FILTER (WHERE r.id IS NOT NULL),
@@ -174,6 +176,7 @@ export async function getResearchWorks(): Promise<ResearchWork[]> {
     summary: row.summary ?? null,
     section: row.section,
     fieldIds: row.fields ?? [],
+    fieldRanks: row.field_ranks ?? {},
     researchers: (row.researchers ?? []).map((r: any) => ({ id: r.id, name: r.name ?? "", handle: r.handle ?? "" })),
   }));
 }

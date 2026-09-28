@@ -90,6 +90,12 @@ const ELSEWHERE = [
     url: "https://lukedrago.com/mats-reading-list/",
     note: "a short, opinionated list on AI strategy, economics, and futures",
   },
+  {
+    title: "CS6101: Rational Approaches to Cooperative Intelligence",
+    by: "Tan Zhi Xuan (NUS)",
+    url: "https://cosilab.notion.site/cs6101-raci-fall-2025",
+    note: "a seminar syllabus on cooperative AI, from theory of mind to norms, institutions, and negotiation",
+  },
 ];
 
 export async function loader() {
@@ -234,25 +240,21 @@ function Section({ title, intro, count, showCount = true, children }: {
 
 // The three parts of every list, in page order. The same copy introduces the
 // sections on a field page and explains them on the overview.
-const SECTIONS: { id: NonNullable<ResearchWork["section"]>; title: string; intro: string; about: string }[] = [
+const SECTIONS: { id: NonNullable<ResearchWork["section"]>; title: string; intro: string }[] = [
   {
     id: "selected",
     title: "Selected papers",
     intro: "Must-reads for understanding the field and why it matters for AGI institutions.",
-    about:
-      "Must-reads: the papers you need to understand the field and why it matters for AGI institutions. Each has a one-line summary.",
   },
   {
     id: "field",
     title: "Work in the field",
     intro: "Recent work in the field worth knowing.",
-    about: "Other recent work worth knowing once you've read the selected papers.",
   },
   {
     id: "background",
     title: "Foundations",
     intro: "Older work that gives background on the field.",
-    about: "Older, foundational work that gives you background on the field, often from outside it.",
   },
 ]
 
@@ -372,36 +374,30 @@ function Overview({ d }: { d: Data }) {
       <section className="bib-prose" aria-labelledby="bib-how">
         <h2 id="bib-how">About the lists</h2>
         <p id="bib-curator">
-          Each field has a <em>corresponding researcher</em> who works in the field and curates its list. They decide
-          what goes on it.
+          Each field has a <em>corresponding researcher</em>, someone who has published in the field and is widely
+          regarded as influential in it. They curate its list and decide what goes on it.
         </p>
         <p>
-          The lists aren't exhaustive or canonical. They're a starting point, picked by one person, and they will miss
-          good work. Much of the relevant research also hasn't been published yet, so if you're starting on a problem
-          it's often worth writing to the field directly (see below).
+          The lists aren't exhaustive or canonical. They're meant as a starting point for research relevant to AGI
+          institutions, and will miss much good work.
         </p>
-        <p>Each list has up to three sections:</p>
         <dl className="bib-parts">
           {SECTIONS.map((s) => (
             <div key={s.id}>
               <dt>{s.title}</dt>
-              <dd>{s.about}</dd>
+              <dd>{s.intro}</dd>
             </div>
           ))}
         </dl>
-        <p id="bib-relevance">
-          Works are also tagged with the cells of the <Link to="/">grid</Link> they bear on. A field is relevant for a
-          cell when it's one of the three fields with the most works tagged there. From a field page, you can open the
-          grid with those cells highlighted.
-        </p>
       </section>
 
       <section className="bib-prose" aria-labelledby="bib-write">
         <h2 id="bib-write">Write to a field</h2>
         <p>
           Each field has an email address that goes to a small group of people working in it, picked by the
-          corresponding researcher. Write to it if you're working on one of the problems in the grid and want to know
-          what's been tried, who else is working on it, or what they think of an idea.
+          corresponding researcher. Write to it if you're working on one of the{" "}
+          <Link to="/">problems in the grid</Link> and want to know what's been tried, who else is working on it, or what
+          they think of an idea.
         </p>
         <dl className="bib-emails">
           {RESEARCH_FIELDS.filter((f) => d.fields[f.id]).map((f) => (
@@ -415,7 +411,7 @@ function Overview({ d }: { d: Data }) {
 
       <Section
         title="Elsewhere"
-        intro="Larger bibliographies maintained by others."
+        intro="Reading lists and bibliographies maintained by others."
         count={ELSEWHERE.length}
         showCount={false}
       >
@@ -491,7 +487,7 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
                   ) : null}
                   {cellCount ? (
                     <>
-                      <dt><Link to="/resources#bib-relevance">Relevant for</Link></dt>
+                      <dt>Relevant for</dt>
                       <dd>
                         <Link to={`/?field=${field.id}`}>
                           {cellCount} grid {cellCount === 1 ? "cell" : "cells"}

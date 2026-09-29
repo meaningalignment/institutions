@@ -8,3 +8,6 @@ pdfs/
 # React Router / Vite build output
 /.react-router/
 /build/
+
+# macOS
+.DS_Store

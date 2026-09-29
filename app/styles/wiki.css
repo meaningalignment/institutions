@@ -952,6 +952,135 @@ body:has(#grid-view) .wiki-content {
   .research-work-grid { grid-template-columns: 1fr; }
 }
 
+/* ── Research community print ─────────────────────────────────────────
+   A printed directory: always the light palette on white, no controls,
+   three columns of hairline-ruled entries that never split across pages,
+   and a running footer with page numbers. Affiliations wrap instead of
+   truncating, since there is no hover to reveal the rest. */
+@media print {
+  html:has(.community-page),
+  html.theme-dark:has(.community-page) {
+    color-scheme: light;
+    --paper: #fff;
+    --card: #fff;
+    --wash: #f2f1f0;
+    --ink: #111;
+    --text: #333;
+    --muted: #555550;
+    --faint: #8a8984;
+    --line: #dddcd8;
+    --line-strong: #c8c6c2;
+  }
+  html:has(.community-page) body,
+  html:has(.community-page) .wiki-content { background: #fff !important; }
+
+  @page {
+    size: letter portrait;
+    margin: 0.6in 0.65in 0.7in;
+    @bottom-left {
+      content: "Research Community";
+      color: #8a8984;
+      font: 8pt -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    @bottom-right {
+      content: counter(page) " / " counter(pages);
+      color: #8a8984;
+      font: 8pt -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+  }
+
+  .community-page { max-width: none; }
+  .community-page .research-directory-toolbar,
+  .community-page .community-title-row > a,
+  .community-page .community-utility-row { display: none !important; }
+
+  .community-page .community-title-row h1 {
+    font-size: 26pt !important;
+    color: #111;
+  }
+  .community-page .community-page-intro {
+    margin: 4pt 0 22pt;
+    font-size: 10.5pt;
+  }
+
+  .community-page .community-section { margin-bottom: 20pt; }
+  .community-page .community-section-heading {
+    margin-bottom: 10pt;
+    padding-bottom: 5pt;
+    border-bottom: 1px solid #111;
+    break-after: avoid;
+  }
+  .community-page .community-section-heading:has(+ .community-section-intro) { margin-bottom: 0; }
+  .wiki-content .community-page .community-section-heading h2 { font-size: 15pt !important; }
+  .community-page .community-section-heading > span { font-size: 8.5pt; }
+  .community-page .community-section-intro {
+    max-width: none;
+    margin: 5pt 0 10pt;
+    font-size: 9pt;
+    break-after: avoid;
+  }
+
+  /* People: a three-column directory. */
+  .community-page .researcher-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 18pt;
+  }
+  .community-page .researcher-card {
+    min-height: 0;
+    padding: 8pt 0 9pt;
+    gap: 5pt;
+    background: none !important;
+    border: 0;
+    border-bottom: 0.5pt solid var(--line);
+    border-radius: 0;
+    break-inside: avoid;
+  }
+  .community-page .researcher-card-person { align-items: flex-start; gap: 8pt; }
+  .community-page .researcher-card-photo { width: 28pt; height: 28pt; }
+  .community-page .researcher-card-initials { font-size: 8.5pt; }
+  .community-page .researcher-card-name {
+    font-size: 10pt;
+    text-decoration: none !important;
+  }
+  .community-page .researcher-card-affiliation {
+    overflow: visible;
+    font-size: 8.5pt;
+    white-space: normal;
+  }
+  .community-page .researcher-card-scouts {
+    padding-left: 36pt;
+    font-size: 8.5pt;
+    line-height: 1.4;
+  }
+  /* The handle is useful on paper as text; the Scholar link is not. */
+  .community-page .researcher-card-links {
+    padding-left: 36pt;
+    font-size: 8pt;
+  }
+  .community-page .researcher-card-links a { color: var(--muted); text-decoration: none; }
+  .community-page .researcher-card-links a[href*="scholar"] { display: none; }
+  .community-page .researcher-card-links:not(:has(a:not([href*="scholar"]))) { display: none; }
+
+  /* Papers: a reading list in two columns. */
+  .community-page .research-paper-section { margin-bottom: 20pt; }
+  .community-page .research-work-grid { gap: 0 20pt; }
+  .community-page .research-work-card {
+    padding: 8pt 0 9pt;
+    background: none !important;
+    border: 0;
+    border-bottom: 0.5pt solid var(--line);
+    border-radius: 0;
+    transform: none !important;
+    break-inside: avoid;
+  }
+  .community-page .research-work-meta { margin-bottom: 3pt; font-size: 7.5pt; }
+  .wiki-content .community-page .research-work-card h3 { font-size: 11pt; }
+  .community-page .research-work-card h3 a::after { content: none; }
+  .community-page .research-work-card > p { margin: 4pt 0 5pt; font-size: 8.5pt; line-height: 1.45; }
+  .community-page .research-work-authors { font-size: 8pt; }
+  .community-page .research-work-authors a { color: var(--muted); }
+}
+
 /* The grids are the site's primary indexes. */
 #grid-view { align-items: center; }
 .grid-page-header {

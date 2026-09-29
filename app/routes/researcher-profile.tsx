@@ -3,7 +3,7 @@ import type { Route } from "./+types/researcher-profile";
 import { getResearcher } from "../lib/researchers.server";
 import { Highlight } from "../components/ResearcherCard";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
-import { researcherProfilePath } from "../lib/researcher-links";
+import { researcherPhotoSrc, researcherProfilePath } from "../lib/researcher-links";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const researcher = await getResearcher(params.handle);
@@ -75,7 +75,7 @@ export default function ResearcherProfile({ loaderData }: Route.ComponentProps) 
 
         <div className="researcher-profile-header">
           {r.photoUrl ? (
-            <img src={r.photoUrl} alt="" className="researcher-profile-photo" />
+            <img src={researcherPhotoSrc(r.photoUrl, 160)} alt="" className="researcher-profile-photo" />
           ) : (
             <span className="researcher-profile-photo researcher-card-initials">
               {r.name.split(/\s+/).slice(0, 2).map((p) => p[0]).join("")}

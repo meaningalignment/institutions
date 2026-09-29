@@ -1,4 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "react-router"
+  "framework": "react-router",
+  "images": {
+    "sizes": [96, 160],
+    "qualities": [75],
+    "formats": ["image/webp"],
+    "minimumCacheTTL": 2592000,
+    "remotePatterns": [
+      { "protocol": "https", "hostname": "players.meaningalignment.org", "pathname": "^/photos/.*$" }
+    ]
+  }
 }

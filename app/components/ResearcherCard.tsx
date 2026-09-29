@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import type { Researcher } from "../lib/researchers.server";
-import { researcherProfilePath } from "../lib/researcher-links";
+import { researcherPhotoSrc, researcherProfilePath } from "../lib/researcher-links";
 
 export function Highlight({ children }: { children: React.ReactNode }) {
   return <span className="researcher-highlight">{children}</span>;
@@ -30,7 +30,7 @@ export function ResearcherCard({ researcher: r }: { researcher: Researcher }) {
       <div className="researcher-card-person">
         {r.photoUrl ? (
           <img
-            src={r.photoUrl}
+            src={researcherPhotoSrc(r.photoUrl, 96)}
             alt=""
             className="researcher-card-photo"
             loading="lazy"

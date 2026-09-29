@@ -39,3 +39,13 @@ export function researcherXUrl(handle: string | null): string | null {
   const bare = (handle ?? "").replace(/^@/, "").trim();
   return bare ? `https://x.com/${bare}` : null;
 }
+
+// Photo originals on the players app run up to several megabytes and 4000px
+// wide, for a 46px circle. In production they go through Vercel's image
+// optimizer (allow-listed in vercel.json; `width` must be one of its `sizes`),
+// which resizes, re-encodes as WebP and caches at the edge. The dev server has
+// no optimizer, so it gets the original.
+export function researcherPhotoSrc(url: string, width: 96 | 160): string {
+  if (import.meta.env.DEV || !url.startsWith("https://players.meaningalignment.org/")) return url;
+  return `/_vercel/image?url=${encodeURIComponent(url)}&w=${width}&q=75`;
+}

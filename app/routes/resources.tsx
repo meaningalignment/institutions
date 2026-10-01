@@ -10,7 +10,7 @@ import { COLS, OG_IMAGE_META, ROWS, SITE_NAME, SITE_ORIGIN } from "../lib/consta
 // overview's directory and the field page's lede). `researcher` is the one corresponding
 // researcher who keeps the list (roster spelling, so the name links off-site),
 // and `researcherBio` a one-line role condensed from their /researchers bio;
-// `email` forwards to a small group in the field that they choose.
+// `email` goes to the field's switchboard operators, who route questions on.
 const FIELD_INFO: Record<
   string,
   { blurb: string; email: string; researcher: string | null; researcherBio?: string }
@@ -394,10 +394,29 @@ function Overview({ d }: { d: Data }) {
       <section className="bib-prose" aria-labelledby="bib-write">
         <h2 id="bib-write">Write to a field</h2>
         <p>
-          Each field has an email address that goes to a small group of people working in it, picked by the
-          corresponding researcher. Write to it if you're working on one of the{" "}
-          <Link to="/">problems in the grid</Link> and want to know what's been tried, who else is working on it, or what
-          they think of an idea.
+          We are piloting an email service where you can <em>write to a field</em>. The goal is to make it as easy as
+          possible for promising research ideas to get high-level feedback from experts in the field. We expect
+          significant progress in many of these areas over the coming years, which means the reading lists above will
+          inevitably lag behind unpublished results and insights circulating among researchers. This is exactly where
+          talking to someone in the field can be useful.
+        </p>
+        <p>
+          To make this possible, we are funding researchers to operate a kind of switchboard service. These
+          &ldquo;switchboard operators&rdquo; will read emails sent to the addresses below and, where appropriate, route
+          them to someone with relevant expertise.
+        </p>
+        <p>You can write to a field if you want to know things like:</p>
+        <ul className="bib-asks">
+          <li>Has this idea been tried before, or is there close precedent for it?</li>
+          <li>What work should I read before pushing further on this?</li>
+          <li>Who else is working on this problem, or would be especially useful to talk to?</li>
+          <li>What are the main objections, failure modes, or open questions I should know about?</li>
+          <li>Where does this problem fit into the broader research landscape?</li>
+        </ul>
+        <p>
+          You don't need a polished proposal. A short description of what you're working on and what you're trying to
+          figure out is enough. Depending on the capacity of our experts, we may not be able to route every email, but
+          we'll prioritize questions where we think input from someone in the field could be especially useful.
         </p>
         <dl className="bib-emails">
           {RESEARCH_FIELDS.filter((f) => d.fields[f.id]).map((f) => (
@@ -500,7 +519,7 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
                   <dd>
                     <a href={`mailto:${info.email}`}>{info.email}</a>
                     <span className="bib-facts-note">
-                      Read by researchers in this field.
+                      A switchboard operator reads it and routes your question to someone in the field.
                     </span>
                   </dd>
                 </dl>

@@ -2020,11 +2020,13 @@ a.bib-person:hover { color: var(--ink); text-decoration: underline; text-decorat
   max-width: 640px;
   margin: 0 0 14px;
   padding-left: 22px;
+  list-style: disc outside;
   color: var(--text);
   font-size: 16px;
   line-height: 1.65;
 }
 .bib-asks li + li { margin-top: 4px; }
+.bib-asks li::marker { color: var(--faint); }
 
 /* The ten fields, two to a row where there's room. */
 .bib-directory {

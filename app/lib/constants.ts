@@ -202,3 +202,7 @@ export function splitCellKey(key: string): { row: string; col: string } {
   const parts = key.split("-");
   return { row: parts[0], col: parts.slice(1).join("-") };
 }
+
+// SHOW_RESOURCES_LINK gates only the sidebar entry to /resources. The page and
+// the links into it from the grid and cell pages stay live.
+export const SHOW_RESOURCES_LINK = false;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
-import { COLS, GITHUB_REPO, ROWS, SHOW_COMMUNITY_LINKS, SITE_NAME } from "../lib/constants";
+import { COLS, GITHUB_REPO, ROWS, SHOW_COMMUNITY_LINKS, SHOW_RESOURCES_LINK, SITE_NAME } from "../lib/constants";
 
 const INTERNAL_ROUTE_PREFIXES = ["/researchers/admin", "/admin", "/login", "/logout"];
 
@@ -190,9 +190,11 @@ export function SiteShell({
           <NavLink className="wiki-nav-primary" to="/theory-of-change">
             What is this?
           </NavLink>
-          <NavLink className="wiki-nav-primary" to="/resources">
-            Resources
-          </NavLink>
+          {SHOW_RESOURCES_LINK && (
+            <NavLink className="wiki-nav-primary" to="/resources">
+              Resources
+            </NavLink>
+          )}
           {SHOW_COMMUNITY_LINKS && (
             <NavLink className="wiki-nav-primary" to="/researchers">
               Research community

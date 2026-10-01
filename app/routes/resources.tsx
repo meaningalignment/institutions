@@ -519,7 +519,7 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
                   <dd>
                     <a href={`mailto:${info.email}`}>{info.email}</a>
                     <span className="bib-facts-note">
-                      Routed to experts in the field.
+                      An operator routes it to the right experts.
                     </span>
                   </dd>
                 </dl>

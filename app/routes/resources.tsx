@@ -341,8 +341,8 @@ function Overview({ d }: { d: Data }) {
         <p className="bib-lede">
           This is a sister project to{" "}
           <a href="https://paxmachina.ai/welcome-to-pax-machina" target="_blank" rel="noreferrer">Pax Machina</a>. We
-          hope the directory is useful to researchers already working on these questions, especially for understanding
-          fields adjacent to their own, and that it inspires new high-quality submissions and design proposals.
+          hope the directory is useful to researchers already working on these questions as well as funders and research
+          managers, and that it inspires new high-quality submissions and design proposals.
         </p>
       </header>
 
@@ -394,29 +394,31 @@ function Overview({ d }: { d: Data }) {
       <section className="bib-prose" aria-labelledby="bib-write">
         <h2 id="bib-write">Write to a field</h2>
         <p>
-          We are piloting an email service where you can <em>write to a field</em>. The goal is to make it as easy as
-          possible for promising research ideas to get high-level feedback from experts in the field. We expect
-          significant progress in many of these areas over the coming years, which means the reading lists above will
-          inevitably lag behind unpublished results and insights circulating among researchers. This is exactly where
-          talking to someone in the field can be useful.
+          We expect significant progress in many of these areas over the coming years, which means the reading lists
+          above will inevitably lag behind unpublished results and insights circulating among researchers.
         </p>
         <p>
-          To make this possible, we are funding researchers to operate a kind of switchboard service. These
-          &ldquo;switchboard operators&rdquo; will read emails sent to the addresses below and, where appropriate, route
-          them to someone with relevant expertise.
+          Therefore, we are piloting an email service where you can <em>write to a field</em>. The goal is to make it
+          as easy as possible for promising researchers to get feedback on their ideas from relevant experts, and for
+          funders and operators to quickly understand where the current state of the art is.
+        </p>
+        <p>
+          To make this possible, we are funding junior researchers to operate a switchboard service. They will read
+          emails sent to the addresses below and, where appropriate, route them to a senior researcher with the right
+          domain expertise.
         </p>
         <p>You can write to a field if you want to know things like:</p>
         <ul className="bib-asks">
           <li>Has this idea been tried before, or is there close precedent for it?</li>
-          <li>What work should I read before pushing further on this?</li>
+          <li>What work should I read before pushing further in this direction?</li>
           <li>Who else is working on this problem, or would be especially useful to talk to?</li>
           <li>What are the main objections, failure modes, or open questions I should know about?</li>
           <li>Where does this problem fit into the broader research landscape?</li>
         </ul>
         <p>
-          You don't need a polished proposal. A short description of what you're working on and what you're trying to
-          figure out is enough. Depending on the capacity of our experts, we may not be able to route every email, but
-          we'll prioritize questions where we think input from someone in the field could be especially useful.
+          Depending on the capacity of our experts, we may not be able to route every email, but we'll prioritize
+          questions where we think input from someone in the field could have a high impact. When several people
+          write in about related questions, we may also invite them to a live Q&amp;A with experts in the field.
         </p>
         <dl className="bib-emails">
           {RESEARCH_FIELDS.filter((f) => d.fields[f.id]).map((f) => (

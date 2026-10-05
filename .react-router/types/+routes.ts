@@ -64,10 +64,16 @@ type Pages = {
   "/researchers/admin/papers": {
     params: {};
   };
+  "/researchers/admin/appreciations": {
+    params: {};
+  };
   "/researchers/:handle": {
     params: {
       "handle": string;
     };
+  };
+  "/appreciate": {
+    params: {};
   };
   "/login": {
     params: {};
@@ -88,7 +94,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/design-challenges" | "/problem-sets" | "/curriculum" | "/resources" | "/theory-of-change" | "/project-updates" | "/researchers" | "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/:handle" | "/login" | "/logout" | "/admin/*" | "/fidelity";
+    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/design-challenges" | "/problem-sets" | "/curriculum" | "/resources" | "/theory-of-change" | "/project-updates" | "/researchers" | "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/admin/appreciations" | "/researchers/:handle" | "/appreciate" | "/login" | "/logout" | "/admin/*" | "/fidelity";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -140,7 +146,7 @@ type RouteFiles = {
   };
   "routes/admin.tsx": {
     id: "routes/admin";
-    page: "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers";
+    page: "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/admin/appreciations";
   };
   "routes/admin-scouts.tsx": {
     id: "routes/admin-scouts";
@@ -154,9 +160,17 @@ type RouteFiles = {
     id: "routes/admin-papers";
     page: "/researchers/admin/papers";
   };
+  "routes/admin-appreciations.tsx": {
+    id: "routes/admin-appreciations";
+    page: "/researchers/admin/appreciations";
+  };
   "routes/researcher-profile.tsx": {
     id: "routes/researcher-profile";
     page: "/researchers/:handle";
+  };
+  "routes/appreciate.tsx": {
+    id: "routes/appreciate";
+    page: "/appreciate";
   };
   "routes/login.tsx": {
     id: "routes/login";
@@ -194,7 +208,9 @@ type RouteModules = {
   "routes/admin-scouts": typeof import("./app/routes/admin-scouts.tsx");
   "routes/admin-people": typeof import("./app/routes/admin-people.tsx");
   "routes/admin-papers": typeof import("./app/routes/admin-papers.tsx");
+  "routes/admin-appreciations": typeof import("./app/routes/admin-appreciations.tsx");
   "routes/researcher-profile": typeof import("./app/routes/researcher-profile.tsx");
+  "routes/appreciate": typeof import("./app/routes/appreciate.tsx");
   "routes/login": typeof import("./app/routes/login.tsx");
   "routes/logout": typeof import("./app/routes/logout.tsx");
   "routes/admin-redirect": typeof import("./app/routes/admin-redirect.tsx");

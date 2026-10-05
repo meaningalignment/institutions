@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { Route } from "./+types/admin";
 import { CommunityHeader } from "../components/CommunityHeader";
 import { SITE_NAME } from "../lib/constants";
-import { requireAdminSession } from "../lib/auth.server";
+import { isMaiTeam, requireAdminSession } from "../lib/auth.server";
 
 export function meta(_: Route.MetaArgs) {
   return [{ title: `Admin — ${SITE_NAME}` }, { name: "robots", content: "noindex" }];
@@ -16,11 +16,15 @@ const tabs = [
 ];
 
 export async function loader({ request }: Route.LoaderArgs) {
-  return { session: await requireAdminSession(request) };
+  const session = await requireAdminSession(request);
+  return { session, maiTeam: isMaiTeam(session) };
 }
 
 export default function AdminLayout() {
-  const { session } = useLoaderData<typeof loader>();
+  const { session, maiTeam } = useLoaderData<typeof loader>();
+  const visibleTabs = maiTeam
+    ? [...tabs, { to: "/researchers/admin/appreciations", label: "Appreciations", end: false }]
+    : tabs;
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -40,7 +44,7 @@ export default function AdminLayout() {
         <CommunityHeader editing session={session} />
 
         <nav className="admin-tabs" aria-label="Admin sections">
-          {tabs.map((tab) => (
+          {visibleTabs.map((tab) => (
             <NavLink
               key={tab.to}
               to={tab.to}

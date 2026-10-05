@@ -89,7 +89,7 @@ export default function Login() {
     <main className="login-page">
       <div className="login-main">
         <Link className="login-back" to="/">← AGI institutions</Link>
-        <h1>Admin sign in</h1>
+        <h1>{redirectTo.startsWith("/appreciate") ? "Sign in" : "Admin sign in"}</h1>
         {step === "code" ? (
           <>
             <p className="login-intro">

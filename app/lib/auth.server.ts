@@ -155,6 +155,17 @@ export async function requireAdminSession(request: Request) {
   throw redirect(`/login?redirectTo=${encodeURIComponent(redirectTo)}`);
 }
 
+/** The MAI team (who pick the monthly appreciation) is everyone with a meaningalignment.org address. */
+export function isMaiTeam(session: { email: string } | null | undefined) {
+  return !!session && /@meaningalignment\.org$/i.test(session.email.trim());
+}
+
+export async function requireMaiTeam(request: Request) {
+  const session = await requireAdminSession(request);
+  if (!isMaiTeam(session)) throw new Response("Not found", { status: 404 });
+  return session;
+}
+
 function loginCodeHash(researcherId: number, code: string) {
   return createHmac("sha256", sessionSecret())
     .update(`login-code:${researcherId}:${code}`)
@@ -165,7 +176,7 @@ export async function requestLoginCode(email: string) {
   // Validate configuration before looking up the address so a missing production
   // secret behaves the same for known and unknown researchers.
   sessionSecret();
-  assertMailgunConfigured();
+  if (!import.meta.env.DEV) assertMailgunConfigured();
   const sql = getSql();
   const rows = (await sql`
     SELECT id, name, email
@@ -202,6 +213,12 @@ export async function requestLoginCode(email: string) {
       sent_at = EXCLUDED.sent_at,
       attempts = 0
   `;
+
+  if (import.meta.env.DEV) {
+    // Local dev: print the code instead of emailing it, so any roster member can be tested.
+    console.log(`\n  Sign-in code for ${researcher.email}: ${code}\n`);
+    return;
+  }
 
   try {
     await sendLoginCodeEmail({

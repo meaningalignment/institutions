@@ -38,18 +38,25 @@ export function SaveState({
   return <span className="text-xs text-[color:var(--faint)]">Saved</span>;
 }
 
-export function ResearcherCombobox({
+/**
+ * Researcher-name combobox: type to filter by name or handle, pick from up to eight matches.
+ * Reports the chosen researcher (or null) through `onChange`; bump `resetKey` to clear it.
+ */
+export function ResearcherPicker({
   options,
-  intent,
-  canonicalWorkId,
+  onChange,
   placeholder,
+  excludeId,
+  resetKey,
+  className = "",
 }: {
   options: AdminResearcher[];
-  intent: "add-scout" | "add-paper-researcher";
-  canonicalWorkId?: number;
+  onChange: (researcher: AdminResearcher | null) => void;
   placeholder: string;
+  excludeId?: number;
+  resetKey?: number;
+  className?: string;
 }) {
-  const fetcher = useFetcher<ActionResult>();
   const listboxId = useId();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
@@ -57,43 +64,39 @@ export function ResearcherCombobox({
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const available = useMemo(
+    () => (excludeId == null ? options : options.filter((option) => option.id !== excludeId)),
+    [options, excludeId]
+  );
+
   const matches = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase();
-    return options
+    return available
       .filter((option) => {
         if (!needle) return true;
         return `${option.name} ${option.handle}`.toLocaleLowerCase().includes(needle);
       })
       .slice(0, 8);
-  }, [options, query]);
+  }, [available, query]);
 
   useEffect(() => {
-    if (fetcher.state === "idle" && fetcher.data?.ok) {
-      setQuery("");
-      setSelectedId(null);
-      setOpen(false);
-    }
-  }, [fetcher.data, fetcher.state]);
+    if (resetKey == null) return;
+    setQuery("");
+    setSelectedId(null);
+    setOpen(false);
+    // Only a change of resetKey clears the picker.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetKey]);
+
+  function select(option: AdminResearcher | null) {
+    setSelectedId(option?.id ?? null);
+    onChange(option);
+  }
 
   function choose(option: AdminResearcher) {
     setQuery(option.name);
-    setSelectedId(option.id);
     setOpen(false);
-  }
-
-  function submit(event: FormEvent<HTMLFormElement>) {
-    if (selectedId) return;
-    const exact = options.find(
-      (option) => option.name.toLocaleLowerCase() === query.trim().toLocaleLowerCase()
-    );
-    event.preventDefault();
-    if (!exact) {
-      setOpen(true);
-      return;
-    }
-    const submission = new FormData(event.currentTarget);
-    submission.set("researcherId", String(exact.id));
-    fetcher.submit(submission, { method: "post" });
+    select(option);
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
@@ -108,80 +111,125 @@ export function ResearcherCombobox({
     } else if (event.key === "Enter" && open && matches[activeIndex]) {
       event.preventDefault();
       choose(matches[activeIndex]);
+    } else if (event.key === "Enter" && !selectedId) {
+      event.preventDefault();
+      setOpen(true);
     } else if (event.key === "Escape") {
       setOpen(false);
     }
   }
 
   return (
+    <div className={"relative min-w-[240px] " + className} ref={wrapperRef}>
+      <input
+        className={input + " w-full"}
+        value={query}
+        placeholder={placeholder}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={open}
+        aria-controls={listboxId}
+        aria-activedescendant={
+          open && matches[activeIndex] ? `${listboxId}-${matches[activeIndex].id}` : undefined
+        }
+        onFocus={() => setOpen(true)}
+        onBlur={(event) => {
+          if (!wrapperRef.current?.contains(event.relatedTarget)) setOpen(false);
+        }}
+        onChange={(event) => {
+          const next = event.target.value;
+          setQuery(next);
+          setActiveIndex(0);
+          setOpen(true);
+          const exact = available.find(
+            (option) =>
+              option.name.toLocaleLowerCase() === next.trim().toLocaleLowerCase()
+          );
+          select(exact ?? null);
+        }}
+        onKeyDown={handleKeyDown}
+        autoComplete="off"
+      />
+      {open && (
+        <ul
+          id={listboxId}
+          role="listbox"
+          className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-none border border-[color:var(--line-strong)] bg-[var(--card)] p-1 shadow-lg"
+        >
+          {matches.length ? (
+            matches.map((option, index) => (
+              <li
+                id={`${listboxId}-${option.id}`}
+                key={option.id}
+                role="option"
+                aria-selected={selectedId === option.id}
+              >
+                <button
+                  type="button"
+                  className={`w-full rounded-none px-2.5 py-2 text-left text-sm ${
+                    index === activeIndex
+                      ? "bg-[var(--wash)] text-[color:var(--ink)]"
+                      : "text-[color:var(--text)] hover:bg-[var(--wash)]"
+                  }`}
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={() => choose(option)}
+                >
+                  {option.name}
+                  {option.handle && (
+                    <span className="ml-2 text-xs text-[color:var(--faint)]">{option.handle}</span>
+                  )}
+                </button>
+              </li>
+            ))
+          ) : (
+            <li className="px-2.5 py-2 text-sm text-[color:var(--muted)]">No matching people</li>
+          )}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export function ResearcherCombobox({
+  options,
+  intent,
+  canonicalWorkId,
+  placeholder,
+}: {
+  options: AdminResearcher[];
+  intent: "add-scout" | "add-paper-researcher";
+  canonicalWorkId?: number;
+  placeholder: string;
+}) {
+  const fetcher = useFetcher<ActionResult>();
+  const [selected, setSelected] = useState<AdminResearcher | null>(null);
+  const [resetKey, setResetKey] = useState(0);
+
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data?.ok) {
+      setSelected(null);
+      setResetKey((key) => key + 1);
+    }
+  }, [fetcher.data, fetcher.state]);
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    if (!selected) event.preventDefault();
+  }
+
+  return (
     <fetcher.Form method="post" className="flex flex-wrap items-start gap-2" onSubmit={submit}>
       <input type="hidden" name="intent" value={intent} />
-      <input type="hidden" name="researcherId" value={selectedId ?? ""} />
+      <input type="hidden" name="researcherId" value={selected?.id ?? ""} />
       {canonicalWorkId != null && (
         <input type="hidden" name="canonicalWorkId" value={canonicalWorkId} />
       )}
-      <div className="relative min-w-[240px] flex-1" ref={wrapperRef}>
-        <input
-          className={input + " w-full"}
-          value={query}
-          placeholder={placeholder}
-          role="combobox"
-          aria-autocomplete="list"
-          aria-expanded={open}
-          aria-controls={listboxId}
-          aria-activedescendant={
-            open && matches[activeIndex] ? `${listboxId}-${matches[activeIndex].id}` : undefined
-          }
-          onFocus={() => setOpen(true)}
-          onBlur={(event) => {
-            if (!wrapperRef.current?.contains(event.relatedTarget)) setOpen(false);
-          }}
-          onChange={(event) => {
-            setQuery(event.target.value);
-            setSelectedId(null);
-            setActiveIndex(0);
-            setOpen(true);
-          }}
-          onKeyDown={handleKeyDown}
-          autoComplete="off"
-        />
-        {open && (
-          <ul
-            id={listboxId}
-            role="listbox"
-            className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-none border border-[color:var(--line-strong)] bg-[var(--card)] p-1 shadow-lg"
-          >
-            {matches.length ? (
-              matches.map((option, index) => (
-                <li
-                  id={`${listboxId}-${option.id}`}
-                  key={option.id}
-                  role="option"
-                  aria-selected={selectedId === option.id}
-                >
-                  <button
-                    type="button"
-                    className={`w-full rounded-none px-2.5 py-2 text-left text-sm ${
-                      index === activeIndex
-                        ? "bg-[var(--wash)] text-[color:var(--ink)]"
-                        : "text-[color:var(--text)] hover:bg-[var(--wash)]"
-                    }`}
-                    onMouseDown={(event) => event.preventDefault()}
-                    onClick={() => choose(option)}
-                  >
-                    {option.name}
-                    {option.handle && (
-                      <span className="ml-2 text-xs text-[color:var(--faint)]">{option.handle}</span>
-                    )}
-                  </button>
-                </li>
-              ))
-            ) : (
-              <li className="px-2.5 py-2 text-sm text-[color:var(--muted)]">No matching people</li>
-            )}
-          </ul>
-        )}
-      </div>
+      <ResearcherPicker
+        className="flex-1"
+        options={options}
+        onChange={setSelected}
+        placeholder={placeholder}
+        resetKey={resetKey}
+      />
       <button
         className={btn}
         type="submit"

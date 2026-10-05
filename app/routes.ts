@@ -17,8 +17,10 @@ export default [
     index("routes/admin-scouts.tsx"),
     route("people", "routes/admin-people.tsx"),
     route("papers", "routes/admin-papers.tsx"),
+    route("appreciations", "routes/admin-appreciations.tsx"), // MAI team only
   ]), // Internal community admin (email-code authenticated)
   route("researchers/:handle", "routes/researcher-profile.tsx"), // Researcher profile (DB)
+  route("appreciate", "routes/appreciate.tsx"), // Appreciation notes + gems (unlinked)
   route("login", "routes/login.tsx"),
   route("logout", "routes/logout.tsx"),
   route("admin/*", "routes/admin-redirect.tsx"), // Legacy admin URLs

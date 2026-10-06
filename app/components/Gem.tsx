@@ -43,13 +43,11 @@ export function GemChip({
   onClick?: () => void;
   children?: ReactNode;
 }) {
-  const base =
-    "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm leading-tight";
+  const base = "inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 text-sm leading-tight";
   const style = pending ? " border-dashed" : "";
   const title = [description, pending ? "(awaiting approval)" : ""].filter(Boolean).join(" ");
   const content = (
     <>
-      <GemGlyph slug={slug} />
       <span>{name}</span>
       {children}
     </>

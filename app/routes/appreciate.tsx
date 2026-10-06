@@ -18,10 +18,9 @@ import {
   btnGhost,
   heading,
   input,
-  panel,
   ResearcherPicker,
 } from "../components/admin/AdminControls";
-import { GemChip, GemGlyph } from "../components/Gem";
+import { GemChip } from "../components/Gem";
 import { slugify } from "../lib/gems";
 
 export function meta(_: Route.MetaArgs) {
@@ -165,21 +164,18 @@ function GemModal({
 }) {
   return (
     <Modal onClose={onClose}>
-      <div className="mb-3 flex items-center gap-3">
-        <GemGlyph slug={gem.slug} size={32} />
-        <h3 className="text-xl font-semibold text-[color:var(--ink)]">{gem.name}</h3>
-      </div>
+      <h3 className="mb-3 text-xl font-semibold text-[color:var(--ink)]">{gem.name}</h3>
       <p className="mb-2 whitespace-pre-line leading-relaxed">
         {gem.description || "No description yet."}
       </p>
       {gem.status === "pending" && (
         <p className="mb-2 text-xs text-[color:var(--muted)]">
-          You crafted this gem; it’s awaiting review by the MAI team.
+          You suggested this one; it’s awaiting review by the MAI team.
         </p>
       )}
       <div className="mt-5 flex gap-2">
         <button type="button" className={btn} onClick={onAttach} autoFocus>
-          Attach to note
+          Add
         </button>
         <button type="button" className={btnGhost} onClick={onClose}>
           Cancel
@@ -204,7 +200,7 @@ function CraftGemModal({
   };
   return (
     <Modal onClose={onClose}>
-      <h3 className="mb-2 text-xl font-semibold text-[color:var(--ink)]">Craft a new gem</h3>
+      <h3 className="mb-2 text-xl font-semibold text-[color:var(--ink)]">Something else</h3>
       <p className="mb-4 text-sm leading-relaxed text-[color:var(--muted)]">
         Name a kind of excellence that isn’t here yet. It’s attached to this note now and joins the
         shared collection once the MAI team has reviewed it.
@@ -222,7 +218,7 @@ function CraftGemModal({
             }
           }}
           placeholder="Name, e.g. Generous with Credit"
-          aria-label="Gem name"
+          aria-label="What you appreciate them as"
           autoFocus
         />
         <textarea
@@ -231,12 +227,12 @@ function CraftGemModal({
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           placeholder="What does this kind of excellence look like? What is it the opposite of?"
-          aria-label="Gem description"
+          aria-label="What it looks like"
         />
       </div>
       <div className="mt-5 flex gap-2">
         <button type="button" className={btn} onClick={add} disabled={!name.trim()}>
-          Add gem
+          Add
         </button>
         <button type="button" className={btnGhost} onClick={onClose}>
           Cancel
@@ -310,7 +306,7 @@ function SendForm({
   const canSend = !!senderId && !!recipient && note.trim().length > 0 && !submitting;
 
   return (
-    <fetcher.Form method="post" className="space-y-5">
+    <fetcher.Form method="post" className="space-y-8">
       <input type="hidden" name="intent" value="send" />
       <input type="hidden" name="recipientId" value={recipient?.id ?? ""} />
       {!self && <input type="hidden" name="senderId" value={sender?.id ?? ""} />}
@@ -333,36 +329,6 @@ function SendForm({
         </span>
       ))}
 
-      {self ? (
-        <div className="text-sm">
-          <span className="mb-1.5 block font-medium text-[color:var(--ink)]">From</span>
-          <span className="text-[color:var(--text)]">{self.name}</span>
-        </div>
-      ) : (
-        <label className="block">
-          <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">
-            Who are you?
-          </span>
-          <ResearcherPicker
-            className="max-w-md"
-            options={researchers}
-            excludeId={recipient?.id}
-            onChange={setSender}
-            placeholder="Search for your name"
-          />
-          <span className="mt-1.5 block text-xs text-[color:var(--muted)]">
-            Or{" "}
-            <Link
-              to={`/login?redirectTo=${encodeURIComponent("/appreciate")}`}
-              className="text-[color:var(--accent)] hover:underline"
-            >
-              sign in
-            </Link>{" "}
-            to see appreciations you’ve received.
-          </span>
-        </label>
-      )}
-
       <label className="block">
         <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">To</span>
         <ResearcherPicker
@@ -378,11 +344,59 @@ function SendForm({
         />
       </label>
 
+      <div className="grid gap-x-10 gap-y-3 sm:grid-cols-[auto_1fr]">
+        {self ? (
+          <div className="text-sm">
+            <span className="mb-1.5 block font-medium text-[color:var(--ink)]">From</span>
+            <span className="text-[color:var(--text)]">{self.name}</span>
+          </div>
+        ) : (
+          <label className="block sm:w-72">
+            <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">
+              Who are you?
+            </span>
+            <ResearcherPicker
+              options={researchers}
+              excludeId={recipient?.id}
+              onChange={setSender}
+              placeholder="Search for your name"
+            />
+            <span className="mt-1.5 block text-xs text-[color:var(--muted)]">
+              Or{" "}
+              <Link
+                to={`/login?redirectTo=${encodeURIComponent("/appreciate")}`}
+                className="text-[color:var(--accent)] hover:underline"
+              >
+                sign in
+              </Link>{" "}
+              to see appreciations you’ve received.
+            </span>
+          </label>
+        )}
+
+        {/* Top padding lines the checkbox up with the sender's name, not the "From" label. */}
+        <div className="space-y-1 sm:pt-[26px]">
+          <label className="admin-section flex items-center gap-2 text-sm text-[color:var(--text)]">
+            <input
+              type="checkbox"
+              checked={signed}
+              onChange={(event) => setSigned(event.target.checked)}
+            />
+            Sign it, so {recipient?.name ?? "they"} can see it’s from you
+          </label>
+          <p className="text-xs text-[color:var(--muted)]">
+            Otherwise it’s anonymous to them. (MAI always sees who sent it.)
+          </p>
+        </div>
+      </div>
+
 
       <div>
-        <span className="mb-1 block text-sm font-medium text-[color:var(--ink)]">Gems</span>
+        <span className="mb-1 block text-sm font-medium text-[color:var(--ink)]">
+          I appreciate {recipient?.name ?? "them"} as…
+        </span>
         <p className="mb-2.5 text-xs text-[color:var(--muted)]">
-          Attach the kinds of excellence you see in them. Click a gem to see what it means.
+          Click one to see what it means. These will show on the public wall of appreciations.
         </p>
         <div className="flex flex-wrap gap-2">
           {gems.map((gem) => (
@@ -410,10 +424,10 @@ function SendForm({
           ))}
           <button
             type="button"
-            className={btnGhost + " rounded-full"}
+            className={btnGhost}
             onClick={() => setCrafting(true)}
           >
-            + Craft a new gem
+            + Something else…
           </button>
         </div>
 
@@ -421,25 +435,18 @@ function SendForm({
       </div>
 
       <label className="block">
-        <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">Personal Note</span>
+        <span className="mb-1 block text-sm font-medium text-[color:var(--ink)]">Personal note</span>
+        <span className="mb-2.5 block text-xs text-[color:var(--muted)]">
+          Only visible to the recipient.
+        </span>
         <textarea
           name="note"
           rows={6}
           value={note}
           onChange={(event) => setNote(event.target.value)}
           className={input + " w-full max-w-2xl leading-relaxed"}
-          placeholder="Anything you want to say to them about their work, or how it affected you. This note is private and will only be seen by the recipient and the MAI team, and will be anonymous unless you sign it."
+          placeholder="Anything you want to say to them about their work, or how it affected you."
         />
-        <div className="max-w-2xl space-y-2 text-sm">
-          <label className="admin-section flex items-center gap-2 text-[color:var(--text)]">
-            <input
-              type="checkbox"
-              checked={signed}
-              onChange={(event) => setSigned(event.target.checked)}
-            />
-            Let {recipient?.name ?? "them"} know it’s from me
-          </label>
-        </div>
       </label>
 
       {previewing && (
@@ -502,17 +509,12 @@ function AppreciationCard({
         {appreciation.note}
       </p>
       {appreciation.gems.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {appreciation.gems.map((gem) => (
-            <GemChip
-              key={gem.id}
-              slug={gem.slug}
-              name={gem.name}
-              description={gem.description}
-              pending={gem.status === "pending"}
-            />
-          ))}
-        </div>
+        <p className="text-sm text-[color:var(--muted)]">
+          As{" "}
+          <span className="text-[color:var(--ink)]">
+            {appreciation.gems.map((gem) => gem.name).join(" · ")}
+          </span>
+        </p>
       )}
     </li>
   );
@@ -535,22 +537,19 @@ export default function Appreciate() {
           </div>
         )}
 
-        <h1 className="mb-3 text-3xl font-semibold text-[color:var(--ink)]">Appreciations</h1>
+        <h1 className="mb-3 text-3xl font-semibold text-[color:var(--ink)]">Appreciate a researcher</h1>
         <p className="mb-10 max-w-2xl leading-relaxed text-[color:var(--text)]">
-          Send a researcher a note about work of theirs you valued. Each month the MAI team will pick one appreciated researcher and send flowers. Gems are public, but the personal notes you add will only be seen by the person you appreciate and the MAI team, and will be anonymous unless you sign them.
+          Each month MAI will send flowers to one appreciated researcher.
         </p>
 
-        <section className={panel}>
-          <h2 className={heading + " mb-4"}>Send an appreciation</h2>
-          <SendForm
-            researchers={researchers}
-            gems={gems}
-            self={session ? { researcherId: session.researcherId, name: session.name } : null}
-          />
-        </section>
+        <SendForm
+          researchers={researchers}
+          gems={gems}
+          self={session ? { researcherId: session.researcherId, name: session.name } : null}
+        />
 
         {session && received.length > 0 && (
-          <section className={panel}>
+          <section>
             <h2 className={heading + " mb-1"}>Appreciations you’ve received</h2>
             <ul>
               {received.map((appreciation) => (
@@ -560,24 +559,28 @@ export default function Appreciate() {
           </section>
         )}
 
-        <section className={panel}>
-          <h2 className={heading + " mb-1"}>Recent appreciations</h2>
+        <div className="mb-8 mt-10 h-px bg-[color:var(--line)]" />
+
+        <section>
+          <h1 className={heading + " mb-1"}>Recent appreciations</h1>
           {wall.length ? (
             <ul>
               {wall.map((item) => (
                 <li
                   key={item.id}
-                  className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-b border-[color:var(--line)] py-3 text-sm last:border-b-0"
+                  className="border-b border-[color:var(--line)] py-3 text-sm last:border-b-0"
                 >
                   <PersonLink person={item.recipient} />
                   <span className="text-[color:var(--muted)]">
-                    {item.gems.length ? "was appreciated for" : "was appreciated"}
+                    , appreciated{item.gems.length ? " as " : ""}
                   </span>
-                  {item.gems.map((gem) => (
-                    <GemChip key={gem.id} slug={gem.slug} name={gem.name} description={gem.description} />
-                  ))}
+                  {item.gems.length > 0 && (
+                    <span className="text-[color:var(--ink)]">
+                      {item.gems.map((gem) => gem.name).join(" · ")}
+                    </span>
+                  )}
                   <span className="text-xs text-[color:var(--faint)]">
-                    · {formatMonth(item.createdAt)}
+                    {" "}· {formatMonth(item.createdAt)}
                   </span>
                 </li>
               ))}
@@ -591,7 +594,7 @@ export default function Appreciate() {
         </section>
 
         {session && sent.length > 0 && (
-          <section className={panel}>
+          <section>
             <h2 className={heading + " mb-1"}>Appreciations you’ve sent</h2>
             <ul>
               {sent.map((appreciation) => (

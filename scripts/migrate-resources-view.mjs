@@ -1,7 +1,6 @@
 // (Re)creates resources_listing: one row per (field, work) in /resources page
 // order, hidden works (no section) last. It's for browsing what the page shows
-// in the Neon console; the app reads canonical_works directly. Prisma ignores
-// views, so `bun run db:push` leaves it alone.
+// in the Neon console; the app reads canonical_works directly.
 import "dotenv/config";
 import { neon } from "@neondatabase/serverless";
 

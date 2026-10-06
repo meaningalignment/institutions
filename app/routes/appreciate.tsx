@@ -398,14 +398,14 @@ function SendForm({
       </div>
 
       <label className="block">
-        <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">Note</span>
+        <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">Personal Note</span>
         <textarea
           name="note"
           rows={6}
           value={note}
           onChange={(event) => setNote(event.target.value)}
           className={input + " w-full max-w-2xl leading-relaxed"}
-          placeholder="What did they do, and why did it matter to you?"
+          placeholder="Anything you want to say to them about their work, or how it affected you. This note is private and will only be seen by the recipient and the MAI team, and will be anonymous unless you sign it."
         />
       </label>
 
@@ -420,12 +420,7 @@ function SendForm({
         />
       )}
 
-      <div className="max-w-2xl space-y-2 border-l-2 border-[color:var(--line-strong)] pl-3 text-sm">
-        <p className="leading-relaxed text-[color:var(--text)]">
-          Your appreciation is anonymous: {recipient?.name ?? "they"} won’t see who it’s from
-          unless you choose to sign it. We (the MAI team) do like to know who appreciations come
-          from, which is why we ask.
-        </p>
+      <div className="max-w-2xl space-y-2 text-sm">
         <label className="admin-section flex items-center gap-2 text-[color:var(--text)]">
           <input
             type="checkbox"
@@ -520,11 +515,7 @@ export default function Appreciate() {
 
         <h1 className="mb-3 text-3xl font-semibold text-[color:var(--ink)]">Appreciations</h1>
         <p className="mb-10 max-w-2xl leading-relaxed text-[color:var(--text)]">
-          Send a researcher a note about work of theirs you valued, and attach <em>gems</em>: the
-          kinds of excellence you see in them. Each month the Meaning Alignment team picks one
-          appreciated researcher and sends them flowers with the note and its gems. Gems are
-          public; notes are seen only by the person you write to and the team, and they’re
-          anonymous unless you sign them.
+          Send a researcher a note about work of theirs you valued. Each month the MAI team will pick one appreciated researcher and send flowers. Gems are public, but the personal notes you add will only be seen by the person you appreciate and the MAI team, and will be anonymous unless you sign them.
         </p>
 
         <section className={panel}>

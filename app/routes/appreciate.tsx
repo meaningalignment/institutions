@@ -407,6 +407,16 @@ function SendForm({
           className={input + " w-full max-w-2xl leading-relaxed"}
           placeholder="Anything you want to say to them about their work, or how it affected you. This note is private and will only be seen by the recipient and the MAI team, and will be anonymous unless you sign it."
         />
+        <div className="max-w-2xl space-y-2 text-sm">
+          <label className="admin-section flex items-center gap-2 text-[color:var(--text)]">
+            <input
+              type="checkbox"
+              checked={signed}
+              onChange={(event) => setSigned(event.target.checked)}
+            />
+            Let {recipient?.name ?? "them"} know it’s from me
+          </label>
+        </div>
       </label>
 
       {previewing && (
@@ -419,17 +429,6 @@ function SendForm({
           onClose={() => setPreviewing(null)}
         />
       )}
-
-      <div className="max-w-2xl space-y-2 text-sm">
-        <label className="admin-section flex items-center gap-2 text-[color:var(--text)]">
-          <input
-            type="checkbox"
-            checked={signed}
-            onChange={(event) => setSigned(event.target.checked)}
-          />
-          Let {recipient?.name ?? "them"} know it’s from me
-        </label>
-      </div>
 
       <div className="flex items-center gap-3">
         <button className={btn} type="submit" disabled={!canSend}>

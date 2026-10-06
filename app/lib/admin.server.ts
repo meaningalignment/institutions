@@ -22,6 +22,10 @@ export interface AdminPerson extends AdminResearcher {
   closeness: Closeness;
   involvementIds: number[];
   isScout: boolean;
+  isAdmin: boolean;
+  hasEmail: boolean;
+  /** Emails proven at sign-in for a record without one, awaiting confirmation. */
+  tentativeEmails: string[];
 }
 
 export interface AdminScout {
@@ -76,6 +80,14 @@ export async function getPeople(): Promise<AdminPerson[]> {
       EXISTS (
         SELECT 1 FROM advisors a WHERE a.researcher_id = r.id
       ) AS is_scout,
+      EXISTS (
+        SELECT 1 FROM institutions_admins ad WHERE ad.researcher_id = r.id
+      ) AS is_admin,
+      r.email IS NOT NULL AS has_email,
+      ARRAY(
+        SELECT t.email FROM institutions_tentative_emails t
+        WHERE t.researcher_id = r.id ORDER BY t.created_at
+      ) AS tentative_emails,
       COALESCE(
         array_agg(ri.involvement_id ORDER BY ri.involvement_id)
           FILTER (WHERE ri.involvement_id IS NOT NULL),
@@ -83,7 +95,7 @@ export async function getPeople(): Promise<AdminPerson[]> {
       ) AS involvement_ids
     FROM researchers r
     LEFT JOIN researcher_involvements ri ON ri.researcher_id = r.id
-    GROUP BY r.id, r.name, r.handle, r.commitment
+    GROUP BY r.id, r.name, r.handle, r.commitment, r.email
     ORDER BY lower(COALESCE(r.name, '')), r.name
   `) as any[];
   return rows.map((r) => ({
@@ -93,7 +105,51 @@ export async function getPeople(): Promise<AdminPerson[]> {
     closeness: r.closeness,
     involvementIds: r.involvement_ids ?? [],
     isScout: r.is_scout,
+    isAdmin: r.is_admin,
+    hasEmail: r.has_email,
+    tentativeEmails: r.tentative_emails ?? [],
   }));
+}
+
+export async function setAdmin(researcherId: number, admin: boolean) {
+  const sql = getSql();
+  if (admin) {
+    await sql`
+      INSERT INTO institutions_admins (researcher_id) VALUES (${researcherId})
+      ON CONFLICT DO NOTHING
+    `;
+  } else {
+    await sql`DELETE FROM institutions_admins WHERE researcher_id = ${researcherId}`;
+  }
+}
+
+/** Promote a tentative email to the record's email (only when the record has none). */
+export async function confirmTentativeEmail(researcherId: number, email: string) {
+  const sql = getSql();
+  const tentative = (await sql`
+    SELECT 1 FROM institutions_tentative_emails
+    WHERE researcher_id = ${researcherId} AND email = ${email}
+  `) as unknown[];
+  if (!tentative.length) throw new Error("That email is no longer pending.");
+  const taken = (await sql`
+    SELECT 1 FROM researchers WHERE lower(email) = ${email.toLowerCase()} AND id <> ${researcherId}
+  `) as unknown[];
+  if (taken.length) throw new Error("Another researcher already has that email.");
+  const updated = (await sql`
+    UPDATE researchers SET email = ${email}
+    WHERE id = ${researcherId} AND email IS NULL
+    RETURNING id
+  `) as unknown[];
+  if (!updated.length) throw new Error("This researcher already has an email on file.");
+  await sql`DELETE FROM institutions_tentative_emails WHERE researcher_id = ${researcherId}`;
+}
+
+export async function rejectTentativeEmail(researcherId: number, email: string) {
+  const sql = getSql();
+  await sql`
+    DELETE FROM institutions_tentative_emails
+    WHERE researcher_id = ${researcherId} AND email = ${email}
+  `;
 }
 
 export async function getScouts(): Promise<AdminScout[]> {

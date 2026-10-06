@@ -2,8 +2,11 @@ import { useFetcher } from "react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Route } from "./+types/admin-people";
 import {
+  confirmTentativeEmail,
   getInvolvements,
   getPeople,
+  rejectTentativeEmail,
+  setAdmin,
   setInvolvement,
   updateCloseness,
   type AdminPerson,
@@ -12,6 +15,7 @@ import {
 import { invalidateCommunityCache } from "../lib/researchers.server";
 import {
   type ActionResult,
+  btnGhost,
   heading,
   input,
   panel,
@@ -50,7 +54,7 @@ function positiveInteger(value: FormDataEntryValue | null) {
 }
 
 export async function action({ request }: Route.ActionArgs): Promise<ActionResult> {
-  await requireAdminSession(request);
+  const session = await requireAdminSession(request);
   const fd = await request.formData();
   const intent = String(fd.get("intent") || "");
   const researcherId = positiveInteger(fd.get("researcherId"));
@@ -67,6 +71,16 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
       const involvementId = positiveInteger(fd.get("involvementId"));
       if (!involvementId) return { ok: false, error: "Missing involvement." };
       await setInvolvement(researcherId, involvementId, fd.get("active") === "true");
+    } else if (intent === "set-admin") {
+      const admin = fd.get("admin") === "true";
+      if (!admin && researcherId === session.researcherId) {
+        return { ok: false, error: "You can't remove your own admin access." };
+      }
+      await setAdmin(researcherId, admin);
+    } else if (intent === "confirm-email") {
+      await confirmTentativeEmail(researcherId, String(fd.get("email") || ""));
+    } else if (intent === "reject-email") {
+      await rejectTentativeEmail(researcherId, String(fd.get("email") || ""));
     } else {
       return { ok: false, error: "Unknown action." };
     }
@@ -108,9 +122,25 @@ function PersonRow({
     <li className="border-t border-[color:var(--line)] py-3 first:border-t-0">
       <div className="grid gap-2 sm:grid-cols-[minmax(170px,240px)_180px_110px_minmax(100px,1fr)] sm:items-center">
         <div className="min-w-0">
-          <div className="truncate text-sm font-medium text-[color:var(--ink)]">{person.name}</div>
+          <div className="truncate text-sm font-medium text-[color:var(--ink)]">
+            {person.name}
+            {person.isAdmin && (
+              <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wide text-[color:var(--muted)]">
+                Admin
+              </span>
+            )}
+          </div>
           {person.handle && (
             <div className="truncate text-xs text-[color:var(--faint)]">{person.handle}</div>
+          )}
+          {person.tentativeEmails.length > 0 && (
+            <button
+              type="button"
+              className="text-xs text-[color:var(--accent)] hover:underline"
+              onClick={() => setExpanded(true)}
+            >
+              Unconfirmed email
+            </button>
           )}
         </div>
 
@@ -166,6 +196,7 @@ function PersonRow({
 
       {expanded && (
         <div className="mt-3 border-l-2 border-[color:var(--line-strong)] bg-[var(--wash)] p-3">
+          <AccessControls person={person} />
           <div className="grid gap-x-4 gap-y-2 sm:grid-cols-2">
             {otherInvolvements.map((involvement) => (
               <MembershipToggle
@@ -180,6 +211,80 @@ function PersonRow({
         </div>
       )}
     </li>
+  );
+}
+
+function AccessControls({ person }: { person: AdminPerson }) {
+  const adminFetcher = useFetcher<ActionResult>();
+  const admin = adminFetcher.formData
+    ? adminFetcher.formData.get("admin") === "true"
+    : person.isAdmin;
+  return (
+    <div className="mb-3 space-y-2 border-b border-[color:var(--line)] pb-3 text-sm">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+        <label className="flex items-center gap-2 px-2 py-1.5 text-[color:var(--text)]">
+          <input
+            type="checkbox"
+            checked={admin}
+            aria-label={`Admin access for ${person.name}`}
+            onChange={(event) =>
+              adminFetcher.submit(
+                {
+                  intent: "set-admin",
+                  researcherId: String(person.id),
+                  admin: String(event.currentTarget.checked),
+                },
+                { method: "post" }
+              )
+            }
+          />
+          Admin
+        </label>
+        <span className="text-xs text-[color:var(--muted)]">
+          {person.hasEmail ? "Email on file" : "No email on file"}
+          {admin && !person.hasEmail && " (admin access needs a confirmed email)"}
+        </span>
+        {adminFetcher.data && !adminFetcher.data.ok && (
+          <span className="admin-error text-xs">{adminFetcher.data.error}</span>
+        )}
+      </div>
+      {person.tentativeEmails.map((email) => (
+        <TentativeEmail key={email} person={person} email={email} />
+      ))}
+    </div>
+  );
+}
+
+function TentativeEmail({ person, email }: { person: AdminPerson; email: string }) {
+  const fetcher = useFetcher<ActionResult>();
+  return (
+    <fetcher.Form method="post" className="flex flex-wrap items-center gap-2 px-2">
+      <input type="hidden" name="researcherId" value={person.id} />
+      <input type="hidden" name="email" value={email} />
+      <span className="text-xs text-[color:var(--muted)]">Unconfirmed:</span>
+      <span className="text-sm text-[color:var(--ink)]">{email}</span>
+      {!person.hasEmail && (
+        <button
+          className={btnGhost}
+          name="intent"
+          value="confirm-email"
+          disabled={fetcher.state !== "idle"}
+        >
+          Confirm
+        </button>
+      )}
+      <button
+        className={btnGhost}
+        name="intent"
+        value="reject-email"
+        disabled={fetcher.state !== "idle"}
+      >
+        Remove
+      </button>
+      {fetcher.data && !fetcher.data.ok && (
+        <span className="admin-error text-xs">{fetcher.data.error}</span>
+      )}
+    </fetcher.Form>
   );
 }
 

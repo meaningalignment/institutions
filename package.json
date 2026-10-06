@@ -11,6 +11,7 @@
     "typecheck": "react-router typegen && tsc",
     "db:migrate:admin-auth": "node scripts/migrate-admin-auth.mjs",
     "db:migrate:appreciations": "node scripts/migrate-appreciations.mjs",
+    "db:migrate:researcher-login": "node scripts/migrate-researcher-login.mjs",
     "db:migrate:project-updates": "node scripts/migrate-project-updates.mjs",
     "db:migrate:researcher-bios": "node scripts/migrate-researcher-bios.mjs",
     "db:import:pax-bios": "node scripts/import-pax-bios.mjs",

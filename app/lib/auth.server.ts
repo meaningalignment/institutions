@@ -9,18 +9,30 @@ const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
 const LOGIN_CODE_TTL_MINUTES = 10;
 const MAX_CODE_ATTEMPTS = 5;
 
-export interface AdminSession {
+/** Signed cookie payload. `admin` is only a hint for nav links; gates re-check the DB. */
+export interface SessionCookie {
   researcherId: number;
   name: string;
   email: string;
+  admin?: boolean;
   expiresAt: number;
+}
+
+/** A signed-in researcher, re-validated against the DB on each request. */
+export interface SignedInResearcher {
+  researcherId: number;
+  name: string;
+  email: string;
+  handle: string;
+  /** False when they signed in with a tentative (not yet confirmed) email. */
+  emailConfirmed: boolean;
+  isAdmin: boolean;
 }
 
 interface LoginResearcher {
   id: number;
   name: string;
-  email: string;
-  handle?: string | null;
+  email: string | null;
 }
 
 function sessionSecret() {
@@ -85,21 +97,23 @@ export function clearSessionCookie(request: Request) {
     .join("; ");
 }
 
-export function createAdminSessionCookie(
-  researcher: LoginResearcher,
+export function createSessionCookie(
+  researcher: { id: number; name: string; email: string; admin: boolean },
   request: Request
 ) {
-  const payload: AdminSession = {
+  const payload: SessionCookie = {
     researcherId: researcher.id,
     name: researcher.name,
     email: researcher.email,
+    admin: researcher.admin,
     expiresAt: Date.now() + SESSION_MAX_AGE_SECONDS * 1000,
   };
   const encoded = Buffer.from(JSON.stringify(payload)).toString("base64url");
   return sessionCookie(`${encoded}.${signature(encoded)}`, request);
 }
 
-export function getAdminSession(request: Request): AdminSession | null {
+/** Cookie-only read (no DB). Use for cheap UI hints, never for authorization. */
+export function getSessionCookie(request: Request): SessionCookie | null {
   const token = cookieValue(request, SESSION_COOKIE);
   if (!token) return null;
   const [encoded, suppliedSignature, ...extra] = token.split(".");
@@ -109,7 +123,7 @@ export function getAdminSession(request: Request): AdminSession | null {
     if (!signaturesMatch(suppliedSignature, signature(encoded))) return null;
     const payload = JSON.parse(
       Buffer.from(encoded, "base64url").toString("utf8")
-    ) as Partial<AdminSession>;
+    ) as Partial<SessionCookie>;
     if (
       !Number.isInteger(payload.researcherId) ||
       typeof payload.name !== "string" ||
@@ -119,45 +133,71 @@ export function getAdminSession(request: Request): AdminSession | null {
     ) {
       return null;
     }
-    return payload as AdminSession;
+    return payload as SessionCookie;
   } catch {
     return null;
   }
 }
 
-export async function getAuthorizedAdminSession(request: Request) {
-  const session = getAdminSession(request);
+/**
+ * The signed-in researcher, or null. The cookie's email must still be the record's
+ * email or one of its tentative emails; admin status is read fresh from the DB.
+ */
+export async function getSignedInResearcher(
+  request: Request
+): Promise<SignedInResearcher | null> {
+  const session = getSessionCookie(request);
   if (!session) return null;
+  const email = session.email.toLowerCase();
   const sql = getSql();
   const rows = (await sql`
-    SELECT id, name, email, handle
-    FROM researchers
-    WHERE id = ${session.researcherId}
-      AND email IS NOT NULL
-      AND lower(email) = ${session.email.toLowerCase()}
+    SELECT r.id, r.name, r.handle,
+      (r.email IS NOT NULL AND lower(r.email) = ${email}) AS confirmed,
+      EXISTS (
+        SELECT 1 FROM institutions_tentative_emails t
+        WHERE t.researcher_id = r.id AND t.email = ${email}
+      ) AS tentative,
+      EXISTS (
+        SELECT 1 FROM institutions_admins a WHERE a.researcher_id = r.id
+      ) AS admin
+    FROM researchers r
+    WHERE r.id = ${session.researcherId}
     LIMIT 1
-  `) as LoginResearcher[];
-  const researcher = rows[0];
-  if (!researcher) return null;
+  `) as any[];
+  const row = rows[0];
+  if (!row || (!row.confirmed && !row.tentative)) return null;
   return {
-    ...session,
-    name: researcher.name,
-    email: researcher.email,
-    handle: researcher.handle ?? "",
+    researcherId: row.id,
+    name: row.name ?? "",
+    email: session.email,
+    handle: row.handle ?? "",
+    emailConfirmed: row.confirmed,
+    // Admin rights need the record's own email, never a self-supplied tentative one.
+    isAdmin: row.admin && row.confirmed,
   };
 }
 
-export async function requireAdminSession(request: Request) {
-  const session = await getAuthorizedAdminSession(request);
-  if (session) return session;
+function loginRedirect(request: Request): never {
   const url = new URL(request.url);
   const redirectTo = safeAdminRedirect(`${url.pathname}${url.search}`);
   throw redirect(`/login?redirectTo=${encodeURIComponent(redirectTo)}`);
 }
 
-/** The MAI team (who pick the monthly appreciation) is everyone with a meaningalignment.org address. */
-export function isMaiTeam(session: { email: string } | null | undefined) {
-  return !!session && /@meaningalignment\.org$/i.test(session.email.trim());
+/** Requires an admin (institutions_admins row + confirmed email); otherwise login or 403. */
+export async function requireAdminSession(request: Request) {
+  const session = await getSignedInResearcher(request);
+  if (!session) loginRedirect(request);
+  if (!session.isAdmin) {
+    throw new Response("Admin access is limited to the research team.", { status: 403 });
+  }
+  return session;
+}
+
+/** The MAI team (who pick the monthly appreciation): confirmed @meaningalignment.org emails. */
+export function isMaiTeam(session: SignedInResearcher | null | undefined) {
+  return (
+    !!session && session.emailConfirmed && /@meaningalignment\.org$/i.test(session.email.trim())
+  );
 }
 
 export async function requireMaiTeam(request: Request) {
@@ -166,66 +206,136 @@ export async function requireMaiTeam(request: Request) {
   return session;
 }
 
+const COMMON_EMAIL_DOMAINS = new Set([
+  "gmail.com",
+  "googlemail.com",
+  "outlook.com",
+  "hotmail.com",
+  "live.com",
+  "yahoo.com",
+  "icloud.com",
+  "me.com",
+  "proton.me",
+  "protonmail.com",
+  "fastmail.com",
+]);
+
+/**
+ * Obscure an address enough that the login page can't be used to harvest emails,
+ * while its owner can still recognize it: "joe@example.org" → "j••@e••••••.org".
+ * Common webmail domains are shown in full.
+ */
+export function maskEmail(email: string) {
+  const [local, domain = ""] = email.split("@");
+  const dots = (n: number) => "•".repeat(Math.max(2, Math.min(n, 8)));
+  const maskedLocal = local.slice(0, 1) + dots(local.length - 1);
+  if (COMMON_EMAIL_DOMAINS.has(domain.toLowerCase())) return `${maskedLocal}@${domain}`;
+  const lastDot = domain.lastIndexOf(".");
+  const name = lastDot > 0 ? domain.slice(0, lastDot) : domain;
+  const tld = lastDot > 0 ? domain.slice(lastDot) : "";
+  return `${maskedLocal}@${name.slice(0, 1)}${dots(name.length - 1)}${tld}`;
+}
+
+export interface LoginOption {
+  id: number;
+  name: string;
+  handle: string;
+  /** Masked record email; null when the record has none and the user must type one. */
+  maskedEmail: string | null;
+}
+
+export async function getLoginOptions(): Promise<LoginOption[]> {
+  const sql = getSql();
+  const rows = (await sql`
+    SELECT id, name, handle, email FROM researchers
+    ORDER BY lower(COALESCE(name, '')), name
+  `) as any[];
+  return rows.map((row) => ({
+    id: row.id,
+    name: row.name ?? "",
+    handle: row.handle ?? "",
+    maskedEmail: row.email ? maskEmail(row.email) : null,
+  }));
+}
+
 function loginCodeHash(researcherId: number, code: string) {
   return createHmac("sha256", sessionSecret())
     .update(`login-code:${researcherId}:${code}`)
     .digest("hex");
 }
 
-export async function requestLoginCode(email: string) {
-  // Validate configuration before looking up the address so a missing production
-  // secret behaves the same for known and unknown researchers.
+export class LoginError extends Error {}
+
+/**
+ * Send a sign-in code for a researcher: to the record's email when it has one, otherwise
+ * to `typedEmail`, which becomes a tentative email once the code is verified.
+ * Returns the masked address the code went to.
+ */
+export async function requestLoginCode(researcherId: number, typedEmail?: string) {
   sessionSecret();
   if (!import.meta.env.DEV) assertMailgunConfigured();
   const sql = getSql();
   const rows = (await sql`
-    SELECT id, name, email
-    FROM researchers
-    WHERE email IS NOT NULL AND lower(email) = ${email}
-    LIMIT 1
+    SELECT id, name, email FROM researchers WHERE id = ${researcherId} LIMIT 1
   `) as LoginResearcher[];
   const researcher = rows[0];
-  if (!researcher) return;
+  if (!researcher) throw new LoginError("Choose who you are.");
+
+  let target = researcher.email?.trim().toLowerCase() || "";
+  if (!target) {
+    target = (typedEmail ?? "").trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(target)) {
+      throw new LoginError("Enter a valid email address.");
+    }
+    const taken = (await sql`
+      SELECT 1 FROM researchers
+      WHERE id <> ${researcherId} AND email IS NOT NULL AND lower(email) = ${target}
+      LIMIT 1
+    `) as unknown[];
+    if (taken.length) {
+      throw new LoginError("That email belongs to another researcher. Choose that name instead.");
+    }
+  }
 
   const recent = (await sql`
     SELECT sent_at > now() - interval '60 seconds' AS throttled
     FROM institutions_admin_login_codes
     WHERE researcher_id = ${researcher.id}
   `) as { throttled: boolean }[];
-  if (recent[0]?.throttled) return;
+  if (recent[0]?.throttled) {
+    throw new LoginError("A code was just sent. Wait a minute before requesting another.");
+  }
 
   const code = randomInt(0, 1_000_000).toString().padStart(6, "0");
   const codeHash = loginCodeHash(researcher.id, code);
   await sql`
     INSERT INTO institutions_admin_login_codes
-      (researcher_id, code_hash, expires_at, sent_at, attempts)
+      (researcher_id, code_hash, expires_at, sent_at, attempts, email)
     VALUES
       (
         ${researcher.id},
         ${codeHash},
-        now() + interval '10 minutes',
+        now() + make_interval(mins => ${LOGIN_CODE_TTL_MINUTES}),
         now(),
-        0
+        0,
+        ${target}
       )
     ON CONFLICT (researcher_id) DO UPDATE SET
       code_hash = EXCLUDED.code_hash,
       expires_at = EXCLUDED.expires_at,
       sent_at = EXCLUDED.sent_at,
-      attempts = 0
+      attempts = 0,
+      email = EXCLUDED.email
   `;
 
   if (import.meta.env.DEV) {
     // Local dev: print the code instead of emailing it, so any roster member can be tested.
-    console.log(`\n  Sign-in code for ${researcher.email}: ${code}\n`);
-    return;
+    console.log(`\n  Sign-in code for ${researcher.name} <${target}>: ${code}\n`);
+    return maskEmail(target);
   }
 
   try {
-    await sendLoginCodeEmail({
-      code,
-      name: researcher.name,
-      to: researcher.email,
-    });
+    await sendLoginCodeEmail({ code, name: researcher.name, to: target });
   } catch (error) {
     await sql`
       DELETE FROM institutions_admin_login_codes
@@ -233,19 +343,19 @@ export async function requestLoginCode(email: string) {
     `;
     throw error;
   }
+  return maskEmail(target);
 }
 
-export async function verifyLoginCode(
-  email: string,
-  code: string
-): Promise<LoginResearcher | null> {
+/** Check a code; on success returns what the session cookie needs. */
+export async function verifyLoginCode(researcherId: number, code: string) {
   const sql = getSql();
   const researchers = (await sql`
-    SELECT id, name, email
-    FROM researchers
-    WHERE email IS NOT NULL AND lower(email) = ${email}
+    SELECT r.id, r.name, r.email,
+      EXISTS (SELECT 1 FROM institutions_admins a WHERE a.researcher_id = r.id) AS admin
+    FROM researchers r
+    WHERE r.id = ${researcherId}
     LIMIT 1
-  `) as LoginResearcher[];
+  `) as (LoginResearcher & { admin: boolean })[];
   const researcher = researchers[0];
   if (!researcher) return null;
 
@@ -255,19 +365,36 @@ export async function verifyLoginCode(
     WHERE researcher_id = ${researcher.id}
       AND expires_at > now()
       AND attempts < ${MAX_CODE_ATTEMPTS}
-    RETURNING code_hash
-  `) as { code_hash: string }[];
-  const storedHash = attempts[0]?.code_hash;
-  if (!storedHash) return null;
+    RETURNING code_hash, email
+  `) as { code_hash: string; email: string | null }[];
+  const stored = attempts[0];
+  if (!stored) return null;
 
   const suppliedHash = loginCodeHash(researcher.id, code);
-  if (!signaturesMatch(suppliedHash, storedHash)) return null;
+  if (!signaturesMatch(suppliedHash, stored.code_hash)) return null;
 
   await sql`
     DELETE FROM institutions_admin_login_codes
     WHERE researcher_id = ${researcher.id}
   `;
-  return researcher;
+
+  const recordEmail = researcher.email?.trim().toLowerCase() || null;
+  const email = stored.email || recordEmail;
+  if (!email) return null;
+  const confirmed = email === recordEmail;
+  if (!confirmed) {
+    await sql`
+      INSERT INTO institutions_tentative_emails (researcher_id, email)
+      VALUES (${researcher.id}, ${email})
+      ON CONFLICT DO NOTHING
+    `;
+  }
+  return {
+    id: researcher.id,
+    name: researcher.name,
+    email,
+    admin: researcher.admin && confirmed,
+  };
 }
 
 export const loginCodePolicy = {

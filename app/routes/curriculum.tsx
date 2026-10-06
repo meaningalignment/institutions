@@ -3,12 +3,12 @@ import type { Route } from "./+types/curriculum";
 import { buildCurriculum } from "../lib/curriculum.server";
 import { initCurriculum } from "../lib/curriculum-init";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
-import { getAuthorizedAdminSession } from "../lib/auth.server";
+import { getSignedInResearcher } from "../lib/auth.server";
 import { ComingSoon } from "../components/ComingSoon";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const session = await getAuthorizedAdminSession(request);
-  if (!session) return { preview: false as const, title: "Curriculum" };
+  const session = await getSignedInResearcher(request);
+  if (!session?.isAdmin) return { preview: false as const, title: "Curriculum" };
   return { preview: true as const, ...buildCurriculum() };
 }
 

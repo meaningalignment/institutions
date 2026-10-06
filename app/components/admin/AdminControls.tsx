@@ -48,19 +48,26 @@ export function ResearcherPicker({
   placeholder,
   excludeId,
   resetKey,
+  initial,
   className = "",
+  inputClassName = input + " w-full",
+  autoFocus,
 }: {
   options: AdminResearcher[];
   onChange: (researcher: AdminResearcher | null) => void;
   placeholder: string;
   excludeId?: number;
   resetKey?: number;
+  /** Researcher shown as already chosen on first render. */
+  initial?: AdminResearcher | null;
   className?: string;
+  inputClassName?: string;
+  autoFocus?: boolean;
 }) {
   const listboxId = useId();
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [query, setQuery] = useState("");
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [query, setQuery] = useState(initial?.name ?? "");
+  const [selectedId, setSelectedId] = useState<number | null>(initial?.id ?? null);
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -80,7 +87,7 @@ export function ResearcherPicker({
   }, [available, query]);
 
   useEffect(() => {
-    if (resetKey == null) return;
+    if (!resetKey) return;
     setQuery("");
     setSelectedId(null);
     setOpen(false);
@@ -122,8 +129,9 @@ export function ResearcherPicker({
   return (
     <div className={"relative min-w-[240px] " + className} ref={wrapperRef}>
       <input
-        className={input + " w-full"}
+        className={inputClassName}
         value={query}
+        autoFocus={autoFocus}
         placeholder={placeholder}
         role="combobox"
         aria-autocomplete="list"

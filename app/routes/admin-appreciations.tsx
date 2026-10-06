@@ -60,6 +60,12 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
   }
 }
 
+const VERIFICATION_LABEL: Record<Appreciation["senderVerification"], string> = {
+  email: "signed in",
+  tentative: "signed in with unconfirmed email",
+  none: "self-identified, unverified",
+};
+
 function monthLabel(key: string) {
   return new Date(`${key}T00:00:00Z`).toLocaleDateString("en-US", {
     month: "long",
@@ -135,7 +141,18 @@ function AppreciationRow({ appreciation: a }: { appreciation: Appreciation }) {
       <div className="mb-1.5 flex flex-wrap items-baseline gap-x-2 text-sm">
         <span className="font-medium text-[color:var(--ink)]">{a.recipient.name}</span>
         <span className="text-xs text-[color:var(--muted)]">
-          from {a.sender?.name ?? "a former member"} ·{" "}
+          from {a.sender?.name ?? "a former member"}
+          {a.sender && (
+            <span
+              className={
+                a.senderVerification === "email" ? "" : "font-medium text-[color:var(--ink)]"
+              }
+            >
+              {" "}
+              ({VERIFICATION_LABEL[a.senderVerification]})
+            </span>
+          )}{" "}
+          · {a.signed ? "signed" : "anonymous to them"} ·{" "}
           {new Date(a.createdAt).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",

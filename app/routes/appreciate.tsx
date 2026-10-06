@@ -2,7 +2,7 @@ import { Form, Link, useFetcher, useLoaderData } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import type { Route } from "./+types/appreciate";
 import { SITE_NAME } from "../lib/constants";
-import { getAuthorizedAdminSession } from "../lib/auth.server";
+import { getSignedInResearcher } from "../lib/auth.server";
 import { getResearchersList, type AdminResearcher } from "../lib/admin.server";
 import {
   type Appreciation,
@@ -29,16 +29,16 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const session = await getAuthorizedAdminSession(request);
-  const [gems, wall] = await Promise.all([
+  const session = await getSignedInResearcher(request);
+  const [gems, wall, researchers] = await Promise.all([
     getGems(session?.researcherId),
     getPublicAppreciations(),
+    getResearchersList(),
   ]);
   if (!session) {
-    return { session: null, gems, wall, researchers: [], received: [], sent: [] };
+    return { session: null, gems, wall, researchers, received: [], sent: [] };
   }
-  const [researchers, received, sent] = await Promise.all([
-    getResearchersList(),
+  const [received, sent] = await Promise.all([
     getReceived(session.researcherId),
     getSent(session.researcherId),
   ]);
@@ -52,16 +52,23 @@ export async function loader({ request }: Route.LoaderArgs) {
   };
 }
 
+function positiveInteger(value: FormDataEntryValue | null) {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
+}
+
 export async function action({ request }: Route.ActionArgs): Promise<ActionResult> {
-  const session = await getAuthorizedAdminSession(request);
-  if (!session) return { ok: false, error: "Sign in to send an appreciation." };
+  const session = await getSignedInResearcher(request);
   const fd = await request.formData();
   if (fd.get("intent") !== "send") return { ok: false, error: "Unknown action." };
+  // Honeypot: bots fill every field; people never see this one.
+  if (String(fd.get("website") ?? "")) return { ok: true };
 
-  const recipientId = Number(fd.get("recipientId"));
-  if (!Number.isInteger(recipientId) || recipientId <= 0) {
-    return { ok: false, error: "Choose who you're appreciating." };
-  }
+  // Signed-in senders are identified by their session; signed-out senders pick their name.
+  const senderId = session?.researcherId ?? positiveInteger(fd.get("senderId"));
+  if (!senderId) return { ok: false, error: "Choose who you are." };
+  const recipientId = positiveInteger(fd.get("recipientId"));
+  if (!recipientId) return { ok: false, error: "Choose who you're appreciating." };
   const gemIds = fd
     .getAll("gemId")
     .map(Number)
@@ -72,7 +79,9 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
 
   try {
     await createAppreciation({
-      senderId: session.researcherId,
+      senderId,
+      senderVerification: !session ? "none" : session.emailConfirmed ? "email" : "tentative",
+      signed: fd.get("signed") === "true",
       recipientId,
       note: String(fd.get("note") ?? ""),
       gemIds,
@@ -171,14 +180,17 @@ function GemModal({
 function SendForm({
   researchers,
   gems,
-  selfId,
+  self,
 }: {
   researchers: AdminResearcher[];
   gems: PickerGem[];
-  selfId: number;
+  /** The signed-in researcher; when null the sender picks their own name. */
+  self: { researcherId: number; name: string } | null;
 }) {
   const fetcher = useFetcher<ActionResult>();
+  const [sender, setSender] = useState<AdminResearcher | null>(null);
   const [recipient, setRecipient] = useState<AdminResearcher | null>(null);
+  const [signed, setSigned] = useState(false);
   const [note, setNote] = useState("");
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [drafts, setDrafts] = useState<DraftGem[]>([]);
@@ -193,6 +205,7 @@ function SendForm({
     if (fetcher.state === "idle" && fetcher.data?.ok) {
       setSentTo(recipient?.name ?? null);
       setRecipient(null);
+      setSigned(false);
       setNote("");
       setSelected(new Set());
       setDrafts([]);
@@ -233,12 +246,23 @@ function SendForm({
   }
 
   const submitting = fetcher.state !== "idle";
-  const canSend = !!recipient && note.trim().length > 0 && !submitting;
+  const senderId = self?.researcherId ?? sender?.id ?? null;
+  const canSend = !!senderId && !!recipient && note.trim().length > 0 && !submitting;
 
   return (
     <fetcher.Form method="post" className="space-y-5">
       <input type="hidden" name="intent" value="send" />
       <input type="hidden" name="recipientId" value={recipient?.id ?? ""} />
+      {!self && <input type="hidden" name="senderId" value={sender?.id ?? ""} />}
+      <input type="hidden" name="signed" value={signed ? "true" : "false"} />
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-px w-px opacity-0"
+      />
       {[...selected].map((id) => (
         <input key={id} type="hidden" name="gemId" value={id} />
       ))}
@@ -249,12 +273,42 @@ function SendForm({
         </span>
       ))}
 
+      {self ? (
+        <div className="text-sm">
+          <span className="mb-1.5 block font-medium text-[color:var(--ink)]">From</span>
+          <span className="text-[color:var(--text)]">{self.name}</span>
+        </div>
+      ) : (
+        <label className="block">
+          <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">
+            Who are you?
+          </span>
+          <ResearcherPicker
+            className="max-w-md"
+            options={researchers}
+            excludeId={recipient?.id}
+            onChange={setSender}
+            placeholder="Search for your name"
+          />
+          <span className="mt-1.5 block text-xs text-[color:var(--muted)]">
+            Or{" "}
+            <Link
+              to={`/login?redirectTo=${encodeURIComponent("/appreciate")}`}
+              className="text-[color:var(--accent)] hover:underline"
+            >
+              sign in
+            </Link>{" "}
+            to see appreciations you’ve received.
+          </span>
+        </label>
+      )}
+
       <label className="block">
         <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">To</span>
         <ResearcherPicker
           className="max-w-md"
           options={researchers}
-          excludeId={selfId}
+          excludeId={senderId ?? undefined}
           onChange={(next) => {
             setRecipient(next);
             setSentTo(null);
@@ -366,6 +420,22 @@ function SendForm({
         />
       )}
 
+      <div className="max-w-2xl space-y-2 border-l-2 border-[color:var(--line-strong)] pl-3 text-sm">
+        <p className="leading-relaxed text-[color:var(--text)]">
+          Your appreciation is anonymous: {recipient?.name ?? "they"} won’t see who it’s from
+          unless you choose to sign it. We (the MAI team) do like to know who appreciations come
+          from, which is why we ask.
+        </p>
+        <label className="admin-section flex items-center gap-2 text-[color:var(--text)]">
+          <input
+            type="checkbox"
+            checked={signed}
+            onChange={(event) => setSigned(event.target.checked)}
+          />
+          Let {recipient?.name ?? "them"} know it’s from me
+        </label>
+      </div>
+
       <div className="flex items-center gap-3">
         <button className={btn} type="submit" disabled={!canSend}>
           {submitting ? "Sending…" : "Send appreciation"}
@@ -394,8 +464,21 @@ function AppreciationCard({
   return (
     <li className="border-b border-[color:var(--line)] py-4 last:border-b-0">
       <div className="mb-1.5 text-xs text-[color:var(--muted)]">
-        {show === "sender" ? "From " : "To "}
-        {other ? <PersonLink person={other} /> : "a former member"} ·{" "}
+        {show === "sender" ? (
+          other ? (
+            <>
+              From <PersonLink person={other} />
+            </>
+          ) : (
+            "Anonymous"
+          )
+        ) : (
+          <>
+            To {other ? <PersonLink person={other} /> : "a former member"}
+            {appreciation.signed ? " · signed" : " · anonymous"}
+          </>
+        )}{" "}
+        ·{" "}
         {formatDate(appreciation.createdAt)}
       </div>
       <p className="mb-2.5 whitespace-pre-line text-[15px] leading-relaxed text-[color:var(--text)]">
@@ -440,24 +523,17 @@ export default function Appreciate() {
           Send a researcher a note about work of theirs you valued, and attach <em>gems</em>: the
           kinds of excellence you see in them. Each month the Meaning Alignment team picks one
           appreciated researcher and sends them flowers with the note and its gems. Gems are
-          public; notes are seen only by the person you write to and the team.
+          public; notes are seen only by the person you write to and the team, and they’re
+          anonymous unless you sign them.
         </p>
 
         <section className={panel}>
           <h2 className={heading + " mb-4"}>Send an appreciation</h2>
-          {session ? (
-            <SendForm researchers={researchers} gems={gems} selfId={session.researcherId} />
-          ) : (
-            <p className="text-sm text-[color:var(--text)]">
-              <Link
-                to={`/login?redirectTo=${encodeURIComponent("/appreciate")}`}
-                className="font-medium text-[color:var(--accent)] hover:underline"
-              >
-                Sign in
-              </Link>{" "}
-              with the email on your researcher profile to send one.
-            </p>
-          )}
+          <SendForm
+            researchers={researchers}
+            gems={gems}
+            self={session ? { researcherId: session.researcherId, name: session.name } : null}
+          />
         </section>
 
         {session && received.length > 0 && (

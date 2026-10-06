@@ -11,7 +11,7 @@ import {
 } from "react-router";
 import { Analytics } from "@vercel/analytics/react";
 import { SiteShell } from "./components/SiteShell";
-import { getAdminSession } from "./lib/auth.server";
+import { getSessionCookie } from "./lib/auth.server";
 import { loadGridCells, loadHumanInstitutions } from "./lib/content.server";
 
 import type { Route } from "./+types/root";
@@ -60,7 +60,7 @@ function sidebarTitles() {
 
 export function loader({ request }: Route.LoaderArgs) {
   return {
-    adminPreview: Boolean(getAdminSession(request)),
+    adminPreview: Boolean(getSessionCookie(request)?.admin),
     cellTitles: sidebarTitles(),
   };
 }

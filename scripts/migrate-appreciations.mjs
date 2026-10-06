@@ -28,6 +28,22 @@ await sql`
     flowers_sent_at timestamptz
   )
 `;
+// How the sender was identified: 'email' (signed in with the record's email),
+// 'tentative' (signed in with an unconfirmed email), 'none' (picked their name, signed out).
+// Existing rows predate signed-out sending, so they backfill as 'email'.
+await sql`
+  ALTER TABLE institutions_appreciations
+  ADD COLUMN IF NOT EXISTS sender_verification text NOT NULL DEFAULT 'email'
+    CHECK (sender_verification IN ('email', 'tentative', 'none'))
+`;
+await sql`
+  ALTER TABLE institutions_appreciations ALTER COLUMN sender_verification SET DEFAULT 'none'
+`;
+// Appreciations are anonymous to the recipient unless the sender chose to sign.
+await sql`
+  ALTER TABLE institutions_appreciations
+  ADD COLUMN IF NOT EXISTS signed boolean NOT NULL DEFAULT false
+`;
 await sql`
   CREATE INDEX IF NOT EXISTS institutions_appreciations_recipient_idx
   ON institutions_appreciations (recipient_id)

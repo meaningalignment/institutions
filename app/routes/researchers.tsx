@@ -3,11 +3,13 @@ import type { Route } from "./+types/researchers";
 import { getCommunity, getResearchWorks } from "../lib/researchers.server";
 import { CommunityHeader } from "../components/CommunityHeader";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
-import { getAuthorizedAdminSession } from "../lib/auth.server";
+import { getSignedInResearcher } from "../lib/auth.server";
 import { ResearchAtlas } from "../components/ResearchAtlas";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const session = await getAuthorizedAdminSession(request);
+  const signedIn = await getSignedInResearcher(request);
+  // Only admins get the edit toggle.
+  const session = signedIn?.isAdmin ? signedIn : null;
   const community = await getCommunity();
   const works = await getResearchWorks();
   return { community, works, session };

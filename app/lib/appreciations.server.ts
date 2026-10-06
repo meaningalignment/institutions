@@ -33,11 +33,17 @@ export interface PublicAppreciation {
   gems: GemRef[];
 }
 
+/** How the sender was identified; see migrate-appreciations.mjs. */
+export type SenderVerification = "email" | "tentative" | "none";
+
 export interface Appreciation {
   id: number;
   createdAt: string;
   note: string;
+  /** Null when the sender's record is gone, or (in getReceived) when they didn't sign. */
   sender: PersonRef | null;
+  senderVerification: SenderVerification;
+  signed: boolean;
   recipient: PersonRef;
   gems: GemRef[];
   pickedMonth: string | null;
@@ -89,12 +95,16 @@ export async function getPendingGems(): Promise<(GemRef & { createdByName: strin
 
 export async function createAppreciation({
   senderId,
+  senderVerification,
+  signed,
   recipientId,
   note,
   gemIds,
   newGems,
 }: {
   senderId: number;
+  senderVerification: SenderVerification;
+  signed: boolean;
   recipientId: number;
   note: string;
   gemIds: number[];
@@ -104,8 +114,11 @@ export async function createAppreciation({
   const trimmedNote = note.trim();
   if (!trimmedNote) throw new Error("Write a note.");
   if (recipientId === senderId) throw new Error("Choose someone other than yourself.");
-  const recipient = (await sql`SELECT id FROM researchers WHERE id = ${recipientId}`) as any[];
-  if (!recipient.length) throw new Error("Choose a researcher.");
+  const people = (await sql`
+    SELECT id FROM researchers WHERE id = ANY(${[senderId, recipientId]}::integer[])
+  `) as any[];
+  if (!people.some((row) => row.id === recipientId)) throw new Error("Choose a researcher.");
+  if (!people.some((row) => row.id === senderId)) throw new Error("Choose who you are.");
 
   // Existing gems must be approved, or pending ones the sender crafted earlier.
   const allowed = gemIds.length
@@ -132,8 +145,9 @@ export async function createAppreciation({
   }
 
   const inserted = (await sql`
-    INSERT INTO institutions_appreciations (sender_id, recipient_id, note)
-    VALUES (${senderId}, ${recipientId}, ${trimmedNote})
+    INSERT INTO institutions_appreciations
+      (sender_id, recipient_id, note, sender_verification, signed)
+    VALUES (${senderId}, ${recipientId}, ${trimmedNote}, ${senderVerification}, ${signed})
     RETURNING id
   `) as { id: number }[];
   const appreciationId = inserted[0].id;
@@ -203,6 +217,7 @@ async function getAppreciations(
   const senderId = filter.senderId ?? null;
   const rows = (await sql`
     SELECT a.id, a.created_at, a.note, a.picked_month::text AS picked_month, a.flowers_sent_at,
+      a.sender_verification, a.signed,
       s.id AS sender_id, s.name AS sender_name, s.handle AS sender_handle,
       r.id AS recipient_id, r.name AS recipient_name, r.handle AS recipient_handle
     FROM institutions_appreciations a
@@ -218,6 +233,8 @@ async function getAppreciations(
     createdAt: iso(row.created_at)!,
     note: row.note,
     sender: person(row.sender_id, row.sender_name, row.sender_handle),
+    senderVerification: row.sender_verification,
+    signed: row.signed,
     recipient: person(row.recipient_id, row.recipient_name, row.recipient_handle)!,
     gems: gems.get(row.id) ?? [],
     pickedMonth: row.picked_month,
@@ -225,8 +242,11 @@ async function getAppreciations(
   }));
 }
 
-export const getReceived = (researcherId: number) =>
-  getAppreciations({ recipientId: researcherId });
+/** What a recipient sees: the sender only when they chose to sign. */
+export async function getReceived(researcherId: number) {
+  const received = await getAppreciations({ recipientId: researcherId });
+  return received.map((a) => (a.signed ? a : { ...a, sender: null }));
+}
 export const getSent = (researcherId: number) => getAppreciations({ senderId: researcherId });
 export const getAllAppreciations = () => getAppreciations();
 

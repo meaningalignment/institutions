@@ -1,5 +1,5 @@
 import { Form, Link, useFetcher, useLoaderData } from "react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { Route } from "./+types/appreciate";
 import { SITE_NAME } from "../lib/constants";
 import { getSignedInResearcher } from "../lib/auth.server";
@@ -28,13 +28,18 @@ export function meta(_: Route.MetaArgs) {
   return [{ title: `Appreciations — ${SITE_NAME}` }, { name: "robots", content: "noindex" }];
 }
 
+/** The public list stays hidden until there are enough entries that it can't single anyone out. */
+const MIN_PUBLIC_APPRECIATIONS = 5;
+
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSignedInResearcher(request);
-  const [gems, wall, researchers] = await Promise.all([
+  const [gems, allPublic, researchers] = await Promise.all([
     getGems(session?.researcherId),
     getPublicAppreciations(),
     getResearchersList(),
   ]);
+  // Below the threshold, send nothing to the client rather than just hiding it.
+  const wall = allPublic.length >= MIN_PUBLIC_APPRECIATIONS ? allPublic : [];
   if (!session) {
     return { session: null, gems, wall, researchers, received: [], sent: [] };
   }
@@ -128,16 +133,8 @@ type DraftGem = { key: number; name: string; description: string };
 
 type PickerGem = { id: number; slug: string; name: string; description: string; status: string };
 
-/** Explains a gem before it's attached; Escape or Cancel closes without attaching. */
-function GemModal({
-  gem,
-  onAttach,
-  onClose,
-}: {
-  gem: PickerGem;
-  onAttach: () => void;
-  onClose: () => void;
-}) {
+/** Native <dialog> shown modally; Escape, a backdrop click, or onClose dismisses it. */
+function Modal({ onClose, children }: { onClose: () => void; children: ReactNode }) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     ref.current?.showModal();
@@ -151,29 +148,101 @@ function GemModal({
       }}
       className="m-auto w-[min(480px,calc(100vw-2rem))] rounded-none border border-[color:var(--line-strong)] bg-[var(--card)] p-0 text-[color:var(--text)] shadow-2xl backdrop:bg-black/40"
     >
-      <div className="p-6">
-        <div className="mb-3 flex items-center gap-3">
-          <GemGlyph slug={gem.slug} size={32} />
-          <h3 className="text-xl font-semibold text-[color:var(--ink)]">{gem.name}</h3>
-        </div>
-        <p className="mb-2 whitespace-pre-line leading-relaxed">
-          {gem.description || "No description yet."}
-        </p>
-        {gem.status === "pending" && (
-          <p className="mb-2 text-xs text-[color:var(--muted)]">
-            You crafted this gem; it’s awaiting review by the MAI team.
-          </p>
-        )}
-        <div className="mt-5 flex gap-2">
-          <button type="button" className={btn} onClick={onAttach} autoFocus>
-            Attach to note
-          </button>
-          <button type="button" className={btnGhost} onClick={onClose}>
-            Cancel
-          </button>
-        </div>
-      </div>
+      <div className="p-6">{children}</div>
     </dialog>
+  );
+}
+
+/** Explains a gem before it's attached. */
+function GemModal({
+  gem,
+  onAttach,
+  onClose,
+}: {
+  gem: PickerGem;
+  onAttach: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <Modal onClose={onClose}>
+      <div className="mb-3 flex items-center gap-3">
+        <GemGlyph slug={gem.slug} size={32} />
+        <h3 className="text-xl font-semibold text-[color:var(--ink)]">{gem.name}</h3>
+      </div>
+      <p className="mb-2 whitespace-pre-line leading-relaxed">
+        {gem.description || "No description yet."}
+      </p>
+      {gem.status === "pending" && (
+        <p className="mb-2 text-xs text-[color:var(--muted)]">
+          You crafted this gem; it’s awaiting review by the MAI team.
+        </p>
+      )}
+      <div className="mt-5 flex gap-2">
+        <button type="button" className={btn} onClick={onAttach} autoFocus>
+          Attach to note
+        </button>
+        <button type="button" className={btnGhost} onClick={onClose}>
+          Cancel
+        </button>
+      </div>
+    </Modal>
+  );
+}
+
+/** Name and describe a new gem; it's attached to this note and awaits team review. */
+function CraftGemModal({
+  onAdd,
+  onClose,
+}: {
+  onAdd: (name: string, description: string) => void;
+  onClose: () => void;
+}) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const add = () => {
+    if (name.trim()) onAdd(name.trim(), description.trim());
+  };
+  return (
+    <Modal onClose={onClose}>
+      <h3 className="mb-2 text-xl font-semibold text-[color:var(--ink)]">Craft a new gem</h3>
+      <p className="mb-4 text-sm leading-relaxed text-[color:var(--muted)]">
+        Name a kind of excellence that isn’t here yet. It’s attached to this note now and joins the
+        shared collection once the MAI team has reviewed it.
+      </p>
+      <div className="space-y-3">
+        <input
+          className={input + " w-full"}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          onKeyDown={(event) => {
+            // Enter adds the gem rather than submitting the surrounding note form.
+            if (event.key === "Enter") {
+              event.preventDefault();
+              add();
+            }
+          }}
+          placeholder="Name, e.g. Generous with Credit"
+          aria-label="Gem name"
+          autoFocus
+        />
+        <textarea
+          className={input + " w-full"}
+          rows={4}
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+          placeholder="What does this kind of excellence look like? What is it the opposite of?"
+          aria-label="Gem description"
+        />
+      </div>
+      <div className="mt-5 flex gap-2">
+        <button type="button" className={btn} onClick={add} disabled={!name.trim()}>
+          Add gem
+        </button>
+        <button type="button" className={btnGhost} onClick={onClose}>
+          Cancel
+        </button>
+      </div>
+    </Modal>
   );
 }
 
@@ -195,8 +264,6 @@ function SendForm({
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [drafts, setDrafts] = useState<DraftGem[]>([]);
   const [crafting, setCrafting] = useState(false);
-  const [craftName, setCraftName] = useState("");
-  const [craftDescription, setCraftDescription] = useState("");
   const [resetKey, setResetKey] = useState(0);
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [previewing, setPreviewing] = useState<PickerGem | null>(null);
@@ -228,20 +295,13 @@ function SendForm({
     });
   }
 
-  function addDraft() {
-    const name = craftName.trim();
-    if (!name) return;
+  function addDraft(name: string, description: string) {
     const existing = gems.find((gem) => gem.slug === slugify(name));
     if (existing) {
       setSelected((current) => new Set(current).add(existing.id));
     } else if (!drafts.some((draft) => slugify(draft.name) === slugify(name))) {
-      setDrafts((current) => [
-        ...current,
-        { key: Date.now(), name, description: craftDescription.trim() },
-      ]);
+      setDrafts((current) => [...current, { key: Date.now(), name, description }]);
     }
-    setCraftName("");
-    setCraftDescription("");
     setCrafting(false);
   }
 
@@ -348,53 +408,16 @@ function SendForm({
               }
             />
           ))}
-          {!crafting && (
-            <button
-              type="button"
-              className={btnGhost + " rounded-full"}
-              onClick={() => setCrafting(true)}
-            >
-              + Craft a new gem
-            </button>
-          )}
+          <button
+            type="button"
+            className={btnGhost + " rounded-full"}
+            onClick={() => setCrafting(true)}
+          >
+            + Craft a new gem
+          </button>
         </div>
 
-        {crafting && (
-          <div className="mt-3 max-w-xl space-y-2 border border-dashed border-[color:var(--line-strong)] p-3">
-            <p className="text-xs text-[color:var(--muted)]">
-              Name a virtue that isn’t here yet. It’s attached to this note now and joins the shared
-              gem collection once the MAI team has reviewed it.
-            </p>
-            <input
-              className={input + " w-full"}
-              value={craftName}
-              onChange={(event) => setCraftName(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  addDraft();
-                }
-              }}
-              placeholder="Name, e.g. Generous with Credit"
-              autoFocus
-            />
-            <textarea
-              className={input + " w-full"}
-              rows={3}
-              value={craftDescription}
-              onChange={(event) => setCraftDescription(event.target.value)}
-              placeholder="What does this kind of excellence look like? What is it the opposite of?"
-            />
-            <div className="flex gap-2">
-              <button type="button" className={btn} onClick={addDraft} disabled={!craftName.trim()}>
-                Add gem
-              </button>
-              <button type="button" className={btnGhost} onClick={() => setCrafting(false)}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        )}
+        {crafting && <CraftGemModal onAdd={addDraft} onClose={() => setCrafting(false)} />}
       </div>
 
       <label className="block">
@@ -560,7 +583,10 @@ export default function Appreciate() {
               ))}
             </ul>
           ) : (
-            <p className="text-sm text-[color:var(--muted)]">None yet. Be the first.</p>
+            <p className="text-sm text-[color:var(--muted)]">
+              Recent appreciations will show here once there are at least{" "}
+              {MIN_PUBLIC_APPRECIATIONS}.
+            </p>
           )}
         </section>
 

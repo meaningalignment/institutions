@@ -364,8 +364,7 @@ export function Grid({ tabId, cells, humanInstitutions, cellFields = {} }: GridP
             {showFields && (
               <tr className="methods-row fields-row">
                 <th className="row-header">
-                  <span className="row-name">Research fields</span>
-                  <span className="row-desc">Where to read up</span>
+                  <span className="row-name">Most relevant fields</span>
                 </th>
                 {COLS.map((col) => (
                   <td key={col.id}>

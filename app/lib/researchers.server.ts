@@ -9,7 +9,7 @@
 // include `warm` too — see plans/…: "Friends group: warm+committed?".)
 
 import { getSql } from "./db.server";
-import { researcherKey, researcherNameSlug, researcherXUrl } from "./researcher-links";
+import { researcherNameSlug } from "./researcher-links";
 
 export interface Researcher {
   id: number;
@@ -179,51 +179,6 @@ export async function getResearchWorks(): Promise<ResearchWork[]> {
     fieldRanks: row.field_ranks ?? {},
     researchers: (row.researchers ?? []).map((r: any) => ({ id: r.id, name: r.name ?? "", handle: r.handle ?? "" })),
   }));
-}
-
-// Grid cell ("{row}-{col}") → the research fields it draws on most: the top
-// three by number of listed works naming that cell. One map drives the cell
-// pages' "Further reading", the grid's field highlight and research-fields
-// row, and /resources' "Relevant for". Cached per instance with a short TTL.
-export type CellFieldMap = Record<string, string[]>;
-const CELL_FIELDS_PER_CELL = 3;
-let cellFieldsCache: { data: CellFieldMap; at: number } | null = null;
-const CELL_FIELDS_TTL_MS = 5 * 60_000;
-
-export async function getCellFieldMap(): Promise<CellFieldMap> {
-  if (cellFieldsCache && Date.now() - cellFieldsCache.at < CELL_FIELDS_TTL_MS) return cellFieldsCache.data;
-  const sql = getSql();
-  const rows = (await sql`
-    SELECT cell, field, count(*)::int AS works
-    FROM canonical_works, unnest(cells) AS cell, unnest(fields) AS field
-    WHERE section IS NOT NULL
-    GROUP BY cell, field
-    ORDER BY cell, works DESC, field
-  `) as any[];
-  const data: CellFieldMap = {};
-  for (const row of rows) {
-    const fields = (data[row.cell] ??= []);
-    if (fields.length < CELL_FIELDS_PER_CELL) fields.push(row.field);
-  }
-  cellFieldsCache = { data, at: Date.now() };
-  return data;
-}
-
-// researcherKey(name) → X profile for every roster member with a handle. Used to link author and curator names on
-// /resources without pointing at /researchers profiles.
-let linksCache: { data: Record<string, string>; at: number } | null = null;
-
-export async function getResearcherLinks(): Promise<Record<string, string>> {
-  if (linksCache && Date.now() - linksCache.at < CELL_FIELDS_TTL_MS) return linksCache.data;
-  const sql = getSql();
-  const rows = (await sql`SELECT name, handle FROM researchers`) as any[];
-  const data: Record<string, string> = {};
-  for (const row of rows) {
-    const url = researcherXUrl(row.handle);
-    if (row.name && url) data[researcherKey(row.name)] ??= url;
-  }
-  linksCache = { data, at: Date.now() };
-  return data;
 }
 
 type ProfileWork = { title: string; url: string; year: number | null; summary: string | null };

@@ -4,12 +4,12 @@ import { Grid } from "../components/Grid";
 import { useBodyClass } from "../lib/useBodyClass";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN, TAB_META, TABS } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
-import { getCellFieldMap, type CellFieldMap } from "../lib/researchers.server";
+import { getCellFieldMap } from "../lib/resources.server";
 
 export const headers = staticContentHeaders;
 
 let homeLoaderCache:
-  | { cells: ReturnType<typeof loadGridCells> }
+  | { cells: ReturnType<typeof loadGridCells>; cellFields: ReturnType<typeof getCellFieldMap> }
   | undefined;
 
 export function meta(_: Route.MetaArgs) {
@@ -30,14 +30,12 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-export async function loader(_: Route.LoaderArgs) {
+export function loader(_: Route.LoaderArgs) {
   if (!homeLoaderCache) {
-    homeLoaderCache = { cells: loadGridCells() };
+    // cellFields drives the research-fields row and the ?field= highlight.
+    homeLoaderCache = { cells: loadGridCells(), cellFields: getCellFieldMap() };
   }
-  // The research-fields row and ?field= highlight are extras; if the DB is
-  // unavailable the grid renders without them.
-  const cellFields = await getCellFieldMap().catch(() => ({}) as CellFieldMap);
-  return { ...homeLoaderCache, cellFields };
+  return homeLoaderCache;
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {

@@ -3,12 +3,15 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, type Plugin } from "vite";
 import fs from "node:fs";
 import path from "node:path";
+import { parseResources } from "./app/lib/resources";
+import { RESEARCH_FIELDS } from "./app/lib/research-fields";
 
 // Bundles the markdown/YAML under data/ into the build as a virtual module, so
 // content ships inside the (serverless) server bundle instead of being read
 // from the filesystem at runtime. Reads happen at build time in Node, which
 // works identically for the client and SSR passes (unlike import.meta.glob
-// raw, which rolldown's SSR pass mishandles).
+// raw, which rolldown's SSR pass mishandles). The /resources reading lists are
+// parsed here too, so a malformed list fails the build.
 function siteContent(): Plugin {
   const VIRTUAL_ID = "virtual:site-content";
   const RESOLVED = "\0" + VIRTUAL_ID;
@@ -42,10 +45,15 @@ function siteContent(): Plugin {
     },
     load(id) {
       if (id !== RESOLVED) return;
+      const cells = readMdDir("cells");
+      const resourceFiles = Object.fromEntries(
+        Object.entries(readMdDir("resources")).map(([stem, raw]) => [`${stem}.md`, raw])
+      );
       const payload = {
-        cells: readMdDir("cells"),
+        cells,
         methods: readMdDir("methods"),
         root: readRootFiles(),
+        resources: parseResources(resourceFiles, RESEARCH_FIELDS, new Set(Object.keys(cells))),
       };
       return `export default ${JSON.stringify(payload)};`;
     },

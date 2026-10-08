@@ -205,4 +205,4 @@ export function splitCellKey(key: string): { row: string; col: string } {
 
 // SHOW_RESOURCES_LINK gates only the sidebar entry to /resources. The page and
 // the links into it from the grid and cell pages stay live.
-export const SHOW_RESOURCES_LINK = false;
+export const SHOW_RESOURCES_LINK = true;

@@ -111,7 +111,7 @@ export default function Login({ loaderData }: Route.ComponentProps) {
     <main className="login-page">
       <div className="login-main">
         <Link className="login-back" to="/">← AGI institutions</Link>
-        <h1>{redirectTo.startsWith("/appreciate") ? "Sign in" : "Admin sign in"}</h1>
+        <h1>{redirectTo.startsWith("/researchers/admin") ? "Admin sign in" : "Sign in"}</h1>
         {step === "code" && data?.researcherId ? (
           <>
             <p className="login-intro">

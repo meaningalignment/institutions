@@ -8,53 +8,78 @@ Three perspectives:
 - **Existing Human Institutions** — current institutional infrastructure and how humans accomplish alignment
 - **Fidelity & Meaning** — institutions to align organizations with rich, accountable mandates
 
-Each grid cell expands to show detailed frameworks, and many include problem sets designed for pairs or small teams (~1 hour each).
+Each grid cell expands to show detailed frameworks, and many include design challenges for pairs or small teams (~1 hour each).
 
-## Contributing
+## Suggesting reading for Resources
 
-Content lives in `data/{agi,human,fidelity}/` as markdown files named `{row}-{col}.md` (e.g. `dyadic-protocols.md`).
+The [Resources](https://www.agi-institutions.org/resources/) page is built from the Markdown files in [`data/resources/`](data/resources), one file per research field. Anyone can suggest changes.
 
-Each file follows this format:
+**Just want to suggest something?** [Open an issue](https://github.com/meaningalignment/institutions/issues/new?title=Resource%20suggestion) with the link and the field it belongs in.
+
+**Want to add it yourself?**
+
+1. Open the field's file in [`data/resources/`](data/resources), e.g. [`legal-theory.md`](data/resources/legal-theory.md).
+2. Click the pencil icon to edit it on GitHub.
+3. Copy an existing entry, paste it where you want yours to appear, and fill it in.
+4. Click **Commit changes…** and then **Propose changes** to open a pull request.
+
+A maintainer reviews the pull request. Once it's merged, the site updates.
+
+### What an entry looks like
 
 ```markdown
-# Cell Title
-
-Body content rendered in the detail view.
-
-## Researchers
-
-- [Name](url) — brief description of their work
-
-## Key Papers
-
-- [Paper title](url) (Year). Summary of relevance.
-
-## Learning Resources
-
-- [Resource title](url) — textbook, tutorial, course, etc.
-
-## Problem Sets
-
-### Problem 1: Name
-
-Problem description and deliverables.
+- [Legal Infrastructure for Transformative AI Governance](https://arxiv.org/abs/2602.01474)
+  - Authors: Gillian Hadfield
+  - Year: 2026
+  - Venue: PNAS
+  - Type: Peer-reviewed
+  - Cells: national-protocols, national-rights, global-protocols
+  - Summary: Shifts attention from choosing rules to building legal systems that can generate and implement rules for frontier models and autonomous agents.
 ```
 
-Cells can include any combination of these sections — all are optional. Use whatever standard markdown structure fits the content.
+The first line, the title and link, is required. Every other line is optional.
 
-To add a new cell, create the markdown file and run `npm run build`. The grid links also point to GitHub for easy editing.
+| Detail | What to write |
+| --- | --- |
+| Authors | Names separated by commas, in the paper's order. End with `et al.` if you cut the list short. |
+| Year | Four digits. |
+| Venue | Journal, conference or publisher, e.g. `PNAS` or `ICLR 2026`. |
+| Type | One of: Peer-reviewed, Preprint, Workshop paper, Essay, Report, Book, Book chapter, Lecture. |
+| Cells | The grid cells the work bears on, named like the files in [`data/cells/`](data/cells) without `.md` (e.g. `group-norms`). These decide which fields the grid points to. |
+| Summary | One sentence on what the work argues or shows. It appears under **Selected papers**. |
 
-## Building Locally
+### Where it goes
+
+- Each field file has three sections. **Selected papers** are the must-reads, **Work in the field** is recent work worth knowing, and **Foundations** is older work the field builds on. Put the entry under the right `##` heading.
+- Entries appear on the site in the order they're listed in the file, so put the most important first.
+- If a work belongs to several fields, add it to each field's file.
+- To take a work off the site, delete its entry. To hide it but keep it in the file, wrap it in `<!--` and `-->`.
+
+### Other files
+
+- The top of each field file holds the field's details: its `curator`, a one-line `curator_bio`, the `email` that readers can write to, and the field's one-sentence description under the title.
+- [`elsewhere.md`](data/resources/elsewhere.md) lists reading lists maintained by others, with `By:` and `Note:` lines instead.
+- [`people.md`](data/resources/people.md) links author and curator names to their X profiles. Add a line to link a name everywhere it appears.
+
+If an entry has a mistake, such as a misspelled cell name or a missing link, the deploy check on the pull request fails and names the file and line to fix. To check locally, run `npm run build`.
+
+## Editing the grid
+
+Each cell lives in `data/cells/{row}-{col}.md` (e.g. `dyadic-norms.md`). [CLAUDE.md](CLAUDE.md) documents the format and [STANDARDS.md](STANDARDS.md) the quality bar.
+
+## Building locally
 
 ```bash
 npm install
 npm run db:migrate:admin-auth
-npm run build
+npm run dev
 ```
+
+`npm run dev` serves the site at http://localhost:5173/ and reloads when files under `data/` change. `npm run build` makes a production build.
 
 The app uses React Router SSR. Copy `.env.example` to `.env` and provide the database
 connection plus Mailgun/session settings before testing the authenticated
-`/researchers/admin` routes.
+`/researchers/admin` routes. The grid, cell pages and Resources need no database.
 
 ## Admin sign-in
 

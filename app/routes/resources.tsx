@@ -1,141 +1,65 @@
 import { isRouteErrorResponse, Link, useNavigate, useSearchParams } from "react-router";
 import type { Route } from "./+types/resources";
-import { getCellFieldMap, getResearcherLinks, getResearchWorks, type ResearchWork, type WorkKind } from "../lib/researchers.server";
-import { researcherKey } from "../lib/researcher-links";
+import { allWorks, getCellFieldMap, loadResources } from "../lib/resources.server";
+import { researcherKey, type ResearchWork, type ResourceSection } from "../lib/resources";
 import { loadGridCells } from "../lib/content.server";
 import { RESEARCH_FIELDS } from "../lib/research-fields";
+import { staticContentHeaders } from "../lib/cache.server";
 import { COLS, OG_IMAGE_META, ROWS, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 
-// Per-field copy and contacts. `blurb` says what the field studies (the
-// overview's directory and the field page's lede). `researcher` is the one corresponding
-// researcher who keeps the list (roster spelling, so the name links off-site),
-// and `researcherBio` a one-line role condensed from their /researchers bio;
-// `email` goes to the field's switchboard operators, who route questions on.
-const FIELD_INFO: Record<
-  string,
-  { blurb: string; email: string; researcher: string | null; researcherBio?: string }
-> = {
-  "multi-agent-systems": {
-    blurb: "How populations of learning agents cooperate, compete, and coordinate, and what shapes the outcomes they reach.",
-    email: "agents@agi-institutions.org",
-    researcher: "Matija Franklin",
-    researcherBio: "Research scientist at Google DeepMind.",
-  },
-  "aligning-ai-to-values": {
-    blurb: "What models should be trained toward, who supplies that target, and how values are elicited from real people.",
-    email: "values@agi-institutions.org",
-    researcher: "Smitha Milli",
-    researcherBio: "Research scientist on Meta's FAIR AI & Society team.",
-  },
-  "ai-governance-policy": {
-    blurb: "How states, labs, and international bodies oversee advanced AI, through regulation, standards, audits, and new institutions.",
-    email: "governance@agi-institutions.org",
-    researcher: "Séb Krier",
-    researcherBio: "Policy lead at Google DeepMind.",
-  },
-  "moral-cognition-norms": {
-    blurb: "How people and agents learn, represent, and enforce norms, and what it takes for an agent to take part in a normative community.",
-    email: "norms@agi-institutions.org",
-    researcher: "Tan Zhi Xuan",
-    researcherBio: "Professor of computer science at NUS.",
-  },
-  "philosophy-of-ai": {
-    blurb: "What values are, how agents reason with plural ones, and what mind, meaning, and agency amount to in artificial systems.",
-    email: "philosophy@agi-institutions.org",
-    researcher: "Pete Wolfendale",
-    researcherBio: "Philosopher at the University of Johannesburg.",
-  },
-  "deliberative-democracy": {
-    blurb: "How groups reach decisions they can stand behind, and how AI can support deliberation at scale without steering it.",
-    email: "democracy@agi-institutions.org",
-    researcher: "Michiel Bakker",
-    researcherBio: "Assistant professor at MIT.",
-  },
-  "economics-of-ai": {
-    blurb: "What becomes of markets, firms, labor, and bargaining power when agents transact at machine speed.",
-    email: "econ@agi-institutions.org",
-    researcher: "Zoë Hitzig",
-    researcherBio: "Economist at the Anthropic Institute.",
-  },
-  "negotiation-cooperation": {
-    blurb: "How parties with divergent interests reach and keep binding agreements, whether they are people, states, or agents.",
-    email: "negotiation@agi-institutions.org",
-    researcher: "Krzysztof Pelc",
-    researcherBio: "Professor of international relations at Oxford.",
-  },
-  "game-theory-mechanism-design": {
-    blurb: "Strategic interaction, and the design of rules under which honest, cooperative behavior is the rational choice.",
-    email: "mechanisms@agi-institutions.org",
-    researcher: "Andrew Koh",
-    researcherBio: "Economist at Columbia and Google DeepMind.",
-  },
-  "legal-theory": {
-    blurb: "Law as a resource for AI design: legal reasoning, agency and liability, and the infrastructure needed to govern agents.",
-    email: "law@agi-institutions.org",
-    researcher: "Nick Caputo",
-    researcherBio: "Law & AI lead at the Oxford Martin AI Governance Initiative.",
-  },
-};
+export const headers = staticContentHeaders;
 
-const ELSEWHERE = [
-  {
-    title: "AGI Governance Bibliography",
-    by: "MINT Lab",
-    url: "https://bibliography.mintresearch.org/",
-    note: "a large, tagged bibliography of AGI governance research",
-  },
-  {
-    title: "MATS reading list",
-    by: "Luke Drago",
-    url: "https://lukedrago.com/mats-reading-list/",
-    note: "a short, opinionated list on AI strategy, economics, and futures",
-  },
-  {
-    title: "CS6101: Rational Approaches to Cooperative Intelligence",
-    by: "Tan Zhi Xuan (NUS)",
-    url: "https://cosilab.notion.site/cs6101-raci-fall-2025",
-    note: "a seminar syllabus on cooperative AI, from theory of mind to norms, institutions, and negotiation",
-  },
-];
-
-export async function loader() {
-  // Names link to X profiles only (plain text without a handle), never to /researchers
-  // profiles: this page lists work, not people. Links are a nicety, so a
-  // failed lookup just leaves names plain.
-  const [works, cellFields, links] = await Promise.all([
-    getResearchWorks(),
-    getCellFieldMap(),
-    getResearcherLinks().catch(() => ({}) as Record<string, string>),
-  ]);
-  // The institutions on the AGI grid that draw on each field (same map the
-  // grid highlights with, so the count matches what /?field= shows). Cells
-  // where the field ranks highest come first, then in grid order.
+// The institutions on the AGI grid that draw on a field (same map the grid
+// highlights with, so the count matches what /?field= shows). Cells where the
+// field ranks highest come first, then in grid order.
+function gridCellsFor(fieldId: string): { href: string; title: string }[] {
   const grid = loadGridCells();
   const gridOrder = ROWS.flatMap((r) => COLS.map((c) => `${r.id}-${c.id}`));
-  const gridCells: Record<string, { href: string; title: string }[]> = {};
-  const byField: Record<string, { key: string; rank: number }[]> = {};
-  for (const [key, fieldIds] of Object.entries(cellFields)) {
+  const cells: { key: string; rank: number }[] = [];
+  for (const [key, fieldIds] of Object.entries(getCellFieldMap())) {
     const cell = grid[key];
-    if (!cell || cell.hiddenOnAgi || !cell.summary) continue;
-    fieldIds.forEach((id, rank) => (byField[id] ??= []).push({ key, rank }));
+    const rank = fieldIds.indexOf(fieldId);
+    if (!cell || cell.hiddenOnAgi || !cell.summary || rank < 0) continue;
+    cells.push({ key, rank });
   }
-  for (const [id, cells] of Object.entries(byField)) {
-    cells.sort((a, b) => a.rank - b.rank || gridOrder.indexOf(a.key) - gridOrder.indexOf(b.key));
-    gridCells[id] = cells.map(({ key }) => {
-      const [row, ...col] = key.split("-");
-      return { href: `/cell/${row}/${col.join("-")}?field=${id}`, title: grid[key].summary };
-    });
-  }
-  return { works, fields: FIELD_INFO, gridCells, links };
+  cells.sort((a, b) => a.rank - b.rank || gridOrder.indexOf(a.key) - gridOrder.indexOf(b.key));
+  return cells.map(({ key }) => {
+    const [row, ...col] = key.split("-");
+    return { href: `/cell/${row}/${col.join("-")}?field=${fieldId}`, title: grid[key].summary };
+  });
 }
 
-export function meta({ location }: Route.MetaArgs) {
+// Everything comes from data/resources/ (see app/lib/resources.ts). Field copy
+// and list sizes go to every view; works only for the list on screen.
+export function loader({ request }: Route.LoaderArgs) {
+  const param = new URL(request.url).searchParams.get("field") ?? "";
+  const field = RESEARCH_FIELDS.find((f) => f.id === param);
+  const { fields: lists, elsewhere, people } = loadResources();
+  const all = allWorks();
+  const fields = Object.fromEntries(
+    RESEARCH_FIELDS.map((f) => {
+      const { works, ...info } = lists[f.id];
+      return [f.id, { ...info, count: works.length }];
+    })
+  );
+  return {
+    fields,
+    works: field ? lists[field.id].works : param === ALL ? all : [],
+    total: all.length,
+    gridCells: field ? gridCellsFor(field.id) : [],
+    // Author and curator names link to their X profile in people.md.
+    links: people,
+    elsewhere,
+  };
+}
+
+export function meta({ location, loaderData }: Route.MetaArgs) {
   const param = new URLSearchParams(location.search).get("field");
   const field = RESEARCH_FIELDS.find((f) => f.id === param);
   const page = field ? `${field.label} · Resources` : param === "all" ? "All works · Resources" : "Resources";
   const title = `${page} — ${SITE_NAME}`;
   const desc = field
-    ? `${FIELD_INFO[field.id]?.blurb ?? ""} A reading list for AGI institutions, curated by a researcher in the field.`.trim()
+    ? `${loaderData?.fields[field.id]?.blurb ?? ""} A reading list for AGI institutions, curated by a researcher in the field.`.trim()
     : "A directory of the most relevant work for designing institutions for powerful AI, organized by research field and curated by researchers in each.";
   return [
     { title },
@@ -169,10 +93,8 @@ function Names({ names, links }: { names: string[]; links: Links }) {
 }
 
 function Authors({ work, links }: { work: ResearchWork; links: Links }) {
-  // A work with no author list falls back to its linked roster members.
-  const source = work.authors.length ? work.authors : work.researchers.map((r) => r.name);
-  const all = source.filter((name) => name !== "et al.");
-  const etAl = all.length > AUTHOR_LIMIT || all.length < source.length || !work.authors.length;
+  const all = work.authors.filter((name) => name !== "et al.");
+  const etAl = all.length > AUTHOR_LIMIT || all.length < work.authors.length;
   return (
     <>
       <Names names={all.slice(0, AUTHOR_LIMIT)} links={links} />
@@ -181,24 +103,13 @@ function Authors({ work, links }: { work: ResearchWork; links: Links }) {
   );
 }
 
-const KIND_LABELS: Record<WorkKind, string> = {
-  peer_reviewed: "Peer-reviewed",
-  preprint: "Preprint",
-  workshop: "Workshop paper",
-  essay: "Essay",
-  report: "Report",
-  book: "Book",
-  chapter: "Book chapter",
-  lecture: "Lecture",
-};
-
 function Entry({ work, withNote, links }: { work: ResearchWork; withNote: boolean; links: Links }) {
-  // Venue and kind trail the year: "2022 · PNAS · Peer-reviewed". Conference
+  // Venue and type trail the year: "2022 · PNAS · Peer-reviewed". Conference
   // venues carry their own year ("ICLR 2026"); drop it so only one year shows.
   // For background work the venue alone says enough; peer review is a modern label.
   const venue = work.venue?.replace(/\s+(19|20)\d{2}$/, "") ?? null;
-  const kind = work.kind && !(work.section === "background" && venue) ? KIND_LABELS[work.kind] : null;
-  const meta = [work.year, venue, kind].filter(Boolean).join(" · ");
+  const type = work.type && !(work.section === "background" && venue) ? work.type : null;
+  const meta = [work.year, venue, type].filter(Boolean).join(" · ");
   return (
     <li className="bib-entry">
       <div className="bib-title">
@@ -240,7 +151,7 @@ function Section({ title, intro, count, showCount = true, children }: {
 
 // The three parts of every list, in page order. The same copy introduces the
 // sections on a field page and explains them on the overview.
-const SECTIONS: { id: NonNullable<ResearchWork["section"]>; title: string; intro: string }[] = [
+const SECTIONS: { id: ResourceSection; title: string; intro: string }[] = [
   {
     id: "selected",
     title: "Selected papers",
@@ -288,18 +199,16 @@ function Rail({ current }: { current: string }) {
 }
 
 // The three sections of a list: a field's, or every field's under "All works".
-// Works arrive newest first. On a field page, the curator's ranked works for
-// that field go first, in rank order; "All works" keeps newest first.
-function Lists({ works, links, field }: { works: ResearchWork[]; links: Links; field?: string }) {
-  const rank = (w: ResearchWork) => (field ? w.fieldRanks[field] ?? Infinity : Infinity);
+// Works arrive in page order: a field's in its file's order, "All works"
+// newest first.
+function Lists({ works, links }: { works: ResearchWork[]; links: Links }) {
   return (
     <>
       {SECTIONS.map((s) => {
-        // Array sort is stable, so unranked works keep their newest-first order.
-        const items = works.filter((w) => w.section === s.id).sort((a, b) => rank(a) - rank(b));
+        const items = works.filter((w) => w.section === s.id);
         return (
           <Section key={s.id} title={s.title} intro={s.intro} count={items.length}>
-            {items.map((w) => <Entry key={w.id} work={w} withNote={s.id === "selected"} links={links} />)}
+            {items.map((w) => <Entry key={w.url} work={w} withNote={s.id === "selected"} links={links} />)}
           </Section>
         );
       })}
@@ -329,7 +238,6 @@ function CellNames({ cells }: { cells: { href: string; title: string }[] }) {
 }
 
 function Overview({ d }: { d: Data }) {
-  const countFor = (id: string) => d.works.filter((w) => w.fieldIds.includes(id)).length;
   return (
     <>
       <header className="bib-head">
@@ -351,7 +259,7 @@ function Overview({ d }: { d: Data }) {
         <ul className="bib-directory">
           {RESEARCH_FIELDS.map((f) => {
             const info = d.fields[f.id];
-            const n = countFor(f.id);
+            const n = info.count;
             return (
               <li key={f.id}>
                 <Link to={fieldHref(f.id)} className="bib-directory-link">
@@ -359,7 +267,7 @@ function Overview({ d }: { d: Data }) {
                   <span className="bib-directory-blurb">{info?.blurb}</span>
                 </Link>
                 <div className="bib-directory-meta">
-                  {info?.researcher ? <>Curated by <Names names={[info.researcher]} links={d.links} /> · </> : null}
+                  Curated by TBD ·{" "}
                   {n} {n === 1 ? "work" : "works"}
                 </div>
               </li>
@@ -367,7 +275,7 @@ function Overview({ d }: { d: Data }) {
           })}
         </ul>
         <p className="bib-directory-all">
-          Or see <Link to={fieldHref(ALL)}>all {d.works.length} works</Link> in one list.
+          Or see <Link to={fieldHref(ALL)}>all {d.total} works</Link> in one list.
         </p>
       </section>
 
@@ -421,7 +329,7 @@ function Overview({ d }: { d: Data }) {
           write in about related questions, we may also invite them to a live Q&amp;A with experts in the field.
         </p>
         <dl className="bib-emails">
-          {RESEARCH_FIELDS.filter((f) => d.fields[f.id]).map((f) => (
+          {RESEARCH_FIELDS.filter((f) => d.fields[f.id].email).map((f) => (
             <div key={f.id}>
               <dt><Link to={fieldHref(f.id)}>{f.label}</Link></dt>
               <dd><a href={`mailto:${d.fields[f.id].email}`}>{d.fields[f.id].email}</a></dd>
@@ -432,11 +340,11 @@ function Overview({ d }: { d: Data }) {
 
       <Section
         title="Elsewhere"
-        intro="Reading lists and bibliographies maintained by others."
-        count={ELSEWHERE.length}
+        intro={d.elsewhere.intro}
+        count={d.elsewhere.items.length}
         showCount={false}
       >
-        {ELSEWHERE.map((e) => (
+        {d.elsewhere.items.map((e) => (
           <li key={e.url} className="bib-entry">
             <div className="bib-title">
               <a href={e.url} target="_blank" rel="noreferrer">{e.title}</a>
@@ -457,7 +365,7 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
   // Unknown ids fall back to the overview.
   const current = field ? field.id : param === ALL ? ALL : "";
   const info = field ? d.fields[field.id] : undefined;
-  const cells = (field && d.gridCells[field.id]) || [];
+  const cells = field ? d.gridCells : [];
   const cellCount = cells.length;
 
   return (
@@ -497,15 +405,9 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
               {info ? <p className="bib-lede">{info.blurb}</p> : null}
               {info ? (
                 <dl className="bib-facts">
-                  {info.researcher ? (
-                    <>
-                      <dt><Link to="/resources#bib-curator">Curated by</Link></dt>
-                      <dd>
-                        <Names names={[info.researcher]} links={d.links} />
-                        {info.researcherBio ? <span className="bib-facts-note">{info.researcherBio}</span> : null}
-                      </dd>
-                    </>
-                  ) : null}
+                  {/* Curators are hidden until they are confirmed; names stay in the field files. */}
+                  <dt><Link to="/resources#bib-curator">Curated by</Link></dt>
+                  <dd>TBD</dd>
                   {cellCount ? (
                     <>
                       <dt>Relevant for</dt>
@@ -517,17 +419,21 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
                       </dd>
                     </>
                   ) : null}
-                  <dt><Link to="/resources#bib-write">Write to</Link></dt>
-                  <dd>
-                    <a href={`mailto:${info.email}`}>{info.email}</a>
-                    <span className="bib-facts-note">
-                      An operator routes it to the right experts.
-                    </span>
-                  </dd>
+                  {info.email ? (
+                    <>
+                      <dt><Link to="/resources#bib-write">Write to</Link></dt>
+                      <dd>
+                        <a href={`mailto:${info.email}`}>{info.email}</a>
+                        <span className="bib-facts-note">
+                          An operator routes it to the right experts.
+                        </span>
+                      </dd>
+                    </>
+                  ) : null}
                 </dl>
               ) : null}
             </header>
-            <Lists works={d.works.filter((w) => w.fieldIds.includes(field.id))} links={d.links} field={field.id} />
+            <Lists works={d.works} links={d.links} />
             <p className="bib-footnote">
               This list isn't exhaustive. <Link to="/resources#bib-how">About the lists</Link>.
             </p>

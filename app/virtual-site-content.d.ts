@@ -4,8 +4,10 @@ declare module "virtual:site-content" {
     cells: Record<string, string>;
     /** Method markdown, keyed by column id. */
     methods: Record<string, string>;
-    /** Root data files (curriculum.md, theory-of-change.md, *.yaml), keyed by full filename. */
+    /** Root data files (theory-of-change.md, human-institutions.json), keyed by full filename. */
     root: Record<string, string>;
+    /** The /resources reading lists from data/resources/, parsed at build time. */
+    resources: import("./lib/resources").Resources;
   }
   const content: SiteContent;
   export default content;

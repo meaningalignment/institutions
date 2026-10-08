@@ -1,11 +1,13 @@
 import { Link, data } from "react-router";
 import type { Route } from "./+types/researcher-profile";
 import { getResearcher } from "../lib/researchers.server";
+import { requireSignedIn } from "../lib/auth.server";
 import { Highlight } from "../components/ResearcherCard";
 import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { researcherPhotoSrc, researcherProfilePath } from "../lib/researcher-links";
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({ request, params }: Route.LoaderArgs) {
+  await requireSignedIn(request);
   const researcher = await getResearcher(params.handle);
   if (!researcher) throw data("Researcher not found", { status: 404 });
   return { researcher };

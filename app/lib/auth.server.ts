@@ -183,6 +183,13 @@ function loginRedirect(request: Request): never {
   throw redirect(`/login?redirectTo=${encodeURIComponent(redirectTo)}`);
 }
 
+/** Requires any signed-in researcher (confirmed or tentative email); otherwise sends them to /login and back. */
+export async function requireSignedIn(request: Request) {
+  const session = await getSignedInResearcher(request);
+  if (!session) loginRedirect(request);
+  return session;
+}
+
 /** Requires an admin (institutions_admins row + confirmed email); otherwise login or 403. */
 export async function requireAdminSession(request: Request) {
   const session = await getSignedInResearcher(request);

@@ -64,26 +64,42 @@ await sql`
 const seeds = [
   {
     slug: "earnest",
-    name: "Earnest",
+    name: "as Earnest",
+    wasName: "Earnest",
     description:
+      "Sincere about the work itself. Deeply curious about the hard, unglamorous parts of a problem, and would be in the field even if no one was watching or funding them.",
+    // The original seed text; a live row still carrying it is updated below.
+    was:
       "Sincere about the work itself. Not a careerist, social climber, or someone who says the right things to get grants.",
   },
   {
     slug: "epistemically-spacious",
-    name: "Epistemically Spacious",
+    name: "as Epistemically Spacious",
+    wasName: "Epistemically Spacious",
     description:
+      "Gives you room to think. They lend clearness to your perspective even when they don't agree; your own view gets sharper in their company. The opposite of a reality-distortion field.",
+    // The original seed text; a live row still carrying it is updated below.
+    was:
       "The opposite of a reality-distortion field. They lend clearness to your perspective even when they don't agree; your own view gets sharper in their company.",
   },
   {
     slug: "firsthand-understanding",
-    name: "Firsthand Understanding",
+    name: "for Firsthand Understanding",
+    wasName: "Firsthand Understanding",
     description:
+      "They read the primary sources, rederive the result, and build the model themselves to internalize its consequences. They don't settle for high-level overviews.",
+    // The original seed text; a live row still carrying it is updated below.
+    was:
       "Doing the actual work: reading the papers, following the details, sometimes doing the math yourself to internalize the models and their consequences. Not settling for high-level overviews.",
   },
   {
     slug: "taking-it-all-on",
-    name: "Taking It All On",
+    name: "for Taking It All On",
+    wasName: "Taking It All On",
     description:
+      "Refuses to shrink their thinking out of helplessness about the size of the problem. They ask not only what would be ideal but what could be legitimized with the public; not only what the equilibrium is but whether there are paths to it; they consider many kinds of agents, not one ideal model. They take responsibility for all the considerations bearing on whether their direction is any good.",
+    // The original seed text; a live row still carrying it is updated below.
+    was:
       "Refusing to shrink your thinking out of helplessness about the size of the problem. Asking not only what would be ideal but what could be legitimized with the public; not only what the equilibrium is but whether there are paths to it; considering many kinds of agents, not one ideal model. Taking responsibility for all the considerations bearing on whether your direction is any good.",
   },
 ];
@@ -93,6 +109,16 @@ for (const gem of seeds) {
     VALUES (${gem.slug}, ${gem.name}, ${gem.description}, 'approved')
     ON CONFLICT (slug) DO NOTHING
   `;
+  // Revised copy reaches an existing row only if nobody has edited it in the admin.
+  await sql`
+    UPDATE institutions_gems SET description = ${gem.description}
+    WHERE slug = ${gem.slug} AND description = ${gem.was}
+  `;
+  // Likewise the name, which gained its leading "as" / "for".
+  await sql`
+    UPDATE institutions_gems SET name = ${gem.name}
+    WHERE slug = ${gem.slug} AND name = ${gem.wasName}
+  `;
 }
 
 const rows = await sql`
@@ -101,3 +127,4 @@ const rows = await sql`
     (SELECT count(*)::integer FROM institutions_appreciations) AS appreciations
 `;
 console.log(JSON.stringify(rows[0], null, 2));
+console.table(await sql`SELECT slug, name, left(description, 60) AS description FROM institutions_gems ORDER BY id`);

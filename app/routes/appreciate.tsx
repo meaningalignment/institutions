@@ -209,7 +209,8 @@ function CraftGemModal({
     <Modal onClose={onClose}>
       <h3 className="mb-2 text-xl font-semibold text-[color:var(--ink)]">Something else</h3>
       <p className="mb-4 text-sm leading-relaxed text-[color:var(--muted)]">
-        Name a kind of excellence that isn’t here yet. It’s attached to this note now and joins the
+        Name a kind of excellence that isn’t here yet, starting with “as” or “for” so it reads on
+        from “I appreciate them…”. It’s attached to this note now and joins the
         shared collection once the MAI team has reviewed it.
       </p>
       <div className="space-y-3">
@@ -224,7 +225,7 @@ function CraftGemModal({
               add();
             }
           }}
-          placeholder="Name, e.g. Generous with Credit"
+          placeholder="e.g. for Being Generous with Credit"
           aria-label="What you appreciate them as"
           autoFocus
         />
@@ -357,7 +358,7 @@ function SendForm({
 
       <div>
         <span className="mb-1 block text-sm font-medium text-[color:var(--ink)]">
-          I appreciate {recipient?.name ?? "them"} as…
+          I appreciate {recipient?.name ?? "them"}…
         </span>
         <p className="mb-2.5 text-xs text-[color:var(--muted)]">
           Click one to see what it means. These will show on the public wall of appreciations.
@@ -520,7 +521,7 @@ function AppreciationCard({
       </p>
       {appreciation.gems.length > 0 && (
         <p className="text-sm text-[color:var(--muted)]">
-          As{" "}
+          Appreciated{" "}
           <span className="text-[color:var(--ink)]">
             {appreciation.gems.map((gem) => gem.name).join(" · ")}
           </span>
@@ -585,7 +586,7 @@ export default function Appreciate() {
                 >
                   <PersonLink person={item.recipient} />
                   <span className="text-[color:var(--muted)]">
-                    , appreciated{item.gems.length ? " as " : ""}
+                    , appreciated{item.gems.length ? " " : ""}
                   </span>
                   {item.gems.length > 0 && (
                     <span className="text-[color:var(--ink)]">

@@ -352,6 +352,49 @@ body:has(#grid-view) .wiki-content {
   width: 100%;
   max-width: 1080px;
 }
+/* Appreciate page: flowers swaying behind the form (app/components/FlowerBackdrop.tsx). */
+.appr-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.42;
+}
+.theme-dark .appr-backdrop { opacity: 0.24; }
+.appr-shell { position: relative; z-index: 1; }
+.appr-cluster {
+  position: absolute;
+  filter: url(#appr-wind);
+  animation: appr-billow 12s ease-in-out infinite;
+}
+.appr-cluster-top {
+  top: -30px;
+  right: -50px;
+  width: min(620px, 62vw);
+  transform-origin: 100% 0;
+}
+.appr-cluster-bottom {
+  right: -20px;
+  bottom: -30px;
+  width: min(340px, 30vw);
+  transform-origin: 100% 100%;
+  animation-duration: 15s;
+  animation-delay: -5s;
+}
+@keyframes appr-billow {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(1.2deg) scale(1.015); }
+  50% { transform: rotate(-1.8deg) scale(0.985); }
+  75% { transform: rotate(0.8deg) scale(1.02); }
+}
+@media (max-width: 900px) {
+  .appr-backdrop { opacity: 0.3; }
+  .appr-cluster-bottom { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .appr-cluster { animation: none; }
+}
 .admin-page .community-utility-row { margin-bottom: 34px; }
 .admin-page .community-page-intro { margin-bottom: 32px; }
 .admin-tabs {

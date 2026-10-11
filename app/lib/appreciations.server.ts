@@ -1,5 +1,7 @@
 import { getSql } from "./db.server";
+import type { AdminResearcher } from "./admin.server";
 import { monthKey, slugify } from "./gems";
+import { getCommunity } from "./researchers.server";
 
 export interface Gem {
   id: number;
@@ -91,6 +93,14 @@ export async function getPendingGems(): Promise<(GemRef & { createdByName: strin
     ORDER BY g.created_at, g.id
   `) as any[];
   return rows.map((row) => ({ ...toGemRef(row), createdByName: row.created_by_name }));
+}
+
+/** Who can be appreciated: everyone shown on /researchers (which includes Signal members). */
+export async function getAppreciableResearchers(): Promise<AdminResearcher[]> {
+  const { advisors, community, friends } = await getCommunity();
+  return [...advisors, ...community, ...friends]
+    .map(({ id, name, handle, scholarUrl }) => ({ id, name, handle, scholarUrl }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export async function createAppreciation({

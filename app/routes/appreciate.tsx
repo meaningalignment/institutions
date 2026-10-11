@@ -7,6 +7,7 @@ import { getResearchersList, type AdminResearcher } from "../lib/admin.server";
 import {
   type Appreciation,
   createAppreciation,
+  getAppreciableResearchers,
   getGems,
   getPublicAppreciations,
   getReceived,
@@ -20,6 +21,7 @@ import {
   input,
   ResearcherPicker,
 } from "../components/admin/AdminControls";
+import { FlowerBackdrop } from "../components/FlowerBackdrop";
 import { GemChip } from "../components/Gem";
 import { slugify } from "../lib/gems";
 
@@ -32,15 +34,16 @@ const MIN_PUBLIC_APPRECIATIONS = 5;
 
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSignedInResearcher(request);
-  const [gems, allPublic, researchers] = await Promise.all([
+  const [gems, allPublic, researchers, recipients] = await Promise.all([
     getGems(session?.researcherId),
     getPublicAppreciations(),
     getResearchersList(),
+    getAppreciableResearchers(),
   ]);
   // Below the threshold, send nothing to the client rather than just hiding it.
   const wall = allPublic.length >= MIN_PUBLIC_APPRECIATIONS ? allPublic : [];
   if (!session) {
-    return { session: null, gems, wall, researchers, received: [], sent: [] };
+    return { session: null, gems, wall, researchers, recipients, received: [], sent: [] };
   }
   const [received, sent] = await Promise.all([
     getReceived(session.researcherId),
@@ -51,6 +54,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     gems,
     wall,
     researchers,
+    recipients,
     received,
     sent,
   };
@@ -73,6 +77,9 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
   if (!senderId) return { ok: false, error: "Choose who you are." };
   const recipientId = positiveInteger(fd.get("recipientId"));
   if (!recipientId) return { ok: false, error: "Choose who you're appreciating." };
+  if (!(await getAppreciableResearchers()).some((person) => person.id === recipientId)) {
+    return { ok: false, error: "Choose someone from the research community." };
+  }
   const gemIds = fd
     .getAll("gemId")
     .map(Number)
@@ -244,10 +251,14 @@ function CraftGemModal({
 
 function SendForm({
   researchers,
+  recipients,
   gems,
   self,
 }: {
+  /** The whole roster, for a signed-out sender to find their own name. */
   researchers: AdminResearcher[];
+  /** Who can be appreciated: the research community. */
+  recipients: AdminResearcher[];
   gems: PickerGem[];
   /** The signed-in researcher; when null the sender picks their own name. */
   self: { researcherId: number; name: string } | null;
@@ -333,7 +344,7 @@ function SendForm({
         <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">To</span>
         <ResearcherPicker
           className="max-w-md"
-          options={researchers}
+          options={recipients}
           excludeId={senderId ?? undefined}
           onChange={(next) => {
             setRecipient(next);
@@ -343,53 +354,6 @@ function SendForm({
           resetKey={resetKey}
         />
       </label>
-
-      <div className="grid gap-x-10 gap-y-3 sm:grid-cols-[auto_1fr]">
-        {self ? (
-          <div className="text-sm">
-            <span className="mb-1.5 block font-medium text-[color:var(--ink)]">From</span>
-            <span className="text-[color:var(--text)]">{self.name}</span>
-          </div>
-        ) : (
-          <label className="block sm:w-72">
-            <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">
-              Who are you?
-            </span>
-            <ResearcherPicker
-              options={researchers}
-              excludeId={recipient?.id}
-              onChange={setSender}
-              placeholder="Search for your name"
-            />
-            <span className="mt-1.5 block text-xs text-[color:var(--muted)]">
-              Or{" "}
-              <Link
-                to={`/login?redirectTo=${encodeURIComponent("/appreciate")}`}
-                className="text-[color:var(--accent)] hover:underline"
-              >
-                sign in
-              </Link>{" "}
-              to see appreciations you’ve received.
-            </span>
-          </label>
-        )}
-
-        {/* Top padding lines the checkbox up with the sender's name, not the "From" label. */}
-        <div className="space-y-1 sm:pt-[26px]">
-          <label className="admin-section flex items-center gap-2 text-sm text-[color:var(--text)]">
-            <input
-              type="checkbox"
-              checked={signed}
-              onChange={(event) => setSigned(event.target.checked)}
-            />
-            Sign it, so {recipient?.name ?? "they"} can see it’s from you
-          </label>
-          <p className="text-xs text-[color:var(--muted)]">
-            Otherwise it’s anonymous to them. (MAI always sees who sent it.)
-          </p>
-        </div>
-      </div>
-
 
       <div>
         <span className="mb-1 block text-sm font-medium text-[color:var(--ink)]">
@@ -448,6 +412,52 @@ function SendForm({
           placeholder="Anything you want to say to them about their work, or how it affected you."
         />
       </label>
+
+      <div className="grid gap-x-10 gap-y-3 sm:grid-cols-[auto_1fr]">
+        {self ? (
+          <div className="text-sm">
+            <span className="mb-1.5 block font-medium text-[color:var(--ink)]">From</span>
+            <span className="text-[color:var(--text)]">{self.name}</span>
+          </div>
+        ) : (
+          <label className="block sm:w-72">
+            <span className="mb-1.5 block text-sm font-medium text-[color:var(--ink)]">
+              Who are you?
+            </span>
+            <ResearcherPicker
+              options={researchers}
+              excludeId={recipient?.id}
+              onChange={setSender}
+              placeholder="Search for your name"
+            />
+            <span className="mt-1.5 block text-xs text-[color:var(--muted)]">
+              Or{" "}
+              <Link
+                to={`/login?redirectTo=${encodeURIComponent("/appreciate")}`}
+                className="text-[color:var(--accent)] hover:underline"
+              >
+                sign in
+              </Link>{" "}
+              to see appreciations you’ve received.
+            </span>
+          </label>
+        )}
+
+        {/* Top padding lines the checkbox up with the sender's name, not the "From" label. */}
+        <div className="space-y-1 sm:pt-[26px]">
+          <label className="admin-section flex items-center gap-2 text-sm text-[color:var(--text)]">
+            <input
+              type="checkbox"
+              checked={signed}
+              onChange={(event) => setSigned(event.target.checked)}
+            />
+            Show {recipient?.name ?? "them"} it’s from you
+          </label>
+          <p className="text-xs text-[color:var(--muted)]">
+            Otherwise it’s anonymous to them. (MAI always sees who sent it.)
+          </p>
+        </div>
+      </div>
 
       {previewing && (
         <GemModal
@@ -521,11 +531,13 @@ function AppreciationCard({
 }
 
 export default function Appreciate() {
-  const { session, gems, wall, researchers, received, sent } = useLoaderData<typeof loader>();
+  const { session, gems, wall, researchers, recipients, received, sent } =
+    useLoaderData<typeof loader>();
 
   return (
     <main className="admin-page">
-      <div className="admin-shell max-w-[860px]">
+      <FlowerBackdrop />
+      <div className="admin-shell appr-shell max-w-[860px]">
         {session && (
           <div className="mb-8 flex items-center gap-2 text-xs text-[color:var(--muted)]">
             <span>Signed in as {session.name}</span>
@@ -544,6 +556,7 @@ export default function Appreciate() {
 
         <SendForm
           researchers={researchers}
+          recipients={recipients}
           gems={gems}
           self={session ? { researcherId: session.researcherId, name: session.name } : null}
         />

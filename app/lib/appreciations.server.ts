@@ -291,14 +291,49 @@ export async function setFlowersSent(appreciationId: number, sent: boolean) {
   `;
 }
 
+/** The slug follows the name; a name whose slug another gem already has is refused. */
+async function freeSlug(name: string, exceptId: number | null) {
+  const slug = slugify(name);
+  if (!name || !slug) throw new Error("A gem needs a name.");
+  const sql = getSql();
+  const taken = (await sql`
+    SELECT name, status FROM institutions_gems
+    WHERE slug = ${slug} AND (${exceptId}::integer IS NULL OR id <> ${exceptId})
+  `) as { name: string; status: string }[];
+  if (taken.length) {
+    throw new Error(
+      `“${taken[0].name}” already exists${taken[0].status === "pending" ? " (pending review)" : ""}.`
+    );
+  }
+  return slug;
+}
+
 export async function updateGem(id: number, name: string, description: string) {
   const trimmed = name.trim();
-  if (!trimmed) throw new Error("A gem needs a name.");
+  const slug = await freeSlug(trimmed, id);
   const sql = getSql();
   await sql`
-    UPDATE institutions_gems SET name = ${trimmed}, description = ${description.trim()}
+    UPDATE institutions_gems
+    SET name = ${trimmed}, slug = ${slug}, description = ${description.trim()}
     WHERE id = ${id}
   `;
+}
+
+/** Add a gem from the admin; it is approved straight away. */
+export async function createGem(name: string, description: string, createdBy: number | null) {
+  const trimmed = name.trim();
+  const slug = await freeSlug(trimmed, null);
+  const sql = getSql();
+  await sql`
+    INSERT INTO institutions_gems (slug, name, description, status, created_by)
+    VALUES (${slug}, ${trimmed}, ${description.trim()}, 'approved', ${createdBy})
+  `;
+}
+
+/** Delete a gem of any status; it is also removed from any appreciation it was attached to. */
+export async function deleteGem(id: number) {
+  const sql = getSql();
+  await sql`DELETE FROM institutions_gems WHERE id = ${id}`;
 }
 
 export async function approveGem(id: number) {

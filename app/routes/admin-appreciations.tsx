@@ -1,10 +1,14 @@
+import { useEffect, useRef } from "react";
 import { useFetcher } from "react-router";
 import type { Route } from "./+types/admin-appreciations";
 import { requireMaiTeam } from "../lib/auth.server";
 import {
   type Appreciation,
   approveGem,
+  createGem,
+  deleteGem,
   getAllAppreciations,
+  getGems,
   getPendingGems,
   rejectGem,
   setFlowersSent,
@@ -24,11 +28,12 @@ import { monthKey } from "../lib/gems";
 
 export async function loader({ request }: Route.LoaderArgs) {
   await requireMaiTeam(request);
-  const [appreciations, pendingGems] = await Promise.all([
+  const [appreciations, gems, pendingGems] = await Promise.all([
     getAllAppreciations(),
+    getGems(),
     getPendingGems(),
   ]);
-  return { appreciations, pendingGems };
+  return { appreciations, gems, pendingGems };
 }
 
 function positiveInteger(value: FormDataEntryValue | null) {
@@ -37,19 +42,26 @@ function positiveInteger(value: FormDataEntryValue | null) {
 }
 
 export async function action({ request }: Route.ActionArgs): Promise<ActionResult> {
-  await requireMaiTeam(request);
+  const session = await requireMaiTeam(request);
   const fd = await request.formData();
   const intent = String(fd.get("intent") || "");
-  const id = positiveInteger(fd.get("id"));
-  if (!id) return { ok: false, error: "Missing id." };
+  const name = String(fd.get("name") ?? "");
+  const description = String(fd.get("description") ?? "");
 
   try {
+    if (intent === "add-gem") {
+      await createGem(name, description, session.researcherId);
+      return { ok: true };
+    }
+    const id = positiveInteger(fd.get("id"));
+    if (!id) return { ok: false, error: "Missing id." };
     if (intent === "pick") await setPick(id, fd.get("picked") === "true");
     else if (intent === "flowers") await setFlowersSent(id, fd.get("sent") === "true");
     else if (intent === "save-gem" || intent === "approve-gem") {
-      await updateGem(id, String(fd.get("name") ?? ""), String(fd.get("description") ?? ""));
+      await updateGem(id, name, description);
       if (intent === "approve-gem") await approveGem(id);
     } else if (intent === "reject-gem") await rejectGem(id);
+    else if (intent === "delete-gem") await deleteGem(id);
     else return { ok: false, error: "Unknown action." };
     return { ok: true };
   } catch (error) {
@@ -122,6 +134,103 @@ function PendingGem({
         </div>
       </fetcher.Form>
     </li>
+  );
+}
+
+/** An approved gem in the shared picker: rename, rewrite, or delete it. */
+function SharedGem({
+  gem,
+}: {
+  gem: { id: number; slug: string; name: string; description: string; timesGiven: number };
+}) {
+  const fetcher = useFetcher<ActionResult>();
+  const busy = fetcher.state !== "idle";
+  const given =
+    gem.timesGiven === 0
+      ? "not given yet"
+      : `given ${gem.timesGiven} ${gem.timesGiven === 1 ? "time" : "times"}`;
+  return (
+    <li className="border-t border-[color:var(--line)] py-3 first:border-t-0">
+      <fetcher.Form method="post" className="grid gap-2">
+        <input type="hidden" name="id" value={gem.id} />
+        <div className="flex items-center gap-2 text-xs text-[color:var(--muted)]">
+          <GemChip slug={gem.slug} name={gem.name} />
+          <span>{given}</span>
+        </div>
+        <input className={input} name="name" defaultValue={gem.name} aria-label="Gem name" />
+        <textarea
+          className={input}
+          name="description"
+          rows={2}
+          defaultValue={gem.description}
+          aria-label="Gem description"
+        />
+        <div className="flex items-center gap-2">
+          <button className={btn} name="intent" value="save-gem" disabled={busy}>
+            Save
+          </button>
+          <button
+            className={btnGhost}
+            name="intent"
+            value="delete-gem"
+            disabled={busy}
+            onClick={(event) => {
+              const warning = gem.timesGiven
+                ? ` It will be removed from the ${gem.timesGiven === 1 ? "note" : `${gem.timesGiven} notes`} it’s on.`
+                : "";
+              if (!confirm(`Delete “${gem.name}”?${warning}`)) event.preventDefault();
+            }}
+          >
+            Delete
+          </button>
+          {!busy && fetcher.data?.ok && (
+            <span className="text-xs text-[color:var(--muted)]">Saved</span>
+          )}
+          {fetcher.data && !fetcher.data.ok && (
+            <span className="admin-error text-xs">{fetcher.data.error}</span>
+          )}
+        </div>
+      </fetcher.Form>
+    </li>
+  );
+}
+
+function AddGem() {
+  const fetcher = useFetcher<ActionResult>();
+  const form = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data?.ok) form.current?.reset();
+  }, [fetcher.state, fetcher.data]);
+  return (
+    <fetcher.Form
+      ref={form}
+      method="post"
+      className="mt-3 grid gap-2 border-t border-[color:var(--line)] pt-3"
+    >
+      <input type="hidden" name="intent" value="add-gem" />
+      <input
+        className={input}
+        name="name"
+        required
+        placeholder="New gem, starting with “as” or “for” (e.g. “as Earnest”)"
+        aria-label="New gem name"
+      />
+      <textarea
+        className={input}
+        name="description"
+        rows={2}
+        placeholder="Description, shown when someone clicks the gem"
+        aria-label="New gem description"
+      />
+      <div className="flex items-center gap-2">
+        <button className={btn} disabled={fetcher.state !== "idle"}>
+          Add gem
+        </button>
+        {fetcher.data && !fetcher.data.ok && (
+          <span className="admin-error text-xs">{fetcher.data.error}</span>
+        )}
+      </div>
+    </fetcher.Form>
   );
 }
 
@@ -247,6 +356,23 @@ export default function AdminAppreciations({ loaderData: d }: Route.ComponentPro
           </ul>
         </section>
       )}
+
+      <section className={panel}>
+        <h2 className={heading}>Gems</h2>
+        <p className="mb-3 text-sm text-[color:var(--muted)]">
+          The shared gem picker on{" "}
+          <a href="/appreciate" className="hover:underline">
+            /appreciate
+          </a>
+          . Names read on after “I appreciate them…”, so they start with “as” or “for”.
+        </p>
+        <ul>
+          {d.gems.map((gem) => (
+            <SharedGem key={gem.id} gem={gem} />
+          ))}
+        </ul>
+        <AddGem />
+      </section>
 
       {byMonth.size === 0 && (
         <section className={panel}>

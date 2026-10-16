@@ -410,7 +410,7 @@ function SendForm({
           ))}
           <button
             type="button"
-            className={btnGhost}
+            className="inline-flex items-center rounded-none border border-dashed border-[color:var(--line-strong)] px-2.5 py-1 text-sm leading-tight text-[color:var(--muted)] hover:bg-[var(--wash)]"
             onClick={() => setCrafting(true)}
           >
             + Something else…

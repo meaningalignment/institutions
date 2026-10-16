@@ -1,7 +1,7 @@
 import { Form, Link, useFetcher, useLoaderData } from "react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { Route } from "./+types/appreciate";
-import { SITE_NAME } from "../lib/constants";
+import { SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { getSignedInResearcher } from "../lib/auth.server";
 import { getResearchersList, type AdminResearcher } from "../lib/admin.server";
 import {
@@ -25,8 +25,29 @@ import { FlowerBackdrop } from "../components/FlowerBackdrop";
 import { GemChip } from "../components/Gem";
 import { slugify } from "../lib/gems";
 
+const SOCIAL_TITLE = "Appreciate a researcher";
+const SOCIAL_DESCRIPTION =
+  "Send a note and name what you admire. Each month MAI sends flowers to one appreciated researcher.";
+
 export function meta(_: Route.MetaArgs) {
-  return [{ title: `Appreciations — ${SITE_NAME}` }, { name: "robots", content: "noindex" }];
+  return [
+    { title: `Appreciations — ${SITE_NAME}` },
+    { name: "robots", content: "noindex" },
+    { name: "description", content: SOCIAL_DESCRIPTION },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: SITE_NAME },
+    { property: "og:title", content: SOCIAL_TITLE },
+    { property: "og:description", content: SOCIAL_DESCRIPTION },
+    { property: "og:url", content: `${SITE_ORIGIN}/appreciate` },
+    // Bump ?v= when the card is re-rendered so link scrapers refetch it.
+    { property: "og:image", content: `${SITE_ORIGIN}/og-appreciate.png?v=1` },
+    { property: "og:image:width", content: "2400" },
+    { property: "og:image:height", content: "1260" },
+    { property: "og:image:alt", content: "Appreciate a researcher, beside a branch of pastel flowers" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: SOCIAL_TITLE },
+    { name: "twitter:description", content: SOCIAL_DESCRIPTION },
+  ];
 }
 
 /** The public list stays hidden until there are enough entries that it can't single anyone out. */

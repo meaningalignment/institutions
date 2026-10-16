@@ -854,6 +854,7 @@ body:has(#grid-view) .wiki-content {
   text-underline-offset: 3px;
 }
 .researcher-card-links a:hover { color: var(--ink); text-decoration-color: currentColor; }
+.researcher-card-signal { color: var(--muted); }
 .community-unavailable {
   max-width: 660px;
   padding-top: 18px;
@@ -1102,7 +1103,7 @@ body:has(#grid-view) .wiki-content {
   }
   .community-page .researcher-card-links a { color: var(--muted); text-decoration: none; }
   .community-page .researcher-card-links a[href*="scholar"] { display: none; }
-  .community-page .researcher-card-links:not(:has(a:not([href*="scholar"]))) { display: none; }
+  .community-page .researcher-card-links:not(:has(a:not([href*="scholar"]), .researcher-card-signal)) { display: none; }
 
   /* Papers: a reading list in two columns. */
   .community-page .research-paper-section { margin-bottom: 20pt; }

@@ -26,9 +26,6 @@ import {
 } from "./lib/visions";
 
 export const links: Route.LinksFunction = () => [
-  // Researcher photos load from the players app; warming the connection here
-  // saves the DNS + TLS setup when the community page's cards render.
-  { rel: "preconnect", href: "https://players.meaningalignment.org" },
   { rel: "preload", href: "/fonts/sharp-serif/SharpSerifText-Medium.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
   { rel: "preload", href: "/fonts/sharp-serif/SharpSerifText-Regular.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
   { rel: "icon", href: "/favicon.ico", sizes: "any" },

@@ -55,6 +55,9 @@ type Pages = {
   "/researchers": {
     params: {};
   };
+  "/researchers/signal": {
+    params: {};
+  };
   "/researchers/admin": {
     params: {};
   };
@@ -94,7 +97,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/design-challenges" | "/problem-sets" | "/curriculum" | "/resources" | "/theory-of-change" | "/project-updates" | "/researchers" | "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/admin/appreciations" | "/researchers/:handle" | "/appreciate" | "/login" | "/logout" | "/admin/*" | "/fidelity";
+    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/design-challenges" | "/problem-sets" | "/curriculum" | "/resources" | "/theory-of-change" | "/project-updates" | "/researchers" | "/researchers/signal" | "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/admin/appreciations" | "/researchers/:handle" | "/appreciate" | "/login" | "/logout" | "/admin/*" | "/fidelity";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -143,6 +146,10 @@ type RouteFiles = {
   "routes/researchers.tsx": {
     id: "routes/researchers";
     page: "/researchers";
+  };
+  "routes/researchers-signal.tsx": {
+    id: "routes/researchers-signal";
+    page: "/researchers/signal";
   };
   "routes/admin.tsx": {
     id: "routes/admin";
@@ -204,6 +211,7 @@ type RouteModules = {
   "routes/theory-of-change": typeof import("./app/routes/theory-of-change.tsx");
   "routes/project-updates": typeof import("./app/routes/project-updates.tsx");
   "routes/researchers": typeof import("./app/routes/researchers.tsx");
+  "routes/researchers-signal": typeof import("./app/routes/researchers-signal.tsx");
   "routes/admin": typeof import("./app/routes/admin.tsx");
   "routes/admin-scouts": typeof import("./app/routes/admin-scouts.tsx");
   "routes/admin-people": typeof import("./app/routes/admin-people.tsx");

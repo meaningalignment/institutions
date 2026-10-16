@@ -7,7 +7,7 @@ import { ResearcherCard } from "./ResearcherCard";
 
 type View = "people" | "papers";
 
-function Section({
+export function ResearcherSection({
   id,
   title,
   blurb,
@@ -15,7 +15,7 @@ function Section({
 }: {
   id: string;
   title: string;
-  blurb: string;
+  blurb?: string;
   people: Researcher[];
 }) {
   if (!people.length) return null;
@@ -25,7 +25,7 @@ function Section({
         <h2>{title}</h2>
         <span aria-label={`${people.length} people`}>{people.length}</span>
       </div>
-      <p className="community-section-intro">{blurb}</p>
+      {blurb ? <p className="community-section-intro">{blurb}</p> : null}
       <div className="researcher-grid">
         {people.map((researcher) => <ResearcherCard key={researcher.id} researcher={researcher} />)}
       </div>
@@ -48,7 +48,7 @@ function PeopleView({ community, selectedField }: { community: Community; select
 
   return (
     <div className="research-people-view">
-      {groups.map((group) => <Section key={group.id} {...group} />)}
+      {groups.map((group) => <ResearcherSection key={group.id} {...group} />)}
       {!resultCount ? <p className="community-unavailable">No researchers match those filters.</p> : null}
     </div>
   );

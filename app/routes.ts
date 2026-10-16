@@ -13,6 +13,7 @@ export default [
   route("theory-of-change", "routes/theory-of-change.tsx"),
   route("project-updates", "routes/project-updates.tsx"),
   route("researchers", "routes/researchers.tsx"), // Community page (DB)
+  route("researchers/signal", "routes/researchers-signal.tsx"), // Signal group members, A–Z (DB)
   route("researchers/admin", "routes/admin.tsx", [
     index("routes/admin-scouts.tsx"),
     route("people", "routes/admin-people.tsx"),

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import type { Researcher } from "../lib/researchers.server";
-import { researcherPhotoSrc, researcherProfilePath } from "../lib/researcher-links";
+import { isDistinctSignalName, researcherPhotoSrc, researcherProfilePath } from "../lib/researcher-links";
 
 export function Highlight({ children }: { children: React.ReactNode }) {
   return <span className="researcher-highlight">{children}</span>;
@@ -63,6 +63,9 @@ export function ResearcherCard({ researcher: r }: { researcher: Researcher }) {
       )}
 
       <div className="researcher-card-links">
+        {r.signalName && isDistinctSignalName(r.name, r.signalName) && (
+          <span className="researcher-card-signal">Signal: {r.signalName}</span>
+        )}
         {r.handle && (
           <a
             href={`https://x.com/${bareHandle(r.handle)}`}

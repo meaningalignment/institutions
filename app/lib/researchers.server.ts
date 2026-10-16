@@ -27,6 +27,8 @@ export interface Researcher {
   commitment: string | null;
   contributionAreas: string[];
   worldClassMethods: string[];
+  /** Name they go by in the Signal group, if they're in it. */
+  signalName: string | null;
   advisesAbout?: string | null;
 }
 
@@ -61,13 +63,14 @@ export interface ResearchWork {
 
 const FRIEND_COMMITMENTS = new Set(["committed"]);
 
-// Researcher photos are stored as site-relative paths (e.g. /photos/x.jpg).
-// The cached originals are served from the players app.
-const PHOTO_BASE = "https://players.meaningalignment.org";
+// Researcher photos are stored as site-relative paths (e.g. /photos/x.jpg)
+// and served from this app's public/photos. The ecosystem app shares the
+// database and keeps its own copy under the same paths. Absolute URLs pass
+// through unchanged.
 function photoSrc(p: string | null | undefined): string | null {
   if (!p) return null;
   if (/^https?:\/\//.test(p)) return p;
-  return PHOTO_BASE + (p.startsWith("/") ? p : "/" + p);
+  return p.startsWith("/") ? p : "/" + p;
 }
 
 function toResearcher(r: any): Researcher {
@@ -88,6 +91,7 @@ function toResearcher(r: any): Researcher {
     commitment: r.commitment ?? null,
     contributionAreas: r.contribution_areas ?? [],
     worldClassMethods: r.world_class_methods ?? [],
+    signalName: typeof r.signal_name === "string" && r.signal_name.trim() ? r.signal_name.trim() : null,
   };
 }
 
@@ -109,7 +113,7 @@ export async function getCommunity(): Promise<Community> {
   const sql = getSql();
   const [researchers, advisors, involved] = await Promise.all([
     sql`SELECT id, name, handle, affiliation, bio, bio_source_url, photo_url, scholar_url, rows, methods,
-        tags, seniority, commitment, contribution_areas, world_class_methods
+        tags, seniority, commitment, contribution_areas, world_class_methods, signal_name
         FROM researchers ORDER BY name`,
     sql`SELECT researcher_id, advises_about FROM advisors`,
     sql`SELECT DISTINCT researcher_id FROM researcher_involvements`,
@@ -194,14 +198,14 @@ export async function getResearcher(handleParam: string): Promise<ResearcherProf
   const bare = handleParam.replace(/^@/, "");
   let rows = (await sql`
     SELECT id, name, handle, affiliation, bio, bio_source_url, photo_url, scholar_url, rows, methods,
-        tags, seniority, commitment, contribution_areas, world_class_methods
+        tags, seniority, commitment, contribution_areas, world_class_methods, signal_name
     FROM researchers
     WHERE handle = ${"@" + bare} OR handle = ${bare} LIMIT 1
   `) as any[];
   if (!rows.length) {
     const peopleWithoutHandles = (await sql`
       SELECT id, name, handle, affiliation, bio, bio_source_url, photo_url, scholar_url, rows, methods,
-          tags, seniority, commitment, contribution_areas, world_class_methods
+          tags, seniority, commitment, contribution_areas, world_class_methods, signal_name
       FROM researchers
       WHERE handle IS NULL OR btrim(handle) = ${""}
     `) as any[];

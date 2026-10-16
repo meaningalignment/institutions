@@ -26,9 +26,13 @@ function EditIcon() {
 export function CommunityHeader({
   editing,
   session,
+  title = "Research Community",
+  intro = "Researchers collaborating on AGI institutions.",
 }: {
   editing: boolean;
   session?: CommunitySession | null;
+  title?: string;
+  intro?: string;
 }) {
   const profileHandle = session?.handle.replace(/^@/, "");
 
@@ -57,7 +61,7 @@ export function CommunityHeader({
       ) : null}
 
       <div className="community-title-row">
-        <h1>{editing ? "Community admin" : "Research Community"}</h1>
+        <h1>{editing ? "Community admin" : title}</h1>
         {!editing && session ? (
           <Link
             to={editing ? "/researchers" : "/researchers/admin"}
@@ -78,7 +82,7 @@ export function CommunityHeader({
       <p className={`community-page-intro${editing ? " is-editing" : ""}`}>
         {editing
           ? "Manage people, scouts, involvement, and selected work."
-          : "Researchers collaborating on AGI institutions."}
+          : intro}
       </p>
     </>
   );

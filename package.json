@@ -14,6 +14,7 @@
     "db:migrate:researcher-login": "node scripts/migrate-researcher-login.mjs",
     "db:migrate:project-updates": "node scripts/migrate-project-updates.mjs",
     "db:migrate:researcher-bios": "node scripts/migrate-researcher-bios.mjs",
+    "db:migrate:signal": "node scripts/migrate-signal.mjs",
     "db:import:pax-bios": "node scripts/import-pax-bios.mjs",
     "kanban": "bun scripts/kanban.js",
     "check:tags": "npx tsx scripts/check-tags.mjs"

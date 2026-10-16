@@ -129,7 +129,7 @@ function HumanTimeline({
 }
 
 export function Grid({ tabId, cells, humanInstitutions, cellFields = {} }: GridProps) {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const focusedRow = searchParams.get("row");
   const showFields = tabId === "agi" && Object.keys(cellFields).length > 0;
   const highlightField = showFields
@@ -142,8 +142,19 @@ export function Grid({ tabId, cells, humanInstitutions, cellFields = {} }: GridP
     humanInstitutions ? humanInstitutions.timeline.length - 1 : 0
   );
   // The Human grid defaults to a simple one-label-per-cell view; the timeline
-  // slider and full dated records are revealed by the history toggle.
-  const [historyMode, setHistoryMode] = useState(false);
+  // slider and full dated records are revealed by the history toggle. The
+  // toggle lives in the URL (`?history=true`) so history mode can be linked to.
+  const historyMode = tabId === "human" && searchParams.get("history") === "true";
+  const setHistoryMode = (on: boolean) =>
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (on) next.set("history", "true");
+        else next.delete("history");
+        return next;
+      },
+      { replace: true, preventScrollReset: true }
+    );
   const tab = TABS[tabId];
   // Cells carry the highlighted field along, so their "Back to grid" returns here.
   const cellHref = (row: string, col: string) =>

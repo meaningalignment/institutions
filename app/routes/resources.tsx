@@ -1,6 +1,6 @@
 import { isRouteErrorResponse, Link, useNavigate, useSearchParams } from "react-router";
 import type { Route } from "./+types/resources";
-import { allWorks, getCellFieldMap, loadResources } from "../lib/resources.server";
+import { getCellFieldMap, loadResources } from "../lib/resources.server";
 import { researcherKey, type ResearchWork, type ResourceSection } from "../lib/resources";
 import { loadGridCells } from "../lib/content.server";
 import { RESEARCH_FIELDS } from "../lib/research-fields";
@@ -35,7 +35,6 @@ export function loader({ request }: Route.LoaderArgs) {
   const param = new URL(request.url).searchParams.get("field") ?? "";
   const field = RESEARCH_FIELDS.find((f) => f.id === param);
   const { fields: lists, elsewhere, people } = loadResources();
-  const all = allWorks();
   const fields = Object.fromEntries(
     RESEARCH_FIELDS.map((f) => {
       const { works, ...info } = lists[f.id];
@@ -44,8 +43,7 @@ export function loader({ request }: Route.LoaderArgs) {
   );
   return {
     fields,
-    works: field ? lists[field.id].works : param === ALL ? all : [],
-    total: all.length,
+    works: field ? lists[field.id].works : [],
     gridCells: field ? gridCellsFor(field.id) : [],
     // Author and curator names link to their X profile in people.md.
     links: people,
@@ -56,7 +54,7 @@ export function loader({ request }: Route.LoaderArgs) {
 export function meta({ location, loaderData }: Route.MetaArgs) {
   const param = new URLSearchParams(location.search).get("field");
   const field = RESEARCH_FIELDS.find((f) => f.id === param);
-  const page = field ? `${field.label} · Resources` : param === "all" ? "All works · Resources" : "Resources";
+  const page = field ? `${field.label} · Resources` : "Resources";
   const title = `${page} — ${SITE_NAME}`;
   const desc = field
     ? `${loaderData?.fields[field.id]?.blurb ?? ""} A reading list for AGI institutions, curated by a researcher in the field.`.trim()
@@ -169,17 +167,16 @@ const SECTIONS: { id: ResourceSection; title: string; intro: string }[] = [
   },
 ]
 
-// `?field=` values: "" is the overview, "all" every work in one list.
-const ALL = "all";
+// `?field=` values: "" is the overview, otherwise a field id.
 const fieldHref = (id: string) => (id ? `/resources?field=${id}` : "/resources");
 
 function Rail({ current }: { current: string }) {
-  const item = (id: string, label: string, extra = "") => (
+  const item = (id: string, label: string) => (
     <li key={id || "overview"}>
       <Link
         to={fieldHref(id)}
         preventScrollReset
-        className={`curr-sidebar-link${extra}${current === id ? " is-active" : ""}`}
+        className={`curr-sidebar-link${current === id ? " is-active" : ""}`}
         aria-current={current === id ? "page" : undefined}
       >
         {label}
@@ -192,15 +189,12 @@ function Rail({ current }: { current: string }) {
       <div className="curr-sidebar-title">Fields</div>
       <ul className="curr-sidebar-list">
         {RESEARCH_FIELDS.map((f) => item(f.id, f.label))}
-        {item(ALL, "All works", " bib-rail-all")}
       </ul>
     </nav>
   );
 }
 
-// The three sections of a list: a field's, or every field's under "All works".
-// Works arrive in page order: a field's in its file's order, "All works"
-// newest first.
+// The three sections of a field's list, each in its file's order.
 function Lists({ works, links }: { works: ResearchWork[]; links: Links }) {
   return (
     <>
@@ -274,9 +268,6 @@ function Overview({ d }: { d: Data }) {
             );
           })}
         </ul>
-        <p className="bib-directory-all">
-          Or see <Link to={fieldHref(ALL)}>all {d.total} works</Link> in one list.
-        </p>
       </section>
 
       <section className="bib-prose" aria-labelledby="bib-how">
@@ -363,7 +354,7 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
   const param = searchParams.get("field") ?? "";
   const field = RESEARCH_FIELDS.find((f) => f.id === param);
   // Unknown ids fall back to the overview.
-  const current = field ? field.id : param === ALL ? ALL : "";
+  const current = field ? field.id : "";
   const info = field ? d.fields[field.id] : undefined;
   const cells = field ? d.gridCells : [];
   const cellCount = cells.length;
@@ -379,24 +370,10 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
           <select value={current} onChange={(e) => navigate(fieldHref(e.target.value), { replace: true })}>
             <option value="">Overview</option>
             {RESEARCH_FIELDS.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
-            <option value={ALL}>All works</option>
           </select>
         </label>
 
         {current === "" ? <Overview d={d} /> : null}
-
-        {current === ALL ? (
-          <>
-            <header className="bib-head">
-              <h1 className="curr-page-title">All works</h1>
-              <p className="bib-lede">
-                Every work from all ten field lists. To know where to start, pick a field, or read{" "}
-                <Link to="/resources#bib-how">about the lists</Link>.
-              </p>
-            </header>
-            <Lists works={d.works} links={d.links} />
-          </>
-        ) : null}
 
         {field ? (
           <>

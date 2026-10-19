@@ -2020,10 +2020,8 @@ a.bib-person:hover { color: var(--ink); text-decoration: underline; text-decorat
 .bib-footnote a:visited { color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
 .bib-footnote a:hover { color: var(--ink); }
 
-/* Rail: Overview sits above the field list; "All works" trails it. */
+/* Rail: Overview sits above the field list. */
 .bib-rail-top { margin-bottom: 22px; }
-.curr-sidebar-link.bib-rail-all { margin-top: 8px; color: var(--faint); }
-.curr-sidebar-link.bib-rail-all.is-active { color: var(--ink); }
 
 /* Overview prose. Headings match the collapsible section titles below. */
 .bib-prose { max-width: 740px; margin-bottom: 52px; }
@@ -2103,7 +2101,6 @@ a.bib-person:hover { color: var(--ink); text-decoration: underline; text-decorat
   line-height: 1.5;
 }
 .bib-directory-meta { margin-top: 8px; color: var(--faint); font-size: 13px; }
-.wiki-content .bib-prose p.bib-directory-all { margin-top: 10px; color: var(--muted); font-size: 14px; }
 
 /* The three parts of a list, and the field addresses. */
 .bib-parts { margin: 18px 0 0; max-width: 640px; }

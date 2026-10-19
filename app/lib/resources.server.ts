@@ -3,26 +3,10 @@
 
 import content from "virtual:site-content";
 import { RESEARCH_FIELDS } from "./research-fields";
-import type { ResearchWork, Resources } from "./resources";
+import type { Resources } from "./resources";
 
 export function loadResources(): Resources {
   return content.resources;
-}
-
-// Every listed work once, newest first then by title. A work on several
-// fields' lists keeps its entry from the first of them in rail order.
-let allWorksCache: ResearchWork[] | undefined;
-export function allWorks(): ResearchWork[] {
-  if (allWorksCache) return allWorksCache;
-  const byUrl = new Map<string, ResearchWork>();
-  for (const f of RESEARCH_FIELDS) {
-    for (const w of content.resources.fields[f.id]?.works ?? []) if (!byUrl.has(w.url)) byUrl.set(w.url, w);
-  }
-  const title = (w: ResearchWork) => w.title.toLowerCase();
-  allWorksCache = [...byUrl.values()].sort(
-    (a, b) => (b.year ?? -1) - (a.year ?? -1) || (title(a) < title(b) ? -1 : title(a) > title(b) ? 1 : 0)
-  );
-  return allWorksCache;
 }
 
 // Grid cell ("{row}-{col}") → the research fields it draws on most: the top

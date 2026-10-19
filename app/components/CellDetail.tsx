@@ -2,6 +2,7 @@ import { Link, useSearchParams } from "react-router";
 import type { CellDetailData } from "../lib/detail.server";
 import { colName, rowName } from "../lib/constants";
 import { RESEARCH_FIELDS } from "../lib/research-fields";
+import { FellowshipCta } from "./FellowshipCta";
 
 // Renders the cell detail DOM at parity with the legacy app.js renderDetail.
 // The inner HTML pieces (summary box, theory box, body) are produced
@@ -64,6 +65,7 @@ export function CellDetail({
               </a>
             </div>
           )}
+          {data.tabId === "agi" && data.found && data.hasBody && <FellowshipCta />}
           {resourceFields.length > 0 && (
             <nav className="detail-resources" aria-label="Further reading">
               <span className="detail-resources-label">Further reading</span>

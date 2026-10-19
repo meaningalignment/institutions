@@ -2171,3 +2171,17 @@ tr.fields-row .field-tag {
 }
 tr.fields-row .field-tag:hover { color: var(--ink); text-decoration: underline; }
 tr.fields-row .field-tag.is-active { color: var(--ink); font-weight: 650; }
+
+/* ── Research fellowship invitation (design challenges + AGI cell pages) ── */
+.fellowship-cta {
+  margin-top: 40px;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.fellowship-cta-title { font-weight: 650; color: var(--ink); }
+.fellowship-cta a { color: var(--accent-dark); font-weight: 600; }
+.fellowship-cta a:hover { color: var(--accent); }

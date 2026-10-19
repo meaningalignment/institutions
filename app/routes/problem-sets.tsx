@@ -4,6 +4,7 @@ import { loadCells } from "../lib/content.server";
 import { renderProblemSetBody } from "../lib/render.server";
 import { extractProblemSets } from "../lib/markdown";
 import { VisionMenu } from "../components/Controls";
+import { FellowshipCta } from "../components/FellowshipCta";
 import { staticContentHeaders } from "../lib/cache.server";
 import {
   VISIONS,
@@ -114,6 +115,8 @@ export default function ProblemSets({ loaderData: d }: Route.ComponentProps) {
             ))}
           </div>
         ))}
+
+        <FellowshipCta />
 
         <div className="ps-notes">
           <h3>Notes for Facilitators</h3>

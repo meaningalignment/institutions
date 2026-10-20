@@ -6,7 +6,7 @@ email: philosophy@agi-institutions.org
 
 # Philosophy of AI
 
-What values are, how agents reason with plural ones, and what mind, meaning, and agency amount to in artificial systems.
+What mind, meaning, and moral competence amount to in artificial systems, and what follows for how they should reason and be held to account.
 
 ## Selected papers
 
@@ -109,12 +109,6 @@ What values are, how agents reason with plural ones, and what mind, meaning, and
   - Cells: dyadic-preferences, national-preferences, global-thick-commitments
   - Summary: Distinguishes instructions, preferences, interests, and values as alignment targets and argues for fair principles that can earn reflective endorsement amid disagreement.
 
-- [Hard Choices](https://doi.org/10.1017/apa.2017.7)
-  - Authors: Ruth Chang
-  - Year: 2017
-  - Venue: Journal of the American Philosophical Association
-  - Type: Peer-reviewed
-
 - [What We Owe to Each Other](https://www.hup.harvard.edu/books/9780674004238)
   - Authors: T.M. Scanlon
   - Year: 1998
@@ -124,12 +118,6 @@ What values are, how agents reason with plural ones, and what mind, meaning, and
   - Authors: Alasdair MacIntyre
   - Year: 1981
   - Type: Book
-
-- [What is Human Agency?](https://doi.org/10.1017/CBO9781139173483.002)
-  - Authors: Charles Taylor
-  - Year: 1977
-  - Venue: Human Agency and Language (Philosophical Papers 1)
-  - Type: Essay
 
 - [Nicomachean Ethics](https://classics.mit.edu/Aristotle/nicomachaen.html)
   - Authors: Aristotle

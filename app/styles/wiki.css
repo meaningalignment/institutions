@@ -2070,7 +2070,7 @@ a.bib-person:hover { color: var(--ink); text-decoration: underline; text-decorat
 .bib-asks li + li { margin-top: 4px; }
 .bib-asks li::marker { color: var(--faint); }
 
-/* The ten fields, two to a row where there's room. */
+/* The fields, two to a row where there's room. */
 .bib-directory {
   display: grid;
   grid-template-columns: 1fr;

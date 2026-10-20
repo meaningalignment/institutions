@@ -93,70 +93,6 @@ export const RESEARCH_FIELDS: ResearchField[] = [
     ],
   },
   {
-    // "AI governance" (24) and "AI policy" (12) are the two biggest tags in the
-    // roster. Note that bare "ai safety"/"agi safety" are deliberately NOT
-    // keywords anywhere: 22 people carry "AI safety" as an affiliation badge
-    // rather than a description of their work, and including it collapsed
-    // governance, technical safety and x-risk into one 61-person field. People
-    // whose only safety signal is that badge are placed by their substantive
-    // tags instead.
-    id: "ai-governance-policy",
-    label: "AI governance & policy",
-    tags: [
-      "ai governance",
-      "ai policy",
-      "agi policy",
-      "ai safety policy",
-      "ai agents governance",
-      "ai for governance",
-      "technology policy",
-      "public policy",
-      "economic policy",
-      "compute governance",
-      "technology governance",
-      "technology regulation",
-      "algorithmic governance",
-      "platform governance",
-      "climate governance",
-      "blockchain governance",
-      "data governance",
-      "data policy",
-      "national security",
-      "international verification",
-      "hardware monitoring",
-      "antitrust",
-      "government transparency",
-      "responsible ai",
-      "public-private governance",
-      "open source ai policy",
-      "defense innovation",
-      "ai societal impacts",
-      "ai impacts",
-      "future of work",
-      "online harms",
-      "misinformation",
-      "information integrity",
-      "privacy",
-      "privacy-preserving measurement",
-      "metagov",
-      "tum.ai",
-      "ai education",
-      "education",
-      "financial services",
-      "healthcare ai",
-      "ai for social good",
-      "climate ai",
-      "social media",
-      "platform design",
-      "recommender systems",
-      "polarization",
-      "quantitative market research",
-      "market governance of ai",
-      "digital transformation",
-      "ai law",
-    ],
-  },
-  {
     // Merges the old "Cognitive science & moral psychology" and "Models of
     // norms & norm learning". Philosophy is a separate field: bare "philosophy"
     // said nothing about whether someone works on moral cognition.
@@ -213,16 +149,34 @@ export const RESEARCH_FIELDS: ResearchField[] = [
       "philosophy of ai",
       "philosophy of mind",
       "philosophy of science",
-      "political philosophy",
       "philosophical logic",
       "philosophical rationalism",
       "epistemology",
       "metaphysics",
       "metaethics",
       "ethics of ai",
-      "value theory",
       "decision theory",
     ],
+  },
+  {
+    // What values are and how people choose between them: the account of
+    // human agency that value alignment presupposes. Split out of
+    // philosophy-of-ai, which keeps mind, meaning and language in machines.
+    id: "agency-value",
+    label: "Philosophy of agency & value",
+    tags: [
+      "value theory",
+      "meaning alignment",
+    ],
+    people: ["Pete Wolfendale"],
+  },
+  {
+    // Roberta Fischli has no tags in the roster yet; Iason Gabriel's only
+    // philosophy tag is the bare "philosophy".
+    id: "political-philosophy",
+    label: "Political philosophy",
+    tags: ["political philosophy"],
+    people: ["Roberta Fischli", "Iason Gabriel"],
   },
   {
     id: "deliberative-democracy",
@@ -356,6 +310,60 @@ export const RESEARCH_FIELDS: ResearchField[] = [
  * deliberate omission from a tag nobody has classified yet.
  */
 export const UNASSIGNED_TAGS: string[] = [
+  // Formerly the "AI governance & policy" field, cut: governance is what the
+  // whole grid is about, so the label did not distinguish anyone. People are
+  // placed by their other tags; someone whose only signal is one of these has
+  // no field.
+  "ai governance",
+  "ai policy",
+  "agi policy",
+  "ai safety policy",
+  "ai agents governance",
+  "ai for governance",
+  "technology policy",
+  "public policy",
+  "economic policy",
+  "compute governance",
+  "technology governance",
+  "technology regulation",
+  "algorithmic governance",
+  "platform governance",
+  "climate governance",
+  "blockchain governance",
+  "data governance",
+  "data policy",
+  "national security",
+  "international verification",
+  "hardware monitoring",
+  "antitrust",
+  "government transparency",
+  "responsible ai",
+  "public-private governance",
+  "open source ai policy",
+  "defense innovation",
+  "ai societal impacts",
+  "ai impacts",
+  "future of work",
+  "online harms",
+  "misinformation",
+  "information integrity",
+  "privacy",
+  "privacy-preserving measurement",
+  "metagov",
+  "tum.ai",
+  "ai education",
+  "education",
+  "financial services",
+  "healthcare ai",
+  "ai for social good",
+  "climate ai",
+  "social media",
+  "platform design",
+  "recommender systems",
+  "polarization",
+  "quantitative market research",
+  "market governance of ai",
+  "digital transformation",
   // Technical-safety mechanisms. These were a separate "Technical safety &
   // oversight" field, now cut. As with existential risk, the people are better
   // described by their other work; a person whose only signal is one of these

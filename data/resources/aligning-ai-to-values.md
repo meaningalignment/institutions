@@ -25,21 +25,21 @@ What models should be trained toward, who supplies that target, and how values a
   - Cells: dyadic-preferences, group-preferences, group-thick-commitments
   - Summary: Shows why preference satisfaction is too thin a target for alignment and develops a broader account of what AI systems should respond to.
 
-- [What are human values, and how do we align AI to them?](https://arxiv.org/abs/2404.10636)
-  - Authors: Oliver Klingefjord, Ryan Lowe, Joe Edelman
-  - Year: 2024
-  - Type: Preprint
-  - Cells: group-preferences, community-preferences, national-preferences
-  - Summary: Elicits the considerations behind people's choices rather than ratings, and reconciles them across a population into a moral graph that can serve as an alignment target.
-
-## Work in the field
-
 - [Claude's Constitution](https://www.anthropic.com/constitution)
   - Authors: Anthropic
   - Year: 2026
   - Type: Report
   - Cells: dyadic-thick-commitments, dyadic-norms
   - Summary: Anthropic's full specification of the values, priorities and character it trains Claude toward; a worked example of stating an agent's standing dispositions.
+
+## Work in the field
+
+- [What are human values, and how do we align AI to them?](https://arxiv.org/abs/2404.10636)
+  - Authors: Oliver Klingefjord, Ryan Lowe, Joe Edelman
+  - Year: 2024
+  - Type: Preprint
+  - Cells: group-preferences, community-preferences, national-preferences
+  - Summary: Elicits the considerations behind people's choices rather than ratings, and reconciles them across a population into a moral graph that can serve as an alignment target.
 
 - [Model Integrity and Character](https://meaningalignment.substack.com/p/model-integrity-and-character)
   - Authors: Oliver Klingefjord

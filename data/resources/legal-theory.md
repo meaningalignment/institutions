@@ -1,6 +1,7 @@
 ---
 curator: Nick Caputo
 curator_bio: Law & AI lead at the Oxford Martin AI Governance Initiative.
+curator_confirmed: true
 email: law@agi-institutions.org
 ---
 

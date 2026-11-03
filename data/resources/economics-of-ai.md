@@ -1,6 +1,7 @@
 ---
-curator: Zoë Hitzig
-curator_bio: Economist at the Anthropic Institute.
+curator: Andy Haupt
+curator_bio:
+curator_confirmed: true
 email: econ@agi-institutions.org
 ---
 

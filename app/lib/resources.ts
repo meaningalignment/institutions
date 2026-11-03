@@ -5,7 +5,7 @@
 // Kept free of server-only and virtual imports so vite.config.ts can load it.
 //
 // File format (README.md documents it for contributors):
-//   {field-id}.md  frontmatter (curator, curator_bio, email), "# {Field label}",
+//   {field-id}.md  frontmatter (curator, curator_bio, curator_confirmed, email), "# {Field label}",
 //                  the blurb paragraph, then "## Selected papers" /
 //                  "## Work in the field" / "## Foundations", each a list of
 //                  entries. Entries appear on the page in file order.
@@ -54,6 +54,8 @@ export interface FieldList {
   blurb: string;
   curator: string | null;
   curatorBio: string | null;
+  // Unconfirmed curators show as "TBD" on the page; their names stay in the file.
+  curatorConfirmed: boolean;
   email: string | null;
   // In file order, which is page order within each section.
   works: ResearchWork[];
@@ -179,7 +181,7 @@ function checkKeys(entry: Entry, allowed: string[], file: string, errors: string
 }
 
 const WORK_KEYS = ["authors", "year", "venue", "type", "cells", "summary"];
-const FIELD_FRONTMATTER = ["curator", "curator_bio", "email"];
+const FIELD_FRONTMATTER = ["curator", "curator_bio", "curator_confirmed", "email"];
 
 function parseWork(entry: Entry, section: ResourceSection, cellKeys: Set<string>, file: string, errors: string[]): ResearchWork {
   checkKeys(entry, WORK_KEYS, file, errors);
@@ -258,6 +260,7 @@ export function parseResources(
         blurb: parsed.intro,
         curator: str(fm.curator),
         curatorBio: str(fm.curator_bio),
+        curatorConfirmed: fm.curator_confirmed === true,
         email: str(fm.email),
         works: [],
       };

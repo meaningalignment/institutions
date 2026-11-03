@@ -1,6 +1,7 @@
 ---
-curator: Smitha Milli
-curator_bio: Research scientist on Meta's FAIR AI & Society team.
+curator: Taylor Sorensen
+curator_bio:
+curator_confirmed: true
 email: values@agi-institutions.org
 ---
 
@@ -10,75 +11,34 @@ What models should be trained toward, who supplies that target, and how values a
 
 ## Selected papers
 
-- [Co‑Aligning AI and Institutions with Thick Models of Value](https://arxiv.org/abs/2512.03399)
+- [Artificial Intelligence, Values, and Alignment](https://arxiv.org/abs/2001.09768)
+  - Authors: Iason Gabriel
+  - Year: 2020
+  - Venue: Minds and Machines
+  - Type: Peer-reviewed
+  - Cells: dyadic-preferences, national-preferences, global-thick-commitments
+  - Summary: A foundational philosophical treatment of what aligning AI to instructions, preferences, interests, or values would each look like, and how to choose fairly among them amid disagreement.
+
+- [A General Language Assistant as a Laboratory for Alignment](https://arxiv.org/abs/2112.00861)
+  - Authors: Amanda Askell, Yuntao Bai, Anna Chen, Dawn Drain, et al.
+  - Year: 2021
+  - Type: Preprint
+  - Cells: dyadic-norms, dyadic-thick-commitments
+  - Summary: Spells out the "helpful, honest, and harmless" framing many AI systems are now trained toward and how those objectives conflict, laying groundwork for Constitutional AI and Claude's constitution.
+
+- [Full-Stack Alignment: Co-Aligning AI and Institutions with Thick Models of Value](https://arxiv.org/abs/2512.03399)
   - Authors: Joe Edelman, Tan Zhi-Xuan, Ryan Lowe, Oliver Klingefjord, Vincent Wang-Mascianica, Matija Franklin, Ryan Othniel Kearns, Ellie Hain, Atrisha Sarkar, Michiel Bakker, et al.
   - Year: 2025
   - Type: Preprint
   - Cells: community-preferences, community-thick-commitments, global-norms, national-thick-commitments
-  - Summary: Argues that aligning powerful AI requires institutions able to represent and revise thick, context-sensitive human values, not only individual preference aggregation.
-
-- [Beyond Preferences in AI Alignment](https://arxiv.org/abs/2408.16984)
-  - Authors: Tan Zhi-Xuan, Micah Carroll, Matija Franklin, Hal Ashton
-  - Year: 2024
-  - Venue: Philosophical Studies
-  - Type: Peer-reviewed
-  - Cells: dyadic-preferences, group-preferences, group-thick-commitments
-  - Summary: Shows why preference satisfaction is too thin a target for alignment and develops a broader account of what AI systems should respond to.
-
-- [Claude's Constitution](https://www.anthropic.com/constitution)
-  - Authors: Anthropic
-  - Year: 2026
-  - Type: Report
-  - Cells: dyadic-thick-commitments, dyadic-norms
-  - Summary: Anthropic's full specification of the values, priorities and character it trains Claude toward; a worked example of stating an agent's standing dispositions.
-
-## Work in the field
+  - Summary: Proposes "thick models of value," a structured and substantive way of representing values, and argues for aligning both AI systems and the institutions around them to them.
 
 - [What are human values, and how do we align AI to them?](https://arxiv.org/abs/2404.10636)
   - Authors: Oliver Klingefjord, Ryan Lowe, Joe Edelman
   - Year: 2024
   - Type: Preprint
   - Cells: group-preferences, community-preferences, national-preferences
-  - Summary: Elicits the considerations behind people's choices rather than ratings, and reconciles them across a population into a moral graph that can serve as an alignment target.
-
-- [Model Integrity and Character](https://meaningalignment.substack.com/p/model-integrity-and-character)
-  - Authors: Oliver Klingefjord
-  - Year: 2026
-  - Type: Essay
-  - Cells: dyadic-thick-commitments, dyadic-norms
-  - Summary: Argues that a model with a coherent character, one that stays true to its values under pressure, is more trustworthy than one that only complies with rules.
-
-- [C3AI: Crafting and Evaluating Constitutions for Constitutional AI](https://arxiv.org/abs/2502.15861)
-  - Authors: Yara Kyrychenko, Ke Zhou, Edyta Bogucka, Daniele Quercia
-  - Year: 2025
-  - Venue: WWW 2025
-  - Type: Peer-reviewed
-  - Cells: community-norms, national-norms, group-protocols
-  - Summary: Builds a framework for drafting and testing AI constitutions, finding that people endorse positively framed behavioral principles while models comply better with negative ones.
-
-- [Cultivating Pluralism in Algorithmic Monoculture: The Community Alignment Dataset](https://arxiv.org/abs/2507.09650)
-  - Authors: Lily Hong Zhang, Smitha Milli, Karen Jusko, Jonathan Smith, Brandon Amos, Wassim Bouaziz, Manon Revel, et al.
-  - Year: 2025
-  - Venue: ICLR 2026
-  - Type: Peer-reviewed
-  - Cells: community-preferences, national-preferences, global-preferences
-  - Summary: Uses a 15,000-person, five-country study to show that common preference-data pipelines underrepresent human variation and offers a more pluralistic dataset.
-
-- [Resource Rational Contractualism Should Guide AI Alignment](https://arxiv.org/abs/2506.17434)
-  - Authors: Sydney Levine, Matija Franklin, Tan Zhi-Xuan, Secil Yanik Guyot, Lionel Wong, Daniel Kilov, Yejin Choi, Joshua B. Tenenbaum, Noah Goodman, Seth Lazar, et al.
-  - Year: 2025
-  - Venue: IASEAI 2026
-  - Type: Peer-reviewed
-  - Cells: dyadic-thick-commitments, group-norms, community-norms
-  - Summary: Grounds alignment in the agreements stakeholders would endorse, approximated through cognitively inspired heuristics that trade deliberative effort against accuracy.
-
-- [The Lock-in Hypothesis: Stagnation by Algorithm](https://arxiv.org/abs/2506.06166)
-  - Authors: Tianyi Alex Qiu, Zhonghao He, Tejasveer Chugh, Max Kleiman-Weiner
-  - Year: 2025
-  - Venue: ICML 2025
-  - Type: Peer-reviewed
-  - Cells: community-norms, national-preferences, global-norms
-  - Summary: Formalizes a human-AI feedback loop in which models absorb and re-emit user beliefs, and finds sustained diversity drops in real GPT usage after model releases.
+  - Summary: Elicits values from people through an LLM interview, has people judge which values apply in which context, and offers the result as a concrete alignment target, with experiments.
 
 - [A Roadmap to Pluralistic Alignment](https://arxiv.org/abs/2402.05070)
   - Authors: Taylor Sorensen, Jared Moore, Jillian Fisher, Mitchell Gordon, Niloofar Mireshghallah, Christopher Michael Rytting, Andre Ye, Liwei Jiang, Ximing Lu, Nouha Dziri, Tim Althoff, Yejin Choi
@@ -86,7 +46,9 @@ What models should be trained toward, who supplies that target, and how values a
   - Venue: ICML 2024
   - Type: Peer-reviewed
   - Cells: group-preferences, community-preferences, national-preferences
-  - Summary: Formalizes Overton, steerable, and distributional pluralism as alignment targets, and shows standard alignment procedures reduce the distributional pluralism of models.
+  - Summary: Asks how AI systems can allow for legitimate variation in values across and within people and cultures, and proposes three ways to define and measure such pluralism.
+
+## Work in the field
 
 - [Collective Constitutional AI: Aligning a Language Model with Public Input](https://arxiv.org/abs/2406.07814)
   - Authors: Saffron Huang, Divya Siddarth, Liane Lovitt, Thomas I. Liao, Esin Durmus, Alex Tamkin, Deep Ganguli
@@ -94,30 +56,6 @@ What models should be trained toward, who supplies that target, and how values a
   - Venue: FAccT 2024
   - Type: Peer-reviewed
   - Cells: community-preferences, national-preferences, national-rights
-  - Summary: Builds and tests a multi-stage process for sourcing public principles and integrating them into a language model constitution.
-
-- [Representative Social Choice: From Learning Theory to AI Alignment](https://arxiv.org/abs/2410.23953)
-  - Authors: Tianyi Qiu
-  - Year: 2024
-  - Venue: Journal of Artificial Intelligence Research
-  - Type: Peer-reviewed
-  - Cells: national-preferences, community-preferences, global-preferences
-  - Summary: Models democratic representation as a statistical learning problem when issues and individuals are too numerous to poll directly, deriving generalization guarantees and impossibility results.
-
-- [Social Choice Should Guide AI Alignment in Dealing with Diverse Human Feedback](https://arxiv.org/abs/2404.10271)
-  - Authors: Vincent Conitzer, Rachel Freedman, Jobst Heitzig, Wesley H. Holliday, Bob M. Jacobs, Nathan Lambert, Milan Mossé, Eric Pacuit, Stuart Russell, Hailey Schoelkopf, et al.
-  - Year: 2024
-  - Venue: ICML 2024
-  - Type: Peer-reviewed
-  - Cells: group-preferences, national-preferences, global-preferences
-  - Summary: Argues that aggregating divergent human feedback in RLHF and constitutional AI is a social choice problem, and draws on that theory to structure the aggregation.
-
-- [Machine Love](https://arxiv.org/abs/2302.09248)
-  - Authors: Joel Lehman
-  - Year: 2023
-  - Type: Preprint
-  - Cells: dyadic-thick-commitments, dyadic-preferences, community-thick-commitments
-  - Summary: Draws on positive psychology to propose machine systems that support autonomous human growth rather than optimising momentary engagement.
 
 - [Value Kaleidoscope: Engaging AI with Pluralistic Human Values, Rights, and Duties](https://arxiv.org/abs/2309.00779)
   - Authors: Taylor Sorensen, Liwei Jiang, Jena Hwang, Sydney Levine, Valentina Pyatkin, Peter West, Nouha Dziri, Ximing Lu, Kavel Rao, Chandra Bhagavatula, Maarten Sap, John Tasioulas, Yejin Choi
@@ -125,32 +63,74 @@ What models should be trained toward, who supplies that target, and how values a
   - Venue: AAAI 2024
   - Type: Peer-reviewed
   - Cells: dyadic-norms, group-preferences, community-norms
-  - Summary: Builds a dataset of 218k values tied to 31k scenarios and a model that surfaces the competing values, rights, and duties a situation puts in tension.
+
+- [The PRISM Alignment Dataset: What Participatory, Representative and Individualised Human Feedback Reveals About the Subjective and Multicultural Alignment of Large Language Models](https://arxiv.org/abs/2404.16019)
+  - Authors: Hannah Rose Kirk, Alexander Whitefield, Paul Röttger, et al.
+  - Year: 2024
+  - Venue: NeurIPS 2024
+  - Type: Peer-reviewed
+  - Cells: community-preferences, national-preferences, global-preferences
+
+- [Beyond Preferences in AI Alignment](https://arxiv.org/abs/2408.16984)
+  - Authors: Tan Zhi-Xuan, Micah Carroll, Matija Franklin, Hal Ashton
+  - Year: 2024
+  - Venue: Philosophical Studies
+  - Type: Peer-reviewed
+  - Cells: dyadic-preferences, group-preferences, group-thick-commitments
+
+- [Aligning AI With Shared Human Values](https://arxiv.org/abs/2008.02275)
+  - Authors: Dan Hendrycks, Collin Burns, Steven Basart, et al.
+  - Year: 2021
+  - Venue: ICLR 2021
+  - Type: Peer-reviewed
+  - Cells: dyadic-norms, community-norms
+
+- [Resource Rational Contractualism Should Guide AI Alignment](https://arxiv.org/abs/2506.17434)
+  - Authors: Sydney Levine, Matija Franklin, Tan Zhi-Xuan, Secil Yanik Guyot, Lionel Wong, Daniel Kilov, Yejin Choi, Joshua B. Tenenbaum, Noah Goodman, Seth Lazar, et al.
+  - Year: 2025
+  - Venue: IASEAI 2026
+  - Type: Peer-reviewed
+  - Cells: dyadic-thick-commitments, group-norms, community-norms
 
 - [What are you optimizing for? Aligning Recommender Systems with Human Values](https://arxiv.org/abs/2107.10939)
   - Authors: Jonathan Stray, Ivan Vendrov, Jeremy Nixon, Steven Adler, Dylan Hadfield-Menell
   - Year: 2021
-  - Type: Preprint
+  - Venue: ICML 2020 Participatory Approaches to Machine Learning Workshop
+  - Type: Workshop paper
   - Cells: community-preferences, national-preferences, community-norms
-  - Summary: Reviews cases where recommender systems were retuned toward diversity, fairness, and well-being, and proposes participatory design and interactive value learning over ad hoc values engineering.
 
-## Foundations
-
-- [Constitutional AI: Harmlessness from AI Feedback](https://arxiv.org/abs/2212.08073)
-  - Authors: Yuntao Bai et al.
-  - Year: 2022
-  - Type: Preprint
+- [Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback](https://arxiv.org/abs/2307.15217)
+  - Authors: Stephen Casper, Xander Davies, Claudia Shi, et al.
+  - Year: 2023
+  - Venue: TMLR
+  - Type: Peer-reviewed
+  - Cells: dyadic-preferences, group-preferences
 
 - [Training Language Models to Follow Instructions with Human Feedback](https://arxiv.org/abs/2203.02155)
-  - Authors: Long Ouyang et al.
+  - Authors: Long Ouyang, Jeff Wu, Xu Jiang, et al.
   - Year: 2022
   - Venue: NeurIPS
   - Type: Peer-reviewed
+  - Cells: dyadic-preferences
 
-- [Artificial Intelligence, Values, and Alignment](https://arxiv.org/abs/2001.09768)
-  - Authors: Iason Gabriel
+## Foundations
+
+- [Consequences of Misaligned AI](https://arxiv.org/abs/2102.03896)
+  - Authors: Simon Zhuang, Dylan Hadfield-Menell
   - Year: 2020
-  - Venue: Minds and Machines
+  - Venue: NeurIPS
   - Type: Peer-reviewed
-  - Cells: dyadic-preferences, national-preferences, global-thick-commitments
-  - Summary: Distinguishes instructions, preferences, interests, and values as alignment targets and argues for fair principles that can earn reflective endorsement amid disagreement.
+  - Cells: dyadic-incentives, dyadic-preferences
+
+- [Value Capture](https://doi.org/10.26556/jesp.v27i3.3048)
+  - Authors: C. Thi Nguyen
+  - Year: 2024
+  - Venue: Journal of Ethics and Social Philosophy
+  - Type: Peer-reviewed
+  - Cells: community-preferences, national-incentives
+
+- [The Alignment Problem: Machine Learning and Human Values](https://wwnorton.com/books/9780393635829)
+  - Authors: Brian Christian
+  - Year: 2020
+  - Venue: W. W. Norton
+  - Type: Book

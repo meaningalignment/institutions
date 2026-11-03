@@ -261,7 +261,8 @@ function Overview({ d }: { d: Data }) {
                   <span className="bib-directory-blurb">{info?.blurb}</span>
                 </Link>
                 <div className="bib-directory-meta">
-                  Curated by TBD ·{" "}
+                  Curated by{" "}
+                  {info.curatorConfirmed && info.curator ? <Names names={[info.curator]} links={d.links} /> : "TBD"} ·{" "}
                   {n} {n === 1 ? "work" : "works"}
                 </div>
               </li>
@@ -382,9 +383,9 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
               {info ? <p className="bib-lede">{info.blurb}</p> : null}
               {info ? (
                 <dl className="bib-facts">
-                  {/* Curators are hidden until they are confirmed; names stay in the field files. */}
+                  {/* Curators show as TBD until confirmed (curator_confirmed in the field file). */}
                   <dt><Link to="/resources#bib-curator">Curated by</Link></dt>
-                  <dd>TBD</dd>
+                  <dd>{info.curatorConfirmed && info.curator ? <Names names={[info.curator]} links={d.links} /> : "TBD"}</dd>
                   {cellCount ? (
                     <>
                       <dt>Relevant for</dt>

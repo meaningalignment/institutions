@@ -69,6 +69,46 @@ What becomes of markets, firms, labor, and bargaining power when agents transact
 
 ## Work in the field
 
+- [Seeing like an agent](https://www.strangeloopcanon.com/p/seeing-like-an-agent)
+  - Authors: Rohit Krishnan
+  - Year: 2025
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: dyadic-preferences, group-incentives, community-preferences
+  - Summary: Simulated departmental budgets, technology licensing and bargaining test whether agents can coordinate through markets.
+
+- [Will money still exist in the agentic economy?](https://www.strangeloopcanon.com/p/will-money-still-exist-in-the-agentic)
+  - Authors: Rohit Krishnan, Alex Imas
+  - Year: 2025
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: dyadic-preferences, community-preferences
+  - Summary: Compares bilateral barter with money and exchange mechanisms as agent economies grow.
+
+- [The Tragedy of the Agentic Commons](https://www.strangeloopcanon.com/p/the-tragedy-of-the-agentic-commons)
+  - Authors: Rohit Krishnan, Alex Imas
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: community-preferences, community-incentives
+  - Summary: Tests preference elicitation, matching mechanisms and congestion when many participants use agents.
+
+- [Agent, Know Thyself! (and bid accordingly)](https://www.strangeloopcanon.com/p/agent-know-thyself-and-bid-accordingly)
+  - Authors: Rohit Krishnan, Andrey Fradkin
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: group-incentives, community-preferences
+  - Summary: Introduces MarketBench to study model self-assessment, costs and bidding for tasks.
+
+- [Why Coase needs Hayek](https://www.strangeloopcanon.com/p/why-smart-planners-lose-to-simple)
+  - Authors: Rohit Krishnan
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: group-protocols, group-incentives
+  - Summary: Compares how solo execution, central management and market allocation affect quality and cost.
+
 - [The Impossibility of a Paretian Liberal](https://doi.org/10.1086/259614)
   - Authors: Amartya Sen
   - Year: 1970

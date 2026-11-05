@@ -19,6 +19,14 @@ Strategic interaction, and the design of rules under which honest, cooperative b
 
 ## Work in the field
 
+- [Agent governance looks less like moral education and more like institutional economics](https://www.strangeloopcanon.com/p/agent-governance-looks-less-like)
+  - Authors: Rohit Krishnan
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: dyadic-preferences, dyadic-incentives, dyadic-norms, group-incentives, community-incentives, community-norms
+  - Summary: Tests objectives, restitution, treaties and restraint using model-written strategies in a simulated town.
+
 - [Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI](https://arxiv.org/abs/2605.08426)
   - Authors: Xuanqiang Angelo Huang, Charlie Tharas, Samuele Marro, Van Q. Truong, Bernhard Schölkopf, Emanuele La Malfa, Zhijing Jin
   - Year: 2026

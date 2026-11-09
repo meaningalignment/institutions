@@ -1,6 +1,7 @@
 ---
 curator: Tan Zhi Xuan
 curator_bio: Professor of computer science at NUS.
+curator_confirmed: true
 email: norms@agi-institutions.org
 ---
 
@@ -10,12 +11,21 @@ How people and agents learn, represent, and enforce norms, and what it takes for
 
 ## Selected papers
 
-- [A Theory of Appropriateness That Accounts for Norms of Rationality](https://arxiv.org/abs/2603.14050)
-  - Authors: Joel Z. Leibo, Alexander Sasha Vezhnevets, Manfred Diaz, John P. Agapiou, William A. Cunningham, Peter Sunehag, Logan Cross, Raphael Koster, Stanley M. Bileschi, Minsuk Chang, Iyad Rahwan, Simon Osindero, James A. Evans
+- [Building AI for the Democratic Matrix: A Technical Research Agenda for Normative Competence and Normative Institutions](https://knightcolumbia.org/content/building-ai-for-the-democratic-matrix-a-technical-research-agenda-for-normative-competence-and-normative-institutions-1)
+  - Authors: Gillian K. Hadfield, Dylan Hadfield-Menell, Rakshit Trivedi
+  - Year: 2025
+  - Venue: Knight First Amendment Institute
+  - Type: Essay
+  - Cells: community-norms, dyadic-norms, national-norms
+  - Summary: Argues that AI agents need the ability to recognize and participate in human normative institutions, rather than merely optimize independently specified goals, and sets out a technical research agenda for that normative competence.
+
+- [Resource Rational Contractualism Should Guide AI Alignment](https://ojs.aaai.org/index.php/IASEAI/article/view/43037)
+  - Authors: Sydney Levine, Matija Franklin, Tan Zhi-Xuan, Secil Yanik Guyot, Lionel Wong, Daniel Kilov, Yejin Choi, Joshua B. Tenenbaum, Noah Goodman, Seth Lazar, et al.
   - Year: 2026
-  - Type: Preprint
-  - Cells: dyadic-norms, group-norms
-  - Summary: Develops a formal account of appropriate action that can represent rational norms alongside goals and outcomes.
+  - Venue: IASEAI 2026
+  - Type: Peer-reviewed
+  - Cells: dyadic-thick-commitments, group-norms, community-norms
+  - Summary: Grounds alignment in the agreements stakeholders would endorse, approximated through cognitively inspired heuristics that trade deliberative effort against accuracy.
 
 - [Learning and Sustaining Shared Normative Systems via Bayesian Rule Induction in Markov Games](https://arxiv.org/abs/2402.13399)
   - Authors: Ninell Oldenburg, Tan Zhi-Xuan
@@ -27,52 +37,59 @@ How people and agents learn, represent, and enforce norms, and what it takes for
 
 ## Work in the field
 
-- [CLASH: Evaluating Language Models on Judging High-Stakes Dilemmas from Multiple Perspectives](https://arxiv.org/abs/2504.10823)
-  - Authors: Ayoung Lee, Ryan Sungmo Kwon, Peter Railton, Lu Wang
-  - Year: 2025
-  - Venue: ICLR 2026
+- [Resource-Rational Contractualism: A Triple Theory of Moral Cognition](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/abs/resourcerational-contractualism-a-triple-theory-of-moral-cognition/5A567D41A472DBC0D965460966580C74)
+  - Authors: Sydney Levine, Nick Chater, Joshua B. Tenenbaum, Fiery Cushman
+  - Year: 2026
+  - Venue: Behavioral and Brain Sciences
   - Type: Peer-reviewed
-  - Cells: dyadic-preferences, community-norms, group-norms
-  - Summary: Curates 345 high-stakes dilemmas with 3,795 value perspectives and finds frontier models struggle to shift perspective or reason about conflicting values.
+  - Cells: dyadic-norms, group-norms, community-norms
 
-- [Machine Theory of Mind and the Structure of Human Values](https://arxiv.org/abs/2505.20342)
-  - Authors: Paul de Font-Reaulx
-  - Year: 2025
-  - Venue: NeurIPS 2023
-  - Type: Workshop paper
-  - Cells: dyadic-preferences, dyadic-norms, group-preferences
-  - Summary: Argues human values have a generative rational structure, so Bayesian theory-of-mind models can infer values from other values rather than behaviour alone.
+- [A Theory of Appropriateness That Accounts for Norms of Rationality](https://arxiv.org/abs/2603.14050)
+  - Authors: Joel Z. Leibo, Alexander Sasha Vezhnevets, Manfred Diaz, John P. Agapiou, William A. Cunningham, Peter Sunehag, Logan Cross, Raphael Koster, Stanley M. Bileschi, Minsuk Chang, Iyad Rahwan, Simon Osindero, James A. Evans
+  - Year: 2026
+  - Type: Preprint
+  - Cells: dyadic-norms, group-norms
+
+- [The Role of Social Learning and Collective Norm Formation in Fostering Cooperation in LLM Multi-Agent Systems](https://doi.org/10.65109/CZDC3237)
+  - Authors: P. Gupta, Q. Zhong, H. Yakura, T. Eisenmann, Iyad Rahwan
+  - Year: 2026
+  - Venue: AAMAS 2026
+  - Type: Peer-reviewed
+  - Cells: group-norms, community-norms
 
 - [MoReBench: Evaluating Procedural and Pluralistic Moral Reasoning in Language Models, More than Outcomes](https://arxiv.org/abs/2510.16380)
   - Authors: Yu Ying Chiu, Michael S. Lee, Rachel Calcott, Brandon Handoko, Paul de Font-Reaulx, Raphaël Millière, Paula Rodriguez, Chen Bo Calvin Zhang, Ziwen Han, Udari Madhushani Sehwag, et al.
-  - Year: 2025
+  - Year: 2026
   - Venue: ICLR 2026
   - Type: Peer-reviewed
   - Cells: dyadic-norms, group-norms, community-norms
-  - Summary: Builds a benchmark of 1,000 moral scenarios with expert criteria that scores how models reason through ethical dilemmas, finding systematic bias toward particular ethical frameworks.
 
 - [Relational Norms for Human-AI Cooperation](https://arxiv.org/abs/2502.12102)
   - Authors: Brian D. Earp, Sebastian Porsdam Mann, Mateo Aboy, Edmond Awad, Monika Betzler, Marietjie Botes, Rachel Calcott, Mina Caraccio, Nick Chater, Mark Coeckelbergh, et al.
   - Year: 2025
   - Type: Preprint
   - Cells: dyadic-norms, dyadic-thick-commitments, dyadic-rights
-  - Summary: Asks which relationship-specific norms governing teachers, parents, or employers should extend to AI counterparts, and where substitution risks unhealthy dependence.
 
-- [Resource Rational Contractualism Should Guide AI Alignment](https://arxiv.org/abs/2506.17434)
-  - Authors: Sydney Levine, Matija Franklin, Tan Zhi-Xuan, Secil Yanik Guyot, Lionel Wong, Daniel Kilov, Yejin Choi, Joshua B. Tenenbaum, Noah Goodman, Seth Lazar, et al.
+- [Metanorms Generate Stable yet Adaptable Normative Social Order in a Politically Decentralized Society](https://royalsocietypublishing.org/rstb/article/380/1940/20240260/363305/Metanorms-generate-stable-yet-adaptable-normative)
+  - Authors: Sarah Mathew, Gillian K. Hadfield, D. Mwangi, S. Reynolds
   - Year: 2025
-  - Venue: IASEAI 2026
+  - Venue: Philosophical Transactions of the Royal Society B
   - Type: Peer-reviewed
-  - Cells: dyadic-thick-commitments, group-norms, community-norms
-  - Summary: Grounds alignment in the agreements stakeholders would endorse, approximated through cognitively inspired heuristics that trade deliberative effort against accuracy.
+  - Cells: community-norms, group-norms
 
-- [Ethical learning, natural and artificial](https://books.google.com/books?hl=en&lr=&id=2yT3DwAAQBAJ&oi=fnd&pg=PA45)
-  - Authors: Peter Railton
-  - Year: 2020
+- [A Learning Agent That Acquires Social Norms from Public Sanctions in Decentralized Multi-Agent Settings](https://journals.sagepub.com/doi/pdf/10.1177/26339137231162025)
+  - Authors: Eugene Vinitsky, Raphael Köster, John P. Agapiou, Edgar A. Duéñez-Guzmán, Alexander Sasha Vezhnevets, Joel Z. Leibo
+  - Year: 2023
+  - Venue: Collective Intelligence
+  - Type: Peer-reviewed
+  - Cells: group-norms, community-norms
+
+- [Rational Rules: Towards a Theory of Moral Learning](https://books.google.com.sg/books?id=oL0cEAAAQBAJ)
+  - Authors: Shaun Nichols
+  - Year: 2021
   - Venue: Oxford University Press
-  - Type: Book chapter
-  - Cells: dyadic-norms, community-norms, group-norms
-  - Summary: Reframes machine ethics around building systems with a capacity for ethical learning, drawing on developmental psychology's account of how infants acquire moral competence.
+  - Type: Book
+  - Cells: dyadic-norms, group-norms
 
 - [A Common Framework for Theories of Norm Compliance](https://doi.org/10.1017/S0265052518000134)
   - Authors: Adam Morris, Fiery Cushman
@@ -80,31 +97,33 @@ How people and agents learn, represent, and enforce norms, and what it takes for
   - Venue: Social Philosophy and Policy
   - Type: Peer-reviewed
   - Cells: group-norms, dyadic-norms, community-norms
-  - Summary: Situates competing accounts of why people obey social norms inside a reinforcement-learning decision framework, isolating the cognitive variables norms alter to produce compliance.
 
-- [The Naïve Utility Calculus: Computational Principles Underlying Commonsense Psychology](https://doi.org/10.1016/j.tics.2016.05.011)
-  - Authors: Julian Jara-Ettinger, Hyowon Gweon, Laura E. Schulz, Joshua B. Tenenbaum
-  - Year: 2016
-  - Venue: Trends in Cognitive Sciences
+- [Learning a Commonsense Moral Theory](https://compminds.uw.edu/pdfs/kleiman2017learning.pdf)
+  - Authors: Max Kleiman-Weiner, Rebecca Saxe, Joshua B. Tenenbaum
+  - Year: 2017
+  - Venue: Cognition
   - Type: Peer-reviewed
-  - Cells: dyadic-preferences, dyadic-norms, group-norms
-  - Summary: Models human social reasoning as inference over others as intuitive utility maximisers, recovering beliefs, preferences, and character from observed costs and rewards.
+  - Cells: dyadic-norms, group-norms
+
+- [Action, Outcome, and Value: A Dual-System Framework for Morality](https://bpb-us-e1.wpmucdn.com/websites.harvard.edu/dist/0/59/files/2022/03/cushman_2013.pdf)
+  - Authors: Fiery Cushman
+  - Year: 2013
+  - Venue: Personality and Social Psychology Review
+  - Type: Peer-reviewed
+  - Cells: dyadic-norms
 
 ## Foundations
 
-- [A Natural History of Human Morality](https://www.hup.harvard.edu/books/9780674986824)
-  - Authors: Michael Tomasello
-  - Year: 2016
-  - Type: Book
+- [An Evolutionary Approach to Norms](https://doi.org/10.2307/1960858)
+  - Authors: Robert Axelrod
+  - Year: 1986
+  - Venue: American Political Science Review
+  - Type: Peer-reviewed
 
-- [The Secret of Our Success](https://press.princeton.edu/books/paperback/9780691178431/the-secret-of-our-success)
-  - Authors: Joseph Henrich
-  - Year: 2015
-  - Type: Book
-
-- [The Grammar of Society: The Nature and Dynamics of Social Norms](https://doi.org/10.1017/CBO9780511616037)
-  - Authors: Cristina Bicchieri
-  - Year: 2006
+- [Morals by Agreement](https://books.google.com.sg/books?id=5CUTDAAAQBAJ)
+  - Authors: David Gauthier
+  - Year: 1986
+  - Venue: Clarendon Press
   - Type: Book
 
 - [Governing the Commons: The Evolution of Institutions for Collective Action](https://doi.org/10.1017/CBO9780511807763)
@@ -112,8 +131,31 @@ How people and agents learn, represent, and enforce norms, and what it takes for
   - Year: 1990
   - Type: Book
 
-- [An Evolutionary Approach to Norms](https://doi.org/10.2307/1960858)
-  - Authors: Robert Axelrod
-  - Year: 1986
-  - Venue: American Political Science Review
+- [Natural Justice](https://books.google.com.sg/books?id=ZjCbbM_q5poC)
+  - Authors: Ken Binmore
+  - Year: 2005
+  - Venue: Oxford University Press
+  - Type: Book
+
+- [The Grammar of Society: The Nature and Dynamics of Social Norms](https://doi.org/10.1017/CBO9780511616037)
+  - Authors: Cristina Bicchieri
+  - Year: 2006
+  - Type: Book
+
+- [Universal Moral Grammar: Theory, Evidence and the Future](https://sites.santafe.edu/~bowles/UniversalMoralGrammar.pdf)
+  - Authors: John Mikhail
+  - Year: 2007
+  - Venue: Trends in Cognitive Sciences
   - Type: Peer-reviewed
+
+- [Social Norms as Choreography](https://journals.sagepub.com/doi/pdf/10.1177/1470594X09345474)
+  - Authors: Herbert Gintis
+  - Year: 2010
+  - Venue: Politics, Philosophy & Economics
+  - Type: Peer-reviewed
+
+- [A Natural History of Human Morality](https://books.google.com.sg/books?id=0wVuCwAAQBAJ)
+  - Authors: Michael Tomasello
+  - Year: 2016
+  - Venue: Harvard University Press
+  - Type: Book

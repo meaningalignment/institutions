@@ -3,7 +3,7 @@ import type { Route } from "./+types/resources";
 import { getCellFieldMap, loadResources } from "../lib/resources.server";
 import { researcherKey, type ResearchWork, type ResourceSection } from "../lib/resources";
 import { loadGridCells } from "../lib/content.server";
-import { RESEARCH_FIELDS } from "../lib/research-fields";
+import { RESOURCE_FIELDS } from "../lib/research-fields";
 import { staticContentHeaders } from "../lib/cache.server";
 import { COLS, OG_IMAGE_META, ROWS, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 
@@ -33,10 +33,10 @@ function gridCellsFor(fieldId: string): { href: string; title: string }[] {
 // and list sizes go to every view; works only for the list on screen.
 export function loader({ request }: Route.LoaderArgs) {
   const param = new URL(request.url).searchParams.get("field") ?? "";
-  const field = RESEARCH_FIELDS.find((f) => f.id === param);
+  const field = RESOURCE_FIELDS.find((f) => f.id === param);
   const { fields: lists, elsewhere, people } = loadResources();
   const fields = Object.fromEntries(
-    RESEARCH_FIELDS.map((f) => {
+    RESOURCE_FIELDS.map((f) => {
       const { works, ...info } = lists[f.id];
       return [f.id, { ...info, count: works.length }];
     })
@@ -53,7 +53,7 @@ export function loader({ request }: Route.LoaderArgs) {
 
 export function meta({ location, loaderData }: Route.MetaArgs) {
   const param = new URLSearchParams(location.search).get("field");
-  const field = RESEARCH_FIELDS.find((f) => f.id === param);
+  const field = RESOURCE_FIELDS.find((f) => f.id === param);
   const page = field ? `${field.label} · Resources` : "Resources";
   const title = `${page} — ${SITE_NAME}`;
   const desc = field
@@ -188,7 +188,7 @@ function Rail({ current }: { current: string }) {
       <ul className="curr-sidebar-list bib-rail-top">{item("", "Overview")}</ul>
       <div className="curr-sidebar-title">Fields</div>
       <ul className="curr-sidebar-list">
-        {RESEARCH_FIELDS.map((f) => item(f.id, f.label))}
+        {RESOURCE_FIELDS.map((f) => item(f.id, f.label))}
       </ul>
     </nav>
   );
@@ -251,7 +251,7 @@ function Overview({ d }: { d: Data }) {
       <section className="bib-prose" aria-labelledby="bib-fields">
         <h2 id="bib-fields">Fields</h2>
         <ul className="bib-directory">
-          {RESEARCH_FIELDS.map((f) => {
+          {RESOURCE_FIELDS.map((f) => {
             const info = d.fields[f.id];
             const n = info.count;
             return (
@@ -321,7 +321,7 @@ function Overview({ d }: { d: Data }) {
           write in about related questions, we may also invite them to a live Q&amp;A with experts in the field.
         </p>
         <dl className="bib-emails">
-          {RESEARCH_FIELDS.filter((f) => d.fields[f.id].email).map((f) => (
+          {RESOURCE_FIELDS.filter((f) => d.fields[f.id].email).map((f) => (
             <div key={f.id}>
               <dt><Link to={fieldHref(f.id)}>{f.label}</Link></dt>
               <dd><a href={`mailto:${d.fields[f.id].email}`}>{d.fields[f.id].email}</a></dd>
@@ -353,7 +353,7 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const param = searchParams.get("field") ?? "";
-  const field = RESEARCH_FIELDS.find((f) => f.id === param);
+  const field = RESOURCE_FIELDS.find((f) => f.id === param);
   // Unknown ids fall back to the overview.
   const current = field ? field.id : "";
   const info = field ? d.fields[field.id] : undefined;
@@ -370,7 +370,7 @@ export default function Resources({ loaderData: d }: Route.ComponentProps) {
           <span className="sr-only">Field</span>
           <select value={current} onChange={(e) => navigate(fieldHref(e.target.value), { replace: true })}>
             <option value="">Overview</option>
-            {RESEARCH_FIELDS.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
+            {RESOURCE_FIELDS.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
           </select>
         </label>
 

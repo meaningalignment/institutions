@@ -5,7 +5,7 @@ import { useBodyClass } from "../lib/useBodyClass";
 import { OG_IMAGE_META, SITE_NAME, SITE_ORIGIN } from "../lib/constants";
 import { staticContentHeaders } from "../lib/cache.server";
 import { getCellFieldMap } from "../lib/resources.server";
-import { RESEARCH_FIELDS } from "../lib/research-fields";
+import { RESOURCE_FIELDS } from "../lib/research-fields";
 
 export const headers = staticContentHeaders;
 
@@ -13,7 +13,7 @@ export function loader({ params }: Route.LoaderArgs) {
   const detail = buildCellDetail("agi", params.row, params.col);
   // "Further reading": the fields whose reading lists bear most on this cell.
   const resourceFields = (getCellFieldMap()[`${params.row}-${params.col}`] ?? []).flatMap((id) => {
-    const field = RESEARCH_FIELDS.find((f) => f.id === id);
+    const field = RESOURCE_FIELDS.find((f) => f.id === id);
     return field ? [{ id: field.id, label: field.label }] : [];
   });
   return { ...detail, resourceFields };

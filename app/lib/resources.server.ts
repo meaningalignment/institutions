@@ -2,7 +2,7 @@
 // app/lib/resources.ts), plus what is derived from them. Server-only.
 
 import content from "virtual:site-content";
-import { RESEARCH_FIELDS } from "./research-fields";
+import { RESOURCE_FIELDS } from "./research-fields";
 import type { Resources } from "./resources";
 
 export function loadResources(): Resources {
@@ -20,7 +20,9 @@ let cellFieldsCache: CellFieldMap | undefined;
 export function getCellFieldMap(): CellFieldMap {
   if (cellFieldsCache) return cellFieldsCache;
   const counts: Record<string, Record<string, number>> = {};
+  const shown = new Set(RESOURCE_FIELDS.map((f) => f.id));
   for (const list of Object.values(content.resources.fields)) {
+    if (!shown.has(list.id)) continue;
     for (const work of list.works) {
       for (const cell of work.cells) {
         const fields = (counts[cell] ??= {});

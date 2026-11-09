@@ -1,7 +1,7 @@
 import { Link, useSearchParams } from "react-router";
 import type { CellDetailData } from "../lib/detail.server";
 import { colName, rowName } from "../lib/constants";
-import { RESEARCH_FIELDS } from "../lib/research-fields";
+import { RESOURCE_FIELDS } from "../lib/research-fields";
 import { FellowshipCta } from "./FellowshipCta";
 
 // Renders the cell detail DOM at parity with the legacy app.js renderDetail.
@@ -17,7 +17,7 @@ export function CellDetail({
 }) {
   // Arriving from a field-highlighted grid (?field=), go back to that view.
   const [searchParams] = useSearchParams();
-  const field = RESEARCH_FIELDS.find((f) => f.id === searchParams.get("field"));
+  const field = RESOURCE_FIELDS.find((f) => f.id === searchParams.get("field"));
   const gridHref = field && data.tabId === "agi" ? `${data.backHref}?field=${field.id}` : data.backHref;
   return (
     <div id="detail-view" style={{ display: "block" }}>

@@ -21,6 +21,11 @@ export interface ResearchField {
   tags: string[];
   /** Escape hatch for people whose tags do not describe what they actually work on. */
   people?: string[];
+  /**
+   * Leave the field out of /resources and the grid's field views. Its reading
+   * list in data/resources/ is still parsed and kept, so unhiding is one line.
+   */
+  hidden?: boolean;
 }
 
 // Reader-facing fields follow the curriculum rather than exposing the
@@ -138,6 +143,8 @@ export const RESEARCH_FIELDS: ResearchField[] = [
     // field), which put philosophers of language in a moral-psychology field.
     id: "philosophy-of-ai",
     label: "Philosophy of AI",
+    // Hidden: "Philosophy of agency & value" and "Political philosophy" cover it.
+    hidden: true,
     tags: [
       "philosophy",
       "philosophy of language",
@@ -302,6 +309,9 @@ export const RESEARCH_FIELDS: ResearchField[] = [
     ],
   },
 ];
+
+/** The fields shown on /resources and in the grid's field views. */
+export const RESOURCE_FIELDS = RESEARCH_FIELDS.filter((f) => !f.hidden);
 
 /**
  * Tags that intentionally belong to no field: generic method or affiliation

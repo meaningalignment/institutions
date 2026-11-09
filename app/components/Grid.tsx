@@ -13,7 +13,7 @@ import {
   type HumanInstitutionsData,
   type TabId,
 } from "../lib/constants";
-import { RESEARCH_FIELDS } from "../lib/research-fields";
+import { RESOURCE_FIELDS } from "../lib/research-fields";
 
 interface GridProps {
   tabId: TabId;
@@ -35,7 +35,7 @@ function columnFields(cellFields: Record<string, string[]>, colId: string) {
   return [...counts.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, FIELDS_PER_COLUMN)
-    .flatMap(([id]) => RESEARCH_FIELDS.filter((f) => f.id === id));
+    .flatMap(([id]) => RESOURCE_FIELDS.filter((f) => f.id === id));
 }
 
 function institutionEraIndex(data: HumanInstitutionsData, institution: HumanInstitution): number {
@@ -133,7 +133,7 @@ export function Grid({ tabId, cells, humanInstitutions, cellFields = {} }: GridP
   const focusedRow = searchParams.get("row");
   const showFields = tabId === "agi" && Object.keys(cellFields).length > 0;
   const highlightField = showFields
-    ? RESEARCH_FIELDS.find((f) => f.id === searchParams.get("field"))
+    ? RESOURCE_FIELDS.find((f) => f.id === searchParams.get("field"))
     : undefined;
   // With a field highlighted, cells that draw on it stand out and the rest recede.
   const fieldClass = (key: string) =>

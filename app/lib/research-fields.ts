@@ -33,7 +33,7 @@ export interface ResearchField {
 export const RESEARCH_FIELDS: ResearchField[] = [
   {
     id: "multi-agent-systems",
-    label: "Multi-agent systems",
+    label: "Multi-agent alignment",
     tags: [
       "multi-agent systems",
       "multi-agent reinforcement learning",
@@ -182,6 +182,7 @@ export const RESEARCH_FIELDS: ResearchField[] = [
     // philosophy tag is the bare "philosophy".
     id: "political-philosophy",
     label: "Political philosophy",
+    hidden: true,
     tags: ["political philosophy"],
     people: ["Roberta Fischli", "Iason Gabriel"],
   },
@@ -224,6 +225,7 @@ export const RESEARCH_FIELDS: ResearchField[] = [
     // so the label does not distinguish anyone.
     id: "economics-of-ai",
     label: "Economics of AI",
+    hidden: true,
     tags: [
       "economics",
       "economic theory",

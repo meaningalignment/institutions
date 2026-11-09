@@ -4,7 +4,7 @@ curator_bio: Research scientist at Google DeepMind.
 email: agents@agi-institutions.org
 ---
 
-# Multi-agent systems
+# Multi-agent alignment
 
 How populations of learning agents cooperate, compete, and coordinate, and what shapes the outcomes they reach.
 

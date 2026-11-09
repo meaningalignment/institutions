@@ -20,7 +20,7 @@ How people and agents learn, represent, and enforce norms, and what it takes for
   - Summary: Argues that AI agents need the ability to recognize and participate in human normative institutions, rather than merely optimize independently specified goals, and sets out a technical research agenda for that normative competence.
 
 - [Resource Rational Contractualism Should Guide AI Alignment](https://ojs.aaai.org/index.php/IASEAI/article/view/43037)
-  - Authors: Sydney Levine, Matija Franklin, Tan Zhi-Xuan, Secil Yanik Guyot, Lionel Wong, Daniel Kilov, Yejin Choi, Joshua B. Tenenbaum, Noah Goodman, Seth Lazar, et al.
+  - Authors: Sydney Levine, Matija Franklin, Tan Zhi-Xuan, Secil Yanik Guyot, J. Haas, Lionel Wong, Daniel Kilov, Yejin Choi, Joshua B. Tenenbaum, Noah Goodman, Seth Lazar, Iason Gabriel
   - Year: 2026
   - Venue: IASEAI 2026
   - Type: Peer-reviewed

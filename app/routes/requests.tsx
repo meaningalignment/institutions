@@ -110,32 +110,6 @@ function VisionTag({ vision }: { vision: RequestVision }) {
   );
 }
 
-function Filter({
-  label,
-  value,
-  onChange,
-  options,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  options: readonly { id: string; name: string }[];
-}) {
-  return (
-    <label className="req-filter">
-      <span>{label}</span>
-      <select value={value} onChange={(e) => onChange(e.target.value)}>
-        <option value="">All</option>
-        {options.map((o) => (
-          <option key={o.id} value={o.id}>
-            {o.name}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
 // One field that saves itself: text fields on blur, selects on change.
 function Field({
   intent,
@@ -398,7 +372,7 @@ function RequestRow({
   );
 }
 
-function NewRequest({ row, col }: { row: string; col: string }) {
+function NewRequest() {
   const fetcher = useFetcher<ActionResult>();
   return (
     <button
@@ -407,7 +381,7 @@ function NewRequest({ row, col }: { row: string; col: string }) {
       disabled={fetcher.state !== "idle"}
       onClick={() =>
         fetcher.submit(
-          { intent: "create-request", row: row || ROWS[0].id, column: col || COLS[0].id },
+          { intent: "create-request", row: ROWS[0].id, column: COLS[0].id },
           { method: "post" }
         )
       }
@@ -477,19 +451,27 @@ function VisionsPanel({ visions }: { visions: RequestVision[] }) {
 }
 
 export default function Requests({ loaderData: { requests, visions, canEdit } }: Route.ComponentProps) {
-  const [vision, setVision] = useState("");
-  const [row, setRow] = useState("");
-  const [col, setCol] = useState("");
-  const [status, setStatus] = useState("");
+  const [query, setQuery] = useState("");
   const [editing, setEditing] = useState(false);
 
-  const shown = requests.filter(
-    (r) =>
-      (!vision || (vision === "none" ? !r.vision : r.vision === vision)) &&
-      (!row || r.row === row) &&
-      (!col || r.column === col) &&
-      (!status || r.sites.some((s) => s.status === status))
-  );
+  // Every word must appear somewhere in the request: its vision, column, row,
+  // name, site hints, or any site's name, details or status.
+  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const shown = words.length
+    ? requests.filter((r) => {
+        const haystack = [
+          visions.find((v) => v.id === r.vision)?.label ?? r.vision ?? "",
+          colName(r.column),
+          rowName(r.row),
+          r.name,
+          r.siteHints,
+          ...r.sites.flatMap((s) => [s.name, s.instead, s.pain, s.success, s.status]),
+        ]
+          .join(" ")
+          .toLowerCase();
+        return words.every((w) => haystack.includes(w));
+      })
+    : requests;
 
   return (
     <div className="req-page">
@@ -503,21 +485,20 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
       </p>
 
       <div className="req-filters">
-        <Filter
-          label="Vision"
-          value={vision}
-          onChange={setVision}
-          options={[...visions.map((v) => ({ id: v.id, name: v.label })), { id: "none", name: "None" }]}
+        <input
+          type="search"
+          className="req-search"
+          value={query}
+          placeholder="Search requests, visions, rows, columns, sites and hints"
+          aria-label="Search requests"
+          onChange={(e) => setQuery(e.target.value)}
         />
-        <Filter label="Row" value={row} onChange={setRow} options={ROWS} />
-        <Filter label="Column" value={col} onChange={setCol} options={COLS} />
-        <Filter label="Site status" value={status} onChange={setStatus} options={statusOptions} />
         <span className="req-count">
           {shown.length} of {requests.length} requests
         </span>
         {canEdit && (
           <span className="req-edit-controls">
-            {editing && <NewRequest row={row} col={col} />}
+            {editing && <NewRequest />}
             <button type="button" className="req-btn" onClick={() => setEditing((e) => !e)}>
               {editing ? "Done editing" : "Edit"}
             </button>

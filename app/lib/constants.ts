@@ -98,10 +98,10 @@ export interface Vision {
 export const VISIONS: Vision[] = [
   {
     id: "fidelity",
-    label: "Fidelity & Meaning",
+    label: "Telocracy",
     color: "#b34a6c",
     description:
-      "Institutions that hold organizations, governments, and markets to rich, accountable mandates rather than thin, gameable proxies.",
+      "Institutions bound to articulated purposes and held to them: organizations, governments, and markets accountable to rich mandates rather than thin, gameable proxies, and people helped to find and form groups around purposes they share.",
   },
 ];
 

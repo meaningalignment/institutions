@@ -1,0 +1,604 @@
+# Seed for the institutions_requests table, loaded once by
+# scripts/migrate-requests.mjs when the table is empty. After that the requests
+# live in the database and are edited on /requests; this file is not read by
+# the app.
+#
+# site_hints are kinds of adopters that might have demand for the design, one
+# per line, to help find real sites. Real sites start empty.
+
+requests:
+  - name: Mandate-making practices between parties
+    vision: fidelity
+    row: dyadic
+    column: protocols
+    site_hints: >-
+      Therapy practices acquired by larger groups. Today: Client and clinician rely on an unspoken
+      understanding that the new owner's intake rules and session limits override. Pain: Neither party can
+      point to what they agreed the work was for, so the acquirer's standard terms win by default.
+
+      Long-running freelance and agency collaborations. Today: Statements of work list deliverables and hours.
+      Pain: The purpose that made the collaboration good is never written down and erodes as staff turn over.
+  - name: Agent-agent mediation at commerce speed
+    row: dyadic
+    column: rights
+    site_hints: >-
+      Online marketplaces with agent buyers and sellers. Today: Platform support queues and chargebacks handle
+      disputes one ticket at a time. Pain: Agent-to-agent transactions generate disputes far faster than human
+      mediators can clear them.
+
+      B2B procurement networks. Today: Commercial mediation and arbitration clauses. Pain: Small suppliers
+      can't afford to contest disputes, so they absorb losses or drop out.
+  - name: Triage for agent-generated disputes
+    row: dyadic
+    column: incentives
+    site_hints: >-
+      Freight brokerages and forwarders. Today: Commercial mediation that once cleared in three months. Pain:
+      Dispute volume from agent-run contracting has pushed resolution past a year, and shippers drop small
+      counterparties.
+
+      Agent-mediated ad-buying exchanges. Today: Platform-run make-goods and credits. Pain: The platform
+      judges disputes it profits from.
+  - name: Confidence-staked bilateral contracts
+    vision: fidelity
+    row: dyadic
+    column: incentives
+    site_hints: >-
+      Home renovation for aging in place. Today: Bids for materials and hours. Pain: The contractor is paid
+      whether or not the client can actually stay in their home.
+
+      Small-business consulting engagements. Today: Day rates and deliverable lists. Pain: The client can't
+      tell how confident the consultant is that the work will move the outcome.
+  - name: Making tacit norms legible before agents act
+    row: dyadic
+    column: norms
+    site_hints: >-
+      Landlord and tenant agents. Today: The lease, plus informal practice held in texts with a property
+      manager. Pain: Agents act on what the lease permits and break settled local practice the other side
+      relied on.
+
+      Agent-run supplier relationships. Today: Human account managers who remember how things are done. Pain:
+      When agents take over, the working understanding disappears with the account manager.
+  - name: Conditions for agent-agent norm formation
+    row: dyadic
+    column: norms
+    site_hints: >-
+      Manufacturer and logistics provider pairs. Today: Human dispatchers who settle borderline cases into a
+      working rhythm. Pain: Stateless agents treat every late truck or split shipment as a new case, and the
+      relationship turns brittle.
+  - name: Ratifiable bundles under agent-speed negotiation
+    row: dyadic
+    column: preferences
+    site_hints: >-
+      Families arranging home care. Today: Calls to each agency, doctor, pharmacy and insurer separately.
+      Pain: An agent can negotiate a much cheaper bundle, but the result is too dense for the family to ratify
+      meaningfully.
+
+      Small-business insurance and benefits packages. Today: A broker presents two or three options at
+      renewal. Pain: Agent-negotiated packages trade off dozens of terms the owner never sees.
+  - name: Negotiating across a capability gap
+    row: dyadic
+    column: preferences
+    site_hints: >-
+      Regional suppliers renewing with large buyers. Today: An off-the-shelf assistant against the buyer's
+      frontier procurement agent. Pain: The stronger agent finds concessions the weaker one can't recognize,
+      so the capability gap becomes a surplus gap.
+
+      Individual employees negotiating offers. Today: Personal negotiation, sometimes with a recruiter's help.
+      Pain: Employers' negotiation agents outclass anything an individual can field.
+  - name: Surfacing values, not just positions, in negotiation
+    vision: fidelity
+    row: dyadic
+    column: preferences
+    site_hints: >-
+      Family business succession. Today: Lawyers negotiate ownership percentages and buyouts. Pain: Siblings
+      split along positions without ever saying what the business meant to each of them.
+
+      Divorce mediation. Today: Mediation over assets and custody schedules. Pain: What each parent wants the
+      arrangement to protect gets lost in trading positions.
+  - name: Agents reading each other's trustworthiness at runtime
+    row: dyadic
+    column: thick-commitments
+    site_hints: >-
+      Hospital drug procurement. Today: Contracts and supplier reputation. Pain: In a shortage, whether a
+      supplier's agent keeps faith comes down to something no contract covers.
+  - name: An eval that certifies whether a model has integrity
+    row: dyadic
+    column: thick-commitments
+    site_hints: >-
+      Banks choosing agents for discretionary accounts. Today: Vendor marketing and benchmarks the vendor
+      could train toward. Pain: An agent that looks trustworthy in a demo may front-run clients once no one is
+      watching closely.
+
+      AI labs and third-party evaluators. Today: Capability and safety benchmarks. Pain: There is no shared
+      test of whether a model's values are legible and reliably acted on.
+  - name: Persisting a commitment across the agent that made it
+    row: dyadic
+    column: thick-commitments
+    site_hints: >-
+      Foundations running grants through agents. Today: Grant contracts with a clause allowing a pause if
+      priorities change. Pain: A successor model reads only the contract and drops promises the previous agent
+      made.
+  - name: Vows grounded in thick mutual commitments
+    vision: fidelity
+    row: dyadic
+    column: thick-commitments
+    site_hints: >-
+      Long-married couples. Today: Wedding vows that no longer apply literally, and couples therapy when
+      things go wrong. Pain: Couples feel bound by something thicker than their original words but have no way
+      to say what it is.
+
+      Business partnerships and co-founder pairs. Today: Operating agreements about equity and decision
+      rights. Pain: What the founders were committed to doing together is never written down.
+  - name: Apprenticeships that transmit institutional purpose
+    vision: fidelity
+    row: dyadic
+    column: expertise
+    site_hints: >-
+      Medical residencies. Today: Rotations and competency checklists. Pain: Residents learn procedures but
+      pick up the judgment about what care is for only by chance.
+
+      Skilled trades. Today: Apprenticeship hours and licensing exams. Pain: As AI handles more routine work,
+      apprentices see less of the judgment experienced tradespeople use.
+  - name: Continuous-cadence status broadcasts that replace stand-up
+    row: group
+    column: protocols
+    site_hints: >-
+      Software teams with agent coworkers. Today: Daily stand-ups. Pain: Agents work at a pace the daily
+      meeting can't track, so humans lose sight of what's happening.
+  - name: Receiver-shaped handoff formats
+    row: group
+    column: protocols
+    site_hints: >-
+      Hospital shift changes with AI documentation. Today: Verbal handoffs and generated notes. Pain: Notes
+      are written by and for the system, and the next nurse can't find what matters for the next shift.
+
+      Agent-to-human handoffs in customer support. Today: Ticket histories. Pain: The human picking up a
+      ticket must reread the whole thread.
+  - name: Postmortem authority when the instance that ran is gone
+    row: group
+    column: protocols
+    site_hints: >-
+      Engineering teams running agents in production. Today: Blameless postmortems built around interviewing
+      the people involved. Pain: The agent instance that made the decision no longer exists to be asked.
+  - name: Deliberative value elicitation for group decisions
+    vision: fidelity
+    row: group
+    column: preferences
+    site_hints: >-
+      Small firms deciding on controversial clients. Today: The founder decides, or calls a vote. Pain: A vote
+      hides that people object for very different reasons.
+
+      Cooperative and nonprofit boards. Today: Motions and majority votes. Pain: Members' reasons never reach
+      the record, so the same fights recur.
+  - name: Grievance procedure against an agent's decisions
+    row: group
+    column: rights
+    site_hints: >-
+      Worker cooperatives using dispatch agents. Today: Bylaws that let members grieve a human manager. Pain:
+      There is no one to summon when an agent's decision harms a member.
+
+      Unionized workplaces with algorithmic scheduling. Today: Grievances against supervisors under the
+      contract. Pain: Scheduling decisions made by software fall outside the grievance process.
+  - name: Making agent control an accountable office
+    row: group
+    column: rights
+    site_hints: >-
+      Member-governed organizations run by agents. Today: Whoever administers the agents configures them as
+      they see fit. Pain: The administrator becomes the most powerful person in the organization without
+      holding an elected position.
+  - name: Internal resolution of charter-breach disputes
+    vision: fidelity
+    row: group
+    column: rights
+    site_hints: >-
+      Worker cooperatives. Today: The board interprets the charter, and dissenters can only leave. Pain:
+      Members who think the charter was breached have nowhere to bring the claim.
+
+      Mission-driven startups. Today: Founders' discretion, with the board as backstop. Pain: Mission
+      commitments erode under commercial pressure with no forum to contest it.
+  - name: Outcome bundles a small group can post in a CRSA-style auction
+    row: group
+    column: incentives
+    site_hints: >-
+      Neighborhood groups commissioning shared services. Today: Each household buys services on its own. Pain:
+      Outcomes the group wants together, like safe walks to school, have no buyer.
+  - name: Two-stage verification that survives agent verifiers
+    row: group
+    column: incentives
+    site_hints: >-
+      Outcome-based contracts. Today: Self-reported outcomes, or a single third-party audit. Pain: When the
+      verifiers are agents too, they can be gamed or colluded with.
+  - name: Long-horizon contracts with an attentional firewall
+    row: group
+    column: incentives
+    site_hints: >-
+      Multi-year service contracts for groups. Today: Annual renewals judged on recent metrics. Pain:
+      Providers optimize for the next renewal at the expense of long-run outcomes.
+  - name: Internal rewards that track mandate
+    vision: fidelity
+    row: group
+    column: incentives
+    site_hints: >-
+      Teaching hospitals. Today: Bonuses tied to cases seen and turnaround time. Pain: Physicians who embody
+      whole-person care rank at the bottom of the bonus table.
+
+      Newsrooms. Today: Rewards tied to traffic. Pain: Reporting that serves readers' understanding loses to
+      whatever draws clicks.
+  - name: Informal practices that keep purpose alive
+    vision: fidelity
+    row: group
+    column: norms
+    site_hints: >-
+      Academic departments. Today: Informal rituals that happen to survive, like a seminar drink. Pain: A
+      reorganization or a lost room ends the practice, and with it how newcomers learned the craft.
+
+      Remote-first teams. Today: Scheduled social calls. Pain: The hallway conversations where purpose was
+      discussed don't happen.
+  - name: Substantive organizational charters
+    vision: fidelity
+    row: group
+    column: thick-commitments
+    site_hints: >-
+      Cohousing communities. Today: A founding charter that newer households don't share. Pain: The charter
+      feels obsolete to some and aspirational to others, and revising it risks a fight.
+
+      Mission-driven nonprofits. Today: A one-paragraph mission statement. Pain: The mission is too thin to
+      settle any actual disagreement.
+  - name: Institutional transparency regimes
+    vision: fidelity
+    row: community
+    column: protocols
+    site_hints: >-
+      School districts. Today: Test-score dashboards, discipline rates and budget lines. Pain: Parents can't
+      tell whether the commitments in the district's own strategic plan are being acted on.
+
+      Public hospitals. Today: Quality and safety metrics reported to regulators. Pain: Nothing shows whether
+      the hospital lives up to the values it advertises.
+  - name: Market design for societies of agents, with agents loyal to the people sending them
+    row: community
+    column: preferences
+    site_hints: >-
+      Local services marketplaces. Today: Platform ranking of providers. Pain: Buyer agents can be steered by
+      the platform rather than serving their principals.
+  - name: Pool-based procurement for community eldercare
+    vision: fidelity
+    row: community
+    column: preferences
+    site_hints: >-
+      Municipal eldercare contracts. Today: Contracts for 45-minute visits by a rotating cast of aides, scored
+      on quality metrics. Pain: Quality scores are fine while elders lose continuity and companionship.
+
+      Senior-services pools for widowed members. Today: Each member subscribes to an AI companion on their
+      own. Pain: Heavy companion users end up with fewer in-person friends.
+  - name: Associational discovery
+    vision: fidelity
+    row: community
+    column: preferences
+    site_hints: >-
+      Neighborhood parent networks. Today: Group chats, school events, and chance meetings. Pain: Kids and
+      parents who want the same thing never find each other, so projects like a kids' build site never start.
+
+      Isolated older adults in a city. Today: Senior centers and Meetup listings. Pain: People with shared
+      concerns that no organization represents stay unorganized.
+  - name: Standing and standard of review in fidelity courts
+    vision: fidelity
+    row: community
+    column: rights
+    site_hints: >-
+      Municipal transit authorities. Today: Board meetings, public comment, and elections. Pain: Routes riders
+      depend on are cut for underperformance despite the authority's adopted mandate.
+
+      Public housing authorities. Today: Tenant complaints and HUD oversight. Pain: Tenants have no forum for
+      the authority's drift from its own stated purpose.
+  - name: Purpose-based review of municipal codes and licensing
+    vision: fidelity
+    row: community
+    column: rights
+    site_hints: >-
+      City planning departments. Today: Fixed setback and zoning rules with a slow variance process. Pain:
+      Rules are applied by the letter even when the purpose behind them isn't at stake, so reasonable projects
+      like a backyard cottage get blocked.
+
+      State occupational licensing boards. Today: Licensing exams and board discretion. Pain: Boards protect
+      incumbents in trades where public safety is barely at stake.
+  - name: Purpose-bound property
+    vision: fidelity
+    row: community
+    column: rights
+    site_hints: >-
+      Community land trusts leasing commercial kitchens. Today: Ordinary leases, or deed restrictions enforced
+      only through litigation. Pain: Tenants drift from the purpose the space was given for, or hoard
+      capacity, and the trust can't act short of eviction.
+
+      Brand and data licensors. Today: Trademark licenses with quality-control clauses. Pain: Brands that
+      stand for care or trustworthiness are sold and hollowed out.
+  - name: AI commons management
+    row: community
+    column: incentives
+    site_hints: >-
+      Shared game-asset commons. Today: Studios contribute, review each other's work, and earn curated
+      placement and governance weight. Pain: Studio agents flood the commons with plausible low-value variants
+      and capture its scarce rewards.
+
+      City road and curb access. Today: Congestion pricing designed for human drivers. Pain: Delivery agents
+      split routes across accounts and shift congestion into side streets while obeying the rules.
+
+      Open-source package registries. Today: Maintainer review and reputation. Pain: Agent-generated
+      contributions overwhelm maintainers.
+  - name: Sabbatical programs for senior practitioners
+    vision: fidelity
+    row: community
+    column: expertise
+    site_hints: >-
+      Public library systems. Today: Automated reference desks, recommendation-driven acquisitions and
+      templated programs. Pain: The senior librarians who know what the system is for in their county are
+      retiring, and nobody is learning it.
+
+      Hospital nursing staff. Today: AI-handled documentation and triage. Pain: Nurses lose the unhurried
+      bedside time they need to judge care.
+  - name: Fidelity audits of mandate-bound organizations
+    vision: fidelity
+    row: community
+    column: expertise
+    site_hints: >-
+      Dating and matching apps. Today: Retention and engagement metrics. Pain: Coaching models tuned for
+      retention steer couples away from the hard conversations the app's mandate promises.
+
+      AI companion apps. Today: Satisfaction scores and app-store reviews. Pain: Nothing checks whether the
+      app serves users' stated purposes, like staying connected to people.
+  - name: Professional norms for agents
+    row: community
+    column: norms
+    site_hints: >-
+      Banks selling to public pension plans. Today: Disclosure rules and senior bankers' sense of what looks
+      abusive. Pain: Agents propose legal, profitable deals that peers would see as professionally
+      indefensible.
+
+      Asset managers deploying negotiation agents. Today: Peer reputation, which disciplines human traders.
+      Pain: An agent that engages in sharp practice is patched and redeployed under a new name, so the
+      sanction never lands.
+
+      Agent-to-agent deal review. Today: Each agent follows its own principal's instructions. Pain: Deals both
+      agents approve would be rejected by the principals who bear the loss.
+  - name: Lay review panels on the jury-duty model
+    vision: fidelity
+    row: community
+    column: norms
+    site_hints: >-
+      County benefits offices using AI screening. Today: Faster automated decisions, with appeals case by
+      case. Pain: Patterns like single fathers being rejected go unnoticed because no one looks at actual
+      cases.
+
+      School districts. Today: Elected boards and state accountability ratings. Pain: No one checks whether
+      schools are living up to their own stated mission.
+  - name: Agents asking questions about the charter
+    row: community
+    column: thick-commitments
+    site_hints: >-
+      Agent-run mission organizations. Today: Agents apply the charter as first written. Pain: Agents see the
+      charter needs a new reading but have no proper route to raise it.
+  - name: Covenants binding intentional communities
+    vision: fidelity
+    row: community
+    column: thick-commitments
+    site_hints: >-
+      Aging monastic communities. Today: The prior and remaining brothers decide alone, under financial
+      pressure. Pain: A partnership that keeps the doors open may abandon what the community was for.
+
+      Nonprofit federations. Today: Bylaws and affiliation agreements. Pain: Chapters drift apart or the
+      national office overrides local purpose.
+  - name: Living-commitments dashboards
+    vision: fidelity
+    row: community
+    column: thick-commitments
+    site_hints: >-
+      Consumer apps that groups come to rely on. Today: Terms of service the company can change at will. Pain:
+      When users start relying on an app, like running groups organizing through it, the app's obligations
+      don't change.
+
+      Health and journaling startups. Today: Privacy policies. Pain: Users entrust sensitive parts of their
+      lives with no commitment about what the product is for.
+  - name: Shared standards for mandate articulation
+    vision: fidelity
+    row: national
+    column: protocols
+    site_hints: >-
+      Federal ombudsman offices. Today: Mission statements like "serve veterans with dignity", plus each
+      agency's own metrics. Pain: Mandates are too abstract to test, so no one can say whether an agency lives
+      up to them.
+
+      Public-benefit corporations. Today: A one-sentence public benefit in the charter. Pain: The benefit has
+      no representative and can't be tested.
+  - name: Agents that represent national interests and large groups
+    row: national
+    column: preferences
+    site_hints: >-
+      National governments using AI policy systems. Today: Elections every few years, referendums, polls and
+      citizens' assemblies. Pain: Policy systems act faster than any legitimate read of what people want.
+
+      Regional water-rights decisions. Today: Citizens' assemblies, which take a year and cost millions. Pain:
+      Faster AI-mediated options exist, but no one knows which, if any, carry democratic standing.
+
+      A forward-looking polity, such as Taiwan, Catalonia or Scotland. Today: Polling on contested issues
+      swings with framing. Pain: Shared commitments beneath surface positions never reach the policy process.
+  - name: Moral graph elicitation for a policy domain
+    vision: fidelity
+    row: national
+    column: preferences
+    site_hints: >-
+      National long-term care reform. Today: A yes-or-no referendum campaign. Pain: What home-care workers and
+      families have learned about what matters never enters the debate.
+
+      A city deciding homelessness policy. Today: Council hearings and public comment. Pain: The loudest
+      positions dominate, and the experience of people closest to the problem is lost.
+  - name: Agents that adjudicate rights, with standing and procedure for AI-on-AI cases
+    row: national
+    column: rights
+    site_hints: >-
+      Small-claims and administrative courts. Today: Human judges and hearing officers. Pain: Disputes between
+      agents arrive in volumes courts can't hear.
+  - name: Fidelity as constitutional doctrine
+    vision: fidelity
+    row: national
+    column: rights
+    site_hints: >-
+      State constitutional courts. Today: Liberty and equality claims, and consumer protection law. Pain:
+      Platforms quietly abandon the purposes users signed up for, and no doctrine reaches it.
+  - name: Purpose review panels
+    vision: fidelity
+    row: national
+    column: rights
+    site_hints: >-
+      Health systems with nurse-staffing disputes. Today: Labor grievances and accreditation reviews. Pain:
+      Nurses who can't deliver the care described in the mandate have no forum.
+
+      Charities facing cy-près questions. Today: Probate courts, slow and rarely used. Pain: Purposes that
+      can't be served anymore lapse instead of passing to a successor.
+  - name: State procurement via socialized pools
+    vision: fidelity
+    row: national
+    column: incentives
+    site_hints: >-
+      State child welfare departments. Today: Contracts that reward caseloads and visit counts. Pain: Hours
+      are measured, and kids still bounce between foster homes.
+
+      Workforce development agencies. Today: Payment per training completion. Pain: Providers enroll people in
+      courses that don't lead to work.
+  - name: Public bounties for purpose-fit group matching
+    vision: fidelity
+    row: national
+    column: incentives
+    site_hints: >-
+      Social services agencies. Today: Grants to organizations, and individual case management. Pain: Groups
+      that would form around a shared purpose never find each other, because matching them pays no one.
+  - name: Regulator-anticipation opinions and approvals for systems no one can decompose
+    row: national
+    column: expertise
+    site_hints: >-
+      Aviation safety regulators. Today: Letters to the regulator answered months later. Pain: Airlines
+      operate in the meantime without knowing how the regulator would view an emerging issue.
+
+      Medical device regulators. Today: One-time approval of a fixed artifact. Pain: Continuously updated
+      models like triage systems can't fit the playbook, so better systems are kept out or approved blind.
+  - name: Mandate literacy in professional training
+    vision: fidelity
+    row: national
+    column: expertise
+    site_hints: >-
+      Financial regulator onboarding. Today: Training on statutes, enforcement tools and precedent. Pain: New
+      regulators learn the rules but not what they are for.
+
+      Civil service academies. Today: Procedural training. Pain: Senior staff who carry the purpose retire
+      without passing it on.
+  - name: Epistemic communities for mandate values
+    vision: fidelity
+    row: national
+    column: expertise
+    site_hints: >-
+      Land stewardship and conservation. Today: Agency scientists and contractors. Pain: As monitoring is
+      automated, fewer people stay close enough to the land to judge whether stewardship mandates are met.
+
+      Nursing and bedside care. Today: Professional associations funded by employers. Pain: The body of
+      practitioners who can judge good care thins as AI does more of the work.
+  - name: AIs that follow and update the law
+    row: national
+    column: norms
+    site_hints: >-
+      Tax authorities. Today: Inquiries, regulation amendments and statute fixes that take months to years.
+      Pain: AI-generated avoidance schemes appear and vanish faster than the authority can respond.
+
+      Financial conduct regulators. Today: Guidance published after the fact. Pain: Industry compliance AIs
+      sit exactly on the line of what's defensible, and lending tactics deploy at once.
+  - name: Standards for institutional AI deployments
+    vision: fidelity
+    row: national
+    column: norms
+    site_hints: >-
+      Medicaid call centers. Today: Wait times and satisfaction scores. Pain: Complex cases get routed faster
+      but resolved less, and the metrics call them resolved.
+
+      Benefits adjudication and sentencing recommendation systems. Today: Accuracy and throughput benchmarks.
+      Pain: Systems meet legible proxies while failing the institution's purpose.
+  - name: Substantive constitutions and AI alignment documents
+    row: national
+    column: thick-commitments
+    site_hints: >-
+      Frontier labs publishing model constitutions. Today: Constitutions written by a few dozen staff and
+      revised by retraining. Pain: Values shaping public life are chosen by people no one elected, interpreted
+      quietly, and the positive commitments do little work.
+  - name: Constitutions with substantive value content
+    vision: fidelity
+    row: national
+    column: thick-commitments
+    site_hints: >-
+      Constitutional conventions. Today: Executive powers, judicial review and a bill of rights. Pain: Nothing
+      says what public institutions are for, so citizens can't invoke it when an institution goes adrift.
+  - name: Translating institutional mandates across jurisdictions
+    vision: fidelity
+    row: global
+    column: protocols
+    site_hints: >-
+      Global pharmaceutical manufacturers. Today: Separate compliance with each country's health authority.
+      Pain: The company speaks a different moral language in each audit and can't hold its offices to one
+      account of its purpose.
+  - name: Deliberative aggregation of global preferences
+    vision: fidelity
+    row: global
+    column: preferences
+    site_hints: >-
+      International AI safety bodies. Today: Expert consensus and state positions. Pain: Binding guidance has
+      no defensible answer to "on what authority?"
+  - name: International tribunals for institutional accountability
+    vision: fidelity
+    row: global
+    column: rights
+    site_hints: >-
+      Cross-border labor platforms. Today: Complaints to each country's regulators, which get passed around
+      and dropped. Pain: Platforms drift from founding commitments, and no jurisdiction has enough leverage to
+      act.
+  - name: Global markets that keep human interests central
+    row: global
+    column: incentives
+    site_hints: >-
+      A quit-smoking co-op of a few hundred members. Today: Each smoker buys cessation products alone. Pain:
+      No supplier is paid for whether people actually quit.
+
+      A market for social events. Today: Event platforms paid for ticket sales. Pain: Nobody is paid for
+      whether people make friends.
+
+      Countries with a falling labor share. Today: Transfers from AI rents. Pain: Transfers replace income but
+      not the skill-building and bargaining power that jobs provided.
+
+      Households using buyer-side agents. Today: Platform-ranked offers approved with a click. Pain: Agents
+      are steered by vendor fees and retention nudges.
+  - name: Transnational markets for complex outcomes
+    vision: fidelity
+    row: global
+    column: incentives
+    site_hints: >-
+      Coastal city coalitions facing aquifer depletion. Today: Each city pays separately for desalination,
+      pipes and rate changes. Pain: A bundled regional solution has no market in which to buy it.
+  - name: Plausibly positive-sum compute leasing
+    vision: fidelity
+    row: global
+    column: incentives
+    site_hints: >-
+      Cloud and compute providers. Today: Rent to the highest bidder under an acceptable-use policy. Pain:
+      More and more capacity goes to agents working against each other in arms races.
+  - name: Geopolitical supernegotiation
+    row: global
+    column: norms
+    site_hints: >-
+      Multilateral climate-finance negotiations. Today: Back channels, Track II and diplomatic pre-validation.
+      Pain: Agent-discovered coalitions skip the vetting each track normally does, and bundles can hide
+      concessions.
+
+      States fielding AI-enabled weapons. Today: Nuclear and conventional red lines. Pain: Fast, deniable
+      agentic attacks fall below every existing threshold.
+  - name: Reputational accountability across borders
+    vision: fidelity
+    row: global
+    column: norms
+    site_hints: >-
+      Global translation services. Today: Individual governments' letters, which the company ignores. Pain:
+      The service drifts from its commitment to preserve meaning, and no court reaches it.

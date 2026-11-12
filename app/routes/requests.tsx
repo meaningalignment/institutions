@@ -271,18 +271,52 @@ function Site({ site, editing }: { site: RequestSite; editing: boolean }) {
   );
 }
 
-function Hints({ text }: { text: string }) {
-  if (!text.trim()) return null;
+// "No sites yet" / "N sites" opens a popover with the request's sites and
+// site hints. Site popovers opened from inside it nest as its children.
+function SitesPopover({ r, editing }: { r: InstitutionRequest; editing: boolean }) {
+  const popoverId = `req-sites-${r.id}`;
+  const label = r.sites.length ? `${r.sites.length} site${r.sites.length === 1 ? "" : "s"}` : "No sites yet";
+  const hints = r.siteHints.split(/\n+/).filter((line) => line.trim());
   return (
-    <details className="req-hints">
-      <summary>Site hints</summary>
-      {text
-        .split(/\n+/)
-        .filter((line) => line.trim())
-        .map((line, i) => (
-          <p key={i}>{line}</p>
-        ))}
-    </details>
+    <>
+      <button type="button" className={`req-sites-btn${r.sites.length ? "" : " is-empty"}`} popoverTarget={popoverId}>
+        {label}
+      </button>
+      <div id={popoverId} popover="auto" className="req-popover">
+        <div className="req-popover-head">
+          <span className="req-popover-title">{r.name}</span>
+          <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
+            ×
+          </button>
+        </div>
+        <div className="req-popover-section">Sites</div>
+        {r.sites.length ? (
+          r.sites.map((s) => <Site key={s.id} site={s} editing={editing} />)
+        ) : (
+          <p className="req-empty">No sites yet.</p>
+        )}
+        {editing && <AddSite requestId={r.id} />}
+        <div className="req-popover-section">Site hints</div>
+        {editing ? (
+          <Field
+            intent="update-request"
+            id={r.id}
+            field="siteHints"
+            value={r.siteHints}
+            kind="textarea"
+            placeholder="Who might have demand for this? One per paragraph."
+          />
+        ) : hints.length ? (
+          <div className="req-hints">
+            {hints.map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
+          </div>
+        ) : (
+          <p className="req-empty">None yet.</p>
+        )}
+      </div>
+    </>
   );
 }
 
@@ -295,30 +329,16 @@ function RequestRow({ r, editing }: { r: InstitutionRequest; editing: boolean })
         <td>
           <Field intent="update-request" id={r.id} field="vision" value={r.vision ?? ""} kind="select" options={visionOptions} />
         </td>
-        <td>
-          <Field intent="update-request" id={r.id} field="row" value={r.row} kind="select" options={ROWS} />
-        </td>
-        <td>
-          <Field intent="update-request" id={r.id} field="column" value={r.column} kind="select" options={COLS} />
-        </td>
         <td className="req-name">
           <Field intent="update-request" id={r.id} field="name" value={r.name} kind="textarea" />
-          <label>Site hints</label>
-          <Field
-            intent="update-request"
-            id={r.id}
-            field="siteHints"
-            value={r.siteHints}
-            kind="textarea"
-            placeholder="Who might have demand for this? One per line."
-          />
+          <div className="req-place-edit">
+            <Field intent="update-request" id={r.id} field="column" value={r.column} kind="select" options={COLS} />
+            <Field intent="update-request" id={r.id} field="row" value={r.row} kind="select" options={ROWS} />
+          </div>
           <DeleteButton intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />
         </td>
         <td className="req-sites">
-          {r.sites.map((s) => (
-            <Site key={s.id} site={s} editing />
-          ))}
-          <AddSite requestId={r.id} />
+          <SitesPopover r={r} editing />
         </td>
       </tr>
     );
@@ -332,14 +352,14 @@ function RequestRow({ r, editing }: { r: InstitutionRequest; editing: boolean })
           </span>
         )}
       </td>
-      <td>{rowName(r.row)}</td>
-      <td>{colName(r.column)}</td>
       <td className="req-name">
         <Link to={`/cell/${r.row}/${r.column}${r.vision ? `?visions=${r.vision}` : ""}`}>{r.name}</Link>
+        <div className="req-place">
+          {colName(r.column)} · {rowName(r.row)}
+        </div>
       </td>
       <td className="req-sites">
-        {r.sites.length ? r.sites.map((s) => <Site key={s.id} site={s} editing={false} />) : <span className="req-empty">No sites yet</span>}
-        <Hints text={r.siteHints} />
+        <SitesPopover r={r} editing={false} />
       </td>
     </tr>
   );
@@ -418,8 +438,6 @@ export default function Requests({ loaderData: { requests, canEdit } }: Route.Co
           <thead>
             <tr>
               <th>Vision</th>
-              <th>Row</th>
-              <th>Column</th>
               <th>Name</th>
               <th>Sites</th>
             </tr>

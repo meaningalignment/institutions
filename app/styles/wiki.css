@@ -2197,12 +2197,12 @@ table.req-table { min-width: 760px; width: 100%; border-collapse: collapse; back
   color: var(--muted); padding: 10px 10px 8px; border-bottom: 1px solid var(--line-strong);
 }
 .req-table td { text-align: left; vertical-align: top; padding: 12px 10px; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--text); }
-.req-table td:nth-child(-n + 3) { white-space: nowrap; }
-.req-name { width: 30%; }
+.req-table td:first-child { white-space: nowrap; width: 1%; }
+.req-name { width: 65%; }
 .req-name a { color: var(--ink); text-decoration: none; font-weight: 500; }
 .req-name a:hover { text-decoration: underline; }
 .req-vision { font-size: 13px; font-weight: 600; }
-.req-sites { width: 45%; }
+.req-sites { width: 34%; }
 .req-site + .req-site { margin-top: 6px; }
 .req-site-btn {
   all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: baseline; gap: 8px; width: 100%;
@@ -2257,4 +2257,19 @@ table.req-table { min-width: 760px; width: 100%; border-collapse: collapse; back
 .req-error { color: #b3261e; font-size: 12px; }
 .theme-dark .req-error { color: #ff8a80; }
 .req-saving { color: var(--faint); font-size: 12px; }
-.req-editing td:nth-child(-n + 3) .req-field select { min-width: 110px; }
+.req-editing td:first-child .req-field select { min-width: 110px; }
+.req-place { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.req-place-edit { display: flex; gap: 6px; margin-top: 6px; }
+.req-sites-btn {
+  all: unset; cursor: pointer; font-size: 13px; color: var(--ink); text-decoration: underline;
+  text-decoration-color: var(--line-strong); text-underline-offset: 3px;
+}
+.req-sites-btn.is-empty { color: var(--faint); }
+.req-sites-btn:hover { text-decoration-color: currentColor; }
+.req-sites-btn:focus-visible { outline: 2px solid var(--accent); }
+.req-popover-section {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted);
+  margin: 14px 0 6px; padding-top: 10px; border-top: 1px solid var(--line);
+}
+.req-popover .req-hints { margin: 0; font-size: 13px; color: var(--text); }
+.req-popover .req-hints p { margin: 0 0 8px; line-height: 1.5; }

@@ -3,11 +3,12 @@
 // route only allows admins to write.
 
 import { getSql } from "./db.server";
-import { COLS, ROWS, VISIONS } from "./constants";
+import { COLS, ROWS } from "./constants";
 import {
   REQUEST_STATUSES,
   type InstitutionRequest,
   type RequestSite,
+  type RequestVision,
   type RequestStatus,
 } from "./requests";
 
@@ -47,8 +48,61 @@ function check(ok: boolean, message: string) {
 }
 const validRow = (v: string) => check(ROWS.some((r) => r.id === v), "Choose a row.");
 const validCol = (v: string) => check(COLS.some((c) => c.id === v), "Choose a column.");
-const validVision = (v: string | null) =>
-  check(v === null || VISIONS.some((x) => x.id === v), "Unknown vision.");
+async function validVision(v: string | null) {
+  if (v === null) return;
+  const rows = (await getSql()`SELECT 1 FROM institutions_request_visions WHERE id = ${v}`) as unknown[];
+  check(rows.length > 0, "Unknown vision.");
+}
+
+export async function getVisions(): Promise<RequestVision[]> {
+  const rows = (await getSql()`
+    SELECT id, label, url FROM institutions_request_visions ORDER BY position, label
+  `) as any[];
+  return rows.map((r) => ({ id: r.id, label: r.label, url: r.url }));
+}
+
+function cleanUrl(url: string) {
+  const u = url.trim();
+  if (!u) return "";
+  check(/^https?:\/\/\S+$/.test(u), "Links must start with http:// or https://.");
+  return u;
+}
+
+export async function createVision(label: string, url: string) {
+  const name = label.trim();
+  check(!!name, "Name the vision.");
+  const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  check(!!id, "Name the vision with letters or digits.");
+  const rows = (await getSql()`
+    INSERT INTO institutions_request_visions (id, label, url, position)
+    VALUES (${id}, ${name}, ${cleanUrl(url)},
+      (SELECT coalesce(max(position), 0) + 1 FROM institutions_request_visions))
+    ON CONFLICT (id) DO NOTHING
+    RETURNING id
+  `) as unknown[];
+  check(rows.length > 0, "A vision with that name already exists.");
+}
+
+export async function updateVisionField(id: string, field: string, value: string) {
+  const sql = getSql();
+  if (field === "label") {
+    check(!!value.trim(), "A vision needs a name.");
+    await sql`UPDATE institutions_request_visions SET label = ${value.trim()} WHERE id = ${id}`;
+  } else if (field === "url") {
+    await sql`UPDATE institutions_request_visions SET url = ${cleanUrl(value)} WHERE id = ${id}`;
+  } else {
+    throw new Error("Unknown field.");
+  }
+}
+
+// Untags the vision's requests, then removes the vision.
+export async function deleteVision(id: string) {
+  const sql = getSql();
+  await sql.transaction([
+    sql`UPDATE institutions_requests SET vision = NULL WHERE vision = ${id}`,
+    sql`DELETE FROM institutions_request_visions WHERE id = ${id}`,
+  ]);
+}
 
 export async function createRequest(row: string, column: string): Promise<number> {
   validRow(row);
@@ -70,7 +124,7 @@ export async function updateRequestField(id: number, field: string, value: strin
     await sql`UPDATE institutions_requests SET name = ${value.trim()}, updated_at = now() WHERE id = ${id}`;
   } else if (field === "vision") {
     const vision = value || null;
-    validVision(vision);
+    await validVision(vision);
     await sql`UPDATE institutions_requests SET vision = ${vision}, updated_at = now() WHERE id = ${id}`;
   } else if (field === "row") {
     validRow(value);

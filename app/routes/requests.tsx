@@ -8,10 +8,14 @@ import {
   deleteRequest,
   deleteSite,
   getRequests,
+  getVisions,
+  createVision,
+  updateVisionField,
+  deleteVision,
   updateRequestField,
   updateSiteField,
 } from "../lib/requests.server";
-import { REQUEST_STATUSES, type InstitutionRequest, type RequestSite } from "../lib/requests";
+import { REQUEST_STATUSES, type InstitutionRequest, type RequestSite, type RequestVision } from "../lib/requests";
 import {
   COLS,
   OG_IMAGE_META,
@@ -26,7 +30,11 @@ import {
 type ActionResult = { ok: boolean; error?: string };
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const [session, requests] = await Promise.all([getSignedInResearcher(request), getRequests()]);
+  const [session, requests, visions] = await Promise.all([
+    getSignedInResearcher(request),
+    getRequests(),
+    getVisions(),
+  ]);
   const rowOrder = ROWS.map((r) => r.id);
   const colOrder = COLS.map((c) => c.id);
   requests.sort(
@@ -34,7 +42,7 @@ export async function loader({ request }: Route.LoaderArgs) {
       rowOrder.indexOf(a.row) - rowOrder.indexOf(b.row) ||
       colOrder.indexOf(a.column) - colOrder.indexOf(b.column)
   );
-  return { requests, canEdit: !!session?.isAdmin };
+  return { requests, visions, canEdit: !!session?.isAdmin };
 }
 
 function positiveInteger(value: FormDataEntryValue | null) {
@@ -50,7 +58,13 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
   const field = String(fd.get("field") || "");
   const value = String(fd.get("value") ?? "");
   try {
-    if (intent === "create-request") {
+    if (intent === "create-vision") {
+      await createVision(String(fd.get("label") || ""), String(fd.get("url") || ""));
+    } else if (intent === "update-vision") {
+      await updateVisionField(String(fd.get("visionId") || ""), field, value);
+    } else if (intent === "delete-vision") {
+      await deleteVision(String(fd.get("visionId") || ""));
+    } else if (intent === "create-request") {
       await createRequest(String(fd.get("row") || ""), String(fd.get("column") || ""));
     } else if (!id) {
       return { ok: false, error: "Missing id." };
@@ -80,8 +94,21 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-const visionLabel = (id: string | null) => (id ? VISIONS.find((v) => v.id === id)?.label ?? id : "");
-const visionColor = (id: string | null) => (id ? VISIONS.find((v) => v.id === id)?.color : undefined);
+// Grid visions keep their colour here; other vision tags use the accent colour.
+const visionColor = (id: string) => VISIONS.find((v) => v.id === id)?.color ?? "var(--accent)";
+
+function VisionTag({ vision }: { vision: RequestVision }) {
+  const style = { color: visionColor(vision.id) };
+  return vision.url ? (
+    <a className="req-vision" style={style} href={vision.url} target="_blank" rel="noopener noreferrer">
+      {vision.label}
+    </a>
+  ) : (
+    <span className="req-vision" style={style}>
+      {vision.label}
+    </span>
+  );
+}
 
 function Filter({
   label,
@@ -320,9 +347,17 @@ function SitesPopover({ r, editing }: { r: InstitutionRequest; editing: boolean 
   );
 }
 
-const visionOptions = [{ id: "", name: "None" }, ...VISIONS.map((v) => ({ id: v.id, name: v.label }))];
-
-function RequestRow({ r, editing }: { r: InstitutionRequest; editing: boolean }) {
+function RequestRow({
+  r,
+  editing,
+  visions,
+}: {
+  r: InstitutionRequest;
+  editing: boolean;
+  visions: RequestVision[];
+}) {
+  const visionOptions = [{ id: "", name: "None" }, ...visions.map((v) => ({ id: v.id, name: v.label }))];
+  const vision = visions.find((v) => v.id === r.vision);
   if (editing) {
     return (
       <tr className="req-editing">
@@ -347,13 +382,11 @@ function RequestRow({ r, editing }: { r: InstitutionRequest; editing: boolean })
     <tr>
       <td>
         {r.vision && (
-          <span className="req-vision" style={{ color: visionColor(r.vision) }}>
-            {visionLabel(r.vision)}
-          </span>
+          vision ? <VisionTag vision={vision} /> : <span className="req-vision">{r.vision}</span>
         )}
       </td>
       <td className="req-name">
-        <Link to={`/cell/${r.row}/${r.column}${r.vision ? `?visions=${r.vision}` : ""}`}>{r.name}</Link>
+        <Link to={`/cell/${r.row}/${r.column}${r.vision && VISIONS.some((v) => v.id === r.vision) ? `?visions=${r.vision}` : ""}`}>{r.name}</Link>
         <div className="req-place">
           {colName(r.column)} · {rowName(r.row)}
         </div>
@@ -384,7 +417,66 @@ function NewRequest({ row, col }: { row: string; col: string }) {
   );
 }
 
-export default function Requests({ loaderData: { requests, canEdit } }: Route.ComponentProps) {
+// Edit mode: rename vision tags, set their links, add or remove them.
+function VisionRow({ vision }: { vision: RequestVision }) {
+  const fetcher = useFetcher<ActionResult>();
+  const save = (field: string, value: string, current: string) => {
+    if (value !== current) fetcher.submit({ intent: "update-vision", visionId: vision.id, field, value }, { method: "post" });
+  };
+  const error = fetcher.data && !fetcher.data.ok ? fetcher.data.error : null;
+  return (
+    <div className="req-vision-row">
+      <input defaultValue={vision.label} onBlur={(e) => save("label", e.target.value, vision.label)} aria-label="Vision name" />
+      <input
+        defaultValue={vision.url}
+        placeholder="https://…"
+        onBlur={(e) => save("url", e.target.value, vision.url)}
+        aria-label="Vision link"
+      />
+      <button
+        type="button"
+        className="req-btn-ghost"
+        onClick={() => {
+          if (confirm(`Delete the vision "${vision.label}"? Requests tagged with it become untagged.`))
+            fetcher.submit({ intent: "delete-vision", visionId: vision.id }, { method: "post" });
+        }}
+      >
+        Delete
+      </button>
+      {error && <span className="req-error">{error}</span>}
+    </div>
+  );
+}
+
+function VisionsPanel({ visions }: { visions: RequestVision[] }) {
+  const fetcher = useFetcher<ActionResult>();
+  const [label, setLabel] = useState("");
+  const [url, setUrl] = useState("");
+  const add = () => {
+    if (!label.trim()) return;
+    fetcher.submit({ intent: "create-vision", label, url }, { method: "post" });
+    setLabel("");
+    setUrl("");
+  };
+  return (
+    <div className="req-visions-panel">
+      <div className="req-popover-section">Vision tags</div>
+      {visions.map((v) => (
+        <VisionRow key={v.id} vision={v} />
+      ))}
+      <div className="req-vision-row">
+        <input value={label} placeholder="New vision" onChange={(e) => setLabel(e.target.value)} />
+        <input value={url} placeholder="https://… (optional)" onChange={(e) => setUrl(e.target.value)} />
+        <button type="button" className="req-btn-ghost" onClick={add} disabled={!label.trim()}>
+          Add vision
+        </button>
+        {fetcher.data && !fetcher.data.ok && <span className="req-error">{fetcher.data.error}</span>}
+      </div>
+    </div>
+  );
+}
+
+export default function Requests({ loaderData: { requests, visions, canEdit } }: Route.ComponentProps) {
   const [vision, setVision] = useState("");
   const [row, setRow] = useState("");
   const [col, setCol] = useState("");
@@ -415,7 +507,7 @@ export default function Requests({ loaderData: { requests, canEdit } }: Route.Co
           label="Vision"
           value={vision}
           onChange={setVision}
-          options={[...VISIONS.map((v) => ({ id: v.id, name: v.label })), { id: "none", name: "None" }]}
+          options={[...visions.map((v) => ({ id: v.id, name: v.label })), { id: "none", name: "None" }]}
         />
         <Filter label="Row" value={row} onChange={setRow} options={ROWS} />
         <Filter label="Column" value={col} onChange={setCol} options={COLS} />
@@ -433,6 +525,8 @@ export default function Requests({ loaderData: { requests, canEdit } }: Route.Co
         )}
       </div>
 
+      {canEdit && editing && <VisionsPanel visions={visions} />}
+
       <div className="req-table-wrap">
         <table className="req-table">
           <thead>
@@ -444,7 +538,7 @@ export default function Requests({ loaderData: { requests, canEdit } }: Route.Co
           </thead>
           <tbody>
             {shown.map((r) => (
-              <RequestRow key={r.id} r={r} editing={editing} />
+              <RequestRow key={r.id} r={r} editing={editing} visions={visions} />
             ))}
           </tbody>
         </table>

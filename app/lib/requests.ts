@@ -24,3 +24,9 @@ export interface InstitutionRequest {
 
 export const REQUEST_FIELDS = ["name", "vision", "row", "column", "siteHints"] as const;
 export const SITE_FIELDS = ["name", "instead", "pain", "success", "status"] as const;
+
+export interface RequestVision {
+  id: string;
+  label: string;
+  url: string;
+}

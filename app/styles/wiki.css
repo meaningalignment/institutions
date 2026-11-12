@@ -2273,3 +2273,11 @@ table.req-table { min-width: 760px; width: 100%; border-collapse: collapse; back
 }
 .req-popover .req-hints { margin: 0; font-size: 13px; color: var(--text); }
 .req-popover .req-hints p { margin: 0 0 8px; line-height: 1.5; }
+a.req-vision { text-decoration: none; }
+a.req-vision:hover { text-decoration: underline; }
+.req-visions-panel { max-width: 760px; margin-bottom: 18px; }
+.req-vision-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 6px; }
+.req-vision-row input {
+  font: inherit; font-size: 13px; color: var(--ink); background: var(--card); flex: 1; min-width: 160px;
+  border: 1px solid var(--line-strong); border-radius: var(--wiki-radius); padding: 4px 6px;
+}

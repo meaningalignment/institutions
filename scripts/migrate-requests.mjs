@@ -63,15 +63,16 @@ await sql`
   ON CONFLICT (id) DO NOTHING
 `;
 
-// Papers per request: a "case" for wanting the institution, a "design", or a
-// "test" report. The request's stage (design wanted / designed / tested)
+// Links per request: a "case" for wanting the institution, a "project" designing
+// it now, a "design", or a "test" report. The request's stage (design wanted /
+// in design / designed / tested)
 // follows from them. read_more_url is superseded: existing links become case
 // papers once, then the column is no longer read.
 await sql`
   CREATE TABLE IF NOT EXISTS institutions_request_papers (
     id serial PRIMARY KEY,
     request_id integer NOT NULL REFERENCES institutions_requests(id) ON DELETE CASCADE,
-    kind text NOT NULL CHECK (kind IN ('case', 'design', 'test')),
+    kind text NOT NULL CHECK (kind IN ('case', 'project', 'design', 'test')),
     title text NOT NULL,
     url text NOT NULL,
     position integer NOT NULL DEFAULT 0,

@@ -2386,6 +2386,7 @@ a.req-tag.req-vision { text-decoration: none; }
 .req-stage-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-top: 8px; font-size: 12px; }
 .req-stage { font-weight: 600; }
 .req-stage-wanted { color: var(--muted); border-style: dashed; }
+.req-stage-designing { color: var(--accent); border-color: var(--accent); }
 .req-stage-designed { color: #8a5a00; border-color: #d9b56a; }
 .req-stage-tested { color: #2f6b3a; border-color: #8fc29a; }
 .theme-dark .req-stage-designed { color: #e6c27a; border-color: #8a6a2a; }

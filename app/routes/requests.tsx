@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { Link, useFetcher } from "react-router";
 import type { Route } from "./+types/requests";
 import { getSignedInResearcher, requireAdminSession } from "../lib/auth.server";
@@ -275,6 +275,20 @@ function DeleteLink({ intent, id, label }: { intent: string; id: number; label: 
   );
 }
 
+// A "⋯" button that opens a small menu of less common actions.
+function MoreMenu({ id, children }: { id: string; children: React.ReactNode }) {
+  return (
+    <>
+      <button type="button" className="req-more-btn" popoverTarget={id} aria-label="More actions" style={{ anchorName: `--${id}` } as React.CSSProperties}>
+        ⋯
+      </button>
+      <div id={id} popover="auto" className="req-menu" style={{ positionAnchor: `--${id}` } as React.CSSProperties}>
+        {children}
+      </div>
+    </>
+  );
+}
+
 const statusOptions = REQUEST_STATUSES.map((s) => ({ id: s, name: s }));
 
 // ── Sites ──────────────────────────────────────────────────────────
@@ -498,7 +512,17 @@ function RequestRow({
         {editing ? (
           <>
             <div className="req-title-line">
-              <InlineText intent="update-request" id={r.id} field="name" value={r.name} multiline placeholder="Name" className="req-name-text" />
+              <span className="req-title-edit">
+                <InlineText intent="update-request" id={r.id} field="name" value={r.name} multiline placeholder="Name" className="req-name-text" />
+              </span>
+              <span className="req-row-tools">
+                <button type="button" className="req-btn req-btn-small" onClick={() => onEdit(false)}>
+                  Save
+                </button>
+                <MoreMenu id={`req-more-${r.id}`}>
+                  <DeleteLink intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />
+                </MoreMenu>
+              </span>
             </div>
             <div className="req-tag-line">
               <InlineSelect intent="update-request" id={r.id} field="column" value={r.column} options={COLS} />
@@ -517,12 +541,6 @@ function RequestRow({
             </p>
             <div className="req-more-edit">
               <InlineText intent="update-request" id={r.id} field="readMoreUrl" value={r.readMoreUrl} placeholder="Add a read-more link" />
-            </div>
-            <div className="req-row-actions">
-              <button type="button" className="req-btn" onClick={() => onEdit(false)}>
-                Done
-              </button>
-              <DeleteLink intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />
             </div>
           </>
         ) : (

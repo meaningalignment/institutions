@@ -2367,6 +2367,21 @@ a.req-tag.req-vision { text-decoration: none; }
   border: 1px solid var(--line-strong); border-radius: 999px; padding: 1px 9px;
 }
 .req-popover-small { width: min(420px, calc(100vw - 32px)); }
+.req-title-edit { flex: 1; min-width: 0; }
+.req-row-tools { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; }
+.req-btn-small { font-size: 12px; padding: 2px 10px; }
+.req-more-btn { all: unset; cursor: pointer; font-size: 16px; line-height: 1; color: var(--muted); padding: 2px 6px; border-radius: 4px; }
+.req-more-btn:hover { background: var(--wash); color: var(--ink); }
+.req-menu {
+  position: fixed; inset: 0; margin: auto; height: fit-content; width: fit-content;
+  min-width: 140px; padding: 6px; border: 1px solid var(--line-strong); border-radius: 6px;
+  background: var(--card); box-shadow: 0 8px 24px rgba(0,0,0,.14);
+}
+@supports (position-area: bottom) {
+  .req-menu { inset: auto; margin: 4px 0 0; position-area: bottom span-left; }
+}
+.req-menu .req-link-btn { display: block; width: 100%; box-sizing: border-box; padding: 5px 8px; border-radius: 4px; font-size: 13px; }
+.req-menu .req-link-btn:hover { background: var(--wash); text-decoration: none; }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {
@@ -2400,7 +2415,7 @@ a.req-tag.req-vision { text-decoration: none; }
     }
   }
   .req-page { page: requests; max-width: none; padding: 0; }
-  .req-page .detail-back, .req-filters, .req-visions-panel, .req-popover, .req-row-edit, .req-row-actions,
+  .req-page .detail-back, .req-filters, .req-visions-panel, .req-popover, .req-row-edit, .req-row-tools,
   .req-table td.req-sites { display: none !important; }
   .req-table tr.req-group th { break-after: avoid; page-break-after: avoid; }
   .req-title { margin-top: 0; }

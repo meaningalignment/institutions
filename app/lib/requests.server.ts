@@ -71,7 +71,7 @@ function cleanUrl(url: string) {
   return u;
 }
 
-export async function createVision(label: string, url: string) {
+export async function createVision(label: string, url: string): Promise<string> {
   const name = label.trim();
   check(!!name, "Name the vision.");
   const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -84,6 +84,7 @@ export async function createVision(label: string, url: string) {
     RETURNING id
   `) as unknown[];
   check(rows.length > 0, "A vision with that name already exists.");
+  return id;
 }
 
 export async function updateVisionField(id: string, field: string, value: string) {

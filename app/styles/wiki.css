@@ -2359,6 +2359,14 @@ a.req-tag.req-vision { text-decoration: none; }
 .req-hints-inline { font-size: 13px; line-height: 1.5; display: block; }
 .req-popover .req-popover-title .req-inline-input { font: inherit; }
 
+.req-vision-editor { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.req-vision-editor .req-link-btn { font-size: 11px; }
+.req-vision-new { display: inline-flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.req-vision-new input {
+  font: inherit; font-size: 12px; color: var(--ink); background: var(--card); width: 150px;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 1px 9px;
+}
+.req-popover-small { width: min(420px, calc(100vw - 32px)); }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {

@@ -59,7 +59,9 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
   const value = String(fd.get("value") ?? "");
   try {
     if (intent === "create-vision") {
-      await createVision(String(fd.get("label") || ""), String(fd.get("url") || ""));
+      const visionId = await createVision(String(fd.get("label") || ""), String(fd.get("url") || ""));
+      // Created from a row: tag that request with the new vision.
+      if (id) await updateRequestField(id, "vision", visionId);
     } else if (intent === "update-vision") {
       await updateVisionField(String(fd.get("visionId") || ""), field, value);
     } else if (intent === "delete-vision") {
@@ -490,7 +492,6 @@ function RequestRow({
   allSites: string[];
 }) {
   const vision = visions.find((v) => v.id === r.vision);
-  const visionOptions = [{ id: "", name: "No vision" }, ...visions.map((v) => ({ id: v.id, name: v.label }))];
   return (
     <tr className={editing ? "req-editing" : undefined}>
       <td className="req-name">
@@ -502,14 +503,7 @@ function RequestRow({
             <div className="req-tag-line">
               <InlineSelect intent="update-request" id={r.id} field="column" value={r.column} options={COLS} />
               <InlineSelect intent="update-request" id={r.id} field="row" value={r.row} options={ROWS} />
-              <InlineSelect
-                intent="update-request"
-                id={r.id}
-                field="vision"
-                value={r.vision ?? ""}
-                options={visionOptions}
-                className="req-vision"
-              />
+              <VisionEditor requestId={r.id} value={r.vision ?? ""} visions={visions} />
             </div>
             <p className="req-desc">
               <InlineText
@@ -612,42 +606,101 @@ function VisionRow({ vision }: { vision: RequestVision }) {
   );
 }
 
-// Vision tags (name + link) live in a popover off the admin toolbar.
-function VisionsPopover({ visions }: { visions: RequestVision[] }) {
-  const fetcher = useFetcher<ActionResult>();
+const NEW_VISION = "__new__";
+
+// The row's vision tag in edit mode: pick a vision, create one ("New vision…"),
+// or rename it and set its link from the small popover beside the tag.
+function VisionEditor({ requestId, value, visions }: { requestId: number; value: string; visions: RequestVision[] }) {
+  const pick = useFetcher<ActionResult>();
+  const create = useFetcher<ActionResult>();
+  const [adding, setAdding] = useState(false);
   const [label, setLabel] = useState("");
   const [url, setUrl] = useState("");
-  const add = () => {
+  const pending = pick.formData?.get("value");
+  const shown = typeof pending === "string" ? pending : value;
+  const current = visions.find((v) => v.id === shown);
+  const popoverId = `req-vision-edit-${requestId}`;
+
+  const submitNew = () => {
     if (!label.trim()) return;
-    fetcher.submit({ intent: "create-vision", label, url }, { method: "post" });
+    create.submit({ intent: "create-vision", id: String(requestId), label, url }, { method: "post" });
+    setAdding(false);
     setLabel("");
     setUrl("");
   };
+
+  if (adding) {
+    return (
+      <span className="req-vision-new">
+        <input
+          autoFocus
+          value={label}
+          placeholder="Vision name"
+          onChange={(e) => setLabel(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") submitNew();
+            if (e.key === "Escape") setAdding(false);
+          }}
+        />
+        <input
+          value={url}
+          placeholder="Link (optional)"
+          onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") submitNew();
+            if (e.key === "Escape") setAdding(false);
+          }}
+        />
+        <button type="button" className="req-link-btn" onClick={submitNew} disabled={!label.trim()}>
+          Add
+        </button>
+        <button type="button" className="req-link-btn" onClick={() => setAdding(false)}>
+          Cancel
+        </button>
+      </span>
+    );
+  }
+
   return (
-    <>
-      <button type="button" className="req-btn-ghost" popoverTarget="req-visions">
-        Vision tags
-      </button>
-      <div id="req-visions" popover="auto" className="req-popover">
-        <div className="req-popover-head">
-          <span className="req-popover-title">Vision tags</span>
-          <button type="button" className="req-popover-close" popoverTarget="req-visions" popoverTargetAction="hide" aria-label="Close">
-            ×
-          </button>
-        </div>
+    <span className="req-vision-editor">
+      <select
+        className="req-tag req-tag-select req-vision"
+        style={current ? { color: visionColor(current.id) } : undefined}
+        value={shown}
+        onChange={(e) => {
+          if (e.target.value === NEW_VISION) setAdding(true);
+          else pick.submit({ intent: "update-request", id: String(requestId), field: "vision", value: e.target.value }, { method: "post" });
+        }}
+      >
+        <option value="">No vision</option>
         {visions.map((v) => (
-          <VisionRow key={v.id} vision={v} />
+          <option key={v.id} value={v.id}>
+            {v.label}
+          </option>
         ))}
-        <div className="req-vision-row">
-          <input value={label} placeholder="New vision" onChange={(e) => setLabel(e.target.value)} />
-          <input value={url} placeholder="https://… (optional)" onChange={(e) => setUrl(e.target.value)} />
-          <button type="button" className="req-btn-ghost" onClick={add} disabled={!label.trim()}>
-            Add
+        <option value={NEW_VISION}>New vision…</option>
+      </select>
+      {current && (
+        <>
+          <button type="button" className="req-link-btn" popoverTarget={popoverId} aria-label={`Edit the ${current.label} vision`}>
+            edit vision
           </button>
-          {fetcher.data && !fetcher.data.ok && <span className="req-error">{fetcher.data.error}</span>}
-        </div>
-      </div>
-    </>
+          <div id={popoverId} popover="auto" className="req-popover req-popover-small">
+            <div className="req-popover-head">
+              <span className="req-popover-title">Vision tag</span>
+              <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
+                ×
+              </button>
+            </div>
+            <p className="req-empty">Changes apply to every request with this tag.</p>
+            <VisionRow vision={current} />
+          </div>
+        </>
+      )}
+      {(create.data && !create.data.ok) || (pick.data && !pick.data.ok) ? (
+        <span className="req-error">{create.data?.error || pick.data?.error}</span>
+      ) : null}
+    </span>
   );
 }
 
@@ -857,7 +910,6 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
         </span>
         {canEdit && (
           <span className="req-edit-controls">
-            <VisionsPopover visions={visions} />
             <NewRequest onCreated={(id) => setEditing(id, true)} />
           </span>
         )}

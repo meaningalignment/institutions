@@ -101,7 +101,7 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
 }
 
 export function meta(_: Route.MetaArgs) {
-  const title = `Requests for institutions — ${SITE_NAME}`;
+  const title = `Institution tracker — ${SITE_NAME}`;
   const desc =
     "Requests for new institution designs: what each is for, where on the grid it sits, and the places that could adopt it.";
   return [
@@ -1322,7 +1322,7 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
       <Link to="/" className="detail-back">
         ← Back to grid
       </Link>
-      <h1 className="req-title">Requests for institutions</h1>
+      <h1 className="req-title">Institution tracker</h1>
       <p className="req-lede">Institutions we'd like designed and where they could be adopted.</p>
 
       <div className="req-filters">

@@ -541,7 +541,7 @@ function StageLine({ papers }: { papers: RequestPaper[] }) {
   );
 }
 
-// Papers in a row's draft: kind, title and link for each, plus "Add paper".
+// Links in a row's draft: kind, title and URL for each, plus "Add link".
 function PapersEditor({ papers, onChange }: { papers: RequestPaper[]; onChange: (papers: RequestPaper[]) => void }) {
   const update = (i: number, patch: Partial<RequestPaper>) =>
     onChange(papers.map((p, j) => (j === i ? { ...p, ...patch } : p)));
@@ -579,7 +579,7 @@ function PapersEditor({ papers, onChange }: { papers: RequestPaper[]; onChange: 
         </div>
       ))}
       <button type="button" className="req-link-btn" onClick={() => onChange([...papers, { kind: "case", title: "", url: "" }])}>
-        + Add paper
+        + Add link
       </button>
     </div>
   );

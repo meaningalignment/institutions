@@ -2289,3 +2289,47 @@ a.req-vision:hover { text-decoration: underline; }
 .req-desc { margin: 6px 0 0; font-size: 13px; line-height: 1.5; color: var(--text); max-width: 640px; }
 .req-more { display: inline-block; margin-top: 4px; font-size: 12px; color: var(--accent); text-decoration: none; }
 .req-more:hover { text-decoration: underline; }
+/* /requests in print: just the list, black on white, no controls. A named
+   page so the Research Community footer isn't applied here. */
+@media print {
+  html:has(.req-page),
+  html.theme-dark:has(.req-page) {
+    color-scheme: light;
+    --paper: #fff;
+    --card: #fff;
+    --ink: #111;
+    --text: #333;
+    --muted: #555550;
+    --faint: #8a8984;
+    --line: #dddcd8;
+    --line-strong: #c8c6c2;
+    background: #fff !important;
+  }
+  html:has(.req-page) body,
+  html:has(.req-page) .wiki-content { background: #fff !important; color: #111; }
+  @page requests {
+    size: letter portrait;
+    margin: 0.6in 0.65in 0.7in;
+    @bottom-left {
+      content: "Requests for institutions · agi-institutions.org/requests";
+      color: #8a8984;
+      font: 8pt -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    @bottom-right {
+      content: counter(page) " / " counter(pages);
+      color: #8a8984;
+      font: 8pt -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+  }
+  .req-page { page: requests; max-width: none; padding: 0; }
+  .req-page .detail-back, .req-filters, .req-visions-panel, .req-popover,
+  .req-table th:last-child, .req-table td.req-sites { display: none !important; }
+  .req-title { margin-top: 0; }
+  .req-table-wrap { overflow: visible; }
+  table.req-table { min-width: 0; background: #fff; page-break-inside: auto !important; break-inside: auto !important; }
+  .req-table td, .req-table th { background: #fff !important; border-right: 0 !important; }
+  .req-table thead { display: table-header-group; }
+  .req-table tr { break-inside: avoid; page-break-inside: avoid; }
+  .req-name { width: auto; }
+  .req-more::after { content: " " attr(href); font-size: 9px; color: #8a8984; word-break: break-all; }
+}

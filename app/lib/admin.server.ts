@@ -24,6 +24,8 @@ export interface AdminPerson extends AdminResearcher {
   isScout: boolean;
   isAdmin: boolean;
   hasEmail: boolean;
+  /** Should be on the X list (see x-list.server.ts). */
+  onXList: boolean;
   /** Emails proven at sign-in for a record without one, awaiting confirmation. */
   tentativeEmails: string[];
 }
@@ -84,6 +86,7 @@ export async function getPeople(): Promise<AdminPerson[]> {
         SELECT 1 FROM institutions_admins ad WHERE ad.researcher_id = r.id
       ) AS is_admin,
       r.email IS NOT NULL AS has_email,
+      r.on_x_list,
       ARRAY(
         SELECT t.email FROM institutions_tentative_emails t
         WHERE t.researcher_id = r.id ORDER BY t.created_at
@@ -95,7 +98,7 @@ export async function getPeople(): Promise<AdminPerson[]> {
       ) AS involvement_ids
     FROM researchers r
     LEFT JOIN researcher_involvements ri ON ri.researcher_id = r.id
-    GROUP BY r.id, r.name, r.handle, r.commitment, r.email
+    GROUP BY r.id, r.name, r.handle, r.commitment, r.email, r.on_x_list
     ORDER BY lower(COALESCE(r.name, '')), r.name
   `) as any[];
   return rows.map((r) => ({
@@ -107,6 +110,7 @@ export async function getPeople(): Promise<AdminPerson[]> {
     isScout: r.is_scout,
     isAdmin: r.is_admin,
     hasEmail: r.has_email,
+    onXList: r.on_x_list,
     tentativeEmails: r.tentative_emails ?? [],
   }));
 }

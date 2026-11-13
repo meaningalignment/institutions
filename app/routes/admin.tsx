@@ -13,6 +13,7 @@ const tabs = [
   { to: "/researchers/admin/people", label: "People", end: false },
   { to: "/researchers/admin", label: "Scouts", end: true },
   { to: "/researchers/admin/papers", label: "Papers", end: false },
+  { to: "/researchers/admin/x-list", label: "X list", end: false },
 ];
 
 export async function loader({ request }: Route.LoaderArgs) {

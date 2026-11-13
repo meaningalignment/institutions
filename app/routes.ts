@@ -19,6 +19,7 @@ export default [
     index("routes/admin-scouts.tsx"),
     route("people", "routes/admin-people.tsx"),
     route("papers", "routes/admin-papers.tsx"),
+    route("x-list", "routes/admin-x-list.tsx"),
     route("appreciations", "routes/admin-appreciations.tsx"), // MAI team only
   ]), // Internal community admin (email-code authenticated)
   route("researchers/:handle", "routes/researcher-profile.tsx"), // Researcher profile (DB)

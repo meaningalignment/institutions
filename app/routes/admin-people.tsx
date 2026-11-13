@@ -13,6 +13,7 @@ import {
   type Closeness,
 } from "../lib/admin.server";
 import { invalidateCommunityCache } from "../lib/researchers.server";
+import { setOnXList } from "../lib/x-list.server";
 import {
   type ActionResult,
   btnGhost,
@@ -77,6 +78,8 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
         return { ok: false, error: "You can't remove your own admin access." };
       }
       await setAdmin(researcherId, admin);
+    } else if (intent === "set-x-list") {
+      await setOnXList(researcherId, fd.get("active") === "true");
     } else if (intent === "confirm-email") {
       await confirmTentativeEmail(researcherId, String(fd.get("email") || ""));
     } else if (intent === "reject-email") {
@@ -120,7 +123,7 @@ function PersonRow({
 
   return (
     <li className="border-t border-[color:var(--line)] py-3 first:border-t-0">
-      <div className="grid gap-2 sm:grid-cols-[minmax(170px,240px)_180px_110px_minmax(100px,1fr)] sm:items-center">
+      <div className="grid gap-2 sm:grid-cols-[minmax(170px,240px)_180px_110px_110px_minmax(100px,1fr)] sm:items-center">
         <div className="min-w-0">
           <div className="truncate text-sm font-medium text-[color:var(--ink)]">
             {person.name}
@@ -179,6 +182,8 @@ function PersonRow({
         ) : (
           <span />
         )}
+
+        <XListToggle person={person} />
 
         <button
           type="button"
@@ -288,6 +293,54 @@ function TentativeEmail({ person, email }: { person: AdminPerson; email: string 
   );
 }
 
+function XListToggle({ person }: { person: AdminPerson }) {
+  const fetcher = useFetcher<ActionResult>();
+  const [checked, setChecked] = useState(person.onXList);
+  const disabled = !person.handle && !person.onXList;
+
+  useEffect(() => setChecked(person.onXList), [person.onXList]);
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data && !fetcher.data.ok) setChecked(person.onXList);
+  }, [person.onXList, fetcher.data, fetcher.state]);
+
+  return (
+    <div>
+      <label
+        className={`flex items-start gap-2 px-2 py-1.5 text-sm text-[color:var(--text)] hover:bg-[var(--card)] ${
+          fetcher.state !== "idle" || disabled ? "opacity-60" : ""
+        }`}
+        title={
+          disabled
+            ? "Needs an X handle"
+            : "Adds or removes them on the X list right away"
+        }
+      >
+        <input
+          type="checkbox"
+          checked={checked}
+          disabled={disabled}
+          aria-label={`X list membership for ${person.name}`}
+          onChange={(event) => {
+            setChecked(event.currentTarget.checked);
+            fetcher.submit(
+              {
+                intent: "set-x-list",
+                researcherId: String(person.id),
+                active: String(event.currentTarget.checked),
+              },
+              { method: "post" }
+            );
+          }}
+        />
+        X list
+      </label>
+      {fetcher.data && !fetcher.data.ok && (
+        <span className="admin-error block px-2 text-xs">{fetcher.data.error}</span>
+      )}
+    </div>
+  );
+}
+
 function MembershipToggle({
   researcherId,
   researcherName,
@@ -386,6 +439,7 @@ function personMarkdown(
 ) {
   const details = [CLOSENESS_NAMES[person.closeness]];
   if (signalId && person.involvementIds.includes(signalId)) details.push("Signal");
+  if (person.onXList) details.push("X list");
   const involvementSummary = summarizeOtherInvolvements(person, involvements);
   if (involvementSummary) details.push(involvementSummary);
   const handle = person.handle
@@ -400,6 +454,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
   const [scoutFilter, setScoutFilter] = useState<"any" | "scout" | "non-scout">("any");
   const [signalFilter, setSignalFilter] = useState<"any" | "on" | "off">("any");
   const [slackFilter, setSlackFilter] = useState<"any" | "on" | "off">("any");
+  const [xListFilter, setXListFilter] = useState<"any" | "on" | "off">("any");
   const [eventFilter, setEventFilter] = useState<"any" | "involved" | "not-involved">("any");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">("idle");
@@ -436,6 +491,10 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
         slackFilter === "any" ||
         (slackFilter === "on" && onSlack) ||
         (slackFilter === "off" && !onSlack);
+      const matchesXList =
+        xListFilter === "any" ||
+        (xListFilter === "on" && person.onXList) ||
+        (xListFilter === "off" && !person.onXList);
       const hasOtherInvolvement = person.involvementIds.some((id) =>
         otherInvolvementIds.has(id)
       );
@@ -449,6 +508,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
         matchesScout &&
         matchesSignal &&
         matchesSlack &&
+        matchesXList &&
         matchesEvents
       );
     });
@@ -463,12 +523,14 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
     signalFilter,
     slack,
     slackFilter,
+    xListFilter,
   ]);
   const hasFacetFilters =
     closenessFilter.size > 0 ||
     scoutFilter !== "any" ||
     signalFilter !== "any" ||
     slackFilter !== "any" ||
+    xListFilter !== "any" ||
     eventFilter !== "any";
   const filterSummary = useMemo(() => {
     const parts: string[] = [];
@@ -485,10 +547,12 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
     else if (signalFilter === "off") parts.push("Not on Signal");
     if (slackFilter === "on") parts.push("On Slack");
     else if (slackFilter === "off") parts.push("Not on Slack");
+    if (xListFilter === "on") parts.push("On X list");
+    else if (xListFilter === "off") parts.push("Not on X list");
     if (eventFilter === "involved") parts.push("Involved");
     else if (eventFilter === "not-involved") parts.push("Not involved");
     return parts.length ? `Showing ${parts.join(" · ")}` : "Showing all people";
-  }, [closenessFilter, eventFilter, scoutFilter, signalFilter, slackFilter]);
+  }, [closenessFilter, eventFilter, scoutFilter, signalFilter, slackFilter, xListFilter]);
 
   useEffect(() => {
     if (!filtersOpen) return;
@@ -508,7 +572,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
 
   useEffect(() => {
     setCopyStatus("idle");
-  }, [closenessFilter, eventFilter, scoutFilter, search, signalFilter, slackFilter]);
+  }, [closenessFilter, eventFilter, scoutFilter, search, signalFilter, slackFilter, xListFilter]);
 
   function toggleCloseness(value: Closeness) {
     setClosenessFilter((current) => {
@@ -524,6 +588,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
     setScoutFilter("any");
     setSignalFilter("any");
     setSlackFilter("any");
+    setXListFilter("any");
     setEventFilter("any");
   }
 
@@ -565,7 +630,7 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
       </div>
       <p className="mb-4 text-sm text-[color:var(--muted)]">
         Everyone stays visible whether or not they have an involvement. Closeness and involvement
-        changes save automatically.
+        changes save automatically. The X list checkbox changes the X list straight away.
       </p>
 
       <div className="mb-4 space-y-2">
@@ -662,6 +727,17 @@ export default function AdminPeople({ loaderData: d }: Route.ComponentProps) {
                 </FacetButton>
                 <FacetButton active={slackFilter === "off"} onClick={() => setSlackFilter("off")}>
                   Not on Slack
+                </FacetButton>
+              </FacetRow>
+              <FacetRow label="X list">
+                <FacetButton active={xListFilter === "any"} onClick={() => setXListFilter("any")}>
+                  Any
+                </FacetButton>
+                <FacetButton active={xListFilter === "on"} onClick={() => setXListFilter("on")}>
+                  On X list
+                </FacetButton>
+                <FacetButton active={xListFilter === "off"} onClick={() => setXListFilter("off")}>
+                  Not on X list
                 </FacetButton>
               </FacetRow>
               <FacetRow label="Other involvement">

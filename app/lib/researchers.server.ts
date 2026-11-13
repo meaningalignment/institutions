@@ -61,7 +61,7 @@ export interface ResearchWork {
   researchers: Pick<Researcher, "id" | "name" | "handle">[];
 }
 
-const FRIEND_COMMITMENTS = new Set(["committed"]);
+const FRIEND_COMMITMENTS = new Set(["committed", "warm"]);
 
 // Researcher photos are stored as site-relative paths (e.g. /photos/x.jpg)
 // and served from this app's public/photos. The ecosystem app shares the

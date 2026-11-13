@@ -42,7 +42,7 @@ function PeopleView({ community, selectedField }: { community: Community; select
     { id: "scouts-advisors", title: "Scouts & Advisors", blurb: "Advisors who help us find and vet the right people and problems, with what they scout for.", people: filterPeople(community.advisors) },
     { id: "community-members", title: "Community members", blurb: "Researchers active in the group — on Signal or Slack, or at a Zoom meeting or workshop.", people: filterPeople(community.community) },
     // Friends hidden for now; restore this entry to bring the section back.
-    // { id: "friends", title: "Friends", blurb: "Warm and committed people we're building with who aren't yet in the channels above.", people: filterPeople(community.friends) },
+    { id: "friends", title: "Friends", blurb: "Warm and committed people we're building with who aren't yet in the channels above.", people: filterPeople(community.friends) },
   ];
   const resultCount = groups.reduce((total, group) => total + group.people.length, 0);
 

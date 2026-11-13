@@ -39,8 +39,8 @@ export async function loader({ request }: Route.LoaderArgs) {
   const colOrder = COLS.map((c) => c.id);
   requests.sort(
     (a, b) =>
-      rowOrder.indexOf(a.row) - rowOrder.indexOf(b.row) ||
-      colOrder.indexOf(a.column) - colOrder.indexOf(b.column)
+      colOrder.indexOf(a.column) - colOrder.indexOf(b.column) ||
+      rowOrder.indexOf(a.row) - rowOrder.indexOf(b.row)
   );
   return { requests, visions, canEdit: !!session?.isAdmin };
 }
@@ -100,11 +100,11 @@ const visionColor = (id: string) => VISIONS.find((v) => v.id === id)?.color ?? "
 function VisionTag({ vision }: { vision: RequestVision }) {
   const style = { color: visionColor(vision.id) };
   return vision.url ? (
-    <a className="req-vision" style={style} href={vision.url} target="_blank" rel="noopener noreferrer">
+    <a className="req-tag req-vision" style={style} href={vision.url} target="_blank" rel="noopener noreferrer">
       {vision.label}
     </a>
   ) : (
-    <span className="req-vision" style={style}>
+    <span className="req-tag req-vision" style={style}>
       {vision.label}
     </span>
   );
@@ -335,14 +335,12 @@ function RequestRow({
   if (editing) {
     return (
       <tr className="req-editing">
-        <td>
-          <Field intent="update-request" id={r.id} field="vision" value={r.vision ?? ""} kind="select" options={visionOptions} />
-        </td>
         <td className="req-name">
           <Field intent="update-request" id={r.id} field="name" value={r.name} kind="textarea" />
           <div className="req-place-edit">
             <Field intent="update-request" id={r.id} field="column" value={r.column} kind="select" options={COLS} />
             <Field intent="update-request" id={r.id} field="row" value={r.row} kind="select" options={ROWS} />
+            <Field intent="update-request" id={r.id} field="vision" value={r.vision ?? ""} kind="select" options={visionOptions} />
           </div>
           <label>Description</label>
           <Field
@@ -365,15 +363,11 @@ function RequestRow({
   }
   return (
     <tr>
-      <td>
-        {r.vision && (
-          vision ? <VisionTag vision={vision} /> : <span className="req-vision">{r.vision}</span>
-        )}
-      </td>
       <td className="req-name">
-        <Link to={`/cell/${r.row}/${r.column}${r.vision && VISIONS.some((v) => v.id === r.vision) ? `?visions=${r.vision}` : ""}`}>{r.name}</Link>
-        <div className="req-place">
-          {colName(r.column)} · {rowName(r.row)}
+        <div className="req-title-line">
+          <Link to={`/cell/${r.row}/${r.column}${r.vision && VISIONS.some((v) => v.id === r.vision) ? `?visions=${r.vision}` : ""}`}>{r.name}</Link>
+          <span className="req-tag">{rowName(r.row)}</span>
+          {r.vision && (vision ? <VisionTag vision={vision} /> : <span className="req-tag">{r.vision}</span>)}
         </div>
         {r.description && <p className="req-desc">{r.description}</p>}
         {r.readMoreUrl && (
@@ -530,16 +524,26 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
         <table className="req-table">
           <thead>
             <tr>
-              <th>Vision</th>
-              <th>Name</th>
+              <th>Request</th>
               <th>Sites</th>
             </tr>
           </thead>
-          <tbody>
-            {shown.map((r) => (
-              <RequestRow key={r.id} r={r} editing={editing} visions={visions} />
-            ))}
-          </tbody>
+          {COLS.map((c) => {
+            const group = shown.filter((r) => r.column === c.id);
+            if (!group.length) return null;
+            return (
+              <tbody key={c.id}>
+                <tr className="req-group">
+                  <th colSpan={2}>
+                    {c.name} <span className="req-group-desc">{c.desc}</span>
+                  </th>
+                </tr>
+                {group.map((r) => (
+                  <RequestRow key={r.id} r={r} editing={editing} visions={visions} />
+                ))}
+              </tbody>
+            );
+          })}
         </table>
       </div>
     </div>

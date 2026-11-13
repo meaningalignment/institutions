@@ -5,7 +5,10 @@
 import { getSql } from "./db.server";
 import { COLS, ROWS } from "./constants";
 import {
+  PAPER_KINDS,
   REQUEST_STATUSES,
+  type PaperKind,
+  type RequestPaper,
   type InstitutionRequest,
   type RequestSite,
   type RequestVision,
@@ -14,12 +17,19 @@ import {
 
 export async function getRequests(): Promise<InstitutionRequest[]> {
   const sql = getSql();
-  const [requests, sites] = (await Promise.all([
-    sql`SELECT id, name, vision, row_id, col_id, description, read_more_url, site_hints
+  const [requests, sites, papers] = (await Promise.all([
+    sql`SELECT id, name, vision, row_id, col_id, description, site_hints
         FROM institutions_requests ORDER BY position, id`,
     sql`SELECT id, request_id, name, instead, pain, success, status
         FROM institutions_request_sites ORDER BY position, id`,
-  ])) as [any[], any[]];
+    sql`SELECT request_id, kind, title, url FROM institutions_request_papers ORDER BY position, id`,
+  ])) as [any[], any[], any[]];
+  const papersByRequest = new Map<number, RequestPaper[]>();
+  for (const p of papers) {
+    const list = papersByRequest.get(p.request_id) ?? [];
+    list.push({ kind: p.kind, title: p.title, url: p.url });
+    papersByRequest.set(p.request_id, list);
+  }
   const byRequest = new Map<number, RequestSite[]>();
   for (const s of sites) {
     const list = byRequest.get(s.request_id) ?? [];
@@ -40,8 +50,8 @@ export async function getRequests(): Promise<InstitutionRequest[]> {
     row: r.row_id,
     column: r.col_id,
     description: r.description,
-    readMoreUrl: r.read_more_url,
     siteHints: r.site_hints,
+    papers: papersByRequest.get(r.id) ?? [],
     sites: byRequest.get(r.id) ?? [],
   }));
 }
@@ -138,8 +148,6 @@ export async function updateRequestField(id: number, field: string, value: strin
     await sql`UPDATE institutions_requests SET col_id = ${value}, updated_at = now() WHERE id = ${id}`;
   } else if (field === "description") {
     await sql`UPDATE institutions_requests SET description = ${value.trim()}, updated_at = now() WHERE id = ${id}`;
-  } else if (field === "readMoreUrl") {
-    await sql`UPDATE institutions_requests SET read_more_url = ${cleanUrl(value)}, updated_at = now() WHERE id = ${id}`;
   } else if (field === "siteHints") {
     await sql`UPDATE institutions_requests SET site_hints = ${value}, updated_at = now() WHERE id = ${id}`;
   } else {
@@ -149,17 +157,49 @@ export async function updateRequestField(id: number, field: string, value: strin
 
 // Save a row's draft: validate every field first, then write them together.
 export async function updateRequestFields(id: number, fields: Record<string, unknown>) {
-  const allowed = ["name", "vision", "row", "column", "description", "readMoreUrl"];
-  const entries = Object.entries(fields).map(([k, v]) => [k, String(v ?? "")] as const);
+  const allowed = ["name", "vision", "row", "column", "description", "papers"];
+  const { papers: rawPapers, ...rest } = fields;
+  const entries = Object.entries(rest).map(([k, v]) => [k, String(v ?? "")] as const);
   for (const [k, v] of entries) {
     check(allowed.includes(k), "Unknown field.");
     if (k === "name") check(!!v.trim(), "A request needs a name.");
     if (k === "row") validRow(v);
     if (k === "column") validCol(v);
     if (k === "vision") await validVision(v || null);
-    if (k === "readMoreUrl") cleanUrl(v);
   }
+  const papers = rawPapers === undefined ? undefined : cleanPapers(rawPapers);
   for (const [k, v] of entries) await updateRequestField(id, k, v);
+  if (papers) await replacePapers(id, papers);
+}
+
+function cleanPapers(raw: unknown): RequestPaper[] {
+  check(Array.isArray(raw), "Papers must be a list.");
+  return (raw as any[])
+    .map((p) => ({
+      kind: String(p?.kind ?? "") as PaperKind,
+      title: String(p?.title ?? "").trim(),
+      url: String(p?.url ?? "").trim(),
+    }))
+    .filter((p) => p.title || p.url)
+    .map((p) => {
+      check(PAPER_KINDS.includes(p.kind), "Choose a kind for each paper.");
+      check(!!p.url, `Add a link for "${p.title || "the paper"}".`);
+      return { ...p, url: cleanUrl(p.url), title: p.title || p.url };
+    });
+}
+
+async function replacePapers(requestId: number, papers: RequestPaper[]) {
+  const sql = getSql();
+  await sql.transaction([
+    sql`DELETE FROM institutions_request_papers WHERE request_id = ${requestId}`,
+    ...papers.map(
+      (p, i) => sql`
+        INSERT INTO institutions_request_papers (request_id, kind, title, url, position)
+        VALUES (${requestId}, ${p.kind}, ${p.title}, ${p.url}, ${i})
+      `
+    ),
+    sql`UPDATE institutions_requests SET updated_at = now() WHERE id = ${requestId}`,
+  ]);
 }
 
 export async function deleteRequest(id: number) {

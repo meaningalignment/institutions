@@ -16,7 +16,19 @@ import {
   updateRequestFields,
   updateSiteField,
 } from "../lib/requests.server";
-import { REQUEST_STATUSES, type InstitutionRequest, type RequestSite, type RequestVision } from "../lib/requests";
+import {
+  PAPER_KINDS,
+  PAPER_KIND_LABEL,
+  REQUEST_STATUSES,
+  STAGES,
+  STAGE_LABEL,
+  requestStage,
+  type InstitutionRequest,
+  type PaperKind,
+  type RequestPaper,
+  type RequestSite,
+  type RequestVision,
+} from "../lib/requests";
 import {
   COLS,
   OG_IMAGE_META,
@@ -508,6 +520,71 @@ function SitesPopover({ r, canEdit, allSites }: { r: InstitutionRequest; canEdit
 
 // ── Rows ───────────────────────────────────────────────────────────
 
+// The stage tag sits under the description: "Design wanted", "Designed" or
+// "Tested", followed by the papers behind it (cases, designs, test reports).
+function StageLine({ papers }: { papers: RequestPaper[] }) {
+  const stage = requestStage(papers);
+  return (
+    <div className="req-stage-line">
+      <span className={`req-tag req-stage req-stage-${stage}`}>{STAGE_LABEL[stage]}</span>
+      {PAPER_KINDS.flatMap((kind) =>
+        papers
+          .filter((p) => p.kind === kind)
+          .map((p, i) => (
+            <a key={`${kind}-${i}`} className="req-paper" href={p.url} target="_blank" rel="noopener noreferrer">
+              <span className="req-paper-kind">{PAPER_KIND_LABEL[kind]}</span>
+              {p.title} ↗
+            </a>
+          ))
+      )}
+    </div>
+  );
+}
+
+// Papers in a row's draft: kind, title and link for each, plus "Add paper".
+function PapersEditor({ papers, onChange }: { papers: RequestPaper[]; onChange: (papers: RequestPaper[]) => void }) {
+  const update = (i: number, patch: Partial<RequestPaper>) =>
+    onChange(papers.map((p, j) => (j === i ? { ...p, ...patch } : p)));
+  const stage = requestStage(papers);
+  return (
+    <div className="req-papers-edit">
+      <div className="req-stage-line">
+        <span className={`req-tag req-stage req-stage-${stage}`}>{STAGE_LABEL[stage]}</span>
+        <span className="req-empty">follows from the papers below</span>
+      </div>
+      {papers.map((p, i) => (
+        <div key={i} className="req-paper-edit">
+          <select
+            className="req-tag req-tag-select"
+            value={p.kind}
+            onChange={(e) => update(i, { kind: e.target.value as PaperKind })}
+            aria-label="Kind of paper"
+          >
+            {PAPER_KINDS.map((k) => (
+              <option key={k} value={k}>
+                {PAPER_KIND_LABEL[k]}
+              </option>
+            ))}
+          </select>
+          <input value={p.title} placeholder="Title" onChange={(e) => update(i, { title: e.target.value })} aria-label="Paper title" />
+          <input value={p.url} placeholder="https://…" onChange={(e) => update(i, { url: e.target.value })} aria-label="Paper link" />
+          <button
+            type="button"
+            className="req-popover-close"
+            aria-label="Remove paper"
+            onClick={() => onChange(papers.filter((_, j) => j !== i))}
+          >
+            ×
+          </button>
+        </div>
+      ))}
+      <button type="button" className="req-link-btn" onClick={() => onChange([...papers, { kind: "case", title: "", url: "" }])}>
+        + Add paper
+      </button>
+    </div>
+  );
+}
+
 // A row's edits are a local draft until Save; Cancel throws them away.
 interface Draft {
   name: string;
@@ -515,7 +592,7 @@ interface Draft {
   row: string;
   vision: string;
   description: string;
-  readMoreUrl: string;
+  papers: RequestPaper[];
 }
 
 function RequestRow({
@@ -540,15 +617,17 @@ function RequestRow({
     row: r.row,
     vision: r.vision ?? "",
     description: r.description,
-    readMoreUrl: r.readMoreUrl,
+    papers: r.papers,
   };
   const [draft, setDraft] = useState<Draft>(saved);
   // Start each edit from what's saved.
   useEffect(() => {
     if (editing) setDraft(saved);
   }, [editing]); // eslint-disable-line react-hooks/exhaustive-deps
-  const set = (field: keyof Draft) => (value: string) => setDraft((d) => ({ ...d, [field]: value }));
-  const changed = (Object.keys(saved) as (keyof Draft)[]).filter((k) => draft[k] !== saved[k]);
+  const set = (field: Exclude<keyof Draft, "papers">) => (value: string) => setDraft((d) => ({ ...d, [field]: value }));
+  const changed = (Object.keys(saved) as (keyof Draft)[]).filter(
+    (k) => JSON.stringify(draft[k]) !== JSON.stringify(saved[k])
+  );
   const save = useFetcher<ActionResult>();
   const saving = save.state !== "idle";
   useEffect(() => {
@@ -609,9 +688,7 @@ function RequestRow({
                 placeholder="Add two or three sentences on what needs to be built"
               />
             </p>
-            <div className="req-more-edit">
-              <InlineText intent="update-request" id={r.id} field="readMoreUrl" value={draft.readMoreUrl} onLocalChange={set("readMoreUrl")} placeholder="Add a read-more link" />
-            </div>
+            <PapersEditor papers={draft.papers} onChange={(papers) => setDraft((d) => ({ ...d, papers }))} />
           </>
         ) : (
           <>
@@ -628,11 +705,7 @@ function RequestRow({
               )}
             </div>
             {r.description && <p className="req-desc">{r.description}</p>}
-            {r.readMoreUrl && (
-              <a className="req-more" href={r.readMoreUrl} target="_blank" rel="noopener noreferrer">
-                Read more ↗
-              </a>
-            )}
+            <StageLine papers={r.papers} />
           </>
         )}
       </td>
@@ -807,7 +880,7 @@ function VisionEditor({
 
 // ── Search ─────────────────────────────────────────────────────────
 
-type PillKind = "column" | "row" | "vision" | "status" | "site" | "text";
+type PillKind = "column" | "row" | "vision" | "stage" | "status" | "site" | "text";
 interface Pill {
   kind: PillKind;
   value: string;
@@ -817,7 +890,8 @@ const KIND_LABEL: Record<PillKind, string> = {
   column: "Column",
   row: "Row",
   vision: "Vision",
-  status: "Status",
+  stage: "Stage",
+  status: "Site status",
   site: "Site",
   text: "Text",
 };
@@ -830,6 +904,8 @@ function textOf(r: InstitutionRequest, visions: RequestVision[]) {
     r.name,
     r.description,
     r.siteHints,
+    STAGE_LABEL[requestStage(r.papers)],
+    ...r.papers.map((p) => p.title),
     ...r.sites.flatMap((s) => [s.name, s.instead, s.pain, s.success, s.status]),
   ]
     .join(" ")
@@ -845,6 +921,7 @@ function matches(r: InstitutionRequest, pills: Pill[], typed: string, visions: R
     column: (v) => r.column === v,
     row: (v) => r.row === v,
     vision: (v) => r.vision === v,
+    stage: (v) => requestStage(r.papers) === v,
     status: (v) => r.sites.some((s) => s.status === v),
     site: (v) => r.sites.some((s) => s.name.toLowerCase() === v),
   };
@@ -988,6 +1065,7 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
       ...COLS.map((c) => ({ kind: "column" as const, value: c.id, label: c.name })),
       ...ROWS.map((r) => ({ kind: "row" as const, value: r.id, label: r.name })),
       ...visions.map((v) => ({ kind: "vision" as const, value: v.id, label: v.label })),
+      ...STAGES.map((st) => ({ kind: "stage" as const, value: st, label: STAGE_LABEL[st] })),
       ...REQUEST_STATUSES.map((s) => ({ kind: "status" as const, value: s, label: s })),
       ...allSites.map((s) => ({ kind: "site" as const, value: s.toLowerCase(), label: s })),
     ],

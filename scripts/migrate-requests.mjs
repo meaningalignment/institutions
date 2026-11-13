@@ -63,6 +63,46 @@ await sql`
   ON CONFLICT (id) DO NOTHING
 `;
 
+// Papers per request: a "case" for wanting the institution, a "design", or a
+// "test" report. The request's stage (design wanted / designed / tested)
+// follows from them. read_more_url is superseded: existing links become case
+// papers once, then the column is no longer read.
+await sql`
+  CREATE TABLE IF NOT EXISTS institutions_request_papers (
+    id serial PRIMARY KEY,
+    request_id integer NOT NULL REFERENCES institutions_requests(id) ON DELETE CASCADE,
+    kind text NOT NULL CHECK (kind IN ('case', 'design', 'test')),
+    title text NOT NULL,
+    url text NOT NULL,
+    position integer NOT NULL DEFAULT 0,
+    created_at timestamptz NOT NULL DEFAULT now()
+  )
+`;
+await sql`
+  CREATE INDEX IF NOT EXISTS institutions_request_papers_request_idx
+  ON institutions_request_papers (request_id)
+`;
+const [{ papers }] = await sql`SELECT count(*)::int AS papers FROM institutions_request_papers`;
+if (papers === 0) {
+  const titleFor = (url) => {
+    if (url.includes("paxmachina.ai/telocracy/appendices")) return "Telocracy (appendices)";
+    if (url.includes("paxmachina.ai/telocracy")) return "Telocracy";
+    if (url.includes("2512.16856")) return "Distributional AGI Safety";
+    if (url.includes("2509.10147")) return "Virtual Agent Economies";
+    if (url.includes("model-integrity")) return "Model Integrity";
+    if (url.includes("market-intermediaries")) return "Market Intermediaries";
+    return url;
+  };
+  const rows = await sql`SELECT id, read_more_url FROM institutions_requests WHERE read_more_url <> ''`;
+  for (const r of rows) {
+    await sql`
+      INSERT INTO institutions_request_papers (request_id, kind, title, url, position)
+      VALUES (${r.id}, 'case', ${titleFor(r.read_more_url)}, ${r.read_more_url}, 0)
+    `;
+  }
+  console.log(`Moved ${rows.length} read-more links into case papers.`);
+}
+
 const [{ count }] = await sql`SELECT count(*)::int AS count FROM institutions_requests`;
 if (count === 0) {
   const seed = yaml.load(fs.readFileSync(new URL("./requests-seed.yaml", import.meta.url), "utf8"));

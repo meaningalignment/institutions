@@ -492,8 +492,7 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
       </Link>
       <h1 className="req-title">Requests for institutions</h1>
       <p className="req-lede">
-        Institutions we'd like designed, and the real places that could adopt them. For each site: what it
-        does today, what hurts, how we'd recognize success, and where the work stands.
+        Institutions we'd like designed and where they could be adopted.
       </p>
 
       <div className="req-filters">

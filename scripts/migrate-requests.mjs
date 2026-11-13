@@ -104,7 +104,17 @@ if (links === 0) {
 await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS rows text[] NOT NULL DEFAULT '{}'`;
 await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS cols text[] NOT NULL DEFAULT '{}'`;
 await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS lenses text[] NOT NULL DEFAULT '{}'`;
-for (const col of ["likely", "soon", "impact"]) {
+// The third score was first "impact"; it became "leverage" (how much shaping
+// it now changes the outcome, incl. lock-in). Rename once, before adding.
+await sql`
+  DO $$ BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'institutions_requests' AND column_name = 'impact')
+       AND NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'institutions_requests' AND column_name = 'leverage') THEN
+      ALTER TABLE institutions_requests RENAME COLUMN impact TO leverage;
+    END IF;
+  END $$
+`;
+for (const col of ["likely", "soon", "leverage"]) {
   await sql.query(
     `ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS ${col} smallint CHECK (${col} BETWEEN 1 AND 5)`
   );

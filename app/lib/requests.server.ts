@@ -19,7 +19,7 @@ import {
 export async function getRequests(): Promise<InstitutionRequest[]> {
   const sql = getSql();
   const [requests, sites, links] = (await Promise.all([
-    sql`SELECT id, name, rows, cols, lenses, description, site_hints, likely, soon, impact
+    sql`SELECT id, name, rows, cols, lenses, description, site_hints, likely, soon, leverage
         FROM institutions_requests ORDER BY position, id`,
     sql`SELECT id, request_id, name, instead, pain, success, status
         FROM institutions_request_sites ORDER BY position, id`,
@@ -45,7 +45,7 @@ export async function getRequests(): Promise<InstitutionRequest[]> {
     lenses: r.lenses,
     description: r.description,
     siteHints: r.site_hints,
-    scores: { likely: r.likely, soon: r.soon, impact: r.impact },
+    scores: { likely: r.likely, soon: r.soon, leverage: r.leverage },
     links: linksByRequest.get(r.id) ?? [],
     sites: byRequest.get(r.id) ?? [],
   }));
@@ -173,8 +173,8 @@ export async function updateRequestFields(id: number, fields: Record<string, unk
   }
   if ("scores" in fields) {
     const s = (fields.scores ?? {}) as Record<string, unknown>;
-    const [likely, soon, impact] = SCORE_KEYS.map((k) => cleanScore(s[k]));
-    q.push(sql`UPDATE institutions_requests SET likely = ${likely}, soon = ${soon}, impact = ${impact} WHERE id = ${id}`);
+    const [likely, soon, leverage] = SCORE_KEYS.map((k) => cleanScore(s[k]));
+    q.push(sql`UPDATE institutions_requests SET likely = ${likely}, soon = ${soon}, leverage = ${leverage} WHERE id = ${id}`);
   }
   if ("links" in fields) {
     const links = cleanLinks(fields.links);

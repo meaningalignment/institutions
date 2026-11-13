@@ -891,7 +891,7 @@ function ScoresEditor({ scores, onChange }: { scores: RequestScores; onChange: (
           </select>
         </label>
       ))}
-      <span className="req-priority" title="Impact × (6 − likely anyway)">
+      <span className="req-priority" title="Leverage × (6 − likely anyway)">
         Priority {p ?? "–"}
       </span>
     </div>
@@ -909,7 +909,7 @@ function ScoresLine({ scores }: { scores: RequestScores }) {
         </span>
       ))}
       {p != null && (
-        <span title="Impact × (6 − likely anyway)">
+        <span title="Leverage × (6 − likely anyway)">
           Priority <strong>{p}</strong>
         </span>
       )}
@@ -1253,12 +1253,12 @@ function SearchBar({
 
 // ── Sorting ────────────────────────────────────────────────────────
 
-type SortKey = "column" | "priority" | "soon" | "likely" | "impact";
+type SortKey = "column" | "priority" | "soon" | "likely" | "leverage";
 const SORTS: { id: SortKey; name: string }[] = [
   { id: "column", name: "Grouped by column" },
   { id: "priority", name: "Priority to work on" },
   { id: "soon", name: "Soonest to apply" },
-  { id: "impact", name: "Impact" },
+  { id: "leverage", name: "Leverage" },
   { id: "likely", name: "Least likely to happen anyway" },
 ];
 

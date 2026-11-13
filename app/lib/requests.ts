@@ -31,29 +31,30 @@ export interface InstitutionRequest {
 // Three 1–5 judgments used for ranking (null = not scored yet).
 //  likely: how likely it gets built anyway, without anyone pushing (5 = surely)
 //  soon:   how soon it can find real application (5 = now)
-//  impact: how much it matters if it exists (5 = a lot)
-// Priority to work on = impact × (6 − likely): important and otherwise neglected.
+//  leverage: how much shaping it now changes how it turns out, because early
+//            designs lock in the pattern (5 = a great deal)
+// Priority to work on = leverage × (6 − likely): shapeable now and otherwise neglected.
 export interface RequestScores {
   likely: number | null;
   soon: number | null;
-  impact: number | null;
+  leverage: number | null;
 }
-export const SCORE_KEYS = ["likely", "soon", "impact"] as const;
+export const SCORE_KEYS = ["likely", "soon", "leverage"] as const;
 export type ScoreKey = (typeof SCORE_KEYS)[number];
 export const SCORE_LABEL: Record<ScoreKey, string> = {
   likely: "Likely anyway",
   soon: "Soon to apply",
-  impact: "Impact",
+  leverage: "Leverage",
 };
 export const SCORE_HELP: Record<ScoreKey, string> = {
   likely: "How likely it gets built anyway, without anyone pushing for it (5 = surely)",
   soon: "How soon it can find real application (5 = now)",
-  impact: "How much it matters if it exists (5 = a great deal)",
+  leverage: "How much shaping it now changes how it turns out; early designs lock in the pattern (5 = a great deal)",
 };
 
 export function priority(s: RequestScores): number | null {
-  if (s.likely == null || s.impact == null) return null;
-  return s.impact * (6 - s.likely);
+  if (s.likely == null || s.leverage == null) return null;
+  return s.leverage * (6 - s.likely);
 }
 
 // Links attached to a request. A "case" argues the institution is needed, a

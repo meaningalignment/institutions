@@ -2334,13 +2334,12 @@ a.req-tag.req-vision { text-decoration: none; }
   }
   .req-page { page: requests; max-width: none; padding: 0; }
   .req-page .detail-back, .req-filters, .req-visions-panel, .req-popover,
-  .req-table thead th:last-child, .req-table td.req-sites { display: none !important; }
+  .req-table td.req-sites { display: none !important; }
   .req-table tr.req-group th { break-after: avoid; page-break-after: avoid; }
   .req-title { margin-top: 0; }
   .req-table-wrap { overflow: visible; }
   table.req-table { min-width: 0; background: #fff; page-break-inside: auto !important; break-inside: auto !important; }
   .req-table td, .req-table th { background: #fff !important; border-right: 0 !important; }
-  .req-table thead { display: table-header-group; }
   .req-table tr { break-inside: avoid; page-break-inside: avoid; }
   .req-name { width: auto; }
   .req-more::after { content: " " attr(href); font-size: 9px; color: #8a8984; word-break: break-all; }

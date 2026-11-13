@@ -522,12 +522,6 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
 
       <div className="req-table-wrap">
         <table className="req-table">
-          <thead>
-            <tr>
-              <th>Request</th>
-              <th>Sites</th>
-            </tr>
-          </thead>
           {COLS.map((c) => {
             const group = shown.filter((r) => r.column === c.id);
             if (!group.length) return null;

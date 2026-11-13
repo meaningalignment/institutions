@@ -1037,6 +1037,10 @@ function RequestRow({
           <>
             <div className="req-title-line">
               <Link to={cellHref}>{r.name}</Link>
+              {!groupCol &&
+                r.cols.map((c) => (
+                  <FilterTag key={`col-${c}`} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
+                ))}
               {r.rows.map((row) => (
                 <FilterTag key={row} pill={{ kind: "row", value: row, label: rowName(row) }} onFilter={onFilter} />
               ))}

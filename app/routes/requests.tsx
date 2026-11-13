@@ -583,14 +583,11 @@ function SitesPopover({ r, canEdit, allSites, uid }: { r: InstitutionRequest; ca
 
 // The stage tag sits under the description: "Design wanted", "Designed" or
 // "Tested", followed by the links behind it (cases, designs, test reports).
-function StageLine({ uid, links }: { uid: string; links: RequestLink[] }) {
-  const stage = requestStage(links);
-  const popoverId = `req-links-${uid}`;
+// The request's links, inline under the description.
+function LinksLine({ links }: { links: RequestLink[] }) {
+  if (!links.length) return null;
   return (
     <div className="req-stage-line">
-      <button type="button" className={`req-tag req-stage req-stage-${stage}`} popoverTarget={popoverId}>
-        {STAGE_LABEL[stage]}
-      </button>
       {LINK_KINDS.flatMap((kind) =>
         links
           .filter((p) => p.kind === kind)
@@ -601,6 +598,19 @@ function StageLine({ uid, links }: { uid: string; links: RequestLink[] }) {
             </a>
           ))
       )}
+    </div>
+  );
+}
+
+// The stage badge that leads each row; it opens a popover of all the links.
+function StageBadge({ uid, links }: { uid: string; links: RequestLink[] }) {
+  const stage = requestStage(links);
+  const popoverId = `req-links-${uid}`;
+  return (
+    <>
+      <button type="button" className={`req-stage-badge req-stage-${stage}`} popoverTarget={popoverId}>
+        {STAGE_LABEL[stage]}
+      </button>
       <div id={popoverId} popover="auto" className="req-popover req-popover-small">
         <div className="req-popover-head">
           <span className="req-popover-title">{STAGE_LABEL[stage]}</span>
@@ -630,7 +640,7 @@ function StageLine({ uid, links }: { uid: string; links: RequestLink[] }) {
           );
         })}
       </div>
-    </div>
+    </>
   );
 }
 
@@ -997,7 +1007,10 @@ function RequestRow({
   const cellHref = `/cell/${r.rows[0]}/${r.cols[0]}${homeLens ? `?visions=${homeLens}` : ""}`;
 
   return (
-    <tr className={editing ? "req-editing" : undefined}>
+    <tr className={`req-row req-edge-${requestStage(editing ? draft.links : r.links)}${editing ? " req-editing" : ""}`}>
+      <td className="req-stage-cell">
+        <StageBadge uid={uid} links={editing ? draft.links : r.links} />
+      </td>
       <td className="req-name">
         {editing ? (
           <>
@@ -1090,7 +1103,7 @@ function RequestRow({
               </div>
             )}
             {r.description && <p className="req-desc">{r.description}</p>}
-            <StageLine uid={uid} links={r.links} />
+            <LinksLine links={r.links} />
             <ScoresLine scores={r.scores} />
           </>
         )}
@@ -1287,17 +1300,18 @@ function SearchBar({
 
 // ── Sorting ────────────────────────────────────────────────────────
 
-type SortKey = "column" | "priority" | "soon" | "likely" | "leverage";
+type SortKey = "column" | "stage" | "priority" | "soon" | "likely" | "leverage";
 const SORTS: { id: SortKey; name: string }[] = [
   { id: "priority", name: "Importance to work on" },
   { id: "column", name: "Grouped by column" },
+  { id: "stage", name: "Grouped by stage" },
   { id: "soon", name: "Soonest to apply" },
   { id: "leverage", name: "Leverage" },
   { id: "likely", name: "Least likely to happen anyway" },
 ];
 
 // Unscored requests sort last.
-function sortValue(r: InstitutionRequest, key: Exclude<SortKey, "column">): number {
+function sortValue(r: InstitutionRequest, key: Exclude<SortKey, "column" | "stage">): number {
   if (key === "priority") return priority(r.scores) ?? -Infinity;
   if (key === "likely") return r.scores.likely == null ? -Infinity : 6 - r.scores.likely;
   return r.scores[key as ScoreKey] ?? -Infinity;
@@ -1384,9 +1398,52 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
         )}
       </div>
 
+      <div className="req-stage-strip" role="group" aria-label="Requests by stage">
+        {STAGES.map((st) => {
+          const n = requests.filter((r) => requestStage(r.links) === st).length;
+          const active = pills.some((p) => p.kind === "stage" && p.value === st);
+          return (
+            <button
+              key={st}
+              type="button"
+              className={`req-strip-item req-strip-${st}${active ? " is-active" : ""}`}
+              onClick={() =>
+                active
+                  ? setPills(pills.filter((p) => !(p.kind === "stage" && p.value === st)))
+                  : addPill({ kind: "stage", value: st, label: STAGE_LABEL[st] })
+              }
+              title={active ? `Stop filtering by ${STAGE_LABEL[st]}` : `Show only ${STAGE_LABEL[st]}`}
+            >
+              <span className="req-strip-count">{n}</span>
+              <span className="req-strip-label">{STAGE_LABEL[st]}</span>
+            </button>
+          );
+        })}
+      </div>
+
       <div className="req-table-wrap">
         <table className="req-table">
-          {sort === "column" ? (
+          {sort === "stage" ? (
+            [...STAGES].reverse().map((st) => {
+              const group = shown
+                .filter((r) => requestStage(r.links) === st)
+                .sort((a, b) => sortValue(b, "priority") - sortValue(a, "priority") || a.name.localeCompare(b.name));
+              if (!group.length) return null;
+              return (
+                <tbody key={st}>
+                  <tr className="req-group">
+                    <th colSpan={3}>
+                      <button type="button" className="req-group-btn" onClick={() => addPill({ kind: "stage", value: st, label: STAGE_LABEL[st] })} title={`Show only ${STAGE_LABEL[st]}`}>
+                        {STAGE_LABEL[st]}
+                      </button>{" "}
+                      <span className="req-group-desc">{group.length}</span>
+                    </th>
+                  </tr>
+                  {group.map((r) => row(r, `${st}-${r.id}`))}
+                </tbody>
+              );
+            })
+          ) : sort === "column" ? (
             COLS.map((c) => {
               // A request in several columns appears under each of them.
               const group = shown.filter((r) => r.cols.includes(c.id));
@@ -1394,7 +1451,7 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
               return (
                 <tbody key={c.id}>
                   <tr className="req-group">
-                    <th colSpan={2}>
+                    <th colSpan={3}>
                       <button type="button" className="req-group-btn" onClick={() => addPill({ kind: "column", value: c.id, label: c.name })} title={`Show only ${c.name}`}>
                         {c.name}
                       </button>{" "}

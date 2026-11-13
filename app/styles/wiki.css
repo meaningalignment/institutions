@@ -2442,6 +2442,34 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 .req-hint-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; }
 .req-hint-list li { font-size: 12px; line-height: 1.6; padding: 0 8px; border-radius: 999px; background: var(--wash); color: var(--text); }
 .req-hints-edit { margin-top: 10px; font-size: 12px; color: var(--muted); }
+/* Stage: colour per stage, a badge column, a left edge, and a summary strip */
+.req-stage-wanted, .req-edge-wanted, .req-strip-wanted { --stage: #8a8984; }
+.req-stage-designing, .req-edge-designing, .req-strip-designing { --stage: #4f6fa8; }
+.req-stage-designed, .req-edge-designed, .req-strip-designed { --stage: #b07a12; }
+.req-stage-tested, .req-edge-tested, .req-strip-tested { --stage: #2f8a45; }
+.req-stage-inuse, .req-edge-inuse, .req-strip-inuse { --stage: #1f6b34; }
+.theme-dark .req-stage-designing, .theme-dark .req-edge-designing, .theme-dark .req-strip-designing { --stage: #8fb0e8; }
+.theme-dark .req-stage-designed, .theme-dark .req-edge-designed, .theme-dark .req-strip-designed { --stage: #e6c27a; }
+.theme-dark .req-stage-tested, .theme-dark .req-edge-tested, .theme-dark .req-strip-tested { --stage: #8fd3a0; }
+.theme-dark .req-stage-inuse, .theme-dark .req-edge-inuse, .theme-dark .req-strip-inuse { --stage: #b5e8c2; }
+.req-table tr.req-row > td.req-stage-cell { width: 118px; padding-left: 14px; box-shadow: inset 4px 0 0 var(--stage); border-right: 0 !important; }
+.req-stage-badge {
+  all: unset; box-sizing: border-box; cursor: pointer; display: block; width: 100%; text-align: center;
+  font-size: 12px; font-weight: 650; line-height: 1.3; padding: 6px 6px; border-radius: 6px;
+  color: var(--stage); border: 1.5px solid var(--stage); background: color-mix(in srgb, var(--stage) 8%, transparent);
+}
+.req-stage-badge:hover { background: color-mix(in srgb, var(--stage) 16%, transparent); }
+.req-stage-badge.req-stage-wanted { border-style: dashed; background: transparent; }
+.req-stage-badge.req-stage-inuse { background: var(--stage); color: var(--paper); }
+.req-stage-strip { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 16px; }
+.req-strip-item {
+  all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: baseline; gap: 7px;
+  padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--card);
+}
+.req-strip-item:hover { border-color: var(--stage); }
+.req-strip-item.is-active { border-color: var(--stage); box-shadow: inset 0 0 0 1px var(--stage); }
+.req-strip-count { font: 600 20px/1 var(--ui-font); font-variant-numeric: tabular-nums lining-nums; color: var(--stage); }
+.req-strip-label { font-size: 12px; color: var(--muted); }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {
@@ -2475,7 +2503,7 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
     }
   }
   .req-page { page: requests; max-width: none; padding: 0; }
-  .req-page .detail-back, .req-filters, .req-lens-link, .req-visions-panel, .req-popover, .req-row-edit, .req-row-tools,
+  .req-page .detail-back, .req-filters, .req-stage-strip, .req-lens-link, .req-visions-panel, .req-popover, .req-row-edit, .req-row-tools,
   .req-table td.req-sites { display: none !important; }
   .req-table tr.req-group th { break-after: avoid; page-break-after: avoid; }
   .req-title { margin-top: 0; }

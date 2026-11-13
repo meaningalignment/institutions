@@ -2279,10 +2279,7 @@ a.req-vision:hover { text-decoration: underline; }
   font: inherit; font-size: 13px; color: var(--ink); background: var(--card); flex: 1; min-width: 160px;
   border: 1px solid var(--line-strong); border-radius: var(--wiki-radius); padding: 4px 6px;
 }
-.req-search {
-  flex: 1; min-width: 220px; max-width: 520px; font: inherit; font-size: 14px; color: var(--ink);
-  background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--wiki-radius); padding: 6px 10px;
-}
+
 .req-filters { align-items: center; }
 .req-desc { margin: 6px 0 0; font-size: 13px; line-height: 1.5; color: var(--text); max-width: 640px; }
 .req-more { display: inline-block; margin-top: 4px; font-size: 12px; color: var(--accent); text-decoration: none; }
@@ -2300,6 +2297,68 @@ a.req-tag.req-vision { text-decoration: none; }
 }
 .req-group-desc { font: 400 12px/1.4 var(--ui-font); color: var(--faint); margin-left: 6px; }
 .req-place-edit .req-field { width: auto; flex: 1; }
+/* Search with pills and suggestions */
+.req-search {
+  position: relative; flex: 1; min-width: 240px; max-width: 620px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+  background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--wiki-radius); padding: 4px 6px; cursor: text;
+}
+.req-search:focus-within { border-color: var(--ink); }
+.req-search > input { all: unset; flex: 1; min-width: 120px; font-size: 14px; color: var(--ink); padding: 2px 4px; }
+.req-pill {
+  display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 1.6; color: var(--ink);
+  background: var(--wash); border: 1px solid var(--line-strong); border-radius: 999px; padding: 0 4px 0 8px;
+}
+.req-pill button { all: unset; cursor: pointer; color: var(--muted); padding: 0 4px; font-size: 14px; line-height: 1; }
+.req-pill button:hover { color: var(--ink); }
+.req-pill-kind { font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--faint); margin-right: 2px; }
+.req-suggest {
+  position: absolute; left: -1px; right: -1px; top: calc(100% + 4px); z-index: 20; list-style: none; margin: 0; padding: 4px;
+  background: var(--card); border: 1px solid var(--line-strong); border-radius: var(--wiki-radius); box-shadow: 0 8px 24px rgba(0,0,0,.14);
+}
+.req-suggest li { padding: 5px 8px; border-radius: 4px; font-size: 13px; color: var(--text); cursor: pointer; }
+.req-suggest li.is-active { background: var(--wash); color: var(--ink); }
+.req-suggest .req-pill-kind { display: inline-block; min-width: 58px; }
+
+/* Edit in place */
+.req-inline { cursor: text; border-radius: 3px; text-decoration: underline dashed var(--line-strong); text-underline-offset: 4px; white-space: pre-wrap; }
+.req-inline:hover, .req-inline:focus-visible { background: var(--wash); outline: none; }
+.req-inline.is-empty { color: var(--faint); font-style: italic; }
+.req-inline-input {
+  font: inherit; color: var(--ink); background: var(--card); width: 100%; box-sizing: border-box; resize: none; overflow: hidden;
+  border: 0; border-radius: 3px; outline: 1px solid var(--line-strong); padding: 0 2px; margin: 0 -2px; line-height: inherit;
+}
+.req-inline-input:focus { outline: 2px solid var(--accent); }
+.req-name-text { font-weight: 500; color: var(--ink); }
+.req-tag-line { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.req-tag-select {
+  appearance: none; -webkit-appearance: none; cursor: pointer; background: transparent; font: inherit; font-size: 11px; font-weight: 500;
+  padding: 0 18px 0 7px; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 9px) 55%, calc(100% - 5px) 55%; background-size: 4px 4px; background-repeat: no-repeat;
+}
+.req-tag-select:hover { border-color: var(--ink); }
+.req-more-edit { margin-top: 4px; font-size: 12px; color: var(--accent); }
+.req-row-actions { display: flex; gap: 14px; margin-top: 10px; }
+.req-link-btn { all: unset; cursor: pointer; font-size: 12px; color: var(--accent); }
+.req-link-btn:hover { text-decoration: underline; }
+.req-link-btn.req-danger { color: #b3261e; }
+.theme-dark .req-link-btn.req-danger { color: #ff8a80; }
+.req-row-edit {
+  all: unset; cursor: pointer; font-size: 11px; color: var(--faint); padding: 0 4px; opacity: 0; transition: opacity .12s;
+}
+.req-table tr:hover .req-row-edit, .req-row-edit:focus-visible { opacity: 1; }
+.req-row-edit:hover { color: var(--ink); text-decoration: underline; }
+@media (hover: none) { .req-row-edit { opacity: 1; } }
+.req-editing td { background: var(--wash); }
+.req-site-picker { position: relative; margin-top: 10px; }
+.req-site-picker input {
+  font: inherit; font-size: 13px; color: var(--ink); background: var(--card); width: 100%; box-sizing: border-box;
+  border: 1px solid var(--line-strong); border-radius: var(--wiki-radius); padding: 5px 8px;
+}
+.req-site-picker .req-suggest { position: static; margin-top: 4px; box-shadow: none; }
+.req-popover-actions { margin-top: 12px !important; }
+.req-hints-inline { font-size: 13px; line-height: 1.5; display: block; }
+.req-popover .req-popover-title .req-inline-input { font: inherit; }
+
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {
@@ -2333,7 +2392,7 @@ a.req-tag.req-vision { text-decoration: none; }
     }
   }
   .req-page { page: requests; max-width: none; padding: 0; }
-  .req-page .detail-back, .req-filters, .req-visions-panel, .req-popover,
+  .req-page .detail-back, .req-filters, .req-visions-panel, .req-popover, .req-row-edit, .req-row-actions,
   .req-table td.req-sites { display: none !important; }
   .req-table tr.req-group th { break-after: avoid; page-break-after: avoid; }
   .req-title { margin-top: 0; }

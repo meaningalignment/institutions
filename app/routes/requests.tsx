@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { Link, useFetcher } from "react-router";
 import type { Route } from "./+types/requests";
 import { getSignedInResearcher, requireAdminSession } from "../lib/auth.server";
@@ -27,7 +27,7 @@ import {
   rowName,
 } from "../lib/constants";
 
-type ActionResult = { ok: boolean; error?: string };
+type ActionResult = { ok: boolean; error?: string; createdId?: number };
 
 export async function loader({ request }: Route.LoaderArgs) {
   const [session, requests, visions] = await Promise.all([
@@ -65,7 +65,8 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
     } else if (intent === "delete-vision") {
       await deleteVision(String(fd.get("visionId") || ""));
     } else if (intent === "create-request") {
-      await createRequest(String(fd.get("row") || ""), String(fd.get("column") || ""));
+      const createdId = await createRequest(String(fd.get("row") || ""), String(fd.get("column") || ""));
+      return { ok: true, createdId };
     } else if (!id) {
       return { ok: false, error: "Missing id." };
     } else if (intent === "update-request") await updateRequestField(id, field, value);
@@ -110,77 +111,158 @@ function VisionTag({ vision }: { vision: RequestVision }) {
   );
 }
 
-// One field that saves itself: text fields on blur, selects on change.
-function Field({
+// ── Edit in place ──────────────────────────────────────────────────
+
+type Intent = "update-request" | "update-site";
+
+// Text that becomes an input (or textarea) of the same size when clicked, and
+// saves on blur or Enter (Cmd/Ctrl+Enter in multi-line fields). Escape cancels.
+function InlineText({
   intent,
   id,
   field,
   value,
-  kind = "input",
-  options,
+  multiline = false,
   placeholder,
   className = "",
 }: {
-  intent: "update-request" | "update-site";
+  intent: Intent;
   id: number;
   field: string;
   value: string;
-  kind?: "input" | "textarea" | "select";
-  options?: readonly { id: string; name: string }[];
-  placeholder?: string;
+  multiline?: boolean;
+  placeholder: string;
   className?: string;
 }) {
   const fetcher = useFetcher<ActionResult>();
-  const [draft, setDraft] = useState(value);
-  const save = (next: string) => {
-    if (next === value) return;
-    fetcher.submit({ intent, id: String(id), field, value: next }, { method: "post" });
+  const pending = fetcher.formData?.get("value");
+  const shown = typeof pending === "string" ? pending : value;
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(shown);
+  const ref = useRef<HTMLTextAreaElement & HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!editing) return;
+    const el = ref.current;
+    if (!el) return;
+    el.focus();
+    el.setSelectionRange(el.value.length, el.value.length);
+  }, [editing]);
+  useEffect(() => {
+    const el = ref.current;
+    if (editing && multiline && el) {
+      el.style.height = "auto";
+      el.style.height = `${el.scrollHeight}px`;
+    }
+  }, [draft, editing, multiline]);
+
+  const commit = () => {
+    setEditing(false);
+    if (draft !== shown) fetcher.submit({ intent, id: String(id), field, value: draft }, { method: "post" });
+  };
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setDraft(shown);
+      setEditing(false);
+    } else if (e.key === "Enter" && (!multiline || e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      commit();
+    }
   };
   const error = fetcher.data && !fetcher.data.ok ? fetcher.data.error : null;
-  const saving = fetcher.state !== "idle";
+
   return (
-    <span className={`req-field ${className}`}>
-      {kind === "select" ? (
-        <select
-          value={draft}
-          onChange={(e) => {
-            setDraft(e.target.value);
-            save(e.target.value);
+    <>
+      {editing ? (
+        multiline ? (
+          <textarea
+            ref={ref}
+            className={`req-inline-input ${className}`}
+            value={draft}
+            placeholder={placeholder}
+            rows={1}
+            onChange={(e) => setDraft(e.target.value)}
+            onBlur={commit}
+            onKeyDown={onKeyDown}
+          />
+        ) : (
+          <input
+            ref={ref}
+            className={`req-inline-input ${className}`}
+            value={draft}
+            placeholder={placeholder}
+            onChange={(e) => setDraft(e.target.value)}
+            onBlur={commit}
+            onKeyDown={onKeyDown}
+          />
+        )
+      ) : (
+        <span
+          role="button"
+          tabIndex={0}
+          title="Click to edit"
+          className={`req-inline ${className}${shown ? "" : " is-empty"}`}
+          onClick={() => {
+            setDraft(shown);
+            setEditing(true);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setDraft(shown);
+              setEditing(true);
+            }
           }}
         >
-          {options!.map((o) => (
-            <option key={o.id} value={o.id}>
-              {o.name}
-            </option>
-          ))}
-        </select>
-      ) : kind === "textarea" ? (
-        <textarea
-          value={draft}
-          placeholder={placeholder}
-          rows={Math.min(8, Math.max(2, draft.split("\n").length + 1))}
-          onChange={(e) => setDraft(e.target.value)}
-          onBlur={() => save(draft)}
-        />
-      ) : (
-        <input
-          value={draft}
-          placeholder={placeholder}
-          onChange={(e) => setDraft(e.target.value)}
-          onBlur={() => save(draft)}
-        />
+          {shown || placeholder}
+        </span>
       )}
-      {(error || saving) && <span className={error ? "req-error" : "req-saving"}>{error || "Saving…"}</span>}
-    </span>
+      {error && <span className="req-error">{error}</span>}
+    </>
   );
 }
 
-function DeleteButton({ intent, id, label }: { intent: string; id: number; label: string }) {
+// A tag-shaped select that saves on change.
+function InlineSelect({
+  intent,
+  id,
+  field,
+  value,
+  options,
+  className = "",
+}: {
+  intent: Intent;
+  id: number;
+  field: string;
+  value: string;
+  options: readonly { id: string; name: string }[];
+  className?: string;
+}) {
+  const fetcher = useFetcher<ActionResult>();
+  const pending = fetcher.formData?.get("value");
+  const shown = typeof pending === "string" ? pending : value;
+  return (
+    <select
+      className={`req-tag req-tag-select ${className}`}
+      value={shown}
+      onChange={(e) =>
+        fetcher.submit({ intent, id: String(id), field, value: e.target.value }, { method: "post" })
+      }
+    >
+      {options.map((o) => (
+        <option key={o.id} value={o.id}>
+          {o.name}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function DeleteLink({ intent, id, label }: { intent: string; id: number; label: string }) {
   const fetcher = useFetcher<ActionResult>();
   return (
     <button
       type="button"
-      className="req-btn-ghost"
+      className="req-link-btn req-danger"
       disabled={fetcher.state !== "idle"}
       onClick={() => {
         if (confirm(`Delete ${label}?`)) fetcher.submit({ intent, id: String(id) }, { method: "post" });
@@ -191,36 +273,83 @@ function DeleteButton({ intent, id, label }: { intent: string; id: number; label
   );
 }
 
-function AddSite({ requestId }: { requestId: number }) {
+const statusOptions = REQUEST_STATUSES.map((s) => ({ id: s, name: s }));
+
+// ── Sites ──────────────────────────────────────────────────────────
+
+// Type a place: pick a site already used on another request, or add a new one.
+function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: string[]; allSites: string[] }) {
   const fetcher = useFetcher<ActionResult>();
-  const [name, setName] = useState("");
-  const submit = () => {
-    if (!name.trim()) return;
+  const [query, setQuery] = useState("");
+  const [active, setActive] = useState(0);
+  const q = query.trim().toLowerCase();
+  const takenSet = new Set(taken.map((t) => t.toLowerCase()));
+  const matches = allSites
+    .filter((s) => !takenSet.has(s.toLowerCase()) && (!q || s.toLowerCase().includes(q)))
+    .slice(0, 6);
+  const exact = allSites.some((s) => s.toLowerCase() === q) || takenSet.has(q);
+  const options = [...matches.map((name) => ({ name, isNew: false })), ...(q && !exact ? [{ name: query.trim(), isNew: true }] : [])];
+
+  const add = (name: string) => {
     fetcher.submit({ intent: "create-site", id: String(requestId), value: name }, { method: "post" });
-    setName("");
+    setQuery("");
+    setActive(0);
   };
+
   return (
-    <div className="req-add-site">
+    <div className="req-site-picker">
       <input
-        value={name}
-        placeholder="Add a real place, e.g. Westfield, NJ eldercare office"
-        onChange={(e) => setName(e.target.value)}
+        value={query}
+        placeholder="Add a site: type a real place, or pick one used elsewhere"
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setActive(0);
+        }}
         onKeyDown={(e) => {
-          if (e.key === "Enter") submit();
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            setActive((a) => Math.min(a + 1, options.length - 1));
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            setActive((a) => Math.max(a - 1, 0));
+          } else if (e.key === "Enter" && options[active]) {
+            e.preventDefault();
+            add(options[active].name);
+          }
         }}
       />
-      <button type="button" className="req-btn-ghost" onClick={submit} disabled={!name.trim()}>
-        Add site
-      </button>
+      {(q || matches.length > 0) && options.length > 0 && (
+        <ul className="req-suggest" role="listbox">
+          {options.map((o, i) => (
+            <li
+              key={`${o.isNew}-${o.name}`}
+              role="option"
+              aria-selected={i === active}
+              className={i === active ? "is-active" : ""}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                add(o.name);
+              }}
+              onMouseEnter={() => setActive(i)}
+            >
+              {o.isNew ? (
+                <>
+                  Add <strong>{o.name}</strong> as a new site
+                </>
+              ) : (
+                o.name
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
       {fetcher.data && !fetcher.data.ok && <span className="req-error">{fetcher.data.error}</span>}
     </div>
   );
 }
 
-const statusOptions = REQUEST_STATUSES.map((s) => ({ id: s, name: s }));
-
-// Site info opens in a popover (native Popover API), for viewing and editing alike.
-function Site({ site, editing }: { site: RequestSite; editing: boolean }) {
+// Site info opens in a popover (native Popover API); admins edit it in place.
+function Site({ site, canEdit }: { site: RequestSite; canEdit: boolean }) {
   const popoverId = `req-site-${site.id}`;
   const show = (label: string, text: string) =>
     text ? (
@@ -237,25 +366,46 @@ function Site({ site, editing }: { site: RequestSite; editing: boolean }) {
       </button>
       <div id={popoverId} popover="auto" className="req-popover">
         <div className="req-popover-head">
-          <span className="req-popover-title">{site.name}</span>
+          <span className="req-popover-title">
+            {canEdit ? (
+              <InlineText intent="update-site" id={site.id} field="name" value={site.name} placeholder="Site name" />
+            ) : (
+              site.name
+            )}
+          </span>
           <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
             ×
           </button>
         </div>
-        {editing ? (
-          <div className="req-site-edit">
-            <label>Name</label>
-            <Field intent="update-site" id={site.id} field="name" value={site.name} />
-            <label>Status</label>
-            <Field intent="update-site" id={site.id} field="status" value={site.status} kind="select" options={statusOptions} />
-            <label>Currently doing instead</label>
-            <Field intent="update-site" id={site.id} field="instead" value={site.instead} kind="textarea" />
-            <label>Pain point</label>
-            <Field intent="update-site" id={site.id} field="pain" value={site.pain} kind="textarea" />
-            <label>How we'd recognize success</label>
-            <Field intent="update-site" id={site.id} field="success" value={site.success} kind="textarea" />
-            <DeleteButton intent="delete-site" id={site.id} label={`the site "${site.name}"`} />
-          </div>
+        {canEdit ? (
+          <dl>
+            <dt>Status</dt>
+            <dd>
+              <InlineSelect
+                intent="update-site"
+                id={site.id}
+                field="status"
+                value={site.status}
+                options={statusOptions}
+                className={`req-status-${site.status}`}
+              />
+            </dd>
+            <dt>Currently doing instead</dt>
+            <dd>
+              <InlineText intent="update-site" id={site.id} field="instead" value={site.instead} multiline placeholder="What do they do today?" />
+            </dd>
+            <dt>Pain point</dt>
+            <dd>
+              <InlineText intent="update-site" id={site.id} field="pain" value={site.pain} multiline placeholder="What hurts?" />
+            </dd>
+            <dt>How we'd recognize success</dt>
+            <dd>
+              <InlineText intent="update-site" id={site.id} field="success" value={site.success} multiline placeholder="What would we see if it worked?" />
+            </dd>
+            <dd className="req-popover-actions">
+              <DeleteLink intent="delete-site" id={site.id} label={`the site "${site.name}" from this request`} />
+            </dd>
+          </dl>
         ) : site.instead || site.pain || site.success ? (
           <dl>
             <dt>Status</dt>
@@ -274,7 +424,7 @@ function Site({ site, editing }: { site: RequestSite; editing: boolean }) {
 
 // "No sites yet" / "N sites" opens a popover with the request's sites and
 // site hints. Site popovers opened from inside it nest as its children.
-function SitesPopover({ r, editing }: { r: InstitutionRequest; editing: boolean }) {
+function SitesPopover({ r, canEdit, allSites }: { r: InstitutionRequest; canEdit: boolean; allSites: string[] }) {
   const popoverId = `req-sites-${r.id}`;
   const label = r.sites.length ? `${r.sites.length} site${r.sites.length === 1 ? "" : "s"}` : "No sites yet";
   const hints = r.siteHints.split(/\n+/).filter((line) => line.trim());
@@ -292,20 +442,21 @@ function SitesPopover({ r, editing }: { r: InstitutionRequest; editing: boolean 
         </div>
         <div className="req-popover-section">Sites</div>
         {r.sites.length ? (
-          r.sites.map((s) => <Site key={s.id} site={s} editing={editing} />)
+          r.sites.map((s) => <Site key={s.id} site={s} canEdit={canEdit} />)
         ) : (
           <p className="req-empty">No sites yet.</p>
         )}
-        {editing && <AddSite requestId={r.id} />}
+        {canEdit && <SitePicker requestId={r.id} taken={r.sites.map((s) => s.name)} allSites={allSites} />}
         <div className="req-popover-section">Site hints</div>
-        {editing ? (
-          <Field
+        {canEdit ? (
+          <InlineText
             intent="update-request"
             id={r.id}
             field="siteHints"
             value={r.siteHints}
-            kind="textarea"
-            placeholder="Who might have demand for this? One per paragraph."
+            multiline
+            className="req-hints-inline"
+            placeholder="Who might have demand for this?"
           />
         ) : hints.length ? (
           <div className="req-hints">
@@ -321,80 +472,109 @@ function SitesPopover({ r, editing }: { r: InstitutionRequest; editing: boolean 
   );
 }
 
+// ── Rows ───────────────────────────────────────────────────────────
+
 function RequestRow({
   r,
-  editing,
   visions,
+  canEdit,
+  editing,
+  onEdit,
+  allSites,
 }: {
   r: InstitutionRequest;
-  editing: boolean;
   visions: RequestVision[];
+  canEdit: boolean;
+  editing: boolean;
+  onEdit: (on: boolean) => void;
+  allSites: string[];
 }) {
-  const visionOptions = [{ id: "", name: "None" }, ...visions.map((v) => ({ id: v.id, name: v.label }))];
   const vision = visions.find((v) => v.id === r.vision);
-  if (editing) {
-    return (
-      <tr className="req-editing">
-        <td className="req-name">
-          <Field intent="update-request" id={r.id} field="name" value={r.name} kind="textarea" />
-          <div className="req-place-edit">
-            <Field intent="update-request" id={r.id} field="column" value={r.column} kind="select" options={COLS} />
-            <Field intent="update-request" id={r.id} field="row" value={r.row} kind="select" options={ROWS} />
-            <Field intent="update-request" id={r.id} field="vision" value={r.vision ?? ""} kind="select" options={visionOptions} />
-          </div>
-          <label>Description</label>
-          <Field
-            intent="update-request"
-            id={r.id}
-            field="description"
-            value={r.description}
-            kind="textarea"
-            placeholder="Two or three sentences on what needs to be built."
-          />
-          <label>Read more link</label>
-          <Field intent="update-request" id={r.id} field="readMoreUrl" value={r.readMoreUrl} placeholder="https://…" />
-          <DeleteButton intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />
-        </td>
-        <td className="req-sites">
-          <SitesPopover r={r} editing />
-        </td>
-      </tr>
-    );
-  }
+  const visionOptions = [{ id: "", name: "No vision" }, ...visions.map((v) => ({ id: v.id, name: v.label }))];
   return (
-    <tr>
+    <tr className={editing ? "req-editing" : undefined}>
       <td className="req-name">
-        <div className="req-title-line">
-          <Link to={`/cell/${r.row}/${r.column}${r.vision && VISIONS.some((v) => v.id === r.vision) ? `?visions=${r.vision}` : ""}`}>{r.name}</Link>
-          <span className="req-tag">{rowName(r.row)}</span>
-          {r.vision && (vision ? <VisionTag vision={vision} /> : <span className="req-tag">{r.vision}</span>)}
-        </div>
-        {r.description && <p className="req-desc">{r.description}</p>}
-        {r.readMoreUrl && (
-          <a className="req-more" href={r.readMoreUrl} target="_blank" rel="noopener noreferrer">
-            Read more ↗
-          </a>
+        {editing ? (
+          <>
+            <div className="req-title-line">
+              <InlineText intent="update-request" id={r.id} field="name" value={r.name} multiline placeholder="Name" className="req-name-text" />
+            </div>
+            <div className="req-tag-line">
+              <InlineSelect intent="update-request" id={r.id} field="column" value={r.column} options={COLS} />
+              <InlineSelect intent="update-request" id={r.id} field="row" value={r.row} options={ROWS} />
+              <InlineSelect
+                intent="update-request"
+                id={r.id}
+                field="vision"
+                value={r.vision ?? ""}
+                options={visionOptions}
+                className="req-vision"
+              />
+            </div>
+            <p className="req-desc">
+              <InlineText
+                intent="update-request"
+                id={r.id}
+                field="description"
+                value={r.description}
+                multiline
+                placeholder="Add two or three sentences on what needs to be built"
+              />
+            </p>
+            <div className="req-more-edit">
+              <InlineText intent="update-request" id={r.id} field="readMoreUrl" value={r.readMoreUrl} placeholder="Add a read-more link" />
+            </div>
+            <div className="req-row-actions">
+              <button type="button" className="req-link-btn" onClick={() => onEdit(false)}>
+                Done
+              </button>
+              <DeleteLink intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="req-title-line">
+              <Link to={`/cell/${r.row}/${r.column}${r.vision && VISIONS.some((v) => v.id === r.vision) ? `?visions=${r.vision}` : ""}`}>
+                {r.name}
+              </Link>
+              <span className="req-tag">{rowName(r.row)}</span>
+              {r.vision && (vision ? <VisionTag vision={vision} /> : <span className="req-tag">{r.vision}</span>)}
+              {canEdit && (
+                <button type="button" className="req-row-edit" onClick={() => onEdit(true)} aria-label={`Edit ${r.name}`}>
+                  Edit
+                </button>
+              )}
+            </div>
+            {r.description && <p className="req-desc">{r.description}</p>}
+            {r.readMoreUrl && (
+              <a className="req-more" href={r.readMoreUrl} target="_blank" rel="noopener noreferrer">
+                Read more ↗
+              </a>
+            )}
+          </>
         )}
       </td>
       <td className="req-sites">
-        <SitesPopover r={r} editing={false} />
+        <SitesPopover r={r} canEdit={canEdit} allSites={allSites} />
       </td>
     </tr>
   );
 }
 
-function NewRequest() {
+// ── Admin toolbar ──────────────────────────────────────────────────
+
+function NewRequest({ onCreated }: { onCreated: (id: number) => void }) {
   const fetcher = useFetcher<ActionResult>();
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data?.createdId) onCreated(fetcher.data.createdId);
+  }, [fetcher.state, fetcher.data]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <button
       type="button"
       className="req-btn-ghost"
       disabled={fetcher.state !== "idle"}
       onClick={() =>
-        fetcher.submit(
-          { intent: "create-request", row: ROWS[0].id, column: COLS[0].id },
-          { method: "post" }
-        )
+        fetcher.submit({ intent: "create-request", row: ROWS[0].id, column: COLS[0].id }, { method: "post" })
       }
     >
       New request
@@ -402,7 +582,6 @@ function NewRequest() {
   );
 }
 
-// Edit mode: rename vision tags, set their links, add or remove them.
 function VisionRow({ vision }: { vision: RequestVision }) {
   const fetcher = useFetcher<ActionResult>();
   const save = (field: string, value: string, current: string) => {
@@ -420,7 +599,7 @@ function VisionRow({ vision }: { vision: RequestVision }) {
       />
       <button
         type="button"
-        className="req-btn-ghost"
+        className="req-link-btn req-danger"
         onClick={() => {
           if (confirm(`Delete the vision "${vision.label}"? Requests tagged with it become untagged.`))
             fetcher.submit({ intent: "delete-vision", visionId: vision.id }, { method: "post" });
@@ -433,7 +612,8 @@ function VisionRow({ vision }: { vision: RequestVision }) {
   );
 }
 
-function VisionsPanel({ visions }: { visions: RequestVision[] }) {
+// Vision tags (name + link) live in a popover off the admin toolbar.
+function VisionsPopover({ visions }: { visions: RequestVision[] }) {
   const fetcher = useFetcher<ActionResult>();
   const [label, setLabel] = useState("");
   const [url, setUrl] = useState("");
@@ -444,46 +624,223 @@ function VisionsPanel({ visions }: { visions: RequestVision[] }) {
     setUrl("");
   };
   return (
-    <div className="req-visions-panel">
-      <div className="req-popover-section">Vision tags</div>
-      {visions.map((v) => (
-        <VisionRow key={v.id} vision={v} />
-      ))}
-      <div className="req-vision-row">
-        <input value={label} placeholder="New vision" onChange={(e) => setLabel(e.target.value)} />
-        <input value={url} placeholder="https://… (optional)" onChange={(e) => setUrl(e.target.value)} />
-        <button type="button" className="req-btn-ghost" onClick={add} disabled={!label.trim()}>
-          Add vision
-        </button>
-        {fetcher.data && !fetcher.data.ok && <span className="req-error">{fetcher.data.error}</span>}
+    <>
+      <button type="button" className="req-btn-ghost" popoverTarget="req-visions">
+        Vision tags
+      </button>
+      <div id="req-visions" popover="auto" className="req-popover">
+        <div className="req-popover-head">
+          <span className="req-popover-title">Vision tags</span>
+          <button type="button" className="req-popover-close" popoverTarget="req-visions" popoverTargetAction="hide" aria-label="Close">
+            ×
+          </button>
+        </div>
+        {visions.map((v) => (
+          <VisionRow key={v.id} vision={v} />
+        ))}
+        <div className="req-vision-row">
+          <input value={label} placeholder="New vision" onChange={(e) => setLabel(e.target.value)} />
+          <input value={url} placeholder="https://… (optional)" onChange={(e) => setUrl(e.target.value)} />
+          <button type="button" className="req-btn-ghost" onClick={add} disabled={!label.trim()}>
+            Add
+          </button>
+          {fetcher.data && !fetcher.data.ok && <span className="req-error">{fetcher.data.error}</span>}
+        </div>
       </div>
+    </>
+  );
+}
+
+// ── Search ─────────────────────────────────────────────────────────
+
+type PillKind = "column" | "row" | "vision" | "status" | "site" | "text";
+interface Pill {
+  kind: PillKind;
+  value: string;
+  label: string;
+}
+const KIND_LABEL: Record<PillKind, string> = {
+  column: "Column",
+  row: "Row",
+  vision: "Vision",
+  status: "Status",
+  site: "Site",
+  text: "Text",
+};
+
+function textOf(r: InstitutionRequest, visions: RequestVision[]) {
+  return [
+    visions.find((v) => v.id === r.vision)?.label ?? r.vision ?? "",
+    colName(r.column),
+    rowName(r.row),
+    r.name,
+    r.description,
+    r.siteHints,
+    ...r.sites.flatMap((s) => [s.name, s.instead, s.pain, s.success, s.status]),
+  ]
+    .join(" ")
+    .toLowerCase();
+}
+
+// Pills of different kinds narrow the list (AND); pills of the same kind
+// widen it (OR). Text pills, and whatever is being typed, must each appear.
+function matches(r: InstitutionRequest, pills: Pill[], typed: string, visions: RequestVision[]) {
+  const byKind = new Map<PillKind, string[]>();
+  for (const p of pills) byKind.set(p.kind, [...(byKind.get(p.kind) ?? []), p.value]);
+  const test: Record<Exclude<PillKind, "text">, (v: string) => boolean> = {
+    column: (v) => r.column === v,
+    row: (v) => r.row === v,
+    vision: (v) => r.vision === v,
+    status: (v) => r.sites.some((s) => s.status === v),
+    site: (v) => r.sites.some((s) => s.name.toLowerCase() === v),
+  };
+  for (const [kind, values] of byKind) {
+    if (kind === "text") continue;
+    if (!values.some(test[kind])) return false;
+  }
+  const words = [...(byKind.get("text") ?? []), ...typed.toLowerCase().split(/\s+/)].filter(Boolean);
+  if (!words.length) return true;
+  const hay = textOf(r, visions);
+  return words.every((w) => hay.includes(w));
+}
+
+function SearchBar({
+  pills,
+  setPills,
+  typed,
+  setTyped,
+  suggestions,
+}: {
+  pills: Pill[];
+  setPills: (p: Pill[]) => void;
+  typed: string;
+  setTyped: (s: string) => void;
+  suggestions: Pill[];
+}) {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const q = typed.trim().toLowerCase();
+  const chosen = new Set(pills.map((p) => `${p.kind}:${p.value}`));
+  const options = q
+    ? [
+        ...suggestions
+          .filter((s) => !chosen.has(`${s.kind}:${s.value}`) && s.label.toLowerCase().includes(q))
+          .slice(0, 8),
+        { kind: "text" as const, value: q, label: typed.trim() },
+      ]
+    : [];
+
+  const choose = (p: Pill) => {
+    setPills([...pills, p]);
+    setTyped("");
+    setActive(0);
+    inputRef.current?.focus();
+  };
+
+  return (
+    <div className="req-search" onClick={() => inputRef.current?.focus()}>
+      {pills.map((p, i) => (
+        <span key={`${p.kind}:${p.value}`} className={`req-pill req-pill-${p.kind}`}>
+          <span className="req-pill-kind">{KIND_LABEL[p.kind]}</span>
+          {p.label}
+          <button
+            type="button"
+            aria-label={`Remove ${p.label}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setPills(pills.filter((_, j) => j !== i));
+            }}
+          >
+            ×
+          </button>
+        </span>
+      ))}
+      <input
+        ref={inputRef}
+        value={typed}
+        placeholder={pills.length ? "" : "Search by column, row, vision, site, status or any text"}
+        aria-label="Search requests"
+        onChange={(e) => {
+          setTyped(e.target.value);
+          setActive(0);
+          setOpen(true);
+        }}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            setActive((a) => Math.min(a + 1, options.length - 1));
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            setActive((a) => Math.max(a - 1, 0));
+          } else if (e.key === "Enter" && options[active]) {
+            e.preventDefault();
+            choose(options[active]);
+          } else if (e.key === "Backspace" && !typed && pills.length) {
+            setPills(pills.slice(0, -1));
+          } else if (e.key === "Escape") {
+            setTyped("");
+          }
+        }}
+      />
+      {open && options.length > 0 && (
+        <ul className="req-suggest" role="listbox">
+          {options.map((o, i) => (
+            <li
+              key={`${o.kind}:${o.value}`}
+              role="option"
+              aria-selected={i === active}
+              className={i === active ? "is-active" : ""}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                choose(o);
+              }}
+              onMouseEnter={() => setActive(i)}
+            >
+              <span className="req-pill-kind">{o.kind === "text" ? "Contains" : KIND_LABEL[o.kind]}</span>
+              {o.label}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
 
-export default function Requests({ loaderData: { requests, visions, canEdit } }: Route.ComponentProps) {
-  const [query, setQuery] = useState("");
-  const [editing, setEditing] = useState(false);
+// ── Page ───────────────────────────────────────────────────────────
 
-  // Every word must appear somewhere in the request: its vision, column, row,
-  // name, site hints, or any site's name, details or status.
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
-  const shown = words.length
-    ? requests.filter((r) => {
-        const haystack = [
-          visions.find((v) => v.id === r.vision)?.label ?? r.vision ?? "",
-          colName(r.column),
-          rowName(r.row),
-          r.name,
-          r.siteHints,
-          r.description,
-          ...r.sites.flatMap((s) => [s.name, s.instead, s.pain, s.success, s.status]),
-        ]
-          .join(" ")
-          .toLowerCase();
-        return words.every((w) => haystack.includes(w));
-      })
-    : requests;
+export default function Requests({ loaderData: { requests, visions, canEdit } }: Route.ComponentProps) {
+  const [pills, setPills] = useState<Pill[]>([]);
+  const [typed, setTyped] = useState("");
+  const [editingIds, setEditingIds] = useState<Set<number>>(new Set());
+  const setEditing = (id: number, on: boolean) =>
+    setEditingIds((prev) => {
+      const next = new Set(prev);
+      if (on) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+
+  const allSites = useMemo(() => {
+    const seen = new Map<string, string>();
+    for (const r of requests) for (const s of r.sites) if (!seen.has(s.name.toLowerCase())) seen.set(s.name.toLowerCase(), s.name);
+    return [...seen.values()].sort((a, b) => a.localeCompare(b));
+  }, [requests]);
+
+  const suggestions = useMemo<Pill[]>(
+    () => [
+      ...COLS.map((c) => ({ kind: "column" as const, value: c.id, label: c.name })),
+      ...ROWS.map((r) => ({ kind: "row" as const, value: r.id, label: r.name })),
+      ...visions.map((v) => ({ kind: "vision" as const, value: v.id, label: v.label })),
+      ...REQUEST_STATUSES.map((s) => ({ kind: "status" as const, value: s, label: s })),
+      ...allSites.map((s) => ({ kind: "site" as const, value: s.toLowerCase(), label: s })),
+    ],
+    [visions, allSites]
+  );
+
+  const shown = requests.filter((r) => editingIds.has(r.id) || matches(r, pills, typed, visions));
 
   return (
     <div className="req-page">
@@ -491,33 +848,20 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
         ← Back to grid
       </Link>
       <h1 className="req-title">Requests for institutions</h1>
-      <p className="req-lede">
-        Institutions we'd like designed and where they could be adopted.
-      </p>
+      <p className="req-lede">Institutions we'd like designed and where they could be adopted.</p>
 
       <div className="req-filters">
-        <input
-          type="search"
-          className="req-search"
-          value={query}
-          placeholder="Search requests, visions, rows, columns, sites and hints"
-          aria-label="Search requests"
-          onChange={(e) => setQuery(e.target.value)}
-        />
+        <SearchBar pills={pills} setPills={setPills} typed={typed} setTyped={setTyped} suggestions={suggestions} />
         <span className="req-count">
           {shown.length} of {requests.length} requests
         </span>
         {canEdit && (
           <span className="req-edit-controls">
-            {editing && <NewRequest />}
-            <button type="button" className="req-btn" onClick={() => setEditing((e) => !e)}>
-              {editing ? "Done editing" : "Edit"}
-            </button>
+            <VisionsPopover visions={visions} />
+            <NewRequest onCreated={(id) => setEditing(id, true)} />
           </span>
         )}
       </div>
-
-      {canEdit && editing && <VisionsPanel visions={visions} />}
 
       <div className="req-table-wrap">
         <table className="req-table">
@@ -532,7 +876,15 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
                   </th>
                 </tr>
                 {group.map((r) => (
-                  <RequestRow key={r.id} r={r} editing={editing} visions={visions} />
+                  <RequestRow
+                    key={r.id}
+                    r={r}
+                    visions={visions}
+                    canEdit={canEdit}
+                    editing={editingIds.has(r.id)}
+                    onEdit={(on) => setEditing(r.id, on)}
+                    allSites={allSites}
+                  />
                 ))}
               </tbody>
             );

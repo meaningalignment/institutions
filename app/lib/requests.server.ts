@@ -152,6 +152,11 @@ export async function deleteRequest(id: number) {
 
 export async function createSite(requestId: number, name: string): Promise<number> {
   check(!!name.trim(), "Name the site.");
+  const existing = (await getSql()`
+    SELECT 1 FROM institutions_request_sites
+    WHERE request_id = ${requestId} AND lower(name) = lower(${name.trim()})
+  `) as unknown[];
+  check(existing.length === 0, "That site is already on this request.");
   const rows = (await getSql()`
     INSERT INTO institutions_request_sites (request_id, name, position)
     VALUES (${requestId}, ${name.trim()},

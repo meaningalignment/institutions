@@ -1050,9 +1050,9 @@ function RequestRow({
                 </button>
               )}
             </div>
-            {(!groupCol || r.cols.length > 1) && (
+            {groupCol && r.cols.length > 1 && (
               <div className="req-also">
-                {groupCol ? "Also in" : r.cols.length > 1 ? "Columns" : "Column"}{" "}
+                Also in{" "}
                 {r.cols.filter((c) => c !== groupCol).map((c) => (
                   <FilterTag key={c} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
                 ))}

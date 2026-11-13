@@ -107,7 +107,7 @@ export function meta(_: Route.MetaArgs) {
   return [
     { title },
     { name: "description", content: desc },
-    { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/requests/` },
+    { tagName: "link", rel: "canonical", href: `${SITE_ORIGIN}/tracker/` },
     { property: "og:title", content: title },
     { property: "og:description", content: desc },
     ...OG_IMAGE_META,

@@ -2457,7 +2457,7 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
     size: letter portrait;
     margin: 0.6in 0.65in 0.7in;
     @bottom-left {
-      content: "Requests for institutions · agi-institutions.org/requests";
+      content: "Requests for institutions · agi-institutions.org/tracker";
       color: #8a8984;
       font: 8pt -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     }

@@ -11,7 +11,8 @@ export default [
   route("curriculum", "routes/curriculum.tsx"),
   route("resources", "routes/resources.tsx"), // Canonical reading per field
   route("theory-of-change", "routes/theory-of-change.tsx"),
-  route("requests", "routes/requests.tsx"), // Requests for new institution designs
+  route("tracker", "routes/requests.tsx"), // Requests for new institution designs
+  route("requests", "routes/requests-redirect.tsx"), // Old URL → /tracker
   route("project-updates", "routes/project-updates.tsx"),
   route("researchers", "routes/researchers.tsx"), // Community page (DB)
   route("researchers/signal", "routes/researchers-signal.tsx"), // Signal group members, A–Z (DB)

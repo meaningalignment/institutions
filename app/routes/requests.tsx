@@ -583,25 +583,6 @@ function SitesPopover({ r, canEdit, allSites, uid }: { r: InstitutionRequest; ca
 
 // The stage tag sits under the description: "Design wanted", "Designed" or
 // "Tested", followed by the links behind it (cases, designs, test reports).
-// The request's links, inline under the description.
-function LinksLine({ links }: { links: RequestLink[] }) {
-  if (!links.length) return null;
-  return (
-    <div className="req-stage-line">
-      {LINK_KINDS.flatMap((kind) =>
-        links
-          .filter((p) => p.kind === kind)
-          .map((p, i) => (
-            <a key={`${kind}-${i}`} className="req-link" href={p.url} target="_blank" rel="noopener noreferrer">
-              <span className="req-link-kind">{LINK_KIND_LABEL[kind]}</span>
-              {p.title} ↗
-            </a>
-          ))
-      )}
-    </div>
-  );
-}
-
 // The stage badge that leads each row; it opens a popover of all the links.
 function StageBadge({ uid, links }: { uid: string; links: RequestLink[] }) {
   const stage = requestStage(links);
@@ -935,11 +916,34 @@ function ScoresEditor({ scores, onChange }: { scores: RequestScores; onChange: (
   );
 }
 
-function ScoresLine({ scores }: { scores: RequestScores }) {
-  if (SCORE_KEYS.every((k) => scores[k] == null)) return null;
+// Short summary of a request's links, e.g. "1 case · 2 designs".
+function linksSummary(links: RequestLink[]): string {
+  const plural: Record<LinkKind, [string, string]> = {
+    case: ["case", "cases"],
+    project: ["project", "projects"],
+    design: ["design", "designs"],
+    test: ["test report", "test reports"],
+    use: ["deployment", "deployments"],
+  };
+  return LINK_KINDS.map((k) => [k, links.filter((l) => l.kind === k).length] as const)
+    .filter(([, n]) => n > 0)
+    .map(([k, n]) => `${n} ${plural[k][n === 1 ? 0 : 1]}`)
+    .join(" · ");
+}
+
+// One meta line under the description: a links summary (opening the links
+// popover) and the ranking scores.
+function ScoresLine({ scores, links, uid }: { scores: RequestScores; links: RequestLink[]; uid: string }) {
+  const hasScores = SCORE_KEYS.some((k) => scores[k] != null);
+  if (!hasScores && !links.length) return null;
   const p = priority(scores);
   return (
     <div className="req-scores">
+      {links.length > 0 && (
+        <button type="button" className="req-links-summary" popoverTarget={`req-links-${uid}`}>
+          {linksSummary(links)}
+        </button>
+      )}
       {SCORE_KEYS.map((k) => (
         <span key={k} title={SCORE_HELP[k]}>
           {SCORE_LABEL[k]} <strong>{scores[k] ?? "–"}</strong>
@@ -1103,8 +1107,7 @@ function RequestRow({
               </div>
             )}
             {r.description && <p className="req-desc">{r.description}</p>}
-            <LinksLine links={r.links} />
-            <ScoresLine scores={r.scores} />
+            <ScoresLine scores={r.scores} links={r.links} uid={uid} />
           </>
         )}
       </td>

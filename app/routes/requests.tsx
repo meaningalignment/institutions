@@ -519,7 +519,7 @@ function RequestRow({
               <InlineText intent="update-request" id={r.id} field="readMoreUrl" value={r.readMoreUrl} placeholder="Add a read-more link" />
             </div>
             <div className="req-row-actions">
-              <button type="button" className="req-link-btn" onClick={() => onEdit(false)}>
+              <button type="button" className="req-btn" onClick={() => onEdit(false)}>
                 Done
               </button>
               <DeleteLink intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />

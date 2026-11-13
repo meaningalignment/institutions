@@ -892,7 +892,7 @@ function ScoresEditor({ scores, onChange }: { scores: RequestScores; onChange: (
         </label>
       ))}
       <span className="req-priority" title="Leverage × (6 − likely anyway)">
-        Priority {p ?? "–"}
+        Importance {p ?? "–"}
       </span>
     </div>
   );
@@ -910,7 +910,7 @@ function ScoresLine({ scores }: { scores: RequestScores }) {
       ))}
       {p != null && (
         <span title="Leverage × (6 − likely anyway)">
-          Priority <strong>{p}</strong>
+          Importance <strong>{p}</strong>
         </span>
       )}
     </div>
@@ -922,6 +922,7 @@ const rowOptions = ROWS.map((r) => ({ id: r.id, name: r.name }));
 
 function RequestRow({
   uid,
+  groupCol,
   r,
   lenses,
   canEdit,
@@ -931,6 +932,8 @@ function RequestRow({
   allSites,
 }: {
   uid: string;
+  /** The column group this row is shown under, if the list is grouped. */
+  groupCol?: string;
   r: InstitutionRequest;
   lenses: RequestLens[];
   canEdit: boolean;
@@ -1047,10 +1050,10 @@ function RequestRow({
                 </button>
               )}
             </div>
-            {r.cols.length > 1 && (
+            {(!groupCol || r.cols.length > 1) && (
               <div className="req-also">
-                Also in{" "}
-                {r.cols.map((c) => (
+                {groupCol ? "Also in" : r.cols.length > 1 ? "Columns" : "Column"}{" "}
+                {r.cols.filter((c) => c !== groupCol).map((c) => (
                   <FilterTag key={c} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
                 ))}
               </div>
@@ -1255,8 +1258,8 @@ function SearchBar({
 
 type SortKey = "column" | "priority" | "soon" | "likely" | "leverage";
 const SORTS: { id: SortKey; name: string }[] = [
+  { id: "priority", name: "Importance to work on" },
   { id: "column", name: "Grouped by column" },
-  { id: "priority", name: "Priority to work on" },
   { id: "soon", name: "Soonest to apply" },
   { id: "leverage", name: "Leverage" },
   { id: "likely", name: "Least likely to happen anyway" },
@@ -1274,7 +1277,7 @@ function sortValue(r: InstitutionRequest, key: Exclude<SortKey, "column">): numb
 export default function Requests({ loaderData: { requests, lenses, canEdit } }: Route.ComponentProps) {
   const [pills, setPills] = useState<Pill[]>([]);
   const [typed, setTyped] = useState("");
-  const [sort, setSort] = useState<SortKey>("column");
+  const [sort, setSort] = useState<SortKey>("priority");
   const [editingIds, setEditingIds] = useState<Set<number>>(new Set());
   const setEditing = (id: number, on: boolean) =>
     setEditingIds((prev) => {
@@ -1305,10 +1308,11 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
   );
 
   const shown = requests.filter((r) => editingIds.has(r.id) || matches(r, pills, typed, lenses));
-  const row = (r: InstitutionRequest, key: string) => (
+  const row = (r: InstitutionRequest, key: string, groupCol?: string) => (
     <RequestRow
       key={key}
       uid={key}
+      groupCol={groupCol}
       r={r}
       lenses={lenses}
       canEdit={canEdit}
@@ -1366,7 +1370,7 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
                       <span className="req-group-desc">{c.desc}</span>
                     </th>
                   </tr>
-                  {group.map((r) => row(r, `${c.id}-${r.id}`))}
+                  {group.map((r) => row(r, `${c.id}-${r.id}`, c.id))}
                 </tbody>
               );
             })

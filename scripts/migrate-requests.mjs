@@ -66,7 +66,7 @@ await sql`
   CREATE TABLE IF NOT EXISTS institutions_request_links (
     id serial PRIMARY KEY,
     request_id integer NOT NULL REFERENCES institutions_requests(id) ON DELETE CASCADE,
-    kind text NOT NULL CHECK (kind IN ('case', 'project', 'design', 'test')),
+    kind text NOT NULL,
     title text NOT NULL,
     url text NOT NULL,
     position integer NOT NULL DEFAULT 0,
@@ -141,6 +141,15 @@ await sql`
   INSERT INTO institutions_request_lenses (id, label, url, position)
   VALUES ('fidelity', 'Telocracy', 'https://paxmachina.ai/telocracy', 0)
   ON CONFLICT (id) DO NOTHING
+`;
+
+// Link kinds grew "use" (where it's in real use). Replace the kind check,
+// whose name dates from when the table was institutions_request_papers.
+await sql`ALTER TABLE institutions_request_links DROP CONSTRAINT IF EXISTS institutions_request_papers_kind_check`;
+await sql`ALTER TABLE institutions_request_links DROP CONSTRAINT IF EXISTS institutions_request_links_kind_check`;
+await sql`
+  ALTER TABLE institutions_request_links ADD CONSTRAINT institutions_request_links_kind_check
+  CHECK (kind IN ('case', 'project', 'design', 'test', 'use'))
 `;
 
 const [{ count }] = await sql`SELECT count(*)::int AS count FROM institutions_requests`;

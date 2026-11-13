@@ -612,12 +612,14 @@ const LINK_KIND_PLURAL: Record<LinkKind, string> = {
   project: "Projects designing it",
   design: "Designs",
   test: "Test reports",
+  use: "Where it's in use",
 };
 const LINK_KIND_EMPTY: Record<LinkKind, string> = {
   case: "No case written up yet.",
   project: "No one is designing it yet that we know of.",
   design: "No designs yet.",
   test: "Not tested yet.",
+  use: "Not in use yet that we know of.",
 };
 
 // Links in a row's draft: kind, title and URL for each, plus "Add link".

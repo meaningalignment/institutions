@@ -58,11 +58,11 @@ export function priority(s: RequestScores): number | null {
 
 // Links attached to a request. A "case" argues the institution is needed, a
 // "project" is a group designing it now, a "design" proposes one, a "test"
-// reports on trying one. The request's stage follows from its links rather
-// than being set by hand.
-export const LINK_KINDS = ["case", "project", "design", "test"] as const;
+// reports on trying one, and a "use" is a place where it is in real use. The
+// request's stage follows from its links rather than being set by hand.
+export const LINK_KINDS = ["case", "project", "design", "test", "use"] as const;
 export type LinkKind = (typeof LINK_KINDS)[number];
-export const LINK_KIND_LABEL: Record<LinkKind, string> = { case: "Case", project: "Project", design: "Design", test: "Test report" };
+export const LINK_KIND_LABEL: Record<LinkKind, string> = { case: "Case", project: "Project", design: "Design", test: "Test report", use: "In use" };
 
 export interface RequestLink {
   kind: LinkKind;
@@ -70,11 +70,12 @@ export interface RequestLink {
   url: string;
 }
 
-export const STAGES = ["wanted", "designing", "designed", "tested"] as const;
+export const STAGES = ["wanted", "designing", "designed", "tested", "inuse"] as const;
 export type Stage = (typeof STAGES)[number];
-export const STAGE_LABEL: Record<Stage, string> = { wanted: "Design wanted", designing: "In design", designed: "Designed", tested: "Tested" };
+export const STAGE_LABEL: Record<Stage, string> = { wanted: "Design wanted", designing: "In design", designed: "Designed", tested: "Tested", inuse: "In use" };
 
 export function requestStage(links: RequestLink[]): Stage {
+  if (links.some((p) => p.kind === "use")) return "inuse";
   if (links.some((p) => p.kind === "test")) return "tested";
   if (links.some((p) => p.kind === "design")) return "designed";
   if (links.some((p) => p.kind === "project")) return "designing";

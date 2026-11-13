@@ -362,6 +362,7 @@ function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: 
   const fetcher = useFetcher<ActionResult>();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
+  const [focused, setFocused] = useState(false);
   const q = query.trim().toLowerCase();
   const takenSet = new Set(taken.map((t) => t.toLowerCase()));
   const matches = allSites
@@ -381,6 +382,8 @@ function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: 
       <input
         value={query}
         placeholder="Add a site: type a real place, or pick one used elsewhere"
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         onChange={(e) => {
           setQuery(e.target.value);
           setActive(0);
@@ -398,7 +401,7 @@ function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: 
           }
         }}
       />
-      {(q || matches.length > 0) && options.length > 0 && (
+      {focused && options.length > 0 && (
         <ul className="req-suggest" role="listbox">
           {options.map((o, i) => (
             <li
@@ -502,6 +505,49 @@ function Site({ site, canEdit, uid }: { site: RequestSite; canEdit: boolean; uid
   );
 }
 
+// Kinds of organizations that might want this, hidden behind a discreet link.
+function SiteHints({ hints, r, canEdit }: { hints: string[]; r: InstitutionRequest; canEdit: boolean }) {
+  const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState(false);
+  if (!open) {
+    return (
+      <button type="button" className="req-more-sites" onClick={() => setOpen(true)}>
+        Looking for more sites?
+      </button>
+    );
+  }
+  return (
+    <div className="req-hints-box">
+      <div className="req-popover-section">Who else might want this</div>
+      {hints.length > 0 && (
+        <ul className="req-hint-list">
+          {hints.map((h, i) => (
+            <li key={i}>{h}</li>
+          ))}
+        </ul>
+      )}
+      {canEdit && !editing && (
+        <button type="button" className="req-more-sites" onClick={() => setEditing(true)}>
+          Edit this list
+        </button>
+      )}
+      {canEdit && editing && (
+        <div className="req-hints-edit">
+          <InlineText
+            intent="update-request"
+            id={r.id}
+            field="siteHints"
+            value={r.siteHints}
+            multiline
+            className="req-hints-inline"
+            placeholder="Add kinds of organizations, one per line"
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
 // "No sites yet" / "N sites" opens a popover with the request's sites and
 // site hints. Site popovers opened from inside it nest as its children.
 function SitesPopover({ r, canEdit, allSites, uid }: { r: InstitutionRequest; canEdit: boolean; allSites: string[]; uid: string }) {
@@ -527,26 +573,7 @@ function SitesPopover({ r, canEdit, allSites, uid }: { r: InstitutionRequest; ca
           <p className="req-empty">No sites yet.</p>
         )}
         {canEdit && <SitePicker requestId={r.id} taken={r.sites.map((s) => s.name)} allSites={allSites} />}
-        <div className="req-popover-section">Site hints</div>
-        {canEdit ? (
-          <InlineText
-            intent="update-request"
-            id={r.id}
-            field="siteHints"
-            value={r.siteHints}
-            multiline
-            className="req-hints-inline"
-            placeholder="Who might have demand for this?"
-          />
-        ) : hints.length ? (
-          <div className="req-hints">
-            {hints.map((line, i) => (
-              <p key={i}>{line}</p>
-            ))}
-          </div>
-        ) : (
-          <p className="req-empty">None yet.</p>
-        )}
+        {(hints.length > 0 || canEdit) && <SiteHints hints={hints} r={r} canEdit={canEdit} />}
       </div>
     </>
   );

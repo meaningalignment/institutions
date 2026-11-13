@@ -2437,6 +2437,11 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 }
 .req-group-btn { all: unset; cursor: pointer; }
 .req-group-btn:hover { text-decoration: underline; text-decoration-color: var(--line-strong); }
+.req-more-sites { all: unset; cursor: pointer; display: inline-block; margin-top: 14px; font-size: 12px; color: var(--faint); }
+.req-more-sites:hover { color: var(--ink); text-decoration: underline; }
+.req-hint-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; }
+.req-hint-list li { font-size: 12px; line-height: 1.6; padding: 0 8px; border-radius: 999px; background: var(--wash); color: var(--text); }
+.req-hints-edit { margin-top: 10px; font-size: 12px; color: var(--muted); }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {

@@ -17,15 +17,15 @@ import {
   updateSiteField,
 } from "../lib/requests.server";
 import {
-  PAPER_KINDS,
-  PAPER_KIND_LABEL,
+  LINK_KINDS,
+  LINK_KIND_LABEL,
   REQUEST_STATUSES,
   STAGES,
   STAGE_LABEL,
   requestStage,
   type InstitutionRequest,
-  type PaperKind,
-  type RequestPaper,
+  type LinkKind,
+  type RequestLink,
   type RequestSite,
   type RequestVision,
 } from "../lib/requests";
@@ -521,21 +521,21 @@ function SitesPopover({ r, canEdit, allSites }: { r: InstitutionRequest; canEdit
 // ── Rows ───────────────────────────────────────────────────────────
 
 // The stage tag sits under the description: "Design wanted", "Designed" or
-// "Tested", followed by the papers behind it (cases, designs, test reports).
-function StageLine({ id, papers }: { id: number; papers: RequestPaper[] }) {
-  const stage = requestStage(papers);
+// "Tested", followed by the links behind it (cases, designs, test reports).
+function StageLine({ id, links }: { id: number; links: RequestLink[] }) {
+  const stage = requestStage(links);
   const popoverId = `req-links-${id}`;
   return (
     <div className="req-stage-line">
       <button type="button" className={`req-tag req-stage req-stage-${stage}`} popoverTarget={popoverId}>
         {STAGE_LABEL[stage]}
       </button>
-      {PAPER_KINDS.flatMap((kind) =>
-        papers
+      {LINK_KINDS.flatMap((kind) =>
+        links
           .filter((p) => p.kind === kind)
           .map((p, i) => (
-            <a key={`${kind}-${i}`} className="req-paper" href={p.url} target="_blank" rel="noopener noreferrer">
-              <span className="req-paper-kind">{PAPER_KIND_LABEL[kind]}</span>
+            <a key={`${kind}-${i}`} className="req-link" href={p.url} target="_blank" rel="noopener noreferrer">
+              <span className="req-link-kind">{LINK_KIND_LABEL[kind]}</span>
               {p.title} ↗
             </a>
           ))
@@ -547,11 +547,11 @@ function StageLine({ id, papers }: { id: number; papers: RequestPaper[] }) {
             ×
           </button>
         </div>
-        {PAPER_KINDS.map((kind) => {
-          const list = papers.filter((p) => p.kind === kind);
+        {LINK_KINDS.map((kind) => {
+          const list = links.filter((p) => p.kind === kind);
           return (
             <div key={kind}>
-              <div className="req-popover-section">{PAPER_KIND_PLURAL[kind]}</div>
+              <div className="req-popover-section">{LINK_KIND_PLURAL[kind]}</div>
               {list.length ? (
                 <ul className="req-link-list">
                   {list.map((p, i) => (
@@ -563,7 +563,7 @@ function StageLine({ id, papers }: { id: number; papers: RequestPaper[] }) {
                   ))}
                 </ul>
               ) : (
-                <p className="req-empty">{PAPER_KIND_EMPTY[kind]}</p>
+                <p className="req-empty">{LINK_KIND_EMPTY[kind]}</p>
               )}
             </div>
           );
@@ -573,13 +573,13 @@ function StageLine({ id, papers }: { id: number; papers: RequestPaper[] }) {
   );
 }
 
-const PAPER_KIND_PLURAL: Record<PaperKind, string> = {
+const LINK_KIND_PLURAL: Record<LinkKind, string> = {
   case: "The case for it",
   project: "Projects designing it",
   design: "Designs",
   test: "Test reports",
 };
-const PAPER_KIND_EMPTY: Record<PaperKind, string> = {
+const LINK_KIND_EMPTY: Record<LinkKind, string> = {
   case: "No case written up yet.",
   project: "No one is designing it yet that we know of.",
   design: "No designs yet.",
@@ -587,43 +587,43 @@ const PAPER_KIND_EMPTY: Record<PaperKind, string> = {
 };
 
 // Links in a row's draft: kind, title and URL for each, plus "Add link".
-function PapersEditor({ papers, onChange }: { papers: RequestPaper[]; onChange: (papers: RequestPaper[]) => void }) {
-  const update = (i: number, patch: Partial<RequestPaper>) =>
-    onChange(papers.map((p, j) => (j === i ? { ...p, ...patch } : p)));
-  const stage = requestStage(papers);
+function LinksEditor({ links, onChange }: { links: RequestLink[]; onChange: (links: RequestLink[]) => void }) {
+  const update = (i: number, patch: Partial<RequestLink>) =>
+    onChange(links.map((p, j) => (j === i ? { ...p, ...patch } : p)));
+  const stage = requestStage(links);
   return (
-    <div className="req-papers-edit">
+    <div className="req-links-edit">
       <div className="req-stage-line">
         <span className={`req-tag req-stage req-stage-${stage}`}>{STAGE_LABEL[stage]}</span>
-        <span className="req-empty">follows from the papers below</span>
+        <span className="req-empty">follows from the links below</span>
       </div>
-      {papers.map((p, i) => (
-        <div key={i} className="req-paper-edit">
+      {links.map((p, i) => (
+        <div key={i} className="req-link-edit">
           <select
             className="req-tag req-tag-select"
             value={p.kind}
-            onChange={(e) => update(i, { kind: e.target.value as PaperKind })}
-            aria-label="Kind of paper"
+            onChange={(e) => update(i, { kind: e.target.value as LinkKind })}
+            aria-label="Kind of link"
           >
-            {PAPER_KINDS.map((k) => (
+            {LINK_KINDS.map((k) => (
               <option key={k} value={k}>
-                {PAPER_KIND_LABEL[k]}
+                {LINK_KIND_LABEL[k]}
               </option>
             ))}
           </select>
-          <input value={p.title} placeholder="Title" onChange={(e) => update(i, { title: e.target.value })} aria-label="Paper title" />
-          <input value={p.url} placeholder="https://…" onChange={(e) => update(i, { url: e.target.value })} aria-label="Paper link" />
+          <input value={p.title} placeholder="Title" onChange={(e) => update(i, { title: e.target.value })} aria-label="Link title" />
+          <input value={p.url} placeholder="https://…" onChange={(e) => update(i, { url: e.target.value })} aria-label="Link URL" />
           <button
             type="button"
             className="req-popover-close"
-            aria-label="Remove paper"
-            onClick={() => onChange(papers.filter((_, j) => j !== i))}
+            aria-label="Remove link"
+            onClick={() => onChange(links.filter((_, j) => j !== i))}
           >
             ×
           </button>
         </div>
       ))}
-      <button type="button" className="req-link-btn" onClick={() => onChange([...papers, { kind: "case", title: "", url: "" }])}>
+      <button type="button" className="req-link-btn" onClick={() => onChange([...links, { kind: "case", title: "", url: "" }])}>
         + Add link
       </button>
     </div>
@@ -637,7 +637,7 @@ interface Draft {
   row: string;
   vision: string;
   description: string;
-  papers: RequestPaper[];
+  links: RequestLink[];
 }
 
 function RequestRow({
@@ -662,14 +662,14 @@ function RequestRow({
     row: r.row,
     vision: r.vision ?? "",
     description: r.description,
-    papers: r.papers,
+    links: r.links,
   };
   const [draft, setDraft] = useState<Draft>(saved);
   // Start each edit from what's saved.
   useEffect(() => {
     if (editing) setDraft(saved);
   }, [editing]); // eslint-disable-line react-hooks/exhaustive-deps
-  const set = (field: Exclude<keyof Draft, "papers">) => (value: string) => setDraft((d) => ({ ...d, [field]: value }));
+  const set = (field: Exclude<keyof Draft, "links">) => (value: string) => setDraft((d) => ({ ...d, [field]: value }));
   const changed = (Object.keys(saved) as (keyof Draft)[]).filter(
     (k) => JSON.stringify(draft[k]) !== JSON.stringify(saved[k])
   );
@@ -733,7 +733,7 @@ function RequestRow({
                 placeholder="Add two or three sentences on what needs to be built"
               />
             </p>
-            <PapersEditor papers={draft.papers} onChange={(papers) => setDraft((d) => ({ ...d, papers }))} />
+            <LinksEditor links={draft.links} onChange={(links) => setDraft((d) => ({ ...d, links }))} />
           </>
         ) : (
           <>
@@ -750,7 +750,7 @@ function RequestRow({
               )}
             </div>
             {r.description && <p className="req-desc">{r.description}</p>}
-            <StageLine id={r.id} papers={r.papers} />
+            <StageLine id={r.id} links={r.links} />
           </>
         )}
       </td>
@@ -949,8 +949,8 @@ function textOf(r: InstitutionRequest, visions: RequestVision[]) {
     r.name,
     r.description,
     r.siteHints,
-    STAGE_LABEL[requestStage(r.papers)],
-    ...r.papers.map((p) => p.title),
+    STAGE_LABEL[requestStage(r.links)],
+    ...r.links.map((p) => p.title),
     ...r.sites.flatMap((s) => [s.name, s.instead, s.pain, s.success, s.status]),
   ]
     .join(" ")
@@ -966,7 +966,7 @@ function matches(r: InstitutionRequest, pills: Pill[], typed: string, visions: R
     column: (v) => r.column === v,
     row: (v) => r.row === v,
     vision: (v) => r.vision === v,
-    stage: (v) => requestStage(r.papers) === v,
+    stage: (v) => requestStage(r.links) === v,
     status: (v) => r.sites.some((s) => s.status === v),
     site: (v) => r.sites.some((s) => s.name.toLowerCase() === v),
   };

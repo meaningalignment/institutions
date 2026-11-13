@@ -67,9 +67,19 @@ await sql`
 // it now, a "design", or a "test" report. The request's stage (design wanted /
 // in design / designed / tested)
 // follows from them. read_more_url is superseded: existing links become case
-// papers once, then the column is no longer read.
+// links once, then the column is no longer read.
+// The table was first created as institutions_request_papers; rename it once.
 await sql`
-  CREATE TABLE IF NOT EXISTS institutions_request_papers (
+  DO $$ BEGIN
+    IF to_regclass('institutions_request_papers') IS NOT NULL
+       AND to_regclass('institutions_request_links') IS NULL THEN
+      ALTER TABLE institutions_request_papers RENAME TO institutions_request_links;
+      ALTER INDEX IF EXISTS institutions_request_papers_request_idx RENAME TO institutions_request_links_request_idx;
+    END IF;
+  END $$
+`;
+await sql`
+  CREATE TABLE IF NOT EXISTS institutions_request_links (
     id serial PRIMARY KEY,
     request_id integer NOT NULL REFERENCES institutions_requests(id) ON DELETE CASCADE,
     kind text NOT NULL CHECK (kind IN ('case', 'project', 'design', 'test')),
@@ -80,11 +90,11 @@ await sql`
   )
 `;
 await sql`
-  CREATE INDEX IF NOT EXISTS institutions_request_papers_request_idx
-  ON institutions_request_papers (request_id)
+  CREATE INDEX IF NOT EXISTS institutions_request_links_request_idx
+  ON institutions_request_links (request_id)
 `;
-const [{ papers }] = await sql`SELECT count(*)::int AS papers FROM institutions_request_papers`;
-if (papers === 0) {
+const [{ links }] = await sql`SELECT count(*)::int AS links FROM institutions_request_links`;
+if (links === 0) {
   const titleFor = (url) => {
     if (url.includes("paxmachina.ai/telocracy/appendices")) return "Telocracy (appendices)";
     if (url.includes("paxmachina.ai/telocracy")) return "Telocracy";
@@ -97,11 +107,11 @@ if (papers === 0) {
   const rows = await sql`SELECT id, read_more_url FROM institutions_requests WHERE read_more_url <> ''`;
   for (const r of rows) {
     await sql`
-      INSERT INTO institutions_request_papers (request_id, kind, title, url, position)
+      INSERT INTO institutions_request_links (request_id, kind, title, url, position)
       VALUES (${r.id}, 'case', ${titleFor(r.read_more_url)}, ${r.read_more_url}, 0)
     `;
   }
-  console.log(`Moved ${rows.length} read-more links into case papers.`);
+  console.log(`Moved ${rows.length} read-more links into case links.`);
 }
 
 const [{ count }] = await sql`SELECT count(*)::int AS count FROM institutions_requests`;

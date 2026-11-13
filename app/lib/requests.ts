@@ -18,11 +18,13 @@ export interface InstitutionRequest {
   vision: string | null;
   row: string;
   column: string;
+  description: string;
+  readMoreUrl: string;
   siteHints: string;
   sites: RequestSite[];
 }
 
-export const REQUEST_FIELDS = ["name", "vision", "row", "column", "siteHints"] as const;
+export const REQUEST_FIELDS = ["name", "vision", "row", "column", "description", "readMoreUrl", "siteHints"] as const;
 export const SITE_FIELDS = ["name", "instead", "pain", "success", "status"] as const;
 
 export interface RequestVision {

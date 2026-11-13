@@ -344,6 +344,17 @@ function RequestRow({
             <Field intent="update-request" id={r.id} field="column" value={r.column} kind="select" options={COLS} />
             <Field intent="update-request" id={r.id} field="row" value={r.row} kind="select" options={ROWS} />
           </div>
+          <label>Description</label>
+          <Field
+            intent="update-request"
+            id={r.id}
+            field="description"
+            value={r.description}
+            kind="textarea"
+            placeholder="Two or three sentences on what needs to be built."
+          />
+          <label>Read more link</label>
+          <Field intent="update-request" id={r.id} field="readMoreUrl" value={r.readMoreUrl} placeholder="https://…" />
           <DeleteButton intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />
         </td>
         <td className="req-sites">
@@ -364,6 +375,12 @@ function RequestRow({
         <div className="req-place">
           {colName(r.column)} · {rowName(r.row)}
         </div>
+        {r.description && <p className="req-desc">{r.description}</p>}
+        {r.readMoreUrl && (
+          <a className="req-more" href={r.readMoreUrl} target="_blank" rel="noopener noreferrer">
+            Read more ↗
+          </a>
+        )}
       </td>
       <td className="req-sites">
         <SitesPopover r={r} editing={false} />
@@ -465,6 +482,7 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
           rowName(r.row),
           r.name,
           r.siteHints,
+          r.description,
           ...r.sites.flatMap((s) => [s.name, s.instead, s.pain, s.success, s.status]),
         ]
           .join(" ")

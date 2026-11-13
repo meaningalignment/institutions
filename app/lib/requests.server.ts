@@ -15,7 +15,8 @@ import {
 export async function getRequests(): Promise<InstitutionRequest[]> {
   const sql = getSql();
   const [requests, sites] = (await Promise.all([
-    sql`SELECT id, name, vision, row_id, col_id, site_hints FROM institutions_requests ORDER BY position, id`,
+    sql`SELECT id, name, vision, row_id, col_id, description, read_more_url, site_hints
+        FROM institutions_requests ORDER BY position, id`,
     sql`SELECT id, request_id, name, instead, pain, success, status
         FROM institutions_request_sites ORDER BY position, id`,
   ])) as [any[], any[]];
@@ -38,6 +39,8 @@ export async function getRequests(): Promise<InstitutionRequest[]> {
     vision: r.vision,
     row: r.row_id,
     column: r.col_id,
+    description: r.description,
+    readMoreUrl: r.read_more_url,
     siteHints: r.site_hints,
     sites: byRequest.get(r.id) ?? [],
   }));
@@ -132,6 +135,10 @@ export async function updateRequestField(id: number, field: string, value: strin
   } else if (field === "column") {
     validCol(value);
     await sql`UPDATE institutions_requests SET col_id = ${value}, updated_at = now() WHERE id = ${id}`;
+  } else if (field === "description") {
+    await sql`UPDATE institutions_requests SET description = ${value.trim()}, updated_at = now() WHERE id = ${id}`;
+  } else if (field === "readMoreUrl") {
+    await sql`UPDATE institutions_requests SET read_more_url = ${cleanUrl(value)}, updated_at = now() WHERE id = ${id}`;
   } else if (field === "siteHints") {
     await sql`UPDATE institutions_requests SET site_hints = ${value}, updated_at = now() WHERE id = ${id}`;
   } else {

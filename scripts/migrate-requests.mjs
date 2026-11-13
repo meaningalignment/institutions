@@ -42,6 +42,27 @@ await sql`
   ON institutions_request_sites (request_id)
 `;
 
+// A short description of what needs to be built, and an optional link to read more.
+await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS description text NOT NULL DEFAULT ''`;
+await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS read_more_url text NOT NULL DEFAULT ''`;
+
+// Vision tags for requests, each with a link to where the vision is written up.
+// Separate from the grid's VISIONS constant so admins can add tags on /requests.
+await sql`
+  CREATE TABLE IF NOT EXISTS institutions_request_visions (
+    id text PRIMARY KEY,
+    label text NOT NULL,
+    url text NOT NULL DEFAULT '',
+    position integer NOT NULL DEFAULT 0,
+    created_at timestamptz NOT NULL DEFAULT now()
+  )
+`;
+await sql`
+  INSERT INTO institutions_request_visions (id, label, url, position)
+  VALUES ('fidelity', 'Telocracy', 'https://paxmachina.ai/telocracy', 0)
+  ON CONFLICT (id) DO NOTHING
+`;
+
 const [{ count }] = await sql`SELECT count(*)::int AS count FROM institutions_requests`;
 if (count === 0) {
   const seed = yaml.load(fs.readFileSync(new URL("./requests-seed.yaml", import.meta.url), "utf8"));

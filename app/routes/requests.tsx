@@ -522,11 +522,14 @@ function SitesPopover({ r, canEdit, allSites }: { r: InstitutionRequest; canEdit
 
 // The stage tag sits under the description: "Design wanted", "Designed" or
 // "Tested", followed by the papers behind it (cases, designs, test reports).
-function StageLine({ papers }: { papers: RequestPaper[] }) {
+function StageLine({ id, papers }: { id: number; papers: RequestPaper[] }) {
   const stage = requestStage(papers);
+  const popoverId = `req-links-${id}`;
   return (
     <div className="req-stage-line">
-      <span className={`req-tag req-stage req-stage-${stage}`}>{STAGE_LABEL[stage]}</span>
+      <button type="button" className={`req-tag req-stage req-stage-${stage}`} popoverTarget={popoverId}>
+        {STAGE_LABEL[stage]}
+      </button>
       {PAPER_KINDS.flatMap((kind) =>
         papers
           .filter((p) => p.kind === kind)
@@ -537,9 +540,51 @@ function StageLine({ papers }: { papers: RequestPaper[] }) {
             </a>
           ))
       )}
+      <div id={popoverId} popover="auto" className="req-popover req-popover-small">
+        <div className="req-popover-head">
+          <span className="req-popover-title">{STAGE_LABEL[stage]}</span>
+          <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
+            ×
+          </button>
+        </div>
+        {PAPER_KINDS.map((kind) => {
+          const list = papers.filter((p) => p.kind === kind);
+          return (
+            <div key={kind}>
+              <div className="req-popover-section">{PAPER_KIND_PLURAL[kind]}</div>
+              {list.length ? (
+                <ul className="req-link-list">
+                  {list.map((p, i) => (
+                    <li key={i}>
+                      <a href={p.url} target="_blank" rel="noopener noreferrer">
+                        {p.title} ↗
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="req-empty">{PAPER_KIND_EMPTY[kind]}</p>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
+
+const PAPER_KIND_PLURAL: Record<PaperKind, string> = {
+  case: "The case for it",
+  project: "Projects designing it",
+  design: "Designs",
+  test: "Test reports",
+};
+const PAPER_KIND_EMPTY: Record<PaperKind, string> = {
+  case: "No case written up yet.",
+  project: "No one is designing it yet that we know of.",
+  design: "No designs yet.",
+  test: "Not tested yet.",
+};
 
 // Links in a row's draft: kind, title and URL for each, plus "Add link".
 function PapersEditor({ papers, onChange }: { papers: RequestPaper[]; onChange: (papers: RequestPaper[]) => void }) {
@@ -705,7 +750,7 @@ function RequestRow({
               )}
             </div>
             {r.description && <p className="req-desc">{r.description}</p>}
-            <StageLine papers={r.papers} />
+            <StageLine id={r.id} papers={r.papers} />
           </>
         )}
       </td>

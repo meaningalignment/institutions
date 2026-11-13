@@ -12,22 +12,54 @@ export interface RequestSite {
   status: RequestStatus;
 }
 
+// A request can sit at several grid rows (scales) and columns, and be seen
+// through several lenses. The first row and column are its home cell, used
+// for the cell link.
 export interface InstitutionRequest {
   id: number;
   name: string;
-  vision: string | null;
-  row: string;
-  column: string;
+  rows: string[];
+  cols: string[];
+  lenses: string[];
   description: string;
   siteHints: string;
+  scores: RequestScores;
   links: RequestLink[];
   sites: RequestSite[];
 }
 
+// Three 1–5 judgments used for ranking (null = not scored yet).
+//  likely: how likely it gets built anyway, without anyone pushing (5 = surely)
+//  soon:   how soon it can find real application (5 = now)
+//  impact: how much it matters if it exists (5 = a lot)
+// Priority to work on = impact × (6 − likely): important and otherwise neglected.
+export interface RequestScores {
+  likely: number | null;
+  soon: number | null;
+  impact: number | null;
+}
+export const SCORE_KEYS = ["likely", "soon", "impact"] as const;
+export type ScoreKey = (typeof SCORE_KEYS)[number];
+export const SCORE_LABEL: Record<ScoreKey, string> = {
+  likely: "Likely anyway",
+  soon: "Soon to apply",
+  impact: "Impact",
+};
+export const SCORE_HELP: Record<ScoreKey, string> = {
+  likely: "How likely it gets built anyway, without anyone pushing for it (5 = surely)",
+  soon: "How soon it can find real application (5 = now)",
+  impact: "How much it matters if it exists (5 = a great deal)",
+};
+
+export function priority(s: RequestScores): number | null {
+  if (s.likely == null || s.impact == null) return null;
+  return s.impact * (6 - s.likely);
+}
+
 // Links attached to a request. A "case" argues the institution is needed, a
 // "project" is a group designing it now, a "design" proposes one, a "test"
-// reports on trying one. The request's stage
-// follows from its links rather than being set by hand.
+// reports on trying one. The request's stage follows from its links rather
+// than being set by hand.
 export const LINK_KINDS = ["case", "project", "design", "test"] as const;
 export type LinkKind = (typeof LINK_KINDS)[number];
 export const LINK_KIND_LABEL: Record<LinkKind, string> = { case: "Case", project: "Project", design: "Design", test: "Test report" };
@@ -49,10 +81,7 @@ export function requestStage(links: RequestLink[]): Stage {
   return "wanted";
 }
 
-export const REQUEST_FIELDS = ["name", "vision", "row", "column", "description", "siteHints", "links"] as const;
-export const SITE_FIELDS = ["name", "instead", "pain", "success", "status"] as const;
-
-export interface RequestVision {
+export interface RequestLens {
   id: string;
   label: string;
   url: string;

@@ -46,22 +46,6 @@ await sql`
 await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS description text NOT NULL DEFAULT ''`;
 await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS read_more_url text NOT NULL DEFAULT ''`;
 
-// Vision tags for requests, each with a link to where the vision is written up.
-// Separate from the grid's VISIONS constant so admins can add tags on /requests.
-await sql`
-  CREATE TABLE IF NOT EXISTS institutions_request_visions (
-    id text PRIMARY KEY,
-    label text NOT NULL,
-    url text NOT NULL DEFAULT '',
-    position integer NOT NULL DEFAULT 0,
-    created_at timestamptz NOT NULL DEFAULT now()
-  )
-`;
-await sql`
-  INSERT INTO institutions_request_visions (id, label, url, position)
-  VALUES ('fidelity', 'Telocracy', 'https://paxmachina.ai/telocracy', 0)
-  ON CONFLICT (id) DO NOTHING
-`;
 
 // Links per request: a "case" for wanting the institution, a "project" designing
 // it now, a "design", or a "test" report. The request's stage (design wanted /
@@ -113,6 +97,51 @@ if (links === 0) {
   }
   console.log(`Moved ${rows.length} read-more links into case links.`);
 }
+
+// Several rows (scales), columns and lenses per request, and three 1–5 ranking
+// scores. row_id / col_id / vision stay as the first row, first column and (no
+// longer read) old single vision; the arrays are backfilled from them once.
+await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS rows text[] NOT NULL DEFAULT '{}'`;
+await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS cols text[] NOT NULL DEFAULT '{}'`;
+await sql`ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS lenses text[] NOT NULL DEFAULT '{}'`;
+for (const col of ["likely", "soon", "impact"]) {
+  await sql.query(
+    `ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS ${col} smallint CHECK (${col} BETWEEN 1 AND 5)`
+  );
+}
+await sql`UPDATE institutions_requests SET rows = ARRAY[row_id] WHERE rows = '{}'`;
+await sql`UPDATE institutions_requests SET cols = ARRAY[col_id] WHERE cols = '{}'`;
+await sql`
+  UPDATE institutions_requests SET lenses = ARRAY[vision]
+  WHERE lenses = '{}' AND vision IS NOT NULL AND vision <> ''
+`;
+await sql`UPDATE institutions_requests SET vision = NULL WHERE vision IS NOT NULL`;
+
+// Lens tags for requests (first called visions), each with a link to where the
+// lens is written up. Separate from the grid's VISIONS constant so admins can
+// add them on /requests. Rename the old table once.
+await sql`
+  DO $$ BEGIN
+    IF to_regclass('institutions_request_visions') IS NOT NULL
+       AND to_regclass('institutions_request_lenses') IS NULL THEN
+      ALTER TABLE institutions_request_visions RENAME TO institutions_request_lenses;
+    END IF;
+  END $$
+`;
+await sql`
+  CREATE TABLE IF NOT EXISTS institutions_request_lenses (
+    id text PRIMARY KEY,
+    label text NOT NULL,
+    url text NOT NULL DEFAULT '',
+    position integer NOT NULL DEFAULT 0,
+    created_at timestamptz NOT NULL DEFAULT now()
+  )
+`;
+await sql`
+  INSERT INTO institutions_request_lenses (id, label, url, position)
+  VALUES ('fidelity', 'Telocracy', 'https://paxmachina.ai/telocracy', 0)
+  ON CONFLICT (id) DO NOTHING
+`;
 
 const [{ count }] = await sql`SELECT count(*)::int AS count FROM institutions_requests`;
 if (count === 0) {

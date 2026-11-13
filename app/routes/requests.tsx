@@ -8,10 +8,10 @@ import {
   deleteRequest,
   deleteSite,
   getRequests,
-  getVisions,
-  createVision,
-  updateVisionField,
-  deleteVision,
+  getLenses,
+  createLens,
+  updateLensField,
+  deleteLens,
   updateRequestField,
   updateRequestFields,
   updateSiteField,
@@ -20,14 +20,20 @@ import {
   LINK_KINDS,
   LINK_KIND_LABEL,
   REQUEST_STATUSES,
+  SCORE_HELP,
+  SCORE_KEYS,
+  SCORE_LABEL,
   STAGES,
   STAGE_LABEL,
+  priority,
   requestStage,
   type InstitutionRequest,
   type LinkKind,
+  type RequestLens,
   type RequestLink,
+  type RequestScores,
   type RequestSite,
-  type RequestVision,
+  type ScoreKey,
 } from "../lib/requests";
 import {
   COLS,
@@ -40,22 +46,20 @@ import {
   rowName,
 } from "../lib/constants";
 
-type ActionResult = { ok: boolean; error?: string; createdId?: number; createdVisionId?: string };
+type ActionResult = { ok: boolean; error?: string; createdId?: number; createdLensId?: string };
+
+const rowOrder = ROWS.map((r) => r.id);
+const colOrder = COLS.map((c) => c.id);
+const firstRowIndex = (r: InstitutionRequest) => Math.min(...r.rows.map((x) => rowOrder.indexOf(x)));
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const [session, requests, visions] = await Promise.all([
+  const [session, requests, lenses] = await Promise.all([
     getSignedInResearcher(request),
     getRequests(),
-    getVisions(),
+    getLenses(),
   ]);
-  const rowOrder = ROWS.map((r) => r.id);
-  const colOrder = COLS.map((c) => c.id);
-  requests.sort(
-    (a, b) =>
-      colOrder.indexOf(a.column) - colOrder.indexOf(b.column) ||
-      rowOrder.indexOf(a.row) - rowOrder.indexOf(b.row)
-  );
-  return { requests, visions, canEdit: !!session?.isAdmin };
+  requests.sort((a, b) => firstRowIndex(a) - firstRowIndex(b) || a.name.localeCompare(b.name));
+  return { requests, lenses, canEdit: !!session?.isAdmin };
 }
 
 function positiveInteger(value: FormDataEntryValue | null) {
@@ -71,13 +75,13 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
   const field = String(fd.get("field") || "");
   const value = String(fd.get("value") ?? "");
   try {
-    if (intent === "create-vision") {
-      const createdVisionId = await createVision(String(fd.get("label") || ""), String(fd.get("url") || ""));
-      return { ok: true, createdVisionId };
-    } else if (intent === "update-vision") {
-      await updateVisionField(String(fd.get("visionId") || ""), field, value);
-    } else if (intent === "delete-vision") {
-      await deleteVision(String(fd.get("visionId") || ""));
+    if (intent === "create-lens") {
+      const createdLensId = await createLens(String(fd.get("label") || ""), String(fd.get("url") || ""));
+      return { ok: true, createdLensId };
+    } else if (intent === "update-lens") {
+      await updateLensField(String(fd.get("lensId") || ""), field, value);
+    } else if (intent === "delete-lens") {
+      await deleteLens(String(fd.get("lensId") || ""));
     } else if (intent === "create-request") {
       const createdId = await createRequest(String(fd.get("row") || ""), String(fd.get("column") || ""));
       return { ok: true, createdId };
@@ -110,18 +114,48 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-// Grid visions keep their colour here; other vision tags use the accent colour.
-const visionColor = (id: string) => VISIONS.find((v) => v.id === id)?.color ?? "var(--accent)";
+// Lenses that match a grid vision keep its colour; others use the accent colour.
+const lensColor = (id: string) => VISIONS.find((v) => v.id === id)?.color ?? "var(--accent)";
 
-function VisionTag({ vision }: { vision: RequestVision }) {
-  const style = { color: visionColor(vision.id) };
-  return vision.url ? (
-    <a className="req-tag req-vision" style={style} href={vision.url} target="_blank" rel="noopener noreferrer">
-      {vision.label}
-    </a>
-  ) : (
-    <span className="req-tag req-vision" style={style}>
-      {vision.label}
+// A tag that filters the list when clicked (adds a search pill).
+function FilterTag({
+  pill,
+  onFilter,
+  className = "",
+  style,
+}: {
+  pill: Pill;
+  onFilter: (p: Pill) => void;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <button
+      type="button"
+      className={`req-tag req-tag-btn ${className}`}
+      style={style}
+      title={`Show only ${pill.label}`}
+      onClick={() => onFilter(pill)}
+    >
+      {pill.label}
+    </button>
+  );
+}
+
+function LensTag({ lens, onFilter }: { lens: RequestLens; onFilter: (p: Pill) => void }) {
+  return (
+    <span className="req-lens-wrap">
+      <FilterTag
+        pill={{ kind: "lens", value: lens.id, label: lens.label }}
+        onFilter={onFilter}
+        className="req-vision"
+        style={{ color: lensColor(lens.id) }}
+      />
+      {lens.url && (
+        <a className="req-lens-link" href={lens.url} target="_blank" rel="noopener noreferrer" title={`Read about ${lens.label}`}>
+          ↗
+        </a>
+      )}
     </span>
   );
 }
@@ -395,8 +429,8 @@ function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: 
 }
 
 // Site info opens in a popover (native Popover API); admins edit it in place.
-function Site({ site, canEdit }: { site: RequestSite; canEdit: boolean }) {
-  const popoverId = `req-site-${site.id}`;
+function Site({ site, canEdit, uid }: { site: RequestSite; canEdit: boolean; uid: string }) {
+  const popoverId = `req-site-${uid}-${site.id}`;
   const show = (label: string, text: string) =>
     text ? (
       <>
@@ -470,8 +504,8 @@ function Site({ site, canEdit }: { site: RequestSite; canEdit: boolean }) {
 
 // "No sites yet" / "N sites" opens a popover with the request's sites and
 // site hints. Site popovers opened from inside it nest as its children.
-function SitesPopover({ r, canEdit, allSites }: { r: InstitutionRequest; canEdit: boolean; allSites: string[] }) {
-  const popoverId = `req-sites-${r.id}`;
+function SitesPopover({ r, canEdit, allSites, uid }: { r: InstitutionRequest; canEdit: boolean; allSites: string[]; uid: string }) {
+  const popoverId = `req-sites-${uid}`;
   const label = r.sites.length ? `${r.sites.length} site${r.sites.length === 1 ? "" : "s"}` : "No sites yet";
   const hints = r.siteHints.split(/\n+/).filter((line) => line.trim());
   return (
@@ -488,7 +522,7 @@ function SitesPopover({ r, canEdit, allSites }: { r: InstitutionRequest; canEdit
         </div>
         <div className="req-popover-section">Sites</div>
         {r.sites.length ? (
-          r.sites.map((s) => <Site key={s.id} site={s} canEdit={canEdit} />)
+          r.sites.map((s) => <Site key={s.id} site={s} canEdit={canEdit} uid={uid} />)
         ) : (
           <p className="req-empty">No sites yet.</p>
         )}
@@ -522,9 +556,9 @@ function SitesPopover({ r, canEdit, allSites }: { r: InstitutionRequest; canEdit
 
 // The stage tag sits under the description: "Design wanted", "Designed" or
 // "Tested", followed by the links behind it (cases, designs, test reports).
-function StageLine({ id, links }: { id: number; links: RequestLink[] }) {
+function StageLine({ uid, links }: { uid: string; links: RequestLink[] }) {
   const stage = requestStage(links);
-  const popoverId = `req-links-${id}`;
+  const popoverId = `req-links-${uid}`;
   return (
     <div className="req-stage-line">
       <button type="button" className={`req-tag req-stage req-stage-${stage}`} popoverTarget={popoverId}>
@@ -633,35 +667,283 @@ function LinksEditor({ links, onChange }: { links: RequestLink[]; onChange: (lin
 // A row's edits are a local draft until Save; Cancel throws them away.
 interface Draft {
   name: string;
-  column: string;
-  row: string;
-  vision: string;
   description: string;
+  rows: string[];
+  cols: string[];
+  lenses: string[];
+  scores: RequestScores;
   links: RequestLink[];
 }
 
+// Several values from a fixed list, as tags with × and a "+" select to add.
+function MultiTags({
+  values,
+  options,
+  onChange,
+  addLabel,
+  min = 0,
+}: {
+  values: string[];
+  options: readonly { id: string; name: string }[];
+  onChange: (values: string[]) => void;
+  addLabel: string;
+  min?: number;
+}) {
+  const rest = options.filter((o) => !values.includes(o.id));
+  return (
+    <span className="req-multi">
+      {values.map((v, i) => (
+        <span key={v} className="req-tag req-tag-chip">
+          {options.find((o) => o.id === v)?.name ?? v}
+          {i === 0 && values.length > 1 && <span className="req-home" title="Home cell (used for the cell link)">home</span>}
+          {values.length > min && (
+            <button type="button" aria-label="Remove" onClick={() => onChange(values.filter((x) => x !== v))}>
+              ×
+            </button>
+          )}
+        </span>
+      ))}
+      {rest.length > 0 && (
+        <select
+          className="req-tag req-tag-select req-tag-add"
+          value=""
+          onChange={(e) => e.target.value && onChange([...values, e.target.value])}
+          aria-label={addLabel}
+        >
+          <option value="">+ {addLabel}</option>
+          {rest.map((o) => (
+            <option key={o.id} value={o.id}>
+              {o.name}
+            </option>
+          ))}
+        </select>
+      )}
+    </span>
+  );
+}
+
+const NEW_LENS = "__new__";
+
+// The row's lenses in edit mode: add or remove lenses, create one ("New lens…"),
+// and rename or relink a lens from the small popover on its tag.
+function LensesEditor({
+  uid,
+  values,
+  onChange,
+  lenses,
+}: {
+  uid: string;
+  values: string[];
+  onChange: (values: string[]) => void;
+  lenses: RequestLens[];
+}) {
+  const create = useFetcher<ActionResult>();
+  const [adding, setAdding] = useState(false);
+  const [label, setLabel] = useState("");
+  const [url, setUrl] = useState("");
+  // A new lens is created right away (lenses are shared); adding it to this
+  // row is part of the row's draft.
+  useEffect(() => {
+    if (create.state === "idle" && create.data?.createdLensId && !values.includes(create.data.createdLensId))
+      onChange([...values, create.data.createdLensId]);
+  }, [create.state, create.data]); // eslint-disable-line react-hooks/exhaustive-deps
+  const submitNew = () => {
+    if (!label.trim()) return;
+    create.submit({ intent: "create-lens", label, url }, { method: "post" });
+    setAdding(false);
+    setLabel("");
+    setUrl("");
+  };
+  const rest = lenses.filter((l) => !values.includes(l.id));
+
+  return (
+    <span className="req-multi">
+      {values.map((id) => {
+        const lens = lenses.find((l) => l.id === id);
+        const popoverId = `req-lens-edit-${uid}-${id}`;
+        return (
+          <span key={id} className="req-tag req-tag-chip req-vision" style={{ color: lensColor(id) }}>
+            {lens ? (
+              <button type="button" className="req-chip-label" popoverTarget={popoverId} title="Edit this lens">
+                {lens.label}
+              </button>
+            ) : (
+              id
+            )}
+            <button type="button" aria-label="Remove lens" onClick={() => onChange(values.filter((x) => x !== id))}>
+              ×
+            </button>
+            {lens && (
+              <div id={popoverId} popover="auto" className="req-popover req-popover-small">
+                <div className="req-popover-head">
+                  <span className="req-popover-title">Lens</span>
+                  <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
+                    ×
+                  </button>
+                </div>
+                <p className="req-empty">Changes apply to every request with this lens.</p>
+                <LensRow lens={lens} />
+              </div>
+            )}
+          </span>
+        );
+      })}
+      {adding ? (
+        <span className="req-vision-new">
+          <input
+            autoFocus
+            value={label}
+            placeholder="Lens name"
+            onChange={(e) => setLabel(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") submitNew();
+              if (e.key === "Escape") setAdding(false);
+            }}
+          />
+          <input
+            value={url}
+            placeholder="Link (optional)"
+            onChange={(e) => setUrl(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") submitNew();
+              if (e.key === "Escape") setAdding(false);
+            }}
+          />
+          <button type="button" className="req-link-btn" onClick={submitNew} disabled={!label.trim()}>
+            Add
+          </button>
+          <button type="button" className="req-link-btn" onClick={() => setAdding(false)}>
+            Cancel
+          </button>
+        </span>
+      ) : (
+        <select
+          className="req-tag req-tag-select req-tag-add"
+          value=""
+          aria-label="Add a lens"
+          onChange={(e) => {
+            if (e.target.value === NEW_LENS) setAdding(true);
+            else if (e.target.value) onChange([...values, e.target.value]);
+          }}
+        >
+          <option value="">+ lens</option>
+          {rest.map((l) => (
+            <option key={l.id} value={l.id}>
+              {l.label}
+            </option>
+          ))}
+          <option value={NEW_LENS}>New lens…</option>
+        </select>
+      )}
+      {create.data && !create.data.ok ? <span className="req-error">{create.data.error}</span> : null}
+    </span>
+  );
+}
+
+function LensRow({ lens }: { lens: RequestLens }) {
+  const fetcher = useFetcher<ActionResult>();
+  const save = (field: string, value: string, current: string) => {
+    if (value !== current) fetcher.submit({ intent: "update-lens", lensId: lens.id, field, value }, { method: "post" });
+  };
+  const error = fetcher.data && !fetcher.data.ok ? fetcher.data.error : null;
+  return (
+    <div className="req-vision-row">
+      <input defaultValue={lens.label} onBlur={(e) => save("label", e.target.value, lens.label)} aria-label="Lens name" />
+      <input defaultValue={lens.url} placeholder="https://…" onBlur={(e) => save("url", e.target.value, lens.url)} aria-label="Lens link" />
+      <button
+        type="button"
+        className="req-link-btn req-danger"
+        onClick={() => {
+          if (confirm(`Delete the lens "${lens.label}"? It is removed from every request.`))
+            fetcher.submit({ intent: "delete-lens", lensId: lens.id }, { method: "post" });
+        }}
+      >
+        Delete
+      </button>
+      {error && <span className="req-error">{error}</span>}
+    </div>
+  );
+}
+
+const scoreOptions = [1, 2, 3, 4, 5];
+
+// The three ranking scores, as small 1–5 selects in edit mode.
+function ScoresEditor({ scores, onChange }: { scores: RequestScores; onChange: (s: RequestScores) => void }) {
+  const p = priority(scores);
+  return (
+    <div className="req-scores req-scores-edit">
+      {SCORE_KEYS.map((k) => (
+        <label key={k} title={SCORE_HELP[k]}>
+          {SCORE_LABEL[k]}
+          <select
+            className="req-tag req-tag-select"
+            value={scores[k] ?? ""}
+            onChange={(e) => onChange({ ...scores, [k]: e.target.value ? Number(e.target.value) : null })}
+          >
+            <option value="">–</option>
+            {scoreOptions.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </label>
+      ))}
+      <span className="req-priority" title="Impact × (6 − likely anyway)">
+        Priority {p ?? "–"}
+      </span>
+    </div>
+  );
+}
+
+function ScoresLine({ scores }: { scores: RequestScores }) {
+  if (SCORE_KEYS.every((k) => scores[k] == null)) return null;
+  const p = priority(scores);
+  return (
+    <div className="req-scores">
+      {SCORE_KEYS.map((k) => (
+        <span key={k} title={SCORE_HELP[k]}>
+          {SCORE_LABEL[k]} <strong>{scores[k] ?? "–"}</strong>
+        </span>
+      ))}
+      {p != null && (
+        <span title="Impact × (6 − likely anyway)">
+          Priority <strong>{p}</strong>
+        </span>
+      )}
+    </div>
+  );
+}
+
+const colOptions = COLS.map((c) => ({ id: c.id, name: c.name }));
+const rowOptions = ROWS.map((r) => ({ id: r.id, name: r.name }));
+
 function RequestRow({
+  uid,
   r,
-  visions,
+  lenses,
   canEdit,
   editing,
   onEdit,
+  onFilter,
   allSites,
 }: {
+  uid: string;
   r: InstitutionRequest;
-  visions: RequestVision[];
+  lenses: RequestLens[];
   canEdit: boolean;
   editing: boolean;
   onEdit: (on: boolean) => void;
+  onFilter: (p: Pill) => void;
   allSites: string[];
 }) {
-  const vision = visions.find((v) => v.id === r.vision);
   const saved: Draft = {
     name: r.name,
-    column: r.column,
-    row: r.row,
-    vision: r.vision ?? "",
     description: r.description,
+    rows: r.rows,
+    cols: r.cols,
+    lenses: r.lenses,
+    scores: r.scores,
     links: r.links,
   };
   const [draft, setDraft] = useState<Draft>(saved);
@@ -669,7 +951,7 @@ function RequestRow({
   useEffect(() => {
     if (editing) setDraft(saved);
   }, [editing]); // eslint-disable-line react-hooks/exhaustive-deps
-  const set = (field: Exclude<keyof Draft, "links">) => (value: string) => setDraft((d) => ({ ...d, [field]: value }));
+  const set = <K extends keyof Draft>(field: K) => (value: Draft[K]) => setDraft((d) => ({ ...d, [field]: value }));
   const changed = (Object.keys(saved) as (keyof Draft)[]).filter(
     (k) => JSON.stringify(draft[k]) !== JSON.stringify(saved[k])
   );
@@ -678,6 +960,9 @@ function RequestRow({
   useEffect(() => {
     if (save.state === "idle" && save.data?.ok) onEdit(false);
   }, [save.state, save.data]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const homeLens = r.lenses.find((id) => VISIONS.some((v) => v.id === id));
+  const cellHref = `/cell/${r.rows[0]}/${r.cols[0]}${homeLens ? `?visions=${homeLens}` : ""}`;
 
   return (
     <tr className={editing ? "req-editing" : undefined}>
@@ -711,16 +996,23 @@ function RequestRow({
                     {saving ? "Saving…" : "Save"}
                   </button>
                 )}
-                <MoreMenu id={`req-more-${r.id}`}>
+                <MoreMenu id={`req-more-${uid}`}>
                   <DeleteLink intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />
                 </MoreMenu>
               </span>
             </div>
             {save.data && !save.data.ok && <div className="req-error">{save.data.error}</div>}
             <div className="req-tag-line">
-              <InlineSelect intent="update-request" id={r.id} field="column" value={draft.column} onLocalChange={set("column")} options={COLS} />
-              <InlineSelect intent="update-request" id={r.id} field="row" value={draft.row} onLocalChange={set("row")} options={ROWS} />
-              <VisionEditor requestId={r.id} value={draft.vision} onChange={set("vision")} visions={visions} />
+              <span className="req-tag-label">Columns</span>
+              <MultiTags values={draft.cols} options={colOptions} onChange={set("cols")} addLabel="column" min={1} />
+            </div>
+            <div className="req-tag-line">
+              <span className="req-tag-label">Scales</span>
+              <MultiTags values={draft.rows} options={rowOptions} onChange={set("rows")} addLabel="scale" min={1} />
+            </div>
+            <div className="req-tag-line">
+              <span className="req-tag-label">Lenses</span>
+              <LensesEditor uid={uid} values={draft.lenses} onChange={set("lenses")} lenses={lenses} />
             </div>
             <p className="req-desc">
               <InlineText
@@ -733,29 +1025,42 @@ function RequestRow({
                 placeholder="Add two or three sentences on what needs to be built"
               />
             </p>
-            <LinksEditor links={draft.links} onChange={(links) => setDraft((d) => ({ ...d, links }))} />
+            <LinksEditor links={draft.links} onChange={set("links")} />
+            <ScoresEditor scores={draft.scores} onChange={set("scores")} />
           </>
         ) : (
           <>
             <div className="req-title-line">
-              <Link to={`/cell/${r.row}/${r.column}${r.vision && VISIONS.some((v) => v.id === r.vision) ? `?visions=${r.vision}` : ""}`}>
-                {r.name}
-              </Link>
-              <span className="req-tag">{rowName(r.row)}</span>
-              {r.vision && (vision ? <VisionTag vision={vision} /> : <span className="req-tag">{r.vision}</span>)}
+              <Link to={cellHref}>{r.name}</Link>
+              {r.rows.map((row) => (
+                <FilterTag key={row} pill={{ kind: "row", value: row, label: rowName(row) }} onFilter={onFilter} />
+              ))}
+              {r.lenses.map((id) => {
+                const lens = lenses.find((l) => l.id === id);
+                return lens ? <LensTag key={id} lens={lens} onFilter={onFilter} /> : null;
+              })}
               {canEdit && (
                 <button type="button" className="req-row-edit" onClick={() => onEdit(true)} aria-label={`Edit ${r.name}`}>
                   Edit
                 </button>
               )}
             </div>
+            {r.cols.length > 1 && (
+              <div className="req-also">
+                Also in{" "}
+                {r.cols.map((c) => (
+                  <FilterTag key={c} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
+                ))}
+              </div>
+            )}
             {r.description && <p className="req-desc">{r.description}</p>}
-            <StageLine id={r.id} links={r.links} />
+            <StageLine uid={uid} links={r.links} />
+            <ScoresLine scores={r.scores} />
           </>
         )}
       </td>
       <td className="req-sites">
-        <SitesPopover r={r} canEdit={canEdit} allSites={allSites} />
+        <SitesPopover r={r} canEdit={canEdit} allSites={allSites} uid={uid} />
       </td>
     </tr>
   );
@@ -782,150 +1087,9 @@ function NewRequest({ onCreated }: { onCreated: (id: number) => void }) {
   );
 }
 
-function VisionRow({ vision }: { vision: RequestVision }) {
-  const fetcher = useFetcher<ActionResult>();
-  const save = (field: string, value: string, current: string) => {
-    if (value !== current) fetcher.submit({ intent: "update-vision", visionId: vision.id, field, value }, { method: "post" });
-  };
-  const error = fetcher.data && !fetcher.data.ok ? fetcher.data.error : null;
-  return (
-    <div className="req-vision-row">
-      <input defaultValue={vision.label} onBlur={(e) => save("label", e.target.value, vision.label)} aria-label="Vision name" />
-      <input
-        defaultValue={vision.url}
-        placeholder="https://…"
-        onBlur={(e) => save("url", e.target.value, vision.url)}
-        aria-label="Vision link"
-      />
-      <button
-        type="button"
-        className="req-link-btn req-danger"
-        onClick={() => {
-          if (confirm(`Delete the vision "${vision.label}"? Requests tagged with it become untagged.`))
-            fetcher.submit({ intent: "delete-vision", visionId: vision.id }, { method: "post" });
-        }}
-      >
-        Delete
-      </button>
-      {error && <span className="req-error">{error}</span>}
-    </div>
-  );
-}
-
-const NEW_VISION = "__new__";
-
-// The row's vision tag in edit mode: pick a vision, create one ("New vision…"),
-// or rename it and set its link from the small popover beside the tag.
-function VisionEditor({
-  requestId,
-  value,
-  onChange,
-  visions,
-}: {
-  requestId: number;
-  value: string;
-  onChange: (value: string) => void;
-  visions: RequestVision[];
-}) {
-  const create = useFetcher<ActionResult>();
-  const [adding, setAdding] = useState(false);
-  const [label, setLabel] = useState("");
-  const [url, setUrl] = useState("");
-  const shown = value;
-  const current = visions.find((v) => v.id === shown);
-  // A new vision tag is created right away (tags are shared); choosing it for
-  // this row is part of the row's draft.
-  useEffect(() => {
-    if (create.state === "idle" && create.data?.createdVisionId) onChange(create.data.createdVisionId);
-  }, [create.state, create.data]); // eslint-disable-line react-hooks/exhaustive-deps
-  const popoverId = `req-vision-edit-${requestId}`;
-
-  const submitNew = () => {
-    if (!label.trim()) return;
-    create.submit({ intent: "create-vision", label, url }, { method: "post" });
-    setAdding(false);
-    setLabel("");
-    setUrl("");
-  };
-
-  if (adding) {
-    return (
-      <span className="req-vision-new">
-        <input
-          autoFocus
-          value={label}
-          placeholder="Vision name"
-          onChange={(e) => setLabel(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") submitNew();
-            if (e.key === "Escape") setAdding(false);
-          }}
-        />
-        <input
-          value={url}
-          placeholder="Link (optional)"
-          onChange={(e) => setUrl(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") submitNew();
-            if (e.key === "Escape") setAdding(false);
-          }}
-        />
-        <button type="button" className="req-link-btn" onClick={submitNew} disabled={!label.trim()}>
-          Add
-        </button>
-        <button type="button" className="req-link-btn" onClick={() => setAdding(false)}>
-          Cancel
-        </button>
-      </span>
-    );
-  }
-
-  return (
-    <span className="req-vision-editor">
-      <select
-        className="req-tag req-tag-select req-vision"
-        style={current ? { color: visionColor(current.id) } : undefined}
-        value={shown}
-        onChange={(e) => {
-          if (e.target.value === NEW_VISION) setAdding(true);
-          else onChange(e.target.value);
-        }}
-      >
-        <option value="">No vision</option>
-        {visions.map((v) => (
-          <option key={v.id} value={v.id}>
-            {v.label}
-          </option>
-        ))}
-        <option value={NEW_VISION}>New vision…</option>
-      </select>
-      {current && (
-        <>
-          <button type="button" className="req-link-btn" popoverTarget={popoverId} aria-label={`Edit the ${current.label} vision`}>
-            edit vision
-          </button>
-          <div id={popoverId} popover="auto" className="req-popover req-popover-small">
-            <div className="req-popover-head">
-              <span className="req-popover-title">Vision tag</span>
-              <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
-                ×
-              </button>
-            </div>
-            <p className="req-empty">Changes apply to every request with this tag.</p>
-            <VisionRow vision={current} />
-          </div>
-        </>
-      )}
-      {create.data && !create.data.ok ? (
-        <span className="req-error">{create.data.error}</span>
-      ) : null}
-    </span>
-  );
-}
-
 // ── Search ─────────────────────────────────────────────────────────
 
-type PillKind = "column" | "row" | "vision" | "stage" | "status" | "site" | "text";
+type PillKind = "column" | "row" | "lens" | "stage" | "status" | "site" | "text";
 interface Pill {
   kind: PillKind;
   value: string;
@@ -933,19 +1097,19 @@ interface Pill {
 }
 const KIND_LABEL: Record<PillKind, string> = {
   column: "Column",
-  row: "Row",
-  vision: "Vision",
+  row: "Scale",
+  lens: "Lens",
   stage: "Stage",
   status: "Site status",
   site: "Site",
   text: "Text",
 };
 
-function textOf(r: InstitutionRequest, visions: RequestVision[]) {
+function textOf(r: InstitutionRequest, lenses: RequestLens[]) {
   return [
-    visions.find((v) => v.id === r.vision)?.label ?? r.vision ?? "",
-    colName(r.column),
-    rowName(r.row),
+    ...r.lenses.map((id) => lenses.find((l) => l.id === id)?.label ?? id),
+    ...r.cols.map(colName),
+    ...r.rows.map(rowName),
     r.name,
     r.description,
     r.siteHints,
@@ -959,13 +1123,13 @@ function textOf(r: InstitutionRequest, visions: RequestVision[]) {
 
 // Pills of different kinds narrow the list (AND); pills of the same kind
 // widen it (OR). Text pills, and whatever is being typed, must each appear.
-function matches(r: InstitutionRequest, pills: Pill[], typed: string, visions: RequestVision[]) {
+function matches(r: InstitutionRequest, pills: Pill[], typed: string, lenses: RequestLens[]) {
   const byKind = new Map<PillKind, string[]>();
   for (const p of pills) byKind.set(p.kind, [...(byKind.get(p.kind) ?? []), p.value]);
   const test: Record<Exclude<PillKind, "text">, (v: string) => boolean> = {
-    column: (v) => r.column === v,
-    row: (v) => r.row === v,
-    vision: (v) => r.vision === v,
+    column: (v) => r.cols.includes(v),
+    row: (v) => r.rows.includes(v),
+    lens: (v) => r.lenses.includes(v),
     stage: (v) => requestStage(r.links) === v,
     status: (v) => r.sites.some((s) => s.status === v),
     site: (v) => r.sites.some((s) => s.name.toLowerCase() === v),
@@ -976,7 +1140,7 @@ function matches(r: InstitutionRequest, pills: Pill[], typed: string, visions: R
   }
   const words = [...(byKind.get("text") ?? []), ...typed.toLowerCase().split(/\s+/)].filter(Boolean);
   if (!words.length) return true;
-  const hay = textOf(r, visions);
+  const hay = textOf(r, lenses);
   return words.every((w) => hay.includes(w));
 }
 
@@ -1035,7 +1199,7 @@ function SearchBar({
       <input
         ref={inputRef}
         value={typed}
-        placeholder={pills.length ? "" : "Search by column, row, vision, site, status or any text"}
+        placeholder={pills.length ? "" : "Search by column, scale, lens, stage, site or any text"}
         aria-label="Search requests"
         onChange={(e) => {
           setTyped(e.target.value);
@@ -1085,11 +1249,30 @@ function SearchBar({
   );
 }
 
+// ── Sorting ────────────────────────────────────────────────────────
+
+type SortKey = "column" | "priority" | "soon" | "likely" | "impact";
+const SORTS: { id: SortKey; name: string }[] = [
+  { id: "column", name: "Grouped by column" },
+  { id: "priority", name: "Priority to work on" },
+  { id: "soon", name: "Soonest to apply" },
+  { id: "impact", name: "Impact" },
+  { id: "likely", name: "Least likely to happen anyway" },
+];
+
+// Unscored requests sort last.
+function sortValue(r: InstitutionRequest, key: Exclude<SortKey, "column">): number {
+  if (key === "priority") return priority(r.scores) ?? -Infinity;
+  if (key === "likely") return r.scores.likely == null ? -Infinity : 6 - r.scores.likely;
+  return r.scores[key as ScoreKey] ?? -Infinity;
+}
+
 // ── Page ───────────────────────────────────────────────────────────
 
-export default function Requests({ loaderData: { requests, visions, canEdit } }: Route.ComponentProps) {
+export default function Requests({ loaderData: { requests, lenses, canEdit } }: Route.ComponentProps) {
   const [pills, setPills] = useState<Pill[]>([]);
   const [typed, setTyped] = useState("");
+  const [sort, setSort] = useState<SortKey>("column");
   const [editingIds, setEditingIds] = useState<Set<number>>(new Set());
   const setEditing = (id: number, on: boolean) =>
     setEditingIds((prev) => {
@@ -1098,6 +1281,8 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
       else next.delete(id);
       return next;
     });
+  const addPill = (p: Pill) =>
+    setPills((prev) => (prev.some((x) => x.kind === p.kind && x.value === p.value) ? prev : [...prev, p]));
 
   const allSites = useMemo(() => {
     const seen = new Map<string, string>();
@@ -1109,15 +1294,28 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
     () => [
       ...COLS.map((c) => ({ kind: "column" as const, value: c.id, label: c.name })),
       ...ROWS.map((r) => ({ kind: "row" as const, value: r.id, label: r.name })),
-      ...visions.map((v) => ({ kind: "vision" as const, value: v.id, label: v.label })),
+      ...lenses.map((l) => ({ kind: "lens" as const, value: l.id, label: l.label })),
       ...STAGES.map((st) => ({ kind: "stage" as const, value: st, label: STAGE_LABEL[st] })),
       ...REQUEST_STATUSES.map((s) => ({ kind: "status" as const, value: s, label: s })),
       ...allSites.map((s) => ({ kind: "site" as const, value: s.toLowerCase(), label: s })),
     ],
-    [visions, allSites]
+    [lenses, allSites]
   );
 
-  const shown = requests.filter((r) => editingIds.has(r.id) || matches(r, pills, typed, visions));
+  const shown = requests.filter((r) => editingIds.has(r.id) || matches(r, pills, typed, lenses));
+  const row = (r: InstitutionRequest, key: string) => (
+    <RequestRow
+      key={key}
+      uid={key}
+      r={r}
+      lenses={lenses}
+      canEdit={canEdit}
+      editing={editingIds.has(r.id)}
+      onEdit={(on) => setEditing(r.id, on)}
+      onFilter={addPill}
+      allSites={allSites}
+    />
+  );
 
   return (
     <div className="req-page">
@@ -1129,6 +1327,16 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
 
       <div className="req-filters">
         <SearchBar pills={pills} setPills={setPills} typed={typed} setTyped={setTyped} suggestions={suggestions} />
+        <label className="req-sort">
+          <span>Sort</span>
+          <select value={sort} onChange={(e) => setSort(e.target.value as SortKey)}>
+            {SORTS.map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.name}
+              </option>
+            ))}
+          </select>
+        </label>
         <span className="req-count">
           {shown.length} of {requests.length} requests
         </span>
@@ -1141,30 +1349,32 @@ export default function Requests({ loaderData: { requests, visions, canEdit } }:
 
       <div className="req-table-wrap">
         <table className="req-table">
-          {COLS.map((c) => {
-            const group = shown.filter((r) => r.column === c.id);
-            if (!group.length) return null;
-            return (
-              <tbody key={c.id}>
-                <tr className="req-group">
-                  <th colSpan={2}>
-                    {c.name} <span className="req-group-desc">{c.desc}</span>
-                  </th>
-                </tr>
-                {group.map((r) => (
-                  <RequestRow
-                    key={r.id}
-                    r={r}
-                    visions={visions}
-                    canEdit={canEdit}
-                    editing={editingIds.has(r.id)}
-                    onEdit={(on) => setEditing(r.id, on)}
-                    allSites={allSites}
-                  />
-                ))}
-              </tbody>
-            );
-          })}
+          {sort === "column" ? (
+            COLS.map((c) => {
+              // A request in several columns appears under each of them.
+              const group = shown.filter((r) => r.cols.includes(c.id));
+              if (!group.length) return null;
+              return (
+                <tbody key={c.id}>
+                  <tr className="req-group">
+                    <th colSpan={2}>
+                      <button type="button" className="req-group-btn" onClick={() => addPill({ kind: "column", value: c.id, label: c.name })} title={`Show only ${c.name}`}>
+                        {c.name}
+                      </button>{" "}
+                      <span className="req-group-desc">{c.desc}</span>
+                    </th>
+                  </tr>
+                  {group.map((r) => row(r, `${c.id}-${r.id}`))}
+                </tbody>
+              );
+            })
+          ) : (
+            <tbody>
+              {[...shown]
+                .sort((a, b) => sortValue(b, sort) - sortValue(a, sort) || a.name.localeCompare(b.name))
+                .map((r) => row(r, String(r.id)))}
+            </tbody>
+          )}
         </table>
       </div>
     </div>

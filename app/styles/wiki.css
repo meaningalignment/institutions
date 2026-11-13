@@ -2407,6 +2407,34 @@ button.req-stage:hover { background: var(--wash); }
 .req-link-list li + li { margin-top: 4px; }
 .req-link-list a { color: var(--accent); text-decoration: none; }
 .req-link-list a:hover { text-decoration: underline; }
+/* Clickable tags, multi-value tags, lenses, scores, sort */
+button.req-tag-btn { cursor: pointer; background: transparent; font: inherit; font-size: 11px; font-weight: 500; line-height: 1.6; }
+button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
+.req-lens-wrap { display: inline-flex; align-items: baseline; gap: 2px; }
+.req-lens-link { font-size: 11px; color: var(--faint); text-decoration: none; }
+.req-lens-link:hover { color: var(--ink); }
+.req-multi { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.req-tag-chip { display: inline-flex; align-items: center; gap: 3px; padding-right: 3px; }
+.req-tag-chip > button { all: unset; cursor: pointer; color: var(--faint); padding: 0 3px; }
+.req-tag-chip > button:hover { color: var(--ink); }
+.req-tag-chip > .req-chip-label { color: inherit; padding: 0; }
+.req-tag-chip > .req-chip-label:hover { text-decoration: underline; }
+.req-home { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--faint); }
+.req-tag-add { color: var(--faint); border-style: dashed; }
+.req-tag-label { font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--faint); min-width: 54px; }
+.req-tag-line { align-items: center; }
+.req-also { margin-top: 4px; font-size: 11px; color: var(--faint); display: flex; flex-wrap: wrap; gap: 4px; align-items: baseline; }
+.req-scores { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 11px; color: var(--faint); }
+.req-scores strong { color: var(--muted); font-weight: 600; }
+.req-scores-edit label { display: inline-flex; align-items: center; gap: 5px; cursor: default; }
+.req-priority { color: var(--muted); }
+.req-sort { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.req-sort select {
+  font: inherit; font-size: 13px; color: var(--ink); background: var(--card);
+  border: 1px solid var(--line-strong); border-radius: var(--wiki-radius); padding: 4px 6px;
+}
+.req-group-btn { all: unset; cursor: pointer; }
+.req-group-btn:hover { text-decoration: underline; text-decoration-color: var(--line-strong); }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {
@@ -2440,7 +2468,7 @@ button.req-stage:hover { background: var(--wash); }
     }
   }
   .req-page { page: requests; max-width: none; padding: 0; }
-  .req-page .detail-back, .req-filters, .req-visions-panel, .req-popover, .req-row-edit, .req-row-tools,
+  .req-page .detail-back, .req-filters, .req-lens-link, .req-visions-panel, .req-popover, .req-row-edit, .req-row-tools,
   .req-table td.req-sites { display: none !important; }
   .req-table tr.req-group th { break-after: avoid; page-break-after: avoid; }
   .req-title { margin-top: 0; }

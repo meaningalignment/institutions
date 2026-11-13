@@ -13,6 +13,7 @@ import {
   updateVisionField,
   deleteVision,
   updateRequestField,
+  updateRequestFields,
   updateSiteField,
 } from "../lib/requests.server";
 import { REQUEST_STATUSES, type InstitutionRequest, type RequestSite, type RequestVision } from "../lib/requests";
@@ -27,7 +28,7 @@ import {
   rowName,
 } from "../lib/constants";
 
-type ActionResult = { ok: boolean; error?: string; createdId?: number };
+type ActionResult = { ok: boolean; error?: string; createdId?: number; createdVisionId?: string };
 
 export async function loader({ request }: Route.LoaderArgs) {
   const [session, requests, visions] = await Promise.all([
@@ -59,9 +60,8 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
   const value = String(fd.get("value") ?? "");
   try {
     if (intent === "create-vision") {
-      const visionId = await createVision(String(fd.get("label") || ""), String(fd.get("url") || ""));
-      // Created from a row: tag that request with the new vision.
-      if (id) await updateRequestField(id, "vision", visionId);
+      const createdVisionId = await createVision(String(fd.get("label") || ""), String(fd.get("url") || ""));
+      return { ok: true, createdVisionId };
     } else if (intent === "update-vision") {
       await updateVisionField(String(fd.get("visionId") || ""), field, value);
     } else if (intent === "delete-vision") {
@@ -72,6 +72,7 @@ export async function action({ request }: Route.ActionArgs): Promise<ActionResul
     } else if (!id) {
       return { ok: false, error: "Missing id." };
     } else if (intent === "update-request") await updateRequestField(id, field, value);
+    else if (intent === "update-request-many") await updateRequestFields(id, JSON.parse(value));
     else if (intent === "delete-request") await deleteRequest(id);
     else if (intent === "create-site") await createSite(id, value);
     else if (intent === "update-site") await updateSiteField(id, field, value);
@@ -127,6 +128,7 @@ function InlineText({
   multiline = false,
   placeholder,
   className = "",
+  onLocalChange,
 }: {
   intent: Intent;
   id: number;
@@ -135,13 +137,21 @@ function InlineText({
   multiline?: boolean;
   placeholder: string;
   className?: string;
+  /** Draft mode: report the new value instead of saving it. */
+  onLocalChange?: (value: string) => void;
 }) {
   const fetcher = useFetcher<ActionResult>();
   const pending = fetcher.formData?.get("value");
-  const shown = typeof pending === "string" ? pending : value;
+  const shown = !onLocalChange && typeof pending === "string" ? pending : value;
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(shown);
+  const startRef = useRef(shown);
   const ref = useRef<HTMLTextAreaElement & HTMLInputElement>(null);
+  // In draft mode every keystroke updates the row's draft, so Save shows up at once.
+  const change = (v: string) => {
+    setDraft(v);
+    onLocalChange?.(v);
+  };
 
   useEffect(() => {
     if (!editing) return;
@@ -160,11 +170,13 @@ function InlineText({
 
   const commit = () => {
     setEditing(false);
-    if (draft !== shown) fetcher.submit({ intent, id: String(id), field, value: draft }, { method: "post" });
+    if (onLocalChange || draft === shown) return;
+    fetcher.submit({ intent, id: String(id), field, value: draft }, { method: "post" });
   };
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
-      setDraft(shown);
+      setDraft(startRef.current);
+      onLocalChange?.(startRef.current);
       setEditing(false);
     } else if (e.key === "Enter" && (!multiline || e.metaKey || e.ctrlKey)) {
       e.preventDefault();
@@ -183,7 +195,7 @@ function InlineText({
             value={draft}
             placeholder={placeholder}
             rows={1}
-            onChange={(e) => setDraft(e.target.value)}
+            onChange={(e) => change(e.target.value)}
             onBlur={commit}
             onKeyDown={onKeyDown}
           />
@@ -193,7 +205,7 @@ function InlineText({
             className={`req-inline-input ${className}`}
             value={draft}
             placeholder={placeholder}
-            onChange={(e) => setDraft(e.target.value)}
+            onChange={(e) => change(e.target.value)}
             onBlur={commit}
             onKeyDown={onKeyDown}
           />
@@ -206,11 +218,13 @@ function InlineText({
           className={`req-inline ${className}${shown ? "" : " is-empty"}`}
           onClick={() => {
             setDraft(shown);
+            startRef.current = shown;
             setEditing(true);
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               setDraft(shown);
+              startRef.current = shown;
               setEditing(true);
             }
           }}
@@ -231,6 +245,7 @@ function InlineSelect({
   value,
   options,
   className = "",
+  onLocalChange,
 }: {
   intent: Intent;
   id: number;
@@ -238,16 +253,19 @@ function InlineSelect({
   value: string;
   options: readonly { id: string; name: string }[];
   className?: string;
+  onLocalChange?: (value: string) => void;
 }) {
   const fetcher = useFetcher<ActionResult>();
   const pending = fetcher.formData?.get("value");
-  const shown = typeof pending === "string" ? pending : value;
+  const shown = !onLocalChange && typeof pending === "string" ? pending : value;
   return (
     <select
       className={`req-tag req-tag-select ${className}`}
       value={shown}
       onChange={(e) =>
-        fetcher.submit({ intent, id: String(id), field, value: e.target.value }, { method: "post" })
+        onLocalChange
+          ? onLocalChange(e.target.value)
+          : fetcher.submit({ intent, id: String(id), field, value: e.target.value }, { method: "post" })
       }
     >
       {options.map((o) => (
@@ -490,6 +508,16 @@ function SitesPopover({ r, canEdit, allSites }: { r: InstitutionRequest; canEdit
 
 // ── Rows ───────────────────────────────────────────────────────────
 
+// A row's edits are a local draft until Save; Cancel throws them away.
+interface Draft {
+  name: string;
+  column: string;
+  row: string;
+  vision: string;
+  description: string;
+  readMoreUrl: string;
+}
+
 function RequestRow({
   r,
   visions,
@@ -506,6 +534,27 @@ function RequestRow({
   allSites: string[];
 }) {
   const vision = visions.find((v) => v.id === r.vision);
+  const saved: Draft = {
+    name: r.name,
+    column: r.column,
+    row: r.row,
+    vision: r.vision ?? "",
+    description: r.description,
+    readMoreUrl: r.readMoreUrl,
+  };
+  const [draft, setDraft] = useState<Draft>(saved);
+  // Start each edit from what's saved.
+  useEffect(() => {
+    if (editing) setDraft(saved);
+  }, [editing]); // eslint-disable-line react-hooks/exhaustive-deps
+  const set = (field: keyof Draft) => (value: string) => setDraft((d) => ({ ...d, [field]: value }));
+  const changed = (Object.keys(saved) as (keyof Draft)[]).filter((k) => draft[k] !== saved[k]);
+  const save = useFetcher<ActionResult>();
+  const saving = save.state !== "idle";
+  useEffect(() => {
+    if (save.state === "idle" && save.data?.ok) onEdit(false);
+  }, [save.state, save.data]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <tr className={editing ? "req-editing" : undefined}>
       <td className="req-name">
@@ -513,34 +562,55 @@ function RequestRow({
           <>
             <div className="req-title-line">
               <span className="req-title-edit">
-                <InlineText intent="update-request" id={r.id} field="name" value={r.name} multiline placeholder="Name" className="req-name-text" />
+                <InlineText intent="update-request" id={r.id} field="name" value={draft.name} onLocalChange={set("name")} multiline placeholder="Name" className="req-name-text" />
               </span>
               <span className="req-row-tools">
-                <button type="button" className="req-btn req-btn-small" onClick={() => onEdit(false)}>
-                  Save
+                <button type="button" className="req-btn-ghost req-btn-small" onClick={() => onEdit(false)} disabled={saving}>
+                  Cancel
                 </button>
+                {changed.length > 0 && (
+                  <button
+                    type="button"
+                    className="req-btn req-btn-small"
+                    disabled={saving}
+                    onClick={() =>
+                      save.submit(
+                        {
+                          intent: "update-request-many",
+                          id: String(r.id),
+                          value: JSON.stringify(Object.fromEntries(changed.map((k) => [k, draft[k]]))),
+                        },
+                        { method: "post" }
+                      )
+                    }
+                  >
+                    {saving ? "Saving…" : "Save"}
+                  </button>
+                )}
                 <MoreMenu id={`req-more-${r.id}`}>
                   <DeleteLink intent="delete-request" id={r.id} label={`the request "${r.name}" and its sites`} />
                 </MoreMenu>
               </span>
             </div>
+            {save.data && !save.data.ok && <div className="req-error">{save.data.error}</div>}
             <div className="req-tag-line">
-              <InlineSelect intent="update-request" id={r.id} field="column" value={r.column} options={COLS} />
-              <InlineSelect intent="update-request" id={r.id} field="row" value={r.row} options={ROWS} />
-              <VisionEditor requestId={r.id} value={r.vision ?? ""} visions={visions} />
+              <InlineSelect intent="update-request" id={r.id} field="column" value={draft.column} onLocalChange={set("column")} options={COLS} />
+              <InlineSelect intent="update-request" id={r.id} field="row" value={draft.row} onLocalChange={set("row")} options={ROWS} />
+              <VisionEditor requestId={r.id} value={draft.vision} onChange={set("vision")} visions={visions} />
             </div>
             <p className="req-desc">
               <InlineText
                 intent="update-request"
                 id={r.id}
                 field="description"
-                value={r.description}
+                value={draft.description}
+                onLocalChange={set("description")}
                 multiline
                 placeholder="Add two or three sentences on what needs to be built"
               />
             </p>
             <div className="req-more-edit">
-              <InlineText intent="update-request" id={r.id} field="readMoreUrl" value={r.readMoreUrl} placeholder="Add a read-more link" />
+              <InlineText intent="update-request" id={r.id} field="readMoreUrl" value={draft.readMoreUrl} onLocalChange={set("readMoreUrl")} placeholder="Add a read-more link" />
             </div>
           </>
         ) : (
@@ -628,20 +698,33 @@ const NEW_VISION = "__new__";
 
 // The row's vision tag in edit mode: pick a vision, create one ("New vision…"),
 // or rename it and set its link from the small popover beside the tag.
-function VisionEditor({ requestId, value, visions }: { requestId: number; value: string; visions: RequestVision[] }) {
-  const pick = useFetcher<ActionResult>();
+function VisionEditor({
+  requestId,
+  value,
+  onChange,
+  visions,
+}: {
+  requestId: number;
+  value: string;
+  onChange: (value: string) => void;
+  visions: RequestVision[];
+}) {
   const create = useFetcher<ActionResult>();
   const [adding, setAdding] = useState(false);
   const [label, setLabel] = useState("");
   const [url, setUrl] = useState("");
-  const pending = pick.formData?.get("value");
-  const shown = typeof pending === "string" ? pending : value;
+  const shown = value;
   const current = visions.find((v) => v.id === shown);
+  // A new vision tag is created right away (tags are shared); choosing it for
+  // this row is part of the row's draft.
+  useEffect(() => {
+    if (create.state === "idle" && create.data?.createdVisionId) onChange(create.data.createdVisionId);
+  }, [create.state, create.data]); // eslint-disable-line react-hooks/exhaustive-deps
   const popoverId = `req-vision-edit-${requestId}`;
 
   const submitNew = () => {
     if (!label.trim()) return;
-    create.submit({ intent: "create-vision", id: String(requestId), label, url }, { method: "post" });
+    create.submit({ intent: "create-vision", label, url }, { method: "post" });
     setAdding(false);
     setLabel("");
     setUrl("");
@@ -687,7 +770,7 @@ function VisionEditor({ requestId, value, visions }: { requestId: number; value:
         value={shown}
         onChange={(e) => {
           if (e.target.value === NEW_VISION) setAdding(true);
-          else pick.submit({ intent: "update-request", id: String(requestId), field: "vision", value: e.target.value }, { method: "post" });
+          else onChange(e.target.value);
         }}
       >
         <option value="">No vision</option>
@@ -715,8 +798,8 @@ function VisionEditor({ requestId, value, visions }: { requestId: number; value:
           </div>
         </>
       )}
-      {(create.data && !create.data.ok) || (pick.data && !pick.data.ok) ? (
-        <span className="req-error">{create.data?.error || pick.data?.error}</span>
+      {create.data && !create.data.ok ? (
+        <span className="req-error">{create.data.error}</span>
       ) : null}
     </span>
   );

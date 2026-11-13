@@ -147,6 +147,21 @@ export async function updateRequestField(id: number, field: string, value: strin
   }
 }
 
+// Save a row's draft: validate every field first, then write them together.
+export async function updateRequestFields(id: number, fields: Record<string, unknown>) {
+  const allowed = ["name", "vision", "row", "column", "description", "readMoreUrl"];
+  const entries = Object.entries(fields).map(([k, v]) => [k, String(v ?? "")] as const);
+  for (const [k, v] of entries) {
+    check(allowed.includes(k), "Unknown field.");
+    if (k === "name") check(!!v.trim(), "A request needs a name.");
+    if (k === "row") validRow(v);
+    if (k === "column") validCol(v);
+    if (k === "vision") await validVision(v || null);
+    if (k === "readMoreUrl") cleanUrl(v);
+  }
+  for (const [k, v] of entries) await updateRequestField(id, k, v);
+}
+
 export async function deleteRequest(id: number) {
   await getSql()`DELETE FROM institutions_requests WHERE id = ${id}`;
 }

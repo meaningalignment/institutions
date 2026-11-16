@@ -31,7 +31,7 @@ await sql`
     instead text NOT NULL DEFAULT '',
     pain text NOT NULL DEFAULT '',
     success text NOT NULL DEFAULT '',
-    status text NOT NULL DEFAULT 'wanted' CHECK (status IN ('wanted', 'building', 'trialing')),
+    status text NOT NULL DEFAULT 'interested',
     position integer NOT NULL DEFAULT 0,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now()
@@ -160,6 +160,18 @@ await sql`ALTER TABLE institutions_request_links DROP CONSTRAINT IF EXISTS insti
 await sql`
   ALTER TABLE institutions_request_links ADD CONSTRAINT institutions_request_links_kind_check
   CHECK (kind IN ('case', 'project', 'design', 'test', 'use'))
+`;
+
+// Site statuses now mirror the stages: interested | designing | piloting | inuse
+// (first wanted | building | trialing). Replace the check and map old values.
+await sql`ALTER TABLE institutions_request_sites DROP CONSTRAINT IF EXISTS institutions_request_sites_status_check`;
+await sql`UPDATE institutions_request_sites SET status = 'interested' WHERE status = 'wanted'`;
+await sql`UPDATE institutions_request_sites SET status = 'designing' WHERE status = 'building'`;
+await sql`UPDATE institutions_request_sites SET status = 'piloting' WHERE status = 'trialing'`;
+await sql`ALTER TABLE institutions_request_sites ALTER COLUMN status SET DEFAULT 'interested'`;
+await sql`
+  ALTER TABLE institutions_request_sites ADD CONSTRAINT institutions_request_sites_status_check
+  CHECK (status IN ('interested', 'designing', 'piloting', 'inuse'))
 `;
 
 const [{ count }] = await sql`SELECT count(*)::int AS count FROM institutions_requests`;

@@ -21,6 +21,7 @@ import {
   LINK_KINDS,
   LINK_KIND_LABEL,
   REQUEST_STATUSES,
+  STATUS_LABEL,
   SCORE_HELP,
   SCORE_KEYS,
   SCORE_LABEL,
@@ -354,7 +355,7 @@ function MoreMenu({ id, children }: { id: string; children: React.ReactNode }) {
   );
 }
 
-const statusOptions = REQUEST_STATUSES.map((s) => ({ id: s, name: s }));
+const statusOptions = REQUEST_STATUSES.map((s) => ({ id: s, name: STATUS_LABEL[s] }));
 
 // ── Sites ──────────────────────────────────────────────────────────
 
@@ -446,7 +447,7 @@ function Site({ site, canEdit, uid }: { site: RequestSite; canEdit: boolean; uid
     <div className="req-site">
       <button type="button" className="req-site-btn" popoverTarget={popoverId}>
         <span className="req-site-name">{site.name}</span>
-        <span className={`req-status req-status-${site.status}`}>{site.status}</span>
+        <span className={`req-status req-status-${site.status}`}>{STATUS_LABEL[site.status]}</span>
       </button>
       <div id={popoverId} popover="auto" className="req-popover">
         <div className="req-popover-head">
@@ -493,13 +494,13 @@ function Site({ site, canEdit, uid }: { site: RequestSite; canEdit: boolean; uid
         ) : site.instead || site.pain || site.success ? (
           <dl>
             <dt>Status</dt>
-            <dd>{site.status}</dd>
+            <dd>{STATUS_LABEL[site.status]}</dd>
             {show("Currently doing instead", site.instead)}
             {show("Pain point", site.pain)}
             {show("How we'd recognize success", site.success)}
           </dl>
         ) : (
-          <p className="req-empty">Status: {site.status}. No details yet.</p>
+          <p className="req-empty">Status: {STATUS_LABEL[site.status]}. No details yet.</p>
         )}
       </div>
     </div>
@@ -582,11 +583,11 @@ function SitesPopover({ r, canEdit, allSites, uid }: { r: InstitutionRequest; ca
 
 // ── Rows ───────────────────────────────────────────────────────────
 
-// The stage tag sits under the description: "Design wanted", "Designed" or
-// "Tested", followed by the links behind it (cases, designs, test reports).
-// The stage badge that leads each row; it opens a popover of all the links.
-function StageBadge({ uid, links }: { uid: string; links: RequestLink[] }) {
-  const stage = requestStage(links);
+// The stage badge that leads each row; it opens a popover of all the links
+// and the sites that are designing, piloting or using it.
+function StageBadge({ uid, links, sites }: { uid: string; links: RequestLink[]; sites: RequestSite[] }) {
+  const stage = requestStage(links, sites);
+  const activeSites = sites.filter((s) => s.status !== "interested");
   const popoverId = `req-links-${uid}`;
   return (
     <>
@@ -621,6 +622,18 @@ function StageBadge({ uid, links }: { uid: string; links: RequestLink[] }) {
             </div>
           );
         })}
+        {activeSites.length > 0 && (
+          <div>
+            <div className="req-popover-section">Sites working on it</div>
+            <ul className="req-link-list">
+              {activeSites.map((s) => (
+                <li key={s.id}>
+                  {s.name} <span className="req-empty">({STATUS_LABEL[s.status]})</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </>
   );
@@ -642,15 +655,23 @@ const LINK_KIND_EMPTY: Record<LinkKind, string> = {
 };
 
 // Links in a row's draft: kind, title and URL for each, plus "Add link".
-function LinksEditor({ links, onChange }: { links: RequestLink[]; onChange: (links: RequestLink[]) => void }) {
+function LinksEditor({
+  links,
+  sites,
+  onChange,
+}: {
+  links: RequestLink[];
+  sites: RequestSite[];
+  onChange: (links: RequestLink[]) => void;
+}) {
   const update = (i: number, patch: Partial<RequestLink>) =>
     onChange(links.map((p, j) => (j === i ? { ...p, ...patch } : p)));
-  const stage = requestStage(links);
+  const stage = requestStage(links, sites);
   return (
     <div className="req-links-edit">
       <div className="req-stage-line">
         <span className={`req-tag req-stage req-stage-${stage}`}>{STAGE_LABEL[stage]}</span>
-        <span className="req-empty">follows from the links below</span>
+        <span className="req-empty">follows from the links below and the sites</span>
       </div>
       {links.map((p, i) => (
         <div key={i} className="req-link-edit">
@@ -1012,9 +1033,9 @@ function RequestRow({
   const cellHref = `/cell/${r.rows[0]}/${r.cols[0]}${homeLens ? `?visions=${homeLens}` : ""}`;
 
   return (
-    <tr className={`req-row req-edge-${requestStage(editing ? draft.links : r.links)}${editing ? " req-editing" : ""}`}>
+    <tr className={`req-row req-edge-${requestStage(editing ? draft.links : r.links, r.sites)}${editing ? " req-editing" : ""}`}>
       <td className="req-stage-cell">
-        <StageBadge uid={uid} links={editing ? draft.links : r.links} />
+        <StageBadge uid={uid} links={editing ? draft.links : r.links} sites={r.sites} />
       </td>
       <td className="req-name">
         {editing ? (
@@ -1075,7 +1096,7 @@ function RequestRow({
                 placeholder="Add two or three sentences on what needs to be built"
               />
             </p>
-            <LinksEditor links={draft.links} onChange={set("links")} />
+            <LinksEditor links={draft.links} sites={r.sites} onChange={set("links")} />
             <ScoresEditor scores={draft.scores} onChange={set("scores")} />
           </>
         ) : (
@@ -1166,9 +1187,9 @@ function textOf(r: InstitutionRequest, lenses: RequestLens[]) {
     r.name,
     r.description,
     r.siteHints,
-    STAGE_LABEL[requestStage(r.links)],
+    STAGE_LABEL[requestStage(r.links, r.sites)],
     ...r.links.map((p) => p.title),
-    ...r.sites.flatMap((s) => [s.name, s.instead, s.pain, s.success, s.status]),
+    ...r.sites.flatMap((s) => [s.name, s.instead, s.pain, s.success, STATUS_LABEL[s.status]]),
   ]
     .join(" ")
     .toLowerCase();
@@ -1183,7 +1204,7 @@ function matches(r: InstitutionRequest, pills: Pill[], typed: string, lenses: Re
     column: (v) => r.cols.includes(v),
     row: (v) => r.rows.includes(v),
     lens: (v) => r.lenses.includes(v),
-    stage: (v) => requestStage(r.links) === v,
+    stage: (v) => requestStage(r.links, r.sites) === v,
     status: (v) => r.sites.some((s) => s.status === v),
     site: (v) => r.sites.some((s) => s.name.toLowerCase() === v),
   };
@@ -1350,7 +1371,7 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
       ...ROWS.map((r) => ({ kind: "row" as const, value: r.id, label: r.name })),
       ...lenses.map((l) => ({ kind: "lens" as const, value: l.id, label: l.label })),
       ...STAGES.map((st) => ({ kind: "stage" as const, value: st, label: STAGE_LABEL[st] })),
-      ...REQUEST_STATUSES.map((s) => ({ kind: "status" as const, value: s, label: s })),
+      ...REQUEST_STATUSES.map((s) => ({ kind: "status" as const, value: s, label: STATUS_LABEL[s] })),
       ...allSites.map((s) => ({ kind: "site" as const, value: s.toLowerCase(), label: s })),
     ],
     [lenses, allSites]
@@ -1417,7 +1438,7 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
           {sort === "stage" ? (
             [...STAGES].reverse().map((st) => {
               const group = shown
-                .filter((r) => requestStage(r.links) === st)
+                .filter((r) => requestStage(r.links, r.sites) === st)
                 .sort((a, b) => sortValue(b, "priority") - sortValue(a, "priority") || a.name.localeCompare(b.name));
               if (!group.length) return null;
               return (

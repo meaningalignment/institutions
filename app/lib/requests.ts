@@ -1,7 +1,15 @@
 // Shared (isomorphic) types for /requests. Queries live in requests.server.ts.
 
-export const REQUEST_STATUSES = ["wanted", "building", "trialing"] as const;
+// A site's own progress: it wants the institution, is designing its version,
+// is piloting one, or has it in real use. (First "wanted | building | trialing".)
+export const REQUEST_STATUSES = ["interested", "designing", "piloting", "inuse"] as const;
 export type RequestStatus = (typeof REQUEST_STATUSES)[number];
+export const STATUS_LABEL: Record<RequestStatus, string> = {
+  interested: "interested",
+  designing: "designing",
+  piloting: "piloting",
+  inuse: "in use",
+};
 
 export interface RequestSite {
   id: number;
@@ -71,16 +79,21 @@ export interface RequestLink {
   url: string;
 }
 
-export const STAGES = ["wanted", "designing", "designed", "tested", "inuse"] as const;
+export const STAGES = ["wanted", "designing", "designed", "piloting", "tested", "inuse"] as const;
 export type Stage = (typeof STAGES)[number];
-export const STAGE_LABEL: Record<Stage, string> = { wanted: "Design wanted", designing: "In design", designed: "Designed", tested: "Tested", inuse: "In use" };
+export const STAGE_LABEL: Record<Stage, string> = { wanted: "Design wanted", designing: "In design", designed: "Designed", piloting: "Piloting", tested: "Tested", inuse: "In use" };
 
-export function requestStage(links: RequestLink[]): Stage {
-  if (links.some((p) => p.kind === "use")) return "inuse";
-  if (links.some((p) => p.kind === "test")) return "tested";
-  if (links.some((p) => p.kind === "design")) return "designed";
-  if (links.some((p) => p.kind === "project")) return "designing";
-  return "wanted";
+// The stage is the furthest point shown by either the links (a design, a test
+// report, a deployment) or the sites (a site designing, piloting, or using it).
+// "Designed" and "Tested" come only from links: they are documents.
+const LINK_STAGE: Record<LinkKind, Stage> = { case: "wanted", project: "designing", design: "designed", test: "tested", use: "inuse" };
+const SITE_STAGE: Record<RequestStatus, Stage> = { interested: "wanted", designing: "designing", piloting: "piloting", inuse: "inuse" };
+
+export function requestStage(links: RequestLink[], sites: { status: RequestStatus }[] = []): Stage {
+  let best = 0;
+  for (const l of links) best = Math.max(best, STAGES.indexOf(LINK_STAGE[l.kind]));
+  for (const s of sites) best = Math.max(best, STAGES.indexOf(SITE_STAGE[s.status] ?? "wanted"));
+  return STAGES[best];
 }
 
 export interface RequestLens {

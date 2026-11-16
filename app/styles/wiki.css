@@ -2224,10 +2224,12 @@ table.req-table { min-width: 760px; width: 100%; border-collapse: collapse; back
   font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 1px 6px;
   border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted); white-space: nowrap;
 }
-.req-status-building { color: #8a5a00; border-color: #d9b56a; }
-.req-status-trialing { color: #2f6b3a; border-color: #8fc29a; }
-.theme-dark .req-status-building { color: #e6c27a; border-color: #8a6a2a; }
-.theme-dark .req-status-trialing { color: #9ad3a5; border-color: #3f7a4a; }
+.req-status-designing { color: #4f6fa8; border-color: #9fb3d8; }
+.req-status-piloting { color: #8a4fa8; border-color: #c9a6dc; }
+.req-status-inuse { color: #1f6b34; border-color: #8fc29a; }
+.theme-dark .req-status-designing { color: #8fb0e8; border-color: #4f6fa8; }
+.theme-dark .req-status-piloting { color: #d1a8e8; border-color: #8a4fa8; }
+.theme-dark .req-status-inuse { color: #b5e8c2; border-color: #3f7a4a; }
 .req-popover dl { margin: 0; font-size: 13px; line-height: 1.5; }
 .req-popover dt { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 6px; }
 .req-popover dd { margin: 1px 0 0; color: var(--text); }
@@ -2446,10 +2448,12 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 .req-stage-wanted, .req-edge-wanted, .req-strip-wanted { --stage: #8a8984; }
 .req-stage-designing, .req-edge-designing, .req-strip-designing { --stage: #4f6fa8; }
 .req-stage-designed, .req-edge-designed, .req-strip-designed { --stage: #b07a12; }
+.req-stage-piloting, .req-edge-piloting, .req-strip-piloting { --stage: #8a4fa8; }
 .req-stage-tested, .req-edge-tested, .req-strip-tested { --stage: #2f8a45; }
 .req-stage-inuse, .req-edge-inuse, .req-strip-inuse { --stage: #1f6b34; }
 .theme-dark .req-stage-designing, .theme-dark .req-edge-designing, .theme-dark .req-strip-designing { --stage: #8fb0e8; }
 .theme-dark .req-stage-designed, .theme-dark .req-edge-designed, .theme-dark .req-strip-designed { --stage: #e6c27a; }
+.theme-dark .req-stage-piloting, .theme-dark .req-edge-piloting, .theme-dark .req-strip-piloting { --stage: #d1a8e8; }
 .theme-dark .req-stage-tested, .theme-dark .req-edge-tested, .theme-dark .req-strip-tested { --stage: #8fd3a0; }
 .theme-dark .req-stage-inuse, .theme-dark .req-edge-inuse, .theme-dark .req-strip-inuse { --stage: #b5e8c2; }
 .req-table tr.req-row > td.req-stage-cell { width: 110px; border-right: 0 !important; }

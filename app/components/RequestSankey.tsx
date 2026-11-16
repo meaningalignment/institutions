@@ -33,7 +33,10 @@ export function RequestSankey({
   if (!total) return null;
 
   const at = new Map<Stage, number>(STAGES.map((s) => [s, 0]));
-  for (const r of requests) at.set(requestStage(r.links), at.get(requestStage(r.links))! + 1);
+  for (const r of requests) {
+    const st = requestStage(r.links, r.sites);
+    at.set(st, at.get(st)! + 1);
+  }
   // reached[k] = requests at stage k or further along.
   const reached = STAGES.map((_, k) => STAGES.slice(k).reduce((n, s) => n + at.get(s)!, 0));
 

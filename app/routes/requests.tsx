@@ -433,9 +433,8 @@ function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: 
   );
 }
 
-// Site info opens in a popover (native Popover API); admins edit it in place.
-function Site({ site, canEdit, uid }: { site: RequestSite; canEdit: boolean; uid: string }) {
-  const popoverId = `req-site-${uid}-${site.id}`;
+// One site, shown inline in the request's modal; admins edit it in place.
+function SiteCard({ site, canEdit }: { site: RequestSite; canEdit: boolean }) {
   const show = (label: string, text: string) =>
     text ? (
       <>
@@ -444,65 +443,49 @@ function Site({ site, canEdit, uid }: { site: RequestSite; canEdit: boolean; uid
       </>
     ) : null;
   return (
-    <div className="req-site">
-      <button type="button" className="req-site-btn" popoverTarget={popoverId}>
-        <span className="req-site-name">{site.name}</span>
-        <span className={`req-status req-status-${site.status}`}>{STATUS_LABEL[site.status]}</span>
-      </button>
-      <div id={popoverId} popover="auto" className="req-popover">
-        <div className="req-popover-head">
-          <span className="req-popover-title">
-            {canEdit ? (
-              <InlineText intent="update-site" id={site.id} field="name" value={site.name} placeholder="Site name" />
-            ) : (
-              site.name
-            )}
-          </span>
-          <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
-            ×
-          </button>
-        </div>
+    <div className="req-site-card">
+      <div className="req-site-card-head">
+        <span className="req-site-name">
+          {canEdit ? <InlineText intent="update-site" id={site.id} field="name" value={site.name} placeholder="Site name" /> : site.name}
+        </span>
         {canEdit ? (
-          <dl>
-            <dt>Status</dt>
-            <dd>
-              <InlineSelect
-                intent="update-site"
-                id={site.id}
-                field="status"
-                value={site.status}
-                options={statusOptions}
-                className={`req-status-${site.status}`}
-              />
-            </dd>
-            <dt>Currently doing instead</dt>
-            <dd>
-              <InlineText intent="update-site" id={site.id} field="instead" value={site.instead} multiline placeholder="What do they do today?" />
-            </dd>
-            <dt>Pain point</dt>
-            <dd>
-              <InlineText intent="update-site" id={site.id} field="pain" value={site.pain} multiline placeholder="What hurts?" />
-            </dd>
-            <dt>How we'd recognize success</dt>
-            <dd>
-              <InlineText intent="update-site" id={site.id} field="success" value={site.success} multiline placeholder="What would we see if it worked?" />
-            </dd>
-            <dd className="req-popover-actions">
-              <DeleteLink intent="delete-site" id={site.id} label={`the site "${site.name}" from this request`} />
-            </dd>
-          </dl>
-        ) : site.instead || site.pain || site.success ? (
-          <dl>
-            <dt>Status</dt>
-            <dd>{STATUS_LABEL[site.status]}</dd>
-            {show("Currently doing instead", site.instead)}
-            {show("Pain point", site.pain)}
-            {show("How we'd recognize success", site.success)}
-          </dl>
+          <InlineSelect
+            intent="update-site"
+            id={site.id}
+            field="status"
+            value={site.status}
+            options={statusOptions}
+            className={`req-status-${site.status}`}
+          />
         ) : (
-          <p className="req-empty">Status: {STATUS_LABEL[site.status]}. No details yet.</p>
+          <span className={`req-status req-status-${site.status}`}>{STATUS_LABEL[site.status]}</span>
         )}
       </div>
+      {canEdit ? (
+        <dl>
+          <dt>Currently doing instead</dt>
+          <dd>
+            <InlineText intent="update-site" id={site.id} field="instead" value={site.instead} multiline placeholder="What do they do today?" />
+          </dd>
+          <dt>Pain point</dt>
+          <dd>
+            <InlineText intent="update-site" id={site.id} field="pain" value={site.pain} multiline placeholder="What hurts?" />
+          </dd>
+          <dt>How we'd recognize success</dt>
+          <dd>
+            <InlineText intent="update-site" id={site.id} field="success" value={site.success} multiline placeholder="What would we see if it worked?" />
+          </dd>
+          <dd className="req-popover-actions">
+            <DeleteLink intent="delete-site" id={site.id} label={`the site "${site.name}" from this request`} />
+          </dd>
+        </dl>
+      ) : site.instead || site.pain || site.success ? (
+        <dl>
+          {show("Currently doing instead", site.instead)}
+          {show("Pain point", site.pain)}
+          {show("How we'd recognize success", site.success)}
+        </dl>
+      ) : null}
     </div>
   );
 }
@@ -550,92 +533,97 @@ function SiteHints({ hints, r, canEdit }: { hints: string[]; r: InstitutionReque
   );
 }
 
-// "No sites yet" / "N sites" opens a popover with the request's sites and
-// site hints. Site popovers opened from inside it nest as its children.
-function SitesPopover({ r, canEdit, allSites, uid }: { r: InstitutionRequest; canEdit: boolean; allSites: string[]; uid: string }) {
-  const popoverId = `req-sites-${uid}`;
+// "No sites yet" / "N sites": opens the request's modal.
+function SitesButton({ r, uid }: { r: InstitutionRequest; uid: string }) {
   const label = r.sites.length ? `${r.sites.length} site${r.sites.length === 1 ? "" : "s"}` : "No sites yet";
-  const hints = r.siteHints.split(/\n+/).filter((line) => line.trim());
   return (
-    <>
-      <button type="button" className={`req-sites-btn${r.sites.length ? "" : " is-empty"}`} popoverTarget={popoverId}>
-        {label}
-      </button>
-      <div id={popoverId} popover="auto" className="req-popover">
-        <div className="req-popover-head">
-          <span className="req-popover-title">{r.name}</span>
-          <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
-            ×
-          </button>
-        </div>
-        <div className="req-popover-section">Sites</div>
-        {r.sites.length ? (
-          r.sites.map((s) => <Site key={s.id} site={s} canEdit={canEdit} uid={uid} />)
-        ) : (
-          <p className="req-empty">No sites yet.</p>
-        )}
-        {canEdit && <SitePicker requestId={r.id} taken={r.sites.map((s) => s.name)} allSites={allSites} />}
-        {(hints.length > 0 || canEdit) && <SiteHints hints={hints} r={r} canEdit={canEdit} />}
-      </div>
-    </>
+    <button type="button" className={`req-sites-btn${r.sites.length ? "" : " is-empty"}`} popoverTarget={`req-detail-${uid}`}>
+      {label}
+    </button>
   );
 }
 
 // ── Rows ───────────────────────────────────────────────────────────
 
-// The stage badge that leads each row; it opens a popover of all the links
-// and the sites that are designing, piloting or using it.
+// The stage badge that leads each row; it opens the request's modal.
 function StageBadge({ uid, links, sites }: { uid: string; links: RequestLink[]; sites: RequestSite[] }) {
   const stage = requestStage(links, sites);
-  const activeSites = sites.filter((s) => s.status !== "interested");
-  const popoverId = `req-links-${uid}`;
   return (
-    <>
-      <button type="button" className={`req-stage-badge req-stage-${stage}`} popoverTarget={popoverId}>
-        {STAGE_LABEL[stage]}
-      </button>
-      <div id={popoverId} popover="auto" className="req-popover req-popover-small">
-        <div className="req-popover-head">
-          <span className="req-popover-title">{STAGE_LABEL[stage]}</span>
-          <button type="button" className="req-popover-close" popoverTarget={popoverId} popoverTargetAction="hide" aria-label="Close">
-            ×
-          </button>
-        </div>
-        {LINK_KINDS.map((kind) => {
-          const list = links.filter((p) => p.kind === kind);
-          return (
-            <div key={kind}>
-              <div className="req-popover-section">{LINK_KIND_PLURAL[kind]}</div>
-              {list.length ? (
-                <ul className="req-link-list">
-                  {list.map((p, i) => (
-                    <li key={i}>
-                      <a href={p.url} target="_blank" rel="noopener noreferrer">
-                        {p.title} ↗
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="req-empty">{LINK_KIND_EMPTY[kind]}</p>
-              )}
-            </div>
-          );
-        })}
-        {activeSites.length > 0 && (
-          <div>
-            <div className="req-popover-section">Sites working on it</div>
+    <button type="button" className={`req-stage-badge req-stage-${stage}`} popoverTarget={`req-detail-${uid}`}>
+      {STAGE_LABEL[stage]}
+    </button>
+  );
+}
+
+// The one modal a request opens (from its title, stage badge, links summary or
+// sites count): stage, description, links by kind, and the sites with their
+// details, plus the site picker and site hints for admins.
+function RequestModal({
+  r,
+  uid,
+  canEdit,
+  allSites,
+}: {
+  r: InstitutionRequest;
+  uid: string;
+  canEdit: boolean;
+  allSites: string[];
+}) {
+  const id = `req-detail-${uid}`;
+  const stage = requestStage(r.links, r.sites);
+  const homeLens = r.lenses.find((l) => VISIONS.some((v) => v.id === l));
+  const cellHref = `/cell/${r.rows[0]}/${r.cols[0]}${homeLens ? `?visions=${homeLens}` : ""}`;
+  const hints = r.siteHints.split(/\n+/).filter((line) => line.trim());
+  const kinds = LINK_KINDS.filter((k) => r.links.some((l) => l.kind === k));
+  return (
+    <div id={id} popover="auto" className="req-popover req-modal">
+      <div className="req-popover-head">
+        <span className="req-popover-title">{r.name}</span>
+        <button type="button" className="req-popover-close" popoverTarget={id} popoverTargetAction="hide" aria-label="Close">
+          ×
+        </button>
+      </div>
+      <div className="req-modal-meta">
+        <span className={`req-tag req-stage req-stage-${stage}`}>{STAGE_LABEL[stage]}</span>
+        <Link to={cellHref} className="req-modal-cell">
+          {colName(r.cols[0])} · {rowName(r.rows[0])} on the grid →
+        </Link>
+      </div>
+      {r.description && <p className="req-modal-desc">{r.description}</p>}
+
+      {kinds.length ? (
+        kinds.map((kind) => (
+          <div key={kind}>
+            <div className="req-popover-section">{LINK_KIND_PLURAL[kind]}</div>
             <ul className="req-link-list">
-              {activeSites.map((s) => (
-                <li key={s.id}>
-                  {s.name} <span className="req-empty">({STATUS_LABEL[s.status]})</span>
-                </li>
-              ))}
+              {r.links
+                .filter((l) => l.kind === kind)
+                .map((l, i) => (
+                  <li key={i}>
+                    <a href={l.url} target="_blank" rel="noopener noreferrer">
+                      {l.title} ↗
+                    </a>
+                  </li>
+                ))}
             </ul>
           </div>
-        )}
-      </div>
-    </>
+        ))
+      ) : (
+        <>
+          <div className="req-popover-section">Writing</div>
+          <p className="req-empty">No case, design or test report linked yet.</p>
+        </>
+      )}
+
+      <div className="req-popover-section">Sites</div>
+      {r.sites.length ? (
+        r.sites.map((s) => <SiteCard key={s.id} site={s} canEdit={canEdit} />)
+      ) : (
+        <p className="req-empty">No sites yet.</p>
+      )}
+      {canEdit && <SitePicker requestId={r.id} taken={r.sites.map((s) => s.name)} allSites={allSites} />}
+      {(hints.length > 0 || canEdit) && <SiteHints hints={hints} r={r} canEdit={canEdit} />}
+    </div>
   );
 }
 
@@ -646,14 +634,6 @@ const LINK_KIND_PLURAL: Record<LinkKind, string> = {
   test: "Test reports",
   use: "Where it's in use",
 };
-const LINK_KIND_EMPTY: Record<LinkKind, string> = {
-  case: "No case written up yet.",
-  project: "No one is designing it yet that we know of.",
-  design: "No designs yet.",
-  test: "Not tested yet.",
-  use: "Not in use yet that we know of.",
-};
-
 // Links in a row's draft: kind, title and URL for each, plus "Add link".
 function LinksEditor({
   links,
@@ -962,7 +942,7 @@ function ScoresLine({ scores, links, uid }: { scores: RequestScores; links: Requ
   return (
     <div className="req-scores">
       {links.length > 0 && (
-        <button type="button" className="req-links-summary" popoverTarget={`req-links-${uid}`}>
+        <button type="button" className="req-links-summary" popoverTarget={`req-detail-${uid}`}>
           {linksSummary(links)}
         </button>
       )}
@@ -1029,8 +1009,6 @@ function RequestRow({
     if (save.state === "idle" && save.data?.ok) onEdit(false);
   }, [save.state, save.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const homeLens = r.lenses.find((id) => VISIONS.some((v) => v.id === id));
-  const cellHref = `/cell/${r.rows[0]}/${r.cols[0]}${homeLens ? `?visions=${homeLens}` : ""}`;
 
   return (
     <tr className={`req-row req-edge-${requestStage(editing ? draft.links : r.links, r.sites)}${editing ? " req-editing" : ""}`}>
@@ -1102,7 +1080,9 @@ function RequestRow({
         ) : (
           <>
             <div className="req-title-line">
-              <Link to={cellHref}>{r.name}</Link>
+              <button type="button" className="req-title-btn" popoverTarget={`req-detail-${uid}`}>
+                {r.name}
+              </button>
               {!groupCol &&
                 r.cols.map((c) => (
                   <FilterTag key={`col-${c}`} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
@@ -1134,7 +1114,8 @@ function RequestRow({
         )}
       </td>
       <td className="req-sites">
-        <SitesPopover r={r} canEdit={canEdit} allSites={allSites} uid={uid} />
+        <SitesButton r={r} uid={uid} />
+        <RequestModal r={r} uid={uid} canEdit={canEdit} allSites={allSites} />
       </td>
     </tr>
   );

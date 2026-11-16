@@ -2485,6 +2485,23 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 .req-sankey-count { fill: var(--faint); font-weight: 400; }
 .req-sankey-node.is-empty text { fill: var(--faint); }
 .req-sankey-node.is-empty { cursor: default; }
+/* The request modal: the one thing a request opens */
+.req-popover.req-modal { width: min(640px, calc(100vw - 32px)); }
+.req-title-btn {
+  all: unset; cursor: pointer; color: var(--ink); font-weight: 500; font-size: 15px;
+  text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px;
+}
+.req-title-btn:hover { text-decoration-color: var(--line-strong); }
+.req-title-btn:focus-visible { outline: 2px solid var(--accent); }
+.req-modal-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 2px 0 10px; }
+.req-modal-cell { font-size: 12px; color: var(--accent); text-decoration: none; }
+.req-modal-cell:hover { text-decoration: underline; }
+.req-modal-desc { margin: 0 0 4px; font-size: 14px; line-height: 1.55; color: var(--text); }
+.req-site-card { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.req-site-card:last-of-type { border-bottom: 0; }
+.req-site-card-head { display: flex; align-items: baseline; gap: 8px; justify-content: space-between; }
+.req-site-card .req-site-name { font-weight: 500; color: var(--ink); }
+.req-site-card dl { margin: 4px 0 0; font-size: 13px; line-height: 1.5; }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {

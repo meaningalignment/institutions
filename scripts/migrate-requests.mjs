@@ -162,8 +162,9 @@ await sql`
   CHECK (kind IN ('case', 'project', 'design', 'test', 'use'))
 `;
 
-// Site statuses now mirror the stages: interested | designing | piloting | inuse
-// (first wanted | building | trialing). Replace the check and map old values.
+// Site statuses now mirror the stages: interested | planned | designing |
+// piloting | inuse (first wanted | building | trialing). Replace the check and
+// map old values.
 await sql`ALTER TABLE institutions_request_sites DROP CONSTRAINT IF EXISTS institutions_request_sites_status_check`;
 await sql`UPDATE institutions_request_sites SET status = 'interested' WHERE status = 'wanted'`;
 await sql`UPDATE institutions_request_sites SET status = 'designing' WHERE status = 'building'`;
@@ -171,7 +172,7 @@ await sql`UPDATE institutions_request_sites SET status = 'piloting' WHERE status
 await sql`ALTER TABLE institutions_request_sites ALTER COLUMN status SET DEFAULT 'interested'`;
 await sql`
   ALTER TABLE institutions_request_sites ADD CONSTRAINT institutions_request_sites_status_check
-  CHECK (status IN ('interested', 'designing', 'piloting', 'inuse'))
+  CHECK (status IN ('interested', 'planned', 'designing', 'piloting', 'inuse'))
 `;
 
 const [{ count }] = await sql`SELECT count(*)::int AS count FROM institutions_requests`;

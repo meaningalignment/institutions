@@ -1,11 +1,12 @@
 // Shared (isomorphic) types for /requests. Queries live in requests.server.ts.
 
-// A site's own progress: it wants the institution, is designing its version,
+// A site's own progress: it wants the institution, has planned to build it, is designing its version,
 // is piloting one, or has it in real use. (First "wanted | building | trialing".)
-export const REQUEST_STATUSES = ["interested", "designing", "piloting", "inuse"] as const;
+export const REQUEST_STATUSES = ["interested", "planned", "designing", "piloting", "inuse"] as const;
 export type RequestStatus = (typeof REQUEST_STATUSES)[number];
 export const STATUS_LABEL: Record<RequestStatus, string> = {
   interested: "interested",
+  planned: "planned",
   designing: "designing",
   piloting: "piloting",
   inuse: "in use",
@@ -79,15 +80,15 @@ export interface RequestLink {
   url: string;
 }
 
-export const STAGES = ["wanted", "designing", "designed", "piloting", "tested", "inuse"] as const;
+export const STAGES = ["wanted", "planned", "designing", "designed", "piloting", "tested", "inuse"] as const;
 export type Stage = (typeof STAGES)[number];
-export const STAGE_LABEL: Record<Stage, string> = { wanted: "Design wanted", designing: "In design", designed: "Designed", piloting: "Piloting", tested: "Tested", inuse: "In use" };
+export const STAGE_LABEL: Record<Stage, string> = { wanted: "Design wanted", planned: "Planned", designing: "In design", designed: "Designed", piloting: "Piloting", tested: "Tested", inuse: "In use" };
 
 // The stage is the furthest point shown by either the links (a design, a test
 // report, a deployment) or the sites (a site designing, piloting, or using it).
 // "Designed" and "Tested" come only from links: they are documents.
 const LINK_STAGE: Record<LinkKind, Stage> = { case: "wanted", project: "designing", design: "designed", test: "tested", use: "inuse" };
-const SITE_STAGE: Record<RequestStatus, Stage> = { interested: "wanted", designing: "designing", piloting: "piloting", inuse: "inuse" };
+const SITE_STAGE: Record<RequestStatus, Stage> = { interested: "wanted", planned: "planned", designing: "designing", piloting: "piloting", inuse: "inuse" };
 
 export function requestStage(links: RequestLink[], sites: { status: RequestStatus }[] = []): Stage {
   let best = 0;

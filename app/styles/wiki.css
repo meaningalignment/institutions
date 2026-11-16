@@ -2179,8 +2179,6 @@ tr.fields-row .field-tag.is-active { color: var(--ink); font-weight: 650; }
 .fellowship-cta a:hover { text-decoration-color: var(--ink); }
 .hide-unready .detail-body:not(.status-body-ok) ~ .fellowship-cta { display: none; }
 
-/* ── /requests ─────────────────────────────────────────────────── */
-.req-page { width: 100%; max-width: 1180px; padding-bottom: 48px; }
 /* Cell pages: the tracker's requests for this cell */
 .detail-requests { margin: 36px 0 8px; padding-top: 22px; border-top: 1px solid var(--line); }
 .detail-requests-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 14px; }
@@ -2200,6 +2198,8 @@ tr.fields-row .field-tag.is-active { color: var(--ink); font-weight: 650; }
 
 .req-title { font-family: var(--title-font); font-size: 30px; font-weight: 400; color: var(--ink); margin: 14px 0 8px; }
 .req-lede { max-width: 680px; color: var(--text); font-size: 15px; line-height: 1.55; margin: 0 0 28px; }
+/* ── /requests ─────────────────────────────────────────────────── */
+.req-page { width: 100%; max-width: 1180px; padding-bottom: 48px; }
 .req-filters { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px 12px; margin-bottom: 14px; }
 .req-filter { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); }
 .req-filter select {
@@ -2219,7 +2219,7 @@ table.req-table { min-width: 760px; width: 100%; border-collapse: collapse; back
 .req-name a { color: var(--ink); text-decoration: none; font-weight: 500; }
 .req-name a:hover { text-decoration: underline; }
 
-.req-sites { width: 250px; }
+.req-sites { width: 290px; }
 .req-table td.req-sites { padding-left: 20px; }
 .req-site + .req-site { margin-top: 6px; }
 .req-site-btn {
@@ -2445,13 +2445,13 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
   background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
   background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-size: 5px 5px; background-repeat: no-repeat;
 }
-.req-group-btn { all: unset; cursor: pointer; }
-.req-group-btn:hover { text-decoration: underline; text-decoration-color: var(--line-strong); }
 .req-new { margin-top: 28px; text-align: center; }
 .req-new .req-btn-ghost { font-size: 12px; padding: 4px 12px; border-radius: 999px; background: transparent; border-color: var(--line); color: var(--muted); }
 .req-new .req-btn-ghost:hover { border-color: var(--line-strong); color: var(--ink); }
 .req-more-sites { all: unset; cursor: pointer; display: inline-block; margin-top: 20px; font-size: 13px; color: var(--faint); }
 .req-more-sites:hover { color: var(--ink); text-decoration: underline; }
+.req-group-btn { all: unset; cursor: pointer; }
+.req-group-btn:hover { text-decoration: underline; text-decoration-color: var(--line-strong); }
 .req-hint-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; }
 .req-hint-list li { font-size: 12px; line-height: 1.6; padding: 0 8px; border-radius: 999px; background: var(--wash); color: var(--text); }
 .req-hints-edit { margin-top: 10px; font-size: 12px; color: var(--muted); }
@@ -2480,6 +2480,10 @@ button.req-stage-mark:focus-visible { outline: 2px solid var(--accent); outline-
 .req-side dd { margin: 0; min-width: 0; }
 .req-sites-btn { overflow-wrap: anywhere; }
 /* Under the toolbar: the count, the stages as filters, and the pipeline toggle */
+.req-side dt { white-space: nowrap; }
+.req-side-note { display: block; margin-top: 3px; font-size: 12px; line-height: 1.4; color: var(--faint); }
+.req-side-note a { color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
+.req-side-note a:hover { color: var(--ink); }
 .req-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin: 0 0 16px; font-size: 13px; }
 .req-summary-stages { display: inline-flex; flex-wrap: wrap; gap: 6px 18px; }
 .req-summary .req-stage-mark { color: var(--muted); }
@@ -2518,44 +2522,45 @@ button.req-stage-mark:focus-visible { outline: 2px solid var(--accent); outline-
 .req-popover.req-modal::backdrop { background: rgba(0, 0, 0, 0.42); }
 .req-modal-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; padding: 0; border-radius: 6px; text-align: center; font-size: 22px; line-height: 32px; }
 .req-modal-close:hover { background: var(--wash); color: var(--ink); }
-.req-modal-title { font: 400 27px/1.2 var(--title-font); color: var(--ink); margin: 0 24px 14px 0; }
-.req-modal-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; margin: 0 0 22px; }
-.req-modal-cell { font-size: 13px; color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
-.req-modal-cell:hover { color: var(--ink); text-decoration-color: currentColor; }
-.req-modal-desc { margin: 0; font-size: 15px; line-height: 1.65; color: var(--text); }
-.req-modal-section { margin-top: 36px; }
-.req-modal-heading { font: 600 14px/1.3 var(--ui-font); color: var(--ink); margin: 0 0 14px; letter-spacing: 0; text-transform: none; }
-.req-modal-heading-note { font-weight: 400; color: var(--faint); margin-left: 6px; }
-.req-modal-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.req-modal-links li { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: baseline; font-size: 14px; line-height: 1.45; }
+.req-modal-title { font: 400 26px/1.2 var(--title-font); color: var(--ink); margin: 0 24px 12px 0; }
+.req-modal-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; margin: 0 0 20px; }
+.req-modal-desc { margin: 0; font-size: 15px; line-height: 1.6; color: var(--text); }
+.req-modal-section { margin-top: 32px; }
+/* Section labels in the site's label voice (as "Further reading" on cell pages) */
+.req-modal-heading { font: 650 12px/1.3 var(--ui-font); letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin: 0 0 12px; }
+.req-modal-heading-note { font-weight: 400; letter-spacing: 0; text-transform: none; font-size: 13px; margin-left: 8px; }
+.req-modal-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.req-modal-links li { display: grid; grid-template-columns: 116px 1fr; gap: 12px; align-items: baseline; font-size: 15px; line-height: 1.45; }
 .req-modal-link-kind { font-size: 13px; color: var(--muted); }
-.req-modal-links a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
-.req-modal-links a:hover { text-decoration-color: currentColor; }
+.req-modal-links a, .req-modal-cells a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.req-modal-links a:hover, .req-modal-cells a:hover { text-decoration-color: currentColor; }
 .req-modal-links a span { color: var(--faint); }
-.req-modal .req-empty { margin: 0; font-size: 14px; }
-.req-site-card { background: var(--wash); border-radius: 10px; padding: 20px 22px; }
+.req-modal-cells { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 15px; line-height: 1.45; }
+.req-modal .req-empty { margin: 0; font-size: 15px; }
+.req-site-card { background: var(--wash); border-radius: 8px; padding: 18px 20px; }
 .req-site-card + .req-site-card { margin-top: 12px; }
 .req-site-card-head { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
-.req-site-card .req-site-name { font-weight: 600; font-size: 16px; color: var(--ink); }
-.req-site-card dl { margin: 6px 0 0; font-size: 14px; line-height: 1.55; }
+.req-site-card .req-site-name { font-weight: 600; font-size: 15px; color: var(--ink); }
+.req-site-card dl { margin: 4px 0 0; font-size: 15px; line-height: 1.55; }
 .req-site-field { margin-top: 14px; }
-.req-site-card dt { margin: 0 0 2px; font-size: 12.5px; color: var(--muted); text-transform: none; letter-spacing: 0; }
+.req-site-card dt { margin: 0 0 2px; font-size: 13px; color: var(--muted); text-transform: none; letter-spacing: 0; }
 .req-site-card dd { margin: 0; color: var(--text); }
 .req-site-card-foot { margin-top: 16px; }
-.req-site-card-foot .req-link-btn.req-danger { color: var(--faint); font-size: 12.5px; }
+.req-site-card-foot .req-link-btn.req-danger { color: var(--faint); font-size: 13px; }
 .req-site-card-foot .req-link-btn.req-danger:hover { color: #b3261e; }
 .theme-dark .req-site-card-foot .req-link-btn.req-danger:hover { color: #ff8a80; }
 /* In the modal, editable text reads as plain text until hovered or focused */
 .req-modal .req-inline { text-decoration: none; display: inline-block; min-width: 40px; margin: -2px -4px; padding: 2px 4px; }
 .req-modal .req-inline:hover, .req-modal .req-inline:focus-visible { background: color-mix(in srgb, var(--ink) 9%, transparent); }
-.req-modal .req-tag-select { font-size: 12px; line-height: 22px; padding-left: 10px; padding-right: 22px; }
-.req-modal .req-status { font-size: 12px; text-transform: none; letter-spacing: 0; padding: 2px 10px; }
+.req-modal .req-tag-select { font-size: 13px; line-height: 22px; padding-left: 10px; padding-right: 22px; }
+.req-modal .req-status { font-size: 13px; text-transform: none; letter-spacing: 0; padding: 2px 10px; }
 .req-modal .req-site-picker { margin-top: 14px; }
-.req-modal .req-site-picker input { font-size: 14px; padding: 10px 14px; border-radius: 10px; border-color: var(--line); background: transparent; }
+.req-modal .req-site-picker input { font-size: 15px; padding: 8px 12px; border-radius: 8px; border-color: var(--line); background: transparent; }
 .req-modal .req-site-picker input:focus { border-color: var(--line-strong); outline: none; }
 .req-hints-box { margin-top: 32px; }
 @media (max-width: 600px) {
   .req-popover.req-modal { padding: 28px 22px 24px; }
+.req-modal .req-hint-list li { font-size: 13px; }
   .req-modal-title { font-size: 23px; }
   .req-modal-links li { grid-template-columns: 1fr; gap: 0; }
 }

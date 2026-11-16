@@ -52,6 +52,12 @@ type Pages = {
   "/tracker": {
     params: {};
   };
+  "/tracker/cell/:row/:col": {
+    params: {
+      "row": string;
+      "col": string;
+    };
+  };
   "/requests": {
     params: {};
   };
@@ -106,7 +112,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/design-challenges" | "/problem-sets" | "/curriculum" | "/resources" | "/theory-of-change" | "/tracker" | "/requests" | "/project-updates" | "/researchers" | "/researchers/signal" | "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/admin/x-list" | "/researchers/admin/appreciations" | "/researchers/:handle" | "/appreciate" | "/login" | "/logout" | "/admin/*" | "/fidelity";
+    page: "/" | "/human" | "/cell/:row/:col" | "/human/:row/:col" | "/methods/:col" | "/design-challenges" | "/problem-sets" | "/curriculum" | "/resources" | "/theory-of-change" | "/tracker" | "/tracker/cell/:row/:col" | "/requests" | "/project-updates" | "/researchers" | "/researchers/signal" | "/researchers/admin" | "/researchers/admin/people" | "/researchers/admin/papers" | "/researchers/admin/x-list" | "/researchers/admin/appreciations" | "/researchers/:handle" | "/appreciate" | "/login" | "/logout" | "/admin/*" | "/fidelity";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -151,6 +157,10 @@ type RouteFiles = {
   "routes/requests.tsx": {
     id: "routes/requests";
     page: "/tracker";
+  };
+  "routes/tracker-cell.ts": {
+    id: "routes/tracker-cell";
+    page: "/tracker/cell/:row/:col";
   };
   "routes/requests-redirect.tsx": {
     id: "routes/requests-redirect";
@@ -231,6 +241,7 @@ type RouteModules = {
   "routes/resources": typeof import("./app/routes/resources.tsx");
   "routes/theory-of-change": typeof import("./app/routes/theory-of-change.tsx");
   "routes/requests": typeof import("./app/routes/requests.tsx");
+  "routes/tracker-cell": typeof import("./app/routes/tracker-cell.ts");
   "routes/requests-redirect": typeof import("./app/routes/requests-redirect.tsx");
   "routes/project-updates": typeof import("./app/routes/project-updates.tsx");
   "routes/researchers": typeof import("./app/routes/researchers.tsx");

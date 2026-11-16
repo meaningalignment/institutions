@@ -66,13 +66,14 @@ export function priority(s: RequestScores): number | null {
   return s.leverage * (6 - s.likely);
 }
 
-// Links attached to a request. A "case" argues the institution is needed, a
+// Links attached to a request. A "case" argues the institution is needed
+// (shown as "Why it's needed": the why, where a design is the how), a
 // "project" is a group designing it now, a "design" proposes one, a "test"
 // reports on trying one, and a "use" is a place where it is in real use. The
 // request's stage follows from its links rather than being set by hand.
 export const LINK_KINDS = ["case", "project", "design", "test", "use"] as const;
 export type LinkKind = (typeof LINK_KINDS)[number];
-export const LINK_KIND_LABEL: Record<LinkKind, string> = { case: "Case", project: "Project", design: "Design", test: "Test report", use: "In use" };
+export const LINK_KIND_LABEL: Record<LinkKind, string> = { case: "Why it's needed", project: "Project", design: "Design", test: "Test report", use: "In use" };
 
 export interface RequestLink {
   kind: LinkKind;

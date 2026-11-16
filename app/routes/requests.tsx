@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { Link, useFetcher, useSearchParams } from "react-router";
+import { Link, useFetcher, useRouteLoaderData, useSearchParams } from "react-router";
 import { RequestSankey } from "../components/RequestSankey";
 import { StageMark } from "../components/StageMark";
 import type { Route } from "./+types/requests";
@@ -117,6 +117,24 @@ export function meta(_: Route.MetaArgs) {
     { property: "og:description", content: desc },
     ...OG_IMAGE_META,
   ];
+}
+
+// The AGI grid cells a request sits in (each of its scales × each of its
+// columns that exists on the grid), home cell first, with the cell's title.
+interface RequestCell {
+  href: string;
+  title: string;
+}
+function useRequestCells(r: InstitutionRequest): RequestCell[] {
+  const root = useRouteLoaderData("root") as { cellTitles?: { agi?: Record<string, string> } } | undefined;
+  const titles = root?.cellTitles?.agi ?? {};
+  const lens = r.lenses.find((l) => VISIONS.some((v) => v.id === l));
+  return r.rows.flatMap((row) =>
+    r.cols.flatMap((col) => {
+      const title = titles[`${row}-${col}`];
+      return title ? [{ href: `/cell/${row}/${col}${lens ? `?visions=${lens}` : ""}`, title }] : [];
+    })
+  );
 }
 
 // A tag that filters the list when clicked (adds a search pill).
@@ -382,7 +400,7 @@ function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: 
     <div className="req-site-picker">
       <input
         value={query}
-        placeholder="Add a site: a real place that could adopt this"
+        placeholder="Add a pilot site: a real place that could adopt this"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onChange={(e) => {
@@ -478,7 +496,7 @@ function SiteCard({ site, canEdit }: { site: RequestSite; canEdit: boolean }) {
       )}
       {canEdit && (
         <div className="req-site-card-foot">
-          <DeleteLink intent="delete-site" id={site.id} label={`the site "${site.name}" from this request`} text="Remove site" />
+          <DeleteLink intent="delete-site" id={site.id} label={`the site "${site.name}" from this request`} text="Remove pilot site" />
         </div>
       )}
     </div>
@@ -492,7 +510,7 @@ function SiteHints({ hints, r, canEdit }: { hints: string[]; r: InstitutionReque
   if (!open) {
     return (
       <button type="button" className="req-more-sites" onClick={() => setOpen(true)}>
-        Looking for more sites?
+        Looking for more pilot sites?
       </button>
     );
   }
@@ -558,8 +576,7 @@ function RequestModal({
 }) {
   const id = `req-detail-${uid}`;
   const stage = requestStage(r.links, r.sites);
-  const homeLens = r.lenses.find((l) => VISIONS.some((v) => v.id === l));
-  const cellHref = `/cell/${r.rows[0]}/${r.cols[0]}${homeLens ? `?visions=${homeLens}` : ""}`;
+  const cells = useRequestCells(r);
   const hints = r.siteHints.split(/\n+/).filter((line) => line.trim());
   const links = LINK_KINDS.flatMap((k) => r.links.filter((l) => l.kind === k));
   return (
@@ -570,9 +587,6 @@ function RequestModal({
       <h2 className="req-modal-title">{r.name}</h2>
       <div className="req-modal-meta">
         <StageMark stage={stage} />
-        <Link to={cellHref} className="req-modal-cell">
-          {colName(r.cols[0])} · {rowName(r.rows[0])} on the grid →
-        </Link>
       </div>
       {r.description && <p className="req-modal-desc">{r.description}</p>}
 
@@ -592,14 +606,29 @@ function RequestModal({
         </section>
       )}
 
+      {cells.length > 0 && (
+        <section className="req-modal-section">
+          <h3 className="req-modal-heading">
+            Relevant for <span className="req-modal-heading-note">{cells.length} grid {cells.length === 1 ? "cell" : "cells"}</span>
+          </h3>
+          <ul className="req-modal-cells">
+            {cells.map((c) => (
+              <li key={c.href}>
+                <Link to={c.href}>{c.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section className="req-modal-section">
         <h3 className="req-modal-heading">
-          Sites <span className="req-modal-heading-note">real places that could adopt it</span>
+          Pilot sites <span className="req-modal-heading-note">real places that could adopt it</span>
         </h3>
         {r.sites.length ? (
           r.sites.map((s) => <SiteCard key={s.id} site={s} canEdit={canEdit} />)
         ) : (
-          <p className="req-empty">No sites yet.</p>
+          <p className="req-empty">None yet.</p>
         )}
         {canEdit && <SitePicker requestId={r.id} taken={r.sites.map((s) => s.name)} allSites={allSites} />}
         {(hints.length > 0 || canEdit) && <SiteHints hints={hints} r={r} canEdit={canEdit} />}
@@ -895,7 +924,7 @@ function ScoresEditor({ scores, onChange }: { scores: RequestScores; onChange: (
 // Short summary of a request's links, e.g. "1 case · 2 designs".
 function linksSummary(links: RequestLink[]): string {
   const plural: Record<LinkKind, [string, string]> = {
-    case: ["case", "cases"],
+    case: ["on why it's needed", "on why it's needed"],
     project: ["project", "projects"],
     design: ["design", "designs"],
     test: ["test report", "test reports"],
@@ -987,6 +1016,7 @@ function RequestRow({
   }, [save.state, save.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const stage = requestStage(editing ? draft.links : r.links, r.sites);
+  const cells = useRequestCells(r);
 
   return (
     <tr className={`req-row${editing ? " req-editing" : ""}`}>
@@ -1064,27 +1094,14 @@ function RequestRow({
                 </button>
               )}
             </div>
-            <div className="req-tags">
-              {!groupCol &&
-                r.cols.map((c) => (
-                  <FilterTag key={`col-${c}`} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
-                ))}
-              {r.rows.map((row) => (
-                <FilterTag key={row} pill={{ kind: "row", value: row, label: rowName(row) }} onFilter={onFilter} />
-              ))}
-              {r.lenses.map((id) => {
-                const lens = lenses.find((l) => l.id === id);
-                return lens ? <LensTag key={id} lens={lens} onFilter={onFilter} /> : null;
-              })}
-              {groupCol && r.cols.length > 1 && (
-                <span className="req-also">
-                  Also in{" "}
-                  {r.cols.filter((c) => c !== groupCol).map((c) => (
-                    <FilterTag key={c} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
-                  ))}
-                </span>
-              )}
-            </div>
+            {r.lenses.length > 0 && (
+              <div className="req-tags">
+                {r.lenses.map((id) => {
+                  const lens = lenses.find((l) => l.id === id);
+                  return lens ? <LensTag key={id} lens={lens} onFilter={onFilter} /> : null;
+                })}
+              </div>
+            )}
             {r.description && <p className="req-desc">{r.description}</p>}
             <ScoresLine scores={r.scores} links={r.links} uid={uid} />
           </>
@@ -1100,7 +1117,21 @@ function RequestRow({
               onClick={() => onFilter({ kind: "stage", value: stage, label: STAGE_LABEL[stage] })}
             />
           </dd>
-          <dt className="req-side-sites">Sites</dt>
+          {cells.length > 0 && (
+            <>
+              <dt>Relevant for</dt>
+              <dd>
+                <button type="button" className="req-sites-btn" popoverTarget={`req-detail-${uid}`}>
+                  {cells.length} grid {cells.length === 1 ? "cell" : "cells"}
+                </button>
+                <span className="req-side-note">
+                  <Link to={cells[0].href}>{cells[0].title}</Link>
+                  {cells.length > 1 && ` and ${cells.length - 1} ${cells.length === 2 ? "other" : "others"}`}
+                </span>
+              </dd>
+            </>
+          )}
+          <dt className="req-side-sites">Pilot sites</dt>
           <dd className="req-side-sites">
             <SitesButton r={r} uid={uid} />
           </dd>

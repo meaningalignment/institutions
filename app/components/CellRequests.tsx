@@ -28,7 +28,7 @@ export function CellRequests({ rowId, colId }: { rowId: string; colId: string })
               <StageMark stage={r.stage} />
               {r.sites > 0 && (
                 <span className="detail-requests-sites">
-                  {r.sites} site{r.sites === 1 ? "" : "s"}
+                  {r.sites} pilot site{r.sites === 1 ? "" : "s"}
                 </span>
               )}
             </div>

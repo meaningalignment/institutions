@@ -2474,21 +2474,19 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 .req-links-summary:hover { text-decoration-color: currentColor; }
 /* Sankey: scale → column → stage */
 .req-sankey { margin: 6px 0 18px; }
-.req-sankey svg { display: block; width: 100%; height: auto; max-height: 340px; overflow: visible; }
+.req-sankey svg { display: block; width: 100%; height: auto; max-height: 280px; overflow: visible; }
 .req-sankey-link { fill: none; stroke: var(--line-strong); stroke-opacity: .45; transition: stroke-opacity .12s; }
 .req-sankey-link[class*="req-strip-"] { stroke: var(--stage); stroke-opacity: .28; }
 .req-sankey-link:hover { stroke-opacity: .7; }
 .req-sankey-node { cursor: pointer; }
 .req-sankey-node rect { fill: var(--muted); }
 .req-sankey-node[class*="req-strip-"] rect { fill: var(--stage); }
-.req-sankey-node text { font: 500 13px var(--ui-font); fill: var(--ink); }
+.req-sankey-node text { font: 500 20px var(--ui-font); fill: var(--ink); }
 .req-sankey-node:hover text, .req-sankey-node:focus-visible text { text-decoration: underline; }
 .req-sankey-node:focus-visible { outline: none; }
 .req-sankey-count { fill: var(--faint); font-weight: 400; }
-.req-sankey figcaption { display: grid; grid-template-columns: 1fr 1fr 1fr; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); margin-top: 4px; }
-.req-sankey figcaption span:nth-child(1) { text-align: left; padding-left: 4%; }
-.req-sankey figcaption span:nth-child(2) { text-align: center; }
-.req-sankey figcaption span:nth-child(3) { text-align: right; padding-right: 4%; }
+.req-sankey-node.is-empty text { fill: var(--faint); }
+.req-sankey-node.is-empty { cursor: default; }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {

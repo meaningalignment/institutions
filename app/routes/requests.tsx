@@ -1403,8 +1403,13 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
       </div>
 
       <RequestSankey
-        requests={shown}
-        onPick={(layer, id, label) => addPill({ kind: layer, value: id, label })}
+        requests={requests.filter((r) => matches(r, pills.filter((p) => p.kind !== "stage"), typed, lenses))}
+        onPick={(stages) =>
+          setPills([
+            ...pills.filter((p) => p.kind !== "stage"),
+            ...stages.map((st) => ({ kind: "stage" as const, value: st, label: STAGE_LABEL[st] })),
+          ])
+        }
       />
 
       <div className="req-stage-strip" role="group" aria-label="Requests by stage">

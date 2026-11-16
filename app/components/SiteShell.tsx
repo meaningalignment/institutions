@@ -190,6 +190,9 @@ export function SiteShell({
           <NavLink className="wiki-nav-primary" to="/theory-of-change">
             What is this?
           </NavLink>
+          <NavLink className="wiki-nav-primary" to="/tracker">
+            Institution tracker
+          </NavLink>
           {SHOW_RESOURCES_LINK && (
             <NavLink className="wiki-nav-primary" to="/resources">
               Resources

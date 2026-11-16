@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { Link, useFetcher } from "react-router";
+import { RequestSankey } from "../components/RequestSankey";
 import type { Route } from "./+types/requests";
 import { getSignedInResearcher, requireAdminSession } from "../lib/auth.server";
 import {
@@ -1400,6 +1401,11 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
           </span>
         )}
       </div>
+
+      <RequestSankey
+        requests={shown}
+        onPick={(layer, id, label) => addPill({ kind: layer, value: id, label })}
+      />
 
       <div className="req-stage-strip" role="group" aria-label="Requests by stage">
         {STAGES.map((st) => {

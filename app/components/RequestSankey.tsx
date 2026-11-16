@@ -17,10 +17,10 @@ interface FlowNode {
 }
 
 const W = 1000;
-const H = 220;
+const H = 120;
 const NODE_W = 14;
-const GAP = 34; // room for the label above the next node
-const MIN_H = 12; // keep small counts visible next to large ones
+const GAP = 24; // room for the label above the next node
+const MIN_H = 7; // keep small counts visible next to large ones
 
 export function RequestSankey({
   requests,
@@ -50,7 +50,8 @@ export function RequestSankey({
     const x = k * step;
     const reach: FlowNode = {
       key: `reach-${stage}`,
-      label: k === 0 ? "All requests" : k === STAGES.length - 1 ? STAGE_LABEL[stage] : `Reached ${STAGE_LABEL[stage].toLowerCase()}`,
+      // "In design+" = at that stage or further along.
+      label: k === 0 ? "All" : k === STAGES.length - 1 ? STAGE_LABEL[stage] : `${STAGE_LABEL[stage]}+`,
       count: reached[k],
       stages: STAGES.slice(k) as Stage[],
       x,
@@ -91,7 +92,7 @@ export function RequestSankey({
 
   return (
     <figure className="req-sankey">
-      <svg viewBox={`-4 -30 ${W + 190} ${H + 44}`} role="img" aria-label="Requests by how far along they are">
+      <svg viewBox={`-4 -22 ${W + 170} ${H + 34}`} role="img" aria-label="Requests by how far along they are">
         <g>
           {flows.map((f) => {
             const { d, w } = band(f);
@@ -117,7 +118,7 @@ export function RequestSankey({
               {n.count > 0 && <rect x={n.x} y={n.y} width={NODE_W} height={n.h} rx={2} />}
               <text
                 x={n.terminal ? n.x + NODE_W + 8 : n.x}
-                y={n.terminal ? (n.count ? n.y + n.h / 2 : n.y + 6) : n.y - 10}
+                y={n.terminal ? (n.count ? n.y + n.h / 2 : n.y + 5) : n.y - 7}
                 dy={n.terminal ? "0.35em" : 0}
               >
                 {n.label} <tspan className="req-sankey-count">{n.count}</tspan>

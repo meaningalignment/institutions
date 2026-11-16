@@ -2473,15 +2473,15 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 .req-links-summary { all: unset; cursor: pointer; color: var(--accent); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
 .req-links-summary:hover { text-decoration-color: currentColor; }
 /* Sankey: scale → column → stage */
-.req-sankey { margin: 6px 0 18px; }
-.req-sankey svg { display: block; width: 100%; height: auto; max-height: 280px; overflow: visible; }
+.req-sankey { margin: 2px 0 12px; }
+.req-sankey svg { display: block; width: 100%; height: auto; max-height: 150px; overflow: visible; }
 .req-sankey-link { fill: none; stroke: var(--line-strong); stroke-opacity: .45; transition: stroke-opacity .12s; }
 .req-sankey-link[class*="req-strip-"] { stroke: var(--stage); stroke-opacity: .28; }
 .req-sankey-link:hover { stroke-opacity: .7; }
 .req-sankey-node { cursor: pointer; }
 .req-sankey-node rect { fill: var(--muted); }
 .req-sankey-node[class*="req-strip-"] rect { fill: var(--stage); }
-.req-sankey-node text { font: 500 20px var(--ui-font); fill: var(--ink); }
+.req-sankey-node text { font: 500 15px var(--ui-font); fill: var(--ink); }
 .req-sankey-node:hover text, .req-sankey-node:focus-visible text { text-decoration: underline; }
 .req-sankey-node:focus-visible { outline: none; }
 .req-sankey-count { fill: var(--faint); font-weight: 400; }

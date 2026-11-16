@@ -118,9 +118,6 @@ export function meta(_: Route.MetaArgs) {
   ];
 }
 
-// Lenses that match a grid vision keep its colour; others use the accent colour.
-const lensColor = (id: string) => VISIONS.find((v) => v.id === id)?.color ?? "var(--accent)";
-
 // A tag that filters the list when clicked (adds a search pill).
 function FilterTag({
   pill,
@@ -153,7 +150,6 @@ function LensTag({ lens, onFilter }: { lens: RequestLens; onFilter: (p: Pill) =>
         pill={{ kind: "lens", value: lens.id, label: lens.label }}
         onFilter={onFilter}
         className="req-vision"
-        style={{ color: lensColor(lens.id) }}
       />
       {lens.url && (
         <a className="req-lens-link" href={lens.url} target="_blank" rel="noopener noreferrer" title={`Read about ${lens.label}`}>
@@ -531,11 +527,13 @@ function SiteHints({ hints, r, canEdit }: { hints: string[]; r: InstitutionReque
   );
 }
 
-// "No sites yet" / "N sites": opens the request's modal.
+// The row's sites: the first site's name (and how many more), or "None yet".
+// Opens the request's modal.
 function SitesButton({ r, uid }: { r: InstitutionRequest; uid: string }) {
-  const label = r.sites.length ? `${r.sites.length} site${r.sites.length === 1 ? "" : "s"}` : "No sites yet";
+  const n = r.sites.length;
+  const label = n ? `${r.sites[0].name}${n > 1 ? ` +${n - 1} more` : ""}` : "None yet";
   return (
-    <button type="button" className={`req-sites-btn${r.sites.length ? "" : " is-empty"}`} popoverTarget={`req-detail-${uid}`}>
+    <button type="button" className={`req-sites-btn${n ? "" : " is-empty"}`} popoverTarget={`req-detail-${uid}`}>
       {label}
     </button>
   );
@@ -543,7 +541,8 @@ function SitesButton({ r, uid }: { r: InstitutionRequest; uid: string }) {
 
 // ── Rows ───────────────────────────────────────────────────────────
 
-// A request's stage: a dot in the stage's colour and its name. With onClick it
+// A request's stage: four pips, one filled per step past "Design wanted"
+// (in design, designed, tested, in use), and its name. With onClick it
 // is a button (the row's stage filters the list; the summary line toggles it).
 function StageMark({
   stage,
@@ -560,7 +559,11 @@ function StageMark({
 }) {
   const body = (
     <>
-      <span className="req-stage-dot" aria-hidden="true" />
+      <span className="req-stage-pips" aria-hidden="true">
+        {STAGES.slice(1).map((s, i) => (
+          <i key={s} className={i < STAGES.indexOf(stage) ? "is-on" : ""} />
+        ))}
+      </span>
       {STAGE_LABEL[stage]}
       {count != null && <span className="req-stage-count">{count}</span>}
     </>
@@ -791,7 +794,7 @@ function LensesEditor({
         const lens = lenses.find((l) => l.id === id);
         const popoverId = `req-lens-edit-${uid}-${id}`;
         return (
-          <span key={id} className="req-tag req-tag-chip req-vision" style={{ color: lensColor(id) }}>
+          <span key={id} className="req-tag req-tag-chip req-vision">
             {lens ? (
               <button type="button" className="req-chip-label" popoverTarget={popoverId} title="Edit this lens">
                 {lens.label}
@@ -1124,12 +1127,20 @@ function RequestRow({
         )}
       </td>
       <td className="req-sites">
-        <StageMark
-          stage={stage}
-          title={`Show only ${STAGE_LABEL[stage]}`}
-          onClick={() => onFilter({ kind: "stage", value: stage, label: STAGE_LABEL[stage] })}
-        />
-        <SitesButton r={r} uid={uid} />
+        <dl className="req-side">
+          <dt>Stage</dt>
+          <dd>
+            <StageMark
+              stage={stage}
+              title={`Show only ${STAGE_LABEL[stage]}`}
+              onClick={() => onFilter({ kind: "stage", value: stage, label: STAGE_LABEL[stage] })}
+            />
+          </dd>
+          <dt className="req-side-sites">Sites</dt>
+          <dd className="req-side-sites">
+            <SitesButton r={r} uid={uid} />
+          </dd>
+        </dl>
         <RequestModal r={r} uid={uid} canEdit={canEdit} allSites={allSites} />
       </td>
     </tr>
@@ -1152,7 +1163,7 @@ function NewRequest({ onCreated }: { onCreated: (id: number) => void }) {
         fetcher.submit({ intent: "create-request", row: ROWS[0].id, column: COLS[0].id }, { method: "post" })
       }
     >
-      New request
+      + New request
     </button>
   );
 }
@@ -1423,7 +1434,6 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
             ))}
           </select>
         </label>
-        {canEdit && <NewRequest onCreated={(id) => setEditing(id, true)} />}
       </div>
 
       <div className="req-summary">
@@ -1509,6 +1519,11 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
           )}
         </table>
       </div>
+      {canEdit && (
+        <div className="req-new">
+          <NewRequest onCreated={(id) => setEditing(id, true)} />
+        </div>
+      )}
     </div>
   );
 }

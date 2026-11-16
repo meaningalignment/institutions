@@ -32,6 +32,7 @@ import {
   requestStage,
   type InstitutionRequest,
   type LinkKind,
+  type Stage,
   type RequestLens,
   type RequestLink,
   type RequestScores,
@@ -326,7 +327,7 @@ function InlineSelect({
   );
 }
 
-function DeleteLink({ intent, id, label }: { intent: string; id: number; label: string }) {
+function DeleteLink({ intent, id, label, text = "Delete" }: { intent: string; id: number; label: string; text?: string }) {
   const fetcher = useFetcher<ActionResult>();
   return (
     <button
@@ -337,7 +338,7 @@ function DeleteLink({ intent, id, label }: { intent: string; id: number; label: 
         if (confirm(`Delete ${label}?`)) fetcher.submit({ intent, id: String(id) }, { method: "post" });
       }}
     >
-      Delete
+      {text}
     </button>
   );
 }
@@ -384,7 +385,7 @@ function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: 
     <div className="req-site-picker">
       <input
         value={query}
-        placeholder="Add a site: type a real place, or pick one used elsewhere"
+        placeholder="Add a site: a real place that could adopt this"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onChange={(e) => {
@@ -435,14 +436,14 @@ function SitePicker({ requestId, taken, allSites }: { requestId: number; taken: 
 }
 
 // One site, shown inline in the request's modal; admins edit it in place.
+const SITE_FIELDS = [
+  { field: "instead", label: "Doing instead today", placeholder: "What do they do today?" },
+  { field: "pain", label: "Pain point", placeholder: "What hurts?" },
+  { field: "success", label: "What success looks like", placeholder: "What would we see if it worked?" },
+] as const;
+
 function SiteCard({ site, canEdit }: { site: RequestSite; canEdit: boolean }) {
-  const show = (label: string, text: string) =>
-    text ? (
-      <>
-        <dt>{label}</dt>
-        <dd>{text}</dd>
-      </>
-    ) : null;
+  const fields = SITE_FIELDS.filter((f) => canEdit || site[f.field]);
   return (
     <div className="req-site-card">
       <div className="req-site-card-head">
@@ -462,31 +463,27 @@ function SiteCard({ site, canEdit }: { site: RequestSite; canEdit: boolean }) {
           <span className={`req-status req-status-${site.status}`}>{STATUS_LABEL[site.status]}</span>
         )}
       </div>
-      {canEdit ? (
+      {fields.length > 0 && (
         <dl>
-          <dt>Currently doing instead</dt>
-          <dd>
-            <InlineText intent="update-site" id={site.id} field="instead" value={site.instead} multiline placeholder="What do they do today?" />
-          </dd>
-          <dt>Pain point</dt>
-          <dd>
-            <InlineText intent="update-site" id={site.id} field="pain" value={site.pain} multiline placeholder="What hurts?" />
-          </dd>
-          <dt>How we'd recognize success</dt>
-          <dd>
-            <InlineText intent="update-site" id={site.id} field="success" value={site.success} multiline placeholder="What would we see if it worked?" />
-          </dd>
-          <dd className="req-popover-actions">
-            <DeleteLink intent="delete-site" id={site.id} label={`the site "${site.name}" from this request`} />
-          </dd>
+          {fields.map((f) => (
+            <div key={f.field} className="req-site-field">
+              <dt>{f.label}</dt>
+              <dd>
+                {canEdit ? (
+                  <InlineText intent="update-site" id={site.id} field={f.field} value={site[f.field]} multiline placeholder={f.placeholder} />
+                ) : (
+                  site[f.field]
+                )}
+              </dd>
+            </div>
+          ))}
         </dl>
-      ) : site.instead || site.pain || site.success ? (
-        <dl>
-          {show("Currently doing instead", site.instead)}
-          {show("Pain point", site.pain)}
-          {show("How we'd recognize success", site.success)}
-        </dl>
-      ) : null}
+      )}
+      {canEdit && (
+        <div className="req-site-card-foot">
+          <DeleteLink intent="delete-site" id={site.id} label={`the site "${site.name}" from this request`} text="Remove site" />
+        </div>
+      )}
     </div>
   );
 }
@@ -504,7 +501,7 @@ function SiteHints({ hints, r, canEdit }: { hints: string[]; r: InstitutionReque
   }
   return (
     <div className="req-hints-box">
-      <div className="req-popover-section">Who else might want this</div>
+      <h3 className="req-modal-heading">Who else might want this</h3>
       {hints.length > 0 && (
         <ul className="req-hint-list">
           {hints.map((h, i) => (
@@ -546,19 +543,41 @@ function SitesButton({ r, uid }: { r: InstitutionRequest; uid: string }) {
 
 // ── Rows ───────────────────────────────────────────────────────────
 
-// The stage badge that leads each row; it opens the request's modal.
-function StageBadge({ uid, links, sites }: { uid: string; links: RequestLink[]; sites: RequestSite[] }) {
-  const stage = requestStage(links, sites);
-  return (
-    <button type="button" className={`req-stage-badge req-stage-${stage}`} popoverTarget={`req-detail-${uid}`}>
+// A request's stage: a dot in the stage's colour and its name. With onClick it
+// is a button (the row's stage filters the list; the summary line toggles it).
+function StageMark({
+  stage,
+  count,
+  onClick,
+  active,
+  title,
+}: {
+  stage: Stage;
+  count?: number;
+  onClick?: () => void;
+  active?: boolean;
+  title?: string;
+}) {
+  const body = (
+    <>
+      <span className="req-stage-dot" aria-hidden="true" />
       {STAGE_LABEL[stage]}
+      {count != null && <span className="req-stage-count">{count}</span>}
+    </>
+  );
+  const cls = `req-stage-mark req-stage-${stage}${active ? " is-active" : ""}`;
+  return onClick ? (
+    <button type="button" className={cls} onClick={onClick} title={title} aria-pressed={active}>
+      {body}
     </button>
+  ) : (
+    <span className={cls}>{body}</span>
   );
 }
 
-// The one modal a request opens (from its title, stage badge, links summary or
-// sites count): stage, description, links by kind, and the sites with their
-// details, plus the site picker and site hints for admins.
+// The one modal a request opens (from its title, links summary or sites
+// count): stage, description, links, and the sites with their details, plus
+// the site picker and site hints for admins.
 function RequestModal({
   r,
   uid,
@@ -575,66 +594,53 @@ function RequestModal({
   const homeLens = r.lenses.find((l) => VISIONS.some((v) => v.id === l));
   const cellHref = `/cell/${r.rows[0]}/${r.cols[0]}${homeLens ? `?visions=${homeLens}` : ""}`;
   const hints = r.siteHints.split(/\n+/).filter((line) => line.trim());
-  const kinds = LINK_KINDS.filter((k) => r.links.some((l) => l.kind === k));
+  const links = LINK_KINDS.flatMap((k) => r.links.filter((l) => l.kind === k));
   return (
     <div id={id} popover="auto" className="req-popover req-modal">
-      <div className="req-popover-head">
-        <span className="req-popover-title">{r.name}</span>
-        <button type="button" className="req-popover-close" popoverTarget={id} popoverTargetAction="hide" aria-label="Close">
-          ×
-        </button>
-      </div>
+      <button type="button" className="req-popover-close req-modal-close" popoverTarget={id} popoverTargetAction="hide" aria-label="Close">
+        ×
+      </button>
+      <h2 className="req-modal-title">{r.name}</h2>
       <div className="req-modal-meta">
-        <span className={`req-tag req-stage req-stage-${stage}`}>{STAGE_LABEL[stage]}</span>
+        <StageMark stage={stage} />
         <Link to={cellHref} className="req-modal-cell">
           {colName(r.cols[0])} · {rowName(r.rows[0])} on the grid →
         </Link>
       </div>
       {r.description && <p className="req-modal-desc">{r.description}</p>}
 
-      {kinds.length ? (
-        kinds.map((kind) => (
-          <div key={kind}>
-            <div className="req-popover-section">{LINK_KIND_PLURAL[kind]}</div>
-            <ul className="req-link-list">
-              {r.links
-                .filter((l) => l.kind === kind)
-                .map((l, i) => (
-                  <li key={i}>
-                    <a href={l.url} target="_blank" rel="noopener noreferrer">
-                      {l.title} ↗
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        ))
-      ) : (
-        <>
-          <div className="req-popover-section">Writing</div>
-          <p className="req-empty">No case, design or test report linked yet.</p>
-        </>
+      {links.length > 0 && (
+        <section className="req-modal-section">
+          <h3 className="req-modal-heading">Links</h3>
+          <ul className="req-modal-links">
+            {links.map((l, i) => (
+              <li key={i}>
+                <span className="req-modal-link-kind">{LINK_KIND_LABEL[l.kind]}</span>
+                <a href={l.url} target="_blank" rel="noopener noreferrer">
+                  {l.title} <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
-      <div className="req-popover-section">Sites</div>
-      {r.sites.length ? (
-        r.sites.map((s) => <SiteCard key={s.id} site={s} canEdit={canEdit} />)
-      ) : (
-        <p className="req-empty">No sites yet.</p>
-      )}
-      {canEdit && <SitePicker requestId={r.id} taken={r.sites.map((s) => s.name)} allSites={allSites} />}
-      {(hints.length > 0 || canEdit) && <SiteHints hints={hints} r={r} canEdit={canEdit} />}
+      <section className="req-modal-section">
+        <h3 className="req-modal-heading">
+          Sites <span className="req-modal-heading-note">real places that could adopt it</span>
+        </h3>
+        {r.sites.length ? (
+          r.sites.map((s) => <SiteCard key={s.id} site={s} canEdit={canEdit} />)
+        ) : (
+          <p className="req-empty">No sites yet.</p>
+        )}
+        {canEdit && <SitePicker requestId={r.id} taken={r.sites.map((s) => s.name)} allSites={allSites} />}
+        {(hints.length > 0 || canEdit) && <SiteHints hints={hints} r={r} canEdit={canEdit} />}
+      </section>
     </div>
   );
 }
 
-const LINK_KIND_PLURAL: Record<LinkKind, string> = {
-  case: "The case for it",
-  project: "Projects designing it",
-  design: "Designs",
-  test: "Test reports",
-  use: "Where it's in use",
-};
 // Links in a row's draft: kind, title and URL for each, plus "Add link".
 function LinksEditor({
   links,
@@ -651,7 +657,7 @@ function LinksEditor({
   return (
     <div className="req-links-edit">
       <div className="req-stage-line">
-        <span className={`req-tag req-stage req-stage-${stage}`}>{STAGE_LABEL[stage]}</span>
+        <StageMark stage={stage} />
         <span className="req-empty">follows from the links below and the sites</span>
       </div>
       {links.map((p, i) => (
@@ -1013,12 +1019,10 @@ function RequestRow({
     if (save.state === "idle" && save.data?.ok) onEdit(false);
   }, [save.state, save.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const stage = requestStage(editing ? draft.links : r.links, r.sites);
 
   return (
-    <tr className={`req-row req-edge-${requestStage(editing ? draft.links : r.links, r.sites)}${editing ? " req-editing" : ""}`}>
-      <td className="req-stage-cell">
-        <StageBadge uid={uid} links={editing ? draft.links : r.links} sites={r.sites} />
-      </td>
+    <tr className={`req-row${editing ? " req-editing" : ""}`}>
       <td className="req-name">
         {editing ? (
           <>
@@ -1087,6 +1091,13 @@ function RequestRow({
               <button type="button" className="req-title-btn" popoverTarget={`req-detail-${uid}`}>
                 {r.name}
               </button>
+              {canEdit && (
+                <button type="button" className="req-row-edit" onClick={() => onEdit(true)} aria-label={`Edit ${r.name}`}>
+                  Edit
+                </button>
+              )}
+            </div>
+            <div className="req-tags">
               {!groupCol &&
                 r.cols.map((c) => (
                   <FilterTag key={`col-${c}`} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
@@ -1098,26 +1109,26 @@ function RequestRow({
                 const lens = lenses.find((l) => l.id === id);
                 return lens ? <LensTag key={id} lens={lens} onFilter={onFilter} /> : null;
               })}
-              {canEdit && (
-                <button type="button" className="req-row-edit" onClick={() => onEdit(true)} aria-label={`Edit ${r.name}`}>
-                  Edit
-                </button>
+              {groupCol && r.cols.length > 1 && (
+                <span className="req-also">
+                  Also in{" "}
+                  {r.cols.filter((c) => c !== groupCol).map((c) => (
+                    <FilterTag key={c} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
+                  ))}
+                </span>
               )}
             </div>
-            {groupCol && r.cols.length > 1 && (
-              <div className="req-also">
-                Also in{" "}
-                {r.cols.filter((c) => c !== groupCol).map((c) => (
-                  <FilterTag key={c} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />
-                ))}
-              </div>
-            )}
             {r.description && <p className="req-desc">{r.description}</p>}
             <ScoresLine scores={r.scores} links={r.links} uid={uid} />
           </>
         )}
       </td>
       <td className="req-sites">
+        <StageMark
+          stage={stage}
+          title={`Show only ${STAGE_LABEL[stage]}`}
+          onClick={() => onFilter({ kind: "stage", value: stage, label: STAGE_LABEL[stage] })}
+        />
         <SitesButton r={r} uid={uid} />
         <RequestModal r={r} uid={uid} canEdit={canEdit} allSites={allSites} />
       </td>
@@ -1363,6 +1374,20 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
   );
 
   const shown = requests.filter((r) => editingIds.has(r.id) || matches(r, pills, typed, lenses));
+  // The stage summary and the pipeline count what every filter but stage leaves.
+  const [showPipeline, setShowPipeline] = useState(false);
+  const beforeStage = requests.filter((r) => matches(r, pills.filter((p) => p.kind !== "stage"), typed, lenses));
+  const stageCounts = new Map<Stage, number>();
+  for (const r of beforeStage) {
+    const st = requestStage(r.links, r.sites);
+    stageCounts.set(st, (stageCounts.get(st) ?? 0) + 1);
+  }
+  const toggleStage = (st: Stage) =>
+    setPills((prev) =>
+      prev.some((p) => p.kind === "stage" && p.value === st)
+        ? prev.filter((p) => !(p.kind === "stage" && p.value === st))
+        : [...prev, { kind: "stage", value: st, label: STAGE_LABEL[st] }]
+    );
   const row = (r: InstitutionRequest, key: string, groupCol?: string) => (
     <RequestRow
       key={key}
@@ -1398,25 +1423,41 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
             ))}
           </select>
         </label>
-        <span className="req-count">
-          {shown.length} of {requests.length} requests
-        </span>
-        {canEdit && (
-          <span className="req-edit-controls">
-            <NewRequest onCreated={(id) => setEditing(id, true)} />
-          </span>
-        )}
+        {canEdit && <NewRequest onCreated={(id) => setEditing(id, true)} />}
       </div>
 
-      <RequestSankey
-        requests={requests.filter((r) => matches(r, pills.filter((p) => p.kind !== "stage"), typed, lenses))}
-        onPick={(stages) =>
-          setPills([
-            ...pills.filter((p) => p.kind !== "stage"),
-            ...stages.map((st) => ({ kind: "stage" as const, value: st, label: STAGE_LABEL[st] })),
-          ])
-        }
-      />
+      <div className="req-summary">
+        <span className="req-count">
+          {shown.length === requests.length ? `${requests.length} requests` : `${shown.length} of ${requests.length} requests`}
+        </span>
+        <span className="req-summary-stages">
+          {STAGES.filter((st) => stageCounts.get(st)).map((st) => (
+            <StageMark
+              key={st}
+              stage={st}
+              count={stageCounts.get(st)}
+              active={pills.some((p) => p.kind === "stage" && p.value === st)}
+              title={`Show only ${STAGE_LABEL[st]}`}
+              onClick={() => toggleStage(st)}
+            />
+          ))}
+        </span>
+        <button type="button" className="req-pipeline-toggle" aria-expanded={showPipeline} onClick={() => setShowPipeline((v) => !v)}>
+          {showPipeline ? "Hide pipeline" : "Show pipeline"}
+        </button>
+      </div>
+
+      {showPipeline && (
+        <RequestSankey
+          requests={beforeStage}
+          onPick={(stages) =>
+            setPills([
+              ...pills.filter((p) => p.kind !== "stage"),
+              ...stages.map((st) => ({ kind: "stage" as const, value: st, label: STAGE_LABEL[st] })),
+            ])
+          }
+        />
+      )}
 
       <div className="req-table-wrap">
         <table className="req-table">
@@ -1429,7 +1470,7 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
               return (
                 <tbody key={st}>
                   <tr className="req-group">
-                    <th colSpan={3}>
+                    <th colSpan={2}>
                       <button type="button" className="req-group-btn" onClick={() => addPill({ kind: "stage", value: st, label: STAGE_LABEL[st] })} title={`Show only ${STAGE_LABEL[st]}`}>
                         {STAGE_LABEL[st]}
                       </button>{" "}
@@ -1448,7 +1489,7 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
               return (
                 <tbody key={c.id}>
                   <tr className="req-group">
-                    <th colSpan={3}>
+                    <th colSpan={2}>
                       <button type="button" className="req-group-btn" onClick={() => addPill({ kind: "column", value: c.id, label: c.name })} title={`Show only ${c.name}`}>
                         {c.name}
                       </button>{" "}

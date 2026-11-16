@@ -72,7 +72,8 @@ export function RequestSankey({
         count: at.get(stoppedStage)!,
         stages: [stoppedStage],
         x,
-        y: reach.h + GAP,
+        // An empty last stage still gets a label, so leave it a line of room.
+        y: (reach.terminal ? Math.max(reach.h, 18) : reach.h) + GAP,
         h: h(at.get(stoppedStage)!),
         terminal: true,
       };
@@ -100,7 +101,8 @@ export function RequestSankey({
 
   return (
     <figure className="req-sankey">
-      <svg viewBox={`-4 -22 ${W + 170} ${H + 34}`} role="img" aria-label="Requests by how far along they are">
+      <figcaption>How far along the requests are. Click a stage to show only those.</figcaption>
+      <svg viewBox={`-4 -22 ${W + 170} ${H + 44}`} role="img" aria-label="Requests by how far along they are">
         <g>
           {flows.map((f) => {
             return (
@@ -125,7 +127,7 @@ export function RequestSankey({
               {n.count > 0 && <rect x={n.x} y={n.y} width={NODE_W} height={n.h} rx={2} />}
               {(n.terminal || n.key === "reach-wanted") && <text
                 x={n.terminal ? n.x + NODE_W + 8 : n.x}
-                y={n.terminal ? (n.count ? n.y + n.h / 2 : n.y + 5) : n.y - 7}
+                y={n.terminal ? (n.count ? n.y + n.h / 2 : n.y + 9) : n.y - 7}
                 dy={n.terminal ? "0.35em" : 0}
               >
                 {n.label} <tspan className="req-sankey-count">{n.count}</tspan>

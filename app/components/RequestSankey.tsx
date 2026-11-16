@@ -74,19 +74,23 @@ export function RequestSankey({
       };
       nodes.push(stopped);
       if (reach.count) flows.push({ from: prev, to: reach, value: reach.count, offset: 0 });
-      if (stopped.count) flows.push({ from: prev, to: stopped, value: stopped.count, offset: reach.count ? h(reach.count) : 0 });
+      if (stopped.count) flows.push({ from: prev, to: stopped, value: stopped.count, offset: reach.count });
     }
     prev = reach;
   });
 
+  // A band is a filled ribbon: at the source it takes the source's share of
+  // that node's height (offset/value are request counts), at the target it
+  // fills the target node, so ribbons always match the blocks they join.
   const band = (f: (typeof flows)[number]) => {
-    const fh = h(f.value);
     const x0 = f.from.x + NODE_W;
     const x1 = f.to.x;
-    const y0 = f.from.y + f.offset + fh / 2;
-    const y1 = f.to.y + fh / 2;
+    const sTop = f.from.y + (f.from.h * f.offset) / f.from.count;
+    const sBot = f.from.y + (f.from.h * (f.offset + f.value)) / f.from.count;
+    const tTop = f.to.y;
+    const tBot = f.to.y + f.to.h;
     const mx = (x0 + x1) / 2;
-    return { d: `M${x0},${y0} C${mx},${y0} ${mx},${y1} ${x1},${y1}`, w: fh };
+    return `M${x0},${sTop} C${mx},${sTop} ${mx},${tTop} ${x1},${tTop} L${x1},${tBot} C${mx},${tBot} ${mx},${sBot} ${x0},${sBot} Z`;
   };
   const colourOf = (n: FlowNode) => (n.terminal ? `req-strip-${n.stages[0]}` : "");
 
@@ -95,9 +99,8 @@ export function RequestSankey({
       <svg viewBox={`-4 -22 ${W + 170} ${H + 34}`} role="img" aria-label="Requests by how far along they are">
         <g>
           {flows.map((f) => {
-            const { d, w } = band(f);
             return (
-              <path key={`${f.from.key}-${f.to.key}`} d={d} strokeWidth={w} className={`req-sankey-link ${colourOf(f.to)}`}>
+              <path key={`${f.from.key}-${f.to.key}`} d={band(f)} className={`req-sankey-link ${colourOf(f.to)}`}>
                 <title>{`${f.to.label}: ${f.value}`}</title>
               </path>
             );

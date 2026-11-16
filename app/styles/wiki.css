@@ -2475,9 +2475,9 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 /* Sankey: scale → column → stage */
 .req-sankey { margin: 2px 0 12px; }
 .req-sankey svg { display: block; width: 100%; height: auto; max-height: 150px; overflow: visible; }
-.req-sankey-link { fill: none; stroke: var(--line-strong); stroke-opacity: .45; transition: stroke-opacity .12s; }
-.req-sankey-link[class*="req-strip-"] { stroke: var(--stage); stroke-opacity: .28; }
-.req-sankey-link:hover { stroke-opacity: .7; }
+.req-sankey-link { fill: var(--line-strong); fill-opacity: .45; stroke: none; transition: fill-opacity .12s; }
+.req-sankey-link[class*="req-strip-"] { fill: var(--stage); fill-opacity: .28; }
+.req-sankey-link:hover { fill-opacity: .7; }
 .req-sankey-node { cursor: pointer; }
 .req-sankey-node rect { fill: var(--muted); }
 .req-sankey-node[class*="req-strip-"] rect { fill: var(--stage); }

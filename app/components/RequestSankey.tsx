@@ -1,6 +1,7 @@
 // The tracker's pipeline Sankey: every request starts on the left and flows
 // right through the stages (in design → designed → tested → in use), peeling
-// off at the stage it has currently reached. Clicking a node filters the list
+// off at the stage it has currently reached. Only "All" and the stage nodes
+// where requests stop are labelled; the unlabelled trunk is "this far or further". Clicking a node filters the list
 // to the stages it stands for.
 
 import { STAGES, STAGE_LABEL, requestStage, type InstitutionRequest, type Stage } from "../lib/requests";
@@ -19,7 +20,7 @@ interface FlowNode {
 const W = 1000;
 const H = 120;
 const NODE_W = 14;
-const GAP = 24; // room for the label above the next node
+const GAP = 14;
 const MIN_H = 7; // keep small counts visible next to large ones
 
 export function RequestSankey({
@@ -122,13 +123,13 @@ export function RequestSankey({
             >
               <title>{`${n.label}: ${n.count} request${n.count === 1 ? "" : "s"}${n.count ? " (click to filter)" : ""}`}</title>
               {n.count > 0 && <rect x={n.x} y={n.y} width={NODE_W} height={n.h} rx={2} />}
-              <text
+              {(n.terminal || n.key === "reach-wanted") && <text
                 x={n.terminal ? n.x + NODE_W + 8 : n.x}
                 y={n.terminal ? (n.count ? n.y + n.h / 2 : n.y + 5) : n.y - 7}
                 dy={n.terminal ? "0.35em" : 0}
               >
                 {n.label} <tspan className="req-sankey-count">{n.count}</tspan>
-              </text>
+              </text>}
             </g>
           ))}
       </svg>

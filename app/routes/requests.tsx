@@ -1412,29 +1412,6 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
         }
       />
 
-      <div className="req-stage-strip" role="group" aria-label="Requests by stage">
-        {STAGES.map((st) => {
-          const n = requests.filter((r) => requestStage(r.links) === st).length;
-          const active = pills.some((p) => p.kind === "stage" && p.value === st);
-          return (
-            <button
-              key={st}
-              type="button"
-              className={`req-strip-item req-strip-${st}${active ? " is-active" : ""}`}
-              onClick={() =>
-                active
-                  ? setPills(pills.filter((p) => !(p.kind === "stage" && p.value === st)))
-                  : addPill({ kind: "stage", value: st, label: STAGE_LABEL[st] })
-              }
-              title={active ? `Stop filtering by ${STAGE_LABEL[st]}` : `Show only ${STAGE_LABEL[st]}`}
-            >
-              <span className="req-strip-count">{n}</span>
-              <span className="req-strip-label">{STAGE_LABEL[st]}</span>
-            </button>
-          );
-        })}
-      </div>
-
       <div className="req-table-wrap">
         <table className="req-table">
           {sort === "stage" ? (

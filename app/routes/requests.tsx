@@ -1450,16 +1450,23 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
           {shown.length === requests.length ? `${requests.length} requests` : `${shown.length} of ${requests.length} requests`}
         </span>
         <span className="req-summary-stages">
-          {STAGES.filter((st) => stageCounts.get(st)).map((st) => (
-            <StageMark
-              key={st}
-              stage={st}
-              count={stageCounts.get(st)}
-              active={pills.some((p) => p.kind === "stage" && p.value === st)}
-              title={`Show only ${STAGE_LABEL[st]}`}
-              onClick={() => toggleStage(st)}
-            />
-          ))}
+          {/* Every stage, so the four pips read as a scale; empty ones are faint. */}
+          {STAGES.map((st) =>
+            stageCounts.get(st) ? (
+              <StageMark
+                key={st}
+                stage={st}
+                count={stageCounts.get(st)}
+                active={pills.some((p) => p.kind === "stage" && p.value === st)}
+                title={`Show only ${STAGE_LABEL[st]}`}
+                onClick={() => toggleStage(st)}
+              />
+            ) : (
+              <span key={st} className="req-stage-none">
+                <StageMark stage={st} count={0} />
+              </span>
+            )
+          )}
         </span>
         <button type="button" className="req-pipeline-toggle" aria-expanded={showPipeline} onClick={() => setShowPipeline((v) => !v)}>
           {showPipeline ? "Hide pipeline" : "Show pipeline"}

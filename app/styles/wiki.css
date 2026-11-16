@@ -2196,12 +2196,12 @@ tr.fields-row .field-tag.is-active { color: var(--ink); font-weight: 650; }
 .detail-requests li p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--text); max-width: 680px; }
 @media print { .detail-requests { display: none; } }
 
-.req-title { font-family: var(--title-font); font-size: 30px; font-weight: 400; color: var(--ink); margin: 14px 0 8px; }
-.req-lede { max-width: 680px; color: var(--text); font-size: 15px; line-height: 1.55; margin: 0 0 28px; }
 /* ── /requests ─────────────────────────────────────────────────── */
 .req-page { width: 100%; max-width: 1180px; padding-bottom: 48px; }
 .req-filters { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px 12px; margin-bottom: 14px; }
 .req-filter { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); }
+.req-title { font-family: var(--title-font); font-size: 30px; font-weight: 400; color: var(--ink); margin: 14px 0 8px; }
+.req-lede { max-width: 680px; color: var(--text); font-size: 15px; line-height: 1.55; margin: 0 0 28px; }
 .req-filter select {
   font: inherit; font-size: 14px; color: var(--ink); background: var(--card);
   border: 1px solid var(--line-strong); border-radius: var(--wiki-radius); padding: 4px 8px;
@@ -2448,20 +2448,24 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 .req-new { margin-top: 28px; text-align: center; }
 .req-new .req-btn-ghost { font-size: 12px; padding: 4px 12px; border-radius: 999px; background: transparent; border-color: var(--line); color: var(--muted); }
 .req-new .req-btn-ghost:hover { border-color: var(--line-strong); color: var(--ink); }
-.req-more-sites { all: unset; cursor: pointer; display: inline-block; margin-top: 20px; font-size: 13px; color: var(--faint); }
-.req-more-sites:hover { color: var(--ink); text-decoration: underline; }
 .req-group-btn { all: unset; cursor: pointer; }
 .req-group-btn:hover { text-decoration: underline; text-decoration-color: var(--line-strong); }
 .req-hint-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; }
 .req-hint-list li { font-size: 12px; line-height: 1.6; padding: 0 8px; border-radius: 999px; background: var(--wash); color: var(--text); }
+.req-more-sites { all: unset; cursor: pointer; display: inline-block; margin-top: 20px; font-size: 13px; color: var(--faint); }
+.req-more-sites:hover { color: var(--ink); text-decoration: underline; }
 .req-hints-edit { margin-top: 10px; font-size: 12px; color: var(--muted); }
-/* Stage: no colour. Four pips fill as a request moves past "Design wanted";
-   the pipeline uses greys that darken with the stage (--stage). */
-.req-strip-wanted { --stage: color-mix(in srgb, var(--ink) 28%, var(--paper)); }
-.req-strip-designing { --stage: color-mix(in srgb, var(--ink) 45%, var(--paper)); }
-.req-strip-designed { --stage: color-mix(in srgb, var(--ink) 62%, var(--paper)); }
-.req-strip-tested { --stage: color-mix(in srgb, var(--ink) 80%, var(--paper)); }
-.req-strip-inuse { --stage: var(--ink); }
+/* Stage: rows and the summary use no colour, just four pips that fill as a
+   request moves past "Design wanted". Only the pipeline is coloured (--stage). */
+.req-strip-wanted { --stage: #8a8984; }
+.req-strip-designing { --stage: #4f6fa8; }
+.req-strip-designed { --stage: #b07a12; }
+.req-strip-tested { --stage: #2f8a45; }
+.req-strip-inuse { --stage: #1f6b34; }
+.theme-dark .req-strip-designing { --stage: #8fb0e8; }
+.theme-dark .req-strip-designed { --stage: #e6c27a; }
+.theme-dark .req-strip-tested { --stage: #8fd3a0; }
+.theme-dark .req-strip-inuse { --stage: #b5e8c2; }
 .req-stage-mark {
   all: unset; display: inline-flex; align-items: center; gap: 7px; font-size: 13px; line-height: 1.4;
   color: var(--text); white-space: nowrap;
@@ -2478,17 +2482,18 @@ button.req-stage-mark:focus-visible { outline: 2px solid var(--accent); outline-
 .req-side { display: grid; grid-template-columns: auto 1fr; gap: 7px 12px; margin: 1px 0 0; align-items: baseline; font-size: 13px; line-height: 1.4; }
 .req-side dt { color: var(--faint); font-size: 12px; }
 .req-side dd { margin: 0; min-width: 0; }
-.req-sites-btn { overflow-wrap: anywhere; }
-/* Under the toolbar: the count, the stages as filters, and the pipeline toggle */
 .req-side dt { white-space: nowrap; }
 .req-side-note { display: block; margin-top: 3px; font-size: 12px; line-height: 1.4; color: var(--faint); }
 .req-side-note a { color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
 .req-side-note a:hover { color: var(--ink); }
 .req-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; margin: 0 0 16px; font-size: 13px; }
 .req-summary-stages { display: inline-flex; flex-wrap: wrap; gap: 6px 18px; }
+.req-sites-btn { overflow-wrap: anywhere; }
+/* Under the toolbar: the count, the stages as filters, and the pipeline toggle */
 .req-summary .req-stage-mark { color: var(--muted); }
 .req-pipeline-toggle { all: unset; cursor: pointer; margin-left: auto; color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
 .req-pipeline-toggle:hover { color: var(--ink); text-decoration-color: currentColor; }
+.req-stage-none { opacity: .5; }
 .req-pipeline-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .req-links-summary { all: unset; cursor: pointer; color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
 .req-links-summary:hover { color: var(--ink); text-decoration-color: currentColor; }

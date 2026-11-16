@@ -3,6 +3,7 @@ import type { CellDetailData } from "../lib/detail.server";
 import { colName, rowName } from "../lib/constants";
 import { RESOURCE_FIELDS } from "../lib/research-fields";
 import { FellowshipCta } from "./FellowshipCta";
+import { CellRequests } from "./CellRequests";
 
 // Renders the cell detail DOM at parity with the legacy app.js renderDetail.
 // The inner HTML pieces (summary box, theory box, body) are produced
@@ -65,6 +66,7 @@ export function CellDetail({
               </a>
             </div>
           )}
+          {data.tabId === "agi" && <CellRequests rowId={data.rowId} colId={data.colId} />}
           {data.tabId === "agi" && data.found && data.hasBody && <FellowshipCta />}
           {resourceFields.length > 0 && (
             <nav className="detail-resources" aria-label="Further reading">

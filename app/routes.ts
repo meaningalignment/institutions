@@ -12,6 +12,7 @@ export default [
   route("resources", "routes/resources.tsx"), // Canonical reading per field
   route("theory-of-change", "routes/theory-of-change.tsx"),
   route("tracker", "routes/requests.tsx"), // Requests for new institution designs
+  route("tracker/cell/:row/:col", "routes/tracker-cell.ts"), // A cell's requests, as JSON for cell pages
   route("requests", "routes/requests-redirect.tsx"), // Old URL → /tracker
   route("project-updates", "routes/project-updates.tsx"),
   route("researchers", "routes/researchers.tsx"), // Community page (DB)

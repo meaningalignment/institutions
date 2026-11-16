@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { Link, useFetcher } from "react-router";
+import { Link, useFetcher, useSearchParams } from "react-router";
 import { RequestSankey } from "../components/RequestSankey";
+import { StageMark } from "../components/StageMark";
 import type { Route } from "./+types/requests";
 import { getSignedInResearcher, requireAdminSession } from "../lib/auth.server";
 import {
@@ -540,43 +541,6 @@ function SitesButton({ r, uid }: { r: InstitutionRequest; uid: string }) {
 }
 
 // ── Rows ───────────────────────────────────────────────────────────
-
-// A request's stage: four pips, one filled per step past "Design wanted"
-// (in design, designed, tested, in use), and its name. With onClick it
-// is a button (the row's stage filters the list; the summary line toggles it).
-function StageMark({
-  stage,
-  count,
-  onClick,
-  active,
-  title,
-}: {
-  stage: Stage;
-  count?: number;
-  onClick?: () => void;
-  active?: boolean;
-  title?: string;
-}) {
-  const body = (
-    <>
-      <span className="req-stage-pips" aria-hidden="true">
-        {STAGES.slice(1).map((s, i) => (
-          <i key={s} className={i < STAGES.indexOf(stage) ? "is-on" : ""} />
-        ))}
-      </span>
-      {STAGE_LABEL[stage]}
-      {count != null && <span className="req-stage-count">{count}</span>}
-    </>
-  );
-  const cls = `req-stage-mark req-stage-${stage}${active ? " is-active" : ""}`;
-  return onClick ? (
-    <button type="button" className={cls} onClick={onClick} title={title} aria-pressed={active}>
-      {body}
-    </button>
-  ) : (
-    <span className={cls}>{body}</span>
-  );
-}
 
 // The one modal a request opens (from its title, links summary or sites
 // count): stage, description, links, and the sites with their details, plus
@@ -1363,6 +1327,20 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
       else next.delete(id);
       return next;
     });
+  // Arriving from a grid cell (?request=<id>): show that request and open it.
+  const [searchParams] = useSearchParams();
+  const openId = searchParams.get("request");
+  useEffect(() => {
+    if (!openId) return;
+    const modal = document.getElementById(`req-detail-${openId}`);
+    if (!modal) return;
+    modal.closest("tr")?.scrollIntoView({ block: "center" });
+    try {
+      (modal as HTMLElement & { showPopover(): void }).showPopover();
+    } catch {
+      // Already open, or popovers unsupported: the row is in view either way.
+    }
+  }, [openId]);
   const addPill = (p: Pill) =>
     setPills((prev) => (prev.some((x) => x.kind === p.kind && x.value === p.value) ? prev : [...prev, p]));
 

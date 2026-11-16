@@ -2181,6 +2181,23 @@ tr.fields-row .field-tag.is-active { color: var(--ink); font-weight: 650; }
 
 /* ── /requests ─────────────────────────────────────────────────── */
 .req-page { width: 100%; max-width: 1180px; padding-bottom: 48px; }
+/* Cell pages: the tracker's requests for this cell */
+.detail-requests { margin: 36px 0 8px; padding-top: 22px; border-top: 1px solid var(--line); }
+.detail-requests-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 14px; }
+.detail-requests-head h2 { font: 400 22px/1.2 var(--title-font); color: var(--ink); margin: 0; }
+.detail-requests-head a { font-size: 13px; color: var(--muted); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.detail-requests-head a:hover { color: var(--ink); text-decoration-color: currentColor; }
+.detail-requests ul { list-style: none; margin: 0; padding: 0; }
+.detail-requests li { padding: 14px 0; border-top: 1px solid var(--line); }
+.detail-requests li:first-child { border-top: 0; padding-top: 0; }
+.detail-requests-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+.detail-requests-name { font-size: 15.5px; font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; }
+.detail-requests-name:hover { text-decoration-color: var(--line-strong); }
+.detail-requests .req-stage-mark { color: var(--muted); }
+.detail-requests-sites { font-size: 13px; color: var(--faint); }
+.detail-requests li p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--text); max-width: 680px; }
+@media print { .detail-requests { display: none; } }
+
 .req-title { font-family: var(--title-font); font-size: 30px; font-weight: 400; color: var(--ink); margin: 14px 0 8px; }
 .req-lede { max-width: 680px; color: var(--text); font-size: 15px; line-height: 1.55; margin: 0 0 28px; }
 .req-filters { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px 12px; margin-bottom: 14px; }
@@ -2430,8 +2447,9 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 }
 .req-group-btn { all: unset; cursor: pointer; }
 .req-group-btn:hover { text-decoration: underline; text-decoration-color: var(--line-strong); }
-.req-new { margin-top: 20px; }
-.req-new .req-btn-ghost { padding: 8px 14px; }
+.req-new { margin-top: 28px; text-align: center; }
+.req-new .req-btn-ghost { font-size: 12px; padding: 4px 12px; border-radius: 999px; background: transparent; border-color: var(--line); color: var(--muted); }
+.req-new .req-btn-ghost:hover { border-color: var(--line-strong); color: var(--ink); }
 .req-more-sites { all: unset; cursor: pointer; display: inline-block; margin-top: 20px; font-size: 13px; color: var(--faint); }
 .req-more-sites:hover { color: var(--ink); text-decoration: underline; }
 .req-hint-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; }

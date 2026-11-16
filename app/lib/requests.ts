@@ -80,16 +80,16 @@ export interface RequestLink {
   url: string;
 }
 
-export const STAGES = ["wanted", "planned", "designing", "designed", "tested", "inuse"] as const;
+export const STAGES = ["wanted", "designing", "designed", "tested", "inuse"] as const;
 export type Stage = (typeof STAGES)[number];
-export const STAGE_LABEL: Record<Stage, string> = { wanted: "Design wanted", planned: "Planned", designing: "In design", designed: "Designed", tested: "Tested", inuse: "In use" };
+export const STAGE_LABEL: Record<Stage, string> = { wanted: "Design wanted", designing: "In design", designed: "Designed", tested: "Tested", inuse: "In use" };
 
 // The stage is the furthest point shown by either the links (a design, a test
 // report, a deployment) or the sites (a site designing, piloting, or using it).
 // A piloting site means a design exists (Designed) but not that it has been
 // tested: Tested comes only from a test report.
 const LINK_STAGE: Record<LinkKind, Stage> = { case: "wanted", project: "designing", design: "designed", test: "tested", use: "inuse" };
-const SITE_STAGE: Record<RequestStatus, Stage> = { interested: "wanted", planned: "planned", designing: "designing", piloting: "designed", inuse: "inuse" };
+const SITE_STAGE: Record<RequestStatus, Stage> = { interested: "wanted", planned: "wanted", designing: "designing", piloting: "designed", inuse: "inuse" };
 
 export function requestStage(links: RequestLink[], sites: { status: RequestStatus }[] = []): Stage {
   let best = 0;

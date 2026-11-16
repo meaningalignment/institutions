@@ -2502,6 +2502,8 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 .req-site-card-head { display: flex; align-items: baseline; gap: 8px; justify-content: space-between; }
 .req-site-card .req-site-name { font-weight: 500; color: var(--ink); }
 .req-site-card dl { margin: 4px 0 0; font-size: 13px; line-height: 1.5; }
+.req-source-logo { width: 16px; height: 16px; border-radius: 3px; vertical-align: -3px; object-fit: contain; }
+.theme-dark .req-source-logo[src$=".svg"] { filter: invert(1); }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {

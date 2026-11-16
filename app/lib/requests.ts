@@ -103,3 +103,34 @@ export interface RequestLens {
   label: string;
   url: string;
 }
+
+// Where a request's links come from, shown as small logos on its row. Matched
+// by the link's host; add an entry (and a file in public/logos/) for a new one.
+export interface LinkSource {
+  id: string;
+  label: string;
+  logo: string;
+}
+const SOURCES: { host: RegExp; source: LinkSource }[] = [
+  { host: /(^|\.)paxmachina\.ai$/, source: { id: "pax", label: "Pax Machina", logo: "/logos/paxmachina.svg" } },
+  { host: /(^|\.)arxiv\.org$/, source: { id: "arxiv", label: "arXiv", logo: "/logos/arxiv.png" } },
+  {
+    host: /^meaningalignment\.substack\.com$|(^|\.)meaningalignment\.org$/,
+    source: { id: "mai", label: "Meaning Alignment Institute", logo: "/logos/mai.png" },
+  },
+];
+
+export function linkSources(links: RequestLink[]): LinkSource[] {
+  const seen = new Map<string, LinkSource>();
+  for (const l of links) {
+    let host = "";
+    try {
+      host = new URL(l.url).hostname.replace(/^www\./, "");
+    } catch {
+      continue;
+    }
+    const hit = SOURCES.find((s) => s.host.test(host));
+    if (hit && !seen.has(hit.source.id)) seen.set(hit.source.id, hit.source);
+  }
+  return [...seen.values()];
+}

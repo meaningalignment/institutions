@@ -27,6 +27,7 @@ import {
   SCORE_LABEL,
   STAGES,
   STAGE_LABEL,
+  linkSources,
   priority,
   requestStage,
   type InstitutionRequest,
@@ -1083,6 +1084,9 @@ function RequestRow({
               <button type="button" className="req-title-btn" popoverTarget={`req-detail-${uid}`}>
                 {r.name}
               </button>
+              {linkSources(r.links).map((src) => (
+                <img key={src.id} className="req-source-logo" src={src.logo} alt={src.label} title={`Writing on ${src.label}`} width={16} height={16} />
+              ))}
               {!groupCol &&
                 r.cols.map((c) => (
                   <FilterTag key={`col-${c}`} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />

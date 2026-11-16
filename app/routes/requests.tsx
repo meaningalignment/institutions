@@ -944,6 +944,9 @@ function ScoresLine({ scores, links, uid }: { scores: RequestScores; links: Requ
     <div className="req-scores">
       {links.length > 0 && (
         <button type="button" className="req-links-summary" popoverTarget={`req-detail-${uid}`}>
+          {linkSources(links).map((src) => (
+            <img key={src.id} className="req-source-logo" src={src.logo} alt={src.label} title={src.label} width={14} height={14} />
+          ))}
           {linksSummary(links)}
         </button>
       )}
@@ -1084,9 +1087,6 @@ function RequestRow({
               <button type="button" className="req-title-btn" popoverTarget={`req-detail-${uid}`}>
                 {r.name}
               </button>
-              {linkSources(r.links).map((src) => (
-                <img key={src.id} className="req-source-logo" src={src.logo} alt={src.label} title={`Writing on ${src.label}`} width={16} height={16} />
-              ))}
               {!groupCol &&
                 r.cols.map((c) => (
                   <FilterTag key={`col-${c}`} pill={{ kind: "column", value: c, label: colName(c) }} onFilter={onFilter} />

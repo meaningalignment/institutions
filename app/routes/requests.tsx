@@ -1454,7 +1454,7 @@ function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
         <h2 className="req-modal-title">Review scores</h2>
         <p className="req-review-lede">
           {rows.length} {rows.length === 1 ? "request" : "requests"} matching the current filters. Click a dot to set a score (again to clear); changes save
-          straight away. Click a column heading to sort by it (again to reverse). The last column is neglectedness × urgency.
+          straight away. Click a column heading to sort by it (again to reverse). The last column is neglectedness × urgency × recognition (an unscored recognition counts as 3).
         </p>
         <table className="req-review-table">
           <thead>
@@ -1464,7 +1464,7 @@ function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
               {SCORE_KEYS.map((k) => (
                 <React.Fragment key={k}>{heading(k, SCORE_LABEL[k], SCORE_HELP[k])}</React.Fragment>
               ))}
-              {heading("importance", "Neglected × Urgent", PRIORITY_HELP)}
+              {heading("importance", "Neglected × Urgent × Recognized", PRIORITY_HELP)}
             </tr>
           </thead>
           <tbody>
@@ -1482,11 +1482,12 @@ function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
 
 type SortKey = "column" | "stage" | "priority" | ScoreKey;
 const SORTS: { id: SortKey; name: string }[] = [
-  { id: "priority", name: "Neglected × Urgent" },
+  { id: "priority", name: "Neglected × Urgent × Recognized" },
   { id: "column", name: "Grouped by type" },
   { id: "stage", name: "Grouped by stage" },
   { id: "urgency", name: "Urgency" },
   { id: "neglect", name: "Neglectedness" },
+  { id: "recognition", name: "Recognition" },
 ];
 
 // Unscored requests sort last.

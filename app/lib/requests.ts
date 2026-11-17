@@ -41,29 +41,36 @@ export interface InstitutionRequest {
 //  neglect:  how neglected it is: how unlikely it gets built anyway, without
 //            anyone pushing (5 = nobody else will)
 //  urgency:  how soon it is needed, i.e. can find real application (5 = now)
-// Importance to work on = neglectedness × urgency. (A third score, leverage,
-// was dropped; its `leverage` column is no longer read or written.)
+//  recognition: how widely people agree it's needed, the way to go (5 =
+//               everyone; safety is a 5, telocracy a 1)
+// Importance to work on = neglectedness × urgency × recognition: an
+// unrecognized need scores lower. An unscored recognition counts as 3. (A
+// fourth score, leverage, was dropped; its `leverage` column is no longer
+// read or written.)
 // The database stores neglect reversed, as `likely` (6 − neglect), and
 // urgency as `soon`; requests.server.ts converts at the boundary.
 export interface RequestScores {
   neglect: number | null;
   urgency: number | null;
+  recognition: number | null;
 }
-export const SCORE_KEYS = ["neglect", "urgency"] as const;
+export const SCORE_KEYS = ["neglect", "urgency", "recognition"] as const;
 export type ScoreKey = (typeof SCORE_KEYS)[number];
 export const SCORE_LABEL: Record<ScoreKey, string> = {
   neglect: "Neglectedness",
   urgency: "Urgency",
+  recognition: "Recognition",
 };
 export const SCORE_HELP: Record<ScoreKey, string> = {
   neglect: "How unlikely it is to get built anyway, without anyone pushing for it (5 = nobody else will)",
   urgency: "How soon it is needed: how soon it can find real application (5 = now)",
+  recognition: "How widely people agree it's needed and the way to go (5 = everyone, as with safety; 1 = almost nobody yet)",
 };
-export const PRIORITY_HELP = "Neglectedness × urgency";
+export const PRIORITY_HELP = "Neglectedness × urgency × recognition (an unscored recognition counts as 3)";
 
 export function priority(s: RequestScores): number | null {
   if (s.neglect == null || s.urgency == null) return null;
-  return s.neglect * s.urgency;
+  return s.neglect * s.urgency * (s.recognition ?? 3);
 }
 
 // Links attached to a request. A "case" argues the institution is needed

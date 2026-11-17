@@ -114,7 +114,7 @@ await sql`
     END IF;
   END $$
 `;
-for (const col of ["likely", "soon", "leverage"]) {
+for (const col of ["likely", "soon", "leverage", "recognition"]) {
   await sql.query(
     `ALTER TABLE institutions_requests ADD COLUMN IF NOT EXISTS ${col} smallint CHECK (${col} BETWEEN 1 AND 5)`
   );

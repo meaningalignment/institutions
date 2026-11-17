@@ -2431,6 +2431,8 @@ button.req-tag-btn:hover { background: var(--wash); color: var(--ink); }
 .req-tags { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 6px; margin-top: 7px; }
 .req-also { margin-left: 6px; font-size: 11px; color: var(--faint); display: inline-flex; flex-wrap: wrap; gap: 5px; align-items: baseline; }
 .req-scores { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin-top: 10px; font-size: 12px; color: var(--faint); }
+.req-standouts { display: flex; flex-wrap: wrap; gap: 4px 0; margin-top: 8px; font-size: 12px; color: var(--muted); }
+.req-standouts span + span::before { content: "·"; margin: 0 8px; color: var(--faint); }
 .req-scores-edit { margin-top: 16px; gap: 8px 20px; }
 .req-scores strong { color: var(--muted); font-weight: 600; }
 .req-editing td .req-scores-edit label { display: inline-flex; align-items: center; gap: 8px; margin-top: 0; cursor: default; }

@@ -921,21 +921,6 @@ function ScoresEditor({ scores, onChange }: { scores: RequestScores; onChange: (
   );
 }
 
-// Short summary of a request's links, e.g. "1 case · 2 designs".
-function linksSummary(links: RequestLink[]): string {
-  const plural: Record<LinkKind, [string, string]> = {
-    case: ["on why it's needed", "on why it's needed"],
-    project: ["project", "projects"],
-    design: ["design", "designs"],
-    test: ["test report", "test reports"],
-    use: ["deployment", "deployments"],
-  };
-  return LINK_KINDS.map((k) => [k, links.filter((l) => l.kind === k).length] as const)
-    .filter(([, n]) => n > 0)
-    .map(([k, n]) => `${n} ${plural[k][n === 1 ? 0 : 1]}`)
-    .join(" · ");
-}
-
 // The description, ending in small logos for where its links come from
 // (Pax Machina, arXiv, …); they open the request like its title does.
 function Description({ text, links, uid }: { text: string; links: RequestLink[]; uid: string }) {
@@ -955,29 +940,22 @@ function Description({ text, links, uid }: { text: string; links: RequestLink[];
   );
 }
 
-// One meta line under the description: a links summary (opening the links
-// popover) and the ranking scores.
-function ScoresLine({ scores, links, uid }: { scores: RequestScores; links: RequestLink[]; uid: string }) {
-  const hasScores = SCORE_KEYS.some((k) => scores[k] != null);
-  if (!hasScores && !links.length) return null;
-  const p = priority(scores);
+// Scores are mostly shown by the sort order and the Review scores table; a
+// row names only the ones that stand out: neglected, urgent, or high leverage.
+function Standouts({ scores }: { scores: RequestScores }) {
+  const notes = [
+    scores.likely === 1 && { text: "Unlikely to happen anyway", help: SCORE_HELP.likely },
+    scores.soon === 5 && { text: "Needed now", help: SCORE_HELP.soon },
+    scores.leverage === 5 && { text: "High leverage", help: SCORE_HELP.leverage },
+  ].filter((n): n is { text: string; help: string } => !!n);
+  if (!notes.length) return null;
   return (
-    <div className="req-scores">
-      {links.length > 0 && (
-        <button type="button" className="req-links-summary" popoverTarget={`req-detail-${uid}`}>
-          {linksSummary(links)}
-        </button>
-      )}
-      {SCORE_KEYS.map((k) => (
-        <span key={k} title={SCORE_HELP[k]}>
-          {SCORE_LABEL[k]} <strong>{scores[k] ?? "–"}</strong>
+    <div className="req-standouts">
+      {notes.map((n) => (
+        <span key={n.text} title={n.help}>
+          {n.text}
         </span>
       ))}
-      {p != null && (
-        <span title="Leverage × (6 − likely anyway)">
-          Importance <strong>{p}</strong>
-        </span>
-      )}
     </div>
   );
 }
@@ -1119,7 +1097,7 @@ function RequestRow({
               </div>
             )}
             <Description text={r.description} links={r.links} uid={uid} />
-            <ScoresLine scores={r.scores} links={r.links} uid={uid} />
+            <Standouts scores={r.scores} />
           </>
         )}
       </td>

@@ -1394,35 +1394,76 @@ function ScoreReviewRow({ r }: { r: InstitutionRequest }) {
   );
 }
 
-// A table of every shown request's scores, edited in place with dots. The
-// order is fixed when it opens, so rows don't jump while you score them.
+type ReviewKey = "name" | "stage" | ScoreKey | "importance";
+type ReviewSort = { key: ReviewKey; desc: boolean };
+
+function reviewValue(r: InstitutionRequest, key: ReviewKey): number | string | null {
+  if (key === "name") return r.name;
+  if (key === "stage") return STAGES.indexOf(requestStage(r.links, r.sites));
+  if (key === "importance") return priority(r.scores);
+  return r.scores[key];
+}
+
+// Unscored rows go last whichever way a column is sorted; ties go by name.
+function reviewOrder(list: InstitutionRequest[], { key, desc }: ReviewSort): number[] {
+  return [...list]
+    .sort((a, b) => {
+      const va = reviewValue(a, key);
+      const vb = reviewValue(b, key);
+      if (va == null || vb == null) return va == null && vb == null ? a.name.localeCompare(b.name) : va == null ? 1 : -1;
+      const c = typeof va === "string" ? va.localeCompare(vb as string) : va - (vb as number);
+      return (desc ? -c : c) || a.name.localeCompare(b.name);
+    })
+    .map((r) => r.id);
+}
+
+// A table of every shown request's scores, edited in place with dots. Any
+// column heading sorts it (again to reverse). The order is fixed until you
+// sort or reopen, so rows don't jump while you score them.
 function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [by, setBy] = useState<"importance" | "name">("importance");
-  const ordered = (list: InstitutionRequest[], key: typeof by) =>
-    [...list]
-      .sort((a, b) =>
-        key === "name" ? a.name.localeCompare(b.name) : (priority(b.scores) ?? -1) - (priority(a.scores) ?? -1) || a.name.localeCompare(b.name)
-      )
-      .map((r) => r.id);
-  const [order, setOrder] = useState<number[]>(() => ordered(requests, "importance"));
+  const [sort, setSort] = useState<ReviewSort>({ key: "importance", desc: true });
+  const [order, setOrder] = useState<number[]>(() => reviewOrder(requests, sort));
   const latest = useRef(requests);
   latest.current = requests;
-  const arrange = (key: typeof by) => setOrder(ordered(latest.current, key));
+  const sortRef = useRef(sort);
+  const arrange = (next: ReviewSort) => {
+    sortRef.current = next;
+    setSort(next);
+    setOrder(reviewOrder(latest.current, next));
+  };
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const onToggle = (e: Event) => {
-      if ((e as ToggleEvent).newState === "open") arrange(by);
+      if ((e as ToggleEvent).newState === "open") arrange(sortRef.current);
     };
     el.addEventListener("toggle", onToggle);
     return () => el.removeEventListener("toggle", onToggle);
-  }, [by]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const byId = new Map(requests.map((r) => [r.id, r]));
   const known = new Set(order);
   const rows = [...order.map((id) => byId.get(id)), ...requests.filter((r) => !known.has(r.id))].filter(
     (r): r is InstitutionRequest => !!r
   );
+  const heading = (key: ReviewKey, label: string, title?: string) => {
+    const active = sort.key === key;
+    return (
+      <th scope="col" title={title} aria-sort={active ? (sort.desc ? "descending" : "ascending") : "none"}>
+        <button
+          type="button"
+          className={`req-review-sort${active ? " is-active" : ""}`}
+          // Name starts A→Z; stage and scores start highest first.
+          onClick={() => arrange({ key, desc: active ? !sort.desc : key !== "name" })}
+        >
+          {label}
+          <span className="req-review-arrow" aria-hidden="true">
+            {active ? (sort.desc ? "↓" : "↑") : "↕"}
+          </span>
+        </button>
+      </th>
+    );
+  };
   return (
     <>
       <button type="button" className="req-btn-ghost req-review-open" popoverTarget="req-score-review">
@@ -1435,32 +1476,17 @@ function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
         <h2 className="req-modal-title">Review scores</h2>
         <p className="req-review-lede">
           {rows.length} {rows.length === 1 ? "request" : "requests"} matching the current filters. Click a dot to set a score (again to clear); changes save
-          straight away. Importance = leverage × (6 − likely anyway).{" "}
-          <button
-            type="button"
-            className="req-link-btn"
-            onClick={() => {
-              const next = by === "importance" ? "name" : "importance";
-              setBy(next);
-              arrange(next);
-            }}
-          >
-            {by === "importance" ? "Order by name" : "Re-sort by importance"}
-          </button>
+          straight away. Click a column heading to sort by it (again to reverse). Importance = leverage × (6 − likely anyway).
         </p>
         <table className="req-review-table">
           <thead>
             <tr>
-              <th scope="col">Request</th>
-              <th scope="col">Stage</th>
+              {heading("name", "Request")}
+              {heading("stage", "Stage")}
               {SCORE_KEYS.map((k) => (
-                <th key={k} scope="col" title={SCORE_HELP[k]}>
-                  {SCORE_LABEL[k]}
-                </th>
+                <React.Fragment key={k}>{heading(k, SCORE_LABEL[k], SCORE_HELP[k])}</React.Fragment>
               ))}
-              <th scope="col" title="Leverage × (6 − likely anyway)">
-                Importance
-              </th>
+              {heading("importance", "Importance", "Leverage × (6 − likely anyway)")}
             </tr>
           </thead>
           <tbody>

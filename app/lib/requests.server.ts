@@ -45,7 +45,7 @@ export async function getRequests(): Promise<InstitutionRequest[]> {
     lenses: r.lenses,
     description: r.description,
     siteHints: r.site_hints,
-    scores: { likely: r.likely, soon: r.soon, leverage: r.leverage },
+    scores: { neglect: r.likely == null ? null : 6 - r.likely, urgency: r.soon, leverage: r.leverage },
     links: linksByRequest.get(r.id) ?? [],
     sites: byRequest.get(r.id) ?? [],
   }));
@@ -173,7 +173,8 @@ export async function updateRequestFields(id: number, fields: Record<string, unk
   }
   if ("scores" in fields) {
     const s = (fields.scores ?? {}) as Record<string, unknown>;
-    const [likely, soon, leverage] = SCORE_KEYS.map((k) => cleanScore(s[k]));
+    const [neglect, soon, leverage] = SCORE_KEYS.map((k) => cleanScore(s[k]));
+    const likely = neglect == null ? null : 6 - neglect; // stored reversed
     q.push(sql`UPDATE institutions_requests SET likely = ${likely}, soon = ${soon}, leverage = ${leverage} WHERE id = ${id}`);
   }
   if ("links" in fields) {

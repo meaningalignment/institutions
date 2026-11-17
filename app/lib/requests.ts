@@ -38,32 +38,36 @@ export interface InstitutionRequest {
 }
 
 // Three 1–5 judgments used for ranking (null = not scored yet).
-//  likely: how likely it gets built anyway, without anyone pushing (5 = surely)
-//  soon:   how soon it can find real application (5 = now)
+//  neglect:  how neglected it is: how unlikely it gets built anyway, without
+//            anyone pushing (5 = nobody else will)
+//  urgency:  how soon it is needed, i.e. can find real application (5 = now)
 //  leverage: how much shaping it now changes how it turns out, because early
 //            designs lock in the pattern (5 = a great deal)
-// Priority to work on = leverage × (6 − likely): shapeable now and otherwise neglected.
+// Importance to work on = leverage × neglectedness.
+// The database stores neglect reversed, as `likely` (6 − neglect), and
+// urgency as `soon`; requests.server.ts converts at the boundary.
 export interface RequestScores {
-  likely: number | null;
-  soon: number | null;
+  neglect: number | null;
+  urgency: number | null;
   leverage: number | null;
 }
-export const SCORE_KEYS = ["likely", "soon", "leverage"] as const;
+export const SCORE_KEYS = ["neglect", "urgency", "leverage"] as const;
 export type ScoreKey = (typeof SCORE_KEYS)[number];
 export const SCORE_LABEL: Record<ScoreKey, string> = {
-  likely: "Likely anyway",
-  soon: "Needed soon",
+  neglect: "Neglectedness",
+  urgency: "Urgency",
   leverage: "Leverage",
 };
 export const SCORE_HELP: Record<ScoreKey, string> = {
-  likely: "How likely it gets built anyway, without anyone pushing for it (5 = surely)",
-  soon: "How soon it is needed: how soon it can find real application (5 = now)",
+  neglect: "How unlikely it is to get built anyway, without anyone pushing for it (5 = nobody else will)",
+  urgency: "How soon it is needed: how soon it can find real application (5 = now)",
   leverage: "How much shaping it now changes how it turns out; early designs lock in the pattern (5 = a great deal)",
 };
+export const PRIORITY_HELP = "Leverage × neglectedness";
 
 export function priority(s: RequestScores): number | null {
-  if (s.likely == null || s.leverage == null) return null;
-  return s.leverage * (6 - s.likely);
+  if (s.neglect == null || s.leverage == null) return null;
+  return s.leverage * s.neglect;
 }
 
 // Links attached to a request. A "case" argues the institution is needed

@@ -23,6 +23,7 @@ import {
   LINK_KIND_LABEL,
   REQUEST_STATUSES,
   STATUS_LABEL,
+  PRIORITY_HELP,
   SCORE_HELP,
   SCORE_KEYS,
   SCORE_LABEL,
@@ -914,7 +915,7 @@ function ScoresEditor({ scores, onChange }: { scores: RequestScores; onChange: (
           </select>
         </label>
       ))}
-      <span className="req-priority" title="Leverage × (6 − likely anyway)">
+      <span className="req-priority" title={PRIORITY_HELP}>
         Importance {p ?? "–"}
       </span>
     </div>
@@ -944,8 +945,8 @@ function Description({ text, links, uid }: { text: string; links: RequestLink[];
 // row names only the ones that stand out: neglected, urgent, or high leverage.
 function Standouts({ scores }: { scores: RequestScores }) {
   const notes = [
-    scores.likely === 1 && { text: "Unlikely to happen anyway", help: SCORE_HELP.likely },
-    scores.soon === 5 && { text: "Needed now", help: SCORE_HELP.soon },
+    scores.neglect === 5 && { text: "Neglected", help: SCORE_HELP.neglect },
+    scores.urgency === 5 && { text: "Urgent", help: SCORE_HELP.urgency },
     scores.leverage === 5 && { text: "High leverage", help: SCORE_HELP.leverage },
   ].filter((n): n is { text: string; help: string } => !!n);
   if (!notes.length) return null;
@@ -1454,7 +1455,7 @@ function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
         <h2 className="req-modal-title">Review scores</h2>
         <p className="req-review-lede">
           {rows.length} {rows.length === 1 ? "request" : "requests"} matching the current filters. Click a dot to set a score (again to clear); changes save
-          straight away. Click a column heading to sort by it (again to reverse). Importance = leverage × (6 − likely anyway).
+          straight away. Click a column heading to sort by it (again to reverse). Importance = leverage × neglectedness.
         </p>
         <table className="req-review-table">
           <thead>
@@ -1464,7 +1465,7 @@ function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
               {SCORE_KEYS.map((k) => (
                 <React.Fragment key={k}>{heading(k, SCORE_LABEL[k], SCORE_HELP[k])}</React.Fragment>
               ))}
-              {heading("importance", "Importance", "Leverage × (6 − likely anyway)")}
+              {heading("importance", "Importance", PRIORITY_HELP)}
             </tr>
           </thead>
           <tbody>
@@ -1480,20 +1481,19 @@ function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
 
 // ── Sorting ────────────────────────────────────────────────────────
 
-type SortKey = "column" | "stage" | "priority" | "soon" | "likely" | "leverage";
+type SortKey = "column" | "stage" | "priority" | ScoreKey;
 const SORTS: { id: SortKey; name: string }[] = [
   { id: "priority", name: "Importance to work on" },
   { id: "column", name: "Grouped by column" },
   { id: "stage", name: "Grouped by stage" },
-  { id: "soon", name: "Needed soonest" },
+  { id: "urgency", name: "Urgency" },
   { id: "leverage", name: "Leverage" },
-  { id: "likely", name: "Least likely to happen anyway" },
+  { id: "neglect", name: "Neglectedness" },
 ];
 
 // Unscored requests sort last.
 function sortValue(r: InstitutionRequest, key: Exclude<SortKey, "column" | "stage">): number {
   if (key === "priority") return priority(r.scores) ?? -Infinity;
-  if (key === "likely") return r.scores.likely == null ? -Infinity : 6 - r.scores.likely;
   return r.scores[key as ScoreKey] ?? -Infinity;
 }
 

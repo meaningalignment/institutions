@@ -2574,6 +2574,7 @@ button.req-stage-mark:focus-visible { outline: 2px solid var(--accent); outline-
 .req-desc-sources:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .req-source-logo { display: inline-block; width: 15px; height: 15px; object-fit: contain; border-radius: 2px; }
 .theme-dark .req-source-logo.is-mono { filter: invert(1); }
+.theme-dark .req-source-logo.is-plate { background: #fff; border-radius: 50%; }
 /* /requests in print: just the list, black on white, no controls. A named
    page so the Research Community footer isn't applied here. */
 @media print {

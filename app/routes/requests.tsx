@@ -947,7 +947,7 @@ function Description({ text, links, uid }: { text: string; links: RequestLink[];
       {sources.length > 0 && (
         <button type="button" className="req-desc-sources" popoverTarget={`req-detail-${uid}`} aria-label={`Links from ${sources.map((s) => s.label).join(", ")}`}>
           {sources.map((src) => (
-            <img key={src.id} className={`req-source-logo${src.mono ? " is-mono" : ""}`} src={src.logo} alt="" title={src.label} width={14} height={14} />
+            <img key={src.id} className={`req-source-logo${src.mono ? " is-mono" : ""}${src.plate ? " is-plate" : ""}`} src={src.logo} alt="" title={src.label} width={14} height={14} />
           ))}
         </button>
       )}

@@ -112,9 +112,10 @@ export interface LinkSource {
   label: string;
   logo: string;
   mono?: boolean; // a black mark: inverted to white in dark mode
+  plate?: boolean; // a black round mark: shown on a white disc in dark mode
 }
 const SOURCES: { host: RegExp; source: LinkSource }[] = [
-  { host: /(^|\.)paxmachina\.ai$/, source: { id: "pax", label: "Pax Machina", logo: "/logos/paxmachina.svg", mono: true } },
+  { host: /(^|\.)paxmachina\.ai$/, source: { id: "pax", label: "Pax Machina", logo: "/logos/paxmachina.svg", plate: true } },
   { host: /(^|\.)arxiv\.org$/, source: { id: "arxiv", label: "arXiv", logo: "/logos/arxiv.png" } },
   {
     host: /^meaningalignment\.substack\.com$|(^|\.)meaningalignment\.org$/,

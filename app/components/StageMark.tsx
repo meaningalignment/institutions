@@ -1,7 +1,6 @@
-import { STAGES, STAGE_LABEL, type Stage } from "../lib/requests";
+import { STAGE_LABEL, type Stage } from "../lib/requests";
 
-// A request's stage: four pips, one filled per step past "Design wanted"
-// (in design, designed, tested, in use), and its name. With onClick it
+// A request's stage: a dot in the stage's pipeline colour, and its name. With onClick it
 // is a button (the row's stage filters the list; the summary line toggles it).
 export function StageMark({
   stage,
@@ -18,11 +17,7 @@ export function StageMark({
 }) {
   const body = (
     <>
-      <span className="req-stage-pips" aria-hidden="true">
-        {STAGES.slice(1).map((s, i) => (
-          <i key={s} className={i < STAGES.indexOf(stage) ? "is-on" : ""} />
-        ))}
-      </span>
+      <i className={`req-stage-dot req-strip-${stage}`} aria-hidden="true" />
       {STAGE_LABEL[stage]}
       {count != null && <span className="req-stage-count">{count}</span>}
     </>

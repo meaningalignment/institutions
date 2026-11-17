@@ -52,12 +52,12 @@ export const SCORE_KEYS = ["likely", "soon", "leverage"] as const;
 export type ScoreKey = (typeof SCORE_KEYS)[number];
 export const SCORE_LABEL: Record<ScoreKey, string> = {
   likely: "Likely anyway",
-  soon: "Soon to apply",
+  soon: "Needed soon",
   leverage: "Leverage",
 };
 export const SCORE_HELP: Record<ScoreKey, string> = {
   likely: "How likely it gets built anyway, without anyone pushing for it (5 = surely)",
-  soon: "How soon it can find real application (5 = now)",
+  soon: "How soon it is needed: how soon it can find real application (5 = now)",
   leverage: "How much shaping it now changes how it turns out; early designs lock in the pattern (5 = a great deal)",
 };
 
@@ -111,13 +111,14 @@ export interface LinkSource {
   id: string;
   label: string;
   logo: string;
+  mono?: boolean; // a black mark: inverted to white in dark mode
 }
 const SOURCES: { host: RegExp; source: LinkSource }[] = [
-  { host: /(^|\.)paxmachina\.ai$/, source: { id: "pax", label: "Pax Machina", logo: "/logos/paxmachina.svg" } },
+  { host: /(^|\.)paxmachina\.ai$/, source: { id: "pax", label: "Pax Machina", logo: "/logos/paxmachina.svg", mono: true } },
   { host: /(^|\.)arxiv\.org$/, source: { id: "arxiv", label: "arXiv", logo: "/logos/arxiv.png" } },
   {
     host: /^meaningalignment\.substack\.com$|(^|\.)meaningalignment\.org$/,
-    source: { id: "mai", label: "Meaning Alignment Institute", logo: "/logos/mai.png" },
+    source: { id: "mai", label: "Meaning Alignment Institute", logo: "/logos/mai.png", mono: true },
   },
 ];
 

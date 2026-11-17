@@ -936,6 +936,25 @@ function linksSummary(links: RequestLink[]): string {
     .join(" · ");
 }
 
+// The description, ending in small logos for where its links come from
+// (Pax Machina, arXiv, …); they open the request like its title does.
+function Description({ text, links, uid }: { text: string; links: RequestLink[]; uid: string }) {
+  const sources = linkSources(links);
+  if (!text && !sources.length) return null;
+  return (
+    <p className="req-desc">
+      {text}
+      {sources.length > 0 && (
+        <button type="button" className="req-desc-sources" popoverTarget={`req-detail-${uid}`} aria-label={`Links from ${sources.map((s) => s.label).join(", ")}`}>
+          {sources.map((src) => (
+            <img key={src.id} className={`req-source-logo${src.mono ? " is-mono" : ""}`} src={src.logo} alt="" title={src.label} width={14} height={14} />
+          ))}
+        </button>
+      )}
+    </p>
+  );
+}
+
 // One meta line under the description: a links summary (opening the links
 // popover) and the ranking scores.
 function ScoresLine({ scores, links, uid }: { scores: RequestScores; links: RequestLink[]; uid: string }) {
@@ -946,9 +965,6 @@ function ScoresLine({ scores, links, uid }: { scores: RequestScores; links: Requ
     <div className="req-scores">
       {links.length > 0 && (
         <button type="button" className="req-links-summary" popoverTarget={`req-detail-${uid}`}>
-          {linkSources(links).map((src) => (
-            <img key={src.id} className="req-source-logo" src={src.logo} alt={src.label} title={src.label} width={14} height={14} />
-          ))}
           {linksSummary(links)}
         </button>
       )}
@@ -1102,7 +1118,7 @@ function RequestRow({
                 })}
               </div>
             )}
-            {r.description && <p className="req-desc">{r.description}</p>}
+            <Description text={r.description} links={r.links} uid={uid} />
             <ScoresLine scores={r.scores} links={r.links} uid={uid} />
           </>
         )}
@@ -1325,6 +1341,139 @@ function SearchBar({
   );
 }
 
+// ── Score review (admins) ──────────────────────────────────────────
+
+// Five dots for a 1–5 score; clicking the current value clears it.
+function ScoreDots({ value, label, onChange }: { value: number | null; label: string; onChange: (v: number | null) => void }) {
+  return (
+    <span className="req-dots" role="radiogroup" aria-label={label}>
+      {scoreOptions.map((n) => (
+        <button
+          key={n}
+          type="button"
+          role="radio"
+          aria-checked={value === n}
+          aria-label={`${label} ${n}`}
+          title={value === n ? "Click again to clear" : String(n)}
+          className={`req-dot${value != null && n <= value ? " is-on" : ""}`}
+          onClick={() => onChange(value === n ? null : n)}
+        />
+      ))}
+      <span className="req-dots-num">{value ?? "–"}</span>
+    </span>
+  );
+}
+
+function ScoreReviewRow({ r }: { r: InstitutionRequest }) {
+  const fetcher = useFetcher<ActionResult>();
+  const [scores, setScores] = useState(r.scores);
+  useEffect(() => setScores(r.scores), [r.scores]);
+  const change = (k: ScoreKey) => (v: number | null) => {
+    const next = { ...scores, [k]: v };
+    setScores(next);
+    fetcher.submit({ intent: "update-request-many", id: String(r.id), value: JSON.stringify({ scores: next }) }, { method: "post" });
+  };
+  const p = priority(scores);
+  const stage = requestStage(r.links, r.sites);
+  return (
+    <tr>
+      <th scope="row">
+        {r.name}
+        {fetcher.data && !fetcher.data.ok && <span className="req-error"> {fetcher.data.error}</span>}
+      </th>
+      <td className="req-review-stage">
+        <StageMark stage={stage} />
+      </td>
+      {SCORE_KEYS.map((k) => (
+        <td key={k}>
+          <ScoreDots value={scores[k]} label={SCORE_LABEL[k]} onChange={change(k)} />
+        </td>
+      ))}
+      <td className="req-review-imp">{p ?? "–"}</td>
+    </tr>
+  );
+}
+
+// A table of every shown request's scores, edited in place with dots. The
+// order is fixed when it opens, so rows don't jump while you score them.
+function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [by, setBy] = useState<"importance" | "name">("importance");
+  const ordered = (list: InstitutionRequest[], key: typeof by) =>
+    [...list]
+      .sort((a, b) =>
+        key === "name" ? a.name.localeCompare(b.name) : (priority(b.scores) ?? -1) - (priority(a.scores) ?? -1) || a.name.localeCompare(b.name)
+      )
+      .map((r) => r.id);
+  const [order, setOrder] = useState<number[]>(() => ordered(requests, "importance"));
+  const latest = useRef(requests);
+  latest.current = requests;
+  const arrange = (key: typeof by) => setOrder(ordered(latest.current, key));
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onToggle = (e: Event) => {
+      if ((e as ToggleEvent).newState === "open") arrange(by);
+    };
+    el.addEventListener("toggle", onToggle);
+    return () => el.removeEventListener("toggle", onToggle);
+  }, [by]); // eslint-disable-line react-hooks/exhaustive-deps
+  const byId = new Map(requests.map((r) => [r.id, r]));
+  const known = new Set(order);
+  const rows = [...order.map((id) => byId.get(id)), ...requests.filter((r) => !known.has(r.id))].filter(
+    (r): r is InstitutionRequest => !!r
+  );
+  return (
+    <>
+      <button type="button" className="req-btn-ghost req-review-open" popoverTarget="req-score-review">
+        Review scores
+      </button>
+      <div id="req-score-review" ref={ref} popover="auto" className="req-popover req-modal req-review">
+        <button type="button" className="req-popover-close req-modal-close" popoverTarget="req-score-review" popoverTargetAction="hide" aria-label="Close">
+          ×
+        </button>
+        <h2 className="req-modal-title">Review scores</h2>
+        <p className="req-review-lede">
+          {rows.length} {rows.length === 1 ? "request" : "requests"} matching the current filters. Click a dot to set a score (again to clear); changes save
+          straight away. Importance = leverage × (6 − likely anyway).{" "}
+          <button
+            type="button"
+            className="req-link-btn"
+            onClick={() => {
+              const next = by === "importance" ? "name" : "importance";
+              setBy(next);
+              arrange(next);
+            }}
+          >
+            {by === "importance" ? "Order by name" : "Re-sort by importance"}
+          </button>
+        </p>
+        <table className="req-review-table">
+          <thead>
+            <tr>
+              <th scope="col">Request</th>
+              <th scope="col">Stage</th>
+              {SCORE_KEYS.map((k) => (
+                <th key={k} scope="col" title={SCORE_HELP[k]}>
+                  {SCORE_LABEL[k]}
+                </th>
+              ))}
+              <th scope="col" title="Leverage × (6 − likely anyway)">
+                Importance
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <ScoreReviewRow key={r.id} r={r} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+}
+
 // ── Sorting ────────────────────────────────────────────────────────
 
 type SortKey = "column" | "stage" | "priority" | "soon" | "likely" | "leverage";
@@ -1332,7 +1481,7 @@ const SORTS: { id: SortKey; name: string }[] = [
   { id: "priority", name: "Importance to work on" },
   { id: "column", name: "Grouped by column" },
   { id: "stage", name: "Grouped by stage" },
-  { id: "soon", name: "Soonest to apply" },
+  { id: "soon", name: "Needed soonest" },
   { id: "leverage", name: "Leverage" },
   { id: "likely", name: "Least likely to happen anyway" },
 ];
@@ -1443,6 +1592,7 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
             ))}
           </select>
         </label>
+        {canEdit && <ScoreReview requests={shown} />}
       </div>
 
       <div className="req-summary">

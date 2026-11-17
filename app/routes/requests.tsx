@@ -1553,12 +1553,16 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
     const st = requestStage(r.links, r.sites);
     stageCounts.set(st, (stageCounts.get(st) ?? 0) + 1);
   }
+  // The summary dots switch between stages: clicking one shows only that
+  // stage, and clicking the only selected one clears the stage filter.
   const toggleStage = (st: Stage) =>
-    setPills((prev) =>
-      prev.some((p) => p.kind === "stage" && p.value === st)
-        ? prev.filter((p) => !(p.kind === "stage" && p.value === st))
-        : [...prev, { kind: "stage", value: st, label: STAGE_LABEL[st] }]
-    );
+    setPills((prev) => {
+      const stages = prev.filter((p) => p.kind === "stage");
+      const rest = prev.filter((p) => p.kind !== "stage");
+      return stages.length === 1 && stages[0].value === st
+        ? rest
+        : [...rest, { kind: "stage", value: st, label: STAGE_LABEL[st] }];
+    });
   const row = (r: InstitutionRequest, key: string, groupCol?: string) => (
     <RequestRow
       key={key}

@@ -19,7 +19,7 @@ import {
 export async function getRequests(): Promise<InstitutionRequest[]> {
   const sql = getSql();
   const [requests, sites, links] = (await Promise.all([
-    sql`SELECT id, name, rows, cols, lenses, description, site_hints, likely, soon, leverage
+    sql`SELECT id, name, rows, cols, lenses, description, site_hints, likely, soon
         FROM institutions_requests ORDER BY position, id`,
     sql`SELECT id, request_id, name, instead, pain, success, status
         FROM institutions_request_sites ORDER BY position, id`,
@@ -45,7 +45,7 @@ export async function getRequests(): Promise<InstitutionRequest[]> {
     lenses: r.lenses,
     description: r.description,
     siteHints: r.site_hints,
-    scores: { neglect: r.likely == null ? null : 6 - r.likely, urgency: r.soon, leverage: r.leverage },
+    scores: { neglect: r.likely == null ? null : 6 - r.likely, urgency: r.soon },
     links: linksByRequest.get(r.id) ?? [],
     sites: byRequest.get(r.id) ?? [],
   }));
@@ -173,9 +173,9 @@ export async function updateRequestFields(id: number, fields: Record<string, unk
   }
   if ("scores" in fields) {
     const s = (fields.scores ?? {}) as Record<string, unknown>;
-    const [neglect, soon, leverage] = SCORE_KEYS.map((k) => cleanScore(s[k]));
+    const [neglect, soon] = SCORE_KEYS.map((k) => cleanScore(s[k]));
     const likely = neglect == null ? null : 6 - neglect; // stored reversed
-    q.push(sql`UPDATE institutions_requests SET likely = ${likely}, soon = ${soon}, leverage = ${leverage} WHERE id = ${id}`);
+    q.push(sql`UPDATE institutions_requests SET likely = ${likely}, soon = ${soon} WHERE id = ${id}`);
   }
   if ("links" in fields) {
     const links = cleanLinks(fields.links);

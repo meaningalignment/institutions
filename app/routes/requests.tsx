@@ -942,12 +942,11 @@ function Description({ text, links, uid }: { text: string; links: RequestLink[];
 }
 
 // Scores are mostly shown by the sort order and the Review scores table; a
-// row names only the ones that stand out: neglected, urgent, or high leverage.
+// row names only the ones that stand out: neglected or urgent.
 function Standouts({ scores }: { scores: RequestScores }) {
   const notes = [
     scores.neglect === 5 && { text: "Neglected", help: SCORE_HELP.neglect },
     scores.urgency === 5 && { text: "Urgent", help: SCORE_HELP.urgency },
-    scores.leverage === 5 && { text: "High leverage", help: SCORE_HELP.leverage },
   ].filter((n): n is { text: string; help: string } => !!n);
   if (!notes.length) return null;
   return (
@@ -1455,7 +1454,7 @@ function ScoreReview({ requests }: { requests: InstitutionRequest[] }) {
         <h2 className="req-modal-title">Review scores</h2>
         <p className="req-review-lede">
           {rows.length} {rows.length === 1 ? "request" : "requests"} matching the current filters. Click a dot to set a score (again to clear); changes save
-          straight away. Click a column heading to sort by it (again to reverse). Importance = leverage × neglectedness.
+          straight away. Click a column heading to sort by it (again to reverse). Importance = neglectedness × urgency.
         </p>
         <table className="req-review-table">
           <thead>
@@ -1487,7 +1486,6 @@ const SORTS: { id: SortKey; name: string }[] = [
   { id: "column", name: "Grouped by column" },
   { id: "stage", name: "Grouped by stage" },
   { id: "urgency", name: "Urgency" },
-  { id: "leverage", name: "Leverage" },
   { id: "neglect", name: "Neglectedness" },
 ];
 

@@ -56,6 +56,54 @@ How populations of learning agents cooperate, compete, and coordinate, and what 
 
 ## Work in the field
 
+- [LLM Enron: experiments on structure vs scale](https://www.strangeloopcanon.com/p/llm-enron-experiments-on-structure)
+  - Authors: Rohit Krishnan
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: group-protocols
+  - Summary: Uses Enron-informed synthetic email tasks to test agents handling concurrent threads, organisational context and memory.
+
+- [Aligned Agents Still Build Misaligned Organisations](https://www.strangeloopcanon.com/p/when-aligned-agents-build-misaligned)
+  - Authors: Rohit Krishnan
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: group-protocols, group-norms
+  - Summary: Uses the simulated Helios company to examine how role goals and shared records can produce organisational misalignment.
+
+- [Who Audits the Auditors?](https://www.strangeloopcanon.com/p/who-audits-the-auditors)
+  - Authors: Rohit Krishnan
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: group-expertise, group-norms
+  - Summary: Tests whether an audited actor can weaken an AI auditor through explanations and framing.
+
+- [LLM councils show groupthink](https://www.strangeloopcanon.com/p/llm-councils-show-groupthink)
+  - Authors: Rohit Krishnan
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: group-expertise
+  - Summary: Compares synthesis, peer review and direct selection, tracking whether valuable ideas from individual models survive.
+
+- [How to control an agent swarm](https://www.strangeloopcanon.com/p/how-to-control-an-agent-swarm)
+  - Authors: Rohit Krishnan
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: group-rights, group-norms, community-norms
+  - Summary: Tests private reporting, an empowered response and civic reminders in simulated organisations.
+
+- [Can we build a management flight simulator?](https://www.strangeloopcanon.com/p/can-we-build-a-management-flight)
+  - Authors: Rohit Krishnan
+  - Year: 2026
+  - Venue: Strange Loop Canon
+  - Type: Essay
+  - Cells: community-protocols
+  - Summary: Describes a prototype enterprise world model for event records, state reconstruction, branching and counterfactual replay.
+
 - [Mechanism Design Is Not Enough: Prosocial Agents for Cooperative AI](https://arxiv.org/abs/2605.08426)
   - Authors: Xuanqiang Angelo Huang, Charlie Tharas, Samuele Marro, Van Q. Truong, Bernhard Schölkopf, Emanuele La Malfa, Zhijing Jin
   - Year: 2026

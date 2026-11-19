@@ -36,6 +36,7 @@ import {
   type LinkKind,
   type Stage,
   type RequestLens,
+  type RequestStatus,
   type RequestLink,
   type RequestScores,
   type RequestSite,
@@ -1498,10 +1499,71 @@ function sortValue(r: InstitutionRequest, key: Exclude<SortKey, "column" | "stag
 
 // ── Page ───────────────────────────────────────────────────────────
 
+// The search and sort live in the URL, so a filtered view can be linked to:
+// ?stage=wanted&lens=telocracy&q=agents&sort=urgency. Each pill kind is a
+// repeatable param; typed words are q; the default sort is left out.
+const PILL_PARAM: Record<PillKind, string> = {
+  column: "column",
+  row: "scale",
+  lens: "lens",
+  stage: "stage",
+  status: "status",
+  site: "site",
+  text: "text",
+};
+
+function pillsFromUrl(params: URLSearchParams, lenses: RequestLens[], requests: InstitutionRequest[]): Pill[] {
+  const label = (kind: PillKind, value: string): string | null => {
+    switch (kind) {
+      case "column":
+        return COLS.find((c) => c.id === value)?.name ?? null;
+      case "row":
+        return ROWS.find((r) => r.id === value)?.name ?? null;
+      case "lens":
+        return lenses.find((l) => l.id === value)?.label ?? null;
+      case "stage":
+        return (STAGES as readonly string[]).includes(value) ? STAGE_LABEL[value as Stage] : null;
+      case "status":
+        return (REQUEST_STATUSES as readonly string[]).includes(value) ? STATUS_LABEL[value as RequestStatus] : null;
+      case "site":
+        for (const r of requests) for (const site of r.sites) if (site.name.toLowerCase() === value) return site.name;
+        return null;
+      case "text":
+        return value;
+    }
+  };
+  const pills: Pill[] = [];
+  for (const kind of Object.keys(PILL_PARAM) as PillKind[]) {
+    for (const raw of params.getAll(PILL_PARAM[kind])) {
+      const value = kind === "site" ? raw.toLowerCase() : raw;
+      const l = value.trim() && label(kind, value);
+      if (l && !pills.some((p) => p.kind === kind && p.value === value)) pills.push({ kind, value, label: l });
+    }
+  }
+  return pills;
+}
+
 export default function Requests({ loaderData: { requests, lenses, canEdit } }: Route.ComponentProps) {
-  const [pills, setPills] = useState<Pill[]>([]);
-  const [typed, setTyped] = useState("");
-  const [sort, setSort] = useState<SortKey>("priority");
+  const [searchParams] = useSearchParams();
+  const [pills, setPills] = useState<Pill[]>(() => pillsFromUrl(searchParams, lenses, requests));
+  const [typed, setTyped] = useState(() => searchParams.get("q") ?? "");
+  const [sort, setSort] = useState<SortKey>(() => {
+    const s = searchParams.get("sort");
+    return SORTS.some((o) => o.id === s) ? (s as SortKey) : "priority";
+  });
+  // Mirror the search and sort into the URL without a navigation (which
+  // would rerun the loader), keeping any other params such as ?request=.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    for (const name of [...Object.values(PILL_PARAM), "q", "sort"]) url.searchParams.delete(name);
+    for (const p of pills) url.searchParams.append(PILL_PARAM[p.kind], p.value);
+    if (typed.trim()) url.searchParams.set("q", typed.trim());
+    if (sort !== "priority") url.searchParams.set("sort", sort);
+    const next = url.pathname + url.search + url.hash;
+    if (next !== window.location.pathname + window.location.search + window.location.hash) {
+      window.history.replaceState(window.history.state, "", next);
+    }
+  }, [pills, typed, sort]);
   const [editingIds, setEditingIds] = useState<Set<number>>(new Set());
   const setEditing = (id: number, on: boolean) =>
     setEditingIds((prev) => {
@@ -1511,7 +1573,6 @@ export default function Requests({ loaderData: { requests, lenses, canEdit } }: 
       return next;
     });
   // Arriving from a grid cell (?request=<id>): show that request and open it.
-  const [searchParams] = useSearchParams();
   const openId = searchParams.get("request");
   useEffect(() => {
     if (!openId) return;
